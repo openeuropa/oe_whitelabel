@@ -1,1 +1,3 @@
-# oe_whitelabel
+# The OpenEuropa Whitelabel theme
+
+
