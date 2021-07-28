@@ -2,5 +2,5 @@ name: OpenEuropa Whitelabel Theme
 description: The OpenEuropa Whitelabel theme.
 screenshot: screenshot.png
 type: theme
-base theme: false
+base theme: oe_bootstrap_theme
 core_version_requirement: ^8.9 || ^9.1
