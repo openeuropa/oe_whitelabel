@@ -15,3 +15,4 @@ vendor
 yarn.lock
 /.gitattributes
 config.codekit
+/.editorconfig

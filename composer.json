@@ -34,16 +34,6 @@
             "url": "https://github.com/openeuropa/oe_bootstrap_theme"
         }
     },
-    "autoload": {
-        "psr-4": {
-            "Drupal\\drupal_module_template\\": "./src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Drupal\\Tests\\drupal_module_template\\": "./tests/src/"
-        }
-    },
     "extra": {
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
