@@ -13,6 +13,7 @@ phpunit.xml
 runner.yml
 vendor
 yarn.lock
+/assets/
 /.gitattributes
 config.codekit
 /.editorconfig
