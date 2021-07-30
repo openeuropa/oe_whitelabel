@@ -24,6 +24,13 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
 pipeline:
+  npm-build:
+    group: prepare
+    image: registry.fpfis.eu/fpfis/node:12.21.0
+    commands:
+      - npm install --unsafe-perm
+      - NODE_ENV=production npm run build
+      -
   composer-install:
     group: prepare
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
@@ -38,10 +45,10 @@ pipeline:
     volumes:
       - /cache:/cache
     commands:
-      # @todo remove "composer install" step once the following issue is fixed.
-      # @link https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-1234
-      - composer update --prefer-lowest --prefer-stable --ansi --no-suggest --no-progress
+      - composer update --prefer-lowest --ansi --no-suggest --no-progress
     when:
+      event:
+        exclude: tag
       matrix:
         COMPOSER_BOUNDARY: lowest
 
