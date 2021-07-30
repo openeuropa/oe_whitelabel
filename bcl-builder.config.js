@@ -10,7 +10,7 @@ module.exports = {
   styles: [
     {
       entry: path.resolve(outputFolder, "resources/sass/default.style.scss"),
-      dest: path.resolve(outputFolder, "assets/css/oe_bootstrap_theme.style.min.css"),
+      dest: path.resolve(outputFolder, "assets/css/oe_whitelabel.style.min.css"),
       options: {
         includePaths,
         minify: true,
@@ -20,19 +20,19 @@ module.exports = {
   ],
   copy: [
     {
-      from: ["node_modules/@openeuropa/bcl-theme-default/css/**"],
+      from: ["node_modules/@openeuropa/bcl-theme-default/css/oe-bcl-default.min.css"],
       to: path.resolve(outputFolder, "assets/css"),
       options: { up: true },
     },
     {
-      from: ["node_modules/@openeuropa/bcl-theme-default/js/**"],
-      to: path.resolve(outputFolder, "assets/js"),
+      from: ["node_modules/@openeuropa/bcl-theme-default/css/oe-bcl-default.min.css.map"],
+      to: path.resolve(outputFolder, "assets/css"),
       options: { up: true },
     },
     {
-      from: ["node_modules/@openeuropa/bcl-theme-default/icons/bootstrap-icons.svg"],
-      to: path.resolve(outputFolder, "assets/icons"),
+      from: ["node_modules/@openeuropa/bcl-theme-default/js/oe-bcl-default.bundle.js"],
+      to: path.resolve(outputFolder, "assets/js"),
       options: { up: true },
-    },
+    }
   ],
 };
