@@ -8,24 +8,130 @@ This depends on the following software:
 
 ## Installation
 
+The recommended way of installing the OpenEuropa Whitelabel Theme is via [Composer](https://www.drupal.org/docs/develop/using-composer/using-composer-to-manage-drupal-site-dependencies#managing-contributed).
+
+```bash
+composer require openeuropa/oe_whitelabel
+```
+
+### Enable the theme
+
+In order to enable the theme in your project perform the following steps:
+
+- Enable the OpenEuropa Whitelabel Theme and set it as default ```./vendor/bin/drush config-set system.theme default oe_bootstrap_theme```
+
+## Development setup
+
 OpenEuropa Whitelabel theme uses [Webpack](https://webpack.js.org) to compile and bundle SASS and JS.
 
-#### Step 1
 Make sure you have Node and npm installed.
+
 You can read a guide on how to install node here: https://docs.npmjs.com/getting-started/installing-node
 
 If you prefer to use [Yarn](https://yarnpkg.com) instead of npm, install Yarn by following the guide [here](https://yarnpkg.com/docs/install).
 
-#### Step 2
-Go to the root of OpenEuropa Whitelabel theme and run the following commands: `npm install` or `yarn install`.
-
-#### Step 3
-Run the following command to compile Sass and watch for changes: `npm run watch` or `yarn watch`.
-
-*Important:* `style` and `copy` tasks are defined in the bcl-builder config file. You can change or improve them based on your needs. [bcl-builder.config.js](bcl-builder.config.js)
-
-## Overriding inherited templates
-Add template file with the same name in your sub-theme folder to have it override the template from the parent theme.
-[layout](layout), [overrides](overrides), [paragraphs](paragraphs), [patterns](patterns) folders are there for this purpose.
+To install required Node.js dependencies run:
 
 
+`npm install` or `yarn install`.
+
+To build the final artifacts run:
+
+```bash
+npm run build
+```
+
+This will compile all SASS and JavaScript files into self-contained assets that are exposed as [Drupal libraries][11].
+
+In order to download all required PHP code run:
+
+```bash
+composer install
+```
+
+This will build a fully functional Drupal site in the `./build` directory that can be used to develop and showcase the
+theme.
+
+Before setting up and installing the site make sure to customize default configuration values by copying [runner.yml.dist](runner.yml.dist)
+to `./runner.yml` and override relevant properties.
+
+To set up the project run:
+
+```bash
+./vendor/bin/run drupal:site-setup
+```
+
+A post command hook (`drupal:site-setup`) is triggered automatically after `composer install`.
+It will make sure that the necessary symlinks are properly setup in the development site.
+It will also perform token substitution in development configuration files such as `behat.yml.dist`.
+
+The development site web root should be available in the `build` directory.
+
+### Using Docker Compose
+
+Alternatively, you can build a development site using [Docker](https://www.docker.com/get-docker) and
+[Docker Compose](https://docs.docker.com/compose/) with the provided configuration.
+
+Docker provides the necessary services and tools such as a web server and a database server to get the site running,
+regardless of your local host configuration.
+
+#### Requirements:
+
+- [Docker](https://www.docker.com/get-docker)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+#### Configuration
+
+By default, Docker Compose reads two files, a `docker-compose.yml` and an optional `docker-compose.override.yml` file.
+By convention, the `docker-compose.yml` contains your base configuration and it's provided by default.
+The override file, as its name implies, can contain configuration overrides for existing services or entirely new
+services.
+If a service is defined in both files, Docker Compose merges the configurations.
+
+Find more information on Docker Compose extension mechanism on [the official Docker Compose documentation](https://docs.docker.com/compose/extends/).
+
+#### Usage
+
+To start, run:
+
+```bash
+docker-compose up
+```
+
+It's advised to not daemonize `docker-compose` so you can turn it off (`CTRL+C`) quickly when you're done working.
+However, if you'd like to daemonize it, you have to add the flag `-d`:
+
+```bash
+docker-compose up -d
+```
+
+Then:
+
+```bash
+docker-compose exec -u node node npm install
+docker-compose exec -u node node npm run build
+docker-compose exec web composer install
+docker-compose exec web ./vendor/bin/run drupal:site-install
+```
+
+Using default configuration, the development site files should be available in the `build` directory and the development site should be available at: [http://127.0.0.1:8080/build](http://127.0.0.1:8080/build).
+
+#### Running the tests
+
+To run the grumphp checks:
+
+```bash
+docker-compose exec web ./vendor/bin/grumphp run
+```
+
+To run the phpunit tests:
+
+```bash
+docker-compose exec web ./vendor/bin/phpunit
+```
+
+To run the behat tests:
+
+```bash
+docker-compose exec web ./vendor/bin/behat
+```
