@@ -10,27 +10,38 @@ clone:
 
 workspace:
   base: /test
-  path: oe_whitelabel_theme
+  path: oe_whitelabel
 
 services:
   web:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     environment:
-      - DOCUMENT_ROOT=/test/oe_whitelabel_theme
+      - DOCUMENT_ROOT=/test/oe_whitelabel
   mysql:
     image: registry.fpfis.eu/fpfis/sql:percona-5.7
     command: --innodb-log-file-size=1G --max_allowed_packet=1G --innodb-buffer-pool-size=512M --wait_timeout=3000 --net_write_timeout=3000 --log_error_verbosity=3
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=drupal
+  selenium:
+    # Newer Selenium Chrome images are not supported at the moment by behat/mink-selenium2-driver.
+    image: registry.fpfis.eu/fpfis/selenium:standalone-chrome-3.141.59-oxygen
+    environment:
+      - DISPLAY=:99
+      - SE_OPTS=-debug
+      - SCREEN_WIDTH=1280
+      - SCREEN_HEIGHT=800
+      - NODE_MAX_INSTANCES=5
+      - NODE_MAX_SESSION=5
 
 pipeline:
   npm-build:
     group: prepare
-    image: registry.fpfis.eu/fpfis/node:12.21.0
+    image: registry.fpfis.eu/fpfis/node:14.17.3
     commands:
       - npm install --unsafe-perm
-      - NODE_ENV=production npm run build
-      -
+      - NODE_ENV=production npm run production
+
   composer-install:
     group: prepare
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
@@ -56,24 +67,36 @@ pipeline:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     commands:
       - ./vendor/bin/run drupal:site-install
+    when:
+      event:
+        exclude: tag
 
   grumphp:
     group: test
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     commands:
       - ./vendor/bin/grumphp run
+    when:
+      event:
+        exclude: tag
 
   phpunit:
     group: test
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     commands:
       - ./vendor/bin/phpunit
+    when:
+      event:
+        exclude: tag
 
   behat:
     group: test
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     commands:
       - ./vendor/bin/behat --strict
+    when:
+      event:
+        exclude: tag
 
   debug:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
@@ -81,6 +104,22 @@ pipeline:
       - ./vendor/bin/drush ws --count 500
     when:
       status: failure
+
+  before-release:
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
+    commands:
+      - ./vendor/bin/run release:create-archive --tag=${DRONE_TAG}
+    when:
+      event: tag
+
+  github-release:
+    image: registry.fpfis.eu/drone-plugins/github-release
+    secrets: [ github_token ]
+    files: oe_whitelabel-${DRONE_TAG}.tar.gz
+    when:
+      event: tag
+      matrix:
+        COMPOSER_BOUNDARY: highest
 
 matrix:
   COMPOSER_BOUNDARY:

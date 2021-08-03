@@ -7,7 +7,7 @@ drupal:
   database:
     host: "mysql"
     port: "3306"
-    name: "oe_whitelabel_theme"
+    name: "oe_whitelabel"
     user: "root"
     password: ""
   post_install:

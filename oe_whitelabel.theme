@@ -2,7 +2,7 @@
 
 /**
  * @file
- * The oe_whitelabel_theme hooks.
+ * The oe_whitelabel hooks.
  */
 
 // Include all files from the includes directory.
