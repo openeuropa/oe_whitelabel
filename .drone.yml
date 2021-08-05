@@ -23,21 +23,11 @@ services:
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=drupal
-  selenium:
-    # Newer Selenium Chrome images are not supported at the moment by behat/mink-selenium2-driver.
-    image: registry.fpfis.eu/fpfis/selenium:standalone-chrome-3.141.59-oxygen
-    environment:
-      - DISPLAY=:99
-      - SE_OPTS=-debug
-      - SCREEN_WIDTH=1280
-      - SCREEN_HEIGHT=800
-      - NODE_MAX_INSTANCES=5
-      - NODE_MAX_SESSION=5
 
 pipeline:
   npm-build:
     group: prepare
-    image: registry.fpfis.eu/fpfis/node:14.17.3
+    image: node:14.17.3
     commands:
       - npm install --unsafe-perm
       - NODE_ENV=production npm run production
