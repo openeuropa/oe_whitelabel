@@ -1,6 +1,5 @@
-bcl:
-  js:
-    assets/js/oe-bcl-default.bundle.min.js: {}
+style:
+  version: VERSION
   css:
     theme:
-      assets/css/oe-bcl-default.min.css: {}
+      assets/css/oe_whitelabel.style.min.css: {}

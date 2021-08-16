@@ -18,21 +18,5 @@ module.exports = {
       },
     },
   ],
-  copy: [
-    {
-      from: ["node_modules/@openeuropa/bcl-theme-default/css/oe-bcl-default.min.css"],
-      to: path.resolve(outputFolder, "assets/css"),
-      options: { up: true },
-    },
-    {
-      from: ["node_modules/@openeuropa/bcl-theme-default/css/oe-bcl-default.min.css.map"],
-      to: path.resolve(outputFolder, "assets/css"),
-      options: { up: true },
-    },
-    {
-      from: ["node_modules/@openeuropa/bcl-theme-default/js/oe-bcl-default.bundle.js"],
-      to: path.resolve(outputFolder, "assets/js"),
-      options: { up: true },
-    }
-  ],
+  copy: []
 };
