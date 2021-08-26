@@ -6,7 +6,10 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
+        "drupal/components": "^2.4",
         "drupal/core": "^8.9 || ^9.1",
+        "drupal/ui_patterns": "^1.0",
+        "drupal/ui_patterns_settings": "^1.0",
         "openeuropa/oe_bootstrap_theme": "1.0.0-alpha1",
         "php": ">=7.3"
     },
