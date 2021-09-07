@@ -17,3 +17,4 @@ yarn.lock
 /.gitattributes
 config.codekit
 /.editorconfig
+.phpunit.result.cache
