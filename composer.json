@@ -11,6 +11,7 @@
         "drupal/ui_patterns": "^1.0",
         "drupal/ui_patterns_settings": "^1.0",
         "openeuropa/oe_bootstrap_theme": "1.x-dev",
+        "openeuropa/oe_authentication": "^1.4",
         "php": ">=7.3"
     },
     "require-dev": {
