@@ -1,0 +1,23 @@
+{
+  "name": "oe_whitelabel",
+  "version": "1.0.0",
+  "description": "The OpenEuropa Whitelabel theme.",
+  "private": true,
+  "scripts": {
+    "build": "npm-run-all build:*",
+    "build:styles": "cross-env bcl-builder styles",
+    "build:copy": "cross-env bcl-builder copy",
+    "watch:styles": "chokidar \"./resources/sass/**/*.scss\" -i \"/node_modules/\" -c \"npm run build:styles\"",
+    "watch": "npm-run-all --parallel watch:* -ln",
+    "postinstall": "npm-run-all build:*",
+    "production": "npm-run-all build:*"
+  },
+  "devDependencies": {
+    "@openeuropa/bcl-builder": "0.6.0",
+    "chokidar-cli": "^3.0.0",
+    "copyfiles": "2.4.1",
+    "cross-env": "7.0.3",
+    "glob": "7.1.7",
+    "npm-run-all": "4.1.5"
+  }
+}

@@ -1,0 +1,27 @@
+name: OpenEuropa Whitelabel Theme
+description: The OpenEuropa Whitelabel theme.
+screenshot: screenshot.png
+type: theme
+base theme: oe_bootstrap_theme
+core_version_requirement: ^8.9 || ^9.1
+
+libraries:
+  - oe_whitelabel/style
+
+libraries-override:
+  system/admin:
+    css:
+      theme:
+        css/system.admin.css: false
+
+ckeditor_stylesheets:
+  - assets/css/oe-bcl-default.min.css
+
+regions:
+  navbar_branding: Navbar branding
+  navbar_left:  Navbar left
+  navbar_right: Navbar right
+  header: Header
+  content: Content
+  page_bottom: Page bottom
+  footer: Footer
