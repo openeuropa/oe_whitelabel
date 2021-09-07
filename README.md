@@ -108,10 +108,10 @@ docker-compose up -d
 Then:
 
 ```bash
+docker-compose exec -u node node npm install
+docker-compose exec -u node node npm run build
 docker-compose exec web composer install
 docker-compose exec web ./vendor/bin/run drupal:site-install
-docker-compose exec -u node node npm install
-docker-compose exec -u node node npm run production
 ```
 
 Using default configuration, the development site files should be available in the `build` directory and the development site should be available at: [http://127.0.0.1:8080/build](http://127.0.0.1:8080/build).
