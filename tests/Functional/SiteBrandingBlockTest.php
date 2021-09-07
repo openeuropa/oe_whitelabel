@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Drupal\Tests\oe_whitelabel\Functional;
 
 use Drupal\Tests\BrowserTestBase;
-use Drupal\Tests\WebAssert;
 
 /**
  * Tests of Site Branding Block.
@@ -22,6 +21,7 @@ class SiteBrandingBlockTest extends BrowserTestBase {
     'ui_patterns_library',
     'ui_patterns_settings',
     'components',
+    'field',
     'field_ui',
     'toolbar',
     'block',
@@ -49,8 +49,8 @@ class SiteBrandingBlockTest extends BrowserTestBase {
     oe_whitelabel itself. */
     \Drupal::service('plugin.manager.ui_patterns')->clearCachedDefinitions();
 
-    // Ensure that the system breadcrumb is placed as well.
-    $this->drupalPlaceBlock('osystem_branding_block', [
+    // Ensure that the system branding block is placed as well.
+    $this->drupalPlaceBlock('system_branding_block', [
       'region' => 'header',
     ]);
 
@@ -60,19 +60,9 @@ class SiteBrandingBlockTest extends BrowserTestBase {
    * Asserts classes contained at site branding block.
    */
   public function testClassesSiteName(): void {
-    ini_set('xdebug.var_display_max_depth', '10');
-    ini_set('xdebug.var_display_max_children', '256');
-    ini_set('xdebug.var_display_max_data', '10024');
     $this->drupalGet('<front>');
     $assert_session = $this->assertSession();
-
-    $webAssert = new WebAssert($this->getSession());
-    $element = $webAssert->elementExists('css', 'html');
-    $actual = $element->getHtml();
-    var_dump($actual);
-
     $assert_session->elementExists('css', 'div.site-name.h1.text-white.text-decoration-none.align-bottom');
-
   }
 
 }
