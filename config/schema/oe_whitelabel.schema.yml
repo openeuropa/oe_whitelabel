@@ -1,5 +1,0 @@
-# Schema for the configuration files of the OpenEuropa Whitelabel theme.
-
-oe_whitelabel.settings:
-  type: theme_settings
-  label: 'OpenEuropa Whitelabel settings'
