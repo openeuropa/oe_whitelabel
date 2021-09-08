@@ -22,9 +22,13 @@ class SiteBrandingBlockTest extends KernelTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
+    /** @var \Drupal\Core\Extension\ThemeInstallerInterface $theme_installer */
+    \Drupal::service('theme_installer')->install(['oe_whitelabel']);
 
-    $this->container->get('theme_installer')->install(['oe_whitelabel']);
-    $this->container->get('theme_handler')->setDefault('oe_whitelabel');
+    \Drupal::configFactory()
+      ->getEditable('system.theme')
+      ->set('default', 'oe_whitelabel')
+      ->save();
     $this->container->set('theme.registry', NULL);
     $this->config('system.site')
       ->set('name', 'Site name')
