@@ -1,1 +1,11 @@
-icon {{ content }}
+{#
+/**
+ * @file
+ * icon.
+ */
+#}
+{% include '@oe-bcl/bcl-icon/icon.html.twig' with {
+  'name': 'person-fill',
+  'path': bcl_icon_path,
+  'size': 'm',
+} %} {{ content }}
