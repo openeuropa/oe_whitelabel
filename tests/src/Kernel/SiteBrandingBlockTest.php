@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
-use Drupal\Tests\token\Kernel\KernelTestBase;
+use Drupal\KernelTests\KernelTestBase;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -15,22 +15,30 @@ class SiteBrandingBlockTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['block', 'system'];
+  protected static $modules = ['block', 'system', 'user'];
 
   /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
     parent::setUp();
-    /** @var \Drupal\Core\Extension\ThemeInstallerInterface $theme_installer */
+
     \Drupal::service('theme_installer')->install(['oe_whitelabel']);
+    $this->container->set('theme.registry', NULL);
+    $url = '/' . drupal_get_path('theme', 'oe_whitelabel') . '/logo.svg';
+
+    \Drupal::configFactory()
+      ->getEditable('oe_whitelabel.settings')
+      ->set('logo', ['url' => $url])
+      ->save();
 
     \Drupal::configFactory()
       ->getEditable('system.theme')
       ->set('default', 'oe_whitelabel')
       ->save();
-    $this->container->set('theme.registry', NULL);
-    $this->config('system.site')
+
+    \Drupal::configFactory()
+      ->getEditable('system.site')
       ->set('name', 'Site name')
       ->set('slogan', 'Slogan')
       ->save();

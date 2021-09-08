@@ -1,0 +1,5 @@
+# Schema for the configuration files of the OE Whitelabel theme.
+
+oe_whitelabel.settings:
+  type: theme_settings
+  label: 'OE Whitelabel settings'
