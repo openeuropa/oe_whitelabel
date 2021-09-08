@@ -1,0 +1,5 @@
+name: OpenEuropa Whitelabel Corporate Block
+type: module
+description: Provides a Corporate block with the logo for OpenEuropa Whitelabel theme.
+package: OpenEuropa Whitelabel Theme
+core_version_requirement: ^8.9 || ^9.1
