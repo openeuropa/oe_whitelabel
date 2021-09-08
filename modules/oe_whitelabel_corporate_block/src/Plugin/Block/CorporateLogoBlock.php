@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Drupal\oe_whitelabel\Plugin\Block;
+namespace Drupal\oe_whitelabel_corporate_block\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -59,6 +59,7 @@ class CorporateLogoBlock extends BlockBase {
    */
   public function build(): array {
     // @todo Yet to be developed.
+    $config = $this->getConfiguration();
     return [
       '#markup' => $this->t('Logo here'),
     ];
