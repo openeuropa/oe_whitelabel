@@ -85,7 +85,7 @@ class CorporateLogoBlock extends BlockBase implements ContainerFactoryPluginInte
    */
   public function defaultConfiguration(): array {
     return [
-      'source_logo' => 'ec',
+      'logo_source' => 'ec',
     ] + parent::defaultConfiguration();
   }
 
@@ -99,12 +99,12 @@ class CorporateLogoBlock extends BlockBase implements ContainerFactoryPluginInte
       'eu' => $this->t('EU logo'),
       'ec' => $this->t('EC logo'),
     ];
-    $form['source_logo'] = [
+    $form['logo_source'] = [
       '#type' => 'select',
       '#title' => $this->t('Logo Source'),
       '#description' => $this->t('Please select the source for the logo.'),
       '#options' => $sourceLogoOptions,
-      '#default_value' => $config['source_logo'],
+      '#default_value' => $config['logo_source'],
     ];
     return $form;
   }
@@ -113,7 +113,7 @@ class CorporateLogoBlock extends BlockBase implements ContainerFactoryPluginInte
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state): void {
-    $this->setConfigurationValue('source_logo', $form_state->getValue('source_logo'));
+    $this->setConfigurationValue('logo_source', $form_state->getValue('logo_source'));
   }
 
   /**
@@ -128,12 +128,12 @@ class CorporateLogoBlock extends BlockBase implements ContainerFactoryPluginInte
     $cache->addCacheableDependency($config);
 
     if ($config['source_logo'] == 'ec') {
-      $uri = base_path() . drupal_get_path('module', 'oe_whitelabel_logo') . '/images/logos/' . $config['source_logo'] . '/europa-flag.gif';
+      $uri = base_path() . drupal_get_path('module', 'oe_whitelabel_logo') . '/images/logos/' . $config['logo_source'] . '/europa-flag.gif';
       // Empty to let the gif be printed with its width.
       $width = '';
     }
     else {
-      $uri = base_path() . drupal_get_path('module', 'oe_whitelabel_logo') . '/images/logos/' . $config['source_logo'] . '/logo--' . $language . '.svg';
+      $uri = base_path() . drupal_get_path('module', 'oe_whitelabel_logo') . '/images/logos/' . $config['logo_source'] . '/logo--' . $language . '.svg';
       // Value of width as per EU sites.
       $width = '290px';
     }
