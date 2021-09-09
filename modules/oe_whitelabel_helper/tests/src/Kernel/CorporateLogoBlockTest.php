@@ -68,6 +68,11 @@ class CorporateLogoBlockTest extends KernelTestBase {
 
     $actual = $crawler->filter('#block-corporatelogoblock');
     $this->assertCount(1, $actual);
+    $logo = $actual->filter('img');
+    $this->assertCount(1, $logo);
+    $logo_path = drupal_get_path('module', 'oe_whitelabel_helper') . '/images/logos/ec';
+    $expected = '/' . $logo_path . '/europa-flag.gif';
+    $this->assertSame($expected, $logo->attr('src'));
   }
 
 }
