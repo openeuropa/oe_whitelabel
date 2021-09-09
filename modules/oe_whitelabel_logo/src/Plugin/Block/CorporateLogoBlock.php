@@ -7,7 +7,10 @@ namespace Drupal\oe_whitelabel_logo\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Cache\CacheableMetadata;
-use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Language\LanguageManagerInterface;
 
 /**
  * Exposes a block with EU/EC logo (Corporate Block).
@@ -18,7 +21,64 @@ use Drupal\Component\Utility\NestedArray;
  *  category = @Translation("Blocks"),
  * )
  */
-class CorporateLogoBlock extends BlockBase {
+class CorporateLogoBlock extends BlockBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Language\LanguageManagerInterface
+   */
+  protected $configFactory;
+
+  /**
+   * The language manager.
+   *
+   * @var \Drupal\Core\Language\LanguageInterface
+   */
+  protected $languageManager;
+
+  /**
+   * Construct the footer block object.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory.
+   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
+   *   The language manager.
+   */
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    ConfigFactoryInterface $config_factory,
+    LanguageManagerInterface $language_manager
+    ) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->configFactory = $config_factory;
+    $this->languageManager = $language_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(
+    ContainerInterface $container,
+    array $configuration,
+    $plugin_id,
+    $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('config.factory'),
+      $container->get('language_manager')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -60,20 +120,41 @@ class CorporateLogoBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build(): array {
-    $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    $language = $this->languageManager->getCurrentLanguage()->getId();
     $cache = new CacheableMetadata();
     $cache->addCacheContexts(['languages:language_interface']);
 
     $config = $this->getConfiguration();
     $cache->addCacheableDependency($config);
 
-    $build['#theme'] = 'oe_whitelabel_corporate_logo_block';
+    if ($config['source_logo'] == 'ec') {
+      $uri = base_path() . drupal_get_path('module', 'oe_whitelabel_logo') . '/images/logos/' . $config['source_logo'] . '/europa-flag.gif';
+      // Empty to let the gif be printed with its width.
+      $width = '';
+    }
+    else {
+      $uri = base_path() . drupal_get_path('module', 'oe_whitelabel_logo') . '/images/logos/' . $config['source_logo'] . '/logo--' . $language . '.svg';
+      // Value of width as per EU sites.
+      $width = '290px';
+    }
+    drupal_Set_message($uri);
+    $config = $this->configFactory->get('system.site');
+    $title = $config->get('name');
 
-    // @todo In function of language and logo source, prepare the necessary elements.
-    NestedArray::setValue($build, ['#corporate_footer', 'legal_navigation'], $config['source_logo']);
-    $cache->applyTo($build);
+    $image = [
+      '#theme' => 'image',
+      '#uri' => $uri,
+      '#width' => $width,
+      '#alt' => $title,
+      '#title' => $title,
+    ];
 
-    return $build;
+    $cache->addCacheableDependency($image);
+    $cache->applyTo($image);
+
+    return [
+      'image' => $image,
+    ];
   }
 
 }
