@@ -22,6 +22,7 @@ class CorporateLogoBlockTest extends KernelTestBase {
     'ui_patterns_library',
     'user',
     'system',
+    'oe_whitelabel_helper',
   ];
 
   /**
@@ -29,7 +30,6 @@ class CorporateLogoBlockTest extends KernelTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    /** @var \Drupal\Core\Extension\ThemeInstallerInterface $theme_installer */
     \Drupal::service('theme_installer')->install(['oe_whitelabel']);
 
     \Drupal::configFactory()

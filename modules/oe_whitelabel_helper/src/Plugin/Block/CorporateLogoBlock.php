@@ -123,24 +123,22 @@ class CorporateLogoBlock extends BlockBase implements ContainerFactoryPluginInte
     $language = $this->languageManager->getCurrentLanguage()->getId();
     $cache = new CacheableMetadata();
     $cache->addCacheContexts(['languages:language_interface']);
-
     $config = $this->getConfiguration();
     $cache->addCacheableDependency($config);
 
-    if ($config['source_logo'] == 'ec') {
-      $uri = base_path() . drupal_get_path('module', 'oe_whitelabel_logo') . '/images/logos/' . $config['logo_source'] . '/europa-flag.gif';
-      // Empty to let the gif be printed with its width.
+    $logo_path = drupal_get_path('module', 'oe_whitelabel_helper') . '/images/logos/' . $config['logo_source'];
+
+    if ($config['logo_source'] === 'ec') {
+      $uri = $logo_path . '/europa-flag.gif';
       $width = '';
     }
     else {
-      $uri = base_path() . drupal_get_path('module', 'oe_whitelabel_logo') . '/images/logos/' . $config['logo_source'] . '/logo--' . $language . '.svg';
-      // Value of width as per EU sites.
+      $uri = $logo_path . '/logo--' . $language . '.svg';
       $width = '290px';
     }
-    drupal_Set_message($uri);
+
     $config = $this->configFactory->get('system.site');
     $title = $config->get('name');
-
     $image = [
       '#theme' => 'image',
       '#uri' => $uri,

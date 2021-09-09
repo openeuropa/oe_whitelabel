@@ -1,4 +1,4 @@
-block.settings.oe_whitelabel_helper:
+block.settings.whitelabel_logo_block:
   type: block_settings
   label: 'Corporate Logo block'
   mapping:
