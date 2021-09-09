@@ -6,6 +6,7 @@ namespace Drupal\oe_whitelabel_corporate_block\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Cache\CacheableMetadata;
 
 /**
  * Exposes a block with EU/EC logo (Corporate Block).
@@ -58,11 +59,22 @@ class CorporateLogoBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build(): array {
-    // @todo Yet to be developed.
+    $cache = new CacheableMetadata();
+    $cache->addCacheContexts(['languages:language_interface']);
+
     $config = $this->getConfiguration();
-    return [
-      '#markup' => $this->t('Logo here'),
-    ];
+    $cache->addCacheableDependency($config);
+
+    $build['#theme'] = 'oe_whitelabel_corporate_logo_block';
+
+    // @todo In function of language and logo source, prepare the necessary elements.
+    NestedArray::setValue($build, ['#corporate_footer', 'legal_navigation'], $config->get('legal_navigation'));
+
+    $this->setSiteSpecificFooter($build, $cache);
+
+    $cache->applyTo($build);
+
+    return $build;
   }
 
 }
