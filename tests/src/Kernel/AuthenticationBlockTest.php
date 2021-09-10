@@ -8,7 +8,7 @@ use Drupal\KernelTests\KernelTestBase;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
- * Tests the Site Branding Block rendering.
+ * Tests the OE Authentication LoginBlock rendering.
  */
 class AuthenticationBlockTest extends KernelTestBase {
 
@@ -39,8 +39,8 @@ class AuthenticationBlockTest extends KernelTestBase {
       ->getEditable('system.theme')
       ->set('default', 'oe_whitelabel')
       ->save();
-    $this->container->set('theme.registry', NULL);
 
+    $this->container->set('theme.registry', NULL);
     $this->container->get('cache.render')->deleteAll();
   }
 
@@ -70,6 +70,13 @@ class AuthenticationBlockTest extends KernelTestBase {
 
     $actual = $crawler->filter('#block-euloginlinkblock');
     $this->assertCount(1, $actual);
+    $icon = $actual->filter('svg');
+    $this->assertSame('bi icon--m', $icon->attr('class'));
+    $use = $icon->filter('use');
+    $expected = '/themes/contrib/oe_bootstrap_theme/assets/icons/bootstrap-icons.svg#person-fill';
+    $this->assertSame($expected, $use->attr('xlink:href'));
+    $link = $crawler->filter('a');
+    $this->assertSame('Log in', $link->text());
   }
 
 }
