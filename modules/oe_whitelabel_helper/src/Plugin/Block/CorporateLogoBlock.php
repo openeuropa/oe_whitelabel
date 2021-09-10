@@ -128,7 +128,7 @@ class CorporateLogoBlock extends BlockBase implements ContainerFactoryPluginInte
 
     $logo_path = drupal_get_path('module', 'oe_whitelabel_helper') . '/images/logos/' . $config['logo_source'];
 
-    if ($config['logo_source'] === 'ec') {
+    if ($config['logo_source'] === 'eu') {
       $uri = $logo_path . '/europa-flag.gif';
       $width = '';
     }
