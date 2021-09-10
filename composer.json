@@ -20,6 +20,7 @@
         "drupal/drupal-extension": "~4.1",
         "drush/drush": "^10.3",
         "openeuropa/code-review": "1.6",
+        "openeuropa/oe_corporate_blocks": "^4.2",
         "openeuropa/composer-artifacts": "~0.1",
         "openeuropa/drupal-core-require-dev": "^8.9 || ^9.1",
         "openeuropa/oe_authentication": "^1.4",
