@@ -1,0 +1,5 @@
+name: OpenEuropa Whitelabel Theme Helper
+type: module
+description: OpenEuropa Whitelabel Theme helpers and tools.
+package: OpenEuropa Whitelabel Theme
+core_version_requirement: ^8.9 || ^9.1
