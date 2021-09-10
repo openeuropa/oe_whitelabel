@@ -1,7 +1,0 @@
-block.settings.whitelabel_logo_block:
-  type: block_settings
-  label: 'Corporate Logo block'
-  mapping:
-    logo_source:
-      type: string
-      label: 'Logo Source'

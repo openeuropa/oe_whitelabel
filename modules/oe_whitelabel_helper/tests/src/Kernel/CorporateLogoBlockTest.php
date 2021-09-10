@@ -50,31 +50,28 @@ class CorporateLogoBlockTest extends KernelTestBase {
   /**
    * Tests the rendering of blocks.
    *
-   * @param string $language_code
-   *   Language code expectation.
+   * @param string $lang
+   *   Language code.
    *
-   * @dataProvider providerTestEcLogoBlockRendering
+   * @dataProvider providerTestLogoBlockRendering
    */
-  public function testEcLogoBlockRendering(
-    string $language_code
-  ): void {
-    if ($language_code !== 'en') {
-      $this->setLanguageByCode($language_code);
+  public function testLogoBlockRendering(string $lang): void {
+    if ($lang !== 'en') {
+      $this->setLanguageByCode($lang);
     }
-
+    // Assert EC logo.
     $entity_type_manager = $this->container
       ->get('entity_type.manager')
       ->getStorage('block');
     $entity = $entity_type_manager->create([
-      'id' => 'corporatelogoblock',
+      'id' => 'eclogoblock',
       'theme' => 'oe_whitelabel',
-      'plugin' => 'whitelabel_logo_block',
+      'plugin' => 'whitelabel_ec_logo_block',
       'settings' => [
-        'id' => 'whitelabel_logo_block',
+        'id' => 'whitelabel_ec_logo_block',
         'label' => 'Corporate Logo Block',
         'provider' => 'oe_whitelabel_helper',
         'label_display' => '0',
-        'logo_source' => 'ec',
       ],
     ]);
     $entity->save();
@@ -83,14 +80,45 @@ class CorporateLogoBlockTest extends KernelTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($render->__toString());
 
-    $actual = $crawler->filter('#block-corporatelogoblock');
+    $actual = $crawler->filter('#block-eclogoblock');
     $this->assertCount(1, $actual);
     $logo = $actual->filter('img');
     $this->assertCount(1, $logo);
-    $logo_path = drupal_get_path('module', 'oe_whitelabel_helper') . '/images/logos/ec';
-    $expected = '/' . $logo_path . '/logo--' . $language_code . '.svg';
+    $expected = "/themes/custom/oe_whitelabel/modules/oe_whitelabel_helper/images/logos/ec/logo-ec--{$lang}.svg";
     $this->assertSame($expected, $logo->attr('src'));
 
+    // Assert EU logo.
+    $entity_type_manager = $this->container
+      ->get('entity_type.manager')
+      ->getStorage('block');
+    $entity = $entity_type_manager->create([
+      'id' => 'eulogoblock',
+      'theme' => 'oe_whitelabel',
+      'plugin' => 'whitelabel_eu_logo_block',
+      'settings' => [
+        'id' => 'whitelabel_logo_block',
+        'label' => 'Corporate Logo Block',
+        'provider' => 'whitelabel_eu_logo_block',
+        'label_display' => '0',
+      ],
+    ]);
+    $entity->save();
+    $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
+    $build = $builder->view($entity, 'block');
+    $render = $this->container->get('renderer')->renderRoot($build);
+    $crawler = new Crawler($render->__toString());
+
+    $actual = $crawler->filter('#block-eulogoblock');
+    $this->assertCount(1, $actual);
+    $logo = $actual->filter('img');
+    $this->assertCount(1, $logo);
+    $expected = "/themes/custom/oe_whitelabel/modules/oe_whitelabel_helper/images/logos/eu/logo-eu--{$lang}.svg";
+    $this->assertSame($expected, $logo->attr('src'));
+    $picture = $actual->filter('picture');
+    $this->assertCount(1, $picture);
+    $source = $actual->filter('source');
+    $expected = "/themes/custom/oe_whitelabel/modules/oe_whitelabel_helper/images/logos/eu/mobile/logo-eu--{$lang}.svg";
+    $this->assertSame($expected, $source->attr('srcset'));
   }
 
   /**
@@ -102,7 +130,6 @@ class CorporateLogoBlockTest extends KernelTestBase {
   protected function setLanguageByCode(string $language_code) :void {
     $this->languages[$language_code] = ConfigurableLanguage::createFromLangcode($language_code);
     $this->languages[$language_code]->save();
-
     $this->languageManager = $this->container->get('language_manager');
     $this->languageManager->reset();
 
@@ -110,48 +137,12 @@ class CorporateLogoBlockTest extends KernelTestBase {
   }
 
   /**
-   * Tests the rendering of blocks.
-   */
-  public function testEuLogoBlockRendering(): void {
-    $language_code = 'en';
-    $entity_type_manager = $this->container
-      ->get('entity_type.manager')
-      ->getStorage('block');
-    $entity = $entity_type_manager->create([
-      'id' => 'corporatelogoblock',
-      'theme' => 'oe_whitelabel',
-      'plugin' => 'whitelabel_logo_block',
-      'settings' => [
-        'id' => 'whitelabel_logo_block',
-        'label' => 'Corporate Logo Block',
-        'provider' => 'oe_whitelabel_helper',
-        'label_display' => '0',
-        'logo_source' => 'eu',
-      ],
-    ]);
-    $entity->save();
-    $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
-    $build = $builder->view($entity, 'block');
-    $render = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler($render->__toString());
-
-    $actual = $crawler->filter('#block-corporatelogoblock');
-    $this->assertCount(1, $actual);
-    $logo = $actual->filter('img');
-    $this->assertCount(1, $logo);
-    $logo_path = drupal_get_path('module', 'oe_whitelabel_helper') . '/images/logos/eu';
-    $expected = '/' . $logo_path . '/logo-eu--' . $language_code . '.normal.svg';
-    $this->assertSame($expected, $logo->attr('src'));
-
-  }
-
-  /**
-   * Provides test cases for ::testEcLogoBlockRendering().
+   * Provides test data for ::providerTestLogoBlockRendering().
    *
    * @return array[]
-   *   Test cases.
+   *   Test data.
    */
-  public function providerTestEcLogoBlockRendering(): array {
+  public function providerTestLogoBlockRendering(): array {
     return [
       'default' => [
         'en',
