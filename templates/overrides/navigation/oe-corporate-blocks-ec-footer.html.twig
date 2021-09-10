@@ -1,0 +1,95 @@
+{#
+/**
+ * @file
+ * Default theme implementation for rendering corporate blocks footer.
+ *
+ * Available variables:
+ * - site_owner: Site's owner.
+ * - site_specific_footer: Array (optional) with structure of the site specific footer compatible with the ECL ec-components-footer component.
+ *   - site_identity: Site identity for custom footer.
+ *   - social_links: Social media links for custom footer.
+ *   - other_links: Other links for custom footer.
+ * - corporate_footer: Array with structure of corporate footer compatible with the ECL ec-components-footer component.
+ *   - corporate_site_link: Corporate site link.
+ *   - class_navigation: Provides the user with navigation through class names.
+ *   - service_navigation: Contains services links - consistent throughout the family sites.
+ *   - legal_navigation: Contains legal information links - consistent throughout the family sites.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% include '@oe_whitelabel/templates/patterns/footer/oe-whitelabel-footer.html.twig' with {
+
+} %}
+
+
+
+
+{% if site_specific_footer is not empty %}
+  <div class="ecl-footer__custom">
+    {% if site_specific_footer.site_identity is not empty %}
+      <h2 class="footer__custom-title-identity">{{ site_specific_footer.site_identity }}</h2>
+    {% endif %}
+    {% if site_specific_footer.social_links is not empty %}
+      <p class="footer__custom-label">{{ 'Follow us:'|t }}</p>
+      <ul class="footer__list">
+        {% for social_link in site_specific_footer.social_links %}
+          <li class="footer__list-item">
+            {{ link(social_link.label, social_link.href, create_attribute({'class': ['menu_item.social_network']})) }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% for section in site_specific_footer.other_links %}
+      {% if section.links is not empty %}
+        <ul class="footer__list">
+          {% for menu_item in section.links %}
+            <li class="footer__list-item">
+              {{ link(menu_item.label, menu_item.href) }}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}
+<div class="footer__corporate">
+  <div class="footer__corporate-top">
+    {% if corporate_footer.corporate_site_link is not empty %}
+      <h4 class="footer__site-name">{{ link(corporate_footer.corporate_site_link.label, corporate_footer.corporate_site_link.href) }}</h4>
+    {% endif %}
+    {% if site_owner is not empty %}
+      <span class="footer__content-owner-details">{{ 'This site is managed by the @name'|t({'@name': site_owner}) }}</span>
+    {% endif %}
+    {% if corporate_footer.class_navigation is not empty %}
+      <ul class="footer__list footer__class-navigation">
+        {% for menu_item in corporate_footer.class_navigation %}
+          <li class="footer__list-item">
+            {{ link(menu_item.label, menu_item.href) }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% if corporate_footer.service_navigation is not empty %}
+      <ul class="footer__list footer__service_navigation">
+        {% for menu_item in corporate_footer.service_navigation %}
+          <li>
+            {{ link(menu_item.label, menu_item.href, create_attribute({'class': [menu_item.external ? 'external' ]})) }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+  <div class="footer__corporate-bottom">
+    {% if corporate_footer.legal_navigation is not empty %}
+      <ul class="footer__list footer__legal-navigation">
+        {% for menu_item in corporate_footer.legal_navigation %}
+          <li class="footer__list-item">
+            {{ link(menu_item.label, menu_item.href) }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</div>

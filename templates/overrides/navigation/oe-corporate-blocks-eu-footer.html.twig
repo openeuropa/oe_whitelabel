@@ -1,0 +1,95 @@
+{#
+/**
+ * @file
+ * Default theme implementation for rendering corporate blocks footer.
+ *
+ * Available variables:
+ * - corporate_footer: Array with structure compatible to ECL ec-components-footer component.
+ *   - contact: EU contact data for corporate footer.
+ *   - social_media_title: Title for social media links column.
+ *   - social_media: Social media links for corporate footer.
+ *   - institution_links_title: Title for institution links column.
+ *   - institution_links: EU institutions links for corporate footer.
+ *   - legal_links_title: Title for legal links column.
+ *   - legal_links: Legal links for corporate footer.
+ *
+ * @ingroup themeable
+ */
+#}
+
+222222
+{%  if site_specific_footer is not empty %}
+  <div class="ecl-footer__custom">
+    {%  if site_specific_footer.site_identity is not empty %}
+      <h2 class="footer__custom-title-identity">{{ site_specific_footer.site_identity }}</h2>
+    {% endif %}
+    {%  if site_specific_footer.social_links is not empty %}
+      <p class="footer__custom-label">{{ 'Follow us:'|t }}</p>
+      <ul class="footer__list">
+        {% for social_link in site_specific_footer.social_links %}
+          <li class="footer__list-item">
+            {{ link(social_link.label, social_link.href, create_attribute({'class': ['menu_item.social_network']})) }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% for section in site_specific_footer.other_links %}
+      {% if section.links is not empty %}
+        <ul class="footer__list">
+          {% for menu_item in section.links %}
+            <li class="footer__list-item">
+              {{ link(menu_item.label, menu_item.href) }}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}
+<div class="footer__corporate-top--eu">
+  {% if site_owner is not empty %}
+    <span class="footer__content-owner-details">{{ 'This site is managed by the European Commission, @name'|t({'@name': site_owner}) }}</span>
+  {% endif %}
+  {% if corporate_footer.contact %}
+    <h3>{{ corporate_footer.contact_title }}</h3>
+    <ul class="footer__list">
+      {% for menu_item in corporate_footer.contact %}
+        <li class="footer__list-item">
+          {{ link(menu_item.label, menu_item.href) }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  {% if corporate_footer.social_media %}
+    <h3>{{ corporate_footer.social_media_title }}</h3>
+    <ul class="footer__list">
+      {% for menu_item in corporate_footer.social_media %}
+        <li class="footer__list-item">
+          {{ link(menu_item.label, menu_item.href) }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  {% if corporate_footer.institution_links %}
+    <h3>{{ corporate_footer.institution_links_title }}</h3>
+    <ul class="footer__list">
+      {% for menu_item in corporate_footer.institution_links %}
+        <li class="footer__list-item">
+          {{ link(menu_item.label, menu_item.href) }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+<div class="footer__corporate-bottom--eu">
+  <h3 class="footer__corporate-bottom--eu-title">{{ corporate_footer.legal_links_title }}</h3>
+  {% if corporate_footer.legal_links %}
+    <ul class="footer__list">
+      {% for menu_item in corporate_footer.legal_links %}
+        <li class="footer__list-item">
+          <a href="{{ menu_item.href }}">{{ menu_item.label }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
