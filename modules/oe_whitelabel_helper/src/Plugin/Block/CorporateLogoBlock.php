@@ -127,14 +127,13 @@ class CorporateLogoBlock extends BlockBase implements ContainerFactoryPluginInte
     $cache->addCacheableDependency($config);
 
     $logo_path = drupal_get_path('module', 'oe_whitelabel_helper') . '/images/logos/' . $config['logo_source'];
+    $width = '290px';
 
     if ($config['logo_source'] === 'eu') {
-      $uri = $logo_path . '/europa-flag.gif';
-      $width = '';
+      $uri = $logo_path . '/logo-eu--' . $language . '.normal.svg';
     }
     else {
       $uri = $logo_path . '/logo--' . $language . '.svg';
-      $width = '290px';
     }
 
     $config = $this->configFactory->get('system.site');

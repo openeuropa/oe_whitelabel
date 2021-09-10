@@ -113,6 +113,7 @@ class CorporateLogoBlockTest extends KernelTestBase {
    * Tests the rendering of blocks.
    */
   public function testEuLogoBlockRendering(): void {
+    $language_code = 'en';
     $entity_type_manager = $this->container
       ->get('entity_type.manager')
       ->getStorage('block');
@@ -139,7 +140,7 @@ class CorporateLogoBlockTest extends KernelTestBase {
     $logo = $actual->filter('img');
     $this->assertCount(1, $logo);
     $logo_path = drupal_get_path('module', 'oe_whitelabel_helper') . '/images/logos/eu';
-    $expected = '/' . $logo_path . '/europa-flag.gif';
+    $expected = '/' . $logo_path . '/logo-eu--' . $language_code . '.normal.svg';
     $this->assertSame($expected, $logo->attr('src'));
 
   }
