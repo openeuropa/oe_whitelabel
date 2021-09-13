@@ -36,12 +36,12 @@
       'project_name': site_specific_footer.site_identity,
       'contact_path': url('<front>'),
       'follow_title': 'Follow us on social media',
-      'follow_links': site_specific_footer.social_links,
+      'follow_links': ecl_footer_links(site_specific_footer.social_links),
     },
     {
       'section_id': 'ec_footer_top_right',
       'optional_links_title': 'Optional Links',
-      'optional_links_links': site_specific_footer.other_links,
+      'optional_links_links': ecl_footer_links(site_specific_footer.other_links['about_us']['links']),
     },
   ] %}
   {% set _bottom_sections = [
@@ -53,7 +53,7 @@
     {
       'section_id': 'ec_footer_bottom_middle',
       'contact_eu_title': 'Contact the EU',
-      'contact_eu_links': 'Contact EU LINKS',
+      'contact_eu_links': ecl_footer_links(site_specific_footer.other_links['contact_us']['links']),
       'social_media_title': 'Social Media',
       'social_media_link': 'Social Media LINKS',
       'legal_title': 'Legal',

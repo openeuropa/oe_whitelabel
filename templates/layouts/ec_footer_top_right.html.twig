@@ -1,3 +1,10 @@
 <h2> {{ optional_links_title| t }} </h2>
-{{ optional_links_links }}
+<ul>
+  {% for optional_link in optional_links_links %}
+    <li>{{ pattern('link', {
+        'label': optional_link['link']['label'],
+        'path': optional_link['link']['path'].uri,
+      }) }}</li>
+  {% endfor %}
+</ul>
 
