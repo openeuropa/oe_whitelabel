@@ -81,7 +81,7 @@ class SiteBrandingBlockTest extends KernelTestBase {
     $this->assertCount(1, $actual);
     $logo = $actual->filter('img');
     $this->assertCount(1, $logo);
-    $expected = '/' . drupal_get_path('theme', 'oe_whitelabel') . '/logo.svg';
+    $expected = '/themes/custom/oe_whitelabel/logo.svg';
     $this->assertSame($expected, $logo->attr('src'));
   }
 
