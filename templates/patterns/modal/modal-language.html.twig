@@ -1,0 +1,67 @@
+{% spaceless %}
+
+{# Parameters:
+  - modal
+    - id
+    - size
+    - header
+      - title
+      - label
+    - body
+      - links
+    - footer
+      - label
+#}
+
+{% if header %}
+  {% set _header %}
+    <h5 class="modal-title" id="languageeModalLabel">{{ header.title|default('Select your language') }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ header.label|default('Close') }}"></button>
+  {% endset %}
+{% endif %}
+
+{% if links %}
+  {% set _body %}
+    <div class="container">
+      <div class="row">
+        <div class="col col-lg-8 offset-lg-2">
+          <h5 class="oe-language__title">EU official languages</h5>
+        </div>
+      </div>
+      <div class="row">
+      {% set _number_items = (links|length / 2) %}
+      {% for link in links|batch(_number_items) %}
+        {% if loop.index % 2 == 0 %}
+          <div class="col col-lg-4 offset-lg-2">
+        {% else %}
+          <div class="col col-lg-4">
+        {% endif %}
+            <div class="oe-language__list">
+              {% for id, name in link %}
+                <a href="#" class="oe-language__item">{{ name }}</a>
+              {% endfor %}
+            </div>
+          </div>
+      {% endfor %}
+      </div>
+  {% endset %}
+{% endif %}
+
+{% if footer %}
+  {% set _footer %}
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ header.label|default('Close') }}</button>
+  {% endset %}
+{% endif %}
+
+{% set _data = {
+  id: id,
+  size: size,
+  header: _header,
+  body: _body,
+  footer: _footer,
+} %}
+
+<!-- Modal - Language -->
+{% include '@oe-bcl/bcl-modal/modal.html.twig' with _data only %}
+
+{% endspaceless %}
