@@ -1,0 +1,14 @@
+<h2> {{ contact_title| t }} {{ project_name }} </h2>
+<p> {{ description }} </p>
+
+<h2> {{ follow_title| t }} </h2>
+{{ dump(follow_links) }}
+<ul>
+  {% for follow_link in follow_links %}
+    <li>{{ pattern('link', {
+        'label': follow_link['link']['label'],
+        'path': follow_link['link']['path'],
+        'icon_position': follow_link['link']['icon_position']
+      }) }}</li>
+  {% endfor %}
+</ul>
