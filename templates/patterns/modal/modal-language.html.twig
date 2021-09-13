@@ -20,7 +20,7 @@
   {% endset %}
 {% endif %}
 
-{% if links %}
+{% if eu_links or non_eu_links %}
   {% set _body %}
     <div class="container">
       <div class="row">
@@ -29,8 +29,8 @@
         </div>
       </div>
       <div class="row">
-      {% set _number_items = (links|length / 2) %}
-      {% for link in links|batch(_number_items) %}
+      {% set _number_items = (eu_links|length / 2) %}
+      {% for link in eu_links|batch(_number_items) %}
         {% if loop.index % 2 == 0 %}
           <div class="col col-lg-4 offset-lg-2">
         {% else %}
@@ -44,6 +44,28 @@
           </div>
       {% endfor %}
       </div>
+      <div class="row">
+        <div class="col col-lg-8 offset-lg-2">
+          <h5 class="oe-language__title">EU non-official languages</h5>
+        </div>
+      </div>
+      <div class="row">
+      {% set _number_items = (non_eu_links|length / 2) %}
+      {% for link in non_eu_links|batch(_number_items) %}
+        {% if loop.index % 2 == 0 %}
+          <div class="col col-lg-4 offset-lg-2">
+        {% else %}
+          <div class="col col-lg-4">
+        {% endif %}
+            <div class="oe-language__list">
+              {% for id, name in link %}
+                <a href="#" class="oe-language__item">{{ name }}</a>
+              {% endfor %}
+            </div>
+          </div>
+      {% endfor %}
+      </div>
+    </div>
   {% endset %}
 {% endif %}
 

@@ -11,6 +11,8 @@ declare(strict_types = 1);
  * Implements hook__preprocess_links__language_block().
  */
 function oe_whitelabel_preprocess_links__language_block(&$variables) {
+  /** @var \Drupal\Core\Language\LanguageInterface[] $original_languages */
+  $original_languages = \Drupal::service('language_manager')->getNativeLanguages();
   $currentLanguage = \Drupal::languageManager()->getCurrentLanguage()->getName();
   $variables['language']['link'] = [
     'label' => $currentLanguage,
@@ -18,13 +20,21 @@ function oe_whitelabel_preprocess_links__language_block(&$variables) {
     'target' => 'languageModal',
   ];
 
-  foreach ($variables['links'] as $link => $values) {
-    if ($link !== $currentLanguage) {
-      $links[$link] = $values['link']['#title'];
+  $eu_links = [];
+  $non_eu_links = [];
+  foreach ($original_languages as $language) {
+    if ($language->getId() !== $currentLanguage) {
+      if ($language->getThirdPartySetting('oe_multilingual', 'category') === 'eu') {
+        $eu_links[$language->getId()] = $language->getName();
+      }
+      else {
+        $non_eu_links[$language->getId()] = $language->getName();
+      }
+      $links[$language->getId()] = $language->getName();
     }
   }
+
   unset($variables['links']);
-  // print_r($links);
   $variables['language']['modal'] = [
     'id' => 'languageModal',
     'size' => 'fullscreen',
@@ -32,7 +42,8 @@ function oe_whitelabel_preprocess_links__language_block(&$variables) {
       'title' => t('Select your language'),
       'label' => t('Close'),
     ],
-    'links' => $links,
+    'eu_links' => $eu_links,
+    'non_eu_links' => $non_eu_links,
     'footer' => [
       'label' => t('Close'),
     ],
