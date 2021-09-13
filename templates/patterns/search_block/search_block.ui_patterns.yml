@@ -1,0 +1,28 @@
+search_block:
+  label: Search Block
+  description: Display search block.
+  fields:
+    label:
+      type: "text"
+      label: "Label"
+      description: "Search label"
+      preview: "Search"
+    url:
+      type: text
+      label: "Action"
+      description: 'A url for attribute action'
+      preview: '#'
+    additional_classes:
+      type: text
+      label: "Additional Classes"
+      preview: "class1 class2"
+    button_label:
+      type: text
+      label: "Button label"
+      preview: "Submit"
+    button_icon:
+      type: "text"
+      label: "Path to the svg sprite file"
+    placeholder:
+      type: "text"
+      label: "The search input placeholder"

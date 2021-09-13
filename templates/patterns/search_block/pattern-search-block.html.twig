@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a 'form' element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ */
+#}
+<form{{ attributes.addClass('search-form', 'search-block-form', additional_classes) }} action="{{ url }}">
+
+<label for="fname">{{ label }}</label>
+  <input type="text" id="fname" name="fname" placeholder=" {{ placeholder }}">
+  <input type="button" value="{{ button_label }}">
+</form>
