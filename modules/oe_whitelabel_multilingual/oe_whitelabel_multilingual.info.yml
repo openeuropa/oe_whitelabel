@@ -1,7 +1,0 @@
-name: OpenEuropa Whitelabel Multilingual
-type: module
-description: Provides multilingual management and theming for OpenEuropa Whitelabel.
-package: OpenEuropa Whitelabel Theme
-core_version_requirement: ^8.9 || ^9.1
-dependencies:
-  - openeuropa:oe_multilingual

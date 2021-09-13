@@ -1,0 +1,10 @@
+<a class="nav-link" href={{ current_language.label }} role="button" data-bs-toggle="modal" data-bs-target="#{{ current_language.target }}">
+  {{ pattern('icon', {
+     name: 'chat-left-dots-fill'
+   }) }}
+  {{ current_language.label }}
+</a>
+{# {{ pattern('modal', {
+  'header' => 'Select your language'|t,
+  'body' => languages
+}) }} #}

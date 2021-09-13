@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook__preprocess_links__language_block().
+ */
+function oe_whitelabel_preprocess_links__language_block() {
+  /** @var \Drupal\Core\Language\LanguageInterface[] $original_languages */
+  $original_languages = \Drupal::service('language_manager')->getNativeLanguages();
+}
