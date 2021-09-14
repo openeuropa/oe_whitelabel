@@ -37,8 +37,8 @@
           <div class="col col-lg-4">
         {% endif %}
             <div class="oe-language__list">
-              {% for id, name in link %}
-                <a href="#" class="oe-language__item">{{ name }}</a>
+              {% for id, data in link %}
+                <a href="{{ data.href|default('#') }}" class="oe-language__item">{{ data.name }}</a>
               {% endfor %}
             </div>
           </div>
@@ -59,8 +59,8 @@
             <div class="col col-lg-4">
           {% endif %}
               <div class="oe-language__list">
-                {% for id, name in link %}
-                  <a href="#" class="oe-language__item">{{ name }}</a>
+                {% for id, data in link %}
+                  <a href="{{ data.href|default('#') }}" class="oe-language__item">{{ data.name }}</a>
                 {% endfor %}
               </div>
             </div>

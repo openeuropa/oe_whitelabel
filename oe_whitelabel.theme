@@ -23,14 +23,21 @@ function oe_whitelabel_preprocess_links__language_block(&$variables) {
   $eu_links = [];
   $non_eu_links = [];
   foreach ($original_languages as $language) {
+    $url = $variables['links'][$language->getId()]['link']['#url'];
+
     if ($language->getId() !== $currentLanguage) {
       if ($language->getThirdPartySetting('oe_multilingual', 'category') === 'eu') {
-        $eu_links[$language->getId()] = $language->getName();
+        $eu_links[$language->getId()] = [
+          'name' => $language->getName(),
+          'href' => $url->toString(),
+        ];
       }
       else {
-        $non_eu_links[$language->getId()] = $language->getName();
+        $non_eu_links[$language->getId()] = [
+          'name' => $language->getName(),
+          'href' => $url->toString(),
+        ];
       }
-      $links[$language->getId()] = $language->getName();
     }
   }
 
