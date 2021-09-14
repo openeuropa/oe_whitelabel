@@ -22,7 +22,6 @@ class MultilingualBlockTest extends KernelTestBase {
     'ctools',
     'language',
     'locale',
-    'node',
     'oe_multilingual',
     'path',
     'pathauto',
@@ -49,6 +48,18 @@ class MultilingualBlockTest extends KernelTestBase {
 
     $this->container->set('theme.registry', NULL);
     $this->container->get('cache.render')->deleteAll();
+
+    $this->installEntitySchema('configurable_language');
+
+    $this->installSchema('locale', 'locales_source');
+    $this->installSchema('locale', 'locales_location');
+    $this->installSchema('locale', 'locales_target');
+
+    $this->installConfig([
+      'language',
+      'oe_multilingual',
+      'locale',
+    ]);
   }
 
   /**
@@ -59,12 +70,13 @@ class MultilingualBlockTest extends KernelTestBase {
       ->get('entity_type.manager')
       ->getStorage('block');
     $entity = $entity_type_manager->create([
-      'id' => 'languageswitchercontent',
+      'id' => 'languageswitcherinterfacetext',
       'theme' => 'oe_whitelabel',
       'plugin' => 'language_block:language_content',
+      'region' => 'header',
       'settings' => [
-        'id' => 'language_block:language_content',
-        'label' => 'Language switcher (Content)',
+        'id' => 'language_block:language_interface',
+        'label' => 'Language switcher (Interface text)',
         'provider' => 'language',
         'label_display' => '0',
       ],
@@ -76,7 +88,7 @@ class MultilingualBlockTest extends KernelTestBase {
     print_r($render);
     $crawler = new Crawler($render->__toString());
 
-    $actual = $crawler->filter('#block-languageswitchercontent');
+    $actual = $crawler->filter('#block-languageswitcherinterfacetext');
     $this->assertCount(1, $actual);
     $link = $crawler->filter('a');
     $this->assertSame('English', $link->text());
