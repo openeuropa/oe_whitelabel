@@ -24,18 +24,19 @@ function oe_whitelabel_preprocess_links__language_block(&$variables) {
   $non_eu_links = [];
   foreach ($original_languages as $language) {
     $url = $variables['links'][$language->getId()]['link']['#url'];
+    $host = \Drupal::request()->getHost();
 
     if ($language->getId() !== $currentLanguage) {
       if ($language->getThirdPartySetting('oe_multilingual', 'category') === 'eu') {
         $eu_links[$language->getId()] = [
           'name' => $language->getName(),
-          'href' => $url->toString(),
+          'href' => base_path() . $language->getId() . '/' . $url->getInternalPath(),
         ];
       }
       else {
         $non_eu_links[$language->getId()] = [
           'name' => $language->getName(),
-          'href' => $url->toString(),
+          'href' => base_path() . $language->getId() . '/' . $url->getInternalPath(),
         ];
       }
     }
