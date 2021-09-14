@@ -7,7 +7,7 @@
     <div class="row">
       {% for section in top_sections %}
         {% set section_id = section.section_id %}
-        <div class="col">
+        <div class="col footer-section">
           {% include '@oe_whitelabel/layouts/' ~ section_id ~ '.html.twig'  with {
             project_name: section.project_name,
             description: section.project_description,
