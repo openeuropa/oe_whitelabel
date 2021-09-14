@@ -6,13 +6,8 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "drupal/admin_toolbar": "^3.0",
         "drupal/components": "^2.4",
         "drupal/core": "^8.9 || ^9.1",
-        "drupal/devel": "^4.1",
-        "drupal/devel_generate": "^4.1",
-        "drupal/facets": "^1.8",
-        "drupal/search_api": "^1.19",
         "drupal/ui_patterns": "^1.0",
         "drupal/ui_patterns_settings": "^1.0",
         "openeuropa/oe_bootstrap_theme": "0.100920211846",
