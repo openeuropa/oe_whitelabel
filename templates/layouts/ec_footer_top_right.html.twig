@@ -1,8 +1,9 @@
 {% if optional_links_links is defined and optional_links_links is not empty and optional_links_links is iterable %}
   {% for optional_link_sections in optional_links_links %}
     <h2> {{ optional_link_sections['label']| t }} </h2>
+    {% set _links = ecl_footer_links(optional_link_sections['links']) %}
     <ul>
-      {% for optional_link in optional_link_sections %}
+      {% for optional_link in _links %}
         <li>{{ pattern('link', {
             'label': optional_link['link']['label'],
             'path': optional_link['link']['path'].uri,
