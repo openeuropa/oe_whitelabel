@@ -6,7 +6,6 @@ namespace Drupal\Tests\oe_whitelabel\Kernel;
 
 use Drupal\facets_summary\Entity\FacetsSummary;
 use Drupal\KernelTests\KernelTestBase;
-use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Tests the OE Authentication LoginBlock rendering.
@@ -69,4 +68,5 @@ class SearchFacetsTest extends KernelTestBase {
     $entity->removeFacet('foo');
     $this->assertEmpty($entity->getFacets());
   }
+
 }
