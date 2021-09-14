@@ -10,7 +10,7 @@
         "drupal/core": "^8.9 || ^9.1",
         "drupal/ui_patterns": "^1.0",
         "drupal/ui_patterns_settings": "^1.0",
-        "openeuropa/oe_bootstrap_theme": "0.100920211846",
+        "openeuropa/oe_bootstrap_theme": "0.140920211750",
         "openeuropa/oe_authentication": "^1.4",
         "openeuropa/oe_multilingual": "^1.8",
         "php": ">=7.3"
