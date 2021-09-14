@@ -20,52 +20,28 @@
 #}
 
 {% block content %}
-  {% set _top_sections = [
-    {
-      'section_id': 'ec_footer_top_left',
-      'project_name': site_specific_footer.site_identity,
-      'project_path': url('<front>'),
-      'project_description': 'This site is managed by the European Commission, Directorate-General for Communication (DG COMM)',
-    },
-    {
-      'section_id': 'ec_footer_top_middle',
-      'contact_title': 'Contact',
-      'project_name': site_specific_footer.site_identity,
-      'contact_path': url('<front>'),
-      'follow_title': 'Follow us on social media',
-      'follow_links': site_specific_footer.social_links ? ecl_footer_links(site_specific_footer.social_links) : [],
-    },
-    {
-      'section_id': 'ec_footer_top_right',
-      'optional_links_title': 'Optional Links',
-      'optional_links_links': site_specific_footer.other_links ? site_specific_footer.other_links : [],
-    },
-  ] %}
+
   {% set _bottom_sections = [
     {
       'section_id': 'ec_footer_bottom_left',
-      'logo': 'logo',
-      'path': url('<front>')
+      'title': {
+        'link': {
+          'label': site_specific_footer.site_identity,
+          'path': url('<front>')|render,
+        }
+      }
     },
     {
       'section_id': 'ec_footer_bottom_middle',
-      'contact_eu_title': 'Contact the EU',
-      'contact_eu_links': [],
-      'social_media_title': 'Social Media',
-      'social_media_link': 'Social Media LINKS',
-      'legal_title': 'Legal',
-      'legal_links': ecl_footer_links(corporate_footer.legal_navigation),
+      'links': bcl_footer_links(corporate_footer.service_navigation),
     },
     {
       'section_id': 'ec_footer_bottom_right',
-      'eu_institutions_title': 'EU Institutions',
-      'eu_institutions_links': ecl_footer_links(corporate_footer.class_navigation)
-
+      'links': bcl_footer_links(corporate_footer.legal_navigation)
     }
   ] %}
 
   {{ pattern('footer', {
-    'top_sections': _top_sections,
     'bottom_sections': _bottom_sections,
   }) }}
 

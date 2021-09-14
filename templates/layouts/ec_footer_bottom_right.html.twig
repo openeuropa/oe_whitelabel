@@ -1,13 +1,7 @@
-<h2> {{ eu_institutions_title| t }} </h2>
-{{ eu_institutions_links }}
-{% if eu_institutions_links is defined and eu_institutions_links is not empty and eu_institutions_links is iterable %}
-<ul>
-  {% for eu_link in eu_institutions_links %}
-    <li>{{ pattern('link', {
-        'label': eu_link['link']['label'],
-        'path': eu_link['link']['path'],
-        'icon_position': eu_link['link']['icon_position']
-      }) }}</li>
-  {% endfor %}
-</ul>
+{% if links is defined and links is not empty and links is iterable %}
+  <ul class="nav">
+    {% for link in links %}
+      <li class="nav-item">{{ pattern('link', link) }}</li>
+    {% endfor %}
+  </ul>
 {% endif %}

@@ -1,35 +1,26 @@
-<h2> {{ contact_eu_title| t }}  </h2>
+<h4> {{ contact_eu_title| t }}  </h4>
 {% if contact_eu_links is defined and contact_eu_links is not empty and contact_eu_links is iterable %}
-<ul>
+<ul class="nav">
   {% for contact_link in contact_eu_links %}
-  <li>{{ pattern('link', {
-      'label': contact_link['link']['label'],
-      'path': contact_link['link']['path'],
-    }) }}</li>
+  <li class="nav-item">{{ pattern('link', contact_link) }}</li>
   {% endfor %}
 </ul>
 {% endif %}
 
-<h2> {{ social_media_title|t }} </h2>
+<h4> {{ social_media_title|t }} </h4>
 {% if social_media_links is defined and social_media_links is not empty and social_media_links is iterable %}
-  <ul>
+  <ul class="nav">
     {% for social_link in social_media_links %}
-      <li>{{ pattern('link', {
-          'label': social_link['link']['label'],
-          'path': social_link['link']['path'],
-        }) }}</li>
+      <li class="nav-item">{{ pattern('link', social_link) }}</li>
     {% endfor %}
   </ul>
 {% endif %}
 
-<h2> {{ legal_title|t }} </h2>
+<h4> {{ legal_title|t }} </h4>
 {% if legal_links is defined and legal_links is not empty and legal_links is iterable %}
-<ul>
+<ul class="nav">
   {% for legal_link in legal_links %}
-    <li>{{ pattern('link', {
-        'label': legal_link['link']['label'],
-        'path': legal_link['link']['path'],
-      }) }}</li>
+    <li class="nav-item">{{ pattern('link', legal_link) }}</li>
   {% endfor %}
 </ul>
 {% endif %}
