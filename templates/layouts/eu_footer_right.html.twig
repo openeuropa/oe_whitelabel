@@ -1,6 +1,7 @@
 <h2> {{ eu_institutions_title| t }} </h2>
 {{ eu_institutions_links }}
 
+{% if eu_institutions_links is defined and eu_institutions_links is not empty and eu_institutions_links is iterable %}
 <ul>
   {% for eu_link in eu_institutions_links %}
     <li>{{ pattern('link', {
@@ -10,3 +11,4 @@
       }) }}</li>
   {% endfor %}
 </ul>
+{% endif %}

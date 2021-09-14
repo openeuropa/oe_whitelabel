@@ -2,7 +2,7 @@
 <a href="{{ contact_path }}"> Link </a>
 
 <h2> {{ follow_title| t }} </h2>
-
+{% if follow_links is defined and follow_links is not empty and follow_links is iterable %}
 <ul>
   {% for follow_link in follow_links %}
     {% set _icon = follow_link['icon']['name'] | replace({'-negative': ''}) %}
@@ -15,3 +15,4 @@
       }) }}</li>
   {% endfor %}
 </ul>
+{% endif %}

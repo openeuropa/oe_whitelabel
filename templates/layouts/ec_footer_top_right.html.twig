@@ -1,4 +1,5 @@
 <h2> {{ optional_links_title| t }} </h2>
+{% if optional_links_links is defined and optional_links_links is not empty and optional_links_links is iterable %}
 <ul>
   {% for optional_link in optional_links_links %}
     <li>{{ pattern('link', {
@@ -7,4 +8,5 @@
       }) }}</li>
   {% endfor %}
 </ul>
+{% endif %}
 

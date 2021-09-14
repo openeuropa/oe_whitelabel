@@ -20,6 +20,10 @@
 #}
 
 {% block content %}
+  {#
+  todo > set optional links
+  todo > contact_eu has not variable available
+  #}
   {% set _top_sections = [
     {
       'section_id': 'ec_footer_top_left',
@@ -38,7 +42,7 @@
     {
       'section_id': 'ec_footer_top_right',
       'optional_links_title': 'Optional Links',
-      'optional_links_links': ecl_footer_links(site_specific_footer.other_links['about_us']['links']),
+      'optional_links_links': [],
     },
   ] %}
   {% set _bottom_sections = [
@@ -50,7 +54,7 @@
     {
       'section_id': 'ec_footer_bottom_middle',
       'contact_eu_title': 'Contact the EU',
-      'contact_eu_links': ecl_footer_links(site_specific_footer.other_links['contact_us']['links']),
+      'contact_eu_links': [],
       'social_media_title': 'Social Media',
       'social_media_link': 'Social Media LINKS',
       'legal_title': 'Legal',
