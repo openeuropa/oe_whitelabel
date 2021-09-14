@@ -4,67 +4,27 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_whitelabel_helper\TwigExtension;
 
-use Drupal\Component\Utility\UrlHelper;
-use Drupal\Core\Language\LanguageManagerInterface;
-use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Cache\CacheableDependencyInterface;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 /**
  * Collection of extra Twig extensions as filters and functions.
- *
- * We don't enforce any strict type checking on filters' arguments as they are
- * coming straight from Twig templates.
  */
-class TwigExtension extends \Twig_Extension {
+class TwigExtension extends AbstractExtension {
 
   /**
-   * The language manager.
+   * The plugin.manager.block service.
    *
-   * @var \Drupal\Core\Language\LanguageManagerInterface
+   * @var \Drupal\Core\Cache\CacheableDependencyInterface
    */
-  protected $languageManager;
+  protected $pluginManagerBlock;
 
   /**
-   * The renderer.
-   *
-   * @var \Drupal\Core\Render\RendererInterface
+   * Constructs the TwigExtension object.
    */
-  protected $renderer;
-
-  /**
-   * Constructs a new TwigExtension object.
-   *
-   * @param \Drupal\Core\Language\LanguageManagerInterface $languageManager
-   *   The language manager.
-   * @param \Drupal\Core\Render\RendererInterface $renderer
-   *   The renderer service.
-   */
-  public function __construct(LanguageManagerInterface $languageManager, RendererInterface $renderer) {
-    $this->languageManager = $languageManager;
-    $this->renderer = $renderer;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getFilters(): array {
-    return [
-      new \Twig_SimpleFilter('format_size', 'format_size'),
-      new \Twig_SimpleFilter('to_language', [$this, 'toLanguageName']),
-      new \Twig_SimpleFilter('to_native_language', [
-        $this,
-        'toNativeLanguageName',
-      ]),
-      new \Twig_SimpleFilter('to_internal_language_id', [
-        $this,
-        'toInternalLanguageId',
-      ]),
-      new \Twig_SimpleFilter('to_file_icon', [$this, 'toFileIcon']),
-      new \Twig_SimpleFilter('to_date_status', [$this, 'toDateStatus']),
-      new \Twig_SimpleFilter('to_ecl_attributes', [$this, 'toEclAttributes']),
-      new \Twig_SimpleFilter('smart_trim', [$this, 'smartTrim'], ['needs_environment' => TRUE]),
-      new \Twig_SimpleFilter('is_external_url', [UrlHelper::class, 'isExternal']),
-      new \Twig_SimpleFilter('filter_empty', [$this, 'filterEmpty']),
-    ];
+  public function __construct(CacheableDependencyInterface $plugin_manager_block) {
+    $this->pluginManagerBlock = $plugin_manager_block;
   }
 
   /**
@@ -72,12 +32,13 @@ class TwigExtension extends \Twig_Extension {
    */
   public function getFunctions(): array {
     return [
-      new \Twig_SimpleFunction('ecl_footer_links', [$this, 'eclFooterLinks'], ['needs_context' => TRUE]),
+      new TwigFunction('bcl_footer_links', [$this, 'bclFooterLinks'], ['needs_context' => TRUE]),
+      new TwigFunction('bcl_block', [$this, 'bclBlock']),
     ];
   }
 
   /**
-   * Processes footer links to make them compatible with ECL formatting.
+   * Processes footer links to make them compatible with BCL formatting.
    *
    * @param array $context
    *   The twig context.
@@ -87,42 +48,56 @@ class TwigExtension extends \Twig_Extension {
    * @return array
    *   Set of processed links.
    */
-  public function eclFooterLinks(array $context, array $links): array {
-    $ecl_links = [];
+  public function bclFooterLinks(array $context, array $links): array {
+    $altered_links = [];
 
     foreach ($links as $link) {
-      $ecl_link = [
-        'link' => [
-          'label' => $link['label'],
-          'path' => $link['href'],
-          'icon_position' => 'after',
-        ],
+      $altered_link = [
+        'label' => $link['label'],
+        'path' => $link['href'],
+        'icon_position' => 'after',
       ];
 
       if (!empty($link['external']) && $link['external'] === TRUE) {
-        $ecl_link += [
-          'icon' => [
-            'path' => $context['ecl_icon_path'],
-            'name' => 'external',
-            'size' => 'xs',
-          ],
+        $altered_link['icon'] = [
+          'path' => $context['bcl_icon_path'],
+          'name' => 'external',
+          'size' => 'xs',
         ];
       }
 
       if (!empty($link['social_network'])) {
-        $ecl_link['link']['icon_position'] = 'before';
-        $ecl_link += [
-          'icon' => [
-            'path' => $context['ecl_icon_social_media_path'],
-            'name' => $context['ecl_component_library'] == 'eu' ? $link['social_network'] : $link['social_network'] . '-negative',
-          ],
+        $altered_link['icon_position'] = 'before';
+        $altered_link['icon'] = [
+          'path' => $context['bcl_icon_path'],
+          'name' => $link['social_network'],
         ];
       }
 
-      $ecl_links[] = $ecl_link;
+      $altered_links[] = $altered_link;
     }
 
-    return $ecl_links;
+    return $altered_links;
+  }
+
+  /**
+   * Builds the render array for a block.
+   *
+   * @param string $id
+   *   The block plugin ID.
+   * @param array $configuration
+   *   The block configuration.
+   *
+   * @return array
+   *   The block render array.
+   */
+  public function bclBlock(string $id, array $configuration = []): array {
+    $configuration += ['label_display' => 'hidden'];
+
+    /** @var \Drupal\Core\Block\BlockPluginInterface $block_plugin */
+    $block_plugin = $this->pluginManagerBlock->createInstance($id, $configuration);
+
+    return $block_plugin->build();
   }
 
 }
