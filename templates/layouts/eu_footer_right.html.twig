@@ -1,0 +1,12 @@
+<h2> {{ eu_institutions_title| t }} </h2>
+{{ eu_institutions_links }}
+
+<ul>
+  {% for eu_link in eu_institutions_links %}
+    <li>{{ pattern('link', {
+        'label': eu_link['link']['label'],
+        'path': eu_link['link']['path'],
+        'icon_position': eu_link['link']['icon_position']
+      }) }}</li>
+  {% endfor %}
+</ul>

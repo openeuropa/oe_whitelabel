@@ -3,7 +3,7 @@
   {% for contact_link in contact_eu_links %}
   <li>{{ pattern('link', {
       'label': contact_link['link']['label'],
-      'path': contact_link['link']['path'].uri,
+      'path': contact_link['link']['path'],
     }) }}</li>
   {% endfor %}
 </ul>
