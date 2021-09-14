@@ -2,7 +2,7 @@
 {{ eu_institutions_links }}
 
 {% if eu_institutions_links is defined and eu_institutions_links is not empty and eu_institutions_links is iterable %}
-<ul class="nav">
+<ul class="nav flex-column">
   {% for eu_link in eu_institutions_links %}
     <li class="nav-item">{{ pattern('link', eu_link) }}</li>
   {% endfor %}
