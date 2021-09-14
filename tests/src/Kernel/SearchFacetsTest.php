@@ -8,7 +8,7 @@ use Drupal\facets_summary\Entity\FacetsSummary;
 use Drupal\KernelTests\KernelTestBase;
 
 /**
- * Tests the OE Authentication LoginBlock rendering.
+ * Tests the facets summary block.
  */
 class SearchFacetsTest extends KernelTestBase {
 
