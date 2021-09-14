@@ -18,21 +18,26 @@
   modal: language.modal,
 } %}
 
-<header>
-  <!-- header -->
-  <div class="container">
-    <ul class="nav">
-      <li class="nav-item">
-        <a class="nav-link" href={{ _language.link.label }} role="button" data-bs-toggle="modal" data-bs-target="#{{ _language.link.target }}">
-          {{ _language.link.label }}
-        </a>
-      </li>
-    </ul>
-  </div>
+{% set extra_attributes = create_attribute() %}
+{% set extra_attributes = extra_attributes.setAttribute('data-bs-toggle', 'modal') %}
+{% set extra_attributes = extra_attributes.setAttribute('data-bs-target', '#' ~ _language.link.target) %}
+{% set extra_attributes = extra_attributes.addClass('nav-link') %}
 
-</header>
+<ul class="nav">
+  <li class="nav-item">
+    {{ pattern('link', {
+      label: _language.link.label,
+      path: _language.link.label,
+      icon: {
+        name: 'chat-left-dots-fill',
+        size: 's'
+      },
+      icon_position: 'before',
+      attributes: extra_attributes
+    }) }}
+  </li>
+</ul>
 
-<!-- Modal - Language -->
 {% include '@oe_whitelabel/patterns/modal/modal-language.html.twig' with _language.modal only %}
 
 {% endspaceless %}
