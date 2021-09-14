@@ -11,40 +11,45 @@ declare(strict_types = 1);
  * Implements hook__preprocess_links__language_block().
  */
 function oe_whitelabel_preprocess_links__language_block(&$variables) {
-  /** @var \Drupal\Core\Language\LanguageInterface[] $original_languages */
-  $original_languages = \Drupal::service('language_manager')->getNativeLanguages();
-  $currentLanguage = \Drupal::languageManager()->getCurrentLanguage()->getName();
-  $variables['language']['link'] = [
-    'label' => $currentLanguage,
-    'href' => $currentLanguage,
-    'target' => 'languageModal',
-  ];
-
+  $currentLanguage = \Drupal::languageManager()->getCurrentLanguage();
+  $current_language_id = $currentLanguage->getId();
+  $language_config_storage = \Drupal::entityTypeManager()->getStorage('configurable_language');
   $eu_links = [];
   $non_eu_links = [];
-  foreach ($original_languages as $language) {
-    $url = $variables['links'][$language->getId()]['link']['#url'];
-    $host = \Drupal::request()->getHost();
 
-    if ($language->getId() !== $currentLanguage) {
-      if ($language->getThirdPartySetting('oe_multilingual', 'category') === 'eu') {
-        $eu_links[$language->getId()] = [
-          'name' => $language->getName(),
-          'href' => base_path() . $language->getId() . '/' . $url->getInternalPath(),
-          'id' => 'link_' . $language->getId(),
-        ];
-      }
-      else {
-        $non_eu_links[$language->getId()] = [
-          'name' => $language->getName(),
-          'href' => base_path() . $language->getId() . '/' . $url->getInternalPath(),
-          'id' => 'link_' . $language->getId(),
-        ];
-      }
+  foreach ($variables['links'] as $language_code => $link) {
+    /** @var \Drupal\Core\Url $url */
+    $url = $link['link']['#url'];
+    $href = $url
+      ->setOptions($link['link']['#options'])
+      ->setAbsolute(TRUE)
+      ->toString();
+    $label = $link['link']['#title'];
+
+    $link = [
+      'href' => $href,
+      'name' => $label,
+      'id' => 'link_' . $language_code,
+      'hreflang' => $language_code,
+    ];
+
+    if (!empty($current_language_id) && $language_code === $current_language_id) {
+      $variables['language']['link'] = $link;
+      $variables['language']['link']['target'] = 'languageModal';
+      $link['active'] = TRUE;
+    }
+
+    $language_config = $language_config_storage->load($language_code);
+    $category = $language_config->getThirdPartySetting('oe_multilingual', 'category');
+
+    if ($category === 'eu') {
+      $eu_links[$language_code] = $link;
+    }
+    else {
+      $non_eu_links[$language_code] = $link;
     }
   }
 
-  unset($variables['links']);
   $variables['language']['modal'] = [
     'id' => 'languageModal',
     'size' => 'fullscreen',
@@ -58,6 +63,4 @@ function oe_whitelabel_preprocess_links__language_block(&$variables) {
       'label' => t('Close'),
     ],
   ];
-  unset($variables['links']);
-
 }

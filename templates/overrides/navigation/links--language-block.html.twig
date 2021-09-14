@@ -11,7 +11,7 @@
 
 {% set _language = {
   link: {
-    label: language.link.label|default(''),
+    label: language.link.name|default(''),
     href: language.link.href|default('#'),
     target: language.link.target|default(language.modal.id|default('')),
   },
@@ -27,7 +27,7 @@
   <li class="nav-item">
     {{ pattern('link', {
       label: _language.link.label,
-      path: _language.link.label,
+      path: _language.link.href,
       icon: {
         name: 'chat-left-dots-fill',
         size: 's'
