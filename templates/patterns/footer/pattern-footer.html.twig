@@ -1,39 +1,35 @@
-<footer>
-  <div class="container-fluid">
-    <div class="row">
-      {% for section in top_sections %}
-        {% set section_id = section.section_id %}
-        <div class="col footer-section">
-          {% include '@oe_whitelabel/layouts/' ~ section_id ~ '.html.twig'  with {
-            title: section.title,
-            description: section.description,
-            sections: section.sections
-          } %}
-        </div>
-      {% endfor %}
+<div class="row">
+  {% for section in top_sections %}
+    {% set section_id = section.section_id %}
+    <div class="col footer-section">
+      {% include '@oe_whitelabel/layouts/' ~ section_id ~ '.html.twig'  with {
+        title: section.title,
+        description: section.description,
+        sections: section.sections
+      } %}
     </div>
-    {% if bottom_sections is defined and bottom_sections is not empty and bottom_sections is iterable %}
-      <hr/>
-      <div class="row">
-        {% for section in bottom_sections %}
-          {% set section_id = section.section_id %}
-          <div class="col">
-            {% include '@oe_whitelabel/layouts/' ~ section_id ~ '.html.twig'  with {
-              title: section.title,
-              links: section.links,
-              contact_eu_title: section.contact_eu_title,
-              contact_eu_links: section.contact_eu_links,
-              social_media_title: section.social_media_title,
-              social_media_links: section.social_media_links,
-              social_media_link: section.social_media_link,
-              legal_title: section.legal_title,
-              legal_links: section.legal_links,
-              eu_institutions_title: section.eu_institutions_title,
-              eu_institutions_links: section.eu_institutions_links
-            } %}
-          </div>
-        {% endfor %}
+  {% endfor %}
+</div>
+{% if bottom_sections is defined and bottom_sections is not empty and bottom_sections is iterable %}
+  <hr/>
+  <div class="row">
+    {% for section in bottom_sections %}
+      {% set section_id = section.section_id %}
+      <div class="col">
+        {% include '@oe_whitelabel/layouts/' ~ section_id ~ '.html.twig'  with {
+          title: section.title,
+          links: section.links,
+          contact_eu_title: section.contact_eu_title,
+          contact_eu_links: section.contact_eu_links,
+          social_media_title: section.social_media_title,
+          social_media_links: section.social_media_links,
+          social_media_link: section.social_media_link,
+          legal_title: section.legal_title,
+          legal_links: section.legal_links,
+          eu_institutions_title: section.eu_institutions_title,
+          eu_institutions_links: section.eu_institutions_links
+        } %}
       </div>
-    {% endif %}
+    {% endfor %}
   </div>
-</footer>
+{% endif %}
