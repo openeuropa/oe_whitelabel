@@ -3,7 +3,6 @@
     <h2> {{ optional_link_sections['label']| t }} </h2>
     <ul>
       {% for optional_link in optional_link_sections %}
-        {{ dump(optional_link) }}
         <li>{{ pattern('link', {
             'label': optional_link['link']['label'],
             'path': optional_link['link']['path'].uri,
