@@ -11,8 +11,6 @@
         "drupal/ui_patterns": "^1.0",
         "drupal/ui_patterns_settings": "^1.0",
         "openeuropa/oe_bootstrap_theme": "0.140920211750",
-        "openeuropa/oe_authentication": "^1.4",
-        "openeuropa/oe_multilingual": "^1.8",
         "php": ">=7.3"
     },
     "require-dev": {
@@ -24,6 +22,8 @@
         "openeuropa/code-review": "1.6",
         "openeuropa/composer-artifacts": "~0.1",
         "openeuropa/drupal-core-require-dev": "^8.9 || ^9.1",
+        "openeuropa/oe_authentication": "^1.4",
+        "openeuropa/oe_multilingual": "^1.8",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0",
         "phpspec/prophecy-phpunit": "^1 || ^2"
     },
