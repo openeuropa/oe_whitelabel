@@ -15,19 +15,14 @@
 
 {% if header %}
   {% set _header %}
-    <h5 class="modal-title" id="languageeModalLabel">{{ header.title|default('Select your language') }}</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ header.label|default('Close') }}"></button>
+    <h5 class="modal-title" id="languageeModalLabel">{{ header.title|default('Select your language'|t) }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ header.label|default('Close'|t) }}"></button>
   {% endset %}
 {% endif %}
 
 {% if eu_links or non_eu_links %}
   {% set _body %}
     <div class="container">
-      <div class="row">
-        <div class="col col-lg-8 offset-lg-2">
-          <h5 class="oe-language__title">EU official languages</h5>
-        </div>
-      </div>
       <div class="row">
       {% set _number_items = (eu_links|length / 2) %}
       {% for link in eu_links|batch(_number_items) %}
@@ -45,11 +40,6 @@
       {% endfor %}
       </div>
       {% if non_eu_links %}
-        <div class="row">
-          <div class="col col-lg-8 offset-lg-2">
-            <h5 class="oe-language__title">EU non-official languages</h5>
-          </div>
-        </div>
         <div class="row">
         {% set _number_items = (non_eu_links|length / 2) %}
         {% for link in non_eu_links|batch(_number_items) %}
@@ -73,7 +63,7 @@
 
 {% if footer %}
   {% set _footer %}
-    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ header.label|default('Close') }}</button>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ header.label|default('Close'|t) }}</button>
   {% endset %}
 {% endif %}
 
@@ -85,7 +75,6 @@
   footer: _footer,
 } %}
 
-<!-- Modal - Language -->
 <div class="oe-language">
   {% include '@oe-bcl/bcl-modal/modal.html.twig' with _data only %}
 </div>
