@@ -31,12 +31,14 @@ function oe_whitelabel_preprocess_links__language_block(&$variables) {
         $eu_links[$language->getId()] = [
           'name' => $language->getName(),
           'href' => base_path() . $language->getId() . '/' . $url->getInternalPath(),
+          'id' => 'link_' . $language->getId(),
         ];
       }
       else {
         $non_eu_links[$language->getId()] = [
           'name' => $language->getName(),
           'href' => base_path() . $language->getId() . '/' . $url->getInternalPath(),
+          'id' => 'link_' . $language->getId(),
         ];
       }
     }
