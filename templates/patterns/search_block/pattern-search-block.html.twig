@@ -4,9 +4,23 @@
  * Default theme implementation for a 'form' element.
  */
 #}
+{% if button_icon %}
+  {% set _icon = {
+      name: button_icon,
+      path: bcl_icon_path
+    }
+  %}
+{% endif %}
 <form{{ attributes.addClass('search-form', 'search-block-form', additional_classes) }} action="{{ url }}">
 
-<label for="fname">{{ label }}</label>
-  <input type="text" id="fname" name="fname" placeholder=" {{ placeholder }}">
-  <input type="button" value="{{ button_label }}">
+{% include '@oe-bcl/bcl-form-input/form-input.html.twig' with {
+  'label': label,
+  'placeholder': placeholder
+} %}
+{% include '@oe-bcl/bcl-button/button.html.twig' with {
+  'label': button_label,
+  'type': 'submit',
+  'icon': _icon,
+  'icon_position': 'after'
+} %}
 </form>
