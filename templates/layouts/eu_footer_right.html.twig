@@ -1,6 +1,4 @@
-<h4> {{ eu_institutions_title| t }} </h4>
-{{ eu_institutions_links }}
-
+<h4> {{ eu_institutions_title|t }} </h4>
 {% if eu_institutions_links is defined and eu_institutions_links is not empty and eu_institutions_links is iterable %}
 <ul class="nav flex-column">
   {% for eu_link in eu_institutions_links %}

@@ -4,13 +4,13 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
-use Drupal\KernelTests\KernelTestBase;
+use Drupal\Tests\sparql_entity_storage\Kernel\SparqlKernelTestBase;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Tests the EU and the EC corporate Footer blocks rendering.
  */
-class FooterBlockTest extends KernelTestBase {
+class FooterBlockTest extends SparqlKernelTestBase {
 
   /**
    * {@inheritdoc}
@@ -18,12 +18,15 @@ class FooterBlockTest extends KernelTestBase {
   protected static $modules = [
     'block',
     'components',
-    'oe_whitelabel_helper',
-    'oe_whitelabel_footer',
     'ui_patterns',
     'ui_patterns_library',
     'user',
     'system',
+    'oe_whitelabel_helper',
+    'oe_corporate_site_info',
+    'oe_corporate_blocks',
+    'rdf_skos',
+    'multivalue_form_element',
   ];
 
   /**
@@ -31,7 +34,12 @@ class FooterBlockTest extends KernelTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    /** @var \Drupal\Core\Extension\ThemeInstallerInterface $theme_installer */
+
+    $this->installConfig([
+      'oe_corporate_site_info',
+      'oe_corporate_blocks',
+    ]);
+
     \Drupal::service('theme_installer')->install(['oe_whitelabel']);
 
     \Drupal::configFactory()
@@ -41,6 +49,8 @@ class FooterBlockTest extends KernelTestBase {
 
     $this->container->set('theme.registry', NULL);
     $this->container->get('cache.render')->deleteAll();
+
+    \Drupal::service('kernel')->rebuildContainer();
   }
 
   /**
@@ -65,13 +75,13 @@ class FooterBlockTest extends KernelTestBase {
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);
-    var_dump($render);
     $crawler = new Crawler($render->__toString());
 
-    $actual = $crawler->filter('footer');
+    // For now we assert only minimal till we have a footer component.
+    $actual = $crawler->filter('#block-ecfooterblock');
     $this->assertCount(1, $actual);
-    $sections = $actual->filter('.footer-section');
-    $this->assertCount(3, $sections);
+    $sections = $actual->filter('.row');
+    $this->assertCount(2, $sections);
   }
 
   /**
@@ -98,10 +108,11 @@ class FooterBlockTest extends KernelTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($render->__toString());
 
-    $actual = $crawler->filter('footer');
+    // For now we assert only minimal till we have a footer component.
+    $actual = $crawler->filter('#block-eufooterblock');
     $this->assertCount(1, $actual);
-    $sections = $actual->filter('.footer-section');
-    $this->assertCount(6, $sections);
+    $sections = $actual->filter('.row');
+    $this->assertCount(2, $sections);
   }
 
 }
