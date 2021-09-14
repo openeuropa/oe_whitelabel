@@ -36,7 +36,7 @@
       'project_name': site_specific_footer.site_identity,
       'contact_path': url('<front>'),
       'follow_title': 'Follow us on social media',
-      'follow_links': site_specific_footer.social_links ? site_specific_footer.social_links : [],
+      'follow_links': site_specific_footer.social_links ? ecl_footer_links(site_specific_footer.social_links) : [],
     },
     {
       'section_id': 'ec_footer_top_right',
