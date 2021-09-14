@@ -1,0 +1,14 @@
+{%- if items -%}
+  {%- for item in items -%}
+    {% if item.value['#type'] == 'link' %}
+      {% include '@oe-bcl/bcl-badge/badge.html.twig' with {
+        'label': item.value['#title']['#value'],
+        'assistive_text': assistive_text,
+        'url': item.value['#url'],
+        'dismissible': true,
+        'attributes': item.attributes
+      } %}
+    {% endif %}
+  {%- endfor -%}
+{% endif %}
+

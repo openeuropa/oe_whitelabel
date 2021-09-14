@@ -21,6 +21,11 @@ drupal:
     - "./vendor/bin/drush config-set system.theme default oe_whitelabel -y"
     - "./vendor/bin/drush config-set system.theme admin seven -y"
     - "./vendor/bin/drush config-set node.settings use_admin_theme 1 -y"
+    - "./vendor/bin/drush en search_api -y"
+    - "./vendor/bin/drush en search_api_db -y"
+    - "./vendor/bin/drush en search_api_db_defaults -y"
+    - "./vendor/bin/drush en facets -y"
+    - "./vendor/bin/drush en facets_summary -y"
     - "./vendor/bin/drush cr"
   settings:
     settings:
