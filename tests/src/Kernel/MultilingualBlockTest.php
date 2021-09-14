@@ -49,17 +49,25 @@ class MultilingualBlockTest extends KernelTestBase {
     $this->container->set('theme.registry', NULL);
     $this->container->get('cache.render')->deleteAll();
 
-    $this->installEntitySchema('configurable_language');
+    $this->installSchema('locale', [
+      'locales_location',
+      'locales_target',
+      'locales_source',
+      'locale_file',
+    ]);
 
-    $this->installSchema('locale', 'locales_source');
-    $this->installSchema('locale', 'locales_location');
-    $this->installSchema('locale', 'locales_target');
+    $this->installSchema('user', ['users_data']);
 
     $this->installConfig([
-      'language',
-      'oe_multilingual',
       'locale',
+      'language',
+      'content_translation',
+      'oe_multilingual',
     ]);
+    $this->container->get('module_handler')->loadInclude('oe_multilingual', 'install');
+    oe_multilingual_install(FALSE);
+
+    \Drupal::service('kernel')->rebuildContainer();
   }
 
   /**
@@ -72,7 +80,7 @@ class MultilingualBlockTest extends KernelTestBase {
     $entity = $entity_type_manager->create([
       'id' => 'languageswitcherinterfacetext',
       'theme' => 'oe_whitelabel',
-      'plugin' => 'language_block:language_content',
+      'plugin' => 'language_block:language_interface',
       'region' => 'header',
       'settings' => [
         'id' => 'language_block:language_interface',
@@ -85,14 +93,13 @@ class MultilingualBlockTest extends KernelTestBase {
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);
-    print_r($render);
     $crawler = new Crawler($render->__toString());
 
-    $actual = $crawler->filter('#block-languageswitcherinterfacetext');
-    $this->assertCount(1, $actual);
-    $link = $crawler->filter('a');
-    $this->assertSame('English', $link->text());
-    $this->assertSame('English', $link->href());
+    $block = $crawler->filter('#block-languageswitcherinterfacetext');
+    $this->assertCount(1, $block);
+    $link = $crawler->filter('a.nav-link');
+    $this->assertSame('English', trim($link->text()));
+    $this->assertSame('English', $link->attr('href'));
   }
 
 }
