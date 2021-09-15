@@ -1,26 +1,34 @@
 {#
 /**
  * @file
- * Default theme implementation for a 'form' element.
+ * Default theme implementation for a 'search form' composition.
  */
 #}
 {% if button_icon %}
   {% set _icon = {
       name: button_icon,
-      path: bcl_icon_path
+      path: bcl_icon_path,
+      size: 'fluid'
     }
   %}
 {% endif %}
-<form{{ attributes.addClass('search-form', 'search-block-form', additional_classes) }} action="{{ url }}">
-
+{% if attributes is empty %}
+  {% set attributes = create_attribute() %}
+{% endif %}
+<form {{ attributes.addClass(form_attributes.class).setAttribute('action', form_attributes.action) }}>
 {% include '@oe-bcl/bcl-form-input/form-input.html.twig' with {
   'label': label,
-  'placeholder': placeholder
-} %}
+  'placeholder': placeholder,
+  'horizontal': true
+}
+%}
+{{ additional_elements }}
 {% include '@oe-bcl/bcl-button/button.html.twig' with {
   'label': button_label,
   'type': 'submit',
   'icon': _icon,
-  'icon_position': 'after'
-} %}
+  'icon_position': icon_position,
+  'size': 'sm'
+}
+%}
 </form>

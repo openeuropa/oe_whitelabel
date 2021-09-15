@@ -3,7 +3,7 @@ search_block:
   description: Display search block.
   fields:
     label:
-      type: "text"
+      type: text
       label: "Label"
       description: "Search label"
       preview: "Search"
@@ -12,19 +12,37 @@ search_block:
       label: "Action"
       description: 'A url for attribute action'
       preview: '#'
-    additional_classes:
+    form_attributes:
+      label: "Form attributes"
+      type: array
+      description: 'Form attributes'
+      preview:
+        class: "row row-cols-lg-auto g-3 align-items-center"
+        action: "#"
+    input_classes:
       type: text
-      label: "Additional Classes"
+      label: "Additional input classes"
+      preview: ""
+    button_classes:
+      type: text
+      label: "Additional button classes"
       preview: ""
     button_label:
       type: text
       label: "Button label"
       preview: "Submit"
     button_icon:
-      type: "text"
+      type: text
       label: "Icon name"
       preview: "Search"
+    icon_position:
+      type: text
+      label: "Icon position"
+      preview: "after"
     placeholder:
-      type: "text"
+      type: text
       label: "Search"
       preview: "search text"
+    additional_elements:
+      type: array
+      label: "Additional elements"
