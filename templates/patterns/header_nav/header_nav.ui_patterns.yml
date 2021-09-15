@@ -1,0 +1,13 @@
+header_nav:
+  label: Header Navigation
+  description: A navigation section for the header
+  fields:
+    header_top:
+      type: array
+      label: 'Header Top'
+    header_left:
+      type: array
+      label: 'Header Left'
+    header_right:
+      type: array
+      label: 'Header Right'

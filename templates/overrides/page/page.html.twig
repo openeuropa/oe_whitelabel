@@ -55,6 +55,12 @@
     style: 'light'
   }) }}
 
+  {{ pattern('header_nav', {
+    header_top: page.header_top,
+    header_left: page.header_left,
+    header_right: page.header_right
+  }) }}
+
   <main class="pt-5 pb-5">
     {% if page.header %}
       <header class="page__header mb-3">
