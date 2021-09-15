@@ -30,6 +30,19 @@
  */
 #}
 
+{% if content.actions.reset['#type'] == 'link' %}
+  {% set extra_attributes = create_attribute() %}
+  {% set reset = pattern('button', {
+    'label': content.actions['reset']['#title'],
+    'url': content.actions['reset']['#url'].toString(),
+    'style': 'secondary',
+    'attributes': extra_attributes.addClass('ms-2')
+    })
+  %}
+  {% set actions = content.actions %}
+  {% set actions = actions|merge({('reset'): reset}) %}
+  {% set content = content|merge({('actions'): actions}) %}
+{% endif %}
 {% block content %}
   {{ pattern('offcanvas', {
     'title': {
@@ -43,7 +56,7 @@
     'placement': 'start',
     'with_body_scroll': false,
     'with_backdrop': true,
-    'extra_classes_body': 'bcl-offcanvas',
+    'extra_classes_body': 'bcl-offcanvas p-lg-0',
     'extra_classes_close': "d-lg-none",
     'extra_classes_header': "p-lg-0",
     'with_trigger': true,
