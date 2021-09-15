@@ -7,13 +7,14 @@
 {%- if items -%}
   {%- for item in items -%}
     {% if item.value['#type'] == 'link' %}
-      {% include '@oe-bcl/bcl-badge/badge.html.twig' with {
+      {{ pattern('badge', {
         'label': item.value['#title']['#value'],
         'assistive_text': assistive_text,
         'url': item.value['#url'],
         'dismissible': true,
-        'attributes': item.attributes
-      } %}
+        'attributes': item.attributes,
+        'icons_path': bcl_icon_path,
+      }) }}
     {% endif %}
   {%- endfor -%}
 {% endif %}
