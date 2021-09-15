@@ -16,19 +16,16 @@
   {% set attributes = create_attribute() %}
 {% endif %}
 <form {{ attributes.addClass(form_attributes.class).setAttribute('action', form_attributes.action) }}>
-{% include '@oe-bcl/bcl-form-input/form-input.html.twig' with {
-  'label': label,
-  'placeholder': placeholder,
-  'horizontal': true
-}
-%}
-{{ additional_elements }}
-{% include '@oe-bcl/bcl-button/button.html.twig' with {
-  'label': button_label,
-  'type': 'submit',
-  'icon': _icon,
-  'icon_position': icon_position,
-  'size': 'sm'
-}
-%}
+
+    {% include '@oe-bcl/bcl-form-input/form-input.html.twig' with {
+      'placeholder': placeholder,
+      'horizontal': true
+    }
+    %}
+    <button class="btn btn-primary btn-md" type="submit">
+      <svg class="bi icon--s">
+        <use xlink:href="{{ _icon.path ~ "#" ~ _icon.name }}"/>
+      </svg>
+      Submit
+    </button>
 </form>
