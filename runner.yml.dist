@@ -10,6 +10,9 @@ drupal:
     name: "drupal"
     user: "root"
     password: ""
+  sparql:
+    host: "sparql"
+    port: "8890"
   post_install:
     # Prepare the instance.
     - "./vendor/bin/drush en ui_patterns ui_patterns_library ui_patterns_settings components -y"
@@ -29,7 +32,14 @@ drupal:
         - "bower_components"
         - "vendor"
         - "${drupal.root}"
-
+    databases:
+      sparql_default:
+        default:
+          prefix: ""
+          host: ${drupal.sparql.host}
+          port: ${drupal.sparql.port}
+          namespace: 'Drupal\sparql_entity_storage\Driver\Database\sparql'
+          driver: 'sparql'
 commands:
   drupal:site-setup:
     - { task: "run", command: "drupal:symlink-project" }
