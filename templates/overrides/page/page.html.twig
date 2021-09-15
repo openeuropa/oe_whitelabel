@@ -31,6 +31,9 @@
  * - page.navbar_branding: Items for the navbar brand region (logo).
  * - page.navbar_left: Items for the navbar left region (primary menu).
  * - page.navbar_right: Items for the navbar right region.
+ * - page.header_top: Items for the navbar right region.
+ * - page.header_left: Items for the navbar right region.
+ * - page.header_right: Items for the navbar right region.
  * - page.header: Items for the header region.
  * - page.content: The main content of the current page.
  * - page.page_bottom: The content of the current page.
@@ -50,6 +53,12 @@
     navbar_left: page.navbar_left ? page.navbar_left : false,
     navbar_right: page.navbar_right ? page.navbar_right : false,
     style: 'light'
+  }) }}
+
+  {{ pattern('header_nav', {
+    header_top: page.header_top,
+    header_left: page.header_left,
+    header_right: page.header_right
   }) }}
 
   <main class="pt-5 pb-5">
