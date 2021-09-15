@@ -1,0 +1,42 @@
+{% spaceless %}
+
+{# Parameters:
+  - language
+    - link
+      - label
+      - href
+      - target
+    - modal
+#}
+
+{% set _language = {
+  link: {
+    label: language.link.name|default(''),
+    href: language.link.href|default('#'),
+    target: language.link.target|default(language.modal.id|default('')),
+  },
+  modal: language.modal,
+} %}
+{% set extra_attributes = create_attribute() %}
+{% set extra_attributes = extra_attributes.setAttribute('data-bs-toggle', 'modal') %}
+{% set extra_attributes = extra_attributes.setAttribute('data-bs-target', '#' ~ _language.link.target) %}
+{% set extra_attributes = extra_attributes.addClass('nav-link') %}
+
+<ul class="nav">
+  <li class="nav-item">
+    {{ pattern('link', {
+      label: _language.link.label,
+      path: _language.link.href,
+      icon: {
+        name: 'chat-left-dots-fill',
+        size: 's'
+      },
+      icon_position: 'before',
+      attributes: extra_attributes
+    }) }}
+  </li>
+</ul>
+
+{% include '@oe_whitelabel/patterns/modal/modal-language.html.twig' with _language.modal only %}
+
+{% endspaceless %}
