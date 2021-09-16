@@ -9,18 +9,23 @@
 {% endif %}
 <form {{ attributes.addClass(form_attributes.class).setAttribute('action', form_attributes.action) }}>
 
+    {% set attributes = create_attribute()  %}
+
+    {{ additional_elements }}
+
     {% include '@oe-bcl/bcl-form-input/form-input.html.twig' with {
+      'label': label,
       'placeholder': placeholder,
-      'horizontal': true
+      'horizontal': true,
+      'horizontal_class': input_classes
     }
     %}
-    <button class="btn btn-primary btn-md" type="submit">
-    {% set attributes = attributes.setAttribute('href', _path) %}
+    <button class="btn btn-primary btn-md {{ button_classes }}" type="submit">
       {% include '@oe-bcl/bcl-icon/icon.html.twig' with {
         name: button_icon,
-      path: bcl_icon_path,
-      size: 'fluid'
+        path: bcl_icon_path,
+        size: 'fluid'
       } %}
-      Submit
+      {{ button_label }}
     </button>
 </form>

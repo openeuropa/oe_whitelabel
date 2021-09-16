@@ -3,15 +3,10 @@ search_block:
   description: Display search block.
   fields:
     label:
-      type: text
       label: "Label"
-      description: "Search label"
-      preview: "Search"
-    url:
       type: text
-      label: "Action"
-      description: 'A url for attribute action'
-      preview: '#'
+      description: "Input label"
+      preview: "Search"
     form_attributes:
       label: "Form attributes"
       type: array
@@ -23,6 +18,10 @@ search_block:
       type: text
       label: "Additional input classes"
       preview: ""
+    placeholder:
+      type: text
+      label: "Search"
+      preview: "search text"
     button_classes:
       type: text
       label: "Additional button classes"
@@ -35,14 +34,6 @@ search_block:
       type: text
       label: "Icon name"
       preview: "Search"
-    icon_position:
-      type: text
-      label: "Icon position"
-      preview: "after"
-    placeholder:
-      type: text
-      label: "Search"
-      preview: "search text"
     additional_elements:
       type: array
       label: "Additional elements"
