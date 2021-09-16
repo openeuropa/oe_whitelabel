@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Template for a facet summary item list.
+ */
+#}
+{%- if items -%}
+  {%- for item in items -%}
+    {% if item.value['#type'] == 'link' %}
+      {{ pattern('badge', {
+        'label': item.value['#title']['#value'],
+        'assistive_text': assistive_text,
+        'url': item.value['#url'],
+        'dismissible': true,
+        'attributes': item.attributes,
+        'icons_path': bcl_icon_path,
+      }) }}
+    {% endif %}
+  {%- endfor -%}
+{% endif %}
+
