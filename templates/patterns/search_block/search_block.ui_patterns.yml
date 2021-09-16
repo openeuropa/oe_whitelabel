@@ -1,0 +1,53 @@
+search_block:
+  label: Search Block
+  description: Display search block.
+  fields:
+    label:
+      label: "Label"
+      type: text
+      description: "Input label"
+      preview: "Search"
+    form_attributes:
+      label: "Form attributes"
+      type: array
+      description: 'Form attributes'
+      preview:
+        method: "GET"
+    form_classes:
+      label: "Extra form classes"
+      type: "text"
+    form_action:
+      label: "Form action"
+      type: "text"
+      preview: "#"
+    input_classes:
+      type: text
+      label: "Additional input wrapper classes"
+      preview: ""
+    placeholder:
+      type: text
+      label: "Search"
+      preview: "search text"
+    button_classes:
+      type: text
+      label: "Additional button classes"
+      preview: ""
+    button_label:
+      type: text
+      label: "Button label"
+      preview: "Submit"
+    button_type:
+      type: text
+      label: "Button type"
+      preview: "submit"
+    button_icon:
+      type: text
+      label: "Icon name"
+      preview: "search"
+    icon_position:
+      type: text
+      label: "Icon position"
+      preview: "before"
+    additional_elements:
+      type: array
+      label: "Additional elements"
