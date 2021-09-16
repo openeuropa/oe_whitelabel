@@ -22,7 +22,7 @@ search_block:
       preview: "#"
     input_classes:
       type: text
-      label: "Additional input classes"
+      label: "Additional input wrapper classes"
       preview: ""
     placeholder:
       type: text

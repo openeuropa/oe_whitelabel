@@ -19,7 +19,7 @@
 {% set attributes = attributes.addClass('row row-cols-lg-auto g-3 align-items-center') %}
 
 {% if form_classes is not empty %}
-  {% set attributes = attributes.addClass() %}
+  {% set attributes = attributes.addClass(form_classes) %}
 {% endif %}
 
 {% if form_attributes is not empty and form_attributes is iterable %}
@@ -38,6 +38,10 @@
     'horizontal_class': input_classes
   } %}
   {% set attributes = create_attribute()  %}
+
+  {% if button_classes is not empty %}
+    {% set attributes = attributes.addClass(button_classes) %}
+  {% endif %}
   {% include '@oe-bcl/bcl-button/button.html.twig' with {
     'label': button_label,
     'icon': _icon,
