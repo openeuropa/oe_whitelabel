@@ -1,0 +1,17 @@
+{% if sections is defined and sections is not empty and sections is iterable %}
+  {% for section in sections %}
+    <h4>{{ section.title }}</h4>
+    {% if section.links is defined and section.links is not empty and section.links is iterable %}
+      <ul class="nav flex-column">
+        {% for link in section.links %}
+          <li class="nav-item">{{ pattern('link', {
+              label: link.label,
+              path: link.path|render,
+              icon: link.icon,
+              icon_position: link.icon_position
+            }) }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endfor %}
+{% endif %}

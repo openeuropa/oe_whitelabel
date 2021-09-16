@@ -1,0 +1,48 @@
+{#
+/**
+ * @file
+ * Default theme implementation for rendering corporate blocks footer.
+ *
+ * Available variables:
+ * - site_owner: Site's owner.
+ * - site_specific_footer: Array (optional) with structure of the site specific footer compatible with the ECL ec-components-footer component.
+ *   - site_identity: Site identity for custom footer.
+ *   - social_links: Social media links for custom footer.
+ *   - other_links: Other links for custom footer.
+ * - corporate_footer: Array with structure of corporate footer compatible with the ECL ec-components-footer component.
+ *   - corporate_site_link: Corporate site link.
+ *   - class_navigation: Provides the user with navigation through class names.
+ *   - service_navigation: Contains services links - consistent throughout the family sites.
+ *   - legal_navigation: Contains legal information links - consistent throughout the family sites.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% block content %}
+
+  {% set _bottom_sections = [
+    {
+      'section_id': 'ec_footer_bottom_left',
+      'title': {
+        'link': {
+          'label': site_specific_footer.site_identity,
+          'path': url('<front>')|render,
+        }
+      }
+    },
+    {
+      'section_id': 'ec_footer_bottom_middle',
+      'links': bcl_footer_links(corporate_footer.service_navigation),
+    },
+    {
+      'section_id': 'ec_footer_bottom_right',
+      'links': bcl_footer_links(corporate_footer.legal_navigation)
+    }
+  ] %}
+
+  {{ pattern('footer', {
+    'bottom_sections': _bottom_sections,
+  }) }}
+
+{% endblock %}

@@ -4,8 +4,20 @@
  * icon.
  */
 #}
-{% include '@oe-bcl/bcl-icon/icon.html.twig' with {
-  'name': 'person-fill',
-  'path': bcl_icon_path,
-  'size': 'm',
-} %} {{ content }}
+{% set extra_attributes = create_attribute() %}
+{% set extra_attributes = extra_attributes.addClass('nav-link') %}
+
+<ul class="nav oe-authentication">
+  <li class="nav-item">
+    {{ pattern('link', {
+      label: content['#title']|render,
+      path: content['#url']|render,
+      icon: {
+        name: 'person-fill',
+        size: 's'
+      },
+      icon_position: 'before',
+      attributes: extra_attributes
+    }) }}
+  </li>
+</ul>

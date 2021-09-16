@@ -1,0 +1,10 @@
+footer:
+  label: Footer
+  description: Footer for oe_corporate blocks
+  fields:
+    top_sections:
+      type: array
+      label: Sections in the footer
+    bottom_sections:
+      type: array
+      label: Sections in the footer

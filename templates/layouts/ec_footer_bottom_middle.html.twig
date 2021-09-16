@@ -1,0 +1,7 @@
+{% if links is defined and links is not empty and links is iterable %}
+<ul class="nav flex-column">
+  {% for link in links %}
+    <li class="nav-item">{{ pattern('link', link) }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
