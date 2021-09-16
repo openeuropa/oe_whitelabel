@@ -43,7 +43,7 @@ search_block:
     button_icon:
       type: text
       label: "Icon name"
-      preview: "Search"
+      preview: "search"
     icon_position:
       type: text
       label: "Icon position"

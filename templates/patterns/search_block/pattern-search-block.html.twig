@@ -4,12 +4,14 @@
  * Default theme implementation for a 'search form' composition.
  */
 #}
-{% set _icon = {
-    name: button_icon,
-    path: bcl_icon_path,
-    size: 'fluid'
-}
-%}
+{% if button_icon is not empty %}
+  {% set _icon = {
+      name: button_icon,
+      path: bcl_icon_path,
+      size: 'fluid'
+  }
+  %}
+{% endif %}
 {% if attributes is empty %}
   {% set attributes = create_attribute() %}
 {% endif %}
