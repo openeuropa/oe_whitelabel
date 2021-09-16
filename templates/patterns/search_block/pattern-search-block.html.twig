@@ -4,14 +4,6 @@
  * Default theme implementation for a 'search form' composition.
  */
 #}
-{% if button_icon %}
-  {% set _icon = {
-      name: button_icon,
-      path: bcl_icon_path,
-      size: 'fluid'
-    }
-  %}
-{% endif %}
 {% if attributes is empty %}
   {% set attributes = create_attribute() %}
 {% endif %}
@@ -23,9 +15,12 @@
     }
     %}
     <button class="btn btn-primary btn-md" type="submit">
-      <svg class="bi icon--s">
-        <use xlink:href="{{ _icon.path ~ "#" ~ _icon.name }}"/>
-      </svg>
+    {% set attributes = attributes.setAttribute('href', _path) %}
+      {% include '@oe-bcl/bcl-icon/icon.html.twig' with {
+        name: button_icon,
+      path: bcl_icon_path,
+      size: 'fluid'
+      } %}
       Submit
     </button>
 </form>
