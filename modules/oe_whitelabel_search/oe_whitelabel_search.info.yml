@@ -1,0 +1,8 @@
+name: OpenEuropa Whitelabel Search
+type: module
+description: OpenEuropa Whitelabel Search alter tools.
+package: OpenEuropa Whitelabel Theme
+core_version_requirement: ^8.9 || ^9.1
+dependencies:
+  - search_api:search_api
+  - drupal:views

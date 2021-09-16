@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * This is the module to alter the search results on whitelabel.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_preprocess().
+ */
+function oe_whitelabel_search_preprocess(&$variables, $hook) {
+  // Removing the title.
+  if (isset($variables['view_mode']) && $variables['view_mode'] == 'search_result') {
+    unset($variables['label']);
+  }
+}
