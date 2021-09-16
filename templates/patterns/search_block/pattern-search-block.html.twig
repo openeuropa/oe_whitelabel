@@ -4,6 +4,12 @@
  * Default theme implementation for a 'search form' composition.
  */
 #}
+{% set _icon = {
+    name: button_icon,
+    path: bcl_icon_path,
+    size: 'fluid'
+}
+%}
 {% if attributes is empty %}
   {% set attributes = create_attribute() %}
 {% endif %}
@@ -20,12 +26,11 @@
       'horizontal_class': input_classes
     }
     %}
-    <button class="btn btn-primary btn-md {{ button_classes }}" type="submit">
-      {% include '@oe-bcl/bcl-icon/icon.html.twig' with {
-        name: button_icon,
-        path: bcl_icon_path,
-        size: 'fluid'
-      } %}
-      {{ button_label }}
-    </button>
+    {% include '@oe-bcl/bcl-button/button.html.twig' with {
+      'label': button_label,
+      'icon': _icon,
+      'icon_position': icon_position,
+      'type': button_type
+    }
+    %}
 </form>

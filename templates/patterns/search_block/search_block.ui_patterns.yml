@@ -30,10 +30,18 @@ search_block:
       type: text
       label: "Button label"
       preview: "Submit"
+    button_type:
+      type: text
+      label: "Button type"
+      preview: "submit"
     button_icon:
       type: text
       label: "Icon name"
       preview: "Search"
+    icon_position:
+      type: text
+      label: "Icon position"
+      preview: "before"
     additional_elements:
       type: array
       label: "Additional elements"
