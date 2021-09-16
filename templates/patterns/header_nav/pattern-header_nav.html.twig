@@ -19,6 +19,14 @@
             {{ header_left }}
           </div>
           <div class="col-3">
+            {{ pattern('search_block', {
+              input_classes: 'abc',
+              placeholder: "placeholder",
+              button_classes: 'button_classes',
+              button_label: 'Search',
+              button_icon: 'x',
+              icon_position: 'top'
+            }) }}
             {{ header_right }}
           </div>
         </div>

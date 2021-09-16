@@ -13,24 +13,33 @@
 {% if attributes is empty %}
   {% set attributes = create_attribute() %}
 {% endif %}
-<form {{ attributes.addClass(form_attributes.class).setAttribute('action', form_attributes.action) }}>
 
-    {% set attributes = create_attribute()  %}
+{% set attributes = attributes.addClass('row row-cols-lg-auto g-3 align-items-center') %}
 
-    {{ additional_elements }}
+{% if form_classes is not empty %}
+  {% set attributes = attributes.addClass() %}
+{% endif %}
 
-    {% include '@oe-bcl/bcl-form-input/form-input.html.twig' with {
-      'label': label,
-      'placeholder': placeholder,
-      'horizontal': true,
-      'horizontal_class': input_classes
-    }
-    %}
-    {% include '@oe-bcl/bcl-button/button.html.twig' with {
-      'label': button_label,
-      'icon': _icon,
-      'icon_position': icon_position,
-      'type': button_type
-    }
-    %}
+{% if form_attributes is not empty and form_attributes is iterable %}
+  {%  for key,value in form_attributes %}
+    {% set attributes = attributes.setAttribute(key, value) %}
+  {% endfor %}
+{% endif %}
+
+<form {{ attributes.setAttribute('action', form_action) }}>
+  {{ additional_elements }}
+  {% set attributes = create_attribute()  %}
+  {% include '@oe-bcl/bcl-form-input/form-input.html.twig' with {
+    'label': label,
+    'placeholder': placeholder,
+    'horizontal': true,
+    'horizontal_class': input_classes
+  } %}
+  {% set attributes = create_attribute()  %}
+  {% include '@oe-bcl/bcl-button/button.html.twig' with {
+    'label': button_label,
+    'icon': _icon,
+    'icon_position': icon_position,
+    'type': button_type|default('submit')
+  } %}
 </form>

@@ -12,8 +12,14 @@ search_block:
       type: array
       description: 'Form attributes'
       preview:
-        class: "row row-cols-lg-auto g-3 align-items-center"
-        action: "#"
+        method: "GET"
+    form_classes:
+      label: "Extra form classes"
+      type: "text"
+    form_action:
+      label: "Form action"
+      type: "text"
+      preview: "#"
     input_classes:
       type: text
       label: "Additional input classes"
