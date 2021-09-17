@@ -51,3 +51,15 @@ commands:
     - { task: "process", source: "phpunit.xml.dist", destination: "phpunit.xml" }
   setup:behat:
     - { task: "process", source: "behat.yml.dist", destination: "behat.yml" }
+
+release:
+  tasks:
+    - { task: "copy", from: "assets", to: "oe_whitelabel/assets" }
+    - task: "append"
+      file: "oe_whitelabel/oe_whitelabel.info.yml"
+      text: |
+
+        # Information added by OpenEuropa packaging script on ${release.date} at ${release.time}.
+        project: oe_whitelabel
+        version: ${release.version}
+        datestamp: ${release.timestamp}
