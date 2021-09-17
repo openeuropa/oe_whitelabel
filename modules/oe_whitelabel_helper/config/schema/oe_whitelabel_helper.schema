@@ -1,0 +1,19 @@
+block.settings.whitelabel_search_block:
+  type: block_settings
+  label: 'OE Whitelabel search block'
+  mapping:
+    button:
+      type: mapping
+      label: Button
+      mapping:
+        label:
+          type: mapping
+          label: Label
+          mapping:
+            submit:
+              type: string
+              label: Submit
+            reset:
+              type: string
+              label: Clear filters
+

@@ -20,6 +20,10 @@ search_block:
       label: "Form action"
       type: "text"
       preview: "#"
+    input_name:
+      type: text
+      label: "The name for the input."
+      preview: ""
     input_classes:
       type: text
       label: "Additional input wrapper classes"

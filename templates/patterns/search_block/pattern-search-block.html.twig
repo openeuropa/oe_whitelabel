@@ -28,9 +28,13 @@
   {% endfor %}
 {% endif %}
 
+{% set attributes = attributes.setAttribute('method', 'get') %}
+
 <form {{ attributes.setAttribute('action', form_action) }}>
   {{ additional_elements }}
   {% set attributes = create_attribute()  %}
+  {% set attributes = attributes.setAttribute('name', input_name) %}
+
   {% include '@oe-bcl/bcl-form-input/form-input.html.twig' with {
     'label': label,
     'placeholder': placeholder,
