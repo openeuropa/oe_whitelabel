@@ -22,20 +22,18 @@
 {% set extra_attributes = extra_attributes.setAttribute('data-bs-target', '#' ~ _language.link.target) %}
 {% set extra_attributes = extra_attributes.addClass('nav-link') %}
 
-<ul class="nav">
-  <li class="nav-item">
-    {{ pattern('link', {
-      label: _language.link.label,
-      path: _language.link.href,
-      icon: {
-        name: 'chat-left-dots-fill',
-        size: 's'
-      },
-      icon_position: 'before',
-      attributes: extra_attributes
-    }) }}
-  </li>
-</ul>
+<li class="nav-item">
+  {{ pattern('link', {
+    label: _language.link.label,
+    path: _language.link.href,
+    icon: {
+      name: 'chat-left-dots-fill',
+      size: 's'
+    },
+    icon_position: 'before',
+    attributes: extra_attributes
+  }) }}
+</li>
 
 {% include '@oe_whitelabel/patterns/modal/modal-language.html.twig' with _language.modal only %}
 

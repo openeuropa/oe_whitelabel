@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme override to display a block.
+ * Default theme implementation to display a block.
  *
  * Available variables:
  * - plugin_id: The ID of the block implementation.
@@ -23,26 +23,28 @@
  *   displayed after the main title tag that appears in the template.
  *
  * @see template_preprocess_block()
+ *
+ * @ingroup themeable
  */
 #}
+{% set has_results_count = false %}
+{% if content['#items'][0]['#theme'] is defined and content['#items'][0]['#theme'] == 'facets_summary_count' %}
+  {% set results_count = content['#items'][0]['#count'] %}
+  {% set has_results_count = true %}
+{% endif %}
 
-{%
-  set classes = [
-    'block',
-    'block-' ~ configuration.provider|clean_class,
-    'block-' ~ plugin_id|clean_class,
-    'mb-3',
-    'clearfix',
-  ]
-%}
-
-<div{{ attributes.addClass(classes) }}>
+{% block content %}
+  {% spaceless %}
   {{ title_prefix }}
   {% if label %}
-    <h2{{ title_attributes }}>{{ label }}</h2>
+    <h4 class="mb-4">
+      {{ label }}
+      {% if has_results_count %}
+        <span class="source-summary-count">({{ results_count }})</span>
+      {% endif %}
+    </h4>
   {% endif %}
   {{ title_suffix }}
-  {% block content %}
-    {{ content|without('text') }}
-  {% endblock %}
-</div>
+  {{ content }}
+  {% endspaceless %}
+{% endblock %}

@@ -2,6 +2,19 @@ header_nav:
   label: Header Navigation
   description: A navigation section for the header
   fields:
+    navbar_branding:
+      type: array
+      label: "Brand title"
+      description: "Your company, product, or project name."
+      preview:
+        - type: html_tag
+          tag: span
+          value: "Brand"
+    navbar_right:
+      type: array
+      label: Text
+      description: "Vertically centered strings of text."
+      preview: "Navbar text with an inline element"
     header_top:
       type: array
       label: 'Header Top'

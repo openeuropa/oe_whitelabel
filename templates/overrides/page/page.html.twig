@@ -48,45 +48,40 @@
  */
 #}
 <div class="page">
-
-  {{ pattern('navbar', {
-    navbar_branding: page.navbar_branding ? page.navbar_branding : false,
-    navbar_left: page.navbar_left ? page.navbar_left : false,
-    navbar_right: page.navbar_right ? page.navbar_right : false,
-    style: 'light'
-  }) }}
-
   {{ pattern('header_nav', {
+    navbar_branding: page.navbar_branding,
+    navbar_right: page.navbar_right,
     header_top: page.header_top,
     header_left: page.header_left,
     header_right: page.header_right
   }) }}
 
-  <main class="pt-5 pb-5">
+  <main>
     {% if page.header %}
-      <header class="page__header mb-3">
-        <div class="container">
-          {{ page.header }}
-        </div>
-      </header>
+    <div class="container mt-2">
+    {% else %}
+    <div class="container mt-5">
     {% endif %}
-
-    <div class="container">
       <div class="row">
+        {% if page.header %}
+          {{ page.header }}
+        {% endif %}
+
         {% if page.sidebar_left %}
           <div class="col-md-3">
             {{ page.sidebar_left }}
           </div>
         {% endif %}
 
-        {% if page.sidebar_right %}
-            <div class="container">
-              {{ page.sidebar_right }}
+        {% if page.content or page.content_top %}
+          <div class="col-12 col-lg-9">
+            {% if page.content_top %}
+            <div class="mb-3 clearfix">
+              {{ page.content_top }}
             </div>
-        {% endif %}
+            <hr class="d-none d-md-block mb-4">
+            {% endif %}
 
-        {% if page.content %}
-          <div class="page__content col-12 col-lg-9">
             {{ page.content }}
           </div>
         {% endif %}
