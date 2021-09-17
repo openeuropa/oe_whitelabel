@@ -35,6 +35,8 @@
  * - page.header_left: Items for the navbar right region.
  * - page.header_right: Items for the navbar right region.
  * - page.header: Items for the header region.
+ * - page.sidebar_left: Items for the sidebar left region.
+ * - page.sidebar_right: Items for the sidebar right region.
  * - page.content: The main content of the current page.
  * - page.page_bottom: The content of the current page.
  * - page.footer: Items for the footer region.
@@ -45,7 +47,6 @@
  * @ingroup themeable
  */
 #}
-
 <div class="page">
 
   {{ pattern('navbar', {
@@ -70,13 +71,27 @@
       </header>
     {% endif %}
 
-    {% if page.content %}
-      <div class="page__content">
-        <div class="container">
-          {{ page.content }}
-        </div>
-      </div>
-    {% endif %}
+    <div class="container">
+      <div class="row">
+        {% if page.sidebar_left %}
+          <div class="col-md-3">
+            {{ page.sidebar_left }}
+          </div>
+        {% endif %}
+
+        {% if page.sidebar_right %}
+            <div class="container">
+              {{ page.sidebar_right }}
+            </div>
+        {% endif %}
+
+        {% if page.content %}
+          <div class="page__content col-12 col-lg-9">
+            {{ page.content }}
+          </div>
+        {% endif %}
+     </div>
+    </div>
   </main>
 
   {% if page.footer %}

@@ -25,6 +25,8 @@ regions:
   header_left: Header left
   header_right: Header right
   header: Header
+  sidebar_left:  Sidebar left
+  sidebar_right: Sidebar right
   content: Content
   page_bottom: Page bottom
   footer: Footer
