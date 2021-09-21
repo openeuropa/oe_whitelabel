@@ -28,15 +28,14 @@
 
 {%
   set classes = [
-    'block',
-    'block-' ~ configuration.provider|clean_class,
-    'block-' ~ plugin_id|clean_class,
-    'float-end',
-    'd-none',
-    'd-md-block'
-  ]
+  'block',
+  'block-' ~ configuration.provider|clean_class,
+  'block-' ~ plugin_id|clean_class,
+  'float-end',
+  'd-none',
+  'd-md-block'
+]
 %}
-
 <div{{ attributes.addClass(classes) }}>
   {{ title_prefix }}
   {% if label %}
@@ -44,6 +43,6 @@
   {% endif %}
   {{ title_suffix }}
   {% block content %}
-    {{ content|without('text') }}
+    {{ content }}
   {% endblock %}
 </div>
