@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Template for a full pager.
+ */
+#}
+{% if items %}
+  {% set previous =  items.previous ? {'label':  items.previous.text, 'path': items.previous.href } : {} %}
+  {% set next = items.next ? {'label':  items.next.text, 'path': items.next.href } : {} %}
+  {% set pages = {} %}
+  {% for key, item in items.pages %}
+    {% set values = { 'label': key, 'path': item.href } %}
+    {% if current == key %}
+      {% set values = values|merge({ 'active': true }) %}
+    {% endif %}
+    {% set pages = pages|merge([values]) %}
+  {% endfor %}
+  {% block content %}
+    <hr class="mb-5">
+    {{ pattern('pagination', {
+      items: pages,
+      alignment: 'center',
+      prev: previous,
+      next: next
+    }) }}
+  {% endblock %}
+{% endif %}

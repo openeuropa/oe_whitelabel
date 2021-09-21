@@ -83,7 +83,8 @@ class CorporateEuLogoBlock extends BlockBase implements ContainerFactoryPluginIn
     $image = [
       '#theme' => 'image',
       '#uri' => $logo_path . '/logo-eu--' . $language . '.svg',
-      '#width' => '290px',
+      '#width' => '240px',
+      '#height' => '60px',
       '#alt' => $title,
       '#title' => $title,
     ];

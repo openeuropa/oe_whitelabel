@@ -83,7 +83,8 @@ class CorporateEcLogoBlock extends BlockBase implements ContainerFactoryPluginIn
     $build = [
       '#theme' => 'image',
       '#uri' => $logo_path . '/logo-ec--' . $language . '.svg',
-      '#width' => '290px',
+      '#width' => '240px',
+      '#height' => '60px',
       '#alt' => $title,
       '#title' => $title,
     ];
