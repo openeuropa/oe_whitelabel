@@ -5,13 +5,12 @@ declare(strict_types = 1);
 namespace Drupal\oe_whitelabel_helper\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Url;
+use Drupal\oe_whitelabel_helper\Form\SearchForm;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Language\LanguageManagerInterface;
 
 /**
  * Exposes a block with EC logo (Corporate Block).
@@ -25,18 +24,18 @@ use Drupal\Core\Language\LanguageManagerInterface;
 class WhitelabelSearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
+   * The form builder service.
+   *
+   * @var \Drupal\Core\Form\FormBuilderInterface
+   */
+  protected $formBuilder;
+
+  /**
    * The config factory.
    *
    * @var \Drupal\Core\Language\LanguageManagerInterface
    */
   protected $configFactory;
-
-  /**
-   * The language manager.
-   *
-   * @var \Drupal\Core\Language\LanguageInterface
-   */
-  protected $languageManager;
 
   /**
    * Construct CorporateEcLogoBlock object.
@@ -49,13 +48,13 @@ class WhitelabelSearchBlock extends BlockBase implements ContainerFactoryPluginI
    *   The plugin implementation definition.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory.
-   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
-   *   The language manager.
+   * @param \Drupal\Core\Form\FormBuilderInterface $form_builder
+   *   The form builder service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, LanguageManagerInterface $language_manager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, FormBuilderInterface $form_builder) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->configFactory = $config_factory;
-    $this->languageManager = $language_manager;
+    $this->formBuilder = $form_builder;
   }
 
   /**
@@ -67,7 +66,7 @@ class WhitelabelSearchBlock extends BlockBase implements ContainerFactoryPluginI
       $plugin_id,
       $plugin_definition,
       $container->get('config.factory'),
-      $container->get('language_manager')
+      $container->get('form_builder')
     );
   }
 
@@ -178,35 +177,7 @@ class WhitelabelSearchBlock extends BlockBase implements ContainerFactoryPluginI
    * {@inheritdoc}
    */
   public function build(): array {
-    $language = $this->languageManager->getCurrentLanguage()->getId();
-    $cache = new CacheableMetadata();
-    $cache->addCacheContexts(['languages:language_interface']);
-    $config = $this->getConfiguration();
-    $action = Url::fromUri($config['form']['action'], [
-      'language' => $language,
-      'absolute' => TRUE,
-    ])->toString();
-    $build['search_block'] = [
-      '#type' => 'pattern',
-      '#id' => 'search_block',
-      '#fields' => [
-        'form_action' => $action,
-        'form_classes' => $config['form']['classes'],
-        'label' => $config['input']['label'],
-        'input_classes' => $config['input']['classes'],
-        'input_name' => $config['input']['name'],
-        'placeholder' => $config['input']['placeholder'],
-        'button_label' => $config['button']['label'],
-        'button_classes' => $config['button']['classes'],
-        'button_type' => $config['button']['type'],
-        'button_icon' => $config['button']['icon']['name'],
-        'icon_position' => $config['button']['icon']['position'],
-      ],
-    ];
-
-    $cache->applyTo($build);
-
-    return $build;
+    return $this->formBuilder->getForm(SearchForm::class, $this->getConfiguration());
   }
 
 }
