@@ -16,9 +16,7 @@
  * @ingroup themeable
  */
 #}
-{% set attributes = create_attribute() %}
-{% set attributes = attributes.addClass('me-2') %}
-
+{% set attributes = create_attribute({'class': ['me-2']}) %}
 {{ pattern('badge', {
   'label': value,
   'assistive_text': assistive_text,
