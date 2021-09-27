@@ -16,10 +16,11 @@
  * @ingroup themeable
  */
 #}
-
+{% set attributes = create_attribute({'class': ['me-2']}) %}
 {{ pattern('badge', {
   'label': value,
   'assistive_text': assistive_text,
   'dismissible': true,
   'icons_path': bcl_icon_path,
+  'attributes': attributes
 }) }}
