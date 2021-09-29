@@ -47,6 +47,12 @@
  * @ingroup themeable
  */
 #}
+{%
+  set grid_classes = [
+    'col-12',
+    page.sidebar_left ? 'col-lg-9',
+  ]
+%}
 <div class="page">
   {{ pattern('header_nav', {
     navbar_branding: page.navbar_branding,
@@ -74,7 +80,7 @@
         {% endif %}
 
         {% if page.content or page.content_top %}
-          <div class="col-12 col-lg-9">
+          <div{{ attributes.addClass(grid_classes) }}>
             {% if page.content_top %}
             <div class="mb-3 clearfix">
               {{ page.content_top }}

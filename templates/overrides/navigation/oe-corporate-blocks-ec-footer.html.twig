@@ -20,7 +20,7 @@
 #}
 
 {% block content %}
-
+<div class="mt-5">
   {% set _bottom_sections = [
     {
       'section_id': 'ec_footer_bottom_left',
@@ -44,5 +44,5 @@
   {{ pattern('footer', {
     'bottom_sections': _bottom_sections,
   }) }}
-
+</div>
 {% endblock %}
