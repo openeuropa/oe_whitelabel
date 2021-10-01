@@ -27,24 +27,20 @@
  * @ingroup themeable
  */
 #}
-{% set has_results_count = false %}
-{% if content['#items'][0]['#theme'] is defined and content['#items'][0]['#theme'] == 'facets_summary_count' %}
-  {% set results_count = content['#items'][0]['#count'] %}
-  {% set has_results_count = true %}
+{% if label and content['#items'][0]['#theme'] is defined and content['#items'][0]['#theme'] == 'facets_summary_count' %}
+  {% set results_count = content['#items'][0] %}
+  {% set content = content['#items']|slice(1) %}
 {% endif %}
-
 {% block content %}
   {% spaceless %}
-  {{ title_prefix }}
-  {% if label %}
-    <h4 class="mb-4">
-      {{ label }}
-      {% if has_results_count %}
-        <span class="source-summary-count">({{ results_count }})</span>
-      {% endif %}
-    </h4>
-  {% endif %}
-  {{ title_suffix }}
-  {{ content }}
+    {{ title_prefix }}
+    {% if label %}
+      <h4 class="mb-4">
+        {{ label }}
+        {{ results_count }}
+      </h4>
+    {% endif %}
+    {{ title_suffix }}
+    {{ content }}
   {% endspaceless %}
 {% endblock %}

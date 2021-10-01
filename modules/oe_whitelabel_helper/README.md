@@ -23,6 +23,7 @@ The language switcher block is themed out of the box.
 To be able to enable this module you will have to provide the dependent modules in your projects composer.json
 
 ```
+composer require openeuropa/oe_corporate_blocks
 composer require openeuropa/oe_authentication
 composer require openeuropa/oe_multilingual
 ```

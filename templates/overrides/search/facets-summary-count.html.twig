@@ -1,1 +1,9 @@
-{# Empty file, see block--facets-summary-block.html.twig #}
+{#
+/**
+ * @file
+ * Default theme implementation to show facets summary count.
+ */
+#}
+{% if count %}
+  <span class="source-summary-count">({{ count }})</span>
+{% endif %}
