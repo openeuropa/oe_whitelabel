@@ -45,8 +45,9 @@ class SearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, array $config = NULL): array {
+    // @TODO: style the form and form elements, using classes to appear like the one in the bcl.
     $form_state->set('oe_whitelabel_search_config', $config);
-    $form['#attributes']['class'][] = $config['form']['classes'];
+    // @todo: add bcl form classses: $form['#attributes']['class'][] = '...'
     $form[$config['input']['name']] = [
       '#type' => 'search_api_autocomplete',
       // The view id.
@@ -56,7 +57,6 @@ class SearchForm extends FormBase {
         'filter' => $config['input']['name'],
       ],
       '#attributes' => [
-        'class' => [$config['input']['classes']],
         'placeholder' => $config['input']['placeholder'],
       ],
     ];
@@ -64,9 +64,6 @@ class SearchForm extends FormBase {
       '#type' => 'submit',
       '#name' => FALSE,
       '#value' => $config['button']['label'],
-      '#attributes' => [
-        'class' => [$config['button']['classes']],
-      ],
     ];
 
     return $form;
@@ -86,6 +83,8 @@ class SearchForm extends FormBase {
       ],
     ]);
     $form_state->setRedirectUrl($url);
+    // FYI: should redirect to something like search?text=tralaala,
+    // where `search`is the form.action and `text` is the input.name.
   }
 
   /**

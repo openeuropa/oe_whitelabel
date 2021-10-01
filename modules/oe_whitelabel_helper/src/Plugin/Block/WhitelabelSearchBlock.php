@@ -74,6 +74,7 @@ class WhitelabelSearchBlock extends BlockBase implements ContainerFactoryPluginI
    * {@inheritdoc}
    */
   public function blockForm($form, FormStateInterface $form_state): array {
+    // @todo: add block schema in config/schema/oe_whitelabel_helper.schema
     $form = parent::blockForm($form, $form_state);
     $config = $this->getConfiguration();
 
@@ -83,12 +84,6 @@ class WhitelabelSearchBlock extends BlockBase implements ContainerFactoryPluginI
       '#description' => $this->t('The url the form should submit to.'),
       '#default_value' => $config['form']['action'],
       '#required' => TRUE,
-    ];
-    $form['form_classes'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Form extra classes'),
-      '#description' => $this->t('Add string of css classes separated by space.'),
-      '#default_value' => $config['form']['classes'],
     ];
     $form['input_name'] = [
       '#type' => 'textfield',
@@ -102,12 +97,6 @@ class WhitelabelSearchBlock extends BlockBase implements ContainerFactoryPluginI
       '#title' => $this->t('Input Label'),
       '#description' => $this->t('A label text for the search input.'),
       '#default_value' => $config['input']['label'],
-    ];
-    $form['input_classes'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Input extra classes'),
-      '#description' => $this->t('Add string of css classes separated by space.'),
-      '#default_value' => $config['input']['classes'],
     ];
     $form['input_placeholder'] = [
       '#type' => 'textfield',
@@ -126,12 +115,6 @@ class WhitelabelSearchBlock extends BlockBase implements ContainerFactoryPluginI
       '#description' => $this->t('Ex: submit, button.'),
       '#default_value' => $config['button']['type'],
     ];
-    $form['button_classes'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Button extra classes'),
-      '#description' => $this->t('Add string of css classes separated by space.'),
-      '#default_value' => $config['button']['classes'],
-    ];
     $form['button_icon_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Button icon name'),
@@ -144,7 +127,8 @@ class WhitelabelSearchBlock extends BlockBase implements ContainerFactoryPluginI
       '#description' => $this->t('The position of the icon inside the button.'),
       '#default_value' => $config['button']['icon']['position'],
     ];
-
+    // @todo: add config for view_id and view display (for now simple text box and leave a todo to: load the view and display dynamically)
+    // @todo: add a checkbox to enable/disable the autocomplete in the form. Default enabled.
     return $form;
   }
 
