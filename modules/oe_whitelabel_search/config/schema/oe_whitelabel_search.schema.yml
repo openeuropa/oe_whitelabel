@@ -1,0 +1,37 @@
+block.settings.whitelabel_search_block:
+  type: block_settings
+  label: 'OE Whitelabel search block'
+  mapping:
+    form_action:
+      type: string
+      label: ‘Form Action’
+    input_name:
+      type: string
+      label: ‘Name for search input’
+    input_label:
+      type: string
+      label: ‘Input label’
+    input_placeholder:
+      type: string
+      label: ‘Input placeholder’
+    button_label:
+      type: string
+      label: ‘Button label’
+    button_type:
+      type: string
+      label: ‘Button type’
+    button_icon_name:
+      type: string
+      label: ‘Button icon name’
+    button_icon_position:
+      type: string
+      label: ‘Button icon position’
+    view_id:
+      type: string
+      label: ‘View id’
+    view_display:
+      type: string
+      label: ‘View display’
+    enable_autocomplete:
+      type: boolean
+      label: ‘Enable autocomplete’
