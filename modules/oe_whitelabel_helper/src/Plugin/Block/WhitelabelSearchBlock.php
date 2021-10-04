@@ -127,8 +127,24 @@ class WhitelabelSearchBlock extends BlockBase implements ContainerFactoryPluginI
       '#description' => $this->t('The position of the icon inside the button.'),
       '#default_value' => $config['button']['icon']['position'],
     ];
-    // @todo: add config for view_id and view display (for now simple text box and leave a todo to: load the view and display dynamically)
-    // @todo: add a checkbox to enable/disable the autocomplete in the form. Default enabled.
+    // @TODO: Load the view and display dynamically, update schema.
+    $form['view_id'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('View id'),
+      '#description' => $this->t('The view id (referenced as #search_id in the form).'),
+      '#default_value' => !empty($config['view_options']['id']) ? $config['view_options']['id'] : 'showcase_search',
+    ];
+    $form['view_display'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('View display'),
+      '#description' => $this->t('The view display.'),
+      '#default_value' => !empty($config['view_options']['display']) ? $config['view_options']['display'] : 'showcase_search_page',
+    ];
+    $form['enable_autocomplete'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable autocomplete'),
+      '#default_value' => !empty($config['view_options']['enable_autocomplete']) ? $config['view_options']['enable_autocomplete'] : 1,
+    ];
     return $form;
   }
 
@@ -138,22 +154,27 @@ class WhitelabelSearchBlock extends BlockBase implements ContainerFactoryPluginI
   public function blockSubmit($form, FormStateInterface $form_state): void {
     $this->setConfigurationValue('form', [
       'action' => $form_state->getValue('form_action'),
-      'classes' => $form_state->getValue('form_classes'),
+      // 'classes' => $form_state->getValue('form_classes'),
     ]);
     $this->setConfigurationValue('input', [
       'name' => $form_state->getValue('input_name'),
       'label' => $form_state->getValue('input_label'),
-      'classes' => $form_state->getValue('input_classes'),
+      // 'classes' => $form_state->getValue('input_classes'),
       'placeholder' => $form_state->getValue('input_placeholder'),
     ]);
     $this->setConfigurationValue('button', [
       'label' => $form_state->getValue('button_label'),
       'type' => $form_state->getValue('button_type'),
-      'classes' => $form_state->getValue('button_classes'),
+      // 'classes' => $form_state->getValue('button_classes'),
       'icon' => [
         'name' => $form_state->getValue('button_icon_name'),
         'position' => $form_state->getValue('button_icon_position'),
       ],
+    ]);
+    $this->setConfigurationValue('view_options', [
+      'id' => $form_state->getValue('view_id'),
+      'display' => $form_state->getValue('view_display'),
+      'enable_autocomplete' => $form_state->getValue('enable_autocomplete'),
     ]);
   }
 
