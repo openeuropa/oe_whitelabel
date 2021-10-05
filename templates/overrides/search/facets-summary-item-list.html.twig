@@ -23,7 +23,7 @@
 #}
 {%- if items -%}
   {%- for item in items -%}
-    {{ item }}
+    {{ item.value }}
   {%- endfor -%}
 {%- else -%}
   {{- empty -}}
