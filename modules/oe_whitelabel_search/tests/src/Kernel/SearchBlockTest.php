@@ -5,8 +5,6 @@ declare(strict_types = 1);
 namespace Drupal\Tests\oe_whitelabel_search\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\search_api\Entity\Index;
-use Drupal\search_api\Entity\Server;
 use Drupal\search_api_autocomplete\Entity\Search;
 use Drupal\views\Entity\View;
 use Symfony\Component\DomCrawler\Crawler;
