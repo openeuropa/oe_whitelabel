@@ -56,12 +56,12 @@ class SearchForm extends FormBase {
     ];
     if ($enable_autocomplete) {
       $form['search_input']['#type'] = 'search_api_autocomplete';
-        // The view id.
-      $form['search_input']['#search_id'] = $config['view_options']['id'] ??  $config['view_id'];
+      // The view id.
+      $form['search_input']['#search_id'] = $config['view_options']['id'] ?? $config['view_id'];
       $form['search_input']['#additional_data'] = [
-          'display' => $config['view_options']['display'] ?? $config['view_display'],
-          'filter' => $config['input']['name'] ?? $config['input_name'],
-        ];
+        'display' => $config['view_options']['display'] ?? $config['view_display'],
+        'filter' => $config['input']['name'] ?? $config['input_name'],
+      ];
     }
 
     $form['submit'] = [
@@ -82,13 +82,13 @@ class SearchForm extends FormBase {
     $language = $this->languageManager->getCurrentLanguage();
     $config = $form_state->get('oe_whitelabel_search_config');
     $url =
-      Url::fromUri('internal:' .  $config['form']['action'], [
-      'language' => $language,
-      'absolute' => TRUE,
-      'query' => [
-        $config['input']['name'] => $form_state->getValue($config['input']['name']),
-      ],
-    ]);
+      Url::fromUri('internal:' . $config['form']['action'], [
+        'language' => $language,
+        'absolute' => TRUE,
+        'query' => [
+          $config['input']['name'] => $form_state->getValue($config['input']['name']),
+        ],
+      ]);
     $form_state->setRedirectUrl($url);
   }
 
