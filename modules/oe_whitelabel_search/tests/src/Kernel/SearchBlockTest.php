@@ -57,8 +57,6 @@ class SearchBlockTest extends KernelTestBase {
     $this->installConfig([
       'search_api_db',
       'search_api_test_example_content',
-//      'search_api_test_db',
-//      'search_api_db_test_autocomplete',
       'search_api_autocomplete_test',
     ]);
 
