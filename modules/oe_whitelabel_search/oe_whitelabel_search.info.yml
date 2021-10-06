@@ -4,7 +4,6 @@ description: OpenEuropa Whitelabel searchbox block, plugin and template.
 package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^8.9 || ^9.1
 dependencies:
-  - oe_whitelabel_helper:oe_whitelabel_helper
   - search_api:search_api
   - search_api_db:search_api_db
   - search_api_autocomplete:search_api_autocomplete
