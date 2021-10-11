@@ -8,6 +8,6 @@ This module offers a searchbox block handled by a plugin.
 
 ##Instructions:
  - Enable the module.
- - Go to  admin/structure/block.
+ - Go to admin/structure/block.
  - Place the "Whitelabel Search Block".
  - Configure accordingly.
