@@ -7,8 +7,6 @@
 
 declare(strict_types = 1);
 
-use Drupal\Core\Form\FormStateInterface;
-
 /**
  * Implements hook__preprocess_links__language_block().
  */
@@ -65,23 +63,4 @@ function oe_whitelabel_preprocess_links__language_block(&$variables) {
       'label' => t('Close'),
     ],
   ];
-}
-
-/**
- * Implements hook_form_alter().
- */
-function oe_whitelabel_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if (isset($form['actions'])) {
-    $form['actions']['#attributes']['class'][] = 'mt-4';
-  }
-  if (isset($form['actions']['submit'])) {
-    $form['actions']['submit']['#attributes']['class'][] = 'me-2';
-    array_push($form['actions']['submit']['#attributes']['class'], 'btn', 'btn-primary');
-    $form['actions']['submit']['#attributes']['class'] = array_unique($form['actions']['submit']['#attributes']['class']);
-  }
-  if (isset($form['actions']['reset'])) {
-    $form['actions']['reset']['#attributes']['class'][] = 'btn';
-    $form['actions']['reset']['#attributes']['class'][] = 'btn-secondary';
-    $form['actions']['reset']['#attributes']['class'] = array_unique($form['actions']['reset']['#attributes']['class']);
-  }
 }
