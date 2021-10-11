@@ -10,3 +10,7 @@ dependencies:
 
 themes:
   - oe_whitelabel
+
+config_devel:
+  install:
+    - block.block.whitelabelsearchblock
