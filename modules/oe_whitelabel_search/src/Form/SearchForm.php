@@ -89,7 +89,7 @@ class SearchForm extends FormBase {
         'language' => $language,
         'absolute' => TRUE,
         'query' => [
-          $config['input']['name'] => $form_state->getValue($config['input']['name']),
+          $config['input']['name'] => $form_state->getValue("search_input"),
         ],
       ]);
     $form_state->setRedirectUrl($url);
