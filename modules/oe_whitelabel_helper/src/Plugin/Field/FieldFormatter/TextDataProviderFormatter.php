@@ -34,9 +34,11 @@ class TextDataProviderFormatter extends FormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $element = [
-      'content' => substr(strip_tags($items[0]->value), 0, 500),
-      // @TODO: Set these values in config form.
-       'classes' => 'mb-4',
+      '#fields' => [
+        'content' => substr(strip_tags($items[0]->value), 0, 500),
+        // @TODO: Set these values in config form.
+        'classes' => 'mb-4',
+      ],
     ];
 
     return $element;

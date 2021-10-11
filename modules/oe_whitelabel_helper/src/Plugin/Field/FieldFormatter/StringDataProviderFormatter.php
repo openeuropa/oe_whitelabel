@@ -34,10 +34,12 @@ class StringDataProviderFormatter extends FormatterBase {
     $element = [];
 
     $element = [
-      'content' => $items[0]->value,
-      // @TODO: Set these values in config form.
-      // 'tag' =>
-      // 'classes' =>
+      '#fields' => [
+        'content' => $items[0]->value,
+        // @TODO: Set these values in config form.
+        'tag' => 'h5',
+        'classes' => 'mb-4',
+      ]
     ];
 
     return $element;

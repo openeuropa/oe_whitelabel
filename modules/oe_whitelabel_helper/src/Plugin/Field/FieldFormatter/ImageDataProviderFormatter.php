@@ -32,7 +32,6 @@ class ImageDataProviderFormatter extends ImageFormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $element = [];
-//    $defs = \Drupal::service('plugin.manager.field.field_type')->getDefinitions();
 
     // @TODO: Add caching.
     /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $items */
@@ -47,8 +46,10 @@ class ImageDataProviderFormatter extends ImageFormatterBase {
     // @TODO: Add image style in config form.
     $url = file_url_transform_relative($url);
     $element = [
-      'path' => $url,
-      'alt' => $items->getValue()[0]['alt'],
+      '#fields' => [
+        'path' => $url,
+        'alt' => $items->getValue()[0]['alt'],
+      ],
     ];
 
     return $element;
