@@ -48,11 +48,14 @@ class SearchForm extends FormBase {
     $form_state->set('oe_whitelabel_search_config', $config);
     $enable_autocomplete = $config['view_options']['enable_autocomplete'] ?? $config['enable_autocomplete'];
     $form['#action'] = $config['form']['action'] ?? $config['form_action'];
+    $parameter = \Drupal::request()->get($config['input']['name']);
     $form['search_input'] = [
       '#type' => 'textfield',
       '#attributes' => [
         'placeholder' => $config['input']['placeholder'] ?? $config['input_placeholder'],
       ],
+      '#default_value' => $parameter ?? '',
+      '#required' => TRUE,
     ];
     if ($enable_autocomplete) {
       $form['search_input']['#type'] = 'search_api_autocomplete';
@@ -82,7 +85,7 @@ class SearchForm extends FormBase {
     $language = $this->languageManager->getCurrentLanguage();
     $config = $form_state->get('oe_whitelabel_search_config');
     $url =
-      Url::fromUri('internal:' . $config['form']['action'], [
+      Url::fromUri('base:' . $config['form']['action'], [
         'language' => $language,
         'absolute' => TRUE,
         'query' => [
