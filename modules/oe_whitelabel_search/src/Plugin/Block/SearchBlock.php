@@ -198,14 +198,6 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       if (!$view || !$view->getDisplay($values['view_display'])) {
         $form_state->setErrorByName('', t('View id or view display not found.'));
       }
-      else {
-        $search = \Drupal::entityTypeManager()
-          ->getStorage('search_api_autocomplete_search')->load('showcase_search');
-        if (!$search->status()) {
-          $form_state->setErrorByName('', t('Autocomplete not enabled for the entered view,
-            please go to search API settings to enable it.'));
-        }
-      }
     }
   }
 
