@@ -1,38 +1,27 @@
-<header>
-  <div class="container">
-    <div class="oe-header">
-      {{ navbar_branding }}
+<header class="bcl-header">
+  <nav class="w-100 shadow-sm navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <a href="{{ url('<front>') }}"> {{ navbar_branding }} </a>
       <ul class="nav">
         {{ navbar_right }}
       </ul>
     </div>
-  </div>
-  <nav class="oe-header__navbar navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <div class="container">
-            {{ header_top }}
-          <div class="row">
-            <div class="col-9">
-              {{ header_left }}
-            </div>
-            <div class="col-3">
-              {{ header_right }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </nav>
+  <div class="bcl-header__project">
+    <div class="container">
+      {{ header_top }}
+    </div>
+    <div class="bcl-header__navbar">
+    {{ pattern('navbar', {
+      navbar_left: header_left,
+      navbar_right: header_right,
+      color_set: "light",
+      collapse_id: "navbarNavDropdown"
+    }) }}
+
+    </div>
+  </div>
+  <div class="container mt-3 d-none d-lg-block">
+    {{ breadcrumbs }}
+  </div>
 </header>

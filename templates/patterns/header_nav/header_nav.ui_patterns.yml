@@ -24,3 +24,6 @@ header_nav:
     header_right:
       type: array
       label: 'Header Right'
+    breadcrumbs:
+      type: array
+      label: 'Breadcrumbs'

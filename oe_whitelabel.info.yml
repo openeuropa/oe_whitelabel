@@ -24,6 +24,7 @@ regions:
   header_left: Header left
   header_right: Header right
   header: Header
+  breadcrumbs: Breadcrumbs
   sidebar_left:  Sidebar
   content_top: Content top
   content: Content
