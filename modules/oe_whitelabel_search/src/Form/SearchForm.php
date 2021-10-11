@@ -78,7 +78,7 @@ class SearchForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
     $language = $this->languageManager->getCurrentLanguage();
     $config = $form_state->get('oe_whitelabel_search_config');
     $url =
