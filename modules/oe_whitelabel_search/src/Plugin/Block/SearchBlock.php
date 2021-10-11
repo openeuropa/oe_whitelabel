@@ -10,6 +10,7 @@ use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\oe_whitelabel_search\Form\SearchForm;
+use Drupal\views\Entity\View;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -135,7 +136,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#type' => 'textfield',
       '#title' => $this->t('View id'),
       '#description' => $this->t('The view id (referenced as #search_id in the form).'),
-      '#default_value' => $config['view_options']['id'] ?? 'showcase_search',
+      '#default_value' => $config['view_options']['id'] ?? '',
       '#states' => [
         'visible' => [
           ':input[name="settings[enable_autocomplete]"]' => ['checked' => TRUE],
@@ -146,7 +147,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#type' => 'textfield',
       '#title' => $this->t('View display'),
       '#description' => $this->t('The view display.'),
-      '#default_value' => $config['view_options']['display'] ?? 'showcase_search_page',
+      '#default_value' => $config['view_options']['display'] ?? '',
       '#states' => [
         'visible' => [
           ':input[name="settings[enable_autocomplete]"]' => ['checked' => TRUE],
@@ -185,6 +186,17 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       'display' => $form_state->getValue('view_display'),
       'enable_autocomplete' => $form_state->getValue('enable_autocomplete'),
     ]);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function blockValidate($form, FormStateInterface $form_state) {
+    $values = $form_state->getValues();
+    $view = View::load($values['view_id']);
+    if (!$view || !$view->getDisplay($values['view_display'])) {
+      $form_state->setErrorByName('view_id', t('View id or view display not found.'));
+    }
   }
 
   /**
