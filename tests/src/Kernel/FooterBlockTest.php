@@ -81,7 +81,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $actual = $crawler->filter('#block-ecfooterblock');
     $this->assertCount(1, $actual);
     $sections = $actual->filter('.row');
-    $this->assertCount(2, $sections);
+    $this->assertCount(3, $sections);
   }
 
   /**
