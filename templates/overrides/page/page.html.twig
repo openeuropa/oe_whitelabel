@@ -97,7 +97,11 @@
   </main>
 
   {% if page.footer %}
-    <footer class="page__footer">
+    {% if "ecfooterblock" in page.footer|keys %}
+      <footer class="ec__footer bcl-footer">
+    {% else %}
+      <footer class="bcl-footer">
+    {% endif %}
       <div class="container">
         {{ page.footer }}
       </div>

@@ -8,3 +8,6 @@ footer:
     bottom_sections:
       type: array
       label: Sections in the footer
+    middle_sections:
+      type: array
+      label: Sections in the footer
