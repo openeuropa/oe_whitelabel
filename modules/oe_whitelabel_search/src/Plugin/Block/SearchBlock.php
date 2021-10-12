@@ -81,14 +81,14 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $form['form_action'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Form action'),
-      '#description' => $this->t('The url the form should submit to.'),
+      '#description' => $this->t('The url the form should submit to. Is the url of the Search API view set at the view page settings.'),
       '#default_value' => $config['form']['action'],
       '#required' => TRUE,
     ];
     $form['input_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Input name'),
-      '#description' => $this->t('A name for the search input.'),
+      '#description' => $this->t('A name for the search input. Is the Query parameter of the contextual filter used at the Search API view.'),
       '#default_value' => $config['input']['name'],
       '#required' => TRUE,
     ];
@@ -101,6 +101,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $form['input_placeholder'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Input placeholder text'),
+      '#description' => $this->t('The placeholder that will be shown inside the input field.'),
       '#default_value' => $config['input']['placeholder'],
     ];
     $form['button_label'] = [
@@ -135,7 +136,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $form['view_id'] = [
       '#type' => 'textfield',
       '#title' => $this->t('View id'),
-      '#description' => $this->t('The view id (referenced as #search_id in the form).'),
+      '#description' => $this->t('The view id will be the machine name for the Search API View.'),
       '#default_value' => $config['view_options']['id'] ?? '',
       '#states' => [
         'visible' => [
@@ -146,7 +147,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $form['view_display'] = [
       '#type' => 'textfield',
       '#title' => $this->t('View display'),
-      '#description' => $this->t('The view display.'),
+      '#description' => $this->t('The view display will be the machine name of the display used, at the views settings in the advanced section.'),
       '#default_value' => $config['view_options']['display'] ?? '',
       '#states' => [
         'visible' => [
