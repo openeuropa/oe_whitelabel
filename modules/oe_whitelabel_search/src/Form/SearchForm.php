@@ -48,15 +48,19 @@ class SearchForm extends FormBase {
     $form_state->set('oe_whitelabel_search_config', $config);
     $enable_autocomplete = $config['view_options']['enable_autocomplete'] ?? $config['enable_autocomplete'];
     $form['#action'] = $config['form']['action'] ?? $config['form_action'];
-    $parameter = \Drupal::request()->get($config['input']['name']);
-    $classes = $config['input']['classes'] ?? $config['input_classes'];
+    isset($config['input']['name']) ? $parameter = \Drupal::request()->get($config['input']['name']) : $parameter = '';
+    isset($config['input']['classes']) ? $classes = $config['input']['classes'] : $classes = '';
+    isset($config['button']['classes']) ? $classesButton = $config['button']['classes'] : $classesButton = '';
+    if (empty($classes) && isset($config['input_classes'])) {
+      $classes = $config['input_classes'];
+    }
     $form['search_input'] = [
       '#type' => 'textfield',
       '#attributes' => [
         'placeholder' => $config['input']['placeholder'] ?? $config['input_placeholder'],
         'class' => (array) $classes,
       ],
-      '#default_value' => $parameter ?? '',
+      '#default_value' => $parameter,
       '#required' => TRUE,
     ];
     if ($enable_autocomplete) {
@@ -68,8 +72,9 @@ class SearchForm extends FormBase {
         'filter' => $config['input']['name'] ?? $config['input_name'],
       ];
     }
-
-    $classesButton = $config['button']['classes'] ?? $config['button_classes'];
+    if (empty($classesButton) && isset($config['button_classes'])) {
+      $classesButton = $config['button_classes'];
+    }
     $form['submit'] = [
       '#prefix' => '<div class="ms-2">',
       '#suffix' => '</div>',

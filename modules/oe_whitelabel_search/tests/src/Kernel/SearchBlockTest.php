@@ -18,20 +18,20 @@ class SearchBlockTest extends KernelTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'block',
     'entity_test',
     'field',
+    'oe_whitelabel_search',
     'system',
-    'text',
-    'user',
     'search_api',
-    'search_api_test',
-    'search_api_test_example_content',
     'search_api_autocomplete',
     'search_api_autocomplete_test',
     'search_api_db',
-    'oe_whitelabel_search',
+    'search_api_test',
+    'search_api_test_example_content',
+    'text',
+    'user',
     'views',
-    'block',
   ];
 
   /**
@@ -112,6 +112,8 @@ class SearchBlockTest extends KernelTestBase {
         'view_id' => 'search_api_autocomplete_test_view',
         'view_display' => 'default',
         'enable_autocomplete' => TRUE,
+        'input_classes' => 'input-test-class',
+        'button_classes' => 'button-test-class',
       ],
     ]);
     $entity->save();
@@ -121,6 +123,10 @@ class SearchBlockTest extends KernelTestBase {
     $crawler = new Crawler($render->__toString());
     $actual = $crawler->filter('.oe-whitelabel-search-form');
     $this->assertCount(1, $actual);
+    $button_class = $crawler->filter('.button-test-class');
+    $this->assertCount(1, $button_class);
+    $input_class = $crawler->filter('.input-test-class');
+    $this->assertCount(1, $input_class);
     $link = $actual->filter('.button.btn-primary');
     $this->assertCount(1, $link);
     $expected = "Search";
