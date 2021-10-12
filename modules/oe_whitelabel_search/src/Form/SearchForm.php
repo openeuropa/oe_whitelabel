@@ -49,10 +49,12 @@ class SearchForm extends FormBase {
     $enable_autocomplete = $config['view_options']['enable_autocomplete'] ?? $config['enable_autocomplete'];
     $form['#action'] = $config['form']['action'] ?? $config['form_action'];
     $parameter = \Drupal::request()->get($config['input']['name']);
+    $classes = $config['input']['classes'] ?? $config['input_classes'];
     $form['search_input'] = [
       '#type' => 'textfield',
       '#attributes' => [
         'placeholder' => $config['input']['placeholder'] ?? $config['input_placeholder'],
+        'class' => (array) $classes,
       ],
       '#default_value' => $parameter ?? '',
       '#required' => TRUE,
@@ -67,12 +69,16 @@ class SearchForm extends FormBase {
       ];
     }
 
+    $classesButton = $config['button']['classes'] ?? $config['button_classes'];
     $form['submit'] = [
       '#prefix' => '<div class="ms-2">',
       '#suffix' => '</div>',
       '#type' => $config['button']['type'] ?? $config['button_type'],
       '#name' => FALSE,
       '#value' => $config['button']['label'] ?? $config['button_label'],
+      '#attributes' => [
+        'class' => (array) $classesButton,
+      ],
     ];
     $form['submit']['#attributes']['class'][] = 'btn-md';
     return $form;

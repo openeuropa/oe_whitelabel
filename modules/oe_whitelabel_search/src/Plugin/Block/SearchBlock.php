@@ -98,6 +98,12 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#description' => $this->t('A label text for the search input.'),
       '#default_value' => $config['input']['label'],
     ];
+    $form['input_classes'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Input classes'),
+      '#description' => $this->t('Add space-separated classes that will be added to the input.'),
+      '#default_value' => $config['input']['classes'],
+    ];
     $form['input_placeholder'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Input placeholder text'),
@@ -127,6 +133,12 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#title' => $this->t('Button icon position'),
       '#description' => $this->t('The position of the icon inside the button.'),
       '#default_value' => $config['button']['icon']['position'],
+    ];
+    $form['button_classes'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Button classes'),
+      '#description' => $this->t('Add space-separated classes that will be added to the button.'),
+      '#default_value' => $config['button']['classes'],
     ];
     $form['enable_autocomplete'] = [
       '#type' => 'checkbox',
@@ -200,6 +212,24 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
         $form_state->setErrorByName('', t('View id or view display not found.'));
       }
     }
+
+    $elements = [];
+    if (!empty($values['input_classes'])) {
+      array_push($elements, 'input');
+    }
+    if (!empty($values['button_classes'])) {
+      array_push($elements, 'button');
+    }
+
+    foreach ($elements as $element) {
+      if (preg_match('/^[a-z0-9 .\-]+$/i', $values[$element . '_classes']) == FALSE) {
+        $form_state->setErrorByName($element . '_classes', t('Field @field can contain only leters (a-z), numbers (0-9) and score (-)',
+        [
+          '@field' => $element,
+        ]));
+      }
+    }
+
   }
 
   /**
