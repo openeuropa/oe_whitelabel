@@ -85,56 +85,70 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#default_value' => $config['form']['action'],
       '#required' => TRUE,
     ];
-    $form['input_name'] = [
+    $form['input'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Input Field Settings'),
+      '#open' => TRUE,
+      '#tree' => TRUE,
+      '#description' => $this->t('Fill in the settings of the Input field.'),
+    ];
+    $form['input']['input_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Input name'),
       '#description' => $this->t('A name for the search input. Is the Query parameter of the contextual filter used at the Search API view.'),
       '#default_value' => $config['input']['name'],
       '#required' => TRUE,
     ];
-    $form['input_label'] = [
+    $form['input']['input_label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Input Label'),
       '#description' => $this->t('A label text for the search input.'),
       '#default_value' => $config['input']['label'],
     ];
-    $form['input_classes'] = [
+    $form['input']['input_classes'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Input classes'),
       '#description' => $this->t('Add space-separated classes that will be added to the input.'),
       '#default_value' => $config['input']['classes'],
     ];
-    $form['input_placeholder'] = [
+    $form['input']['input_placeholder'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Input placeholder text'),
       '#description' => $this->t('The placeholder that will be shown inside the input field.'),
       '#default_value' => $config['input']['placeholder'],
     ];
-    $form['button_label'] = [
+    $form['button'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Button Field Settings'),
+      '#open' => TRUE,
+      '#tree' => TRUE,
+      '#description' => $this->t('Fill in the settings of the Button field.'),
+    ];
+    $form['button']['button_label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Button label'),
       '#description' => $this->t('Label text that should appear inside the button.'),
       '#default_value' => $config['button']['label'],
     ];
-    $form['button_type'] = [
+    $form['button']['button_type'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Button type'),
       '#description' => $this->t('Ex: submit, button.'),
       '#default_value' => $config['button']['type'],
     ];
-    $form['button_icon_name'] = [
+    $form['button']['button_icon_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Button icon name'),
       '#description' => $this->t('Ex: search.'),
       '#default_value' => $config['button']['icon']['name'],
     ];
-    $form['button_icon_position'] = [
+    $form['button']['button_icon_position'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Button icon position'),
       '#description' => $this->t('The position of the icon inside the button.'),
       '#default_value' => $config['button']['icon']['position'],
     ];
-    $form['button_classes'] = [
+    $form['button']['button_classes'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Button classes'),
       '#description' => $this->t('Add space-separated classes that will be added to the button.'),
@@ -175,23 +189,26 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state): void {
+    $values = $form_state->getValues();
     $this->setConfigurationValue('form', [
       'action' => $form_state->getValue('form_action'),
       'classes' => $form_state->getValue('form_classes'),
     ]);
+    $input = $values['input'];
     $this->setConfigurationValue('input', [
-      'name' => $form_state->getValue('input_name'),
-      'label' => $form_state->getValue('input_label'),
-      'classes' => $form_state->getValue('input_classes'),
-      'placeholder' => $form_state->getValue('input_placeholder'),
+      'name' => $input['input_name'],
+      'label' => $input['input_label'],
+      'classes' => $input['input_classes'],
+      'placeholder' => $input['input_placeholder'],
     ]);
+    $button = $values['button'];
     $this->setConfigurationValue('button', [
-      'label' => $form_state->getValue('button_label'),
-      'type' => $form_state->getValue('button_type'),
-      'classes' => $form_state->getValue('button_classes'),
+      'label' => $button['button_label'],
+      'type' => $button['button_type'],
+      'classes' => $button['button_classes'],
       'icon' => [
-        'name' => $form_state->getValue('button_icon_name'),
-        'position' => $form_state->getValue('button_icon_position'),
+        'name' => $button['button_icon_name'],
+        'position' => $button['button_icon_position'],
       ],
     ]);
     $this->setConfigurationValue('view_options', [
@@ -214,15 +231,17 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     }
 
     $elements = [];
-    if (!empty($values['input_classes'])) {
+    $input = $values['input'];
+    if (!empty($input['input_classes'])) {
       array_push($elements, 'input');
     }
-    if (!empty($values['button_classes'])) {
+    $button = $values['button'];
+    if (!empty($button['button_classes'])) {
       array_push($elements, 'button');
     }
 
     foreach ($elements as $element) {
-      if (preg_match('/^[a-z0-9 .\-]+$/i', $values[$element . '_classes']) == FALSE) {
+      if (preg_match('/^[a-z0-9 .\-]+$/i', $values[$element][$element . '_classes']) == FALSE) {
         $form_state->setErrorByName($element . '_classes', t('Field @field can contain only leters (a-z), numbers (0-9) and score (-)',
         [
           '@field' => $element,

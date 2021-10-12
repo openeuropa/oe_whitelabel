@@ -14,6 +14,9 @@ block.settings.whitelabel_search_block:
     input_placeholder:
       type: string
       label: ‘Input placeholder’
+    input_classes:
+      type: string
+      label: ‘Input classes’
     button_label:
       type: string
       label: ‘Button label’
@@ -26,6 +29,9 @@ block.settings.whitelabel_search_block:
     button_icon_position:
       type: string
       label: ‘Button icon position’
+    button_classes:
+      type: string
+      label: ‘Input button
     view_id:
       type: string
       label: ‘View id’
