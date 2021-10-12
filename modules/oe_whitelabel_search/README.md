@@ -3,18 +3,20 @@
 This module offers a searchbox block handled by a plugin.
 
 # Requirements
+
+The following modules must be installed and enabled to use the Search Box block:
  - [Search_api](https://www.drupal.org/project/search_api)
  - [Search_api_autocomplete](https://www.drupal.org/project/search_api_autocomplete)
- - views
- - views UI
- - search
- - search_api_fulltext
+ - [Views](https://www.drupal.org/docs/8/core/modules/views)
+ - [Views UI](https://www.drupal.org/docs/8/core/modules/views-ui)
 
-#Instructions:
- - Enable the module.
- - Go to admin/structure/block.
- - Place the "Whitelabel Search Block".
- - Configure accordingly.
+# Instructions:
+
+The following instructions are meant to help site builders place a block Search Box in the OE Whitelabel theme.
+
+ - Enable the module OpenEuropa Whitelabel Search (oe_whitelabel_search).
+ - Go to section [Place the Search Box block](#place-the-search-box-block) if only the block is needed.
+ - If content type is ready to be used, skip section `Create a content type Test`. For the instructions on the Search API and Views, go to next sections.
 
 ## Create a content type Test
 
@@ -101,7 +103,7 @@ When at the main page of the view:
 * Activate the Search View
 * Click on Save button
 
-## Place the block
+## Place the Search Box block
 
 * Go to Block Layout
 * Click on Place block at the Header right section
