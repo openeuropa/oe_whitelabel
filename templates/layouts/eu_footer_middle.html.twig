@@ -1,4 +1,4 @@
-<h4> {{ contact_eu_title|t }}  </h4>
+<p class="fw-bold border-bottom pb-2 mb-2"> {{ contact_eu_title|t }}  </p>
 {% if contact_eu_links is defined and contact_eu_links is not empty and contact_eu_links is iterable %}
 <ul class="nav flex-column">
   {% for contact_link in contact_eu_links %}
@@ -7,7 +7,7 @@
 </ul>
 {% endif %}
 
-<h4> {{ social_media_title|t }} </h4>
+<p class="fw-bold border-bottom pb-2 pt-3 mb-2"> {{ social_media_title|t }} </p>
 {% if social_media_links is defined and social_media_links is not empty and social_media_links is iterable %}
   <ul class="nav flex-column">
     {% for social_link in social_media_links %}
@@ -16,7 +16,7 @@
   </ul>
 {% endif %}
 
-<h4> {{ legal_title|t }} </h4>
+<p class="fw-bold border-bottom pb-2 pt-3 mb-2"> {{ legal_title|t }} </p>
 {% if legal_links is defined and legal_links is not empty and legal_links is iterable %}
 <ul class="nav flex-column">
   {% for legal_link in legal_links %}

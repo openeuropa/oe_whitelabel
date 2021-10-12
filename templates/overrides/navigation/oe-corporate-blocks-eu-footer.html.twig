@@ -54,14 +54,14 @@
 
   {# Follow section must always be the last on the left. #}
   {% set _section_2 = _section_2|merge([{
-    'title': 'Follow us'|t,
+    'title': 'Follow us on social media'|t,
     'links': bcl_footer_links(site_specific_footer.social_links),
   }]) %}
 {% endif %}
 
 {% set _top_sections = [
   {
-    'section_id': 'eu_footer_top_left',
+    'section_id': 'footer_top_left',
     'title': {
       'link': {
         'label': site_specific_footer.site_identity,
@@ -71,11 +71,11 @@
     'description': site_owner ? 'This site is managed by the @name'|t({'@name': site_owner}),
   },
   {
-    'section_id': 'eu_footer_top_middle',
+    'section_id': 'footer_top_middle',
     'sections': _section_2
   },
   {
-    'section_id': 'eu_footer_top_right',
+    'section_id': 'footer_top_right',
     'sections': _section_3
   }
 ] %}
@@ -99,9 +99,9 @@
     'eu_institutions_links': bcl_footer_links(corporate_footer.institution_links)
   }
 ] %}
-<div class="mt-5">
-  {{ pattern('footer', {
-    'top_sections': _top_sections,
-    'bottom_sections': _bottom_sections
-  }) }}
-</div>
+
+{{ pattern('footer', {
+  'top_sections': _top_sections,
+  'bottom_sections': _bottom_sections,
+}) }}
+
