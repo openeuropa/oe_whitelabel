@@ -4,10 +4,10 @@ footer:
   fields:
     top_sections:
       type: array
-      label: Sections in the footer
-    bottom_sections:
-      type: array
-      label: Sections in the footer
+      label: Sections at the top row of the footer
     middle_sections:
       type: array
-      label: Sections in the footer
+      label: Sections at the middle row the footer
+    bottom_sections:
+      type: array
+      label: Sections at the bottom row of the footer
