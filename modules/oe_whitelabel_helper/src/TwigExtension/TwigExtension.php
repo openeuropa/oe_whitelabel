@@ -56,6 +56,13 @@ class TwigExtension extends AbstractExtension {
         'label' => $link['label'],
         'path' => $link['href'],
         'icon_position' => 'after',
+        'attributes' => [
+          'class' => [
+            'text-decoration-none',
+            'd-block',
+            'mb-1',
+          ],
+        ],
       ];
 
       if (!empty($link['external']) && $link['external'] === TRUE) {
