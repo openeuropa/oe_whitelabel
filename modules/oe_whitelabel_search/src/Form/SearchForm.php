@@ -11,7 +11,7 @@ use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Exposes the facets as a form.
+ * Configurable search form class.
  */
 class SearchForm extends FormBase {
 
@@ -23,7 +23,7 @@ class SearchForm extends FormBase {
   protected $languageManager;
 
   /**
-   * Constructs an instance of ListFacetsForm.
+   * Constructs an instance of SearchForm.
    *
    * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
    *   The language manager.
@@ -93,16 +93,14 @@ class SearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $language = $this->languageManager->getCurrentLanguage();
     $config = $form_state->get('oe_whitelabel_search_config');
-    $url =
-      Url::fromUri('base:' . $config['form']['action'], [
-        'language' => $language,
-        'absolute' => TRUE,
-        'query' => [
-          $config['input']['name'] => $form_state->getValue("search_input"),
-        ],
-      ]);
+    $url = Url::fromUri('base:' . $config['form']['action'], [
+      'language' => $this->languageManager->getCurrentLanguage(),
+      'absolute' => TRUE,
+      'query' => [
+        $config['input']['name'] => $form_state->getValue("search_input"),
+      ],
+    ]);
     $form_state->setRedirectUrl($url);
   }
 
