@@ -117,6 +117,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#title' => $this->t('Input Label'),
       '#description' => $this->t('A label text for the search input.'),
       '#default_value' => $config['input']['label'],
+      '#required' => TRUE,
     ];
     $form['input']['input_classes'] = [
       '#type' => 'textfield',
@@ -142,24 +143,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#title' => $this->t('Button label'),
       '#description' => $this->t('Label text that should appear inside the button.'),
       '#default_value' => $config['button']['label'],
-    ];
-    $form['button']['button_type'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Button type'),
-      '#description' => $this->t('Ex: submit, button.'),
-      '#default_value' => $config['button']['type'],
-    ];
-    $form['button']['button_icon_name'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Button icon name'),
-      '#description' => $this->t('Ex: search.'),
-      '#default_value' => $config['button']['icon']['name'],
-    ];
-    $form['button']['button_icon_position'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Button icon position'),
-      '#description' => $this->t('The position of the icon inside the button.'),
-      '#default_value' => $config['button']['icon']['position'],
+      '#required' => TRUE,
     ];
     $form['button']['button_classes'] = [
       '#type' => 'textfield',
@@ -226,12 +210,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $button = $values['button'];
     $this->setConfigurationValue('button', [
       'label' => $button['button_label'],
-      'type' => $button['button_type'],
       'classes' => $button['button_classes'],
-      'icon' => [
-        'name' => $button['button_icon_name'],
-        'position' => $button['button_icon_position'],
-      ],
     ]);
     $this->setConfigurationValue('view_options', [
       'id' => $form_state->getValue('view_id'),
@@ -243,7 +222,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
   /**
    * {@inheritdoc}
    */
-  public function blockValidate($form, FormStateInterface $form_state) {
+  public function blockValidate($form, FormStateInterface $form_state): void {
     $values = $form_state->getValues();
 
     if ($values['input']['input_classes'] !== Html::cleanCssIdentifier($values['input']['input_classes'])) {

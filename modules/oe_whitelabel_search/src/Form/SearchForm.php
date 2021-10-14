@@ -46,46 +46,51 @@ class SearchForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, array $config = NULL): array {
     $form_state->set('oe_whitelabel_search_config', $config);
-    $enable_autocomplete = $config['view_options']['enable_autocomplete'] ?? $config['enable_autocomplete'];
-    $form['#action'] = $config['form']['action'] ?? $config['form_action'];
+
     isset($config['input']['name']) ? $parameter = \Drupal::request()->get($config['input']['name']) : $parameter = '';
-    isset($config['input']['classes']) ? $classes = $config['input']['classes'] : $classes = '';
-    isset($config['button']['classes']) ? $classesButton = $config['button']['classes'] : $classesButton = '';
-    if (empty($classes) && isset($config['input_classes'])) {
-      $classes = $config['input_classes'];
-    }
+
+    $form['#action'] = $config['form']['action'];
+
     $form['search_input'] = [
       '#type' => 'textfield',
+      '#title' => $config['input']['label'],
+      '#title_display' => 'invisible',
       '#attributes' => [
         'placeholder' => $config['input']['placeholder'] ?? $config['input_placeholder'],
-        'class' => (array) $classes,
+        'class' => [
+          $config['input']['classes'],
+        ],
       ],
       '#default_value' => $parameter,
       '#required' => TRUE,
     ];
-    if ($enable_autocomplete) {
-      $form['search_input']['#type'] = 'search_api_autocomplete';
-      // The view id.
-      $form['search_input']['#search_id'] = $config['view_options']['id'] ?? $config['view_id'];
-      $form['search_input']['#additional_data'] = [
-        'display' => $config['view_options']['display'] ?? $config['view_display'],
-        'filter' => $config['input']['name'] ?? $config['input_name'],
-      ];
-    }
-    if (empty($classesButton) && isset($config['button_classes'])) {
-      $classesButton = $config['button_classes'];
-    }
+
     $form['submit'] = [
       '#prefix' => '<div class="ms-2">',
       '#suffix' => '</div>',
-      '#type' => $config['button']['type'] ?? $config['button_type'],
+      '#type' => 'submit',
       '#name' => FALSE,
-      '#value' => $config['button']['label'] ?? $config['button_label'],
+      '#value' => $config['button']['label'],
       '#attributes' => [
-        'class' => (array) $classesButton,
+        'class' => [
+          'btn-md',
+          $config['button']['classes'],
+        ],
       ],
     ];
-    $form['submit']['#attributes']['class'][] = 'btn-md';
+
+    if (!$config['view_options']['enable_autocomplete']) {
+      return $form;
+    }
+
+    $form['search_input']['#type'] = 'search_api_autocomplete';
+    // The view id.
+    $form['search_input']['#search_id'] = $config['view_options']['id'];
+    $form['search_input']['#additional_data'] = [
+      'display' => $config['view_options']['display'],
+      'filter' => $config['input']['name'],
+    ];
+
     return $form;
   }
 
@@ -98,7 +103,7 @@ class SearchForm extends FormBase {
       'language' => $this->languageManager->getCurrentLanguage(),
       'absolute' => TRUE,
       'query' => [
-        $config['input']['name'] => $form_state->getValue("search_input"),
+        $config['input']['name'] => $form_state->getValue('search_input'),
       ],
     ]);
     $form_state->setRedirectUrl($url);
