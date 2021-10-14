@@ -4,8 +4,10 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_whitelabel_search\Plugin\Block;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -39,7 +41,14 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
   protected $configFactory;
 
   /**
-   * Construct CorporateEcLogoBlock object.
+   * The module handler.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * Construct SearchBlock object.
    *
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.
@@ -51,11 +60,14 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
    *   The config factory.
    * @param \Drupal\Core\Form\FormBuilderInterface $form_builder
    *   The form builder service.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, FormBuilderInterface $form_builder) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, FormBuilderInterface $form_builder, ModuleHandlerInterface $module_handler) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->configFactory = $config_factory;
     $this->formBuilder = $form_builder;
+    $this->moduleHandler = $module_handler;
   }
 
   /**
@@ -67,7 +79,8 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       $plugin_id,
       $plugin_definition,
       $container->get('config.factory'),
-      $container->get('form_builder')
+      $container->get('form_builder'),
+      $container->get('module_handler')
     );
   }
 
@@ -154,15 +167,24 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#description' => $this->t('Add space-separated classes that will be added to the button.'),
       '#default_value' => $config['button']['classes'],
     ];
+
     $form['enable_autocomplete'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable autocomplete'),
       '#default_value' => $config['view_options']['enable_autocomplete'] ?? 0,
     ];
+
+    if (!$this->moduleHandler->moduleExists('views') || !$this->moduleHandler->moduleExists('search_api_autocomplete')) {
+      $form['enable_autocomplete']['#disabled'] = TRUE;
+      $form['enable_autocomplete']['#description'] = $this->t('Available with the views and search_api_autocomplete modules.');
+
+      return $form;
+    }
+
     $form['view_id'] = [
       '#type' => 'textfield',
       '#title' => $this->t('View id'),
-      '#description' => $this->t('The view id will be the machine name for the Search API View.'),
+      '#description' => $this->t('The view id will be the machine name for the view.'),
       '#default_value' => $config['view_options']['id'] ?? '',
       '#states' => [
         'visible' => [
@@ -173,7 +195,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $form['view_display'] = [
       '#type' => 'textfield',
       '#title' => $this->t('View display'),
-      '#description' => $this->t('The view display will be the machine name of the display used, at the views settings in the advanced section.'),
+      '#description' => $this->t('The view display will be the machine name of the views display.'),
       '#default_value' => $config['view_options']['display'] ?? '',
       '#states' => [
         'visible' => [
@@ -223,32 +245,36 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
    */
   public function blockValidate($form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
-    if ($values['enable_autocomplete']) {
-      $view = View::load($values['view_id']);
-      if (!$view || !$view->getDisplay($values['view_display'])) {
-        $form_state->setErrorByName('', t('View id or view display not found.'));
-      }
+
+    if ($values['input']['input_classes'] !== Html::cleanCssIdentifier($values['input']['input_classes'])) {
+      $form_state->setErrorByName('input][input_classes', $this->t('Field "@field_name" does not contain a valid css class.', [
+        '@field_name' => $form['input']['input_classes']['#title'],
+      ]));
     }
 
-    $elements = [];
-    $input = $values['input'];
-    if (!empty($input['input_classes'])) {
-      array_push($elements, 'input');
-    }
-    $button = $values['button'];
-    if (!empty($button['button_classes'])) {
-      array_push($elements, 'button');
+    if ($values['button']['button_classes'] !== Html::cleanCssIdentifier($values['button']['button_classes'])) {
+      $form_state->setErrorByName('button][button_classes', $this->t('Field "@field_name" does not contain a valid css class.', [
+        '@field_name' => $form['button']['button_classes']['#title'],
+      ]));
     }
 
-    foreach ($elements as $element) {
-      if (preg_match('/^[a-z0-9 .\-]+$/i', $values[$element][$element . '_classes']) == FALSE) {
-        $form_state->setErrorByName($element . '_classes', t('Field @field can contain only leters (a-z), numbers (0-9) and score (-)',
-        [
-          '@field' => $element,
-        ]));
-      }
+    if (!$this->moduleHandler->moduleExists('views') || !$this->moduleHandler->moduleExists('search_api_autocomplete')) {
+      return;
     }
 
+    if (empty($values['enable_autocomplete'])) {
+      return;
+    }
+
+    $view = View::load($values['view_id']);
+
+    if (!$view) {
+      $form_state->setErrorByName('view_id', $this->t('View id was not found.'));
+    }
+
+    if (!$view->getDisplay($values['view_display'])) {
+      $form_state->setErrorByName('view_display', $this->t('View display was not found.'));
+    }
   }
 
   /**
