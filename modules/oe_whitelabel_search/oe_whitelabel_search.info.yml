@@ -1,12 +1,5 @@
 name: OpenEuropa Whitelabel Search
 type: module
-description: OpenEuropa Whitelabel searchbox block, plugin and template.
+description: Adds additional functionality to the search feature.
 package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^8.9 || ^9.1
-dependencies:
-  - search_api:search_api
-  - search_api_db:search_api_db
-  - search_api_autocomplete:search_api_autocomplete
-
-themes:
-  - oe_whitelabel
