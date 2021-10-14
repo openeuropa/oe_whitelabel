@@ -12,7 +12,6 @@
  * @ingroup themeable
  */
 #}
-{% set attributes = attributes.addClass('d-flex') %}
-<form{{ attributes }}>
+<form{{ attributes.addClass('d-flex') }}>
   {{ children }}
 </form>
