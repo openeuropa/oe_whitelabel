@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Theme template for dynamic row layout.
+ *
+ * @see \Drupal\oe_whitelabel_helper\Plugin\Layout\DynamicRowLayout.
+ */
+#}
+
+{% set _regions_settings = content['#settings'].regions %}
+
+{% if content %}
+  <div {{ attributes.addClass('row') }}>
+    {% for region in layout.getRegionNames %}
+      {% if _regions_settings[region].show %}
+        <div {{ region_attributes[region].addClass('layout__region',
+          'layout__region--' ~ region|clean_class,
+          'col-sm-12',
+          'mb-4',
+          'mb-md-0',
+          'col-md-' ~ _regions_settings[region].width) }}>
+          {{ content[region] }}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}

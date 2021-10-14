@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Theme template for main layout.
+ *
+ * @see \Drupal\oe_whitelabel_helper\Plugin\Layout\MainLayout.
+ */
+#}
+
+{% if content %}
+  <div {{ attributes.addClass('row') }}>
+    {% if content.content %}
+      <div {{ region_attributes.content.addClass('layout__region', 'col') }}>{{ content.content }}</div>
+    {% endif %}
+  </div>
+{% endif %}

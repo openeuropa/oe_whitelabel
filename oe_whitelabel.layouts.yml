@@ -1,0 +1,48 @@
+layout_whitelabel_dynamic_row:
+  label: Whitelabel | Dynamic row
+  category: Whitelabel
+  path: templates/layouts/dynamic-row
+  template: dynamic-row
+  class: '\Drupal\oe_whitelabel_helper\Plugin\Layout\DynamicRowLayout'
+  icon_map:
+    - [a, b]
+    - [c, d, e]
+    - [f, g, h, i]
+    - [j, j, k]
+    - [l, m, m]
+    - [n, o, o, o]
+    - [p, p, p, q]
+  regions:
+    first:
+      label: First
+    second:
+      label: Second
+    third:
+      label: Third
+    fourth:
+      label: Fourth
+
+layout_whitelabel_main:
+  label: Whitelabel | Main
+  category: Whitelabel
+  path: templates/layouts/main
+  template: main
+  class: '\Drupal\oe_whitelabel_helper\Plugin\Layout\MainLayout'
+  default_region: content
+  icon_map:
+    - [a]
+  regions:
+    content:
+      label: Content
+
+layout_whitelabel_onecol_wide:
+  label: Whitelabel | Single wide column
+  category: Whitelabel
+  icon_map:
+    - [a, a, a, a]
+  whitelabel_custom_classes:
+    layout: row
+  regions:
+    content:
+      label: Content
+      whitelabel_custom_classes: col
