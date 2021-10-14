@@ -6,11 +6,10 @@ namespace Drupal\Tests\oe_whitelabel_search\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\search_api_autocomplete\Entity\Search;
-use Drupal\views\Entity\View;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
- * Tests the Site Branding Block rendering.
+ * Tests the Search Block rendering.
  */
 class SearchBlockTest extends KernelTestBase {
 
@@ -28,7 +27,6 @@ class SearchBlockTest extends KernelTestBase {
     'search_api_autocomplete_test',
     'search_api_db',
     'search_api_test',
-    'search_api_test_example_content',
     'text',
     'user',
     'views',
@@ -54,7 +52,6 @@ class SearchBlockTest extends KernelTestBase {
     $this->installConfig('search_api');
     $this->installConfig([
       'search_api_db',
-      'search_api_test_example_content',
       'search_api_autocomplete_test',
     ]);
 
@@ -65,7 +62,6 @@ class SearchBlockTest extends KernelTestBase {
    * Tests the rendering of blocks.
    */
   public function testBlockRendering(): void {
-    $this->installConfig('search_api_autocomplete_test');
     Search::create([
       'id' => 'search_api_autocomplete_test_view',
       'label' => 'Search API Autocomplete Test view',
@@ -83,15 +79,6 @@ class SearchBlockTest extends KernelTestBase {
       ],
     ])->save();
 
-    $view = View::load('search_api_autocomplete_test_view');
-    $executable = $view->getExecutable();
-    $this->assertTrue($executable->setDisplay('default'));
-    $executable->initHandlers();
-    $exposed_form = $executable->display_handler->getPlugin('exposed_form');
-    $form = $exposed_form->renderExposedForm();
-    $keys_element = $form['keys'] ?? $form['keys_wrapper']['keys'];
-    $this->assertEquals('search_api_autocomplete', $keys_element['#type']);
-
     $entity_type_manager = $this->container
       ->get('entity_type.manager')
       ->getStorage('block');
@@ -103,17 +90,24 @@ class SearchBlockTest extends KernelTestBase {
         'id' => 'search_block',
         'label' => 'Search block',
         'provider' => 'oe_whitelabel_search',
-        'form_action' => 'en/search',
-        'input_name' => 'search',
-        'input_placeholder' => 'Search',
-        'button_label' => 'Search',
-        'button_type' => 'submit',
-        'button_icon_position' => 'top',
-        'view_id' => 'search_api_autocomplete_test_view',
-        'view_display' => 'default',
-        'enable_autocomplete' => TRUE,
-        'input_classes' => 'input-test-class',
-        'button_classes' => 'button-test-class',
+        'form' => [
+          'action' => '/search',
+        ],
+        'input' => [
+          'name' => 'text',
+          'label' => 'Search',
+          'placeholder' => 'Search',
+          'classes' => 'input-test-class',
+        ],
+        'button' => [
+          'label' => 'Search',
+          'classes' => 'button-test-class',
+        ],
+        'view_options' => [
+          'enable_autocomplete' => TRUE,
+          'id' => 'search_api_autocomplete_test_view',
+          'display' => 'default',
+        ],
       ],
     ]);
     $entity->save();
@@ -129,12 +123,12 @@ class SearchBlockTest extends KernelTestBase {
     $this->assertCount(1, $input_class);
     $link = $actual->filter('.button.btn-primary');
     $this->assertCount(1, $link);
-    $expected = "Search";
     $title = $actual->filter('input.form-control');
-    $this->assertSame($expected, $title->attr("placeholder"));
-    $expected = "en/search";
+    $this->assertSame('Search', $title->attr('placeholder'));
     $title = $actual->filter('form');
-    $this->assertSame($expected, $title->attr("action"));
+    $this->assertSame('/search', $title->attr('action'));
+    $label = $actual->filter('label');
+    $this->assertSame('Search', $label->text());
   }
 
 }
