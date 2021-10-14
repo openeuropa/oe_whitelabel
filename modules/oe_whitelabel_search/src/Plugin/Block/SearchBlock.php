@@ -198,7 +198,6 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $values = $form_state->getValues();
     $this->setConfigurationValue('form', [
       'action' => $form_state->getValue('form_action'),
-      'classes' => $form_state->getValue('form_classes'),
     ]);
     $input = $values['input'];
     $this->setConfigurationValue('input', [

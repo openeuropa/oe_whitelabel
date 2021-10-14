@@ -46,8 +46,11 @@ class SearchForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, array $config = NULL): array {
     $form_state->set('oe_whitelabel_search_config', $config);
+    $input_value = '';
 
-    isset($config['input']['name']) ? $parameter = \Drupal::request()->get($config['input']['name']) : $parameter = '';
+    if (!empty($config['input']['name'])) {
+      $input_value = $this->getRequest()->get($config['input']['name']);
+    }
 
     $form['#action'] = $config['form']['action'];
 
@@ -61,7 +64,7 @@ class SearchForm extends FormBase {
           $config['input']['classes'],
         ],
       ],
-      '#default_value' => $parameter,
+      '#default_value' => $input_value,
       '#required' => TRUE,
     ];
 
