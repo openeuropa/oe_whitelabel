@@ -14,6 +14,13 @@ use Drupal\language\Entity\ConfigurableLanguage;
 class CorporateLogoBlockTest extends KernelTestBase {
 
   /**
+   * Languages.
+   *
+   * @var array
+   */
+  protected $languages = [];
+
+  /**
    * {@inheritdoc}
    */
   protected static $modules = [

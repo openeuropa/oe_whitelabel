@@ -1,0 +1,50 @@
+block.settings.whitelabel_search_block:
+  type: block_settings
+  label: OE Whitelabel search block
+  mapping:
+    form:
+      type: mapping
+      label: Form
+      mapping:
+        action:
+          type: string
+          label: Action
+    input:
+      type: mapping
+      label: Input
+      mapping:
+        name:
+          type: string
+          label: Name
+        label:
+          type: string
+          label: Label
+        classes:
+          type: string
+          label: Classes
+        placeholder:
+          type: string
+          label: Placeholder
+    button:
+      type: mapping
+      label: Button
+      mapping:
+        label:
+          type: string
+          label: Label
+        classes:
+          type: string
+          label: Classes
+    view_options:
+      type: mapping
+      label: View Options
+      mapping:
+        enable_autocomplete:
+          type: boolean
+          label: Enable autocomplete
+        id:
+          type: string
+          label: View id
+        display:
+          type: string
+          label: View display
