@@ -10,7 +10,7 @@ A configurable search block meant to be placed inside the navigation header. The
 
 ## Requirements
 
-To be able to enable this module you will have to provide the dependent modules in your projects composer.json
+Search suggestions (autocomplete) is optional, to enable this you will have to provide dependent modules in your projects composer.json
 
 ```
 composer require drupal/search_api
