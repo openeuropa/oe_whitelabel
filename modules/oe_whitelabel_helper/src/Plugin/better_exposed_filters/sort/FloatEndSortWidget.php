@@ -11,8 +11,8 @@ use Drupal\Core\Form\FormStateInterface;
  * OpenEuropa custom better exposed filters widget implementation.
  *
  * @BetterExposedFiltersSortWidget(
- *   id = "float_end_sort",
- *   label = @Translation("Float End Sort Better Exposed Filter"),
+ *   id = "oe_whitelabel_float_end_sort",
+ *   label = @Translation("Float End Sort"),
  * )
  */
 class FloatEndSortWidget extends DefaultWidget {
