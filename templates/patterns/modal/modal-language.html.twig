@@ -12,7 +12,8 @@
     - footer
       - label
 #}
-
+{% set eu_official_languages = 'EU official languages' %}
+{% set non_eu_official_languages = 'Non EU languages' %}
 {% if header %}
   {% set _header %}
     <h5 class="modal-title" id="languageeModalLabel">{{ header.title|default('Select your language'|t) }}</h5>
@@ -25,7 +26,7 @@
     <div class="container">
       <div class="row">
         <div class="col col-lg-8 offset-lg-2">
-          <h5 class="bcl-language__title">EU official languages</h5>
+          <h5 class="bcl-language__title">{{ eu_official_languages|t }}</h5>
         </div>
       </div>
       <div class="row">
@@ -47,7 +48,7 @@
       {% if non_eu_links %}
           <div class="row">
             <div class="col col-lg-8 offset-lg-2">
-              <h5 class="bcl-language__title">Non EU languages</h5>
+              <h5 class="bcl-language__title">{{ non_eu_official_languages|t }}</h5>
             </div>
           </div>
         <div class="row">
