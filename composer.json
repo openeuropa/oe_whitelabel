@@ -11,12 +11,13 @@
         "drupal/core": "^8.9 || ^9.1",
         "drupal/ui_patterns": "^1.0",
         "drupal/ui_patterns_settings": "^1.0",
-        "openeuropa/oe_bootstrap_theme": "0.011020211805"
+        "openeuropa/oe_bootstrap_theme": "0.181020211745"
     },
     "require-dev": {
         "composer/installers": "^1.11",
         "drupal/core-composer-scaffold": "^8.9 || ^9.1",
         "drupal/config_devel": "~1.2",
+        "drupal/better_exposed_filters": "^5.0@beta",
         "drupal/drupal-extension": "~4.1",
         "drush/drush": "^10.3",
         "openeuropa/code-review": "1.6",
