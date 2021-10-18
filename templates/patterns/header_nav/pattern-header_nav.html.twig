@@ -1,4 +1,8 @@
-<header class="bcl-header">
+{% if 'corporateeclogoblock' in navbar_branding %}
+  <header class="ec__header bcl-header">
+{% else %}
+  <header class="bcl-header">
+{% endif %}
   <nav class="w-100 shadow-sm navbar navbar-expand-lg navbar-light">
     <div class="container">
       {{ navbar_branding }}
