@@ -8,6 +8,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 
@@ -80,13 +81,24 @@ class CorporateEcLogoBlock extends BlockBase implements ContainerFactoryPluginIn
     $logo_path = drupal_get_path('module', 'oe_whitelabel_helper') . '/images/logos/ec';
     $title = $this->configFactory->get('system.site')->get('name');
 
-    $build = [
+    $image = [
       '#theme' => 'image',
       '#uri' => $logo_path . '/logo-ec--' . $language . '.svg',
-      '#width' => '240px',
-      '#height' => '60px',
       '#alt' => $title,
       '#title' => $title,
+    ];
+
+    $build = [
+      '#type' => 'link',
+      '#url' => Url::fromUri('https://ec.europa.eu/info/index_' . $language, [
+        'attributes' => [
+          'class' => [
+            'navbar-brand',
+          ],
+          'target' => '_blank',
+        ],
+      ]),
+      '#title' => $image,
     ];
 
     $cache->applyTo($build);
