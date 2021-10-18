@@ -77,7 +77,7 @@ function oe_whitelabel_form_facets_form_alter(&$form, FormStateInterface $form_s
   if (isset($form['actions']['submit'])) {
     $submit_classes = ['me-2', 'btn', 'btn-primary'];
     foreach ($submit_classes as $submit_class) {
-      if (!in_array($submit_class, $form['actions']['submit']['#attributes']['class'], TRUE)) {
+      if (!isset($submit_class, $form['actions']['submit']['#attributes']['class']) || !in_array($submit_class, $form['actions']['submit']['#attributes']['class'], TRUE)) {
         $form['actions']['submit']['#attributes']['class'][] = $submit_class;
       }
     }
@@ -85,7 +85,7 @@ function oe_whitelabel_form_facets_form_alter(&$form, FormStateInterface $form_s
   if (isset($form['actions']['reset'])) {
     $reset_classes = ['btn', 'btn-secondary'];
     foreach ($reset_classes as $reset_class) {
-      if (!in_array($reset_class, $form['actions']['reset']['#attributes']['class'], TRUE)) {
+      if (!isset($form['actions']['reset']['#attributes']['class']) || !in_array($reset_class, $form['actions']['reset']['#attributes']['class'], TRUE)) {
         $form['actions']['reset']['#attributes']['class'][] = $reset_class;
       }
     }
