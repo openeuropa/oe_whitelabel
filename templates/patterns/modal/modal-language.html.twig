@@ -24,6 +24,11 @@
   {% set _body %}
     <div class="container">
       <div class="row">
+        <div class="col col-lg-8 offset-lg-2">
+          <h5 class="bcl-language__title">EU official languages</h5>
+        </div>
+      </div>
+      <div class="row">
       {% set _number_items = (eu_links|length / 2) %}
       {% for link in eu_links|batch(_number_items) %}
         {% if loop.index % 2 == 0 %}
@@ -31,15 +36,20 @@
         {% else %}
           <div class="col col-lg-4">
         {% endif %}
-            <div class="oe-language__list">
+            <div class="bcl-language__list">
               {% for id, data in link %}
-                <a id="{{ data.id }}" href="{{ data.href|default('#') }}" class="oe-language__item">{{ data.name }}</a>
+                <a id="{{ data.id }}" href="{{ data.href|default('#') }}" class="bcl-language__item">{{ data.name }}</a>
               {% endfor %}
             </div>
           </div>
       {% endfor %}
       </div>
       {% if non_eu_links %}
+          <div class="row">
+            <div class="col col-lg-8 offset-lg-2">
+              <h5 class="bcl-language__title">Non EU languages</h5>
+            </div>
+          </div>
         <div class="row">
         {% set _number_items = (non_eu_links|length / 2) %}
         {% for link in non_eu_links|batch(_number_items) %}
@@ -48,9 +58,9 @@
           {% else %}
             <div class="col col-lg-4">
           {% endif %}
-              <div class="oe-language__list">
+              <div class="bcl-language__list">
                 {% for id, data in link %}
-                  <a  id="{{ data.id }}" href="{{ data.href|default('#') }}" class="oe-language__item">{{ data.name }}</a>
+                  <a  id="{{ data.id }}" href="{{ data.href|default('#') }}" class="bcl-language__item">{{ data.name }}</a>
                 {% endfor %}
               </div>
             </div>
@@ -75,7 +85,7 @@
   footer: _footer,
 } %}
 
-<div class="oe-language">
+<div class="bcl-language">
   {% include '@oe-bcl/bcl-modal/modal.html.twig' with _data only %}
 </div>
 
