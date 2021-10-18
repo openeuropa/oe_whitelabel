@@ -11,7 +11,6 @@
   <testsuites>
     <testsuite name="OpenEuropa Whitelabel Theme">
       <directory>./tests/</directory>
-      <directory>./modules/**/tests/</directory>
     </testsuite>
   </testsuites>
 </phpunit>
