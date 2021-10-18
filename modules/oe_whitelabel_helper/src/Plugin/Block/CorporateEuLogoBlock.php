@@ -8,6 +8,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 
@@ -83,19 +84,21 @@ class CorporateEuLogoBlock extends BlockBase implements ContainerFactoryPluginIn
     $image = [
       '#theme' => 'image',
       '#uri' => $logo_path . '/logo-eu--' . $language . '.svg',
-      '#width' => '240px',
-      '#height' => '60px',
       '#alt' => $title,
       '#title' => $title,
     ];
-    $mobile_url = file_create_url($logo_path . '/mobile/logo-eu--' . $language . '.svg');
+
     $build = [
-      '#type' => 'inline_template',
-      '#template' => '<picture><source media="(max-width: 25em)" srcset="{{ mobile }}">{{ image }}</picture>',
-      '#context' => [
-        'image' => $image,
-        'mobile' => file_url_transform_relative($mobile_url),
-      ],
+      '#type' => 'link',
+      '#url' => Url::fromUri('https://europa.eu/european-union/index_' . $language, [
+        'attributes' => [
+          'class' => [
+            'navbar-brand',
+          ],
+          'target' => '_blank',
+        ],
+      ]),
+      '#title' => $image,
     ];
 
     $cache->applyTo($build);
