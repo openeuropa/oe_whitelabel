@@ -123,9 +123,6 @@ class CorporateLogoBlockTest extends KernelTestBase {
     $this->assertSame($expected, $logo->attr('src'));
     $image = $actual->filter('img');
     $this->assertCount(1, $image);
-    $source = $actual->filter('source');
-    $expected = "/themes/custom/oe_whitelabel/modules/oe_whitelabel_helper/images/logos/eu/mobile/logo-eu--{$lang}.svg";
-    $this->assertSame($expected, $source->attr('srcset'));
   }
 
   /**
