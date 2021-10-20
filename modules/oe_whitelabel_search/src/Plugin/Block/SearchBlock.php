@@ -138,13 +138,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#tree' => TRUE,
       '#description' => $this->t('Fill in the settings of the Button field.'),
     ];
-    $form['button']['button_label'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Button label'),
-      '#description' => $this->t('Label text that should appear inside the button.'),
-      '#default_value' => $config['button']['label'],
-      '#required' => TRUE,
-    ];
+
     $form['button']['button_classes'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Button classes'),
@@ -208,7 +202,6 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     ]);
     $button = $values['button'];
     $this->setConfigurationValue('button', [
-      'label' => $button['button_label'],
       'classes' => $button['button_classes'],
     ]);
     $this->setConfigurationValue('view_options', [
