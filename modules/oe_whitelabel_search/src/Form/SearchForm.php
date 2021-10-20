@@ -48,6 +48,8 @@ class SearchForm extends FormBase {
     $form_state->set('oe_whitelabel_search_config', $config);
     $input_value = '';
 
+    $form['#attributes']['class'][] = 'bcl_search_form';
+
     if (!empty($config['input']['name'])) {
       $input_value = $this->getRequest()->get($config['input']['name']);
     }
@@ -55,6 +57,8 @@ class SearchForm extends FormBase {
     $form['#action'] = $config['form']['action'];
 
     $form['search_input'] = [
+      '#prefix' => '<div class="bcl-search-form__group">',
+      '#suffix' => '</div>',
       '#type' => 'textfield',
       '#title' => $config['input']['label'],
       '#title_display' => 'invisible',
@@ -63,25 +67,46 @@ class SearchForm extends FormBase {
         'placeholder' => $config['input']['placeholder'],
         'class' => [
           $config['input']['classes'],
+          'border-start-0',
+          'rounded-0',
+          'rounded-start',
         ],
       ],
       '#default_value' => $input_value,
       '#required' => TRUE,
     ];
 
-    $form['submit'] = [
-      '#prefix' => '<div class="ms-2">',
-      '#suffix' => '</div>',
-      '#type' => 'submit',
-      '#name' => FALSE,
-      '#value' => $config['button']['label'],
-      '#attributes' => [
-        'class' => [
-          'btn-md',
-          $config['button']['classes'],
+    $button = [
+      '#type' => 'pattern',
+      '#id' => 'button',
+      '#variant' => 'light',
+      '#fields' => [
+        'settings' => [
+          'type' => 'submit',
+        ],
+        'icon' => [
+          'name' => 'search',
+          'size' => 'xs',
+          'attributes' => [
+            'class' => [
+              'align-self-center',
+            ],
+          ],
+
+        ],
+        'attributes' => [
+          'class' => [
+            'border-start-0',
+            'rounded-0 rounded-end',
+            'd-flex',
+            'btn btn-light',
+            'btn-md',
+          ],
         ],
       ],
     ];
+
+    $form['submit'] = $button;
 
     if (!$config['view_options']['enable_autocomplete']) {
       return $form;
