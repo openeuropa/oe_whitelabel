@@ -96,6 +96,7 @@ class SearchForm extends FormBase {
             'btn btn-light',
             'btn-md',
             'py-2',
+            $config['button']['classes'],
           ],
         ],
       ],
