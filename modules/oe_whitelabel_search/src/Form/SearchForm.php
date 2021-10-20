@@ -95,6 +95,7 @@ class SearchForm extends FormBase {
             'd-flex',
             'btn btn-light',
             'btn-md',
+            'py-2',
           ],
         ],
       ],
