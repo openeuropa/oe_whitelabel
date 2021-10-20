@@ -87,12 +87,6 @@ class SearchForm extends FormBase {
         'icon' => [
           'name' => 'search',
           'size' => 'xs',
-          'attributes' => [
-            'class' => [
-              'align-self-center',
-            ],
-          ],
-
         ],
         'attributes' => [
           'class' => [
