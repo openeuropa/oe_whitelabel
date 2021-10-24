@@ -63,7 +63,7 @@ To set up the project run:
 
 A post command hook (`drupal:site-setup`) is triggered automatically after `composer install`.
 It will make sure that the necessary symlinks are properly setup in the development site.
-It will also perform token substitution in development configuration files such as `behat.yml.dist`.
+It will also perform token substitution in development configuration files such as `phpunit.xml.dist`.
 
 The development site web root should be available in the `build` directory.
 
@@ -128,10 +128,4 @@ To run the phpunit tests:
 
 ```bash
 docker-compose exec web ./vendor/bin/phpunit
-```
-
-To run the behat tests:
-
-```bash
-docker-compose exec web ./vendor/bin/behat
 ```
