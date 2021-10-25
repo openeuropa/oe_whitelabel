@@ -88,6 +88,17 @@ class CorporateEcLogoBlock extends BlockBase implements ContainerFactoryPluginIn
       '#title' => $title,
     ];
 
+    $mobile_url = file_create_url($logo_path . '/mobile/logo-ec--' . $language . '.svg');
+
+    $inline_template = [
+      '#type' => 'inline_template',
+      '#template' => '<picture><source media="(max-width: 25em)" srcset="{{ mobile }}">{{ image }}</picture>',
+      '#context' => [
+        'image' => $image,
+        'mobile' => file_url_transform_relative($mobile_url),
+      ],
+    ];
+
     $build = [
       '#type' => 'link',
       '#url' => Url::fromUri('https://ec.europa.eu/info/index_' . $language, [
@@ -98,7 +109,7 @@ class CorporateEcLogoBlock extends BlockBase implements ContainerFactoryPluginIn
           'target' => '_blank',
         ],
       ]),
-      '#title' => $image,
+      '#title' => $inline_template,
     ];
 
     $cache->applyTo($build);

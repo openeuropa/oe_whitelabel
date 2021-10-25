@@ -88,6 +88,17 @@ class CorporateEuLogoBlock extends BlockBase implements ContainerFactoryPluginIn
       '#title' => $title,
     ];
 
+    $mobile_url = file_create_url($logo_path . '/mobile/logo-eu--' . $language . '.svg');
+
+    $inline_template = [
+      '#type' => 'inline_template',
+      '#template' => '<picture><source media="(max-width: 992px)" srcset="{{ mobile }}">{{ image }}</picture>',
+      '#context' => [
+        'image' => $image,
+        'mobile' => file_url_transform_relative($mobile_url),
+      ],
+    ];
+
     $build = [
       '#type' => 'link',
       '#url' => Url::fromUri('https://europa.eu/european-union/index_' . $language, [
@@ -98,7 +109,7 @@ class CorporateEuLogoBlock extends BlockBase implements ContainerFactoryPluginIn
           'target' => '_blank',
         ],
       ]),
-      '#title' => $image,
+      '#title' => $inline_template,
     ];
 
     $cache->applyTo($build);

@@ -14,9 +14,8 @@
  */
 #}
 {% block content %}
-  <div class="d-flex align-items-center my-3">
   {% if site_logo %}
-    <img class="site-logo" src="{{ site_logo }}" alt="{{ 'Home'|t }}" />
+    <img class="d-none d-lg-inline-block" src="{{ site_logo }}" alt="{{ 'Home'|t }}" />
   {% endif %}
   {% if site_name %}
     <p class="site-name">{{ site_name }}</p>
@@ -24,5 +23,4 @@
   {% if site_slogan %}
     <div class="site-slogan">{{ site_slogan }}</div>
   {% endif %}
-  </div>
 {% endblock %}

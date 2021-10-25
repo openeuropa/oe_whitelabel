@@ -20,15 +20,24 @@
 {% set extra_attributes = create_attribute() %}
 {% set extra_attributes = extra_attributes.setAttribute('data-bs-toggle', 'modal') %}
 {% set extra_attributes = extra_attributes.setAttribute('data-bs-target', '#' ~ _language.link.target) %}
-{% set extra_attributes = extra_attributes.addClass('nav-link') %}
+{% set extra_attributes = extra_attributes.addClass(
+  [
+    'nav-link',
+    'text-center'
+  ]
+) %}
+  {% set title = _language.link.label %}
+  {% set link_title %}
+    <span class="d-block d-lg-inline-block">{{ title }}</span>
+  {% endset %}
 
-<li class="nav-item language-switcher">
+  <li class="nav-item language-switcher">
   {{ pattern('link', {
-    label: _language.link.label,
+    label: link_title,
     path: _language.link.href,
     icon: {
       name: 'chat-left-dots-fill',
-      size: 's'
+      size: 'xs'
     },
     icon_position: 'before',
     attributes: extra_attributes
