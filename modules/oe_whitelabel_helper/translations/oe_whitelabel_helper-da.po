@@ -1,0 +1,523 @@
+msgid ""
+msgstr ""
+
+msgid "Organisation type"
+msgstr "Organisationstype"
+
+msgid "Show @numb more items"
+msgstr "Vis @numb flere poster"
+
+msgid "When"
+msgstr "Hvornår"
+
+msgid "Where"
+msgstr "Hvor"
+
+msgid "Organiser"
+msgstr "Organisator"
+
+msgid "Website"
+msgstr "Websted"
+
+msgid "Social media"
+msgstr "Sociale medier"
+
+msgid "Number of seats"
+msgstr "Antal pladser"
+
+msgid "Entrance fee"
+msgstr "Entré"
+
+msgid "Book your seat, @time_left left to register, registration will end on @end_date"
+msgstr "Book din plads, du har @time_left tilbage til at registrere dig, registreringen slutter den @end_date"
+
+msgid "Registration will open in @time_left. You can register from @start_date, until @end_date."
+msgstr "Registrering starter om @time_left. Du kan registrere dig fra @start_date og frem til @end_date."
+
+msgid "Registration period ended on @date"
+msgstr "Registreringsperioden sluttede den @date"
+
+msgid "Postal address"
+msgstr "Postadresse"
+
+msgid "Authors"
+msgstr "Forfattere"
+
+msgid "Department"
+msgstr "Afdeling"
+
+msgid "Project duration"
+msgstr "Projektets varighed"
+
+msgid "Project website"
+msgstr "Projektwebsted"
+
+msgid "Contact organisation"
+msgstr "Kontaktorganisation"
+
+msgid "Call status: @label"
+msgstr "Status for indkaldelse: @label"
+
+msgid "Press contacts"
+msgstr "Pressehenvendelser"
+
+msgid "Call for tenders"
+msgstr "Indkaldelse af tilbud"
+
+msgid "Related links"
+msgstr "Relaterede links"
+
+msgid "Practical information"
+msgstr "Praktiske oplysninger"
+
+msgid "Phone number"
+msgstr "Telefonnummer"
+
+msgid "Opening date"
+msgstr "Startdato"
+
+msgid "Deadline date"
+msgstr "Tidsfrist (dato)"
+
+msgid "Deadline dates"
+msgstr "Tidsfrist (datoer)"
+
+msgid "Publication date"
+msgstr "Publikationsdato"
+
+msgid "Author"
+msgstr "Forfatter"
+
+msgid "Location"
+msgstr "Placering"
+
+msgid "News type"
+msgstr "Nyhedstype"
+
+msgid "Project locations"
+msgstr "Projektets lokaliteter"
+
+msgid "Overall budget"
+msgstr "Samlet budget"
+
+msgid "EU contribution"
+msgstr "EU-bidrag"
+
+msgid "Departments"
+msgstr "Afdelinger"
+
+msgid "Results"
+msgstr "Resultater"
+
+msgid "Stakeholders"
+msgstr "Interessenter"
+
+msgid "Coordinators"
+msgstr "Koordinatorer"
+
+msgid "Participants"
+msgstr "Deltagere"
+
+msgid "Country"
+msgstr "Land"
+
+msgid "Countries"
+msgstr "Lande"
+
+msgid "EU Organisation"
+msgstr "EU-organisation"
+
+msgid "Non-EU organisation"
+msgstr "Ikke-EU-organisation"
+
+msgid "Reference"
+msgstr "Reference"
+
+msgid "Upcoming"
+msgstr "Kommende"
+
+msgid "Open"
+msgstr "Åben"
+
+msgid "Closed"
+msgstr "Lukkede"
+
+msgid "Details"
+msgstr "Detaljer"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Publication"
+msgstr "Offentliggørelse"
+
+msgid "Description"
+msgstr "Beskrivelse"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Contact"
+msgstr "Kontakt"
+
+msgid "Contacts"
+msgstr "Kontakt"
+
+msgid "Organisation"
+msgstr "Organisation"
+
+msgid "Fax number"
+msgstr "Faxnummer"
+
+msgid "Mobile number"
+msgstr "Mobilnummer"
+
+msgid "Office"
+msgstr "Kontor"
+
+msgid "Documents"
+msgstr "Dokumenter"
+
+msgid "Funding"
+msgstr "Finansiering"
+
+msgid "As planned"
+msgstr "Som planlagt"
+
+msgid "Cancelled"
+msgstr "Annulleret"
+
+msgid "Rescheduled"
+msgstr "Flyttet"
+
+msgid "Postponed"
+msgstr "Udsat"
+
+msgid "Address"
+msgstr "Adresse"
+
+msgid "Live stream"
+msgstr "Livestreaming"
+
+msgid "Live streaming available"
+msgstr "Livestreaming tilgængelig"
+
+msgid "Project"
+msgstr "Projekt"
+
+msgid "Publication type"
+msgstr "Publikationstype"
+
+msgid "Call for proposals"
+msgstr "Indkaldelse af forslag"
+
+msgid "Funding programme"
+msgstr "Finansieringsprogram"
+
+msgid "Deadline model"
+msgstr "Tidsfristmodel"
+
+msgid "Single-stage"
+msgstr "Et-trins"
+
+msgid "Two-stage"
+msgstr "To-trins"
+
+msgid "Multiple cut-off"
+msgstr "Flere faser"
+
+msgid "Permanent"
+msgstr "Permanent"
+
+msgid "@date in"
+msgstr "@date i"
+
+msgid "Contact us"
+msgstr "Kontakt os"
+
+msgid "Follow us"
+msgstr "Følg os"
+
+msgid "About us"
+msgstr "Om os"
+
+msgid "Related sites"
+msgstr "Relaterede websites"
+
+msgid "More information on:"
+msgstr "Du kan læse mere på:"
+
+msgid "Discover more on @link"
+msgstr "Læs mere på @link"
+
+msgid "This site is managed by the @name"
+msgstr "Dette website administreres af @name"
+
+msgid "This site is managed by the European Commission, @name"
+msgstr "Dette website administreres af Europa-Kommissionen, der ejer websitet, @name"
+
+msgid "Last updated on: @date"
+msgstr "Senest opdateret den: @date"
+
+msgid "File"
+msgstr "Fil"
+
+msgid "Files"
+msgstr "Filer"
+
+msgid "Identification"
+msgstr "Identifikation"
+
+msgid "Identifications"
+msgstr "Identifikationer"
+
+msgid "Related department"
+msgstr "Tilknyttet afdeling"
+
+msgid "Related departments"
+msgstr "Tilknyttede afdelinger"
+
+msgid "Consultation"
+msgstr "Høring"
+
+msgid "Deadline"
+msgstr "Frist"
+
+msgid "Respond to the questionnaire"
+msgstr "Besvar spørgeskemaet"
+
+msgid "Respond to the consultation"
+msgstr "Deltag i høringen"
+
+msgid "Target audience"
+msgstr "Målgruppe"
+
+msgid "Why we are consulting"
+msgstr "Derfor ønsker vi at afholde en høring"
+
+msgid "Consultation outcome"
+msgstr "Resultat af høringen"
+
+msgid "Additional information"
+msgstr "Yderligere oplysninger"
+
+msgid "Reference documents"
+msgstr "Referencedokumenter"
+
+msgid "The response period for this consultation has ended. Thank you for your input."
+msgstr "Fristen for at deltage i denne høring er udløbet. Tak for dit bidrag."
+
+msgid "Status: @label"
+msgstr "Status: @label"
+
+msgid "Responsibilities"
+msgstr "Ansvarsområder"
+
+msgid "Media"
+msgstr "Medierne"
+
+msgid "Latest"
+msgstr "Seneste"
+
+msgid "Transparency"
+msgstr "Gennemsigtighed"
+
+msgid "Articles and presentations"
+msgstr "Artikler og præsentationer"
+
+msgid "Biography"
+msgstr "Biografi"
+
+msgid "Declaration of interests"
+msgstr "Interessetilkendegivelse"
+
+msgid "Show contact details"
+msgstr "Vis kontaktoplysninger"
+
+msgid "Hide contact details"
+msgstr "Skjul kontaktoplysninger"
+
+msgid "Leadership and organisation"
+msgstr "Ledelse og organisation"
+
+msgid "Available translations"
+msgstr "Sprogudgaver"
+
+msgid "General contact"
+msgstr "Generelle henvendelser"
+
+msgid "Grants awarded"
+msgstr "Bevilgede tilskud"
+
+msgid "Page contents"
+msgstr "Sidens indhold"
+
+msgid "Your name"
+msgstr "Dit navn"
+
+msgid "Your email address"
+msgstr "Din e-mailadresse"
+
+msgid "Subject"
+msgstr "Emne"
+
+msgid "Message"
+msgstr "Meddelelse"
+
+msgid "Country of residence"
+msgstr "Bopælsland"
+
+msgid "Phone"
+msgstr "Telefon"
+
+msgid "Send yourself a copy"
+msgstr "Send dig selv en kopi"
+
+msgid "Status message"
+msgstr "Statusmeddelelse"
+
+msgid "Close this message"
+msgstr "Luk denne meddelelse"
+
+msgid "The sender's name"
+msgstr "Afsenderens navn"
+
+msgid "The sender's email"
+msgstr "Afsenderens e-mail"
+
+msgid "Topic"
+msgstr "Emne"
+
+msgid "Languages"
+msgstr "Sprog"
+
+msgid "Keywords"
+msgstr "Nøgleord"
+
+msgid "No results have been found"
+msgstr "Ingen resultater fundet"
+
+msgid "Event date"
+msgstr "Dato for arrangementet"
+
+msgid "Select"
+msgstr "Vælg"
+
+msgid "After"
+msgstr "Efter"
+
+msgid "Before"
+msgstr "Før"
+
+msgid "In between"
+msgstr "Imellem"
+
+msgid "Select all"
+msgstr "Vælg alle"
+
+msgid "Event type"
+msgstr "Type af arrangement"
+
+msgid "Venue"
+msgstr "Sted"
+
+msgid "Online type"
+msgstr "Online"
+
+msgid "Livestream"
+msgstr "Livestreaming"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "EU organisation type"
+msgstr "Type EU-organisation"
+
+msgid "Date"
+msgstr "Dato"
+
+msgid "End Date"
+msgstr "Slutdato"
+
+msgid "Responsible department"
+msgstr "Ansvarlig afdeling"
+
+msgid "Content owner"
+msgstr "Indehaver af indhold"
+
+msgid "Overview"
+msgstr "Oversigt"
+
+msgid "Open gallery"
+msgstr "Åbn galleriet"
+
+msgid "(Acting) @role"
+msgstr "(Fungerende) @rolle"
+
+msgid "Follow the latest progress and learn more about getting involved."
+msgstr "Følg med i den seneste udvikling, og læs mere om, hvordan du kan deltage."
+
+msgid "Upcoming and ongoing"
+msgstr "Kommende og igangværende"
+
+msgid "Past"
+msgstr "Tidligere"
+
+msgid "Upcoming and open"
+msgstr "Kommende og åbne"
+
+msgid "This page is not available in @language_name."
+msgstr "Denne side er ikke tilgængelig på @language_name."
+
+msgid "Choose another language"
+msgstr "Vælg et andet sprog"
+
+msgid "1 day"
+msgid_plural "@count days"
+msgstr[0] "1 dag"
+msgstr[1] "@count dage"
+
+msgid "1 week"
+msgid_plural "@count weeks"
+msgstr[0] "1 uge"
+msgstr[1] "@count uger"
+
+msgid "1 year"
+msgid_plural "@count years"
+msgstr[0] "1 år"
+msgstr[1] "@count år"
+
+msgid "1 month"
+msgid_plural "@count months"
+msgstr[0] "1 måned"
+msgstr[1] "@count måneder"
+
+msgid "1 hour"
+msgid_plural "@count hours"
+msgstr[0] "1 time"
+msgstr[1] "@count timer"
+
+msgid "1 minute"
+msgid_plural "@count minutes"
+msgstr[0] "1 minut"
+msgstr[1] "@count minutter"
+
+msgid "1 second"
+msgid_plural "@count seconds"
+msgstr[0] "1 sekund"
+msgstr[1] "@count sekunder"
+
+msgid "Online link"
+msgstr "Link til arrangementet"
+
+msgid "Online time"
+msgstr "Tidspunkt for arrangementet"
+
+msgid "Name"
+msgstr "Navn"
+
+msgid "I have read and agree with the @link"
+msgstr "Jeg har læst og accepterer bestemmelserne om @link"
+
+msgid "data protection terms"
+msgstr "databeskyttelse"

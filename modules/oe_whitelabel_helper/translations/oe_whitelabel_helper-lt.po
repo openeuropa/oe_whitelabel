@@ -1,0 +1,523 @@
+msgid ""
+msgstr ""
+
+msgid "Organisation type"
+msgstr "Organizacijos rūšis"
+
+msgid "Show @numb more items"
+msgstr "Parodyti @numb daugiau elementų"
+
+msgid "When"
+msgstr "Kada"
+
+msgid "Where"
+msgstr "Kur"
+
+msgid "Organiser"
+msgstr "Organizatorius"
+
+msgid "Website"
+msgstr "Interneto svetainė"
+
+msgid "Social media"
+msgstr "Socialiniai tinklai"
+
+msgid "Number of seats"
+msgstr "Vietų skaičius"
+
+msgid "Entrance fee"
+msgstr "Įėjimo mokestis"
+
+msgid "Book your seat, @time_left left to register, registration will end on @end_date"
+msgstr "Užsisakykite vietą, liko @time_left užsiregistruoti, registracija baigsis @end_date"
+
+msgid "Registration will open in @time_left. You can register from @start_date, until @end_date."
+msgstr "Iki registracijos pradžios liko @time_left. Registruotis galima nuo @start_date iki @end_date."
+
+msgid "Registration period ended on @date"
+msgstr "Registracijos laikotarpis baigėsi @date"
+
+msgid "Postal address"
+msgstr "Pašto adresas"
+
+msgid "Authors"
+msgstr "Autoriai"
+
+msgid "Department"
+msgstr "Padalinys"
+
+msgid "Project duration"
+msgstr "Projekto terminas"
+
+msgid "Project website"
+msgstr "Projekto interneto svetainė"
+
+msgid "Contact organisation"
+msgstr "Organizacija ryšiams"
+
+msgid "Call status: @label"
+msgstr "Kvietimo būsena @label"
+
+msgid "Press contacts"
+msgstr "Kontaktiniai asmenys žiniasklaidai"
+
+msgid "Call for tenders"
+msgstr "Konkurso paskelbimas"
+
+msgid "Related links"
+msgstr "Susijusios nuorodos"
+
+msgid "Practical information"
+msgstr "Praktinė informacija"
+
+msgid "Phone number"
+msgstr "Telefono numeris"
+
+msgid "Opening date"
+msgstr "Pradžios data"
+
+msgid "Deadline date"
+msgstr "Terminas"
+
+msgid "Deadline dates"
+msgstr "Terminai"
+
+msgid "Publication date"
+msgstr "Paskelbimo data"
+
+msgid "Author"
+msgstr "Autorius"
+
+msgid "Location"
+msgstr "Vieta"
+
+msgid "News type"
+msgstr "Naujienų rūšis"
+
+msgid "Project locations"
+msgstr "Projekto įgyvendinimo vietos"
+
+msgid "Overall budget"
+msgstr "Bendras biudžetas"
+
+msgid "EU contribution"
+msgstr "ES įnašas"
+
+msgid "Departments"
+msgstr "Padaliniai"
+
+msgid "Results"
+msgstr "Rezultatai"
+
+msgid "Stakeholders"
+msgstr "Suinteresuotosios šalys"
+
+msgid "Coordinators"
+msgstr "Koordinatoriai"
+
+msgid "Participants"
+msgstr "Dalyviai"
+
+msgid "Country"
+msgstr "Šalis"
+
+msgid "Countries"
+msgstr "Šalys"
+
+msgid "EU Organisation"
+msgstr "ES organizacija"
+
+msgid "Non-EU organisation"
+msgstr "Ne ES organizacija"
+
+msgid "Reference"
+msgstr "Nuoroda"
+
+msgid "Upcoming"
+msgstr "Netrukus"
+
+msgid "Open"
+msgstr "Vyksta"
+
+msgid "Closed"
+msgstr "Baigėsi"
+
+msgid "Details"
+msgstr "Išsamūs duomenys"
+
+msgid "Status"
+msgstr "Būsena"
+
+msgid "Publication"
+msgstr "Leidinys"
+
+msgid "Description"
+msgstr "Aprašymas"
+
+msgid "Email"
+msgstr "E. paštas"
+
+msgid "Contact"
+msgstr "Kontaktiniai duomenys"
+
+msgid "Contacts"
+msgstr "Asmenys ryšiams"
+
+msgid "Organisation"
+msgstr "Organizacija"
+
+msgid "Fax number"
+msgstr "Fakso numeris"
+
+msgid "Mobile number"
+msgstr "Mobiliojo telefono numeris"
+
+msgid "Office"
+msgstr "Biuras"
+
+msgid "Documents"
+msgstr "Dokumentai"
+
+msgid "Funding"
+msgstr "Finansavimas"
+
+msgid "As planned"
+msgstr "Pagal planą"
+
+msgid "Cancelled"
+msgstr "Atšaukta"
+
+msgid "Rescheduled"
+msgstr "Pakeistas laikas"
+
+msgid "Postponed"
+msgstr "Atidėta"
+
+msgid "Address"
+msgstr "Adresas"
+
+msgid "Live stream"
+msgstr "Tiesioginė transliacija"
+
+msgid "Live streaming available"
+msgstr "Yra tiesioginė transliacija"
+
+msgid "Project"
+msgstr "Projektas"
+
+msgid "Publication type"
+msgstr "Leidinio rūšis"
+
+msgid "Call for proposals"
+msgstr "Kvietimas teikti pasiūlymus"
+
+msgid "Funding programme"
+msgstr "Finansavimo programa"
+
+msgid "Deadline model"
+msgstr "Termino pobūdis"
+
+msgid "Single-stage"
+msgstr "Vieno etapo"
+
+msgid "Two-stage"
+msgstr "Dviejų etapų"
+
+msgid "Multiple cut-off"
+msgstr "Keli terminai"
+
+msgid "Permanent"
+msgstr "Nuolatinis"
+
+msgid "@date in"
+msgstr "@date"
+
+msgid "Contact us"
+msgstr "Susisiekite su mumis"
+
+msgid "Follow us"
+msgstr "Sekite mus"
+
+msgid "About us"
+msgstr "Apie mus"
+
+msgid "Related sites"
+msgstr "Susijusios svetainės"
+
+msgid "More information on:"
+msgstr "Daugiau informacijos apie:"
+
+msgid "Discover more on @link"
+msgstr "Daugiau informacijos @link"
+
+msgid "This site is managed by the @name"
+msgstr "Šią svetainę tvarko @name"
+
+msgid "This site is managed by the European Commission, @name"
+msgstr "Šią svetainę tvarko Europos Komisija, @name"
+
+msgid "Last updated on: @date"
+msgstr "Paskutinį kartą atnaujinta: @date"
+
+msgid "File"
+msgstr "Rinkmena"
+
+msgid "Files"
+msgstr "Rinkmenos"
+
+msgid "Identification"
+msgstr "Identifikatorius"
+
+msgid "Identifications"
+msgstr "Identifikavimo duomenys"
+
+msgid "Related department"
+msgstr "Susijęs padalinys"
+
+msgid "Related departments"
+msgstr "Susiję padaliniai"
+
+msgid "Consultation"
+msgstr "Konsultacijos"
+
+msgid "Deadline"
+msgstr "Terminas"
+
+msgid "Respond to the questionnaire"
+msgstr "Pildyti klausimyną"
+
+msgid "Respond to the consultation"
+msgstr "Dalyvaukite konsultacijose"
+
+msgid "Target audience"
+msgstr "Tikslinė auditorija"
+
+msgid "Why we are consulting"
+msgstr "Kodėl rengiame konsultacijas?"
+
+msgid "Consultation outcome"
+msgstr "Konsultacijų rezultatai"
+
+msgid "Additional information"
+msgstr "Papildoma informacija"
+
+msgid "Reference documents"
+msgstr "Susiję dokumentai"
+
+msgid "The response period for this consultation has ended. Thank you for your input."
+msgstr "Šių konsultacijų nuomonių teikimo laikotarpis baigėsi. Dėkojame, kad dalyvaujate mūsų apklausoje."
+
+msgid "Status: @label"
+msgstr "Būsena: @label"
+
+msgid "Responsibilities"
+msgstr "Pareigos"
+
+msgid "Media"
+msgstr "Žiniasklaida"
+
+msgid "Latest"
+msgstr "Naujausia"
+
+msgid "Transparency"
+msgstr "Skaidrumas"
+
+msgid "Articles and presentations"
+msgstr "Straipsniai ir pranešimai"
+
+msgid "Biography"
+msgstr "Biografija"
+
+msgid "Declaration of interests"
+msgstr "Interesų deklaracija"
+
+msgid "Show contact details"
+msgstr "Rodyti kontaktinius duomenis"
+
+msgid "Hide contact details"
+msgstr "Slėpti kontaktinius duomenis"
+
+msgid "Leadership and organisation"
+msgstr "Vadovybė ir organizacinė struktūra"
+
+msgid "Available translations"
+msgstr "Vertimai"
+
+msgid "General contact"
+msgstr "Bendri kontaktiniai duomenys"
+
+msgid "Grants awarded"
+msgstr "Skirtos dotacijos"
+
+msgid "Page contents"
+msgstr "Puslapio turinys"
+
+msgid "Your name"
+msgstr "Jūsų vardas ir pavardė"
+
+msgid "Your email address"
+msgstr "Jūsų e. pašto adresas"
+
+msgid "Subject"
+msgstr "Tema"
+
+msgid "Message"
+msgstr "Žinutė"
+
+msgid "Country of residence"
+msgstr "Gyvenamoji šalis"
+
+msgid "Phone"
+msgstr "Telefonas"
+
+msgid "Send yourself a copy"
+msgstr "Siųsti kopiją sau"
+
+msgid "Status message"
+msgstr "Būsenos pranešimas"
+
+msgid "Close this message"
+msgstr "Uždaryti šią žinutę"
+
+msgid "The sender's name"
+msgstr "Siuntėjo vardas ir pavardė"
+
+msgid "The sender's email"
+msgstr "Siuntėjo e. pašto adresas"
+
+msgid "Topic"
+msgstr "Tema"
+
+msgid "Languages"
+msgstr "Kalbos"
+
+msgid "Keywords"
+msgstr "Raktažodžiai"
+
+msgid "No results have been found"
+msgstr "Rezultatų nerasta"
+
+msgid "Event date"
+msgstr "Renginio data"
+
+msgid "Select"
+msgstr "Pasirinkti"
+
+msgid "After"
+msgstr "Po"
+
+msgid "Before"
+msgstr "Iki"
+
+msgid "In between"
+msgstr "Tarp"
+
+msgid "Select all"
+msgstr "Pasirinkti viską"
+
+msgid "Event type"
+msgstr "Renginio rūšis"
+
+msgid "Venue"
+msgstr "Vieta"
+
+msgid "Online type"
+msgstr "Internetinio renginio rūšis"
+
+msgid "Livestream"
+msgstr "Tiesioginė transliacija"
+
+msgid "Type"
+msgstr "Rūšis"
+
+msgid "EU organisation type"
+msgstr "ES organizacijos rūšis"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "End Date"
+msgstr "Pabaigos data"
+
+msgid "Responsible department"
+msgstr "Atsakingas padalinys"
+
+msgid "Content owner"
+msgstr "Turinio savininkas"
+
+msgid "Overview"
+msgstr "Apžvalga"
+
+msgid "Open gallery"
+msgstr "Atidaryti galeriją"
+
+msgid "(Acting) @role"
+msgstr "(L. e. p.) @role"
+
+msgid "Follow the latest progress and learn more about getting involved."
+msgstr "Sekite naujienas ir daugiau sužinokite, kaip galite dalyvauti."
+
+msgid "Upcoming and ongoing"
+msgstr "Artėjantys ir vykstantys"
+
+msgid "Past"
+msgstr "Buvę"
+
+msgid "Upcoming and open"
+msgstr "Artėjantys ir vykstantys"
+
+msgid "This page is not available in @language_name."
+msgstr "Šio puslapio nėra @language_name."
+
+msgid "Choose another language"
+msgstr "Pasirinkite kitą kalbą"
+
+msgid "1 day"
+msgid_plural "@count days"
+msgstr[0] "1 d."
+msgstr[1] "@count d."
+
+msgid "1 week"
+msgid_plural "@count weeks"
+msgstr[0] "1 sav."
+msgstr[1] "@count sav."
+
+msgid "1 year"
+msgid_plural "@count years"
+msgstr[0] "1 m."
+msgstr[1] "@count m."
+
+msgid "1 month"
+msgid_plural "@count months"
+msgstr[0] "1 mėn."
+msgstr[1] "@count mėn."
+
+msgid "1 hour"
+msgid_plural "@count hours"
+msgstr[0] "1 val."
+msgstr[1] "@count val."
+
+msgid "1 minute"
+msgid_plural "@count minutes"
+msgstr[0] "1 min."
+msgstr[1] "@count min."
+
+msgid "1 second"
+msgid_plural "@count seconds"
+msgstr[0] "1 sek."
+msgstr[1] "@count sek."
+
+msgid "Online link"
+msgstr "Renginio nuoroda"
+
+msgid "Online time"
+msgstr "Renginio laikas"
+
+msgid "Name"
+msgstr "Vardas, pavardė (pavadinimas)"
+
+msgid "I have read and agree with the @link"
+msgstr "@link perskaičiau ir su jomis sutinku"
+
+msgid "data protection terms"
+msgstr "Duomenų apsaugos sąlygas"

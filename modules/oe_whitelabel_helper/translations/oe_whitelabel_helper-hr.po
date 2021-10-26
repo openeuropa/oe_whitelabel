@@ -1,0 +1,523 @@
+msgid ""
+msgstr ""
+
+msgid "Organisation type"
+msgstr "Tip organizacije"
+
+msgid "Show @numb more items"
+msgstr "Prikaži @numb više"
+
+msgid "When"
+msgstr "Vrijeme"
+
+msgid "Where"
+msgstr "Mjesto"
+
+msgid "Organiser"
+msgstr "Organizator"
+
+msgid "Website"
+msgstr "Internetska stranica"
+
+msgid "Social media"
+msgstr "Društvene mreže"
+
+msgid "Number of seats"
+msgstr "Broj mjesta"
+
+msgid "Entrance fee"
+msgstr "Kotizacija"
+
+msgid "Book your seat, @time_left left to register, registration will end on @end_date"
+msgstr "Rezervirajte svoje sjedalo, preostalo vrijeme za registraciju: @time_left, registracija završava na @end_date"
+
+msgid "Registration will open in @time_left. You can register from @start_date, until @end_date."
+msgstr "Registracija počinje za @time_left. Možete se registrirati od @start_date do @end_date."
+
+msgid "Registration period ended on @date"
+msgstr "Razdoblje za registraciju završilo je @date"
+
+msgid "Postal address"
+msgstr "Poštanska adresa"
+
+msgid "Authors"
+msgstr "Autori"
+
+msgid "Department"
+msgstr "Služba"
+
+msgid "Project duration"
+msgstr "Trajanje projekta"
+
+msgid "Project website"
+msgstr "Internetske stranice projekta"
+
+msgid "Contact organisation"
+msgstr "Obratite se organizaciji"
+
+msgid "Call status: @label"
+msgstr "Status poziva: @label"
+
+msgid "Press contacts"
+msgstr "Kontakti za medije"
+
+msgid "Call for tenders"
+msgstr "Poziv na podnošenje ponuda"
+
+msgid "Related links"
+msgstr "Povezane poveznice"
+
+msgid "Practical information"
+msgstr "Praktične informacije"
+
+msgid "Phone number"
+msgstr "Broj telefona"
+
+msgid "Opening date"
+msgstr "Datum otvaranja"
+
+msgid "Deadline date"
+msgstr "Rok"
+
+msgid "Deadline dates"
+msgstr "Rokovi"
+
+msgid "Publication date"
+msgstr "Datum objave"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Location"
+msgstr "Lokacija"
+
+msgid "News type"
+msgstr "Vrsta novosti"
+
+msgid "Project locations"
+msgstr "Lokacije projekta"
+
+msgid "Overall budget"
+msgstr "Ukupni proračun"
+
+msgid "EU contribution"
+msgstr "Doprinos EU-a"
+
+msgid "Departments"
+msgstr "Službe"
+
+msgid "Results"
+msgstr "Rezultati"
+
+msgid "Stakeholders"
+msgstr "Dionici"
+
+msgid "Coordinators"
+msgstr "Koordinatori"
+
+msgid "Participants"
+msgstr "Sudionici"
+
+msgid "Country"
+msgstr "Zemlja"
+
+msgid "Countries"
+msgstr "Zemlje"
+
+msgid "EU Organisation"
+msgstr "Organizacija EU-a"
+
+msgid "Non-EU organisation"
+msgstr "Organizacija izvan EU-a"
+
+msgid "Reference"
+msgstr "Referencija"
+
+msgid "Upcoming"
+msgstr "Uskoro"
+
+msgid "Open"
+msgstr "Otvoreno"
+
+msgid "Closed"
+msgstr "Zatvoreni"
+
+msgid "Details"
+msgstr "Pojedinosti"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Publication"
+msgstr "Publikacija"
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "Email"
+msgstr "E-adresa"
+
+msgid "Contact"
+msgstr "Kontakt"
+
+msgid "Contacts"
+msgstr "Kontakti"
+
+msgid "Organisation"
+msgstr "Organizacija"
+
+msgid "Fax number"
+msgstr "Broj telefaksa"
+
+msgid "Mobile number"
+msgstr "Broj mobilnog telefona"
+
+msgid "Office"
+msgstr "Ured"
+
+msgid "Documents"
+msgstr "Dokumenti"
+
+msgid "Funding"
+msgstr "Financiranje"
+
+msgid "As planned"
+msgstr "Prema planu"
+
+msgid "Cancelled"
+msgstr "Otkazano"
+
+msgid "Rescheduled"
+msgstr "Odgođeno za drugi datum"
+
+msgid "Postponed"
+msgstr "Odgođeno"
+
+msgid "Address"
+msgstr "Adresa"
+
+msgid "Live stream"
+msgstr "Prijenos uživo na internetu"
+
+msgid "Live streaming available"
+msgstr "Dostupan je prijenos uživo na internetu"
+
+msgid "Project"
+msgstr "Projekt"
+
+msgid "Publication type"
+msgstr "Tip publikacije"
+
+msgid "Call for proposals"
+msgstr "Poziv na podnošenje prijedloga"
+
+msgid "Funding programme"
+msgstr "Program financiranja"
+
+msgid "Deadline model"
+msgstr "Vrsta roka"
+
+msgid "Single-stage"
+msgstr "S jednom fazom"
+
+msgid "Two-stage"
+msgstr "S dvije faze"
+
+msgid "Multiple cut-off"
+msgstr "Više rokova"
+
+msgid "Permanent"
+msgstr "Stalno"
+
+msgid "@date in"
+msgstr "@date,"
+
+msgid "Contact us"
+msgstr "Kontakt"
+
+msgid "Follow us"
+msgstr "Pratite nas"
+
+msgid "About us"
+msgstr "O nama"
+
+msgid "Related sites"
+msgstr "Povezane stranice"
+
+msgid "More information on:"
+msgstr "Dodatne informacije:"
+
+msgid "Discover more on @link"
+msgstr "Otkrijte više na stranici @link"
+
+msgid "This site is managed by the @name"
+msgstr "Ovim internetskim stranicama upravlja @name"
+
+msgid "This site is managed by the European Commission, @name"
+msgstr "Ovim internetskim stranicama upravlja Europska komisija, @name"
+
+msgid "Last updated on: @date"
+msgstr "Posljednji put ažurirano: @date"
+
+msgid "File"
+msgstr "Datoteka"
+
+msgid "Files"
+msgstr "Datoteke"
+
+msgid "Identification"
+msgstr "Identifikacijski podaci"
+
+msgid "Identifications"
+msgstr "Identifikacijski podaci"
+
+msgid "Related department"
+msgstr "Povezana služba"
+
+msgid "Related departments"
+msgstr "Povezane službe"
+
+msgid "Consultation"
+msgstr "Savjetovanje"
+
+msgid "Deadline"
+msgstr "Rok"
+
+msgid "Respond to the questionnaire"
+msgstr "Odgovorite na upitnik"
+
+msgid "Respond to the consultation"
+msgstr "Sudjelujte u savjetovanju"
+
+msgid "Target audience"
+msgstr "Ciljna publika"
+
+msgid "Why we are consulting"
+msgstr "Zašto provodimo savjetovanje?"
+
+msgid "Consultation outcome"
+msgstr "Rezultati savjetovanja"
+
+msgid "Additional information"
+msgstr "Dodatne informacije"
+
+msgid "Reference documents"
+msgstr "Referentni dokumenti"
+
+msgid "The response period for this consultation has ended. Thank you for your input."
+msgstr "Isteklo je razdoblje za sudjelovanje u ovom savjetovanju. Hvala vam na doprinosu."
+
+msgid "Status: @label"
+msgstr "Status: @label"
+
+msgid "Responsibilities"
+msgstr "Odgovornosti"
+
+msgid "Media"
+msgstr "Mediji"
+
+msgid "Latest"
+msgstr "Najnovije"
+
+msgid "Transparency"
+msgstr "Transparentnost"
+
+msgid "Articles and presentations"
+msgstr "Članci i prezentacije"
+
+msgid "Biography"
+msgstr "Biografija"
+
+msgid "Declaration of interests"
+msgstr "Izjava o sukobu interesa"
+
+msgid "Show contact details"
+msgstr "Prikaži podatke za kontakt"
+
+msgid "Hide contact details"
+msgstr "Sakrij podatke za kontakt"
+
+msgid "Leadership and organisation"
+msgstr "Vodstvo i ustroj"
+
+msgid "Available translations"
+msgstr "Raspoloživi prijevodi"
+
+msgid "General contact"
+msgstr "Kontakt za opća pitanja"
+
+msgid "Grants awarded"
+msgstr "Dodijeljena bespovratna sredstva"
+
+msgid "Page contents"
+msgstr "Sadržaj stranice"
+
+msgid "Your name"
+msgstr "Vaše ime"
+
+msgid "Your email address"
+msgstr "Vaša e-adresa"
+
+msgid "Subject"
+msgstr "Predmet"
+
+msgid "Message"
+msgstr "Poruka"
+
+msgid "Country of residence"
+msgstr "Zemlja boravišta"
+
+msgid "Phone"
+msgstr "Telefon"
+
+msgid "Send yourself a copy"
+msgstr "Pošaljite sebi kopiju"
+
+msgid "Status message"
+msgstr "Poruka o statusu"
+
+msgid "Close this message"
+msgstr "Zatvori ovu poruku"
+
+msgid "The sender's name"
+msgstr "Ime pošiljatelja"
+
+msgid "The sender's email"
+msgstr "E-adresa pošiljatelja"
+
+msgid "Topic"
+msgstr "Tema"
+
+msgid "Languages"
+msgstr "Jezici"
+
+msgid "Keywords"
+msgstr "Ključne riječi"
+
+msgid "No results have been found"
+msgstr "Nisu pronađeni rezultati"
+
+msgid "Event date"
+msgstr "Datum događanja"
+
+msgid "Select"
+msgstr "Odaberi"
+
+msgid "After"
+msgstr "Nakon"
+
+msgid "Before"
+msgstr "Prije"
+
+msgid "In between"
+msgstr "Između"
+
+msgid "Select all"
+msgstr "Odaberi sve"
+
+msgid "Event type"
+msgstr "Vrsta događanja"
+
+msgid "Venue"
+msgstr "Mjesto održavanja"
+
+msgid "Online type"
+msgstr "Tip internetskog događanja"
+
+msgid "Livestream"
+msgstr "Uživo"
+
+msgid "Type"
+msgstr "Vrsta"
+
+msgid "EU organisation type"
+msgstr "Vrsta organizacije EU-a"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "End Date"
+msgstr "Datum završetka"
+
+msgid "Responsible department"
+msgstr "Nadležni odjel"
+
+msgid "Content owner"
+msgstr "Vlasnik sadržaja"
+
+msgid "Overview"
+msgstr "Pregled"
+
+msgid "Open gallery"
+msgstr "Otvaranje galerije"
+
+msgid "(Acting) @role"
+msgstr "@role (vršitelj dužnosti)"
+
+msgid "Follow the latest progress and learn more about getting involved."
+msgstr "Pratite najnoviji razvoj događaja i doznajte kako se uključiti"
+
+msgid "Upcoming and ongoing"
+msgstr "Budući i u tijeku"
+
+msgid "Past"
+msgstr "Prošli"
+
+msgid "Upcoming and open"
+msgstr "Budući i otvoreni"
+
+msgid "This page is not available in @language_name."
+msgstr "Ova stranica nije dostupna na sljedećem jeziku: @language_name."
+
+msgid "Choose another language"
+msgstr "Odaberite drugi jezik"
+
+msgid "1 day"
+msgid_plural "@count days"
+msgstr[0] "1 dan"
+msgstr[1] "dana: @count"
+
+msgid "1 week"
+msgid_plural "@count weeks"
+msgstr[0] "1 tjedan"
+msgstr[1] "tjedana: @count"
+
+msgid "1 year"
+msgid_plural "@count years"
+msgstr[0] "1 godina"
+msgstr[1] "godina: @count"
+
+msgid "1 month"
+msgid_plural "@count months"
+msgstr[0] "1 mjesec"
+msgstr[1] "mjeseci: @count"
+
+msgid "1 hour"
+msgid_plural "@count hours"
+msgstr[0] "1 sat"
+msgstr[1] "sati: @count"
+
+msgid "1 minute"
+msgid_plural "@count minutes"
+msgstr[0] "1 minuta"
+msgstr[1] "minuta: @count"
+
+msgid "1 second"
+msgid_plural "@count seconds"
+msgstr[0] "1 sekunda"
+msgstr[1] "sekunda: @count"
+
+msgid "Online link"
+msgstr "Poveznica"
+
+msgid "Online time"
+msgstr "Internetsko vrijeme"
+
+msgid "Name"
+msgstr "Ime"
+
+msgid "I have read and agree with the @link"
+msgstr "Pročitao sam i prihvaćam @link"
+
+msgid "data protection terms"
+msgstr "uvjete zaštite podataka"
