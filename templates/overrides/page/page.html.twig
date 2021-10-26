@@ -97,7 +97,7 @@
   </main>
 
   {% if page.footer %}
-    {% if "ecfooterblock" in page.footer|keys %}
+    {% if bcl_component_library == 'ec' %}
       <footer class="ec__footer bcl-footer mt-4">
     {% else %}
       <footer class="bcl-footer mt-4">
