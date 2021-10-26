@@ -1,43 +1,29 @@
 <div class="pt-4 pt-lg-5 row">
   {% for section in top_sections %}
     {% set section_id = section.section_id %}
-    <div class="col footer-section">
       {% include '@oe_whitelabel/layouts/' ~ section_id ~ '.html.twig'  with {
         title: section.title,
         description: section.description,
         sections: section.sections
       } %}
-    </div>
   {% endfor %}
 </div>
-{%
-  set row_class = [
-   'pb-4',
-   'pb-lg-5',
-   'mt-4',
-   'mt-lg-5',
-   'bcl-footer__bordered-row',
-   'row',
-  ]
-%}
+
 {% if middle_sections is defined and middle_sections is not empty and middle_sections is iterable %}
-  <div {{ attributes.addClass(row_class) }}>
+  <div class="pb-4 pb-lg-5 mt-4 mt-lg-5 bcl-footer__bordered-row row">
     {% for section in middle_sections %}
       {% set section_id = section.section_id %}
-      <div class="col">
         {% include '@oe_whitelabel/layouts/' ~ section_id ~ '.html.twig'  with {
           title: section.title,
           links: section.links,
         } %}
-      </div>
     {% endfor %}
   </div>
 {% endif %}
 {% if bottom_sections is defined and bottom_sections is not empty and bottom_sections is iterable %}
-  <div {{ attributes.addClass(row_class) }} >
+  <div class="pb-4 pb-lg-5 bcl-footer__bordered-row row">
     {% for section in bottom_sections %}
       {% set section_id = section.section_id %}
-      <div class="col">
         {% include '@oe_whitelabel/layouts/' ~ section_id ~ '.html.twig'  with {
           title: section.title,
           links: section.links,
@@ -51,7 +37,6 @@
           eu_institutions_title: section.eu_institutions_title,
           eu_institutions_links: section.eu_institutions_links
         } %}
-      </div>
     {% endfor %}
   </div>
 {% endif %}
