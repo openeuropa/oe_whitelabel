@@ -11,7 +11,7 @@
         "drupal/core": "^8.9 || ^9.1",
         "drupal/ui_patterns": "^1.0",
         "drupal/ui_patterns_settings": "^1.0",
-        "openeuropa/oe_bootstrap_theme": "dev-OEL-579-all"
+        "openeuropa/oe_bootstrap_theme": "0.261020211605"
     },
     "require-dev": {
         "composer/installers": "^1.11",
@@ -40,15 +40,19 @@
         "drupal":{
             "type": "composer",
             "url": "https://packages.drupal.org/8"
-        },
-        "openeuropa/oe_bootstrap_theme":{
-            "type": "vcs",
-            "url": "https://github.com/openeuropa/oe_bootstrap_theme/"
         }
     },
     "extra": {
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
+        "artifacts": {
+            "openeuropa/oe_bootstrap_theme": {
+                "dist": {
+                    "url": "https://github.com/{name}/releases/download/{pretty-version}/{project-name}-{pretty-version}.tar.gz",
+                    "type": "tar"
+                }
+            }
+        },
         "drupal-scaffold": {
             "locations": {
                 "web-root": "./build"
