@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * The OE Whitelabel Helper module.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_locale_translation_projects_alter().
+ */
+function oe_whitelabel_helper_locale_translation_projects_alter(&$projects) {
+  $projects['oe_whitelabel_helper']['info']['interface translation server pattern'] = drupal_get_path('module', 'oe_whitelabel_helper') . '/translations/%project-%language.po';
+}
