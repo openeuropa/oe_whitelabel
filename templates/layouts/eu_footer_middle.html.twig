@@ -9,7 +9,7 @@
   <p class="fw-bold border-bottom pb-2 pt-3 mb-2"> {{ social_media_title|t }} </p>
   {% if social_media_links is defined and social_media_links is not empty and social_media_links is iterable %}
     {% for social_link in social_media_links %}
-      { pattern('link', social_link) }}
+      {{ pattern('link', social_link) }}
     {% endfor %}
   {% endif %}
 

@@ -15,10 +15,12 @@
 #}
 {% block content %}
   {% if site_logo %}
-    <img class="d-none d-lg-inline-block" src="{{ site_logo }}" alt="{{ 'Home'|t }}" />
+    <a class="text-decoration-none site-logo" href="{{ path('<front>') }}" rel="home">
+      <img class="d-none d-lg-inline-block" src="{{ site_logo }}" alt="{{ 'Home'|t }}" />
+    </a>
   {% endif %}
   {% if site_name %}
-    <p class="site-name">{{ site_name }}</p>
+    <p class="site-name"><a class="text-white text-decoration-none align-bottom" href="{{ path('<front>') }}" rel="home">{{ site_name }}</a></p>
   {% endif %}
   {% if site_slogan %}
     <div class="site-slogan">{{ site_slogan }}</div>
