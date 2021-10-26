@@ -75,6 +75,8 @@ class SiteBrandingBlockTest extends KernelTestBase {
 
     $actual = $crawler->filter('.site-name');
     $this->assertCount(1, $actual);
+    $link = $actual->filter('.text-white.text-decoration-none.align-bottom');
+    $this->assertCount(1, $link);
     $actual = $crawler->filter('.site-logo');
     $this->assertCount(1, $actual);
     $logo = $actual->filter('img');
