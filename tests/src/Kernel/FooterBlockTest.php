@@ -78,10 +78,14 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $crawler = new Crawler($render->__toString());
 
     // For now we assert only minimal till we have a footer component.
-    $actual = $crawler->filter('#block-ecfooterblock');
-    $this->assertCount(1, $actual);
-    $sections = $actual->filter('.row');
-    $this->assertCount(3, $sections);
+    $rows = $crawler->filter('.row');
+    $this->assertCount(3, $rows);
+    $borderedSections = $crawler->filter('.bcl-footer__bordered-row');
+    $this->assertCount(2, $borderedSections);
+    $sectionTitles = $crawler->filter('p.fw-bold.mb-2');
+    $this->assertCount(3, $sectionTitles);
+    $sectionLinks = $crawler->filter('div.col-12.col-lg-4:nth-child(2) a.text-decoration-none.d-block.mb-1');
+    $this->assertCount(3, $sectionLinks);
   }
 
   /**
@@ -109,10 +113,14 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $crawler = new Crawler($render->__toString());
 
     // For now we assert only minimal till we have a footer component.
-    $actual = $crawler->filter('#block-eufooterblock');
-    $this->assertCount(1, $actual);
-    $sections = $actual->filter('.row');
-    $this->assertCount(2, $sections);
+    $rows = $crawler->filter('.row');
+    $this->assertCount(2, $rows);
+    $borderedSections = $crawler->filter('.bcl-footer__bordered-row');
+    $this->assertCount(1, $borderedSections);
+    $sectionTitles = $crawler->filter('p.fw-bold.mb-2');
+    $this->assertCount(5, $sectionTitles);
+    $sectionLinks = $crawler->filter('div.col-12.col-lg-4:nth-child(2) a.text-decoration-none.d-block.mb-1');
+    $this->assertCount(10, $sectionLinks);
   }
 
 }
