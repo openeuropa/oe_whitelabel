@@ -1,7 +1,3 @@
-parameters:
-#  oe_whitelabel_helper.twig_loader.namespaces: ['bcl-twig', 'bcl']
-#  oe_whitelabel_helper.twig_loader.theme: 'oe_whitelabel'
-#  oe_whitelabel_helper.twig_loader.directory: 'components'
 services:
   oe_whitelabel_helper.twig_extension.twig_extension:
     class: Drupal\oe_whitelabel_helper\TwigExtension\TwigExtension

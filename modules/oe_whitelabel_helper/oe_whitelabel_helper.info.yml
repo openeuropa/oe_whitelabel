@@ -3,7 +3,3 @@ type: module
 description: OpenEuropa Whitelabel Theme helpers and tools.
 package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^8.9 || ^9.1
-dependencies:
-  - openeuropa:oe_authentication
-  - openeuropa:oe_multilingual
-  - openeuropa:oe_corporate_blocks
