@@ -56,11 +56,11 @@ class SearchForm extends FormBase {
 
     $form['search_input'] = [
       '#type' => 'textfield',
-      '#title' => $config['input']['label'],
+      '#title' => $config['input']['label'] === 'Search' ? $this->t('Search') : $config['input']['label'],
       '#title_display' => 'invisible',
       '#size' => 20,
       '#attributes' => [
-        'placeholder' => $config['input']['placeholder'],
+        'placeholder' => $config['input']['placeholder'] === 'Search' ? $this->t('Search') : $config['input']['placeholder'],
         'class' => [
           $config['input']['classes'],
         ],
@@ -74,7 +74,7 @@ class SearchForm extends FormBase {
       '#suffix' => '</div>',
       '#type' => 'submit',
       '#name' => FALSE,
-      '#value' => $config['button']['label'],
+      '#value' => $config['button']['label'] === 'Search' ? $this->t('Search') : $config['button']['label'],
       '#attributes' => [
         'class' => [
           'btn-md',
