@@ -1,0 +1,16 @@
+card_search:
+  label: Card  search page
+  description: Formatted card to display the search result content.
+  fields:
+    title:
+      type: text
+      label: Title of the search-card
+    text:
+      type: array
+      label: Text of the search-card result
+    image:
+      type: array
+      label: Image of the search-card
+    content:
+      type: array
+      label: Badges of the search-card
