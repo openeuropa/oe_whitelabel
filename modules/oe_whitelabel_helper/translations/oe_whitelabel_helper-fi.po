@@ -1,0 +1,523 @@
+msgid ""
+msgstr ""
+
+msgid "Organisation type"
+msgstr "Organisaation tyyppi"
+
+msgid "Show @numb more items"
+msgstr "Näytä vielä @numb kohtaa"
+
+msgid "When"
+msgstr "Milloin"
+
+msgid "Where"
+msgstr "Missä"
+
+msgid "Organiser"
+msgstr "Järjestäjä"
+
+msgid "Website"
+msgstr "Verkkosivusto"
+
+msgid "Social media"
+msgstr "Sosiaalinen media"
+
+msgid "Number of seats"
+msgstr "Paikkoja"
+
+msgid "Entrance fee"
+msgstr "Pääsymaksu"
+
+msgid "Book your seat, @time_left left to register, registration will end on @end_date"
+msgstr "Varaa paikkasi – @time_left ilmoittautumisaikaa jäljellä. Ilmoittautuminen päättyy @end_date"
+
+msgid "Registration will open in @time_left. You can register from @start_date, until @end_date."
+msgstr "Ilmoittautuminen alkaa @time_left. Voit ilmoittautua @start_date – @end_date."
+
+msgid "Registration period ended on @date"
+msgstr "Ilmoittautumisaika päättyi @date"
+
+msgid "Postal address"
+msgstr "Postiosoite"
+
+msgid "Authors"
+msgstr "Laatijat"
+
+msgid "Department"
+msgstr "Osasto"
+
+msgid "Project duration"
+msgstr "Hankkeen kesto"
+
+msgid "Project website"
+msgstr "Hankkeen verkkosivusto"
+
+msgid "Contact organisation"
+msgstr "Ota yhteyttä organisaatioon"
+
+msgid "Call status: @label"
+msgstr "Pyynnön tila: @label"
+
+msgid "Press contacts"
+msgstr "Median yhteydenotot"
+
+msgid "Call for tenders"
+msgstr "Tarjouspyyntö"
+
+msgid "Related links"
+msgstr "Aiheeseen liittyvää"
+
+msgid "Practical information"
+msgstr "Käytännön tietoa"
+
+msgid "Phone number"
+msgstr "Puhelinnumero"
+
+msgid "Opening date"
+msgstr "Alkamispäivä"
+
+msgid "Deadline date"
+msgstr "Määräpäivä"
+
+msgid "Deadline dates"
+msgstr "Määräpäivät"
+
+msgid "Publication date"
+msgstr "Julkaisupäivä"
+
+msgid "Author"
+msgstr "Laatija"
+
+msgid "Location"
+msgstr "Paikka"
+
+msgid "News type"
+msgstr "Uutistyyppi"
+
+msgid "Project locations"
+msgstr "Hankkeen toteutuspaikat"
+
+msgid "Overall budget"
+msgstr "Kokonaisbudjetti"
+
+msgid "EU contribution"
+msgstr "EU:n osuus"
+
+msgid "Departments"
+msgstr "Osastot"
+
+msgid "Results"
+msgstr "Tulokset"
+
+msgid "Stakeholders"
+msgstr "Sidosryhmät"
+
+msgid "Coordinators"
+msgstr "Koordinaattorit"
+
+msgid "Participants"
+msgstr "Osallistujat"
+
+msgid "Country"
+msgstr "Maa"
+
+msgid "Countries"
+msgstr "Maat"
+
+msgid "EU Organisation"
+msgstr "EU:n organisaatio"
+
+msgid "Non-EU organisation"
+msgstr "Ei EU:n organisaatio"
+
+msgid "Reference"
+msgstr "Viite"
+
+msgid "Upcoming"
+msgstr "Tulossa"
+
+msgid "Open"
+msgstr "Meneillään"
+
+msgid "Closed"
+msgstr "Päättynyt"
+
+msgid "Details"
+msgstr "Tiedot"
+
+msgid "Status"
+msgstr "Tila"
+
+msgid "Publication"
+msgstr "Julkaisu"
+
+msgid "Description"
+msgstr "Kuvaus"
+
+msgid "Email"
+msgstr "Sähköposti"
+
+msgid "Contact"
+msgstr "Yhteydenotot"
+
+msgid "Contacts"
+msgstr "Yhteydenotot"
+
+msgid "Organisation"
+msgstr "Organisaatio"
+
+msgid "Fax number"
+msgstr "Faksinumero"
+
+msgid "Mobile number"
+msgstr "Matkapuhelinnumero"
+
+msgid "Office"
+msgstr "Toimisto"
+
+msgid "Documents"
+msgstr "Asiakirjat"
+
+msgid "Funding"
+msgstr "Rahoitus"
+
+msgid "As planned"
+msgstr "Suunnitellusti"
+
+msgid "Cancelled"
+msgstr "Peruutettu"
+
+msgid "Rescheduled"
+msgstr "Siirretty"
+
+msgid "Postponed"
+msgstr "Peruttu toistaiseksi"
+
+msgid "Address"
+msgstr "Osoite"
+
+msgid "Live stream"
+msgstr "Suoratoisto"
+
+msgid "Live streaming available"
+msgstr "Katsottavissa suoratoistona"
+
+msgid "Project"
+msgstr "Hanke"
+
+msgid "Publication type"
+msgstr "Julkaisun tyyppi"
+
+msgid "Call for proposals"
+msgstr "Ehdotuspyyntö"
+
+msgid "Funding programme"
+msgstr "Rahoitusohjelma"
+
+msgid "Deadline model"
+msgstr "Määräajan tyyppi"
+
+msgid "Single-stage"
+msgstr "Yksivaiheinen"
+
+msgid "Two-stage"
+msgstr "Kaksivaiheinen"
+
+msgid "Multiple cut-off"
+msgstr "Monivaiheinen"
+
+msgid "Permanent"
+msgstr "Jatkuva"
+
+msgid "@date in"
+msgstr "@date julkaisu"
+
+msgid "Contact us"
+msgstr "Yhteydenotot"
+
+msgid "Follow us"
+msgstr "Seuraa toimintaamme"
+
+msgid "About us"
+msgstr "Tietoa organisaatiosta"
+
+msgid "Related sites"
+msgstr "Aiheeseen liittyvää"
+
+msgid "More information on:"
+msgstr "Lisätietoa:"
+
+msgid "Discover more on @link"
+msgstr "Lisää EU-aiheita: @link"
+
+msgid "This site is managed by the @name"
+msgstr "Tätä sivustoa hallinnoi @name"
+
+msgid "This site is managed by the European Commission, @name"
+msgstr "Tätä sivustoa hallinnoi Euroopan komissio, @name"
+
+msgid "Last updated on: @date"
+msgstr "Päivitetty viimeksi: @date"
+
+msgid "File"
+msgstr "Tiedosto"
+
+msgid "Files"
+msgstr "Tiedostot"
+
+msgid "Identification"
+msgstr "Tunniste"
+
+msgid "Identifications"
+msgstr "Tunnisteet"
+
+msgid "Related department"
+msgstr "Vastaava osasto"
+
+msgid "Related departments"
+msgstr "Vastaavat osastot"
+
+msgid "Consultation"
+msgstr "Kuuleminen"
+
+msgid "Deadline"
+msgstr "Määräaika"
+
+msgid "Respond to the questionnaire"
+msgstr "Vastaa kuulemiskyselyyn"
+
+msgid "Respond to the consultation"
+msgstr "Vastaa kuulemiseen"
+
+msgid "Target audience"
+msgstr "Kohderyhmä"
+
+msgid "Why we are consulting"
+msgstr "Kuulemisen tarkoitus"
+
+msgid "Consultation outcome"
+msgstr "Kuulemisen tulokset"
+
+msgid "Additional information"
+msgstr "Lisätietoja"
+
+msgid "Reference documents"
+msgstr "Viiteasiakirjat"
+
+msgid "The response period for this consultation has ended. Thank you for your input."
+msgstr "Tämän kuulemisen vastausaika on päättynyt. Kiitos palautteesta."
+
+msgid "Status: @label"
+msgstr "Tila: @label"
+
+msgid "Responsibilities"
+msgstr "Vastuualueet"
+
+msgid "Media"
+msgstr "Media"
+
+msgid "Latest"
+msgstr "Uutta"
+
+msgid "Transparency"
+msgstr "Avoimuus"
+
+msgid "Articles and presentations"
+msgstr "Artikkelit ja esitykset"
+
+msgid "Biography"
+msgstr "Henkilöhistoria"
+
+msgid "Declaration of interests"
+msgstr "Ilmoitus sidonnaisuuksista"
+
+msgid "Show contact details"
+msgstr "Näytä yhteystiedot"
+
+msgid "Hide contact details"
+msgstr "Piilota yhteystiedot"
+
+msgid "Leadership and organisation"
+msgstr "Johto ja organisaatio"
+
+msgid "Available translations"
+msgstr "Saatavilla olevat käännökset"
+
+msgid "General contact"
+msgstr "Yhteystiedot"
+
+msgid "Grants awarded"
+msgstr "Myönnetyt avustukset"
+
+msgid "Page contents"
+msgstr "Sivun sisältö"
+
+msgid "Your name"
+msgstr "Lähettäjän nimi"
+
+msgid "Your email address"
+msgstr "Lähettäjän sähköpostiosoite"
+
+msgid "Subject"
+msgstr "Aihe"
+
+msgid "Message"
+msgstr "Viesti"
+
+msgid "Country of residence"
+msgstr "Asuinmaa"
+
+msgid "Phone"
+msgstr "Puhelinnumero"
+
+msgid "Send yourself a copy"
+msgstr "Lähetä itsellesi kopio"
+
+msgid "Status message"
+msgstr "Tilasanoma"
+
+msgid "Close this message"
+msgstr "Sulje tämä viesti"
+
+msgid "The sender's name"
+msgstr "Lähettäjän nimi"
+
+msgid "The sender's email"
+msgstr "Lähettäjän sähköpostiosoite"
+
+msgid "Topic"
+msgstr "Toiminta-ala"
+
+msgid "Languages"
+msgstr "Kielet"
+
+msgid "Keywords"
+msgstr "Avainsanat"
+
+msgid "No results have been found"
+msgstr "Ei hakutuloksia"
+
+msgid "Event date"
+msgstr "Tapahtuman ajankohta"
+
+msgid "Select"
+msgstr "Valitse"
+
+msgid "After"
+msgstr "Aikaisintaan"
+
+msgid "Before"
+msgstr "Viimeistään"
+
+msgid "In between"
+msgstr "Aikavälillä"
+
+msgid "Select all"
+msgstr "Valitse kaikki"
+
+msgid "Event type"
+msgstr "Tapahtuman tyyppi"
+
+msgid "Venue"
+msgstr "Paikka"
+
+msgid "Online type"
+msgstr "Verkkotapahtuman tyyppi"
+
+msgid "Livestream"
+msgstr "Suora verkkolähetys"
+
+msgid "Type"
+msgstr "Tyyppi"
+
+msgid "EU organisation type"
+msgstr "EU-elimen tyyppi"
+
+msgid "Date"
+msgstr "Ajankohta"
+
+msgid "End Date"
+msgstr "Päättymispäivä"
+
+msgid "Responsible department"
+msgstr "Vastaava pääosasto"
+
+msgid "Content owner"
+msgstr "Sisällön omistaja"
+
+msgid "Overview"
+msgstr "Perustiedot"
+
+msgid "Open gallery"
+msgstr "Avaa galleria"
+
+msgid "(Acting) @role"
+msgstr "@role (vt.)"
+
+msgid "Follow the latest progress and learn more about getting involved."
+msgstr "Seuraa ja osallistu:"
+
+msgid "Upcoming and ongoing"
+msgstr "Tulossa tai meneillään"
+
+msgid "Past"
+msgstr "Päättynyt"
+
+msgid "Upcoming and open"
+msgstr "Tulossa tai meneillään"
+
+msgid "This page is not available in @language_name."
+msgstr "Tämä sivu ei ole saatavilla kielellä: @language_name."
+
+msgid "Choose another language"
+msgstr "Valitse toinen kieli"
+
+msgid "1 day"
+msgid_plural "@count days"
+msgstr[0] "1 päivä"
+msgstr[1] "@count päivää"
+
+msgid "1 week"
+msgid_plural "@count weeks"
+msgstr[0] "1 viikko"
+msgstr[1] "@count viikkoa"
+
+msgid "1 year"
+msgid_plural "@count years"
+msgstr[0] "1 vuosi"
+msgstr[1] "@count vuotta"
+
+msgid "1 month"
+msgid_plural "@count months"
+msgstr[0] "1 kuukausi"
+msgstr[1] "@count kuukautta"
+
+msgid "1 hour"
+msgid_plural "@count hours"
+msgstr[0] "1 tunti"
+msgstr[1] "@count tuntia"
+
+msgid "1 minute"
+msgid_plural "@count minutes"
+msgstr[0] "1 minuutti"
+msgstr[1] "@count minuuttia"
+
+msgid "1 second"
+msgid_plural "@count seconds"
+msgstr[0] "1 sekunti"
+msgstr[1] "@count sekuntia"
+
+msgid "Online link"
+msgstr "Verkkotapahtuman linkki"
+
+msgid "Online time"
+msgstr "Verkkotapahtuman ajankohta"
+
+msgid "Name"
+msgstr "Nimi"
+
+msgid "I have read and agree with the @link"
+msgstr "Olen lukenut @link ja hyväksyn sen ehdot"
+
+msgid "data protection terms"
+msgstr "tietosuojaselosteen"

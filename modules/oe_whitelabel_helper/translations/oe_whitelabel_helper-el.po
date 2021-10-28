@@ -1,0 +1,523 @@
+msgid ""
+msgstr ""
+
+msgid "Organisation type"
+msgstr "Είδος οργανισμού"
+
+msgid "Show @numb more items"
+msgstr "Εμφάνιση @numb περισσότερων στοιχείων"
+
+msgid "When"
+msgstr "Πότε"
+
+msgid "Where"
+msgstr "Πού"
+
+msgid "Organiser"
+msgstr "Διοργανωτής"
+
+msgid "Website"
+msgstr "Ιστότοπος"
+
+msgid "Social media"
+msgstr "Μέσα κοινωνικής δικτύωσης"
+
+msgid "Number of seats"
+msgstr "Αριθμός θέσεων"
+
+msgid "Entrance fee"
+msgstr "Εισιτήριο"
+
+msgid "Book your seat, @time_left left to register, registration will end on @end_date"
+msgstr "Κρατήστε θέση, έχετε ακόμα @time_left για να γραφτείτε, η εγγραφή θα λήξει στις @end_date"
+
+msgid "Registration will open in @time_left. You can register from @start_date, until @end_date."
+msgstr "Η εγγραφή θα είναι δυνατή από την/τις @time_left. Μπορείτε να εγγραφείτε από την/τις @start_date, έως την/τις @end_date."
+
+msgid "Registration period ended on @date"
+msgstr "Η περίοδος εγγραφής έληξε στις @date"
+
+msgid "Postal address"
+msgstr "Ταχυδρομική διεύθυνση"
+
+msgid "Authors"
+msgstr "Συντάκτες"
+
+msgid "Department"
+msgstr "Υπηρεσία"
+
+msgid "Project duration"
+msgstr "Διάρκεια έργου"
+
+msgid "Project website"
+msgstr "Ιστότοπος έργου"
+
+msgid "Contact organisation"
+msgstr "Επικοινωνία με τον φορέα"
+
+msgid "Call status: @label"
+msgstr "Κατάσταση της πρόσκλησης: @label"
+
+msgid "Press contacts"
+msgstr "Υπεύθυνοι επικοινωνίας με τα ΜΜΕ"
+
+msgid "Call for tenders"
+msgstr "Πρόσκληση υποβολής προσφορών"
+
+msgid "Related links"
+msgstr "Σχετικοί σύνδεσμοι"
+
+msgid "Practical information"
+msgstr "Πρακτικές πληροφορίες"
+
+msgid "Phone number"
+msgstr "Αριθμός τηλεφώνου"
+
+msgid "Opening date"
+msgstr "Ημερομηνία έναρξης"
+
+msgid "Deadline date"
+msgstr "Ημερομηνία προθεσμίας"
+
+msgid "Deadline dates"
+msgstr "Ημερομηνίες προθεσμίας"
+
+msgid "Publication date"
+msgstr "Ημερομηνία δημοσίευσης"
+
+msgid "Author"
+msgstr "Ημερομηνία δημοσίευσης"
+
+msgid "Location"
+msgstr "Τόπος"
+
+msgid "News type"
+msgstr "Είδος ειδήσεων"
+
+msgid "Project locations"
+msgstr "Τόποι έργων"
+
+msgid "Overall budget"
+msgstr "Συνολικός προϋπολογισμός"
+
+msgid "EU contribution"
+msgstr "Συνεισφορά ΕΕ"
+
+msgid "Departments"
+msgstr "Τμήματα"
+
+msgid "Results"
+msgstr "Αποτελέσματα"
+
+msgid "Stakeholders"
+msgstr "Ενδιαφερόμενα μέρη"
+
+msgid "Coordinators"
+msgstr "Ενδιαφερόμενα μέρη"
+
+msgid "Participants"
+msgstr "Teilnehmer"
+
+msgid "Country"
+msgstr "Χώρα"
+
+msgid "Countries"
+msgstr "Χώρες"
+
+msgid "EU Organisation"
+msgstr "Οργανισμός της ΕΕ"
+
+msgid "Non-EU organisation"
+msgstr "Οργανισμός εκτός ΕΕ"
+
+msgid "Reference"
+msgstr "Στοιχεία αναφοράς"
+
+msgid "Upcoming"
+msgstr "Προσεχώς"
+
+msgid "Open"
+msgstr "Ανοικτό"
+
+msgid "Closed"
+msgstr "Κλειστές"
+
+msgid "Details"
+msgstr "Λεπτομέρειες"
+
+msgid "Status"
+msgstr "Καθεστώς"
+
+msgid "Publication"
+msgstr "Δημοσίευση"
+
+msgid "Description"
+msgstr "Περιγραφή"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Contact"
+msgstr "Επικοινωνία"
+
+msgid "Contacts"
+msgstr "Επικοινωνία"
+
+msgid "Organisation"
+msgstr "Οργανισμός"
+
+msgid "Fax number"
+msgstr "Αριθμός φαξ"
+
+msgid "Mobile number"
+msgstr "Αριθμός κινητού τηλεφώνου"
+
+msgid "Office"
+msgstr "Γραφείο"
+
+msgid "Documents"
+msgstr "Έγγραφα"
+
+msgid "Funding"
+msgstr "Χρηματοδότηση"
+
+msgid "As planned"
+msgstr "Όπως έχει προβλεφθεί"
+
+msgid "Cancelled"
+msgstr "Ακυρώθηκε"
+
+msgid "Rescheduled"
+msgstr "Αναπρογραμματίστηκε"
+
+msgid "Postponed"
+msgstr "Έχει αναβληθεί"
+
+msgid "Address"
+msgstr "Διεύθυνση"
+
+msgid "Live stream"
+msgstr "Ζωντανή μετάδοση"
+
+msgid "Live streaming available"
+msgstr "Διαθέσιμη ζωντανή μετάδοση"
+
+msgid "Project"
+msgstr "Έργο"
+
+msgid "Publication type"
+msgstr "Είδος δημοσίευσης"
+
+msgid "Call for proposals"
+msgstr "Πρόσκληση υποβολής προτάσεων"
+
+msgid "Funding programme"
+msgstr "Πρόγραμμα χρηματοδότησης"
+
+msgid "Deadline model"
+msgstr "Υπόδειγμα προθεσμίας"
+
+msgid "Single-stage"
+msgstr "Ενός σταδίου"
+
+msgid "Two-stage"
+msgstr "Σε δύο στάδια"
+
+msgid "Multiple cut-off"
+msgstr "Πολλές ημερομηνίες λήξης"
+
+msgid "Permanent"
+msgstr "Μόνιμος"
+
+msgid "@date in"
+msgstr "@date στην"
+
+msgid "Contact us"
+msgstr "Επικοινωνήστε μαζί μας"
+
+msgid "Follow us"
+msgstr "Ακολουθήστε μας"
+
+msgid "About us"
+msgstr "Ποιοι είμαστε"
+
+msgid "Related sites"
+msgstr "Σχετικοί ιστότοποι"
+
+msgid "More information on:"
+msgstr "Περισσότερες πληροφορίες για:"
+
+msgid "Discover more on @link"
+msgstr "Μάθετε περισσότερα: @link"
+
+msgid "This site is managed by the @name"
+msgstr "Διαχειριστής του ιστότοπου: @name"
+
+msgid "This site is managed by the European Commission, @name"
+msgstr "Διαχειριστής του ιστότοπου: Ευρωπαϊκή Επιτροπή, @name"
+
+msgid "Last updated on: @date"
+msgstr "Τελευταία επικαιροποίηση την/στις: @date"
+
+msgid "File"
+msgstr "Αρχείο"
+
+msgid "Files"
+msgstr "Αρχεία"
+
+msgid "Identification"
+msgstr "Ταυτοποίηση"
+
+msgid "Identifications"
+msgstr "Ταυτοποιήσεις"
+
+msgid "Related department"
+msgstr "Σχετικό τμήμα"
+
+msgid "Related departments"
+msgstr "Σχετικά τμήματα"
+
+msgid "Consultation"
+msgstr "Διαβούλευση"
+
+msgid "Deadline"
+msgstr "Προθεσμία"
+
+msgid "Respond to the questionnaire"
+msgstr "Απαντήστε στο ερωτηματολόγιο"
+
+msgid "Respond to the consultation"
+msgstr "Πάρτε μέρος στη διαβούλευση"
+
+msgid "Target audience"
+msgstr "Στοχευόμενο κοινό"
+
+msgid "Why we are consulting"
+msgstr "Γιατί διεξάγουμε τη δημόσια διαβούλευση"
+
+msgid "Consultation outcome"
+msgstr "Αποτελέσματα της διαβούλευσης"
+
+msgid "Additional information"
+msgstr "Πρόσθετες πληροφορίες"
+
+msgid "Reference documents"
+msgstr "Έγγραφα αναφοράς"
+
+msgid "The response period for this consultation has ended. Thank you for your input."
+msgstr "Η περίοδος συμμετοχής στην εν λόγω διαβούλευση έχει λήξει. Ευχαριστούμε για το μήνυμά σας."
+
+msgid "Status: @label"
+msgstr "Καθεστώς: @label"
+
+msgid "Responsibilities"
+msgstr "Αρμοδιότητες"
+
+msgid "Media"
+msgstr "Μέσα ενημέρωσης"
+
+msgid "Latest"
+msgstr "Επικαιρότητα"
+
+msgid "Transparency"
+msgstr "Διαφάνεια"
+
+msgid "Articles and presentations"
+msgstr "Άρθρα και παρουσιάσεις"
+
+msgid "Biography"
+msgstr "Βιογραφικό"
+
+msgid "Declaration of interests"
+msgstr "Δήλωση συμφερόντων"
+
+msgid "Show contact details"
+msgstr "Εμφάνιση στοιχείων επικοινωνίας"
+
+msgid "Hide contact details"
+msgstr "Απόκρυψη στοιχείων επικοινωνίας"
+
+msgid "Leadership and organisation"
+msgstr "Διοίκηση και οργάνωση"
+
+msgid "Available translations"
+msgstr "Διαθέσιμες μεταφράσεις"
+
+msgid "General contact"
+msgstr "Γενικά στοιχεία επικοινωνίας"
+
+msgid "Grants awarded"
+msgstr "Εγκριθείσες επιχορηγήσεις"
+
+msgid "Page contents"
+msgstr "Περιεχόμενα σελίδας"
+
+msgid "Your name"
+msgstr "Όνομα"
+
+msgid "Your email address"
+msgstr "Ηλεκτρονική διεύθυνση"
+
+msgid "Subject"
+msgstr "Αντικείμενο"
+
+msgid "Message"
+msgstr "Μήνυμα"
+
+msgid "Country of residence"
+msgstr "Χώρα διαμονής"
+
+msgid "Phone"
+msgstr "Τηλέφωνο"
+
+msgid "Send yourself a copy"
+msgstr "Αποστολή αντίγραφου"
+
+msgid "Status message"
+msgstr "Μήνυμα κατάστασης"
+
+msgid "Close this message"
+msgstr "Κλείσιμο αυτού του μηνύματος"
+
+msgid "The sender's name"
+msgstr "Όνομα αποστολέα"
+
+msgid "The sender's email"
+msgstr "Ηλεκτρονικό ταχυδρομείο αποστολέα"
+
+msgid "Topic"
+msgstr "Θέμα"
+
+msgid "Languages"
+msgstr "Γλώσσες"
+
+msgid "Keywords"
+msgstr "Λέξεις-κλειδιά"
+
+msgid "No results have been found"
+msgstr "Δεν βρέθηκαν αποτελέσματα"
+
+msgid "Event date"
+msgstr "Ημερομηνία εκδήλωσης"
+
+msgid "Select"
+msgstr "Επιλογή"
+
+msgid "After"
+msgstr "Μετά"
+
+msgid "Before"
+msgstr "Πριν"
+
+msgid "In between"
+msgstr "Μεταξύ"
+
+msgid "Select all"
+msgstr "Επιλογή όλων"
+
+msgid "Event type"
+msgstr "Είδος εκδήλωσης"
+
+msgid "Venue"
+msgstr "Τόπος εκδήλωσης"
+
+msgid "Online type"
+msgstr "Είδος διαδικτυακής εκδήλωσης"
+
+msgid "Livestream"
+msgstr "Ζωντανή μετάδοση"
+
+msgid "Type"
+msgstr "Είδος"
+
+msgid "EU organisation type"
+msgstr "Είδος οργανισμού της ΕΕ"
+
+msgid "Date"
+msgstr "Ημερομηνία"
+
+msgid "End Date"
+msgstr "Ημερομηνία λήξης"
+
+msgid "Responsible department"
+msgstr "Αρμόδια υπηρεσία"
+
+msgid "Content owner"
+msgstr "Ιδιοκτήτης περιεχομένου"
+
+msgid "Overview"
+msgstr "Επισκόπηση"
+
+msgid "Open gallery"
+msgstr "Άνοιγμα συλλογής"
+
+msgid "(Acting) @role"
+msgstr "(Ασκών/-ούσα καθήκοντα) @role"
+
+msgid "Follow the latest progress and learn more about getting involved."
+msgstr "Παρακολουθείτε τις τελευταίες εξελίξεις και ενημερωθείτε για τις δυνατότητες συμμετοχής σας."
+
+msgid "Upcoming and ongoing"
+msgstr "Προσεχείς και τρέχουσες"
+
+msgid "Past"
+msgstr "Προηγούμενες"
+
+msgid "Upcoming and open"
+msgstr "Προσεχείς και ανοικτές"
+
+msgid "This page is not available in @language_name."
+msgstr "Η σελίδα αυτή δεν είναι διαθέσιμη στα @language_name."
+
+msgid "Choose another language"
+msgstr "Επιλέξτε άλλη γλώσσα"
+
+msgid "1 day"
+msgid_plural "@count days"
+msgstr[0] "1 ημέρα"
+msgstr[1] "@count ημέρες"
+
+msgid "1 week"
+msgid_plural "@count weeks"
+msgstr[0] "1 εβδομάδα"
+msgstr[1] "@count εβδομάδες"
+
+msgid "1 year"
+msgid_plural "@count years"
+msgstr[0] "1 χρόνο"
+msgstr[1] "@count χρόνια"
+
+msgid "1 month"
+msgid_plural "@count months"
+msgstr[0] "1 μήνα"
+msgstr[1] "@count μήνες"
+
+msgid "1 hour"
+msgid_plural "@count hours"
+msgstr[0] "1 ώρα"
+msgstr[1] "@count ώρες"
+
+msgid "1 minute"
+msgid_plural "@count minutes"
+msgstr[0] "1 λεπτό"
+msgstr[1] "@count λεπτά"
+
+msgid "1 second"
+msgid_plural "@count seconds"
+msgstr[0] "1 δευτερόλεπτο"
+msgstr[1] "@count δευτερόλεπτα"
+
+msgid "Online link"
+msgstr "Διαδικτυακός σύνδεσμος"
+
+msgid "Online time"
+msgstr "Διαδικτυακή ώρα"
+
+msgid "Name"
+msgstr "Όνομα"
+
+msgid "I have read and agree with the @link"
+msgstr "Διάβασα τους @link και συμφωνώ"
+
+msgid "data protection terms"
+msgstr "όρους προστασίας δεδομένων"

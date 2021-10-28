@@ -91,3 +91,26 @@ function oe_whitelabel_form_facets_form_alter(&$form, FormStateInterface $form_s
     }
   }
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function oe_whitelabel_form_system_theme_settings_alter(&$form, FormStateInterface &$form_state, $form_id = NULL) {
+  $form['component_library'] = [
+    '#type' => 'select',
+    '#title' => t('Component library'),
+    '#options' => [
+      'ec' => t('European Commission'),
+      'eu' => t('European Union'),
+    ],
+    '#default_value' => theme_get_setting('component_library'),
+    '#description' => t('Choose "European Commission" for websites hosted under the ec.europa.eu domain and "European Union" for websites hosted under the europa.eu domain.'),
+  ];
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function oe_whitelabel_preprocess(&$variables) {
+  $variables['bcl_component_library'] = theme_get_setting('component_library') ?? 'eu';
+}

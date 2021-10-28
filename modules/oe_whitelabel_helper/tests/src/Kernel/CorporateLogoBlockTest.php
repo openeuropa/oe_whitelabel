@@ -87,9 +87,7 @@ class CorporateLogoBlockTest extends KernelTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($render->__toString());
 
-    $actual = $crawler->filter('#block-eclogoblock');
-    $this->assertCount(1, $actual);
-    $logo = $actual->filter('img');
+    $logo = $crawler->filter('img');
     $this->assertCount(1, $logo);
     $expected = "/themes/custom/oe_whitelabel/modules/oe_whitelabel_helper/images/logos/ec/logo-ec--{$lang}.svg";
     $this->assertSame($expected, $logo->attr('src'));
@@ -115,15 +113,13 @@ class CorporateLogoBlockTest extends KernelTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($render->__toString());
 
-    $actual = $crawler->filter('#block-eulogoblock');
-    $this->assertCount(1, $actual);
-    $logo = $actual->filter('img');
+    $logo = $crawler->filter('img');
     $this->assertCount(1, $logo);
     $expected = "/themes/custom/oe_whitelabel/modules/oe_whitelabel_helper/images/logos/eu/logo-eu--{$lang}.svg";
     $this->assertSame($expected, $logo->attr('src'));
-    $picture = $actual->filter('picture');
+    $picture = $crawler->filter('picture');
     $this->assertCount(1, $picture);
-    $source = $actual->filter('source');
+    $source = $crawler->filter('source');
     $expected = "/themes/custom/oe_whitelabel/modules/oe_whitelabel_helper/images/logos/eu/mobile/logo-eu--{$lang}.svg";
     $this->assertSame($expected, $source->attr('srcset'));
   }

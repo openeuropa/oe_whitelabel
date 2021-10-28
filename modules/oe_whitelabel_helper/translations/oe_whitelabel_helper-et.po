@@ -1,0 +1,523 @@
+msgid ""
+msgstr ""
+
+msgid "Organisation type"
+msgstr "Organisatsiooni liik"
+
+msgid "Show @numb more items"
+msgstr "Näita veel @numb kannet"
+
+msgid "When"
+msgstr "Millal?"
+
+msgid "Where"
+msgstr "Kus?"
+
+msgid "Organiser"
+msgstr "Korraldaja"
+
+msgid "Website"
+msgstr "Veebisait"
+
+msgid "Social media"
+msgstr "Sotsiaalmeedia"
+
+msgid "Number of seats"
+msgstr "Kohtade arv"
+
+msgid "Entrance fee"
+msgstr "Osalustasu"
+
+msgid "Book your seat, @time_left left to register, registration will end on @end_date"
+msgstr "Broneerige oma koht, registreerimiseks on jäänud @time_left, registreerimine lõpeb @end_date"
+
+msgid "Registration will open in @time_left. You can register from @start_date, until @end_date."
+msgstr "Registreerimise alguskuupäev: @time_left. Registreerimine kestab: @start_date kuni @end_date."
+
+msgid "Registration period ended on @date"
+msgstr "Registreerimine lõppes @date"
+
+msgid "Postal address"
+msgstr "Postiaadress"
+
+msgid "Authors"
+msgstr "Autorid"
+
+msgid "Department"
+msgstr "Osakond"
+
+msgid "Project duration"
+msgstr "Projekti kestus"
+
+msgid "Project website"
+msgstr "Projekti veebisait"
+
+msgid "Contact organisation"
+msgstr "Kontaktorganisatsioon"
+
+msgid "Call status: @label"
+msgstr "Olek: @label"
+
+msgid "Press contacts"
+msgstr "Pressikontaktid"
+
+msgid "Call for tenders"
+msgstr "Pakkumismenetlus"
+
+msgid "Related links"
+msgstr "Seotud lingid"
+
+msgid "Practical information"
+msgstr "Praktiline teave"
+
+msgid "Phone number"
+msgstr "Telefoninumber"
+
+msgid "Opening date"
+msgstr "Alguskuupäev"
+
+msgid "Deadline date"
+msgstr "Tähtpäev"
+
+msgid "Deadline dates"
+msgstr "Tähtpäevad"
+
+msgid "Publication date"
+msgstr "Avaldamiskuupäev"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Location"
+msgstr "Asukoht"
+
+msgid "News type"
+msgstr "Uudise liik"
+
+msgid "Project locations"
+msgstr "Projekti asukohad"
+
+msgid "Overall budget"
+msgstr "Üldeelarve"
+
+msgid "EU contribution"
+msgstr "ELi rahaline panus"
+
+msgid "Departments"
+msgstr "Osakonnad"
+
+msgid "Results"
+msgstr "Tulemused"
+
+msgid "Stakeholders"
+msgstr "Sidusrühmad"
+
+msgid "Coordinators"
+msgstr "Koordinaatorid"
+
+msgid "Participants"
+msgstr "Osalejad"
+
+msgid "Country"
+msgstr "Riik"
+
+msgid "Countries"
+msgstr "Riigid"
+
+msgid "EU Organisation"
+msgstr "ELi organisatsioon"
+
+msgid "Non-EU organisation"
+msgstr "ELi-väline organisatsioon"
+
+msgid "Reference"
+msgstr "Viide"
+
+msgid "Upcoming"
+msgstr "Tulemas"
+
+msgid "Open"
+msgstr "Kestab"
+
+msgid "Closed"
+msgstr "Lõppenud"
+
+msgid "Details"
+msgstr "Üksikasjad"
+
+msgid "Status"
+msgstr "Olek"
+
+msgid "Publication"
+msgstr "Väljaanne"
+
+msgid "Description"
+msgstr "Kirjeldus"
+
+msgid "Email"
+msgstr "E-post"
+
+msgid "Contact"
+msgstr "Kontaktandmed"
+
+msgid "Contacts"
+msgstr "Kontaktisikud"
+
+msgid "Organisation"
+msgstr "Organisatsioon"
+
+msgid "Fax number"
+msgstr "Faksinumber"
+
+msgid "Mobile number"
+msgstr "Mobiiltelefoni number"
+
+msgid "Office"
+msgstr "Amet"
+
+msgid "Documents"
+msgstr "Dokumendid"
+
+msgid "Funding"
+msgstr "Rahastamine"
+
+msgid "As planned"
+msgstr "Vastavalt kavandatule"
+
+msgid "Cancelled"
+msgstr "Tühistatud"
+
+msgid "Rescheduled"
+msgstr "Toimumisaeg muutunud"
+
+msgid "Postponed"
+msgstr "Edasi lükatud"
+
+msgid "Address"
+msgstr "Aadress"
+
+msgid "Live stream"
+msgstr "Otseülekanne"
+
+msgid "Live streaming available"
+msgstr "Otseülekanne on vaadatav"
+
+msgid "Project"
+msgstr "Projekt"
+
+msgid "Publication type"
+msgstr "Väljaande liik"
+
+msgid "Call for proposals"
+msgstr "Projektikonkurss"
+
+msgid "Funding programme"
+msgstr "Rahastamisprogramm"
+
+msgid "Deadline model"
+msgstr "Tähtaja mudel"
+
+msgid "Single-stage"
+msgstr "Üheetapiline"
+
+msgid "Two-stage"
+msgstr "Kaheetapiline"
+
+msgid "Multiple cut-off"
+msgstr "Mitme tähtajaga"
+
+msgid "Permanent"
+msgstr "Alaline"
+
+msgid "@date in"
+msgstr "@date väljaandes"
+
+msgid "Contact us"
+msgstr "Võtke meiega ühendust"
+
+msgid "Follow us"
+msgstr "Jälgige meid"
+
+msgid "About us"
+msgstr "Meist"
+
+msgid "Related sites"
+msgstr "Seotud veebisaidid"
+
+msgid "More information on:"
+msgstr "Lisateave:"
+
+msgid "Discover more on @link"
+msgstr "Lisateavet leiate aadressil @link"
+
+msgid "This site is managed by the @name"
+msgstr "Seda veebisaiti haldab @name"
+
+msgid "This site is managed by the European Commission, @name"
+msgstr "Seda veebisaiti haldab Euroopa Komisjon, @name"
+
+msgid "Last updated on: @date"
+msgstr "Viimati ajakohastatud: @date"
+
+msgid "File"
+msgstr "Fail"
+
+msgid "Files"
+msgstr "Failid"
+
+msgid "Identification"
+msgstr "Identifitseerimine"
+
+msgid "Identifications"
+msgstr "Identifitseerimisandmed"
+
+msgid "Related department"
+msgstr "Seotud osakond"
+
+msgid "Related departments"
+msgstr "Seotud osakonnad"
+
+msgid "Consultation"
+msgstr "Konsultatsioon"
+
+msgid "Deadline"
+msgstr "Tähtaeg"
+
+msgid "Respond to the questionnaire"
+msgstr "Vastake küsimustikule"
+
+msgid "Respond to the consultation"
+msgstr "Vastake konsultatsiooni küsimustele"
+
+msgid "Target audience"
+msgstr "Sihtrühm"
+
+msgid "Why we are consulting"
+msgstr "Miks me konsulteerime?"
+
+msgid "Consultation outcome"
+msgstr "Konsultatsiooni tulemused"
+
+msgid "Additional information"
+msgstr "Lisateave"
+
+msgid "Reference documents"
+msgstr "Viitedokumendid"
+
+msgid "The response period for this consultation has ended. Thank you for your input."
+msgstr "Konsultatsioonile vastamise tähtaeg on lõppenud. Täname Teid panuse eest!"
+
+msgid "Status: @label"
+msgstr "Olek: @label"
+
+msgid "Responsibilities"
+msgstr "Vastutusalad"
+
+msgid "Media"
+msgstr "Meedia"
+
+msgid "Latest"
+msgstr "Kõige hiljutisemad"
+
+msgid "Transparency"
+msgstr "Läbipaistvus"
+
+msgid "Articles and presentations"
+msgstr "Artiklid ja esitlused"
+
+msgid "Biography"
+msgstr "Elulugu"
+
+msgid "Declaration of interests"
+msgstr "Huvide deklaratsioon"
+
+msgid "Show contact details"
+msgstr "Näita kontaktandmeid"
+
+msgid "Hide contact details"
+msgstr "Peida kontaktandmed"
+
+msgid "Leadership and organisation"
+msgstr "Juhtkond ja struktuur"
+
+msgid "Available translations"
+msgstr "Olemasolevad tõlked"
+
+msgid "General contact"
+msgstr "Üldkontakt"
+
+msgid "Grants awarded"
+msgstr "Antud toetused"
+
+msgid "Page contents"
+msgstr "Lehekülje sisu"
+
+msgid "Your name"
+msgstr "Teie nimi"
+
+msgid "Your email address"
+msgstr "Teie e-posti aadress"
+
+msgid "Subject"
+msgstr "Teema"
+
+msgid "Message"
+msgstr "Sõnum"
+
+msgid "Country of residence"
+msgstr "Elukohariik"
+
+msgid "Phone"
+msgstr "Telefoninumber"
+
+msgid "Send yourself a copy"
+msgstr "Soovin koopiat"
+
+msgid "Status message"
+msgstr "Staatuse teade"
+
+msgid "Close this message"
+msgstr "Sulge teade"
+
+msgid "The sender's name"
+msgstr "Saatja nimi"
+
+msgid "The sender's email"
+msgstr "Saatja e-posti aadress"
+
+msgid "Topic"
+msgstr "Valdkond"
+
+msgid "Languages"
+msgstr "Keeled"
+
+msgid "Keywords"
+msgstr "Märksõnad"
+
+msgid "No results have been found"
+msgstr "Tulemusi ei leitud"
+
+msgid "Event date"
+msgstr "Ürituse kuupäev"
+
+msgid "Select"
+msgstr "Valige"
+
+msgid "After"
+msgstr "Pärast"
+
+msgid "Before"
+msgstr "Enne"
+
+msgid "In between"
+msgstr "Ajavahemikus"
+
+msgid "Select all"
+msgstr "Vali kõik"
+
+msgid "Event type"
+msgstr "Ürituse liik"
+
+msgid "Venue"
+msgstr "Toimumiskoht"
+
+msgid "Online type"
+msgstr "Veebiürituse liik"
+
+msgid "Livestream"
+msgstr "Otseülekanne"
+
+msgid "Type"
+msgstr "Liik"
+
+msgid "EU organisation type"
+msgstr "ELi asutuse liik"
+
+msgid "Date"
+msgstr "Kuupäev"
+
+msgid "End Date"
+msgstr "Lõppkuupäev"
+
+msgid "Responsible department"
+msgstr "Vastutav talitus"
+
+msgid "Content owner"
+msgstr "Sisu omanik"
+
+msgid "Overview"
+msgstr "Ülevaade"
+
+msgid "Open gallery"
+msgstr "Ava galerii"
+
+msgid "(Acting) @role"
+msgstr "@role (kohusetäitja) "
+
+msgid "Follow the latest progress and learn more about getting involved."
+msgstr "Hoidke end kursis ning uurige, kuidas saaksite ise osaleda."
+
+msgid "Upcoming and ongoing"
+msgstr "Eelseisvad ja käimasolevad"
+
+msgid "Past"
+msgstr "Toimunud"
+
+msgid "Upcoming and open"
+msgstr "Eelseisvad ja käimasolevad"
+
+msgid "This page is not available in @language_name."
+msgstr "See lehekülg ei ole kättesaadav @language_name keeles."
+
+msgid "Choose another language"
+msgstr "Valige mõni teine keel"
+
+msgid "1 day"
+msgid_plural "@count days"
+msgstr[0] "1 päev"
+msgstr[1] "@count päeva"
+
+msgid "1 week"
+msgid_plural "@count weeks"
+msgstr[0] "1 nädal"
+msgstr[1] "@count nädalat"
+
+msgid "1 year"
+msgid_plural "@count years"
+msgstr[0] "1 aasta"
+msgstr[1] "@count aastat"
+
+msgid "1 month"
+msgid_plural "@count months"
+msgstr[0] "1 kuu"
+msgstr[1] "@count kuud"
+
+msgid "1 hour"
+msgid_plural "@count hours"
+msgstr[0] "1 tund"
+msgstr[1] "@count tundi"
+
+msgid "1 minute"
+msgid_plural "@count minutes"
+msgstr[0] "1 minut"
+msgstr[1] "@count minutit"
+
+msgid "1 second"
+msgid_plural "@count seconds"
+msgstr[0] "1 sekund"
+msgstr[1] "@count sekundit"
+
+msgid "Online link"
+msgstr "Veebilink"
+
+msgid "Online time"
+msgstr "Veebiaeg"
+
+msgid "Name"
+msgstr "Nimi"
+
+msgid "I have read and agree with the @link"
+msgstr "Olen tutvunud ja nõustun @link"
+
+msgid "data protection terms"
+msgstr "isikuandmete kaitse põhimõtetega"

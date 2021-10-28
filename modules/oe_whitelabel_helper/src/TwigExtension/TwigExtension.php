@@ -56,12 +56,19 @@ class TwigExtension extends AbstractExtension {
         'label' => $link['label'],
         'path' => $link['href'],
         'icon_position' => 'after',
+        'attributes' => [
+          'class' => [
+            'text-decoration-none',
+            'd-block',
+            'mb-1',
+          ],
+        ],
       ];
 
       if (!empty($link['external']) && $link['external'] === TRUE) {
         $altered_link['icon'] = [
           'path' => $context['bcl_icon_path'],
-          'name' => 'external',
+          'name' => 'box-arrow-up-right',
           'size' => 'xs',
         ];
       }
@@ -71,6 +78,7 @@ class TwigExtension extends AbstractExtension {
         $altered_link['icon'] = [
           'path' => $context['bcl_icon_path'],
           'name' => $link['social_network'],
+          'size' => 'xs',
         ];
       }
 
