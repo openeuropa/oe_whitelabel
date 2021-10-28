@@ -108,10 +108,14 @@
     'links': bcl_footer_links(corporate_footer.class_navigation),
   }
 ] %}
-
-{{ pattern('footer', {
-  'top_sections': _top_sections,
-  'middle_sections': _middle_sections,
-  'bottom_sections': _bottom_sections,
-}) }}
+<footer class="ec__footer bcl-footer">
+  <div class="container">
+    {{ pattern('footer', {
+      'variant': 'ec',
+      'top_sections': _top_sections,
+      'middle_sections': _middle_sections,
+      'bottom_sections': _bottom_sections,
+    }) }}
+  </div>
+</footer>
 

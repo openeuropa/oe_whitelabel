@@ -20,7 +20,7 @@
   </div>
 {% endif %}
 {% if bottom_sections is defined and bottom_sections is not empty and bottom_sections is iterable %}
-  <div class="pb-4 pb-lg-5 bcl-footer__bordered-row row">
+  <div class="pb-4 pb-lg-5 mt-4 mt-lg-5 bcl-footer__bordered-row row">
     {% for section in bottom_sections %}
       {% set section_id = section.section_id %}
       {% include '@oe_whitelabel/layouts/' ~ section_id ~ '.html.twig'  with {

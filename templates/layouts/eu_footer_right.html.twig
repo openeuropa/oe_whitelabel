@@ -1,5 +1,5 @@
 <div class="col-12 col-lg-4">
-  <p class="fw-bold border-bottom pb-2 pt-4 pt-lg-0 mb-2"> {{ eu_institutions_title|t }} </p>
+  <p class="fw-bold border-bottom pb-2 pt-4 pt-lg-0 mb-2"> {{ eu_institutions_title }} </p>
   {% if eu_institutions_links is defined and eu_institutions_links is not empty and eu_institutions_links is iterable %}
     {% for eu_link in eu_institutions_links %}
       {{ pattern('link', eu_link) }}

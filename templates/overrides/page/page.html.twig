@@ -54,7 +54,8 @@
   ]
 %}
 <div class="page">
-  {{ pattern('header_nav', {
+  {{ pattern('header', {
+    variant: bcl_component_library,
     navbar_branding: page.navbar_branding,
     navbar_right: page.navbar_right,
     header_top: page.header_top,
@@ -96,14 +97,6 @@
     </div>
   </main>
   {% if page.footer %}
-    {% if bcl_component_library == 'ec' %}
-      <footer class="ec__footer bcl-footer mt-4">
-    {% else %}
-      <footer class="bcl-footer mt-4">
-    {% endif %}
-      <div class="container">
-        {{ page.footer }}
-      </div>
-    </footer>
+    {{ page.footer }}
   {% endif %}
 </div>
