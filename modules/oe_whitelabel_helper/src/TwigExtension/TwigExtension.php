@@ -68,7 +68,7 @@ class TwigExtension extends AbstractExtension {
       if (!empty($link['external']) && $link['external'] === TRUE) {
         $altered_link['icon'] = [
           'path' => $context['bcl_icon_path'],
-          'name' => 'external',
+          'name' => 'box-arrow-up-right',
           'size' => 'xs',
         ];
       }
@@ -78,6 +78,7 @@ class TwigExtension extends AbstractExtension {
         $altered_link['icon'] = [
           'path' => $context['bcl_icon_path'],
           'name' => $link['social_network'],
+          'size' => 'xs',
         ];
       }
 
