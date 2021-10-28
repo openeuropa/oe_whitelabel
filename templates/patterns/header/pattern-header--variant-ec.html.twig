@@ -1,8 +1,4 @@
-{% if bcl_component_library == 'ec' %}
-  <header class="ec__header bcl-header">
-{% else %}
-  <header class="bcl-header">
-{% endif %}
+<header class="ec__header bcl-header">
   <nav class="w-100 shadow-sm navbar navbar-expand-lg navbar-light">
     <div class="container">
       {{ navbar_branding }}
@@ -24,8 +20,8 @@
   {{ pattern('navbar', {
     navbar_left: header_left,
     navbar_right: header_right,
-    color_set: "light",
-    collapse_id: "navbarNavDropdown",
+    color_set: 'light',
+    collapse_id: 'navbarNavDropdown',
     attributes: attributes
   }) }}
   <div class="container">
