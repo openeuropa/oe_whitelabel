@@ -112,5 +112,5 @@ function oe_whitelabel_form_system_theme_settings_alter(&$form, FormStateInterfa
  * Implements hook_preprocess().
  */
 function oe_whitelabel_preprocess(&$variables) {
-  $variables['bcl_component_library'] = theme_get_setting('component_library');
+  $variables['bcl_component_library'] = theme_get_setting('component_library') ?? 'eu';
 }
