@@ -25,7 +25,7 @@ Filters a timestamp in "time ago" format, result can be something like "8 hours 
 node.getCreatedTime|bcl_timeago
 ```
 #### bcl_footer_links function
-Processes footer links to make them compatible with BCL formatting.
+Processes oe_corporate_blocks links to make them compatible with BCL formatting.
 ```
 bcl_footer_links(links)
 ```
