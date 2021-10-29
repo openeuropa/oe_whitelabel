@@ -7,7 +7,11 @@
       </ul>
     </div>
   </nav>
-  <div class="bcl-header__project">
+  {% set _project_classes = 'bcl-header__project' %}
+  {% if bcl_header_style == 'light' %}
+    {% set _project_classes = _project_classes ~ ' light' %}
+  {% endif %}
+  <div class="{{ _project_classes  }}">
     <div class="container">
       {{ header_top }}
     </div>
