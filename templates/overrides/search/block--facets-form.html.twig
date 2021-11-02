@@ -37,7 +37,7 @@
     'url': content.actions['reset']['#url'].toString(),
     'style': 'secondary',
     'attributes': extra_attributes.addClass('ms-2')
-    })
+  })
   %}
   {% set actions = content.actions %}
   {% set actions = actions|merge({('reset'): reset}) %}
@@ -49,7 +49,7 @@
       'label': label,
       'heading': 4,
       'extra_classes': "mb-lg-4",
-     },
+    },
     'attributes': attributes.addClass('bcl-offcanvas'),
     'offcanvas_id': 'bcl-offcanvas',
     'body': content,
@@ -61,6 +61,9 @@
     'extra_classes_header': "p-lg-0",
     'with_trigger': true,
     'toggle_button_label': label,
-    'icon_name': 'sliders'
+    'icon_position': 'before',
+    'icon': {
+      'name': 'filter',
+    },
   }) }}
 {% endblock %}
