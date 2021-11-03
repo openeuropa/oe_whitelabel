@@ -58,7 +58,7 @@ class TwigExtension extends AbstractExtension {
    *   The translated time ago string.
    */
   public function bclTimeAgo(string $timestamp): PluralTranslatableMarkup {
-    $time = time() - $timestamp;
+    $time = \Drupal::time()->getCurrentTime() - $timestamp;
     $time_ago = new PluralTranslatableMarkup(0, 'N/A', 'N/A');
     $units = [
       31536000 => [
