@@ -20,7 +20,8 @@
     </a>
   {% endif %}
   {% if site_name %}
-    <p class="site-name"><a class="text-white text-decoration-none align-bottom" href="{{ path('<front>') }}" rel="home">{{ site_name }}</a></p>
+  {% set text_color_class = bcl_header_style =='light' ? 'text-dark': 'text-white' %}
+    <p class="site-name"><a class="{{ text_color_class }} text-decoration-none align-bottom" href="{{ path('<front>') }}" rel="home">{{ site_name }}</a></p>
   {% endif %}
   {% if site_slogan %}
     <div class="site-slogan">{{ site_slogan }}</div>
