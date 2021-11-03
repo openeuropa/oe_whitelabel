@@ -84,10 +84,10 @@
         {% if page.content or page.content_top %}
           <div{{ attributes.addClass(grid_classes) }}>
             {% if page.content_top %}
-            <div class="mb-3 clearfix">
-              {{ page.content_top }}
-            </div>
-            <hr class="d-none d-md-block mb-4">
+              <div class="mb-3 clearfix">
+                {{ page.content_top }}
+              </div>
+              <hr class="d-none d-md-block mt-4 mb-4-75">
             {% endif %}
 
             {{ page.content }}

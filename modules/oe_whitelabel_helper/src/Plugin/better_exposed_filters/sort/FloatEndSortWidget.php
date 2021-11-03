@@ -23,7 +23,9 @@ class FloatEndSortWidget extends DefaultWidget {
   public function exposedFormAlter(array &$form, FormStateInterface $form_state) {
     parent::exposedFormAlter($form, $form_state);
     $form['#attributes']['class'][] = 'float-lg-end';
-    $form['#attributes']['class'][] = 'd-md-block';
+    $form['#attributes']['class'][] = 'd-none';
+    $form['#attributes']['class'][] = 'd-md-flex';
+    $form['#attributes']['class'][] = 'align-items-baseline';
   }
 
 }
