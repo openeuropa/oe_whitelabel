@@ -1,26 +1,11 @@
-<header class="bcl-header">
-  <nav class="w-100 shadow-sm navbar navbar-expand-lg navbar-light">
-    <div class="container">
-      {{ navbar_branding }}
-      <ul class="nav">
-        {{ navbar_right }}
-      </ul>
-    </div>
-  </nav>
-  {% set _project_classes = 'bcl-header__project' %}
-  {% if bcl_header_style == 'light' %}
-    {% set _project_classes = _project_classes ~ ' light' %}
-  {% endif %}
-  <div class="{{ _project_classes  }}">
-    <div class="container">
-      {{ header_top }}
-    </div>
-  </div>
-  {% set attributes = {
-    'class':  [
-      'bcl-header__navbar',
-    ]
-  } %}
+{% extends "pattern-header.html.twig" %}
+{#
+/**
+ * @file
+ * Template override for pattern header variant EU.
+ */
+#}
+{% block content %}
   {{ pattern('navbar', {
     navbar_left: header_left,
     navbar_right: header_right,
@@ -28,7 +13,4 @@
     collapse_id: 'navbarNavDropdown',
     attributes: attributes
   }) }}
-  <div class="container">
-    {{ breadcrumbs }}
-  </div>
-</header>
+{% endblock %}

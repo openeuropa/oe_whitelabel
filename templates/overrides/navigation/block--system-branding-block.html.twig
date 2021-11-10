@@ -13,15 +13,38 @@
  * - site_slogan: Slogan for site as defined in Site information settings.
  */
 #}
+{%
+  set _site_logo_classes = [
+    "text-decoration-none",
+    "site-logo",
+  ]
+%}
+{%
+  set _site_name_classes = [
+    'text-decoration-none',
+    'align-bottom',
+    'text-' ~ bcl_header_style =='light' ? 'dark': 'white',
+  ]
+%}
+{%
+  set img_display = [
+    "d-none",
+    "d-lg-inline-block",
+  ]
+%}
+
 {% block content %}
   {% if site_logo %}
-    <a class="text-decoration-none site-logo" href="{{ path('<front>') }}" rel="home">
-      <img class="d-none d-lg-inline-block" src="{{ site_logo }}" alt="{{ 'Home'|t }}" />
+    <a {{attributes.addClass(_site_logo_classes).setAttribute('rel', 'Home')}} href="{{ path('<front>') }}">
+      <img {{ attributes.addClass(img_display).setAttribute('alt', 'Home'|t)}} src="{{ site_logo }}" />
     </a>
   {% endif %}
   {% if site_name %}
-  {% set text_color_class = bcl_header_style =='light' ? 'text-dark': 'text-white' %}
-    <p class="site-name"><a class="{{ text_color_class }} text-decoration-none align-bottom" href="{{ path('<front>') }}" rel="home">{{ site_name }}</a></p>
+    <p class="site-name">
+      <a {{ attributes.addClass(_site_name_classes).setAttribute('rel', 'Home') }} href="{{ path('<front>') }}">
+        {{ site_name }}
+      </a>
+    </p>
   {% endif %}
   {% if site_slogan %}
     <div class="site-slogan">{{ site_slogan }}</div>
