@@ -14,22 +14,22 @@
  */
 #}
 {%
-  set _site_logo_classes = [
-    "text-decoration-none",
-    "site-logo",
+  set logo_classes = [
+    'text-decoration-none',
+    'site-logo',
   ]
 %}
 {%
-  set _site_name_classes = [
+  set name_classes = [
     'text-decoration-none',
     'align-bottom',
     bcl_header_style == 'light' ? 'text-dark': 'text-white',
   ]
 %}
 {%
-  set img_display = [
-    "d-none",
-    "d-lg-inline-block",
+  set img_classes = [
+    'd-none',
+    'd-lg-inline-block',
   ]
 %}
 
@@ -39,13 +39,13 @@
 
 {% block content %}
   {% if site_logo %}
-    <a {{ site_logo_attr.addClass(_site_logo_classes).setAttribute('rel', 'Home') }} href="{{ path('<front>') }}">
-      <img {{ site_logo_img_attr.addClass(img_display).setAttribute('alt', 'Home'|t) }} src="{{ site_logo }}" />
+    <a {{ site_logo_attr.addClass(logo_classes).setAttribute('rel', 'Home') }} href="{{ path('<front>') }}">
+      <img {{ site_logo_img_attr.addClass(img_classes).setAttribute('alt', 'Home'|t) }} src="{{ site_logo }}" />
     </a>
   {% endif %}
   {% if site_name %}
     <p class="site-name">
-      <a {{ site_name_attr.addClass(_site_name_classes).setAttribute('rel', 'Home') }} href="{{ path('<front>') }}">
+      <a {{ site_name_attr.addClass(name_classes).setAttribute('rel', 'Home') }} href="{{ path('<front>') }}">
         {{ site_name }}
       </a>
     </p>
