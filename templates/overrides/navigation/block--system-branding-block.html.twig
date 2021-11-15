@@ -23,7 +23,7 @@
   set _site_name_classes = [
     'text-decoration-none',
     'align-bottom',
-    'text-' ~ bcl_header_style =='light' ? 'dark': 'white',
+    bcl_header_style == 'light' ? 'text-dark': 'text-white',
   ]
 %}
 {%
@@ -33,15 +33,19 @@
   ]
 %}
 
+{% set site_logo_attr = create_attribute() %}
+{% set site_logo_img_attr = create_attribute() %}
+{% set site_name_attr = create_attribute() %}
+
 {% block content %}
   {% if site_logo %}
-    <a {{attributes.addClass(_site_logo_classes).setAttribute('rel', 'Home')}} href="{{ path('<front>') }}">
-      <img {{ attributes.addClass(img_display).setAttribute('alt', 'Home'|t)}} src="{{ site_logo }}" />
+    <a {{ site_logo_attr.addClass(_site_logo_classes).setAttribute('rel', 'Home') }} href="{{ path('<front>') }}">
+      <img {{ site_logo_img_attr.addClass(img_display).setAttribute('alt', 'Home'|t) }} src="{{ site_logo }}" />
     </a>
   {% endif %}
   {% if site_name %}
     <p class="site-name">
-      <a {{ attributes.addClass(_site_name_classes).setAttribute('rel', 'Home') }} href="{{ path('<front>') }}">
+      <a {{ site_name_attr.addClass(_site_name_classes).setAttribute('rel', 'Home') }} href="{{ path('<front>') }}">
         {{ site_name }}
       </a>
     </p>
