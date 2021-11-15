@@ -111,6 +111,16 @@ function oe_whitelabel_form_system_theme_settings_alter(&$form, FormStateInterfa
     '#default_value' => theme_get_setting('component_library'),
     '#description' => t('Choose "European Commission" for websites hosted under the ec.europa.eu domain and "European Union" for websites hosted under the europa.eu domain.'),
   ];
+  $form['header_style'] = [
+    '#type' => 'select',
+    '#title' => t('Background style'),
+    '#options' => [
+      'standard' => t('Blue header'),
+      'light' => t('Light header'),
+    ],
+    '#default_value' => theme_get_setting('header_style'),
+    '#description' => t('Choose the header color'),
+  ];
 }
 
 /**
@@ -118,4 +128,5 @@ function oe_whitelabel_form_system_theme_settings_alter(&$form, FormStateInterfa
  */
 function oe_whitelabel_preprocess(&$variables) {
   $variables['bcl_component_library'] = theme_get_setting('component_library') ?? 'eu';
+  $variables['bcl_header_style'] = theme_get_setting('header_style') ?? 'standard';
 }
