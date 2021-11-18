@@ -1,13 +1,5 @@
 name: OpenEuropa Whitelabel User Profile
 type: module
-<<<<<<< HEAD
 description: Adds additional functionality to the User Profile feature.
 package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^8.9 || ^9.1
-dependencies:
-  - cas:cas
-=======
-description: OpenEuropa Whitelabel Theme User Profile.
-package: OpenEuropa Whitelabel Theme
-core_version_requirement: ^8.9 || ^9.1
->>>>>>> d6059ec (OEL-476: Create the User Profile submodule.)
