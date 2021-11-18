@@ -124,9 +124,9 @@ class TwigExtension extends AbstractExtension {
         'label' => $link['label'],
         'path' => $link['href'],
         'icon_position' => 'after',
+        'standalone' => TRUE,
         'attributes' => [
           'class' => [
-            'text-decoration-none',
             'd-block',
             'mb-1',
           ],
