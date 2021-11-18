@@ -1,0 +1,31 @@
+{% set attributes = create_attribute() %}
+{% set attributes = attributes.addClass("border-0", "mb-md-3") %}
+
+{% spaceless %}
+<div class="row">
+  <div class="col-12 col-md-10">
+    {{ pattern('card', {
+      'variant': 'user-profile',
+      'border_variant': border_variant,
+      'content': content,
+      'attributes': attributes,
+    }) }}
+  </div>
+  <div class="col-12 col-md-2 text-end">
+    <div class="d-grid d-md-block">
+      {{ pattern('button', {
+        'variant': 'secondary',
+        'assistive_text': 'test',
+        'label': "Manage profile"|t,
+        'path': '/user//edit',
+      })}}
+    </div>
+  </div>
+</div>
+<div class="my-3">
+  {{ content.group_personal_information }}
+</div>
+<div class="my-3">
+  {{ content.group_professional_information }}
+</div>
+{% endspaceless %}
