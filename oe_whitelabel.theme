@@ -8,6 +8,7 @@
 declare(strict_types = 1);
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\image\Entity\ImageStyle;
 
 /**
  * Implements hook__preprocess_links__language_block().
@@ -118,4 +119,42 @@ function oe_whitelabel_form_system_theme_settings_alter(&$form, FormStateInterfa
  */
 function oe_whitelabel_preprocess(&$variables) {
   $variables['bcl_component_library'] = theme_get_setting('component_library') ?? 'eu';
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function oe_whitelabel_preprocess_pattern_card(array &$variables): void {
+  if ($variables['variant'] != 'user-profile') {
+    return;
+  }
+  $uid = \Drupal::routeMatch()->getRawParameter('user');
+  $user = \Drupal\user\Entity\User::load($uid);
+
+  $variables['horizontal'] = true;
+  $variables['horizontal_grid'] = [
+    'left_col_classes' => "col-6 col-md-3 offset-3 offset-md-0",
+    'right_col_classes'=> "col-md-9",
+  ];
+
+  $variables['extra_classes_header'] = "bg-transparent pt-0 pb-0 border-0";
+  $variables['extra_classes_body'] = "pt-md-0 px-0 px-md-3";
+  $variables['title'] = [
+    'content' => $user->field_oe_firstname->value . ' ' . $user->field_oe_lastname->value,
+    'tag' => "h2",
+    'classes' => "fw-bold",
+  ];
+
+  $variables['subtitle'] = [
+    'content' => $user->field_current_position->value . ' ' . $user->field_oe_organisation->value,
+    'tag' => "div",
+    'classes' => "text-muted me-3",
+  ];
+  $variables['content'] = $user->field_bio->value;
+  
+  $variables['image'] = [
+    'path' => file_url_transform_relative(file_create_url($user->field_profile_image->entity->getFileUri())),
+    'alt' => "alt img",
+    'position' => "top",
+  ];
 }
