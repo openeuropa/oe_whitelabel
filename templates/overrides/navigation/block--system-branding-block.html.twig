@@ -21,6 +21,7 @@
 %}
 {%
   set name_classes = [
+    'site-name',
     'text-decoration-none',
     'align-bottom',
     bcl_header_style == 'light' ? 'text-dark': 'text-white',
@@ -44,11 +45,9 @@
     </a>
   {% endif %}
   {% if site_name %}
-    <p class="site-name">
       <a {{ site_name_attr.addClass(name_classes).setAttribute('rel', 'Home') }} href="{{ path('<front>') }}">
         {{ site_name }}
       </a>
-    </p>
   {% endif %}
   {% if site_slogan %}
     <div class="site-slogan">{{ site_slogan }}</div>
