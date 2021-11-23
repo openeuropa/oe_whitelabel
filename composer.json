@@ -11,7 +11,7 @@
         "drupal/core": "^8.9 || ^9.1",
         "drupal/ui_patterns": "^1.0",
         "drupal/ui_patterns_settings": "^1.0",
-        "openeuropa/oe_bootstrap_theme": "1.0.0-alpha2"
+        "openeuropa/oe_bootstrap_theme": "1.0.0-alpha3"
     },
     "require-dev": {
         "composer/installers": "^1.11",
