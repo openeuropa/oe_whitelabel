@@ -1,0 +1,237 @@
+{% spaceless %}
+  {# Parameters:
+  - title (object) (default: {})
+    format: {
+      content: '',
+      tag: '',
+      classes: ''
+    }
+  - subtitle (object) (default: {})
+    format: {
+      content: '',
+      tag: '',
+      classes: ''
+    }
+  - text (object) (default: {})
+    format: {
+      content: '',
+      tag: '',
+      classes: ''
+    }
+  - content (string) (default: '')
+  - image (object) (default: {})
+    format: {
+      path (string),
+      alt (string),
+      position (string)
+      rounded (integer)
+    }
+  - horizontal (boolean) (default: false)
+  - horizontal_grid (object) (default: {})
+    format: {
+      left_col_classes (default: 'col-4')
+      right_col_classes (default: 'col-8')
+      gutter (default: '')
+    }
+  - variant (string) (default: '')
+  - border_variant (string) (default: '')
+  - text_color (string) (default: '')
+    options: ['dark', 'white']
+  - card_header (string) (default: '')
+  - card_footer (string) (default: '')
+  - call_to_action_button (string) (default: '')
+  - extra_classes_body (string) (default: '')
+  - extra_classes_header (string) (default: '')
+  - extra_classes_footer (string) (default: '')
+  - badges (array of badge object) (default: [])
+  #}
+
+  {% set _title = title|default({}) %}
+  {% set _subtitle = subtitle|default({}) %}
+  {% set _text = text|default({}) %}
+  {% set _content = content|default('') %}
+  {% set _image = image|default({}) %}
+  {% set _variant = variant|default('') %}
+  {% set _horizontal = horizontal|default(false) %}
+  {% set _horizontal_grid = horizontal_grid|default({
+    left_col_classes: 'col-6 col-md-3 offset-3 offset-md-0',
+    right_col_classes: 'col-md-9'
+  }) %}
+  {% set _border_variant = border_variant|default('') %}
+  {% set _text_color = text_color|default('') %}
+  {% set _card_header = card_header|default('') %}
+  {% set _card_footer = card_footer|default('') %}
+  {% set _call_to_action_button = call_to_action_button|default('') %}
+  {% set _call_to_action_button_variant = call_to_action_button_variant|default('') %}
+  {% set _extra_classes_body = extra_classes_body|default('') %}
+  {% set _extra_classes_header = extra_classes_header|default('') %}
+  {% set _extra_classes_footer = extra_classes_footer|default('') %}
+  {% set _badges = badges|default([]) %}
+  {% set _body_classes = body_classes ? body_classes ~ ' user_profile-body' : 'user_profile-body' %}
+  {% set _classes = ['user_profile', 'border-0', 'mb-md-3'] %}
+  {% if _text_color is not empty %}
+    {% set _classes = _classes|merge(['text-' ~ _text_color]) %}
+  {% endif %}
+  {% if _variant is not empty %}
+    {% set _classes = _classes|merge(['bg-' ~ _variant]) %}
+  {% endif %}
+  {% if _border_variant is not empty %}
+    {% set _classes = _classes|merge(['border-' ~ _border_variant]) %}
+  {% endif %}
+
+  {% if _extra_classes_body is not empty %}
+    {% set _body_classes = _body_classes ~ ' ' ~ _extra_classes_body %}
+  {% endif %}
+
+  {% set _header_classes = 'user_profile-header' %}
+  {% if _extra_classes_header is not empty %}
+    {% set _header_classes = _header_classes ~ ' ' ~ _extra_classes_header %}
+  {% endif %}
+
+  {% set _footer_classes = 'user_profile-footer' %}
+  {% if _extra_classes_footer is not empty %}
+    {% set _footer_classes = _footer_classes ~ ' ' ~ _extra_classes_footer %}
+  {% endif %}
+
+  {% set _row_classes = 'row' %}
+  {% if _horizontal_grid.gutter is not empty %}
+    {% set _row_classes = _row_classes ~ ' g-' ~ _horizontal_grid.gutter %}
+  {% endif %}
+
+  {% set attributes = attributes.addClass(_classes) %}
+<div class="row">
+  <div class="col-12 col-md-10">
+    <div
+      {{ attributes }}
+    >
+      {% if _card_header is not empty %}
+        <div class='{{ _header_classes }}'>
+          {{- _card_header -}}
+        </div>
+      {% endif %}
+      {% if _horizontal %}
+      <div class='{{ _row_classes }}'>
+      {% endif %}
+      {% if _image is not empty and _image.position != 'bottom' %}
+      {% if _image.classes is not empty %}
+        {% set _img_class = _image.classes ~ ' user_profile-img-top' %}
+      {% else %}
+        {% set _img_class = 'user_profile-img-top' %}
+      {% endif %}
+      {% if _image.position == 'background' %}
+        {% set _img_class = 'user_profile-img' %}
+      {% endif %}
+      {% if _image.rounded is not empty %}
+        {% set _img_class = _img_class ~ ' rounded-' ~ _image.rounded %}
+      {% endif %}
+      {% if _horizontal %}
+      <div class="{{ _horizontal_grid.left_col_classes ~ (image.position == 'right' ? ' order-1') }}">
+      {% endif %}
+      <img
+        src='{{ _image.path }}'
+        alt='{{ _image.alt }}'
+        class='{{ _img_class }}'
+      >
+      {% if _horizontal %}
+        </div>
+      {% endif %}
+      {% if _image.position == 'background' %}
+      <div class='card-img-overlay'>
+      {% endif %}
+      {% endif %}
+      {% if _horizontal %}
+      <div class="{{ _horizontal_grid.right_col_classes ~ (image.position == 'right' ? ' order-0') }}">
+      {% endif %}
+    <div class="{{ _body_classes }}">
+      {%- if _badges is not empty and _badges is iterable -%}
+        <div class="mb-3">
+          {% for _badge in _badges %}
+            {% if _badge.attributes is empty %}
+              {% set _badge = _badge|merge({
+                attributes: create_attribute()
+              }) %}
+            {% endif %}
+            {% if not loop.last %}
+              {% set _badge = _badge|merge({
+                attributes: _badge.attributes.addClass('me-2')
+              })
+              %}
+            {% endif %}
+            {% include '@oe-bcl/bcl-badge/badge.html.twig' with _badge only %}
+          {% endfor %}
+        </div>
+      {%- endif -%}
+      {%- if _title is not empty -%}
+      {% set _title_tag = _title.tag ?? 'h5' %}
+      <{{ _title_tag }}
+      class='card-title{{ title.classes ? ' ' ~ title.classes }}'
+      {% if _title.attributes is not empty and _title.attributes is iterable %}
+        {% for attribute in _title.attributes %}
+          {{ create_attribute().set(attribute.name, attribute.value) }}
+        {% endfor %}
+      {% endif %}
+      >
+      {{- title.content -}}
+      </{{ _title_tag }}>
+      {%- endif -%}
+      {%- if _subtitle is not empty -%}
+      {% set _subtitle_tag = _subtitle.tag ?? 'h6' %}
+      <{{ _subtitle_tag }}
+      class='card-subtitle{{ _subtitle.classes ? ' ' ~ _subtitle.classes }}'
+      >
+      {{- _subtitle.content -}}
+      </{{ _subtitle_tag }}>
+      {%- endif -%}
+      {%- if _text is not empty -%}
+      {% set _text_tag = _text.tag ?? 'p' %}
+      <{{ _text_tag }}
+      class='card-text{{ _text.classes ? ' ' ~ _text.classes }}'
+      >
+      {{- _text.content -}}
+      </{{ _text_tag }}>
+      {%- endif -%}
+      {%- if _content is not empty -%}
+        {{- _content -}}
+      {%- endif -%}
+      </div>
+      {% if _horizontal %}
+        </div>
+      {% endif %}
+      {% if _image is not empty %}
+        {% if _image.position == 'background' %}
+          </div>
+        {% endif %}
+        {% if _image.position == 'bottom' %}
+          {% if _horizontal %}
+            <div class='col-4'>
+          {% endif %}
+          <img
+            src='{{ _image.path }}'
+            alt='{{ _image.alt }}'
+            class='card-img-bottom'
+          >
+          {% if _horizontal %}
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+      {% if _horizontal %}
+        </div>
+      {% endif %}
+      {% if _card_footer is not empty %}
+        <div class='{{ _footer_classes }}'>
+          {{- _card_footer -}}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col-12 col-md-2">
+    <div class="d-grid d-md-block">
+      {{ pattern('button', {
+        variant: _call_to_action_button_variant,
+        label: _call_to_action_button,
+      }) }}
+    </div>
+  </div>
+</div>
+{% endspaceless %}

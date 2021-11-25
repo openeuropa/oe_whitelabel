@@ -8,7 +8,6 @@
 declare(strict_types = 1);
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\image\Entity\ImageStyle;
 
 /**
  * Implements hook__preprocess_links__language_block().
@@ -136,36 +135,49 @@ function oe_whitelabel_preprocess(&$variables) {
  * Implements hook_preprocess().
  */
 function oe_whitelabel_preprocess_pattern_card(array &$variables): void {
-  if ($variables['variant'] != 'user-profile') {
+  if ($variables['variant'] != 'user_profile') {
     return;
   }
-  $uid = \Drupal::routeMatch()->getRawParameter('user');
-  $user = \Drupal\user\Entity\User::load($uid);
 
-  $variables['horizontal'] = true;
-  $variables['horizontal_grid'] = [
-    'left_col_classes' => "col-6 col-md-3 offset-3 offset-md-0",
-    'right_col_classes'=> "col-md-9",
+  $variables['horizontal'] = TRUE;
+
+  // Multiple fields can be added to the same area,
+  // we need to print them inline.
+  $cards_fields = [
+    'title',
+    'subtitle',
+    'content',
+    'image',
   ];
 
-  $variables['extra_classes_header'] = "bg-transparent pt-0 pb-0 border-0";
-  $variables['extra_classes_body'] = "pt-md-0 px-0 px-md-3";
+  foreach ($cards_fields as $card_field) {
+    if (array_key_exists('#sources', $variables[$card_field])) {
+      for ($i = 0; $i < count($variables[$card_field]['#sources']); $i++) {
+        $variables[$card_field]['#sources'][$i]['#attributes']['class'][] = 'd-inline';
+        // Add margin left for the subsequent elements after the first.
+        if ($i > 0) {
+          $variables[$card_field]['#sources'][$i]['#attributes']['class'][] = 'ms-2';
+        }
+      }
+    }
+  }
+
   $variables['title'] = [
-    'content' => $user->field_oe_firstname->value . ' ' . $user->field_oe_lastname->value,
+    'content' => $variables['title'],
     'tag' => "h2",
     'classes' => "fw-bold",
   ];
 
   $variables['subtitle'] = [
-    'content' => $user->field_current_position->value . ' ' . $user->field_oe_organisation->value,
+    'content' => $variables['subtitle'],
     'tag' => "div",
-    'classes' => "text-muted me-3",
+    'classes' => "mb-4 mt-4",
   ];
-  $variables['content'] = $user->field_bio->value;
-  
+
   $variables['image'] = [
-    'path' => file_url_transform_relative(file_create_url($user->field_profile_image->entity->getFileUri())),
+    'path' => $variables['image'][0]['#markup'] ?? '',
     'alt' => "alt img",
     'position' => "top",
+    'classes' => "card-img-top",
   ];
 }
