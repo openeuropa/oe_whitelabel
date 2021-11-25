@@ -37,7 +37,7 @@ function oe_whitelabel_helper_entity_display_build_alter(&$build, $context) {
  *   - field--two-column.tpl.php
  *   - field--two-column--[FIELD_TYPE].tpl.php
  *   - field--two-column--[FIELD_NAME].tpl.php
- *   - field--two-column--[FIELD_NAME]--[BUNDLE].tpl.php
+ *   - field--two-column--[FIELD_NAME]--[BUNDLE].tpl.php.
  *
  * @see field--two-column.tpl.php
  */
@@ -62,7 +62,7 @@ function oe_whitelabel_helper_field_formatter(&$variables, $hook) {
  * Implements hook_theme_suggestions_HOOK().
  */
 function oe_whitelabel_helper_theme_suggestions_field__two_column(array $variables) {
-  $suggestions = array();
+  $suggestions = [];
   $element = $variables['element'];
 
   $suggestions[] = 'field__two_column' . $element['#field_type'];
