@@ -1,0 +1,990 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.user.user.field_bio
+    - field.field.user.user.field_country
+    - field.field.user.user.field_first_name
+    - field.field.user.user.field_gender
+    - field.field.user.user.field_image
+    - field.field.user.user.field_last_name
+    - field.field.user.user.field_manage_profile
+    - field.field.user.user.field_organisation
+    - field.field.user.user.field_position
+    - image.style.medium
+  module:
+    - block_field
+    - field_group
+    - image
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_user_profile:
+      children:
+        - field_image
+        - field_first_name
+        - field_last_name
+        - field_organisation
+        - field_position
+        - field_bio
+        - field_manage_profile
+      parent_name: ''
+      weight: 0
+      format_type: pattern_formatter
+      region: content
+      format_settings:
+        pattern: card
+        pattern_mapping:
+          'fields:field_image':
+            destination: image
+            weight: 0
+            plugin: fields
+            source: field_image
+          'fields:field_manage_profile':
+            destination: call_to_action_button
+            weight: 1
+            plugin: fields
+            source: field_manage_profile
+          'fields:field_first_name':
+            destination: title
+            weight: 2
+            plugin: fields
+            source: field_first_name
+          'fields:field_last_name':
+            destination: title
+            weight: 3
+            plugin: fields
+            source: field_last_name
+          'fields:field_organisation':
+            destination: subtitle
+            weight: 4
+            plugin: fields
+            source: field_organisation
+          'fields:field_position':
+            destination: subtitle
+            weight: 5
+            plugin: fields
+            source: field_position
+          'fields:field_bio':
+            destination: content
+            weight: 6
+            plugin: fields
+            source: field_bio
+        pattern_settings:
+          accordion:
+            open_item_id: ''
+            flush: 0
+          alert:
+            style: ''
+            dismissible: 0
+            animated_dismiss: 0
+          badge:
+            background: ''
+            rounded_pill: 0
+            dismissible: 0
+          blockquote:
+            alignment: ''
+          button:
+            variant: ''
+            size: ''
+            type: ''
+            icon_position: ''
+            button_id: ''
+            outline: 0
+            disabled: 0
+            text_nowrap: 0
+            clean_class: 0
+            show_spinner: 0
+          button_group:
+            size: ''
+            toolbar: 0
+            vertical: 0
+          card:
+            style: ''
+            border_variant: ''
+            text_color: ''
+            call_to_action_button_variant: primary
+            horizontal: 0
+          card_layout:
+            grid_columns: ''
+            responsiveness: ''
+            responsive_columns: ''
+            gutter: ''
+            equal_height: 0
+          carousel:
+            prev_label: ''
+            next_label: ''
+            fade: 0
+            with_controls: 0
+            with_indicators: 0
+            autoplay: 0
+            autoinit: 0
+            disable_touch: 0
+          collapse:
+            style: ''
+            size: ''
+            link: 0
+            outline: 0
+          dropdown:
+            direction: ''
+            alignment: ''
+            dropdown_id: ''
+            link: 0
+            dark: 0
+            remove_wrapper: 0
+          featured_media:
+            ratio: ''
+            alignment: ''
+            inside_text: 0
+          grid_row:
+            col: ''
+            col_sm: ''
+            col_md: ''
+            col_lg: ''
+            col_xl: ''
+            spacing_margin_bottom: ''
+            with_container: 0
+            no_gutters: 0
+          icon:
+            name: ''
+            size: ''
+            transformation: ''
+          link:
+            link_style: ''
+            icon_position: ''
+            link_id: ''
+            disabled: 0
+            remove_icon_spacers: 0
+          list:
+            list_type: ''
+          list_group:
+            type: ''
+            horizontal: ''
+            flush: 0
+          listing:
+            columns: ''
+          modal:
+            btn_style: ''
+            size: ''
+            modal_id: ''
+          nav:
+            style: ''
+            alignment: ''
+            fill: ''
+            attributes: ''
+          navbar:
+            collapse_id: ''
+            background: ''
+            expand: ''
+            color_set: ''
+            disable_collapse: 0
+          offcanvas:
+            placement: ''
+            icon_position: ''
+            with_body_scroll: 0
+            with_backdrop: 0
+            with_trigger: 0
+          popover:
+            style: ''
+            size: ''
+            placement: ''
+            outline: 0
+          progress:
+            style: ''
+            striped: 0
+            animated: 0
+          spinner:
+            type: ''
+            variant: ''
+            size: ''
+          table:
+            table_responsive: ''
+            style: ''
+            alignment: ''
+            border: ''
+            striped: 0
+            hoverable: 0
+            small: 0
+            caption_top: 0
+            borderless: 0
+          tooltip:
+            style: ''
+            size: ''
+            placement: ''
+            link: 0
+            outline: 0
+          banner:
+            shade: 0
+            hero: 0
+            full_width: 0
+            centered: 0
+        show_empty_fields: 0
+        pattern_variant: user_profile
+      label: 'User Profile'
+    group_personal_:
+      children:
+        - field_gender
+        - field_country
+      parent_name: ''
+      weight: 2
+      format_type: multicolumn
+      region: content
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: ''
+        first_column: ''
+        second_column: ''
+        hide_table_if_empty: 0
+      label: 'Personal Information'
+    group_manage_profile:
+      children: {  }
+      parent_name: ''
+      weight: 4
+      format_type: pattern_formatter
+      region: hidden
+      format_settings:
+        pattern: button
+        pattern_mapping:
+          'fields:field_manage_profile':
+            destination: label
+            weight: 0
+            plugin: fields
+            source: field_manage_profile
+        pattern_settings:
+          accordion:
+            open_item_id: ''
+            flush: 0
+          alert:
+            style: ''
+            dismissible: 0
+            animated_dismiss: 0
+          badge:
+            background: ''
+            rounded_pill: 0
+            dismissible: 0
+          blockquote:
+            alignment: ''
+          button:
+            variant: ''
+            size: ''
+            type: ''
+            icon_position: ''
+            button_id: ''
+            outline: 0
+            disabled: 0
+            text_nowrap: 0
+            clean_class: 0
+            show_spinner: 0
+          button_group:
+            size: ''
+            toolbar: 0
+            vertical: 0
+          card:
+            style: ''
+            border_variant: ''
+            text_color: ''
+            horizontal: 0
+          card_layout:
+            grid_columns: ''
+            responsiveness: ''
+            responsive_columns: ''
+            gutter: ''
+            equal_height: 0
+          carousel:
+            prev_label: ''
+            next_label: ''
+            fade: 0
+            with_controls: 0
+            with_indicators: 0
+            autoplay: 0
+            autoinit: 0
+            disable_touch: 0
+          collapse:
+            style: ''
+            size: ''
+            link: 0
+            outline: 0
+          dropdown:
+            direction: ''
+            alignment: ''
+            dropdown_id: ''
+            link: 0
+            dark: 0
+            remove_wrapper: 0
+          featured_media:
+            ratio: ''
+            alignment: ''
+            inside_text: 0
+          grid_row:
+            col: ''
+            col_sm: ''
+            col_md: ''
+            col_lg: ''
+            col_xl: ''
+            spacing_margin_bottom: ''
+            with_container: 0
+            no_gutters: 0
+          icon:
+            name: ''
+            size: ''
+            transformation: ''
+          link:
+            link_style: ''
+            icon_position: ''
+            link_id: ''
+            disabled: 0
+            remove_icon_spacers: 0
+          list:
+            list_type: ''
+          list_group:
+            type: ''
+            horizontal: ''
+            flush: 0
+          listing:
+            columns: ''
+          modal:
+            btn_style: ''
+            size: ''
+            modal_id: ''
+          nav:
+            style: ''
+            alignment: ''
+            fill: ''
+            attributes: ''
+          navbar:
+            collapse_id: ''
+            background: ''
+            expand: ''
+            color_set: ''
+            disable_collapse: 0
+          offcanvas:
+            placement: ''
+            icon_position: ''
+            with_body_scroll: 0
+            with_backdrop: 0
+            with_trigger: 0
+          popover:
+            style: ''
+            size: ''
+            placement: ''
+            outline: 0
+          progress:
+            style: ''
+            striped: 0
+            animated: 0
+          spinner:
+            type: ''
+            variant: ''
+            size: ''
+          table:
+            table_responsive: ''
+            style: ''
+            alignment: ''
+            border: ''
+            striped: 0
+            hoverable: 0
+            small: 0
+            caption_top: 0
+            borderless: 0
+          tooltip:
+            style: ''
+            size: ''
+            placement: ''
+            link: 0
+            outline: 0
+          banner:
+            shade: 0
+            hero: 0
+            full_width: 0
+            centered: 0
+        show_empty_fields: 0
+        pattern_variant: secondary
+      label: 'Manage Profile'
+    group_layout:
+      children: {  }
+      parent_name: ''
+      weight: 8
+      format_type: pattern_formatter
+      region: hidden
+      format_settings:
+        show_empty_fields: 0
+        pattern: ''
+        pattern_mapping: {  }
+        pattern_variant: ''
+        classes: ''
+        id: ''
+      label: Layout
+    group_card_column:
+      children: {  }
+      parent_name: ''
+      weight: 6
+      format_type: pattern_formatter
+      region: hidden
+      format_settings:
+        pattern: grid_row
+        variants:
+          banner: default
+          button: primary
+          card: default
+          card_layout: group
+          jumbotron: default
+          list: default
+          footer: ec
+          header: ec
+          user_profile: default
+        pattern_settings:
+          accordion:
+            open_item_id: ''
+            flush: 0
+          alert:
+            style: ''
+            dismissible: 0
+            animated_dismiss: 0
+          badge:
+            background: ''
+            rounded_pill: 0
+            dismissible: 0
+          blockquote:
+            alignment: ''
+          button:
+            variant: ''
+            size: ''
+            type: ''
+            icon_position: ''
+            button_id: ''
+            outline: 0
+            disabled: 0
+            text_nowrap: 0
+            clean_class: 0
+            show_spinner: 0
+          button_group:
+            size: ''
+            toolbar: 0
+            vertical: 0
+          card:
+            style: ''
+            border_variant: ''
+            text_color: ''
+            horizontal: 0
+          card_layout:
+            grid_columns: ''
+            responsiveness: ''
+            responsive_columns: ''
+            gutter: ''
+            equal_height: 0
+          carousel:
+            prev_label: ''
+            next_label: ''
+            fade: 0
+            with_controls: 0
+            with_indicators: 0
+            autoplay: 0
+            autoinit: 0
+            disable_touch: 0
+          collapse:
+            style: ''
+            size: ''
+            link: 0
+            outline: 0
+          dropdown:
+            direction: ''
+            alignment: ''
+            dropdown_id: ''
+            link: 0
+            dark: 0
+            remove_wrapper: 0
+          featured_media:
+            ratio: ''
+            alignment: ''
+            inside_text: 0
+          grid_row:
+            no_gutters: '1'
+            col: col-12
+            col_sm: ''
+            col_md: col-md-6
+            col_lg: ''
+            col_xl: ''
+            spacing_margin_bottom: mb-auto
+            with_container: 0
+          icon:
+            name: ''
+            size: ''
+            transformation: ''
+          link:
+            link_style: ''
+            icon_position: ''
+            link_id: ''
+            disabled: 0
+            remove_icon_spacers: 0
+          list:
+            list_type: ''
+          list_group:
+            type: ''
+            horizontal: ''
+            flush: 0
+          listing:
+            columns: ''
+          modal:
+            btn_style: ''
+            size: ''
+            modal_id: ''
+          nav:
+            style: ''
+            alignment: ''
+            fill: ''
+            attributes: ''
+          navbar:
+            collapse_id: ''
+            background: ''
+            expand: ''
+            color_set: ''
+            disable_collapse: 0
+          offcanvas:
+            placement: ''
+            icon_position: ''
+            with_body_scroll: 0
+            with_backdrop: 0
+            with_trigger: 0
+          popover:
+            style: ''
+            size: ''
+            placement: ''
+            outline: 0
+          progress:
+            style: ''
+            striped: 0
+            animated: 0
+          spinner:
+            type: ''
+            variant: ''
+            size: ''
+          table:
+            table_responsive: ''
+            style: ''
+            alignment: ''
+            border: ''
+            striped: 0
+            hoverable: 0
+            small: 0
+            caption_top: 0
+            borderless: 0
+          tooltip:
+            style: ''
+            size: ''
+            placement: ''
+            link: 0
+            outline: 0
+          banner:
+            shade: 0
+            hero: 0
+            full_width: 0
+            centered: 0
+        show_empty_fields: 0
+        pattern_mapping: ''
+      label: 'Card Column'
+    group_button_column:
+      children: {  }
+      parent_name: ''
+      weight: 7
+      format_type: pattern_formatter
+      region: hidden
+      format_settings:
+        pattern: grid_row
+        variants:
+          banner: default
+          button: primary
+          card: default
+          card_layout: group
+          jumbotron: default
+          list: default
+          footer: ec
+          header: ec
+          user_profile: default
+        pattern_settings:
+          accordion:
+            open_item_id: ''
+            flush: 0
+          alert:
+            style: ''
+            dismissible: 0
+            animated_dismiss: 0
+          badge:
+            background: ''
+            rounded_pill: 0
+            dismissible: 0
+          blockquote:
+            alignment: ''
+          button:
+            variant: ''
+            size: ''
+            type: ''
+            icon_position: ''
+            button_id: ''
+            outline: 0
+            disabled: 0
+            text_nowrap: 0
+            clean_class: 0
+            show_spinner: 0
+          button_group:
+            size: ''
+            toolbar: 0
+            vertical: 0
+          card:
+            style: ''
+            border_variant: ''
+            text_color: ''
+            horizontal: 0
+          card_layout:
+            grid_columns: ''
+            responsiveness: ''
+            responsive_columns: ''
+            gutter: ''
+            equal_height: 0
+          carousel:
+            prev_label: ''
+            next_label: ''
+            fade: 0
+            with_controls: 0
+            with_indicators: 0
+            autoplay: 0
+            autoinit: 0
+            disable_touch: 0
+          collapse:
+            style: ''
+            size: ''
+            link: 0
+            outline: 0
+          dropdown:
+            direction: ''
+            alignment: ''
+            dropdown_id: ''
+            link: 0
+            dark: 0
+            remove_wrapper: 0
+          featured_media:
+            ratio: ''
+            alignment: ''
+            inside_text: 0
+          grid_row:
+            no_gutters: '1'
+            col: col-12
+            col_sm: ''
+            col_md: col-md-2
+            col_lg: ''
+            col_xl: ''
+            spacing_margin_bottom: mb-auto
+            with_container: 0
+          icon:
+            name: ''
+            size: ''
+            transformation: ''
+          link:
+            link_style: ''
+            icon_position: ''
+            link_id: ''
+            disabled: 0
+            remove_icon_spacers: 0
+          list:
+            list_type: ''
+          list_group:
+            type: ''
+            horizontal: ''
+            flush: 0
+          listing:
+            columns: ''
+          modal:
+            btn_style: ''
+            size: ''
+            modal_id: ''
+          nav:
+            style: ''
+            alignment: ''
+            fill: ''
+            attributes: ''
+          navbar:
+            collapse_id: ''
+            background: ''
+            expand: ''
+            color_set: ''
+            disable_collapse: 0
+          offcanvas:
+            placement: ''
+            icon_position: ''
+            with_body_scroll: 0
+            with_backdrop: 0
+            with_trigger: 0
+          popover:
+            style: ''
+            size: ''
+            placement: ''
+            outline: 0
+          progress:
+            style: ''
+            striped: 0
+            animated: 0
+          spinner:
+            type: ''
+            variant: ''
+            size: ''
+          table:
+            table_responsive: ''
+            style: ''
+            alignment: ''
+            border: ''
+            striped: 0
+            hoverable: 0
+            small: 0
+            caption_top: 0
+            borderless: 0
+          tooltip:
+            style: ''
+            size: ''
+            placement: ''
+            link: 0
+            outline: 0
+          banner:
+            shade: 0
+            hero: 0
+            full_width: 0
+            centered: 0
+        show_empty_fields: 0
+        pattern_mapping: ''
+      label: 'Button column'
+    group_card_layout:
+      children: {  }
+      parent_name: ''
+      weight: 5
+      format_type: pattern_formatter
+      region: hidden
+      format_settings:
+        pattern: card_layout
+        pattern_settings:
+          accordion:
+            open_item_id: ''
+            flush: 0
+          alert:
+            style: ''
+            dismissible: 0
+            animated_dismiss: 0
+          badge:
+            background: ''
+            rounded_pill: 0
+            dismissible: 0
+          blockquote:
+            alignment: ''
+          button:
+            variant: ''
+            size: ''
+            type: ''
+            icon_position: ''
+            button_id: ''
+            outline: 0
+            disabled: 0
+            text_nowrap: 0
+            clean_class: 0
+            show_spinner: 0
+          button_group:
+            size: ''
+            toolbar: 0
+            vertical: 0
+          card:
+            style: ''
+            border_variant: ''
+            text_color: ''
+            horizontal: 0
+          card_layout:
+            grid_columns: '2'
+            responsiveness: md
+            responsive_columns: '2'
+            gutter: ''
+            equal_height: '1'
+          carousel:
+            prev_label: ''
+            next_label: ''
+            fade: 0
+            with_controls: 0
+            with_indicators: 0
+            autoplay: 0
+            autoinit: 0
+            disable_touch: 0
+          collapse:
+            style: ''
+            size: ''
+            link: 0
+            outline: 0
+          dropdown:
+            direction: ''
+            alignment: ''
+            dropdown_id: ''
+            link: 0
+            dark: 0
+            remove_wrapper: 0
+          featured_media:
+            ratio: ''
+            alignment: ''
+            inside_text: 0
+          grid_row:
+            col: ''
+            col_sm: ''
+            col_md: ''
+            col_lg: ''
+            col_xl: ''
+            spacing_margin_bottom: ''
+            with_container: 0
+            no_gutters: 0
+          icon:
+            name: ''
+            size: ''
+            transformation: ''
+          link:
+            link_style: ''
+            icon_position: ''
+            link_id: ''
+            disabled: 0
+            remove_icon_spacers: 0
+          list:
+            list_type: ''
+          list_group:
+            type: ''
+            horizontal: ''
+            flush: 0
+          listing:
+            columns: ''
+          modal:
+            btn_style: ''
+            size: ''
+            modal_id: ''
+          nav:
+            style: ''
+            alignment: ''
+            fill: ''
+            attributes: ''
+          navbar:
+            collapse_id: ''
+            background: ''
+            expand: ''
+            color_set: ''
+            disable_collapse: 0
+          offcanvas:
+            placement: ''
+            icon_position: ''
+            with_body_scroll: 0
+            with_backdrop: 0
+            with_trigger: 0
+          popover:
+            style: ''
+            size: ''
+            placement: ''
+            outline: 0
+          progress:
+            style: ''
+            striped: 0
+            animated: 0
+          spinner:
+            type: ''
+            variant: ''
+            size: ''
+          table:
+            table_responsive: ''
+            style: ''
+            alignment: ''
+            border: ''
+            striped: 0
+            hoverable: 0
+            small: 0
+            caption_top: 0
+            borderless: 0
+          tooltip:
+            style: ''
+            size: ''
+            placement: ''
+            link: 0
+            outline: 0
+          banner:
+            shade: 0
+            hero: 0
+            full_width: 0
+            centered: 0
+        show_empty_fields: 0
+        pattern_mapping: ''
+        pattern_variant: grid
+      label: 'Card Layout'
+id: user.user.default
+targetEntityType: user
+bundle: user
+mode: default
+content:
+  field_bio:
+    weight: 7
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_country:
+    weight: 3
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_first_name:
+    weight: 3
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_gender:
+    weight: 2
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_image:
+    weight: 2
+    label: hidden
+    settings:
+      image_style: medium
+    third_party_settings: {  }
+    type: image_url
+    region: content
+  field_last_name:
+    weight: 4
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_manage_profile:
+    weight: 8
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: block_field
+    region: content
+  field_organisation:
+    weight: 5
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_position:
+    weight: 6
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  member_for: true
