@@ -1,0 +1,28 @@
+uuid: e0989428-470e-4b1f-8b21-58660e87212d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_manage_profile
+  module:
+    - block_field
+    - user
+id: user.user.field_manage_profile
+field_name: field_manage_profile
+entity_type: user
+bundle: user
+label: 'Manage Profile'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    plugin_id: user_profile_cta
+    settings: {  }
+default_value_callback: ''
+settings:
+  selection: blocks
+  selection_settings:
+    plugin_ids:
+      user_profile_cta: user_profile_cta
+field_type: block_field

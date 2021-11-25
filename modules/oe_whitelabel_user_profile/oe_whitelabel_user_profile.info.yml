@@ -3,3 +3,31 @@ type: module
 description: Adds additional functionality to the user profile.
 package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^8.9 || ^9.1
+
+dependencies:
+  - field_group:field_group
+  - block_field:block_field
+
+config_devel:
+  install:
+  - field.field.user.user.field_bio
+  - field.field.user.user.field_country
+  - field.field.user.user.field_first_name
+  - field.field.user.user.field_gender
+  - field.field.user.user.field_image
+  - field.field.user.user.field_last_name
+  - field.field.user.user.field_manage_profile
+  - field.field.user.user.field_organisation
+  - field.field.user.user.field_position
+  - field.storage.user.field_bio
+  - field.storage.user.field_country
+  - field.storage.user.field_first_name
+  - field.storage.user.field_gender
+  - field.storage.user.field_image
+  - field.storage.user.field_last_name
+  - field.storage.user.field_manage_profile
+  - field.storage.user.field_organisation
+  - field.storage.user.field_position
+
+  optional:
+    - language.content_settings.node.oe_showcase_page

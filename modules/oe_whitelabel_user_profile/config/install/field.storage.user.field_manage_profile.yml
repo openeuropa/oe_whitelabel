@@ -1,0 +1,19 @@
+uuid: c3c70bb9-4715-404d-9bd2-83db679ba110
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_field
+    - user
+id: user.field_manage_profile
+field_name: field_manage_profile
+entity_type: user
+type: block_field
+settings: {  }
+module: block_field
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
