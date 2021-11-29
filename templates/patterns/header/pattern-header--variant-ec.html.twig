@@ -7,4 +7,5 @@
 {% extends "pattern-header.html.twig" %}
 {% block header %}
   {% set _header_attributes = create_attribute().addClass(['ec__header', 'bcl-header']) %}
+  {{ parent() }}
 {% endblock %}
