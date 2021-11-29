@@ -1,19 +1,23 @@
+{#
+/**
+ * @file
+ * Template for header pattern.
+ */
+#}
 {%
-  set _header_classes = [
-    'bcl-header',
-  ]
-%}
-{%
-  set _nav_classes = [
+  set _nav_attributes = create_attribute().addClass([
     'w-100',
     'shadow-sm',
     'navbar',
     'navbar-expand-lg',
     'navbar-light',
-  ]
+  ])
 %}
-<header {{ attributes.addClass(_header_classes) }}>
-  <nav {{ attributes.addClass(_nav_classes) }}>
+{% set navbar_attributes = create_attribute().addClass(['bcl-header__navbar']) %}
+{%  block header %}
+  {{ header }}
+{% endblock %}
+  <nav {{ _nav_attributes }}>
     <div class="container">
       {{ navbar_branding }}
       <ul class="nav">
@@ -22,24 +26,23 @@
     </div>
   </nav>
   {%
-    set _project_classes = [
+    set _project_attributes = create_attribute().addClass([
       'bcl-header__project',
       bcl_header_style == 'light' ? bcl_header_style,
-    ]
+    ])
   %}
-  <div {{attributes.addClass(_project_classes)}}>
+  <div {{ _project_attributes }}>
     <div class="container">
       {{ header_top }}
     </div>
   </div>
-  {% set attributes = {
-    'class':  [
-        'bcl-header__navbar',
-    ]
-  } %}
-  {% block content %}
-    {{ content}}
-  {% endblock %}
+  {{ pattern('navbar', {
+    navbar_left: header_left,
+    navbar_right: header_right,
+    color_set: 'dark',
+    collapse_id: 'navbarNavDropdown',
+    attributes: navbar_attributes,
+  }) }}
   <div class="container">
     {{ breadcrumbs }}
   </div>

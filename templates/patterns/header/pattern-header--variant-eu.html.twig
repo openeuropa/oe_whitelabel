@@ -1,16 +1,11 @@
-{% extends "pattern-header.html.twig" %}
 {#
 /**
  * @file
  * Template override for pattern header variant EU.
  */
 #}
-{% block content %}
-  {{ pattern('navbar', {
-    navbar_left: header_left,
-    navbar_right: header_right,
-    color_set: 'dark',
-    collapse_id: 'navbarNavDropdown',
-    attributes: attributes
-  }) }}
+{% extends "pattern-header.html.twig" %}
+{%  block header %}
+  {% set _header_attributes = create_attribute().addClass(['bcl-header']) %}
+    <header {{ _header_attributes }}>
 {% endblock %}
