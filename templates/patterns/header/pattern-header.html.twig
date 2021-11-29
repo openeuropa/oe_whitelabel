@@ -14,9 +14,10 @@
   ])
 %}
 {% set navbar_attributes = create_attribute().addClass(['bcl-header__navbar']) %}
-{%  block header %}
-  {{ header }}
+{% block header %}
+  {% set _header_attributes = create_attribute() %}
 {% endblock %}
+<header {{ _header_attributes }}>
   <nav {{ _nav_attributes }}>
     <div class="container">
       {{ navbar_branding }}
