@@ -139,13 +139,29 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#description' => $this->t('Fill in the settings of the Button field.'),
     ];
 
+    $form['button']['button_label'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Button label'),
+      '#description' => $this->t('Label text that should appear inside the button.'),
+      '#default_value' => $config['button']['label'],
+      '#required' => TRUE,
+    ];
+    $form['button']['button_label_icon'] = [
+      '#type' => 'radios',
+      '#default_value' => isset($config['button']['label_icon']) ? $config['button']['label_icon'] : 'icon',
+      '#options' => [
+        'label' => $this->t('Label'),
+        'icon' => $this->t('Icon'),
+        'label_icon' => $this->t('Label and icon'),
+      ],
+      '#title' => $this->t('Button display options'),
+    ];
     $form['button']['button_classes'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Button classes'),
       '#description' => $this->t('Add space-separated classes that will be added to the button.'),
       '#default_value' => $config['button']['classes'],
     ];
-
     $form['enable_autocomplete'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable autocomplete'),
@@ -202,6 +218,8 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     ]);
     $button = $values['button'];
     $this->setConfigurationValue('button', [
+      'label' => $button['button_label'],
+      'label_icon' => $button['button_label_icon'],
       'classes' => $button['button_classes'],
     ]);
     $this->setConfigurationValue('view_options', [

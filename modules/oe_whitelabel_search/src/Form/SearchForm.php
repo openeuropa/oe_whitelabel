@@ -9,6 +9,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Template\Attribute;
+use Drupal\Core\Routing\TrustedRedirectResponse;
 
 /**
  * Configurable search form class.
@@ -37,7 +39,7 @@ class SearchForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('language_manager'),
+      $container->get('language_manager')
     );
   }
 
@@ -76,6 +78,43 @@ class SearchForm extends FormBase {
       '#required' => TRUE,
     ];
 
+    // $button = [
+    //   '#type' => 'submit',
+    //   '#id' => 'button',
+    //   '#variant' => 'light',
+    //     '#attributes' => [
+    //       'class' => [
+    //         'border-start-0',
+    //         'rounded-0 rounded-end',
+    //         'd-flex',
+    //         'btn btn-light',
+    //         'btn-md',
+    //         'py-2',
+    //         $config['button']['classes'],
+    //       ],
+    //     ],
+    //   '#fields' => [
+    //     'settings' => [
+    //       'type' => 'submit',
+    //     ],
+    //     'attributes' => [
+    //       'class' => [
+    //         'border-start-0',
+    //         'rounded-0 rounded-end',
+    //         'd-flex',
+    //         'btn btn-light',
+    //         'btn-md',
+    //         'py-2',
+    //         $config['button']['classes'],
+    //       ],
+    //     ],
+    //   ],
+    // ];
+    // if ($config['button']['label_icon'] != 'icon') {
+    //   $button['#fields']['label'] = $this->t($config['button']['label']);
+    //   $button['#value'] = $this->t($config['button']['label']);
+    // }
+
     $button = [
       '#type' => 'pattern',
       '#id' => 'button',
@@ -84,11 +123,8 @@ class SearchForm extends FormBase {
         'settings' => [
           'type' => 'submit',
         ],
-        'icon' => [
-          'name' => 'search',
-          'size' => 'xs',
-        ],
         'attributes' => [
+          'id' => 'submit',
           'class' => [
             'border-start-0',
             'rounded-0 rounded-end',
@@ -101,6 +137,15 @@ class SearchForm extends FormBase {
         ],
       ],
     ];
+    if ($config['button']['label_icon'] != 'icon') {
+      $button['#fields']['label'] = $this->t($config['button']['label']);
+    }
+    if ($config['button']['label_icon'] != 'label') {
+      $button['#fields']['icon'] = [
+        'name' => 'search',
+        'size' => 'xs',
+      ];
+    }
 
     $form['submit'] = $button;
 
@@ -115,13 +160,13 @@ class SearchForm extends FormBase {
       'display' => $config['view_options']['display'],
       'filter' => $config['input']['name'],
     ];
-
+    
     return $form;
   }
 
   /**
-   * {@inheritdoc}
-   */
+  * {@inheritdoc}
+  */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $config = $form_state->get('oe_whitelabel_search_config');
     $url = Url::fromUri('base:' . $config['form']['action'], [

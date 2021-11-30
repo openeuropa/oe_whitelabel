@@ -101,6 +101,7 @@ class SearchBlockTest extends KernelTestBase {
         ],
         'button' => [
           'label' => 'Search',
+          'button_label_icon' => 'label',
           'classes' => 'button-test-class',
         ],
         'view_options' => [
