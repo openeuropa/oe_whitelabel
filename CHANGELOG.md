@@ -1,6 +1,13 @@
 # Change Log
 
-## [1.0.0-alpha1](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-alpha1) (2021-11-22)
+## [1.0.0-alpha2](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-alpha2) (2021-12-01)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-alpha1...1.0.0-alpha2)
+
+**Merged pull requests:**
+
+- OEL-750: BCL Upgrade to 0.14.0 [\#46](https://github.com/openeuropa/oe_whitelabel/pull/46) ([escuriola](https://github.com/escuriola))
+
+## [1.0.0-alpha1](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-alpha1) (2021-11-23)
 **Closed issues:**
 
 - Error from facets summary template [\#25](https://github.com/openeuropa/oe_whitelabel/issues/25)
@@ -8,6 +15,7 @@
 
 **Merged pull requests:**
 
+- OEL-765: Prepare release 1.0.0-alpha1 [\#49](https://github.com/openeuropa/oe_whitelabel/pull/49) ([drishu](https://github.com/drishu))
 - OEL-539: Use oe\_bootstrap\_theme release 1.0.0-alpha2 [\#43](https://github.com/openeuropa/oe_whitelabel/pull/43) ([drishu](https://github.com/drishu))
 - OEL-719: Adapt search changes. [\#42](https://github.com/openeuropa/oe_whitelabel/pull/42) ([escuriola](https://github.com/escuriola))
 - OEL-726: Add header light/standard configuration and apply to pattern. [\#41](https://github.com/openeuropa/oe_whitelabel/pull/41) ([escuriola](https://github.com/escuriola))
