@@ -122,7 +122,7 @@ class SearchBlockTest extends KernelTestBase {
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($render->__toString());
-    $actual = $crawler->filter('.oe-whitelabel-search-form');
+    $actual = $crawler->filter('#block-whitelabel-search-block');
     $this->assertCount(1, $actual);
     $button_class = $crawler->filter('.button-test-class');
     $this->assertCount(1, $button_class);
