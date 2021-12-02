@@ -54,8 +54,6 @@ class SearchForm extends FormBase {
       $input_value = $this->getRequest()->get($config['input']['name']);
     }
 
-    $form['#action'] = $config['form']['action'];
-
     $form['search_input'] = [
       '#prefix' => '<div class="bcl-search-form__group">',
       '#suffix' => '</div>',
@@ -75,42 +73,41 @@ class SearchForm extends FormBase {
       '#required' => TRUE,
     ];
 
-    $button = [
-      '#type' => 'submit',
+    $form['submit'] = [
+      '#input' => TRUE,
+      '#is_button' => TRUE,
+      '#executes_submit_callback' => TRUE,
+      '#type' => 'pattern',
       '#id' => 'button',
       '#variant' => 'light',
-      '#pattern' => TRUE,
-      '#attributes' => [
-        'class' => [
-          'border-start-0',
-          'rounded-0',
-          'rounded-end',
-          'd-flex',
-          'btn',
-          'btn-light',
-          'btn-md',
-          'py-2',
-          $config['button']['classes'],
-        ],
-      ],
       '#fields' => [
         'settings' => [
           'type' => 'submit',
+        ],
+        'attributes' => [
+          'id' => 'submit',
+          'class' => [
+            'border-start-0',
+            'rounded-0 rounded-end',
+            'd-flex',
+            'btn btn-light',
+            'btn-md',
+            'py-2',
+            $config['button']['classes'],
+          ],
         ],
       ],
     ];
 
     if ($config['button']['label_icon'] != 'icon') {
-      $button['#fields']['label'] = $config['button']['label'];
+      $form['submit']['#fields']['label'] = $config['button']['label'];
     }
     if ($config['button']['label_icon'] != 'label') {
-      $button['#fields']['icon'] = [
+      $form['submit']['#fields']['icon'] = [
         'name' => 'search',
         'size' => 'xs',
       ];
     }
-
-    $form['submit'] = $button;
 
     if (!$config['view_options']['enable_autocomplete']) {
       return $form;

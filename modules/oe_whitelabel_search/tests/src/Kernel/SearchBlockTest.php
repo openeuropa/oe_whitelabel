@@ -128,14 +128,14 @@ class SearchBlockTest extends KernelTestBase {
     $this->assertCount(1, $button_class);
     $input_class = $crawler->filter('.input-test-class');
     $this->assertCount(1, $input_class);
-    $link = $actual->filter('.button.btn-secondary');
+    $link = $actual->filter('button');
     $this->assertCount(1, $link);
-    $button_value = $actual->filter('.button')->text();
+    $button_value = $actual->filter('button')->text();
     $this->assertSame('Search', $button_value);
     $title = $actual->filter('input.form-control');
     $this->assertSame('Search', $title->attr('placeholder'));
     $title = $actual->filter('form');
-    $this->assertSame('/search', $title->attr('action'));
+    $this->assertSame('/', $title->attr('action'));
     $label = $actual->filter('label');
     $this->assertSame('Search', $label->text());
 
@@ -177,7 +177,7 @@ class SearchBlockTest extends KernelTestBase {
     $actual = $crawler->filter('#block-whitelabel-search-block-icon');
     $icon = $actual->filter('.bi.icon--fluid');
     $this->assertCount(1, $icon);
-    $button_label = $actual->filter('.button')->text();
+    $button_label = $actual->filter('button')->text();
     $this->assertNotSame('Search', $button_label);
 
     // Label + Icon button rendering.
@@ -218,7 +218,7 @@ class SearchBlockTest extends KernelTestBase {
     $actual = $crawler->filter('#block-whitelabel-search-block-label-icon');
     $icon = $actual->filter('.bi.icon--fluid');
     $this->assertCount(1, $icon);
-    $button_label = $actual->filter('.button')->text();
+    $button_label = $actual->filter('button')->text();
     $this->assertSame('Search', $button_label);
   }
 
