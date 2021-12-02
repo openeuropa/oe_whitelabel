@@ -101,7 +101,7 @@ class SearchForm extends FormBase {
     ];
 
     if ($config['button']['label_icon'] != 'icon') {
-      $button['#fields']['label'] = $this->t($config['button']['label']);
+      $button['#fields']['label'] = $config['button']['label'];
     }
     if ($config['button']['label_icon'] != 'label') {
       $button['#fields']['icon'] = [
@@ -128,8 +128,8 @@ class SearchForm extends FormBase {
   }
 
   /**
-  * {@inheritdoc}
-  */
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $config = $form_state->get('oe_whitelabel_search_config');
     $url = Url::fromUri('base:' . $config['form']['action'], [
