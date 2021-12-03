@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\oe_whitelabel_user_profile\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
@@ -21,7 +23,7 @@ class UserProfileCta extends BlockBase {
   /**
    * {@inheritdoc}
    */
-  public function build() {
+  public function build(): array {
     $config = $this->getConfiguration();
     $uid = \Drupal::routeMatch()->getRawParameter('user');
 
@@ -30,7 +32,7 @@ class UserProfileCta extends BlockBase {
       $title = $config['link_title'];
     }
 
-    $url = Url::fromUserInput("/user/$uid/edit");
+    $url = Url::fromUserInput("/user/{$uid}/edit");
     $link_options = [
       'attributes' => [
         'class' => [
@@ -50,7 +52,7 @@ class UserProfileCta extends BlockBase {
   /**
    * {@inheritdoc}
    */
-  public function blockForm($form, FormStateInterface $form_state) {
+  public function blockForm($form, FormStateInterface $form_state): array {
     $form = parent::blockForm($form, $form_state);
 
     $config = $this->getConfiguration();
@@ -68,7 +70,7 @@ class UserProfileCta extends BlockBase {
   /**
    * {@inheritdoc}
    */
-  public function blockSubmit($form, FormStateInterface $form_state) {
+  public function blockSubmit($form, FormStateInterface $form_state): void {
     parent::blockSubmit($form, $form_state);
     $values = $form_state->getValues();
     $this->configuration['link_title'] = $values['link_title'];
