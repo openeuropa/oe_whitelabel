@@ -6,6 +6,7 @@ namespace Drupal\Tests\oe_whitelabel_search\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\search_api_autocomplete\Entity\Search;
+use Drupal\Tests\user\Traits\UserCreationTrait;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -13,27 +14,29 @@ use Symfony\Component\DomCrawler\Crawler;
  */
 class SearchBlockTest extends KernelTestBase {
 
+  use UserCreationTrait;
+
   /**
    * {@inheritdoc}
    */
   protected static $modules = [
-    'oe_bootstrap_theme_helper',
     'block',
+    'components',
     'entity_test',
     'field',
+    'oe_bootstrap_theme_helper',
     'oe_whitelabel_search',
-    'system',
     'search_api',
     'search_api_autocomplete',
     'search_api_autocomplete_test',
     'search_api_db',
     'search_api_test',
+    'system',
     'text',
-    'user',
-    'components',
     'ui_patterns',
-    'ui_patterns_settings',
     'ui_patterns_library',
+    'ui_patterns_settings',
+    'user',
     'views',
   ];
 
@@ -43,7 +46,7 @@ class SearchBlockTest extends KernelTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    \Drupal::service('theme_installer')->install(['oe_whitelabel', 'oe_bootstrap_theme']);
+    \Drupal::service('theme_installer')->install(['oe_whitelabel']);
     $this->container->set('theme.registry', NULL);
 
     \Drupal::configFactory()
@@ -60,13 +63,6 @@ class SearchBlockTest extends KernelTestBase {
       'search_api_autocomplete_test',
     ]);
 
-    $this->container->get('cache.render')->deleteAll();
-  }
-
-  /**
-   * Tests the rendering of blocks.
-   */
-  public function testBlockRendering(): void {
     Search::create([
       'id' => 'search_api_autocomplete_test_view',
       'label' => 'Search API Autocomplete Test view',
@@ -84,10 +80,19 @@ class SearchBlockTest extends KernelTestBase {
       ],
     ])->save();
 
+    // Add user with permissions for the autocomplete feature.
+    $this->setUpCurrentUser(['uid' => 1]);
+
+    $this->container->get('cache.render')->deleteAll();
+  }
+
+  /**
+   * Tests the rendering of blocks.
+   */
+  public function testBlockRendering(): void {
     $entity_type_manager = $this->container
       ->get('entity_type.manager')
       ->getStorage('block');
-    // Label button rendering.
     $entity = $entity_type_manager->create([
       'id' => 'whitelabel_search_block',
       'theme' => 'oe_whitelabel',
@@ -116,10 +121,12 @@ class SearchBlockTest extends KernelTestBase {
       ],
     ]);
     $entity->save();
+
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($render->__toString());
+
     // Assert the form rendering.
     $block = $crawler->filter('#block-whitelabel-search-block');
     $this->assertCount(1, $block);
@@ -132,7 +139,7 @@ class SearchBlockTest extends KernelTestBase {
     // Assert search text box.
     $input = $crawler->filter('.input-test-class');
     $this->assertCount(1, $input);
-    $classes = 'input-test-class rounded-0 rounded-start required form-control';
+    $classes = 'input-test-class rounded-0 rounded-start form-autocomplete required form-control';
     $this->assertSame($classes, $input->attr('class'));
     $this->assertSame('Search', $input->attr('placeholder'));
     // Assert the hidden label.
