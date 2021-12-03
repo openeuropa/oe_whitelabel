@@ -8,6 +8,7 @@
 declare(strict_types = 1);
 
 use Drupal\Core\Render\Element;
+use Drupal\Core\Template\Attribute;
 
 /**
  * Implements hook_locale_translation_projects_alter().

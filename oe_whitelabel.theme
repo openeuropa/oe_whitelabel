@@ -135,7 +135,7 @@ function oe_whitelabel_preprocess(&$variables) {
  * Implements hook_preprocess().
  */
 function oe_whitelabel_preprocess_pattern_card(array &$variables): void {
-  if ($variables['variant'] != 'user_profile') {
+  if ($variables['variant'] !== 'user_profile') {
     return;
   }
 
@@ -171,7 +171,7 @@ function oe_whitelabel_preprocess_pattern_card(array &$variables): void {
   $variables['subtitle'] = [
     'content' => $variables['subtitle'],
     'tag' => "div",
-    'classes' => "mb-4 mt-4",
+    'classes' => "mb-4 mt-4 text-muted",
   ];
 
   $variables['image'] = [

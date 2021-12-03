@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\oe_whitelabel_helper\Plugin\field_group\FieldGroupFormatter;
 
 use Drupal\Component\Utility\Xss;
@@ -94,20 +96,18 @@ class MultiColumn extends FieldGroupFormatterBase implements ContainerFactoryPlu
   /**
    * {@inheritdoc}
    */
-  public static function defaultContextSettings($context) {
-    $defaults = [
+  public static function defaultContextSettings($context): array {
+    return [
       'first_column' => '',
       'second_column' => '',
       'hide_table_if_empty' => FALSE,
     ] + parent::defaultSettings($context);
-
-    return $defaults;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function settingsForm() {
+  public function settingsForm(): array {
     $form = parent::settingsForm();
 
     $form['first_column'] = [
@@ -136,7 +136,7 @@ class MultiColumn extends FieldGroupFormatterBase implements ContainerFactoryPlu
   /**
    * {@inheritdoc}
    */
-  public function settingsSummary() {
+  public function settingsSummary(): array {
     $summary = parent::settingsSummary();
     $summary[] = $this->t('Display results as a 2 column table.');
 
@@ -146,7 +146,7 @@ class MultiColumn extends FieldGroupFormatterBase implements ContainerFactoryPlu
   /**
    * {@inheritdoc}
    */
-  public function preRender(&$element, $rendering_object) {
+  public function preRender(&$element, $rendering_object): void {
     parent::preRender($element, $rendering_object);
 
     $element['#mode'] = $this->context;
@@ -216,7 +216,7 @@ class MultiColumn extends FieldGroupFormatterBase implements ContainerFactoryPlu
    * @return array
    *   Table row definition on success or an empty array otherwise.
    */
-  protected function buildRow(array $element, $field_name) {
+  protected function buildRow(array $element, string $field_name): array {
     $item = $this->getRowItem($element, $field_name);
     $build = [];
 
@@ -240,13 +240,13 @@ class MultiColumn extends FieldGroupFormatterBase implements ContainerFactoryPlu
    * @return array
    *   Item definition array on success or empty array otherwise.
    */
-  protected function getRowItem(array $element, $field_name) {
-    $item = isset($element[$field_name]) ? $element[$field_name] : [];
+  protected function getRowItem(array $element, string $field_name): array {
+    $item = $element[$field_name] ?? [];
     $is_empty = !is_array($item) || !array_intersect($this->renderApiProperties, array_keys($item));
 
     if ($is_empty && $this->getSetting('always_show_field_value') && isset($element['#entity_type'], $element['#bundle'])) {
       $field_definitions = $this->entityFieldManager->getFieldDefinitions($element['#entity_type'], $element['#bundle']);
-      $field_definition = isset($field_definitions[$field_name]) ? $field_definitions[$field_name] : NULL;
+      $field_definition = $field_definitions[$field_name] ?? NULL;
 
       if ($field_definition instanceof FieldConfigInterface) {
         $is_empty = FALSE;
