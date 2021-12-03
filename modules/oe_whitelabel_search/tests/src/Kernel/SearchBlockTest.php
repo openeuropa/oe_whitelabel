@@ -106,8 +106,6 @@ class SearchBlockTest extends KernelTestBase {
           'classes' => 'input-test-class',
         ],
         'button' => [
-          'label' => 'Search',
-          'label_icon' => 'label',
           'classes' => 'button-test-class',
         ],
         'view_options' => [
@@ -122,104 +120,31 @@ class SearchBlockTest extends KernelTestBase {
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($render->__toString());
-    $actual = $crawler->filter('#block-whitelabel-search-block');
-    $this->assertCount(1, $actual);
-    $button_class = $crawler->filter('.button-test-class');
-    $this->assertCount(1, $button_class);
-    $input_class = $crawler->filter('.input-test-class');
-    $this->assertCount(1, $input_class);
-    $link = $actual->filter('button');
-    $this->assertCount(1, $link);
-    $button_value = $actual->filter('button')->text();
-    $this->assertSame('Search', $button_value);
-    $title = $actual->filter('input.form-control');
-    $this->assertSame('Search', $title->attr('placeholder'));
-    $title = $actual->filter('form');
-    $this->assertSame('/', $title->attr('action'));
-    $label = $actual->filter('label');
+    // Assert the form rendering.
+    $block = $crawler->filter('#block-whitelabel-search-block');
+    $this->assertCount(1, $block);
+    $form = $block->filter('#oe-whitelabel-search-form');
+    $this->assertCount(1, $form);
+    $this->assertSame('d-flex bcl-search-form submittable', $form->attr('class'));
+    // Assert the field wrapper rendering.
+    $wrapper = $form->filter('.bcl-search-form__group');
+    $this->assertCount(1, $wrapper);
+    // Assert search text box.
+    $input = $crawler->filter('.input-test-class');
+    $this->assertCount(1, $input);
+    $classes = 'input-test-class rounded-0 rounded-start required form-control';
+    $this->assertSame($classes, $input->attr('class'));
+    $this->assertSame('Search', $input->attr('placeholder'));
+    // Assert the hidden label.
+    $label = $wrapper->filter('label');
     $this->assertSame('Search', $label->text());
-
-    // Icon button rendering.
-    $entity = $entity_type_manager->create([
-      'id' => 'whitelabel_search_block_icon',
-      'theme' => 'oe_whitelabel',
-      'plugin' => 'whitelabel_search_block',
-      'settings' => [
-        'id' => 'search_block',
-        'label' => 'Search block',
-        'provider' => 'oe_whitelabel_search',
-        'form' => [
-          'action' => '/search',
-        ],
-        'input' => [
-          'name' => 'text',
-          'label' => 'Search',
-          'placeholder' => 'Search',
-          'classes' => 'input-test-class',
-        ],
-        'button' => [
-          'label' => 'Search',
-          'label_icon' => 'icon',
-          'classes' => 'button-test-class',
-        ],
-        'view_options' => [
-          'enable_autocomplete' => TRUE,
-          'id' => 'search_api_autocomplete_test_view',
-          'display' => 'default',
-        ],
-      ],
-    ]);
-    $entity->save();
-    $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
-    $build = $builder->view($entity, 'block');
-    $render = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler($render->__toString());
-    $actual = $crawler->filter('#block-whitelabel-search-block-icon');
-    $icon = $actual->filter('.bi.icon--fluid');
+    $classes = 'visually-hidden js-form-required form-required form-label';
+    $this->assertSame($classes, $label->attr('class'));
+    // Assert the button and icon rendering.
+    $button = $crawler->filter('.button-test-class');
+    $this->assertCount(1, $button);
+    $icon = $button->filter('.bi.icon--fluid');
     $this->assertCount(1, $icon);
-    $button_label = $actual->filter('button')->text();
-    $this->assertNotSame('Search', $button_label);
-
-    // Label + Icon button rendering.
-    $entity = $entity_type_manager->create([
-      'id' => 'whitelabel_search_block_label_icon',
-      'theme' => 'oe_whitelabel',
-      'plugin' => 'whitelabel_search_block',
-      'settings' => [
-        'id' => 'search_block',
-        'label' => 'Search block',
-        'provider' => 'oe_whitelabel_search',
-        'form' => [
-          'action' => '/search',
-        ],
-        'input' => [
-          'name' => 'text',
-          'label' => 'Search',
-          'placeholder' => 'Search',
-          'classes' => 'input-test-class',
-        ],
-        'button' => [
-          'label' => 'Search',
-          'label_icon' => 'label_icon',
-          'classes' => 'button-test-class',
-        ],
-        'view_options' => [
-          'enable_autocomplete' => TRUE,
-          'id' => 'search_api_autocomplete_test_view',
-          'display' => 'default',
-        ],
-      ],
-    ]);
-    $entity->save();
-    $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
-    $build = $builder->view($entity, 'block');
-    $render = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler($render->__toString());
-    $actual = $crawler->filter('#block-whitelabel-search-block-label-icon');
-    $icon = $actual->filter('.bi.icon--fluid');
-    $this->assertCount(1, $icon);
-    $button_label = $actual->filter('button')->text();
-    $this->assertSame('Search', $button_label);
   }
 
 }
