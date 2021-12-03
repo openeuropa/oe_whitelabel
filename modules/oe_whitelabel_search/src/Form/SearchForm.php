@@ -37,7 +37,7 @@ class SearchForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('language_manager'),
+      $container->get('language_manager')
     );
   }
 
@@ -48,13 +48,15 @@ class SearchForm extends FormBase {
     $form_state->set('oe_whitelabel_search_config', $config);
     $input_value = '';
 
+    $form['#attributes']['class'][] = 'bcl_search_form';
+
     if (!empty($config['input']['name'])) {
       $input_value = $this->getRequest()->get($config['input']['name']);
     }
 
-    $form['#action'] = $config['form']['action'];
-
     $form['search_input'] = [
+      '#prefix' => '<div class="bcl-search-form__group">',
+      '#suffix' => '</div>',
       '#type' => 'textfield',
       '#title' => $config['input']['label'],
       '#title_display' => 'invisible',
@@ -63,6 +65,8 @@ class SearchForm extends FormBase {
         'placeholder' => $config['input']['placeholder'],
         'class' => [
           $config['input']['classes'],
+          'rounded-0',
+          'rounded-start',
         ],
       ],
       '#default_value' => $input_value,
@@ -70,15 +74,31 @@ class SearchForm extends FormBase {
     ];
 
     $form['submit'] = [
-      '#prefix' => '<div class="ms-2">',
-      '#suffix' => '</div>',
-      '#type' => 'submit',
-      '#name' => FALSE,
-      '#value' => $config['button']['label'],
-      '#attributes' => [
-        'class' => [
-          'btn-md',
-          $config['button']['classes'],
+      '#input' => TRUE,
+      '#is_button' => TRUE,
+      '#executes_submit_callback' => TRUE,
+      '#type' => 'pattern',
+      '#id' => 'button',
+      '#variant' => 'light',
+      '#fields' => [
+        'icon' => [
+          'name' => 'search',
+          'size' => 'xs',
+        ],
+        'settings' => [
+          'type' => 'submit',
+        ],
+        'attributes' => [
+          'id' => 'submit',
+          'class' => [
+            'border-start-0',
+            'rounded-0 rounded-end',
+            'd-flex',
+            'btn btn-light',
+            'btn-md',
+            'py-2',
+            $config['button']['classes'],
+          ],
         ],
       ],
     ];

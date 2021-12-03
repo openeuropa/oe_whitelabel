@@ -6,6 +6,7 @@ namespace Drupal\Tests\oe_whitelabel_search\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\search_api_autocomplete\Entity\Search;
+use Drupal\Tests\user\Traits\UserCreationTrait;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -13,21 +14,28 @@ use Symfony\Component\DomCrawler\Crawler;
  */
 class SearchBlockTest extends KernelTestBase {
 
+  use UserCreationTrait;
+
   /**
    * {@inheritdoc}
    */
   protected static $modules = [
     'block',
+    'components',
     'entity_test',
     'field',
+    'oe_bootstrap_theme_helper',
     'oe_whitelabel_search',
-    'system',
     'search_api',
     'search_api_autocomplete',
     'search_api_autocomplete_test',
     'search_api_db',
     'search_api_test',
+    'system',
     'text',
+    'ui_patterns',
+    'ui_patterns_library',
+    'ui_patterns_settings',
     'user',
     'views',
   ];
@@ -55,13 +63,6 @@ class SearchBlockTest extends KernelTestBase {
       'search_api_autocomplete_test',
     ]);
 
-    $this->container->get('cache.render')->deleteAll();
-  }
-
-  /**
-   * Tests the rendering of blocks.
-   */
-  public function testBlockRendering(): void {
     Search::create([
       'id' => 'search_api_autocomplete_test_view',
       'label' => 'Search API Autocomplete Test view',
@@ -79,6 +80,16 @@ class SearchBlockTest extends KernelTestBase {
       ],
     ])->save();
 
+    // Add user with permissions for the autocomplete feature.
+    $this->setUpCurrentUser(['uid' => 1]);
+
+    $this->container->get('cache.render')->deleteAll();
+  }
+
+  /**
+   * Tests the rendering of blocks.
+   */
+  public function testBlockRendering(): void {
     $entity_type_manager = $this->container
       ->get('entity_type.manager')
       ->getStorage('block');
@@ -100,7 +111,6 @@ class SearchBlockTest extends KernelTestBase {
           'classes' => 'input-test-class',
         ],
         'button' => [
-          'label' => 'Search',
           'classes' => 'button-test-class',
         ],
         'view_options' => [
@@ -111,24 +121,39 @@ class SearchBlockTest extends KernelTestBase {
       ],
     ]);
     $entity->save();
+
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($render->__toString());
-    $actual = $crawler->filter('.oe-whitelabel-search-form');
-    $this->assertCount(1, $actual);
-    $button_class = $crawler->filter('.button-test-class');
-    $this->assertCount(1, $button_class);
-    $input_class = $crawler->filter('.input-test-class');
-    $this->assertCount(1, $input_class);
-    $link = $actual->filter('.button.btn-primary');
-    $this->assertCount(1, $link);
-    $title = $actual->filter('input.form-control');
-    $this->assertSame('Search', $title->attr('placeholder'));
-    $title = $actual->filter('form');
-    $this->assertSame('/search', $title->attr('action'));
-    $label = $actual->filter('label');
+
+    // Assert the form rendering.
+    $block = $crawler->filter('#block-whitelabel-search-block');
+    $this->assertCount(1, $block);
+    $form = $block->filter('#oe-whitelabel-search-form');
+    $this->assertCount(1, $form);
+    $this->assertSame('d-flex bcl-search-form submittable', $form->attr('class'));
+    // Assert the field wrapper rendering.
+    $wrapper = $form->filter('.bcl-search-form__group');
+    $this->assertCount(1, $wrapper);
+    // Assert search text box.
+    $input = $crawler->filter('.input-test-class');
+    $this->assertCount(1, $input);
+    $classes = 'input-test-class rounded-0 rounded-start form-autocomplete required form-control';
+    $this->assertSame($classes, $input->attr('class'));
+    $this->assertSame('Search', $input->attr('placeholder'));
+    // Assert the hidden label.
+    $label = $wrapper->filter('label');
     $this->assertSame('Search', $label->text());
+    $classes = 'visually-hidden js-form-required form-required form-label';
+    $this->assertSame($classes, $label->attr('class'));
+    // Assert the button and icon rendering.
+    $button = $crawler->filter('.button-test-class');
+    $this->assertCount(1, $button);
+    $classes = 'border-start-0 rounded-0 rounded-end d-flex btn btn-light btn-md py-2 button-test-class btn btn-light';
+    $this->assertSame($classes, $button->attr('class'));
+    $icon = $button->filter('.bi.icon--fluid');
+    $this->assertCount(1, $icon);
   }
 
 }

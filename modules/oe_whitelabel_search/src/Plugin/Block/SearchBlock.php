@@ -6,6 +6,7 @@ namespace Drupal\oe_whitelabel_search\Plugin\Block;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
@@ -138,20 +139,12 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#tree' => TRUE,
       '#description' => $this->t('Fill in the settings of the Button field.'),
     ];
-    $form['button']['button_label'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Button label'),
-      '#description' => $this->t('Label text that should appear inside the button.'),
-      '#default_value' => $config['button']['label'],
-      '#required' => TRUE,
-    ];
     $form['button']['button_classes'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Button classes'),
       '#description' => $this->t('Add space-separated classes that will be added to the button.'),
       '#default_value' => $config['button']['classes'],
     ];
-
     $form['enable_autocomplete'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable autocomplete'),
@@ -209,6 +202,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $button = $values['button'];
     $this->setConfigurationValue('button', [
       'label' => $button['button_label'],
+      'display' => $button['button_display'],
       'classes' => $button['button_classes'],
     ]);
     $this->setConfigurationValue('view_options', [
@@ -259,7 +253,14 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
    * {@inheritdoc}
    */
   public function build(): array {
-    return $this->formBuilder->getForm(SearchForm::class, $this->getConfiguration());
+    $config = $this->getConfiguration();
+    $build = $this->formBuilder->getForm(SearchForm::class, $config);
+    $cache = CacheableMetadata::createFromRenderArray($build);
+    $cache->addCacheableDependency($config);
+    $cache->addCacheContexts(['url.query_args']);
+    $cache->applyTo($build);
+
+    return $build;
   }
 
 }
