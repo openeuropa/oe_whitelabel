@@ -143,6 +143,8 @@ class SearchBlockTest extends KernelTestBase {
     // Assert the button and icon rendering.
     $button = $crawler->filter('.button-test-class');
     $this->assertCount(1, $button);
+    $classes = 'border-start-0 rounded-0 rounded-end d-flex btn btn-light btn-md py-2 button-test-class btn btn-light';
+    $this->assertSame($classes, $button->attr('class'));
     $icon = $button->filter('.bi.icon--fluid');
     $this->assertCount(1, $icon);
   }
