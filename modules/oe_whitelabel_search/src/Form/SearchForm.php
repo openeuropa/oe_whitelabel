@@ -81,6 +81,10 @@ class SearchForm extends FormBase {
       '#id' => 'button',
       '#variant' => 'light',
       '#fields' => [
+        'icon' => [
+          'name' => 'search',
+          'size' => 'xs',
+        ],
         'settings' => [
           'type' => 'submit',
         ],
@@ -98,16 +102,6 @@ class SearchForm extends FormBase {
         ],
       ],
     ];
-
-    if ($config['button']['label_icon'] != 'icon') {
-      $form['submit']['#fields']['label'] = $config['button']['label'];
-    }
-    if ($config['button']['label_icon'] != 'label') {
-      $form['submit']['#fields']['icon'] = [
-        'name' => 'search',
-        'size' => 'xs',
-      ];
-    }
 
     if (!$config['view_options']['enable_autocomplete']) {
       return $form;

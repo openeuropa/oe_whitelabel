@@ -29,12 +29,6 @@ block.settings.whitelabel_search_block:
       type: mapping
       label: Button
       mapping:
-        label:
-          type: string
-          label: Label
-        label_icon:
-          type: string
-          label: Label and Icon
         classes:
           type: string
           label: Classes
