@@ -101,7 +101,7 @@ class MultiColumn extends FieldGroupFormatterBase implements ContainerFactoryPlu
       'first_column' => '',
       'second_column' => '',
       'hide_table_if_empty' => FALSE,
-    ] + parent::defaultSettings($context);
+    ] + parent::defaultSettings();
   }
 
   /**

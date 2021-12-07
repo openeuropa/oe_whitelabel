@@ -18,18 +18,6 @@ function oe_whitelabel_helper_locale_translation_projects_alter(&$projects) {
 }
 
 /**
- * Implements hook_entity_display_build_alter().
- */
-function oe_whitelabel_helper_entity_display_build_alter(&$build, $context) {
-  $entity = $context['entity'];
-
-  // Append RDF term mappings on displayed taxonomy links.
-  foreach (Element::children($build) as $field_name) {
-    $field = &$build[$field_name];
-  }
-}
-
-/**
  * Theme preprocess function for grid_field_formatter.
  *
  * This function essentially extends the core field module theming methods, in
