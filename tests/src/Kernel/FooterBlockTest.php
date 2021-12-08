@@ -78,15 +78,46 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($render->__toString());
 
-    // For now we assert only minimal till we have a footer component.
-    $rows = $crawler->filter('.row');
-    $this->assertCount(3, $rows);
-    $borderedSections = $crawler->filter('.bcl-footer__bordered-row');
-    $this->assertCount(2, $borderedSections);
-    $sectionTitles = $crawler->filter('p.fw-bold.mb-2');
-    $this->assertCount(3, $sectionTitles);
-    $sectionLinks = $crawler->filter('div.col-12.col-lg-4:nth-child(2) a.text-underline-hover.d-block.mb-1');
-    $this->assertCount(3, $sectionLinks);
+    // Assert the footer composition.
+    $footer = $crawler->filter('footer');
+    $this->assertCount(1, $footer);
+    $this->assertSame('ec__footer bcl-footer mt-4', $footer->attr('class'));
+    $container = $footer->filter('div.container');
+    $this->assertCount(1, $container);
+    $row = $container->filter('div.pt-4.pt-lg-5.row');
+    $this->assertCount(1, $row);
+    // Assert top section.
+    $top_section = $row->filter('div.col-12.col-lg-4');
+    $this->assertCount(1, $top_section);
+    $p = $top_section->filter('p.fw-bold.mb-2');
+    $this->assertCount(1, $p);
+    // Assert middle section.
+    $middle_section = $container->filter('div.pb-4.pb-lg-5.mt-4.mt-lg-5.bcl-footer__bordered-row.row');
+    $this->assertCount(1, $middle_section);
+    $col = $middle_section->filter('.col-12.col-lg-4');
+    $this->assertCount(1, $col);
+    $p = $col->filter('p.fw-bold.pb-2.mb-2');
+    $this->assertSame(' More information on:', $p->text());
+    $links = $col->filter('a.d-block.mb-1.text-underline-hover');
+    $this->assertCount(17, $links);
+    // Assert bottom section.
+    $sections = $container->filter('div.pb-4.pb-lg-5.bcl-footer__bordered-row.row');
+    // Bottom section classes are encompassed in middle section so we need
+    // the second item.
+    $bottom_section = $sections->eq(1);
+    $this->assertCount(1, $bottom_section);
+    $cols = $bottom_section->filter('.col-12.col-lg-4');
+    $this->assertCount(3, $cols);
+    $col1 = $cols->eq(0);
+    $this->assertSame('col-12 col-lg-4 pb-lg-4', $col1->attr('class'));
+    $p = $col1->filter('p.fw-bold.pb-2.mb-2');
+    $this->assertSame(' European Commission ', $p->text());
+    $col2 = $cols->eq(1);
+    $links = $col2->filter('a.d-block.mb-1.text-underline-hover');
+    $this->assertCount(3, $links);
+    $col3 = $cols->eq(2);
+    $links = $col3->filter('a.d-block.mb-1.text-underline-hover');
+    $this->assertCount(4, $links);
   }
 
   /**
@@ -113,15 +144,47 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($render->__toString());
 
-    // For now we assert only minimal till we have a footer component.
-    $rows = $crawler->filter('.row');
-    $this->assertCount(2, $rows);
-    $borderedSections = $crawler->filter('.bcl-footer__bordered-row');
-    $this->assertCount(1, $borderedSections);
-    $sectionTitles = $crawler->filter('p.fw-bold.mb-2');
-    $this->assertCount(5, $sectionTitles);
-    $sectionLinks = $crawler->filter('div.col-12.col-lg-4:nth-child(2) a.text-underline-hover.d-block.mb-1');
-    $this->assertCount(10, $sectionLinks);
+    // Assert the footer composition.
+    $footer = $crawler->filter('footer');
+    $this->assertCount(1, $footer);
+    $this->assertSame('bcl-footer mt-4', $footer->attr('class'));
+    $container = $footer->filter('div.container');
+    $this->assertCount(1, $container);
+    $row = $container->filter('div.pt-4.pt-lg-5.row');
+    $this->assertCount(1, $row);
+    // Assert top section.
+    $top_section = $row->filter('div.col-12.col-lg-4');
+    $this->assertCount(1, $top_section);
+    $p = $top_section->filter('p.fw-bold.mb-2');
+    $this->assertCount(1, $p);
+    // Assert middle section.
+    $middle_section = $container->filter('div.pb-4.pb-lg-5.mt-4.mt-lg-5.bcl-footer__bordered-row.row');
+    $this->assertCount(1, $middle_section);
+    $col1 = $middle_section->filter('.col-12.col-lg-4.pb-4');
+    $link = $col1->filter('a.navbar-brand');
+    $this->assertCount(1, $link);
+    $picture = $link->filter('picture');
+    $this->assertCount(1, $picture);
+    $img = $link->filter('img');
+    $this->assertCount(1, $img);
+    $this->assertStringContainsString('logo-eu--en.svg', $img->attr('src'));
+    $cols = $middle_section->filter('.col-12.col-lg-4');
+    $col2 = $cols->eq(1);
+    $p = $col2->filter('p.fw-bold.border-bottom.pb-2.mb-2');
+    $this->assertSame(' Contact the EU  ', $p->text());
+    $titles = $col2->filter('p.fw-bold.border-bottom.pb-2.pt-3.mb-2');
+    $this->assertCount(2, $titles);
+    $p = $titles->eq(0);
+    $this->assertSame(' Social media ', $p->text());
+    $p = $titles->eq(1);
+    $this->assertSame(' Legal ', $p->text());
+    $links = $col2->filter('a.d-block.mb-1.text-underline-hover');
+    $this->assertCount(10, $links);
+    $col3 = $cols->eq(2);
+    $p = $col3->filter('p.fw-bold.border-bottom.pb-2.mb-2');
+    $this->assertSame(' EU institutions ', $p->text());
+    $links = $col3->filter('a.d-block.mb-1.text-underline-hover');
+    $this->assertCount(17, $links);
   }
 
 }
