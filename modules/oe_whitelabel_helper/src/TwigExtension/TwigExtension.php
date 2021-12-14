@@ -5,9 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\oe_whitelabel_helper\TwigExtension;
 
 use Drupal\Core\Cache\CacheableDependencyInterface;
-use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 /**
