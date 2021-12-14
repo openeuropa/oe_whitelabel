@@ -49,8 +49,6 @@ class CorporateLogoBlockTest extends KernelTestBase {
       ->set('default', 'oe_whitelabel')
       ->save();
     $this->container->set('theme.registry', NULL);
-
-    $this->container->get('cache.render')->deleteAll();
   }
 
   /**

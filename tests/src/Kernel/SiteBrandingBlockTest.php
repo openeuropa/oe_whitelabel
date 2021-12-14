@@ -42,8 +42,6 @@ class SiteBrandingBlockTest extends KernelTestBase {
       ->set('name', 'Site name')
       ->set('slogan', 'Slogan')
       ->save();
-
-    $this->container->get('cache.render')->deleteAll();
   }
 
   /**

@@ -81,8 +81,6 @@ class SearchBlockTest extends KernelTestBase {
 
     // Add user with permissions for the autocomplete feature.
     $this->setUpCurrentUser(['uid' => 1]);
-
-    $this->container->get('cache.render')->deleteAll();
   }
 
   /**
