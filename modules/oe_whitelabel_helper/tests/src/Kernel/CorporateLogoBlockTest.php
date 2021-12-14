@@ -25,12 +25,13 @@ class CorporateLogoBlockTest extends KernelTestBase {
    */
   protected static $modules = [
     'block',
+    'language',
+    'oe_bootstrap_theme_helper',
+    'oe_whitelabel_helper',
+    'system',
     'ui_patterns',
     'ui_patterns_library',
     'user',
-    'system',
-    'oe_whitelabel_helper',
-    'language',
   ];
 
   /**
