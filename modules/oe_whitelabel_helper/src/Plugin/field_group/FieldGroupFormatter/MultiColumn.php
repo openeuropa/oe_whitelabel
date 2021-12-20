@@ -192,9 +192,15 @@ class MultiColumn extends FieldGroupFormatterBase implements ContainerFactoryPlu
       'class' => $this->getSetting('second_column') ? $second_column_classes : $classes,
     ];
 
+    $this->buildFieldsetColumns($element, $children);
+  }
+
+  /**
+   * Build the columns of the fieldset.
+   */
+  protected function buildFieldsetColumns(array &$element, array $children): void {
     // Number of items in the first columns.
     $first_column_elements = array_slice($children, 0, ceil(count($children) / 2));
-
     // Build fieldset column(s).
     foreach ($children as $key => $field_name) {
       $column = in_array($field_name, $first_column_elements) ? 'first_column' : 'second_column';
