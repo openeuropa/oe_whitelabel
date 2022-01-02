@@ -1,6 +1,6 @@
 services:
   oe_whitelabel_helper.twig_extension.twig_extension:
     class: Drupal\oe_whitelabel_helper\TwigExtension\TwigExtension
-    arguments: ['@plugin.manager.block']
+    arguments: ['@plugin.manager.block', '@date.formatter']
     tags:
       - { name: twig.extension }

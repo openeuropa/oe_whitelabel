@@ -4,8 +4,9 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_whitelabel_helper\TwigExtension;
 
-use Drupal\Core\Cache\CacheableDependencyInterface;
-use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
+use Drupal\Component\Render\FormattableMarkup;
+use Drupal\Core\Block\BlockManagerInterface;
+use Drupal\Core\Datetime\DateFormatterInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -18,15 +19,28 @@ class TwigExtension extends AbstractExtension {
   /**
    * The plugin.manager.block service.
    *
-   * @var \Drupal\Core\Cache\CacheableDependencyInterface
+   * @var \Drupal\Core\Block\BlockManagerInterface
    */
   protected $pluginManagerBlock;
 
   /**
-   * Constructs the TwigExtension object.
+   * The date formatter service.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatterInterface
    */
-  public function __construct(CacheableDependencyInterface $plugin_manager_block) {
+  protected $dateFormatter;
+
+  /**
+   * Constructs the TwigExtension object.
+   *
+   * @param \Drupal\Core\Block\BlockManagerInterface $plugin_manager_block
+   *   The plugin.manager.block service.
+   * @param \Drupal\Core\Datetime\DateFormatterInterface $date_formatter
+   *   The date formatter service.
+   */
+  public function __construct(BlockManagerInterface $plugin_manager_block, DateFormatterInterface $date_formatter) {
     $this->pluginManagerBlock = $plugin_manager_block;
+    $this->dateFormatter = $date_formatter;
   }
 
   /**
@@ -54,55 +68,16 @@ class TwigExtension extends AbstractExtension {
    * @param string $timestamp
    *   Datetime to be parsed.
    *
-   * @return \Drupal\Core\StringTranslation\PluralTranslatableMarkup
+   * @return \Drupal\Component\Render\FormattableMarkup
    *   The translated time ago string.
    */
-  public function bclTimeAgo(string $timestamp): PluralTranslatableMarkup {
-    $time = \Drupal::time()->getCurrentTime() - $timestamp;
-    $time_ago = new PluralTranslatableMarkup(0, 'N/A', 'N/A');
-    $units = [
-      31536000 => [
-        'singular' => '@number year ago',
-        'plural' => '@number years ago',
-      ],
-      2592000 => [
-        'singular' => '@number month ago',
-        'plural' => '@number months ago',
-      ],
-      604800 => [
-        'singular' => '@number week ago',
-        'plural' => '@number weeks ago',
-      ],
-      86400 => [
-        'singular' => '@number day ago',
-        'plural' => '@number days ago',
-      ],
-      3600 => [
-        'singular' => '@number hour ago',
-        'plural' => '@number hours ago',
-      ],
-      60 => [
-        'singular' => '@number minute ago',
-        'plural' => '@number minutes ago',
-      ],
-      1 => [
-        'singular' => '@number second ago',
-        'plural' => '@number seconds ago',
-      ],
-    ];
+  public function bclTimeAgo(string $timestamp): FormattableMarkup {
+    $result = $this->dateFormatter->formatTimeDiffSince($timestamp, [
+      'granularity' => 1,
+      'return_as_object' => TRUE,
+    ]);
 
-    foreach ($units as $unit => $format) {
-      if ($time < $unit) {
-        continue;
-      }
-
-      $number_of_units = floor($time / $unit);
-      $time_ago = \Drupal::translation()
-        ->formatPlural($number_of_units, $format['singular'], $format['plural'], ['@number' => $number_of_units]);
-      break;
-    }
-
-    return $time_ago;
+    return new FormattableMarkup('@interval ago', ['@interval' => $result->getString()]);
   }
 
   /**
