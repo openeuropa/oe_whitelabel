@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
 use Drupal\Core\Render\RenderContext;
-use Drupal\Tests\token\Kernel\KernelTestBase;
+use Drupal\KernelTests\KernelTestBase;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -16,10 +16,11 @@ class HeaderTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'ui_patterns',
     'ui_patterns_library',
     'ui_patterns_settings',
+    'system',
   ];
 
   /**
