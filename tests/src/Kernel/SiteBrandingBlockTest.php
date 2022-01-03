@@ -15,7 +15,11 @@ class SiteBrandingBlockTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected static $modules = ['block', 'system', 'user'];
+  protected static $modules = [
+    'block',
+    'system',
+    'user',
+  ];
 
   /**
    * {@inheritdoc}
@@ -24,26 +28,18 @@ class SiteBrandingBlockTest extends KernelTestBase {
     parent::setUp();
 
     \Drupal::service('theme_installer')->install(['oe_whitelabel']);
-    $this->container->set('theme.registry', NULL);
-    $url = '/' . drupal_get_path('theme', 'oe_whitelabel') . '/logo.svg';
 
-    \Drupal::configFactory()
-      ->getEditable('oe_whitelabel.settings')
-      ->set('logo', ['url' => $url])
+    $this->config('oe_whitelabel.settings')
+      ->set('logo', ['url' => '/path/to/theme/resources/logo.svg'])
       ->save();
 
-    \Drupal::configFactory()
-      ->getEditable('system.theme')
+    $this->config('system.theme')
       ->set('default', 'oe_whitelabel')
       ->save();
 
-    \Drupal::configFactory()
-      ->getEditable('system.site')
+    $this->config('system.site')
       ->set('name', 'Site name')
-      ->set('slogan', 'Slogan')
       ->save();
-
-    $this->container->get('cache.render')->deleteAll();
   }
 
   /**
@@ -81,8 +77,7 @@ class SiteBrandingBlockTest extends KernelTestBase {
     $this->assertCount(1, $actual);
     $logo = $actual->filter('img');
     $this->assertCount(1, $logo);
-    $expected = '/themes/custom/oe_whitelabel/logo.svg';
-    $this->assertSame($expected, $logo->attr('src'));
+    $this->assertSame('/path/to/theme/resources/logo.svg', $logo->attr('src'));
   }
 
 }
