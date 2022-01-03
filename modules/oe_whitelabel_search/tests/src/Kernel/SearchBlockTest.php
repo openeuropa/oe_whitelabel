@@ -46,10 +46,8 @@ class SearchBlockTest extends KernelTestBase {
     parent::setUp();
 
     \Drupal::service('theme_installer')->install(['oe_whitelabel']);
-    $this->container->set('theme.registry', NULL);
 
-    \Drupal::configFactory()
-      ->getEditable('system.theme')
+    $this->config('system.theme')
       ->set('default', 'oe_whitelabel')
       ->save();
 
@@ -84,7 +82,7 @@ class SearchBlockTest extends KernelTestBase {
   }
 
   /**
-   * Tests the rendering of blocks.
+   * Tests the rendering of the whitelabel search block.
    */
   public function testBlockRendering(): void {
     $entity_type_manager = $this->container
