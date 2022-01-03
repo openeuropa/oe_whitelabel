@@ -38,16 +38,12 @@ class MultilingualBlockTest extends KernelTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    /** @var \Drupal\Core\Extension\ThemeInstallerInterface $theme_installer */
+
     \Drupal::service('theme_installer')->install(['oe_whitelabel']);
 
-    \Drupal::configFactory()
-      ->getEditable('system.theme')
+    $this->config('system.theme')
       ->set('default', 'oe_whitelabel')
       ->save();
-
-    $this->container->set('theme.registry', NULL);
-    $this->container->get('cache.render')->deleteAll();
 
     $this->installSchema('locale', [
       'locales_location',
@@ -178,7 +174,6 @@ class MultilingualBlockTest extends KernelTestBase {
     $link_language = $crawler->filter('a#link_sv');
     $this->assertSame('http://localhost/sv/%3Cnone%3E', $link_language->attr('href'));
     $this->assertSame('svenska', $link_language->text());
-
   }
 
 }
