@@ -43,19 +43,15 @@ class FooterBlockTest extends SparqlKernelTestBase {
 
     \Drupal::service('theme_installer')->install(['oe_whitelabel']);
 
-    \Drupal::configFactory()
-      ->getEditable('system.theme')
+    $this->config('system.theme')
       ->set('default', 'oe_whitelabel')
       ->save();
-
-    $this->container->set('theme.registry', NULL);
-    $this->container->get('cache.render')->deleteAll();
 
     \Drupal::service('kernel')->rebuildContainer();
   }
 
   /**
-   * Tests the rendering of blocks.
+   * Tests the rendering of the footer block, ec variant.
    */
   public function testEcFooterBlockRendering(): void {
     $entity_type_manager = $this->container
@@ -121,7 +117,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
   }
 
   /**
-   * Tests the rendering of blocks.
+   * Tests the rendering of the footer block, eu variant.
    */
   public function testEuFooterBlockRendering(): void {
     $entity_type_manager = $this->container
