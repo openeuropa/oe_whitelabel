@@ -47,10 +47,8 @@ class SearchBlockTest extends KernelTestBase {
     parent::setUp();
 
     \Drupal::service('theme_installer')->install(['oe_whitelabel']);
-    $this->container->set('theme.registry', NULL);
 
-    \Drupal::configFactory()
-      ->getEditable('system.theme')
+    $this->config('system.theme')
       ->set('default', 'oe_whitelabel')
       ->save();
 
@@ -82,12 +80,10 @@ class SearchBlockTest extends KernelTestBase {
 
     // Add user with permissions for the autocomplete feature.
     $this->setUpCurrentUser(['uid' => 1]);
-
-    $this->container->get('cache.render')->deleteAll();
   }
 
   /**
-   * Tests the rendering of blocks.
+   * Tests the rendering of the whitelabel search block.
    */
   public function testBlockRendering(): void {
     $entity_type_manager = $this->container
