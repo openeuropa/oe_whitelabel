@@ -18,13 +18,13 @@ class AuthenticationBlockTest extends KernelTestBase {
   protected static $modules = [
     'block',
     'cas',
-    'components',
     'externalauth',
     'oe_authentication',
+    'oe_bootstrap_theme_helper',
+    'system',
     'ui_patterns',
     'ui_patterns_library',
     'user',
-    'system',
   ];
 
   /**

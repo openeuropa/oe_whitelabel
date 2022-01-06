@@ -17,17 +17,17 @@ class FooterBlockTest extends SparqlKernelTestBase {
    */
   protected static $modules = [
     'block',
-    'components',
+    'multivalue_form_element',
+    'oe_bootstrap_theme_helper',
+    'oe_corporate_blocks',
+    'oe_corporate_site_info',
+    'oe_whitelabel_helper',
+    'rdf_skos',
+    'system',
     'ui_patterns',
     'ui_patterns_library',
     'ui_patterns_settings',
     'user',
-    'system',
-    'oe_whitelabel_helper',
-    'oe_corporate_site_info',
-    'oe_corporate_blocks',
-    'rdf_skos',
-    'multivalue_form_element',
   ];
 
   /**

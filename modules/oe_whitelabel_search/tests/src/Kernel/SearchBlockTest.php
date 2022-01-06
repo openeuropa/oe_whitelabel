@@ -21,7 +21,6 @@ class SearchBlockTest extends KernelTestBase {
    */
   protected static $modules = [
     'block',
-    'components',
     'entity_test',
     'field',
     'oe_bootstrap_theme_helper',

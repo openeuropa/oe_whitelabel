@@ -17,15 +17,15 @@ class MultilingualBlockTest extends KernelTestBase {
    */
   protected static $modules = [
     'block',
-    'components',
     'content_translation',
     'ctools',
     'language',
     'locale',
+    'oe_bootstrap_theme_helper',
     'oe_multilingual',
     'path',
-    'pathauto',
     'path_alias',
+    'pathauto',
     'system',
     'token',
     'ui_patterns',
