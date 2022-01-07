@@ -7,29 +7,29 @@
     "prefer-stable": true,
     "require": {
         "php": ">=7.3",
-        "drupal/components": "^2.4",
+        "cweagans/composer-patches": "^1.7",
         "drupal/core": "^8.9 || ^9.1",
-        "drupal/ui_patterns": "^1.0",
+        "drupal/ui_patterns": "^1.2",
         "drupal/ui_patterns_settings": "^1.0",
-        "openeuropa/oe_bootstrap_theme": "1.0.0-alpha4"
+        "openeuropa/oe_bootstrap_theme": "1.0.0-alpha5"
     },
     "require-dev": {
         "composer/installers": "^1.11",
         "drupal/core-composer-scaffold": "^8.9 || ^9.1",
         "drupal/config_devel": "~1.2",
-        "drupal/better_exposed_filters": "^5.0@beta",
+        "drupal/better_exposed_filters": "^5.0",
         "drupal/drupal-extension": "~4.1",
         "drush/drush": "^10.3",
-        "openeuropa/code-review": "1.6",
-        "openeuropa/oe_corporate_blocks": "^4.2",
+        "openeuropa/code-review": "1.7",
         "openeuropa/composer-artifacts": "~0.1",
         "openeuropa/drupal-core-require-dev": "^8.9 || ^9.1",
         "openeuropa/oe_authentication": "^1.4",
-        "openeuropa/oe_multilingual": "^1.8",
+        "openeuropa/oe_corporate_blocks": "^4.4",
+        "openeuropa/oe_multilingual": "^1.9",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0",
         "phpspec/prophecy-phpunit": "^1 || ^2",
         "easyrdf/easyrdf": "1.0.0 as 0.9.1",
-        "drupal/search_api": "^1.20",
+        "drupal/search_api": "^1.21",
         "drupal/search_api_autocomplete": "^1.5"
     },
     "scripts": {

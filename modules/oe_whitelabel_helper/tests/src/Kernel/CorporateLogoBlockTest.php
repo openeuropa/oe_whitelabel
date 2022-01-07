@@ -25,7 +25,6 @@ class CorporateLogoBlockTest extends KernelTestBase {
    */
   protected static $modules = [
     'block',
-    'components',
     'ui_patterns',
     'ui_patterns_library',
     'user',
