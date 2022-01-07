@@ -1,10 +1,20 @@
 # Change Log
 
+## [1.0.0-alpha3](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-alpha3) (2022-01-07)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-alpha2...1.0.0-alpha3)
+
+**Merged pull requests:**
+
+- OEL-966: Update composer and drop components [\#58](https://github.com/openeuropa/oe_whitelabel/pull/58) ([drishu](https://github.com/drishu))
+- OEL-772: Fix EC logo not showing in mobile [\#55](https://github.com/openeuropa/oe_whitelabel/pull/55) ([escuriola](https://github.com/escuriola))
+- OEL-601: Theming search box button with icon [\#38](https://github.com/openeuropa/oe_whitelabel/pull/38) ([escuriola](https://github.com/escuriola))
+
 ## [1.0.0-alpha2](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-alpha2) (2021-12-01)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-alpha1...1.0.0-alpha2)
 
 **Merged pull requests:**
 
+- OEL-000: Prepare release 1.0.0-alpha2. [\#52](https://github.com/openeuropa/oe_whitelabel/pull/52) ([drishu](https://github.com/drishu))
 - OEL-750: BCL Upgrade to 0.14.0 [\#46](https://github.com/openeuropa/oe_whitelabel/pull/46) ([escuriola](https://github.com/escuriola))
 
 ## [1.0.0-alpha1](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-alpha1) (2021-11-23)
