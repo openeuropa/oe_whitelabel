@@ -41,7 +41,6 @@ class AuthenticationBlockTest extends KernelTestBase {
       ->save();
 
     $this->container->set('theme.registry', NULL);
-    $this->container->get('cache.render')->deleteAll();
   }
 
   /**

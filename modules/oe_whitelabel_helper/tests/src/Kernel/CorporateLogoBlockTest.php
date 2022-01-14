@@ -25,12 +25,13 @@ class CorporateLogoBlockTest extends KernelTestBase {
    */
   protected static $modules = [
     'block',
+    'language',
+    'oe_bootstrap_theme_helper',
+    'oe_whitelabel_helper',
+    'system',
     'ui_patterns',
     'ui_patterns_library',
     'user',
-    'system',
-    'oe_whitelabel_helper',
-    'language',
   ];
 
   /**
@@ -49,8 +50,6 @@ class CorporateLogoBlockTest extends KernelTestBase {
       ->set('default', 'oe_whitelabel')
       ->save();
     $this->container->set('theme.registry', NULL);
-
-    $this->container->get('cache.render')->deleteAll();
   }
 
   /**
