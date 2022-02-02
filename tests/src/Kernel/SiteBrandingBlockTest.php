@@ -15,7 +15,12 @@ class SiteBrandingBlockTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected static $modules = ['block', 'system', 'user'];
+  protected static $modules = [
+    'block',
+    'oe_bootstrap_theme_helper',
+    'system',
+    'user',
+  ];
 
   /**
    * {@inheritdoc}
@@ -42,8 +47,6 @@ class SiteBrandingBlockTest extends KernelTestBase {
       ->set('name', 'Site name')
       ->set('slogan', 'Slogan')
       ->save();
-
-    $this->container->get('cache.render')->deleteAll();
   }
 
   /**

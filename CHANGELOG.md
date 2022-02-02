@@ -1,11 +1,19 @@
 # Change Log
 
+## [1.0.0-alpha4](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-alpha4) (2022-01-14)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-alpha3...1.0.0-alpha4)
+
+**Merged pull requests:**
+
+- OEL-597: Adapt to changes in oe\_bootstrap\_theme alpha5 [\#54](https://github.com/openeuropa/oe_whitelabel/pull/54) ([brummbar](https://github.com/brummbar))
+
 ## [1.0.0-alpha3](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-alpha3) (2022-01-07)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-alpha2...1.0.0-alpha3)
 
 **Merged pull requests:**
 
 - OEL-966: Update composer and drop components [\#58](https://github.com/openeuropa/oe_whitelabel/pull/58) ([drishu](https://github.com/drishu))
+- Prepare release 1.0.0-alpha3 [\#57](https://github.com/openeuropa/oe_whitelabel/pull/57) ([drishu](https://github.com/drishu))
 - OEL-772: Fix EC logo not showing in mobile [\#55](https://github.com/openeuropa/oe_whitelabel/pull/55) ([escuriola](https://github.com/escuriola))
 - OEL-601: Theming search box button with icon [\#38](https://github.com/openeuropa/oe_whitelabel/pull/38) ([escuriola](https://github.com/escuriola))
 

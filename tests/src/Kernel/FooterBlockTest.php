@@ -49,8 +49,6 @@ class FooterBlockTest extends SparqlKernelTestBase {
       ->save();
 
     $this->container->set('theme.registry', NULL);
-    $this->container->get('cache.render')->deleteAll();
-
     \Drupal::service('kernel')->rebuildContainer();
   }
 

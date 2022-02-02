@@ -47,7 +47,6 @@ class MultilingualBlockTest extends KernelTestBase {
       ->save();
 
     $this->container->set('theme.registry', NULL);
-    $this->container->get('cache.render')->deleteAll();
 
     $this->installSchema('locale', [
       'locales_location',
