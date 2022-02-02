@@ -17,7 +17,7 @@
 {% set _header_attributes = create_attribute() %}
 {% block header %}
 <header {{ _header_attributes }}>
-{% endblock %}
+  {% endblock %}
   <nav {{ _nav_attributes }}>
     <div class="container">
       {{ navbar_branding }}
@@ -28,9 +28,9 @@
   </nav>
   {%
     set _project_attributes = create_attribute().addClass([
-      'bcl-header__project',
-      bcl_header_style == 'light' ? bcl_header_style,
-    ])
+    'bcl-header__project',
+    bcl_header_style == 'light' ? bcl_header_style,
+  ])
   %}
   <div {{ _project_attributes }}>
     <div class="container">
@@ -38,10 +38,9 @@
     </div>
   </div>
   {{ pattern('navbar', {
-    navbar_left: header_left,
-    navbar_right: header_right,
-    color_set: 'dark',
-    collapse_id: 'navbarNavDropdown',
+    navigation: header_left,
+    right: header_right,
+    color_scheme: 'dark',
     attributes: navbar_attributes,
   }) }}
   <div class="container">
