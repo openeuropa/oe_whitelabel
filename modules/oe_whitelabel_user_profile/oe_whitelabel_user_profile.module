@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * The OE Whitelabel User Profile module.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function oe_whitelabel_user_profile_theme_suggestions_user_alter(&$suggestions, $variables) {
+  $suggestions[] = 'user__' . $variables['elements']['#view_mode'];
+}
