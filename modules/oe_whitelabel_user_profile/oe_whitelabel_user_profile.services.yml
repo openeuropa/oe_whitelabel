@@ -1,5 +1,0 @@
-services:
-  oe_whitelabel_user_profile.event_subscriber:
-    class: Drupal\oe_whitelabel_user_profile\EventSubscriber\EuLoginAttributesToUserFieldsSubscriber
-    tags:
-      - { name: event_subscriber }
