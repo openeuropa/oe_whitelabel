@@ -35,7 +35,10 @@
   {{ pattern('link', {
     label: link_title,
     path: _language.link.href,
-    icon: 'chat-left-dots-fill',
+    icon: {
+      name: 'chat-left-dots-fill',
+      size: 'xs',
+    },
     icon_position: 'before',
     standalone: true,
     attributes: extra_attributes

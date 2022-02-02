@@ -19,7 +19,10 @@
   {{ pattern('link', {
     label: link_title,
     path: content['#url']|render,
-    icon: 'person-fill',
+    icon: {
+      name: 'person-fill',
+      size: 'xs',
+    },
     icon_position: 'before',
     standalone: true,
     attributes: extra_attributes
