@@ -3,9 +3,3 @@ type: module
 description: Adds additional functionality to the User Profile feature.
 package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^8.9 || ^9.1
-dependencies:
-  - cas:cas
-config_devel:
-  install:
-    - core.entity_view_display.user.user.teaser
-    - core.entity_view_mode.user.teaser
