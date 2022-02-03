@@ -9,7 +9,7 @@
         "php": ">=7.3",
         "cweagans/composer-patches": "^1.7",
         "drupal/core": "^8.9 || ^9.1",
-        "openeuropa/oe_bootstrap_theme": "0.779.202202021710"
+        "openeuropa/oe_bootstrap_theme": "0.779.202202030945"
     },
     "require-dev": {
         "composer/installers": "^1.11",
