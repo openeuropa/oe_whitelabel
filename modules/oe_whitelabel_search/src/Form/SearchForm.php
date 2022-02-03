@@ -81,10 +81,7 @@ class SearchForm extends FormBase {
       '#id' => 'button',
       '#variant' => 'light',
       '#fields' => [
-        'icon' => [
-          'name' => 'search',
-          'size' => 'xs',
-        ],
+        'icon' => 'search',
         'settings' => [
           'type' => 'submit',
         ],

@@ -32,38 +32,34 @@
 
 {% if content.actions.reset['#type'] == 'link' %}
   {% set extra_attributes = create_attribute() %}
-  {% set reset = pattern('button', {
+  {% set reset = pattern('link', {
     'label': content.actions['reset']['#title'],
-    'url': content.actions['reset']['#url'].toString(),
-    'style': 'secondary',
-    'attributes': extra_attributes.addClass('ms-2')
+    'path': content.actions['reset']['#url'].toString(),
+    'variant': 'secondary',
+    'attributes': extra_attributes.addClass(['ms-2', 'btn', 'btn-secondary'])
   })
   %}
   {% set actions = content.actions %}
   {% set actions = actions|merge({('reset'): reset}) %}
   {% set content = content|merge({('actions'): actions}) %}
 {% endif %}
+{% set button_attributes = create_attribute().addClass(['d-lg-none', 'w-100', 'mb-4']) %}
+{% set toogle_button = {
+  'label': label,
+  'variant': 'light',
+  'size': 'lg',
+  'icon': 'filter',
+  'icon_position': 'before',
+  'attributes': button_attributes
+} %}
 {% block content %}
   {{ pattern('offcanvas', {
-    'title': {
-      'label': label,
-      'heading': 4,
-      'extra_classes': "mb-lg-4",
-    },
-    'attributes': attributes.addClass('bcl-offcanvas'),
-    'offcanvas_id': 'bcl-offcanvas',
+    'variant': 'search',
+    'title': label,
     'body': content,
     'placement': 'start',
-    'with_body_scroll': false,
-    'with_backdrop': true,
-    'extra_classes_body': 'bcl-offcanvas p-lg-0',
-    'extra_classes_close': "d-lg-none",
-    'extra_classes_header': "p-lg-0",
-    'with_trigger': true,
-    'toggle_button_label': label,
-    'icon_position': 'before',
-    'icon': {
-      'name': 'filter',
-    },
+    'body_scroll': false,
+    'backdrop': true,
+    'toggle': toogle_button,
   }) }}
 {% endblock %}
