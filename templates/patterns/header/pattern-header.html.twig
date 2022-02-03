@@ -4,35 +4,30 @@
  * Template for header pattern.
  */
 #}
-{%
-  set _nav_attributes = create_attribute().addClass([
-    'w-100',
-    'shadow-sm',
-    'navbar',
-    'navbar-expand-lg',
-    'navbar-light',
-  ])
-%}
+{% set _nav_attributes = create_attribute().addClass([
+  'w-100',
+  'shadow-sm',
+  'navbar',
+  'navbar-expand-lg',
+  'navbar-light',
+]) %}
 {% set navbar_attributes = create_attribute().addClass(['bcl-header__navbar']) %}
 {% set _header_attributes = create_attribute() %}
+{% set _project_attributes = create_attribute().addClass([
+  'bcl-header__project',
+  bcl_header_style == 'light' ? bcl_header_style,
+]) %}
 {% block header %}
 <header {{ _header_attributes }}>
-  {% endblock %}
+{% endblock %}
   <nav {{ _nav_attributes }}>
     <div class="container">
       {{ navbar_branding }}
       <ul class="nav">
         {{ navbar_right }}
       </ul>
-
     </div>
   </nav>
-  {%
-    set _project_attributes = create_attribute().addClass([
-    'bcl-header__project',
-    bcl_header_style == 'light' ? bcl_header_style,
-  ])
-  %}
   <div {{ _project_attributes }}>
     <div class="container">
       {{ header_top }}

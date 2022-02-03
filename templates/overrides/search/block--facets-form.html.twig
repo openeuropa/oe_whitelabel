@@ -43,7 +43,7 @@
   {% set actions = actions|merge({('reset'): reset}) %}
   {% set content = content|merge({('actions'): actions}) %}
 {% endif %}
- {% set button_attributes = create_attribute().addClass(['d-lg-none', 'w-100', 'mb-4']) %}
+{% set button_attributes = create_attribute().addClass(['d-lg-none', 'w-100', 'mb-4']) %}
 {% set toogle_button = {
   'label': label,
   'variant': 'light',
