@@ -19,11 +19,6 @@ Enables the [OpenEuropa Multilingual](https://github.com/openeuropa/oe_multiling
 The language switcher block is themed out of the box.
 
 ### Twig helpers
-#### bcl_timeago filter
-Filters a timestamp in "time ago" format, result can be something like "8 hours ago".
-```
-node.getCreatedTime|bcl_timeago
-```
 #### bcl_footer_links function
 Processes oe_corporate_blocks links to make them compatible with BCL formatting.
 ```
