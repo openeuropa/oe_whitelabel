@@ -1,0 +1,7 @@
+name: OpenEuropa Whitelabel News
+type: module
+description: Adds additional functionality to the News module
+package: OpenEuropa Whitelabel Theme
+core_version_requirement: ^8.9 || ^9.1
+dependencies:
+  - oe_starter_content:oe_starter_content_news
