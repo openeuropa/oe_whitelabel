@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * OE Whitelabel theme News.
@@ -9,7 +10,6 @@ declare(strict_types=1);
 use Drupal\media\Plugin\media\Source\Image;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
 use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
-
 
 /**
  * Implements template_preprocess_node() for the News node type.
@@ -35,9 +35,7 @@ function oe_whitelabel_news_preprocess_node__oe_news(&$variables) {
     $variables['image'] = ImageValueObject::fromStyledImageItem($thumbnail, 'large');
   }
 
-  if($variables['view_mode'] == 'teaser') {
+  if ($variables['view_mode'] == 'teaser') {
     $variables['image'] = ['#markup' => $variables['image']->getSource()];
   }
 }
-
-
