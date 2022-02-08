@@ -86,6 +86,9 @@ class CorporateEuLogoBlock extends BlockBase implements ContainerFactoryPluginIn
       '#uri' => $logo_path . '/logo-eu--' . $language . '.svg',
       '#alt' => $title,
       '#title' => $title,
+      '#attributes' => [
+        'class' => ['d-none', 'd-lg-block'],
+      ],
     ];
 
     $mobile_url = file_create_url($logo_path . '/mobile/logo-eu--' . $language . '.svg');

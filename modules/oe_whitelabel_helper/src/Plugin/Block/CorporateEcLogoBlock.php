@@ -86,6 +86,9 @@ class CorporateEcLogoBlock extends BlockBase implements ContainerFactoryPluginIn
       '#uri' => $logo_path . '/logo-ec--' . $language . '.svg',
       '#alt' => $title,
       '#title' => $title,
+      '#attributes' => [
+        'class' => ['d-none', 'd-lg-block'],
+      ],
     ];
 
     $build = [
