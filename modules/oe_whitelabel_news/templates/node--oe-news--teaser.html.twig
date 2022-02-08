@@ -1,30 +1,25 @@
 {#
 /**
  * @file
- * News search result template.
+ * Search result template.
  */
 #}
 {% set badges = [] %}
+{% set _title %}
+  <a class="text-underline-hover" href="{{ url }}">{{ label }}</a>
+{% endset %}
 {{ pattern('card', {
-  horizontal: true,
-  horizontal_grid: {
-    left_col_classes: "col-md-3",
-    right_col_classes: "col-md-9",
-    gutter: 0,
-  },
-  title: {
-    content: label,
-    classes: "mb-4",
-  },
-  subtitle: {
-    content: content.oe_publication_date|render|striptags,
-    classes: "mb-4",
-  },
-  text: {
-    content: content.body|render|striptags,
-    classes: "mb-4",
-  },
-  attributes: attributes.addClass(["border-0", "mb-5"]),
+  variant: 'search',
+  title: label,
+  text: content.body,
   image: image,
-  content: badges|render
+  content: {
+    '#type': 'html_tag',
+    '#tag': 'span',
+    '#attributes': {
+      class: 'text-muted text-nowrap me-4-5',
+    },
+    '#value': node.getCreatedTime|bcl_timeago,
+  },
+  badges: badges|render
 }) }}
