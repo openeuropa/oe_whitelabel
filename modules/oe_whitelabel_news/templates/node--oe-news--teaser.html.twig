@@ -1,16 +1,10 @@
 {#
 /**
  * @file
- * Search result template.
+ * News search result template.
  */
 #}
 {% set badges = [] %}
-{% if content.oe_featured_media[0] is defined and content.oe_featured_media[0]['#markup'] is not empty %}
-  {% set image = {
-    path: content.oe_featured_media[0]['#markup'],
-    position: "top",
-  } %}
-{% endif %}
 {{ pattern('card', {
   horizontal: true,
   horizontal_grid: {
