@@ -8,11 +8,7 @@
 declare(strict_types=1);
 
 use Drupal\Core\Cache\CacheableMetadata;
-use Drupal\Core\Entity\Entity\EntityViewDisplay;
-use Drupal\Core\Render\Element;
-use Drupal\media\Entity\Media;
 use Drupal\media\MediaInterface;
-use Drupal\media\MediaSourceInterface;
 use Drupal\media\Plugin\media\Source\Image;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
 use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
