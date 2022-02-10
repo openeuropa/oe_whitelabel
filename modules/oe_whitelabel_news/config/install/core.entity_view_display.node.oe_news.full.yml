@@ -1,0 +1,59 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.oe_news.body
+    - field.field.node.oe_news.oe_featured_media
+    - field.field.node.oe_news.oe_publication_date
+    - field.field.node.oe_news.oe_summary
+    - node.type.oe_news
+  module:
+    - datetime
+    - text
+    - user
+
+id: node.oe_news.full
+targetEntityType: node
+bundle: oe_news
+mode: full
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  oe_featured_media:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  oe_publication_date:
+    type: datetime_default
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: oel_whitelabel_news_date
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  oe_summary:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

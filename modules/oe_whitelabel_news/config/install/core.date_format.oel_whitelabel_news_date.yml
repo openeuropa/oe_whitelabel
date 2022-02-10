@@ -1,0 +1,7 @@
+langcode: und
+status: true
+dependencies: {  }
+id: oel_whitelabel_news_date
+label: 'OEL Whitelabel News date'
+locked: false
+pattern: 'd F Y'
