@@ -24,6 +24,7 @@ class ContentNewsRenderTest extends ContentRenderTestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'system',
     'oe_whitelabel_helper',
     'oe_starter_content_news',
     'oe_whitelabel_news',
@@ -115,6 +116,7 @@ class ContentNewsRenderTest extends ContentRenderTestBase {
    * Tests that the News page renders correctly.
    */
   public function testNewsRenderingTeaser(): void {
+
     $this->drupalGet($this->node->toUrl());
 
     // Build node full view.
@@ -138,6 +140,11 @@ class ContentNewsRenderTest extends ContentRenderTestBase {
     $this->assertEquals(
       'http://www.example.org is a web page',
       trim($crawler->filter('p.card-text')->text())
+    );
+    // Assert content banner publication date.
+    $this->assertEquals(
+      '10 February 2022',
+      trim($crawler->filter('div.card-body > span.text-muted')->text())
     );
   }
 
