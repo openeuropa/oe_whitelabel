@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * News full display.
+ */
+#}
+{% set badges = [] %}
+{{ pattern('content_banner', {
+  background: 'gray',
+  title: label,
+  content: content.oe_summary,
+  image: image,
+  meta: [
+    content.oe_publication_date|render|striptags,
+  ],
+  badges: badges|render
+}) }}
+<div class="container mt-md-4-75 mt-4">
+  <div class="row">
+    <div class="col-12 col-lg-10 col-xl-9 col-xxl-8">
+      {{ content.body }}
+    </div>
+  </div>
+</div>
