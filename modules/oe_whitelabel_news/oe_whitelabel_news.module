@@ -68,7 +68,7 @@ function oe_whitelabel_news_preprocess_node__oe_news(&$variables) {
 
   if ($is_image) {
     $thumbnail = $media->get('thumbnail')->first();
-    $variables['image'] = ImageValueObject::fromStyledImageItem($thumbnail, 'large');
+    $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
   }
 
   if ($variables['view_mode'] == 'teaser') {
