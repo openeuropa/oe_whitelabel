@@ -1,7 +1,0 @@
-{% if links is defined and links is not empty and links is iterable %}
-  <div class="col-12 col-lg-4">
-    {% for link in links %}
-      {{ pattern('link', link) }}
-    {% endfor %}
-  </div>
-{% endif %}
