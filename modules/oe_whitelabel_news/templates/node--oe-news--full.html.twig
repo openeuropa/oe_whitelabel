@@ -4,7 +4,6 @@
  * News full display.
  */
 #}
-{% set badges = [] %}
 {{ pattern('content_banner', {
   background: 'gray',
   title: label,
@@ -13,7 +12,7 @@
   meta: [
     content.oe_publication_date|render|striptags,
   ],
-  badges: badges|render
+  badges: badges|render|default([])
 }) }}
 <div class="container mt-md-4-75 mt-4">
   <div class="row">

@@ -4,13 +4,12 @@
  * Search result template.
  */
 #}
-{% set badges = [] %}
 {% set _title %}
   <a class="text-underline-hover" href="{{ url }}">{{ label }}</a>
 {% endset %}
 {{ pattern('card', {
   variant: 'search',
-  title: label,
+  title: _title,
   text: content.oe_summary,
   image: image,
   content: {
@@ -21,5 +20,5 @@
     },
     '#value': content.oe_publication_date|render|striptags,
   },
-  badges: badges|render
+  badges: badges|render|default([])
 }) }}
