@@ -105,10 +105,11 @@ function oe_whitelabel_form_system_theme_settings_alter(&$form, FormStateInterfa
     '#type' => 'select',
     '#title' => t('Component library'),
     '#options' => [
+      'neutral' => t('Neutral'),
       'ec' => t('European Commission'),
       'eu' => t('European Union'),
     ],
-    '#default_value' => theme_get_setting('component_library'),
+    '#default_value' => theme_get_setting('component_library') ?? 'eu',
     '#description' => t('Choose "European Commission" for websites hosted under the ec.europa.eu domain and "European Union" for websites hosted under the europa.eu domain.'),
   ];
   $form['header_style'] = [
