@@ -1,121 +1,69 @@
-{#
-/**
- * @file
- * Default theme implementation for rendering corporate blocks footer.
- *
- * Available variables:
- * - site_owner: Site's owner.
- * - site_specific_footer: Array (optional) with structure of the site specific footer compatible with the ECL ec-components-footer component.
- *   - site_identity: Site identity for custom footer.
- *   - social_links: Social media links for custom footer.
- *   - other_links: Other links for custom footer.
- * - corporate_footer: Array with structure of corporate footer compatible with the ECL ec-components-footer component.
- *   - corporate_site_link: Corporate site link.
- *   - class_navigation: Provides the user with navigation through class names.
- *   - service_navigation: Contains services links - consistent throughout the family sites.
- *   - legal_navigation: Contains legal information links - consistent throughout the family sites.
- *
- * @ingroup themeable
- */
-#}
-
-{% set _section_2 = [] %}
-{% set _section_3 = [] %}
-
-{# First we parse the other_links, we make a simple grid. #}
-{% for section in site_specific_footer.other_links %}
-  {% if loop.index is odd %}
-    {% set _section_2 = _section_2|merge([{
-      'title': section.label,
-      'links': bcl_footer_links(section.links),
-    }]) %}
-  {% else %}
-    {% set _section_3 = _section_3|merge([{
-      'title': section.label,
-      'links': bcl_footer_links(section.links),
-    }]) %}
-  {% endif %}
-{% endfor %}
-
-{# When follow section is present. #}
-{% if site_specific_footer.social_links is not empty %}
-  {# If section numbers are odd, then we flip the last row so to have the follow as first. #}
-  {% if _section_2|length > _section_3|length %}
-    {% set _last_in_section_2 = _section_2|last %}
-
-    {# Compensate for bug in twig where _section_2[1:] returns empty if _section_2|length is 1. #}
-    {% if _last_in_section_2 is empty %}
-      {% set _last_in_section_2 = _section_2[0] %}
-      {% set _section_2 = [] %}
-    {% endif %}
-
-    {% set _section_2 = _section_2[:_section_2|length - 1] %}
-    {% set _section_3 = _section_3|merge([_last_in_section_2]) %}
-
-  {% endif %}
-
-  {# Follow section must always be the last on the left. #}
-  {% set _section_2 = _section_2|merge([{
-    'title': 'Follow us on social media'|t,
-    'links': bcl_footer_links(site_specific_footer.social_links),
-  }]) %}
-{% endif %}
-
-{% set _top_sections = [
-  {
-    'section_id': 'footer_top_left',
-    'title': {
-    'link': {
-      'label': site_specific_footer.site_identity,
-      'path': url('<front>')|render
-    }
-  },
-    'description': site_owner ? 'This site is managed by the @name'|t({'@name': site_owner}),
-  },
-  {
-    'section_id': 'footer_top_middle',
-    'sections': _section_2
-  },
-  {
-    'section_id': 'footer_top_right',
-    'sections': _section_3
-  }
-] %}
-
-{% set _bottom_sections = [
-  {
-    'section_id': 'ec_footer_bottom_left',
-    'title': {
-      'link': {
-        'label': site_specific_footer.site_identity,
-        'path': url('<front>')|render,
+{% extends "oe-corporate-blocks-neutral-footer.html.twig" %}
+{% block content %}
+  {% set _top_sections =  {
+    'extra_classes': 'pt-4 pt-lg-5',
+    'cols': [
+      {
+        'classes': 'col-12 col-lg-4',
+        'items': [
+        {
+          'type': 'content',
+          'content': footer_top_left_content,
+        },
+      ],
+      },
+      {
+        'classes': 'col-12 col-lg-4 pb-4 pb-lg-0',
+        'items': _section_2,
+      },
+      {
+        'classes': 'col-12 col-lg-4',
+        'items': _section_3,
       }
-    }
-  },
-  {
-    'section_id': 'ec_footer_bottom_middle',
-    'links': bcl_footer_links(corporate_footer.service_navigation),
-  },
-  {
-    'section_id': 'ec_footer_bottom_right',
-    'links': bcl_footer_links(corporate_footer.legal_navigation)
-  }
-] %}
+    ],
+  } %}
 
-{% set _middle_sections = [
-  {
-    'section_id': 'ec_footer_middle_row',
-    'links': bcl_footer_links(corporate_footer.class_navigation),
-  }
-] %}
-<footer class="bcl-footer bcl-footer--ec mt-4">
-  <div class="container">
-    {{ pattern('footer', {
-      'variant': 'ec',
-      'top_sections': _top_sections,
-      'middle_sections': _middle_sections,
-      'bottom_sections': _bottom_sections,
-    }) }}
-  </div>
-</footer>
+  {% set site_identity_content %}
+    <p class="fw-bold pb-2 mb-2">{{ 'European Commission'|t }}</p>
+  {% endset %}
+
+  {% set _bottom_sections =  {
+    'extra_classes': 'pb-4 pb-lg-5 bcl-footer__bordered-row row mt-4',
+    'cols': [
+      {
+        'classes': 'col-12 col-lg-4 pb-lg-4',
+        'items': [
+        {
+          'type': 'content',
+          'content': site_identity_content,
+        },
+      ],
+      },
+      {
+        'classes': 'col-12 col-lg-4',
+        'items': [
+        {
+          'type': 'links',
+          'links': bcl_footer_links(corporate_footer.service_navigation),
+        }
+      ],
+      },
+      {
+        'classes': 'col-12 col-lg-4',
+        'items': [
+        {
+          'type': 'links',
+          'links': bcl_footer_links(corporate_footer.legal_navigation),
+        }
+      ],
+      }
+    ],
+  } %}
+
+  {% include '@oe-bcl/bcl-footer/bcl-footer.html.twig' with {
+    'variant': 'ec',
+    'rows': [_top_sections, _bottom_sections],
+    'attributes': attributes,
+  } only %}
+{% endblock %}
 
