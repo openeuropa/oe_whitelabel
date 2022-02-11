@@ -8,14 +8,14 @@
     "require": {
         "php": ">=7.4",
         "cweagans/composer-patches": "^1.7",
-        "drupal/core": "^8.9 || ^9.1",
+        "drupal/core": "^8.9 || ^9.2",
         "openeuropa/oe_bootstrap_theme": "0.1.202202072010"
     },
     "require-dev": {
         "composer/installers": "^1.11",
         "drupal/better_exposed_filters": "^5.0",
         "drupal/config_devel": "~1.2",
-        "drupal/core-composer-scaffold": "^8.9 || ^9.1",
+        "drupal/core-composer-scaffold": "^8.9 || ^9.2",
         "drupal/ctools": "^3.7",
         "drupal/drupal-extension": "~4.1",
         "drupal/file_link": "^2.0.4",
@@ -25,9 +25,9 @@
         "drush/drush": "^10.3",
         "easyrdf/easyrdf": "1.0.0 as 0.9.1",
         "egulias/email-validator": "^2.1.22 || ^3.0",
-        "openeuropa/code-review": "1.7",
+        "openeuropa/code-review": "^1.7 || ^2.0",
         "openeuropa/composer-artifacts": "~0.1",
-        "openeuropa/drupal-core-require-dev": "^8.9 || ^9.1",
+        "openeuropa/drupal-core-require-dev": "^8.9 || ^9.2",
         "openeuropa/oe_authentication": "^1.4",
         "openeuropa/oe_corporate_blocks": "^4.4",
         "openeuropa/oe_multilingual": "^1.9",
