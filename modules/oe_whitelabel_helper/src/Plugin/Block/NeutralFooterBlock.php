@@ -10,7 +10,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\oe_corporate_blocks\Plugin\Block\FooterBlockBase;
 
 /**
- * Provides the corporate EU footer block.
+ * Provides the Neutral footer block.
  *
  * @Block(
  *   id = "oe_corporate_blocks_neutral_footer",
