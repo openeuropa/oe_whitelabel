@@ -57,6 +57,13 @@ function oe_whitelabel_helper_preprocess_status_messages(&$variables) {
       'oe_topic',
     ];
 
+    // Add new fields if exists.
+    foreach ($contact_message->getFields() as $contact_form_field) {
+      if (strpos($contact_form_field->getName(), 'field_') === 0) {
+        $fields[] = $contact_form_field->getName();
+      }
+    }
+
     if (in_array('oe_country_residence', $optional_fields)) {
       $fields[] = 'oe_country_residence';
     }
@@ -72,26 +79,13 @@ function oe_whitelabel_helper_preprocess_status_messages(&$variables) {
       if ($field->isEmpty() || !$field->access()) {
         continue;
       }
-
-      $display_settings = ['label' => 'hidden'];
+      $value = 'value';
       if ($field->getFieldDefinition()->getType() == 'skos_concept_entity_reference') {
-        $display_settings += [
-          'settings' => [
-            'link' => FALSE,
-          ],
-        ];
-      }
-
-      if (empty($items)) {
-        $items[] = [
-          'term' => $field->getFieldDefinition()->getLabel(),
-          'definition' => $field->first()->getValue()['value'],
-        ];
-        continue;
+        $value = 'target_id';
       }
       $items[] = [
         'term' => $field->getFieldDefinition()->getLabel(),
-        'definition' => $field->first()->getValue()['value'],
+        'definition' => $field->first()->getValue()[$value],
       ];
     }
     $variables['message_list']['status'][$key] = [
@@ -113,6 +107,6 @@ function oe_whitelabel_helper_form_contact_message_form_alter(&$form, FormStateI
   $form['line'] = [
     '#type' => 'markup',
     '#markup' => '<hr class="mt-5 mb-5"/>',
-    '#weight' => 5,
+    '#weight' => 6,
   ];
 }
