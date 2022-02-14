@@ -17,16 +17,12 @@ class FooterBlockTest extends SparqlKernelTestBase {
    */
   protected static $modules = [
     'block',
-    'multivalue_form_element',
     'oe_bootstrap_theme_helper',
     'oe_corporate_blocks',
     'oe_corporate_site_info',
     'oe_whitelabel_helper',
     'rdf_skos',
     'system',
-    'ui_patterns',
-    'ui_patterns_library',
-    'ui_patterns_settings',
     'user',
   ];
 
@@ -63,6 +59,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $crawler = new Crawler($render->__toString());
 
     // For now we assert only minimal till we have a footer component.
+    $this->assertCount(1, $crawler->filter('footer.bcl-footer--ec'));
     $rows = $crawler->filter('.row');
     $this->assertCount(2, $rows);
     $borderedSections = $crawler->filter('.bcl-footer__bordered-row');
@@ -98,6 +95,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $crawler = new Crawler($render->__toString());
 
     // For now we assert only minimal till we have a footer component.
+    $this->assertCount(1, $crawler->filter('footer.bcl-footer--eu'));
     $rows = $crawler->filter('.row');
     $this->assertCount(2, $rows);
     $borderedSections = $crawler->filter('.bcl-footer__bordered-row');
@@ -106,6 +104,38 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $this->assertCount(5, $sectionTitles);
     $sectionLinks = $crawler->filter('div.col-12.col-lg-4:nth-child(2) a.text-underline-hover.d-block.mb-1');
     $this->assertCount(10, $sectionLinks);
+  }
+
+  /**
+   * Tests the rendering of blocks.
+   */
+  public function testNeutralFooterBlockRendering(): void {
+    $entity_type_manager = $this->container
+      ->get('entity_type.manager')
+      ->getStorage('block');
+    $entity = $entity_type_manager->create([
+      'id' => 'neutralfooterblock',
+      'theme' => 'oe_whitelabel',
+      'plugin' => 'oe_corporate_blocks_neutral_footer',
+      'settings' => [
+        'id' => 'oe_corporate_blocks_neutral_footer',
+        'label' => 'Neutral Footer block',
+        'provider' => 'oe_corporate_blocks',
+        'label_display' => '0',
+      ],
+    ]);
+    $entity->save();
+    $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
+    $build = $builder->view($entity, 'block');
+    $render = $this->container->get('renderer')->renderRoot($build);
+    $crawler = new Crawler($render->__toString());
+
+    // For now we assert only minimal till we have a footer component.
+    $this->assertCount(1, $crawler->filter('footer.bcl-footer--neutral'));
+    $rows = $crawler->filter('.row');
+    $this->assertCount(1, $rows);
+    $sectionTitles = $crawler->filter('p.fw-bold.mb-2');
+    $this->assertCount(1, $sectionTitles);
   }
 
 }
