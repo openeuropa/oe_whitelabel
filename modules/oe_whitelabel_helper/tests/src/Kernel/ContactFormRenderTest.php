@@ -5,13 +5,16 @@ declare(strict_types = 1);
 namespace Drupal\Tests\oe_whitelabel_helper\Kernel;
 
 use Drupal\contact\Entity\ContactForm;
-use Drupal\Tests\oe_contact_forms\Kernel\ContactFormTestBase;
+use Drupal\KernelTests\KernelTestBase;
+use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Tests that our contact forms renders with right markup.
  */
-class ContactFormRenderTest extends ContactFormTestBase {
+class ContactFormRenderTest extends KernelTestBase {
+
+  use SparqlConnectionTrait;
 
   /**
    * {@inheritdoc}
@@ -20,6 +23,18 @@ class ContactFormRenderTest extends ContactFormTestBase {
     'oe_bootstrap_theme_helper',
     'ui_patterns',
     'ui_patterns_library',
+    'path',
+    'path_alias',
+    'options',
+    'user',
+    'system',
+    'telephone',
+    'contact',
+    'contact_storage',
+    'rdf_skos',
+    'oe_contact_forms',
+    'oe_corporate_countries',
+    'sparql_entity_storage',
   ];
 
   /**
@@ -29,12 +44,17 @@ class ContactFormRenderTest extends ContactFormTestBase {
     parent::setUp();
 
     \Drupal::service('theme_installer')->install(['oe_whitelabel']);
+    $this->installEntitySchema('path_alias');
+    $this->installEntitySchema('contact_message');
+    $this->installEntitySchema('user');
+    $this->installSchema('system', 'sequences');
 
     \Drupal::configFactory()
       ->getEditable('system.theme')
       ->set('default', 'oe_whitelabel')
       ->save();
     $this->container->set('theme.registry', NULL);
+    $this->setUpSparql();
   }
 
   /**
