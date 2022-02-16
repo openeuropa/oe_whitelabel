@@ -6,6 +6,7 @@ namespace Drupal\oe_whitelabel_helper\TwigExtension;
 
 use Drupal\Core\Cache\CacheableDependencyInterface;
 use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
+use Drupal\oe_whitelabel_helper\EuropeanUnionLanguages;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -35,6 +36,7 @@ class TwigExtension extends AbstractExtension {
   public function getFilters(): array {
     return [
       new TwigFilter('bcl_timeago', [$this, 'bclTimeAgo']),
+      new TwigFilter('to_internal_language_id', [$this, 'toInternalLanguageId']),
     ];
   }
 
@@ -174,6 +176,23 @@ class TwigExtension extends AbstractExtension {
     $block_plugin = $this->pluginManagerBlock->createInstance($id, $configuration);
 
     return $block_plugin->build();
+  }
+
+  /**
+   * Get an internal language ID given its code.
+   *
+   * @param string $language_code
+   *   The language code as defined by the W3C language tags document.
+   *
+   * @return string
+   *   The internal language ID, or the given language code if none found.
+   */
+  public function toInternalLanguageId($language_code): string {
+    if (EuropeanUnionLanguages::hasLanguage($language_code)) {
+      return EuropeanUnionLanguages::getInternalLanguageCode($language_code);
+    }
+
+    return $language_code;
   }
 
 }
