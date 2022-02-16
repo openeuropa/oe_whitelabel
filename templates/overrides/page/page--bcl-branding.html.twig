@@ -1,0 +1,94 @@
+{#
+/**
+ * @file
+ * Overrides single page template for BCL branding.
+ *
+ * Add additional information to 'site_header_container' and 'navigation' blocks.
+ *
+ * @see ./oe_theme/templates/layout/page.html.twig
+ */
+#}
+{% extends "page.html.twig" %}
+{%
+  set name_classes = [
+  'text-decoration-none',
+  'align-bottom',
+  bcl_header_style == 'light' ? 'text-dark': 'text-white',
+]
+%}
+{% set _site_name_classes = 'bcl-header__site-name' %}
+{% if bcl_component_library == 'neutral' %}
+  {% set _site_name_classes = 'bcl-header__site-name h5 d-inline-block d-lg-none' %}
+{% endif %}
+{% set site_name_attr = create_attribute() %}
+{% set light = bcl_header_style == 'light' %}
+{% set _site_name %}
+  <a {{ site_name_attr.addClass(name_classes).setAttribute('rel', 'Home') }} href="{{ path('<front>') }}">
+    {{ site_name }}
+  </a>
+{% endset %}
+{% block header %}
+  {% set attributes = create_attribute() %}
+
+  {% set attributes = attributes.addClass(['bcl-header', 'bcl-header--' ~ bcl_component_library]) %}
+
+  {% set project_classes = 'bcl-header__project' %}
+  {% if light is not empty %}
+    {% set project_classes = project_classes ~ ' light' %}
+  {% endif %}
+
+  <header {{ attributes }}>
+      {% block head %}
+        {{ pattern('navbar', {
+          navigation: page.navbar_branding,
+          right: page.navbar_right,
+          color_scheme: 'light',
+          background: false,
+          attributes: create_attribute().addClass(['w-100', 'shadow-sm']),
+        }) }}
+      {% endblock %}
+    <!-- project name -->
+    {% if project_logo is not empty or site_name is not empty %}
+      <div class="{{ project_classes }}">
+        <div class="container">
+          {% if project_logo is not empty and bcl_component_library != 'neutral' %}
+            <img
+              {% if project_logo.path is not empty %}
+                src="{{ project_logo.path }}"
+              {% endif %}
+              {% if project_logo.alt is not empty %}
+                alt="{{ project_logo.alt }}"
+              {% endif %}
+              {% if project_logo.classes is not empty %}
+                class="{{ project_logo.classes }}"
+              {% endif %}
+            />
+          {% endif %}
+          {% if _site_name is not empty %}
+            <div class="{{ _site_name_classes }}">
+              {{- _site_name -}}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- navbar -->
+      {% block navbar %}
+        {{ pattern('navbar', {
+          navigation: page.header_left,
+          right: page.header_right,
+          color_scheme: 'dark',
+          background: false,
+          expanded_breakpoint: 'lg',
+          attributes: create_attribute().addClass(['bcl-header__navbar']),
+        }) }}
+      {% endblock %}
+    <!-- breadcrumbs -->
+      <div class="container">
+        {% block breadcrumbs %}
+          {{ page.breadcrumbs }}
+        {% endblock %}
+      </div>
+  </header>
+{% endblock %}
