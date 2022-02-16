@@ -31,12 +31,19 @@ class ContentNewsRenderTest extends ContentRenderTestBase {
   ];
 
   /**
+   * A node to be rendered in diferent display views.
+   *
+   * @var \Drupal\node\Entity\Node
+   */
+  protected $node;
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
     parent::setUp();
 
-    // Create a sample media entity to be embedded.
+    // Create a sample image media entity to be embedded.
     File::create([
       'uri' => $this->getTestFiles('image')[0]->uri,
     ])->save();
@@ -72,9 +79,9 @@ class ContentNewsRenderTest extends ContentRenderTestBase {
   }
 
   /**
-   * Tests that the News page renders correctly.
+   * Tests that the News page renders correctly in full display.
    */
-  public function testNewsRendering(): void {
+  public function testNewsRenderingFull(): void {
     $this->drupalGet($this->node->toUrl());
 
     // Build node full view.
@@ -113,13 +120,13 @@ class ContentNewsRenderTest extends ContentRenderTestBase {
   }
 
   /**
-   * Tests that the News page renders correctly.
+   * Tests that the News page renders correctly in teaser display.
    */
   public function testNewsRenderingTeaser(): void {
 
     $this->drupalGet($this->node->toUrl());
 
-    // Build node full view.
+    // Build node teaser view.
     $builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $build = $builder->view($this->node, 'teaser');
     $render = $this->container->get('renderer')->renderRoot($build);
@@ -136,7 +143,7 @@ class ContentNewsRenderTest extends ContentRenderTestBase {
       'Test news node',
       trim($crawler->filter('h5.card-title')->text())
     );
-    // Assert content banner publication date.
+    // Assert content banner content.
     $this->assertEquals(
       'http://www.example.org is a web page',
       trim($crawler->filter('p.card-text')->text())
