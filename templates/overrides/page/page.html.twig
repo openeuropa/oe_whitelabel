@@ -47,23 +47,33 @@
  * @ingroup themeable
  */
 #}
-{%
-  set grid_classes = [
-    'col-12',
-    page.sidebar_left ? 'col-lg-9',
-  ]
-%}
-<div class="page">
-  {{ pattern('header', {
-    variant: bcl_component_library,
-    navbar_branding: page.navbar_branding,
-    navbar_right: page.navbar_right,
-    header_top: page.header_top,
-    header_left: page.header_left,
-    header_right: page.header_right,
-    breadcrumbs: page.breadcrumbs
-  }) }}
 
+{% set _head = pattern('navbar', {
+  navigation: page.navbar_branding,
+  right: page.navbar_right,
+  color_scheme: 'light',
+  background: false,
+  attributes: create_attribute().addClass(['w-100', 'shadow-sm']),
+}) %}
+
+{% set _navbar = pattern('navbar', {
+  navigation: page.header_left,
+  right: page.header_right,
+  color_scheme: 'dark',
+  background: false,
+  expanded_breakpoint: 'lg',
+  attributes: create_attribute().addClass(['bcl-header__navbar']),
+}) %}
+
+<div class="page">
+  {% block header %}
+    {{ pattern('navbar', {
+      navbar_branding: page.navbar_branding ? page.navbar_branding : false,
+      navbar_left: page.navbar_left ? page.navbar_left : false,
+      navbar_right: page.navbar_right ? page.navbar_right : false,
+      color_set: 'light'
+    }) }}
+  {% endblock %}
   <main>
     {% if page.header %}
     <div class="container mt-2">
