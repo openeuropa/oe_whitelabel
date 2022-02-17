@@ -28,11 +28,9 @@ function oe_whitelabel_helper_preprocess_status_messages(&$variables) {
 
   foreach ($variables['message_list']['status'] as $key => $value) {
     // Target contact_messages which are being rendered in the status message.
-    if (
-      !is_array($value) ||
+    if (!is_array($value) ||
       !isset($value['#contact_message']) ||
-      !$value['#contact_message'] instanceof MessageInterface
-    ) {
+      !$value['#contact_message'] instanceof MessageInterface) {
       continue;
     }
 
