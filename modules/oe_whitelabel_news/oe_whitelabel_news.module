@@ -17,7 +17,6 @@ use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
  * Implements template_preprocess_node() for the News node type.
  */
 function oe_whitelabel_news_preprocess_node__oe_news(&$variables) {
-
   if ($variables['view_mode'] !== 'full' && $variables['view_mode'] !== 'teaser') {
     return;
   }
@@ -66,10 +65,8 @@ function oe_whitelabel_news_preprocess_node__oe_news(&$variables) {
     return;
   }
 
-  if ($is_image) {
-    $thumbnail = $media->get('thumbnail')->first();
-    $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
-  }
+  $thumbnail = $media->get('thumbnail')->first();
+  $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
 
   if ($variables['view_mode'] == 'teaser') {
     $variables['image'] = ['#markup' => $variables['image']->getSource()];
