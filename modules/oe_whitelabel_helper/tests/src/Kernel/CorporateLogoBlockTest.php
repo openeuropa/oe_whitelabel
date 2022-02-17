@@ -69,13 +69,13 @@ class CorporateLogoBlockTest extends KernelTestBase {
       ->get('entity_type.manager')
       ->getStorage('block');
     $entity = $entity_type_manager->create([
-      'id' => 'eclogoblock',
+      'id' => 'sitebranding',
       'theme' => 'oe_whitelabel',
-      'plugin' => 'whitelabel_ec_logo_block',
+      'plugin' => 'system_branding_block',
       'settings' => [
-        'id' => 'whitelabel_ec_logo_block',
-        'label' => 'Corporate Logo Block',
-        'provider' => 'oe_whitelabel_helper',
+        'id' => 'system_branding_block',
+        'label' => 'Site Branding',
+        'provider' => 'system',
         'label_display' => '0',
       ],
     ]);
@@ -87,7 +87,7 @@ class CorporateLogoBlockTest extends KernelTestBase {
 
     $logo = $crawler->filter('img');
     $this->assertCount(1, $logo);
-    $expected = "/themes/custom/oe_whitelabel/modules/oe_whitelabel_helper/images/logos/ec/logo-ec--{$lang}.svg";
+    $expected = "/themes/contrib/oe_bootstrap_theme/assets/logos/ec/logo-ec--{$lang}.svg";
     $this->assertSame($expected, $logo->attr('src'));
 
     // Assert EU logo.
@@ -95,13 +95,13 @@ class CorporateLogoBlockTest extends KernelTestBase {
       ->get('entity_type.manager')
       ->getStorage('block');
     $entity = $entity_type_manager->create([
-      'id' => 'eulogoblock',
+      'id' => 'sitebranding',
       'theme' => 'oe_whitelabel',
-      'plugin' => 'whitelabel_eu_logo_block',
+      'plugin' => 'system_branding_block',
       'settings' => [
-        'id' => 'whitelabel_logo_block',
+        'id' => 'system_branding_block',
         'label' => 'Corporate Logo Block',
-        'provider' => 'whitelabel_eu_logo_block',
+        'provider' => 'system',
         'label_display' => '0',
       ],
     ]);
@@ -113,12 +113,12 @@ class CorporateLogoBlockTest extends KernelTestBase {
 
     $logo = $crawler->filter('img');
     $this->assertCount(1, $logo);
-    $expected = "/themes/custom/oe_whitelabel/modules/oe_whitelabel_helper/images/logos/eu/logo-eu--{$lang}.svg";
+    $expected = "/themes/contrib/oe_bootstrap_theme/assets/logos/eu/logo-eu--{$lang}.svg";
     $this->assertSame($expected, $logo->attr('src'));
     $picture = $crawler->filter('picture');
     $this->assertCount(1, $picture);
     $source = $crawler->filter('source');
-    $expected = "/themes/custom/oe_whitelabel/modules/oe_whitelabel_helper/images/logos/eu/mobile/logo-eu--{$lang}.svg";
+    $expected = "/themes/contrib/oe_bootstrap_theme/assets/logos/eu/mobile/logo-eu--{$lang}.svg";
     $this->assertSame($expected, $source->attr('srcset'));
   }
 
