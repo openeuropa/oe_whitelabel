@@ -12,10 +12,8 @@ use Drupal\Tests\TestFileCreationTrait;
 
 /**
  * Tests that the News content type renders correctly.
- *
- * @group batch1
  */
-class ContentNewsRenderTest extends ContentRenderTestBase {
+class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
 
   use MediaTypeCreationTrait;
   use TestFileCreationTrait;
@@ -24,16 +22,13 @@ class ContentNewsRenderTest extends ContentRenderTestBase {
    * {@inheritdoc}
    */
   public static $modules = [
-    'system',
-    'oe_whitelabel_helper',
-    'oe_starter_content_news',
     'oe_whitelabel_news',
   ];
 
   /**
-   * A node to be rendered in diferent display views.
+   * A node to be rendered in different display views.
    *
-   * @var \Drupal\node\Entity\Node
+   * @var \Drupal\node\NodeInterface
    */
   protected $node;
 
@@ -62,17 +57,19 @@ class ContentNewsRenderTest extends ContentRenderTestBase {
 
     // Create a News node.
     /** @var \Drupal\node\Entity\Node $node */
-    $node = $this->getStorage('node')->create([
-      'type' => 'oe_news',
-      'title' => 'Test news node',
-      'oe_summary' => 'http://www.example.org is a web page',
-      'body' => 'News body',
-      'oe_publication_date' => [
-        'value' => '2022-02-09T20:00:00',
-      ],
-      'uid' => 1,
-      'status' => 1,
-    ]);
+    $node = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->create([
+        'type' => 'oe_news',
+        'title' => 'Test news node',
+        'oe_summary' => 'http://www.example.org is a web page',
+        'body' => 'News body',
+        'oe_publication_date' => [
+          'value' => '2022-02-09T20:00:00',
+        ],
+        'uid' => 1,
+        'status' => 1,
+      ]);
     $node->set('oe_featured_media', [$media_image]);
     $node->save();
     $this->node = $node;
@@ -82,7 +79,9 @@ class ContentNewsRenderTest extends ContentRenderTestBase {
    * Tests that the News page renders correctly in full display.
    */
   public function testNewsRenderingFull(): void {
-    $this->drupalGet($this->node->toUrl());
+    $node = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties(['title' => 'Test news node']);
 
     // Build node full view.
     $builder = \Drupal::entityTypeManager()->getViewBuilder('node');
@@ -90,17 +89,22 @@ class ContentNewsRenderTest extends ContentRenderTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($render->__toString());
 
-    // Assert content banner image.
-    $picture = $this->assertSession()->elementExists('css', 'img.card-img-top');
-    $image = $this->assertSession()->elementExists('css', 'img.rounded-1', $picture);
-    $this->assertStringContainsString('image-test.png', $image->getAttribute('src'));
-    $this->assertEquals('Starter Image test alt', $image->getAttribute('alt'));
-
     // Assert content banner title.
     $content_banner = $crawler->filter('.bcl-content-banner');
     $this->assertEquals(
       'Test news node',
       trim($content_banner->filter('.card-title')->text())
+    );
+    // Assert content banner image.
+    $image = $content_banner->filter('img');
+    $this->assertCount(1, $image);
+    $this->assertCount(1, $image->filter('.card-img-top'));
+    $this->assertStringContainsString(
+      'image-test.png',
+      trim($image->attr('src'))
+    );
+    $this->assertEquals('Starter Image test alt',
+      $image->attr('alt')
     );
     // Assert content banner publication date.
     $this->assertEquals(
@@ -123,25 +127,24 @@ class ContentNewsRenderTest extends ContentRenderTestBase {
    * Tests that the News page renders correctly in teaser display.
    */
   public function testNewsRenderingTeaser(): void {
-
-    $this->drupalGet($this->node->toUrl());
-
     // Build node teaser view.
     $builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $build = $builder->view($this->node, 'teaser');
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($render->__toString());
 
-    // Assert content banner image.
-    $picture = $this->assertSession()->elementExists('css', 'img.card-img-top');
-    $image = $this->assertSession()->elementExists('css', 'img.rounded-1', $picture);
-    $this->assertStringContainsString('image-test.png', $image->getAttribute('src'));
-    $this->assertEquals('Starter Image test alt', $image->getAttribute('alt'));
-
     // Assert content banner title.
     $this->assertEquals(
       'Test news node',
       trim($crawler->filter('h5.card-title')->text())
+    );
+    // Assert content banner image.
+    $image = $crawler->filter('img');
+    $this->assertCount(1, $image);
+    $this->assertCount(1, $image->filter('.card-img-top'));
+    $this->assertStringContainsString(
+      'image-test.png',
+      trim($image->attr('src'))
     );
     // Assert content banner content.
     $this->assertEquals(
