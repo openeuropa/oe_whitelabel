@@ -5,6 +5,10 @@
  */
 #}
 
+{% macro bcl_title(title, classes) %}
+  <p class="{{ classes }}">{{ title }}</p>
+{% endmacro %}
+
 {% set _section_2 = [] %}
 {% set _section_3 = [] %}
 {# First we parse the other_links, we make a simple grid. #}
@@ -13,7 +17,7 @@
     {% set _section_2 = _section_2|merge([
       {
         'type': 'content',
-        'content': bcl_title(section.label,'fw-bold border-bottom pb-2 mb-2 mt-3'),
+        'content':  _self.bcl_title(section.label,'fw-bold border-bottom pb-2 mb-2 mt-3'),
       },
       {
         'type': 'links',
@@ -24,7 +28,7 @@
     {% set _section_3 = _section_3|merge([
       {
         'type': 'content',
-        'content': bcl_title(section.label,'fw-bold border-bottom pb-2 mb-2 mt-3'),
+        'content':  _self.bcl_title(section.label,'fw-bold border-bottom pb-2 mb-2 mt-3'),
       },
       {
         'type': 'links',
@@ -55,7 +59,7 @@
   {% set _section_2 = _section_2|merge([
     {
       'type': 'content',
-      'content': bcl_title('Follow us on social media', 'fw-bold border-bottom pb-2 mb-2 mt-3'),
+      'content':  _self.bcl_title('Follow us on social media', 'fw-bold border-bottom pb-2 mb-2 mt-3'),
     },
     {
       'type': 'links',
