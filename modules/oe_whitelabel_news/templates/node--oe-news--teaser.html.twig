@@ -7,14 +7,9 @@
 {% set _title %}
   <a class="text-underline-hover" href="{{ url }}">{{ label }}</a>
 {% endset %}
-{% set _content = {
-  '#type': 'html_tag',
-  '#tag': 'span',
-  '#attributes': {
-    class: 'text-muted text-nowrap me-4-5',
-  },
-  '#value': content.oe_publication_date,
-}%}
+{% set _content %}
+  <span class="text-muted text-nowrap me-4-5">{{ content.oe_publication_date }}</span>
+{% endset %}
 <article{{attributes}}>
   {{ pattern('card', {
     variant: 'search',

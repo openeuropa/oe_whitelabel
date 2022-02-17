@@ -79,15 +79,11 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
    * Tests that the News page renders correctly in full display.
    */
   public function testNewsRenderingFull(): void {
-    $node = \Drupal::entityTypeManager()
-      ->getStorage('node')
-      ->loadByProperties(['title' => 'Test news node']);
-
     // Build node full view.
     $builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $build = $builder->view($this->node, 'full');
     $render = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler($render->__toString());
+    $crawler = new Crawler((string)$render);
 
     // Assert content banner title.
     $content_banner = $crawler->filter('.bcl-content-banner');
@@ -131,7 +127,7 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
     $builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $build = $builder->view($this->node, 'teaser');
     $render = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler($render->__toString());
+    $crawler = new Crawler((string)$render);
 
     // Assert content banner title.
     $this->assertEquals(
