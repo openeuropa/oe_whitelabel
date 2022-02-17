@@ -45,8 +45,6 @@ class TwigExtension extends AbstractExtension {
   public function getFunctions(): array {
     return [
       new TwigFunction('bcl_footer_links', [$this, 'bclFooterLinks'], ['needs_context' => TRUE]),
-      new TwigFunction('bcl_block', [$this, 'bclBlock']),
-      new TwigFunction('bcl_title', [$this, 'bclTitle']),
     ];
   }
 
@@ -105,22 +103,6 @@ class TwigExtension extends AbstractExtension {
     }
 
     return $time_ago;
-  }
-
-  /**
-   * Format footer section titles.
-   *
-   * @param string $title
-   *   The title to be formatted.
-   * @param string $classes
-   *   Classes to add to the title.
-   *
-   * @return array
-   *   Title prepared to be rendered in the footer template.
-   */
-  public function bclTitle(string $title, string $classes): array {
-    $title = \Drupal::translation()->translate($title)->render();
-    return ['#markup' => '<p class="' . $classes . '">' . $title . '</p>'];
   }
 
   /**
