@@ -4,20 +4,22 @@
  * News full display.
  */
 #}
-{{ pattern('content_banner', {
-  background: 'gray',
-  title: label,
-  content: content.oe_summary,
-  image: image,
-  meta: [
-    content.oe_publication_date|render|striptags,
-  ],
-  badges: badges|render|default([])
-}) }}
-<div class="container mt-md-4-75 mt-4">
-  <div class="row">
-    <div class="col-12 col-lg-10 col-xl-9 col-xxl-8">
-      {{ content.body }}
+<article{{attributes}}>
+  {{ pattern('content_banner', {
+    background: 'gray',
+    title: label,
+    content: content.oe_summary,
+    image: image,
+    meta: [
+      content.oe_publication_date|render|striptags,
+    ]
+  }) }}
+  
+  <div class="container mt-md-4-75 mt-4">
+    <div class="row">
+      <div class="col-12 col-lg-10 col-xl-9 col-xxl-8 mb-4">
+        {{ content.body }}
+      </div>
     </div>
   </div>
-</div>
+</article>
