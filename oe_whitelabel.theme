@@ -109,7 +109,7 @@ function oe_whitelabel_form_system_theme_settings_alter(&$form, FormStateInterfa
       'ec' => t('European Commission'),
       'eu' => t('European Union'),
     ],
-    '#default_value' => theme_get_setting('component_library') ?? 'eu',
+    '#default_value' => theme_get_setting('component_library') ?? 'neutral',
     '#description' => t('Choose "European Commission" for websites hosted under the ec.europa.eu domain and "European Union" for websites hosted under the europa.eu domain.'),
   ];
   $form['header_style'] = [
@@ -128,6 +128,6 @@ function oe_whitelabel_form_system_theme_settings_alter(&$form, FormStateInterfa
  * Implements hook_preprocess().
  */
 function oe_whitelabel_preprocess(&$variables) {
-  $variables['bcl_component_library'] = theme_get_setting('component_library') ?? 'eu';
+  $variables['bcl_component_library'] = theme_get_setting('component_library') ?? 'neutral';
   $variables['bcl_header_style'] = theme_get_setting('header_style') ?? 'standard';
 }
