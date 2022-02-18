@@ -13,7 +13,7 @@
       [
         {
           term: { 
-            'label': field['#title'],
+            'label': field|field_label,
             'icon': 'calendar-event',
           },
           'definition': field|render|striptags,
@@ -29,29 +29,11 @@
   {{ content.oe_documents }}
 {% endset %}
 
-{% set inpage_navigation_links = [] %}
-{% for field in content %}
-  {% if field['#field_name'] in ['body', 'oe_documents'] %}
-    {% set inpage_navigation_links = inpage_navigation_links|merge(
-      [
-        {
-          label: field['#title'],
-          path: '#' ~ field['#bundle'] ~ '__' ~ field['#field_name'],
-        }
-      ]) 
-    %}
-  {% endif %}
-{% endfor %}
-
 {{ pattern('content_banner', {
   background: 'gray',
   title: label,
   content: content.oe_summary,
   image: image,
-  meta: [
-    content.oe_publication_date|render|striptags,
-  ],
-  badges: badges|render|default([])
 }) }}
 
 {{ pattern('description_list', {

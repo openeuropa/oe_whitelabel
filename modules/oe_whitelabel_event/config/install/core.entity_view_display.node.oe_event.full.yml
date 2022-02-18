@@ -15,7 +15,6 @@ dependencies:
     - datetime_range
     - text
     - user
-    - oe_starter_content_event
 id: node.oe_event.full
 targetEntityType: node
 bundle: oe_event
@@ -47,8 +46,8 @@ content:
     label: inline
     settings:
       timezone_override: ''
-      format_type: medium
-      separator: '-'
+      format_type: oe_whitelabel_news_date
+      separator: to
     third_party_settings: {  }
     weight: 4
     region: content
@@ -69,7 +68,7 @@ content:
     weight: 5
     region: content
   oe_summary:
-    type: basic_string
+    type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
