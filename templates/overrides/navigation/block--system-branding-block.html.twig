@@ -1,22 +1,54 @@
 {#
 /**
  * @file
- * Theme override for OpenEuropa branding (EU/EC/Neutral) block.
+ * Theme override for a branding block.
+ *
+ * Each branding element variable (logo, name, slogan) is only available if
+ * enabled in the block configuration.
+ *
+ * Available variables:
+ * - site_logo: Logo for site as defined in Appearance or theme settings.
+ * - site_name: Name for site as defined in Site information settings.
+ * - site_slogan: Slogan for site as defined in Site information settings.
  */
 #}
+{% set light = bcl_header_style == 'light' %}
 
 {% block content %}
-<a class="navbar-brand" target="_blank" href="{{ site_logo_href }}">
-  {% if bcl_component_library == 'eu' %}
-    <picture>
-      <source media="(max-width: 992px)" srcset="{{ bcl_logo_path ~ 'eu/mobile/logo-eu--' ~ current_language_id|to_internal_language_id ~ '.svg'}}">
-        <img src="{{ bcl_logo_path ~ 'eu/logo-eu--' ~ current_language_id|to_internal_language_id ~ '.svg'}}" alt="{{ site_logo_alt }}" title="{{ site_logo_title }}" />
-    </picture>
-  {% elseif bcl_component_library == 'ec'%}
-    <img src="{{ bcl_logo_path ~ 'ec/logo-ec--' ~ current_language_id|to_internal_language_id ~ '.svg'}}" alt="{{ site_logo_alt }}" title="{{ site_logo_title }}" />
-  {% else %}
-    <img src="{{ site_logo }}" alt="{{ site_logo_alt }}" title="{{ site_logo_title }}"/>
-    <div class="h5 ms-4-5 d-none d-lg-inline-block">{{ site_name }}</div>
+  <!-- project name -->
+  {% if site_logo is not empty or site_name is not empty %}
+    {% set project_classes = 'bcl-header__project' %}
+    {% if light is not empty %}
+      {% set project_classes = project_classes ~ ' light' %}
+    {% endif %}
+    <div {{ create_attribute().addClass(project_classes) }}>
+      <div class="container">
+        {% if site_logo is not empty and bcl_component_library != 'neutral' %}
+          {% set img_classes = ['d-none','d-lg-inline-block', 'text-decoration-none', 'site-logo'] %}
+          <a {{ create_attribute().addClass(img_classes).setAttribute('rel', 'Home') }} href="{{ path('<front>') }}">
+            <img {{ site_logo_img_attr.setAttribute('alt', 'Home'|t) }} src="{{ site_logo }}" />
+          </a>
+        {% endif %}
+        {% if site_name is not empty %}
+          {% set name_classes = [
+            'text-decoration-none',
+            'align-bottom',
+            light ? 'text-dark': 'text-white',
+          ] %}
+          {% set _site_name %}
+            <a {{ create_attribute().addClass(name_classes).setAttribute('rel', 'Home') }} href="{{ path('<front>') }}">
+              {{ site_name }}
+            </a>
+          {% endset %}
+          {% set _site_name_classes = ['bcl-header__site-name', 'site-name'] %}
+          {% if bcl_component_library == 'neutral' %}
+            {% set _site_name_classes = _site_name_classes|merge(['h5', 'd-inline-block', 'd-lg-none']) %}
+          {% endif %}
+          <div {{ create_attribute().addClass(_site_name_classes) }}>
+            {{- _site_name -}}
+          </div>
+        {% endif %}
+      </div>
+    </div>
   {% endif %}
-</a>
 {% endblock %}
