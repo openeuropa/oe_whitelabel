@@ -6,6 +6,10 @@
 #}
 
 {# Set the description list items #}
+{% set icons = { 
+  'oe_event_dates': 'calendar-event',
+  'oe_location': 'geo-alt-fill'
+} %}
 {% set description_items = [] %}
 {% for field in content %}
   {% if field['#field_name'] in ['oe_event_dates', 'oe_location'] %}
@@ -13,10 +17,10 @@
       [
         {
           term: { 
-            'label': field|field_label,
-            'icon': 'calendar-event',
+            'label': field|field_label|trim,
+            'icon': icons[field['#field_name']],
           },
-          'definition': field|render|striptags,
+          definition: field|render|striptags|trim,
         },
       ]) 
     %}
@@ -25,26 +29,36 @@
 
 {# Set inpage navigation links and content #}
 {% set inpage_navigation_fields %}
+  {{ pattern('description_list', {
+    'items': description_items,
+    'variant': 'horizontal',
+    'attributes': attributes.addClass(["mt-3", "mb-4"]),
+  }) }}
   {{ content.body }}
   {{ content.oe_documents }}
 {% endset %}
 
-{{ pattern('content_banner', {
-  background: 'gray',
-  title: label,
-  content: content.oe_summary,
-  image: image,
-}) }}
+{# Set inpage navigation main content attributes #}
+{% if attributes is empty %}
+  {% set attributes = create_attribute() %}
+{% endif %}
+{% set attributes = attributes.addClass(["container", "mt-md-4-75", "mt-4"]) %}
 
-{{ pattern('description_list', {
-  'items': description_items,
-  'variant': 'horizontal',
-  'attributes': attributes.addClass(["mt-3", "mb-4"]),
-}) }}
-
-{{ pattern('inpage_navigation', {
-  'title': 'Page content',
-  'links': inpage_navigation_links,
-  'content': inpage_navigation_fields,
-  'full_layout': true,
-}) }}
+{# Print event #}
+<article{{attributes}}>
+  {{ pattern('content_banner', {
+    background: 'gray',
+    title: label,
+    content: content.oe_summary,
+    image: image,
+  }) }}
+  <main{{attributes}}>
+    {{ pattern('inpage_navigation', {
+      'title': 'Page content',
+      'links': inpage_navigation_links,
+      'content': inpage_navigation_fields,
+      'full_layout': true,
+      'attributes': attributes.addClass(["carajo"]),
+    }) }}
+  </main>
+</article>
