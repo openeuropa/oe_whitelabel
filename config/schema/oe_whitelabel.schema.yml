@@ -4,7 +4,7 @@ oe_whitelabel.settings:
   mapping:
     component_library:
       type: string
-      label: 'BCL component library, either EC or EU'
+      label: 'BCL component library, either EC, EU or neutral'
     header_style:
       type: string
       label: 'Header style, either Blue header or Light header'
