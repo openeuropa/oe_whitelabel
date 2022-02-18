@@ -47,12 +47,20 @@ class SiteBrandingBlockTest extends KernelTestBase {
       ->set('name', 'Site name')
       ->set('slogan', 'Slogan')
       ->save();
+
+    \Drupal::state()->set('bcl_component_library', 'eu');
+
   }
 
   /**
    * Tests the rendering of blocks.
    */
   public function testBlockRendering(): void {
+    \Drupal::configFactory()->getEditable('oe_whitelabel.settings')
+      ->set('component_library', 'ec')
+      ->save();
+    drupal_static_reset('theme_get_setting');
+
     $entity_type_manager = $this->container
       ->get('entity_type.manager')
       ->getStorage('block');
@@ -76,16 +84,53 @@ class SiteBrandingBlockTest extends KernelTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($render->__toString());
 
-    $actual = $crawler->filter('.site-name');
+    $actual = $crawler->filter('.bcl-header__site-name.site-name');
     $this->assertCount(1, $actual);
     $link = $actual->filter('.text-white.text-decoration-none.align-bottom');
     $this->assertCount(1, $link);
-    $actual = $crawler->filter('.site-logo');
+    $actual = $crawler->filter('.site-logo.d-none.d-lg-inline-block');
     $this->assertCount(1, $actual);
     $logo = $actual->filter('img');
     $this->assertCount(1, $logo);
     $expected = '/themes/custom/oe_whitelabel/logo.svg';
     $this->assertSame($expected, $logo->attr('src'));
+
+    \Drupal::configFactory()->getEditable('oe_whitelabel.settings')
+      ->set('component_library', 'eu')
+      ->set('header_style', 'light')
+      ->save();
+    drupal_static_reset('theme_get_setting');
+
+    $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
+    $build = $builder->view($entity, 'block');
+    $render = $this->container->get('renderer')->renderRoot($build);
+    $crawler = new Crawler($render->__toString());
+
+    $actual = $crawler->filter('.bcl-header__site-name.site-name');
+    $this->assertCount(1, $actual);
+    $link = $actual->filter('.text-dark.text-decoration-none.align-bottom');
+    $this->assertCount(1, $link);
+    $actual = $crawler->filter('.site-logo.d-none.d-lg-inline-block');
+    $this->assertCount(1, $actual);
+    $logo = $actual->filter('img');
+    $this->assertCount(1, $logo);
+    $expected = '/themes/custom/oe_whitelabel/logo.svg';
+    $this->assertSame($expected, $logo->attr('src'));
+
+    \Drupal::configFactory()->getEditable('oe_whitelabel.settings')
+      ->set('component_library', 'neutral')
+      ->save();
+    drupal_static_reset('theme_get_setting');
+
+    $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
+    $build = $builder->view($entity, 'block');
+    $render = $this->container->get('renderer')->renderRoot($build);
+    $crawler = new Crawler($render->__toString());
+
+    $actual = $crawler->filter('.bcl-header__site-name.site-name.h5.d-inline-block.d-lg-none');
+    $this->assertCount(1, $actual);
+    $link = $actual->filter('.text-dark.text-decoration-none.align-bottom');
+    $this->assertCount(1, $link);
   }
 
 }
