@@ -47,32 +47,58 @@
  * @ingroup themeable
  */
 #}
-
-{% set _head = pattern('navbar', {
-  navigation: page.navbar_branding,
-  right: page.navbar_right,
-  color_scheme: 'light',
-  background: false,
-  attributes: create_attribute().addClass(['w-100', 'shadow-sm']),
-}) %}
-
-{% set _navbar = pattern('navbar', {
-  navigation: page.header_left,
-  right: page.header_right,
-  color_scheme: 'dark',
-  background: false,
-  expanded_breakpoint: 'lg',
-  attributes: create_attribute().addClass(['bcl-header__navbar']),
-}) %}
+{% set corporate_logos %}
+  <a class="navbar-brand" target="_blank" href="{{ site_logo_href }}">
+    {% if bcl_component_library == 'eu' %}
+      <picture>
+        <source media="(max-width: 992px)"
+                srcset="{{ bcl_logo_path ~ 'eu/mobile/logo-eu--' ~ current_language_id|to_internal_language_id ~ '.svg' }}">
+        <img src="{{ bcl_logo_path ~ 'eu/logo-eu--' ~ current_language_id|to_internal_language_id ~ '.svg' }}"
+             alt="{{ site_logo_alt }}" title="{{ site_logo_title }}"/>
+      </picture>
+    {% elseif bcl_component_library == 'ec' %}
+      <img src="{{ bcl_logo_path ~ 'ec/logo-ec--' ~ current_language_id|to_internal_language_id ~ '.svg' }}"
+      alt="{{ site_logo_alt }}" title="{{ site_logo_title }}" />
+    {% else %}
+      <img src="{{ site_logo }}" alt="{{ site_logo_alt }}" title="{{ site_logo_title }}"/>
+      <div class="h5 ms-4-5 d-none d-lg-inline-block">{{ site_name }}</div>
+    {% endif %}</a>
+{% endset %}
 
 <div class="page">
   {% block header %}
-    {{ pattern('navbar', {
-      navbar_branding: page.navbar_branding ? page.navbar_branding : false,
-      navbar_left: page.navbar_left ? page.navbar_left : false,
-      navbar_right: page.navbar_right ? page.navbar_right : false,
-      color_set: 'light'
-    }) }}
+    {% set attributes = create_attribute().addClass(['bcl-header', 'bcl-header--' ~ bcl_component_library]) %}
+    <header {{ attributes }}>
+      {% block head %}
+        {{ pattern('navbar', {
+          navigation: corporate_logos,
+          right: page.navbar_right,
+          color_scheme: 'light',
+          background: false,
+          attributes: create_attribute().addClass(['w-100', 'shadow-sm']),
+        }) }}
+      {% endblock %}
+
+      {{ page.navbar_branding }}
+
+      <!-- navbar -->
+      {% block navbar %}
+        {{ pattern('navbar', {
+          navigation: page.header_left,
+          right: page.header_right,
+          color_scheme: 'dark',
+          background: false,
+          expanded_breakpoint: 'lg',
+          attributes: create_attribute().addClass(['bcl-header__navbar']),
+        }) }}
+      {% endblock %}
+      <!-- breadcrumbs -->
+      <div class="container">
+        {% block breadcrumbs %}
+          {{ page.breadcrumbs }}
+        {% endblock %}
+      </div>
+    </header>
   {% endblock %}
   <main>
     {% if page.header %}
