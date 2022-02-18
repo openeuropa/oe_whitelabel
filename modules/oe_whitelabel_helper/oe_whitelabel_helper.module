@@ -7,10 +7,6 @@
 
 declare(strict_types = 1);
 
-use Drupal\contact\Entity\ContactForm;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\contact\MessageInterface;
-
 /**
  * Implements hook_locale_translation_projects_alter().
  */
