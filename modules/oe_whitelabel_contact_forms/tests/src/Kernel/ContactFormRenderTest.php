@@ -35,6 +35,7 @@ class ContactFormRenderTest extends KernelTestBase {
     'oe_contact_forms',
     'oe_corporate_countries',
     'sparql_entity_storage',
+    'oe_whitelabel_contact_forms',
   ];
 
   /**
@@ -94,6 +95,8 @@ class ContactFormRenderTest extends KernelTestBase {
     $crawler = new Crawler($this->render($form));
 
     // Assert classes and contact form.
+    $actual = $crawler->filter('hr.mt-5.mb-5');
+    $this->assertCount(1, $actual);
     $actual = $crawler->filter('div.mb-2');
     $this->assertCount(6, $actual);
     $actual = $crawler->filter('form.contact-message-oe-contact-form-corporate-default-form');

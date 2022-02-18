@@ -53,7 +53,7 @@ function oe_whitelabel_contact_forms_preprocess_status_messages(&$variables) {
 
     // Add new fields if exists.
     foreach ($contact_message->getFields() as $contact_form_field) {
-      if (!$contact_form_field->getFieldDefinition() instanceof FieldConfigInterface){
+      if (!$contact_form_field->getFieldDefinition() instanceof FieldConfigInterface) {
         continue;
       }
       $fields[] = $contact_form_field->getName();
@@ -98,10 +98,16 @@ function oe_whitelabel_contact_forms_preprocess_status_messages(&$variables) {
  * Implements hook_form_FORM_ID_alter().
  */
 function oe_whitelabel_contact_forms_form_contact_message_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Add 'hr' line on top of the checkboxes.
-  $form['line'] = [
-    '#type' => 'markup',
-    '#markup' => '<hr class="mt-5 mb-5"/>',
-    '#weight' => 6,
+  // Creates a fieldset to add copy and privacy policy
+  // fields into it and add 'hr' line on top of it.
+  $form['contact_form_fields'] = [
+    '#type' => 'fieldset',
+    '#weight' => 99,
+    '#prefix' => '<hr class="mt-5 mb-5"/>',
   ];
+
+  $form['contact_form_fields']['copy'] = $form['copy'];
+  $form['contact_form_fields']['privacy_policy'] = $form['privacy_policy'];
+  unset($form['copy']);
+  unset($form['privacy_policy']);
 }
