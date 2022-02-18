@@ -1,0 +1,8 @@
+name: OpenEuropa Whitelabel Theme contact forms
+type: module
+description: OpenEuropa Whitelabel contact forms tools.
+package: OpenEuropa Whitelabel Theme
+core_version_requirement: ^9.2
+
+dependencies:
+  - oe_contact_forms:oe_contact_forms
