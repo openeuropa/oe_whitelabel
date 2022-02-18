@@ -78,7 +78,8 @@
         },
         "patches": {
             "openeuropa/oe_bootstrap_theme": {
-                "Update oe_bootstrap_theme": "https://github.com/openeuropa/oe_bootstrap_theme/compare/0.1.202202072010...1.x.patch"
+                "Update oe_bootstrap_theme": "https://github.com/openeuropa/oe_bootstrap_theme/compare/0.1.202202072010...1.x.patch",
+                "Fix description list pattern. Can be removed once OEL-1026 is merged.": "https://github.com/openeuropa/oe_bootstrap_theme/compare/1.x...OEL-1026.patch"
             }
         }
     },

@@ -43,6 +43,7 @@ pipeline:
     volumes:
       - /cache:/cache
     commands:
+      - composer self-update --1
       - composer install --ansi --no-suggest --no-progress
 
   composer-update-lowest:
@@ -51,6 +52,7 @@ pipeline:
     volumes:
       - /cache:/cache
     commands:
+      - composer self-update --1
       - composer update --prefer-lowest --ansi --no-suggest --no-progress
     when:
       event:
