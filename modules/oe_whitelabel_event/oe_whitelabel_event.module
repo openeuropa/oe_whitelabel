@@ -24,11 +24,11 @@ function oe_whitelabel_event_preprocess_node__oe_event(&$variables) {
   }
   // Preprocess the event Featured media field.
   _oe_whitelabel_event_oe_featured_media($variables);
-  
+
   // Preprocess the event Content and Documents field to be used with
   // the inpage navigation pattern.
   _oe_whitelabel_event_oe_inpage_navigation($variables);
-  
+
 }
 
 /**
@@ -95,14 +95,14 @@ function _oe_whitelabel_event_oe_featured_media(array &$variables): void {
  * Helper function to preprocess Event fields to be used with the
  * inpage navigation pattern.
  */
-function _oe_whitelabel_event_oe_inpage_navigation(array&$variables): void {
+function _oe_whitelabel_event_oe_inpage_navigation(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
 
   if ($node->get('body')->isEmpty() && $node->get('oe_documents')->isEmpty()) {
     return;
   }
-  
+
   // Retrieve the correct node translation.
   /** @var \Drupal\node\NodeInterface $node */
   $node = \Drupal::service('entity.repository')->getTranslationFromContext($node, $node->language()->getId());
@@ -121,13 +121,13 @@ function _oe_whitelabel_event_oe_inpage_navigation(array&$variables): void {
     return;
   }
 
-  $variables['inpage_navigation_links'] = [];  
+  $variables['inpage_navigation_links'] = [];
   foreach ($variables['content'] as $delta => &$item) {
-    if(!array_key_exists('#field_name', $item)) {
+    if (!array_key_exists('#field_name', $item)) {
       return;
     }
 
-    if(!in_array($item['#field_name'], ['oe_documents', 'body'])) {
+    if (!in_array($item['#field_name'], ['oe_documents', 'body'])) {
       continue;
     }
 

@@ -24,7 +24,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
   public static $modules = [
     'oe_whitelabel_event',
   ];
-  
+
   /**
    * A node to be rendered in diferent display views.
    *
@@ -54,7 +54,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       ],
     ]);
     $media_image->save();
-    
+
     // Create a sample document media entity to be embedded.
     File::create([
       'uri' => $this->getTestFiles('text')[0]->uri,
@@ -78,17 +78,17 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $node = \Drupal::entityTypeManager()
       ->getStorage('node')
       ->create([
-      'type' => 'oe_event',
-      'title' => 'Test event node',
-      'oe_summary' => 'http://www.example.org is a web page',
-      'body' => 'Event body',
-      'oe_event_dates' => [
-        'value' => '2022-02-09T20:00:00',
-        'end_value' => '2022-02-09T22:00:00',
-      ],
-      'uid' => 1,
-      'status' => 1,
-    ]);
+        'type' => 'oe_event',
+        'title' => 'Test event node',
+        'oe_summary' => 'http://www.example.org is a web page',
+        'body' => 'Event body',
+        'oe_event_dates' => [
+          'value' => '2022-02-09T20:00:00',
+          'end_value' => '2022-02-09T22:00:00',
+        ],
+        'uid' => 1,
+        'status' => 1,
+      ]);
     $node->set('oe_documents', [$media_document]);
     $node->set('oe_featured_media', [$media_image]);
     $node->save();
