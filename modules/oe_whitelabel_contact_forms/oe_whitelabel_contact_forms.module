@@ -95,7 +95,7 @@ function oe_whitelabel_contact_forms_preprocess_status_messages(&$variables) {
 }
 
 /**
- * Implements hook_form_FORM_ID_alter().
+ * Implements hook_form_FORM_ID_alter() contact_message_form.
  */
 function oe_whitelabel_contact_forms_form_contact_message_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Creates a fieldset to add copy and privacy policy

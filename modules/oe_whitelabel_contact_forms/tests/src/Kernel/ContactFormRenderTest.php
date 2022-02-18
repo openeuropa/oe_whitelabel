@@ -54,7 +54,6 @@ class ContactFormRenderTest extends KernelTestBase {
       ->getEditable('system.theme')
       ->set('default', 'oe_whitelabel')
       ->save();
-    $this->container->set('theme.registry', NULL);
     $this->setUpSparql();
   }
 
@@ -99,8 +98,8 @@ class ContactFormRenderTest extends KernelTestBase {
     $this->assertCount(1, $actual);
     $actual = $crawler->filter('div.mb-2');
     $this->assertCount(6, $actual);
-    $actual = $crawler->filter('form.contact-message-oe-contact-form-corporate-default-form');
-    $this->assertCount(1, $actual);
+    $form = $crawler->filter('form.contact-form');
+    $this->assertCount(6, $actual);
 
     /** @var \Drupal\Core\Messenger\MessengerInterface $messenger */
     $messenger = $this->container->get('messenger');
@@ -113,18 +112,20 @@ class ContactFormRenderTest extends KernelTestBase {
     // Assert message success and values.
     $actual = $crawler->filter('div.alert-success');
     $this->assertCount(1, $actual);
-    $actual = $crawler->filter('div.oe-contact-form__name .field__label');
-    $this->assertEquals("The sender's name", trim($actual->text()));
-    $actual = $crawler->filter('div.oe-contact-form__mail .field__label');
-    $this->assertEquals("The sender's email", trim($actual->text()));
-    $actual = $crawler->filter('div.oe-contact-form__subject .field__label');
-    $this->assertEquals('Subject', trim($actual->text()));
-    $actual = $crawler->filter('div.oe-contact-form__message .field__label');
-    $this->assertEquals('Message', trim($actual->text()));
-    $actual = $crawler->filter('div.oe-contact-form__oe-telephone .field__label');
-    $this->assertEquals('Phone', trim($actual->text()));
-    $actual = $crawler->filter('div.oe-contact-form__oe-topic .field__label');
-    $this->assertEquals('Topic', trim($actual->text()));
+    $html = $crawler->html();
+    $this->assertStringContainsString("<dt>The sender's name</dt>", $html);
+    $this->assertStringContainsString("<dd>sender_name</dd>", $html);
+    $this->assertStringContainsString("<dt>The sender's email</dt>", $html);
+    $this->assertStringContainsString("<dd>test@example.com</dd>", $html);
+    $this->assertStringContainsString("<dt>Subject</dt>", $html);
+    $this->assertStringContainsString("<dd>subject</dd>", $html);
+    $this->assertStringContainsString("<dt>Message</dt>", $html);
+    $this->assertStringContainsString("<dd>welcome_message</dd>", $html);
+    $this->assertStringContainsString("<dt>Phone</dt>", $html);
+    $this->assertStringContainsString("<dd>0123456</dd>", $html);
+    $this->assertStringContainsString("<dt>Topic</dt>", $html);
+    $this->assertStringContainsString("<dd>Topic name</dd>", $html);
+
   }
 
 }
