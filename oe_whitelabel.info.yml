@@ -32,14 +32,16 @@ regions:
   footer: Footer
 
 config_devel:
+  install:
+    - oe_whitelabel.settings
   optional:
     - block.block.breadcrumbs
     - block.block.corporateeclogoblock
     - block.block.ecfooterblock
+    - block.block.languageswitcherinterfacetext
     - block.block.oe_whitelabel_branding
     - block.block.oe_whitelabel_local_actions
     - block.block.oe_whitelabel_local_tasks
     - block.block.oe_whitelabel_messages
     - block.block.oe_whitelabel_page_title
     - block.block.whitelabelsearchblock
-    - oe_whitelabel.settings
