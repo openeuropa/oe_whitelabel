@@ -7,5 +7,5 @@ logo:
   use_default: true
 favicon:
   use_default: true
-component_library: eu
-header_style: light
+component_library: ec
+header_style: standard
