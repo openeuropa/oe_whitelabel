@@ -38,6 +38,7 @@ config_devel:
     - block.block.breadcrumbs
     - block.block.corporateeclogoblock
     - block.block.ecfooterblock
+    - block.block.euloginlinkblock.yml
     - block.block.languageswitcherinterfacetext
     - block.block.oe_whitelabel_branding
     - block.block.oe_whitelabel_local_actions
@@ -45,3 +46,4 @@ config_devel:
     - block.block.oe_whitelabel_messages
     - block.block.oe_whitelabel_page_title
     - block.block.whitelabelsearchblock
+    - cas.settings.yml
