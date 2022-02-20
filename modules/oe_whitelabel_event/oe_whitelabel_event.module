@@ -92,8 +92,7 @@ function _oe_whitelabel_event_oe_featured_media(array &$variables): void {
 }
 
 /**
- * Helper function to preprocess Event fields to be used with the
- * inpage navigation pattern.
+ * Helper function to preprocess the inpage navigation pattern fields.
  */
 function _oe_whitelabel_event_oe_inpage_navigation(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
