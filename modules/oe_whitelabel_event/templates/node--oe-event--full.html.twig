@@ -4,21 +4,26 @@
  * News full display.
  */
 #}
-
+{% set _event_dates %}
+  {{ content.oe_event_dates|field_value|safe_join(', ') }}
+{% endset %}
+{% set _event_location %}
+  {{ content.oe_location|field_value|safe_join(', ') }}
+{% endset %}
 {% set description_items = [
   {
-    term:[{ 
-          'label': content.oe_event_dates|field_label,
-          'icon': 'calendar-event',
-      }],
-      definition: content.oe_event_dates|field_value,
+    term:[{
+    'label': content.oe_event_dates|field_label,
+    'icon': 'calendar-event',
+  }],
+    definition: _event_dates,
   },
   {
-    term: [{ 
-      'label': content.oe_location|field_label,
-      'icon': 'geo-alt-fill',
-    }],
-    definition: content.oe_location|field_value,
+    term: [{
+    'label': content.oe_location|field_label,
+    'icon': 'geo-alt-fill',
+  }],
+    definition: _event_location,
   },
 ]%}
 {# Set inpage navigation links and content #}
@@ -33,7 +38,10 @@
 {% endset %}
 
 {# Set inpage navigation main content attributes #}
-{% set attributes = attributes.create_attribute.addClass(["container", "mt-md-4-75", "mt-4"]) %}
+{% if attributes is empty %}
+  {% set attributes = create_attribute() %}
+{% endif %}
+{% set attributes = attributes.addClass(["container", "mt-md-4-75", "mt-4"]) %}
 
 {# Print event #}
 <article{{attributes}}>
