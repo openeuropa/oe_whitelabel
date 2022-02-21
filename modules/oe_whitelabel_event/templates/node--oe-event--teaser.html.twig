@@ -7,18 +7,14 @@
 {% set _title %}
   <a class="text-underline-hover" href="{{ url }}">{{ label }}</a>
 {% endset %}
-{{ pattern('card', {
-  variant: 'search',
-  title: _title,
-  text: content.oe_summary,
-  image: image,
-  content: {
-    '#type': 'html_tag',
-    '#tag': 'span',
-    '#attributes': {
-      class: 'text-muted text-nowrap me-4-5',
-    },
-    '#value': content.oe_event_dates|field_value,
-  },
-  badges: badges|render|default([])
-}) }}
+{% set _content %}
+  <span class="text-muted text-nowrap me-4-5">{{ content.oe_event_dates }}</span>
+{% endset %}
+<article{{attributes}}>
+  {{ pattern('card', {
+    variant: 'search',
+    title: _title,
+    text: content.oe_summary,
+    image: image,
+    content: _content
+  }) }}
