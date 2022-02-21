@@ -18,23 +18,19 @@ use Drupal\Component\Utility\Html;
  * Implements template_preprocess_node() for the Event node type.
  */
 function oe_whitelabel_event_preprocess_node__oe_event(&$variables) {
-
   if ($variables['view_mode'] !== 'full' && $variables['view_mode'] !== 'teaser') {
     return;
   }
-  // Preprocess the event Featured media field.
-  _oe_whitelabel_event_oe_featured_media($variables);
-
-  // Preprocess the event Content and Documents field to be used with
-  // the inpage navigation pattern.
-  _oe_whitelabel_event_oe_inpage_navigation($variables);
-
+  _oe_whitelabel_event_preprocess_featured_media($variables);
+  _oe_whitelabel_event_preprocess_inpage_nav($variables);
 }
 
 /**
  * Helper function to preprocess the Featured media field.
+ *
+ * @var array $variables
  */
-function _oe_whitelabel_event_oe_featured_media(array &$variables): void {
+function _oe_whitelabel_event_preprocess_featured_media(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
 
@@ -70,19 +66,16 @@ function _oe_whitelabel_event_oe_featured_media(array &$variables): void {
 
   // Get the media source.
   $source = $media->getSource();
-
   $is_image = $source instanceof MediaAvPortalPhotoSource || $source instanceof Image;
 
-  // If it's not an image and not a video, bail out.
+  // If it's not an image bail out.
   if (!$is_image) {
     $cacheability->applyTo($variables);
     return;
   }
 
-  if ($is_image) {
-    $thumbnail = $media->get('thumbnail')->first();
-    $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
-  }
+  $thumbnail = $media->get('thumbnail')->first();
+  $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
 
   if ($variables['view_mode'] == 'teaser') {
     $variables['image'] = ['#markup' => $variables['image']->getSource()];
@@ -93,8 +86,10 @@ function _oe_whitelabel_event_oe_featured_media(array &$variables): void {
 
 /**
  * Helper function to preprocess the inpage navigation pattern fields.
+ *
+ * @var array $variables
  */
-function _oe_whitelabel_event_oe_inpage_navigation(array &$variables): void {
+function _oe_whitelabel_event_preprocess_inpage_nav(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
 
@@ -102,31 +97,16 @@ function _oe_whitelabel_event_oe_inpage_navigation(array &$variables): void {
     return;
   }
 
-  // Retrieve the correct node translation.
-  /** @var \Drupal\node\NodeInterface $node */
-  $node = \Drupal::service('entity.repository')->getTranslationFromContext($node, $node->language()->getId());
-
   // Caches are handled by the formatter usually. Since we are not rendering
   // the original render arrays, we need to propagate our caches to the
   // template.
   $cacheability = CacheableMetadata::createFromRenderArray($variables);
   $cacheability->addCacheableDependency($node);
 
-  // Run access checks on the node entity.
-  $access = $node->access('view', $variables['user'], TRUE);
-  $cacheability->addCacheableDependency($access);
-  if (!$access->isAllowed()) {
-    $cacheability->applyTo($variables);
-    return;
-  }
-
   $variables['inpage_navigation_links'] = [];
-  foreach ($variables['content'] as $delta => &$item) {
-    if (!array_key_exists('#field_name', $item)) {
-      return;
-    }
-
-    if (!in_array($item['#field_name'], ['oe_documents', 'body'])) {
+  foreach ($variables['content'] as &$item) {
+    if (!array_key_exists('#field_name', $item)
+      || !in_array($item['#field_name'], ['oe_documents', 'body'])) {
       continue;
     }
 
