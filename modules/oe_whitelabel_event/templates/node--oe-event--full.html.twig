@@ -7,17 +7,17 @@
 
 {% set description_items = [
   {
-    term: { 
-      'label': content.oe_event_dates|field_label,
-      'icon': 'calendar-event',
-    },
-    definition: content.oe_event_dates|field_value,
+    term:[{ 
+          'label': content.oe_event_dates|field_label,
+          'icon': 'calendar-event',
+      }],
+      definition: content.oe_event_dates|field_value,
   },
   {
-    term: { 
+    term: [{ 
       'label': content.oe_location|field_label,
       'icon': 'geo-alt-fill',
-    },
+    }],
     definition: content.oe_location|field_value,
   },
 ]%}
@@ -33,10 +33,7 @@
 {% endset %}
 
 {# Set inpage navigation main content attributes #}
-{% if attributes is empty %}
-  {% set attributes = create_attribute() %}
-{% endif %}
-{% set attributes = attributes.addClass(["container", "mt-md-4-75", "mt-4"]) %}
+{% set attributes = attributes.create_attribute.addClass(["container", "mt-md-4-75", "mt-4"]) %}
 
 {# Print event #}
 <article{{attributes}}>
