@@ -45,6 +45,7 @@ class TwigExtension extends AbstractExtension {
   public function getFunctions(): array {
     return [
       new TwigFunction('bcl_footer_links', [$this, 'bclFooterLinks'], ['needs_context' => TRUE]),
+      new TwigFunction('bcl_block', [$this, 'bclBlock']),
     ];
   }
 
@@ -169,6 +170,8 @@ class TwigExtension extends AbstractExtension {
    *
    * @return array
    *   The block render array.
+   *
+   * @deprecated Use Twig Tweak instead.
    */
   public function bclBlock(string $id, array $configuration = []): array {
     $configuration += ['label_display' => 'hidden'];
