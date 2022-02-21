@@ -5,7 +5,7 @@ dependencies:
     - oe_whitelabel_helper
   theme:
     - oe_whitelabel
-id: corporateeclogoblock
+id: oe_whitelabel_ec_logo
 theme: oe_whitelabel
 region: navbar_branding
 weight: 0

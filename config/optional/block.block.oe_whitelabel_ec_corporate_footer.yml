@@ -5,7 +5,7 @@ dependencies:
     - oe_corporate_blocks
   theme:
     - oe_whitelabel
-id: ecfooterblock
+id: oe_whitelabel_ec_corporate_footer
 theme: oe_whitelabel
 region: footer
 weight: 0

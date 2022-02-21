@@ -5,7 +5,7 @@ dependencies:
     - system
   theme:
     - oe_whitelabel
-id: breadcrumbs
+id: oe_whitelabel_breadcrumbs
 theme: oe_whitelabel
 region: breadcrumbs
 weight: 0

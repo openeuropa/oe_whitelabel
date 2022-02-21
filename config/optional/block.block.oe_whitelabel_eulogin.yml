@@ -5,7 +5,7 @@ dependencies:
     - oe_authentication
   theme:
     - oe_whitelabel
-id: euloginlinkblock
+id: oe_whitelabel_eulogin
 theme: oe_whitelabel
 region: navbar_right
 weight: -4

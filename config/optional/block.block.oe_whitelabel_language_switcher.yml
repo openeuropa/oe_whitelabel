@@ -5,7 +5,7 @@ dependencies:
     - language
   theme:
     - oe_whitelabel
-id: languageswitcherinterfacetext
+id: oe_whitelabel_language_switcher
 theme: oe_whitelabel
 region: navbar_right
 weight: -5
