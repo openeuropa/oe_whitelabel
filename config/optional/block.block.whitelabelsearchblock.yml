@@ -24,8 +24,6 @@ settings:
     classes: ''
     placeholder: Search
   button:
-    label: null
-    display: null
     classes: ''
   view_options:
     id: null

@@ -76,19 +76,7 @@ class MultilingualBlockTest extends KernelTestBase {
     $entity_type_manager = $this->container
       ->get('entity_type.manager')
       ->getStorage('block');
-    $entity = $entity_type_manager->create([
-      'id' => 'languageswitcherinterfacetext',
-      'theme' => 'oe_whitelabel',
-      'plugin' => 'language_block:language_interface',
-      'region' => 'header',
-      'settings' => [
-        'id' => 'language_block:language_interface',
-        'label' => 'Language switcher (Interface text)',
-        'provider' => 'language',
-        'label_display' => '0',
-      ],
-    ]);
-    $entity->save();
+    $entity = $entity_type_manager->load('languageswitcherinterfacetext');
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);
@@ -177,7 +165,6 @@ class MultilingualBlockTest extends KernelTestBase {
     $link_language = $crawler->filter('a#link_sv');
     $this->assertSame('http://localhost/sv/%3Cnone%3E', $link_language->attr('href'));
     $this->assertSame('svenska', $link_language->text());
-
   }
 
 }
