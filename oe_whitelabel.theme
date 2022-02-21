@@ -187,11 +187,3 @@ function oe_whitelabel_preprocess_page(&$variables) {
   }
   $variables['site_logo_href'] = $site_logo_href;
 }
-
-/**
- * Implements hook_theme_suggestions_HOOK_alter().
- */
-function oe_whitelabel_theme_suggestions_page_alter(array &$suggestions, array $variables): void {
-  // Set branding template in the beginning as more common.
-  array_unshift($suggestions, 'page__bcl_branding');
-}
