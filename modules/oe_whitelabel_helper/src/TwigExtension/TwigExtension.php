@@ -172,6 +172,8 @@ class TwigExtension extends AbstractExtension {
    *
    * @return array
    *   The block render array.
+   *
+   * @deprecated Use Twig Tweak instead.
    */
   public function bclBlock(string $id, array $configuration = []): array {
     $configuration += ['label_display' => 'hidden'];
