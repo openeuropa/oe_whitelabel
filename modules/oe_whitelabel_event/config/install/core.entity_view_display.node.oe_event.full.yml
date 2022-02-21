@@ -46,7 +46,7 @@ content:
     label: inline
     settings:
       timezone_override: ''
-      format_type: oe_whitelabel_news_date
+      format_type: oe_whitelabel_event_date
       separator: to
     third_party_settings: {  }
     weight: 4
