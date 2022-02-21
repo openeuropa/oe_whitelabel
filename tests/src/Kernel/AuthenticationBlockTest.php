@@ -48,7 +48,7 @@ class AuthenticationBlockTest extends KernelTestBase {
     $entity_type_manager = $this->container
       ->get('entity_type.manager')
       ->getStorage('block');
-    $entity = $entity_type_manager->load('euloginlinkblock');
+    $entity = $entity_type_manager->load('oe_whitelabel_eulogin');
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);
