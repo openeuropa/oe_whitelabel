@@ -112,20 +112,20 @@ class ContactFormRenderTest extends KernelTestBase {
     // Assert message success and values.
     $actual = $crawler->filter('div.alert-success');
     $this->assertCount(1, $actual);
-    $html = $crawler->html();
-    $this->assertStringContainsString("<dt>The sender's name</dt>", $html);
-    $this->assertStringContainsString("<dd>sender_name</dd>", $html);
-    $this->assertStringContainsString("<dt>The sender's email</dt>", $html);
-    $this->assertStringContainsString("<dd>test@example.com</dd>", $html);
-    $this->assertStringContainsString("<dt>Subject</dt>", $html);
-    $this->assertStringContainsString("<dd>subject</dd>", $html);
-    $this->assertStringContainsString("<dt>Message</dt>", $html);
-    $this->assertStringContainsString("<dd>welcome_message</dd>", $html);
-    $this->assertStringContainsString("<dt>Phone</dt>", $html);
-    $this->assertStringContainsString("<dd>0123456</dd>", $html);
-    $this->assertStringContainsString("<dt>Topic</dt>", $html);
-    $this->assertStringContainsString("<dd>Topic name</dd>", $html);
-
+    $dt = $crawler->filter('dt');
+    $dd = $crawler->filter('dd');
+    $this->assertEquals("The sender's name", $dt->eq(0)->text());
+    $this->assertEquals("The sender's email", $dt->eq(1)->text());
+    $this->assertEquals("Subject", $dt->eq(2)->text());
+    $this->assertEquals("Message", $dt->eq(3)->text());
+    $this->assertEquals("Topic", $dt->eq(4)->text());
+    $this->assertEquals("Phone", $dt->eq(5)->text());
+    $this->assertEquals("sender_name", $dd->eq(0)->text());
+    $this->assertEquals("test@example.com", $dd->eq(1)->text());
+    $this->assertEquals("subject", $dd->eq(2)->text());
+    $this->assertEquals("welcome_message", $dd->eq(3)->text());
+    $this->assertEquals("Topic name", $dd->eq(4)->text());
+    $this->assertEquals("0123456", $dd->eq(5)->text());
   }
 
 }

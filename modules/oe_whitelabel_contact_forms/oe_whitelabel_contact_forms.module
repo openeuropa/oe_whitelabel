@@ -67,7 +67,7 @@ function oe_whitelabel_contact_forms_preprocess_status_messages(&$variables) {
       $fields[] = 'oe_telephone';
     }
 
-    // Build the label body pairs for the field_list pattern.
+    // Build the label body pairs for the description_list pattern.
     foreach ($fields as $field_name) {
       /** @var \Drupal\Core\Field\FieldItemList $field */
       $field = $contact_message->get($field_name);
