@@ -73,7 +73,6 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     ]);
     $media_document->save();
 
-    // Create a News node.
     /** @var \Drupal\node\Entity\Node $node */
     $node = \Drupal::entityTypeManager()
       ->getStorage('node')
@@ -132,12 +131,16 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       'Page content',
       trim($crawler->filter('nav.bcl-inpage-navigation > h5')->text())
     );
+    // Assert inpage-navigation.
     $inpage_links = $crawler->filter('nav.bcl-inpage-navigation > ul');
-    $this->assertCount(1, $inpage_links->filter('li'));
-    // Assert inpage-navigation first link.
+    $this->assertCount(2, $inpage_links->filter('li'));
     $this->assertEquals(
       'Content',
-      trim($inpage_links->filter('li:first-of-type')->text())
+      trim($inpage_links->filter('li:nth-of-type(1)')->text())
+    );
+    $this->assertEquals(
+      'Documents',
+      trim($inpage_links->filter('li:nth-of-type(2)')->text())
     );
 
   }
