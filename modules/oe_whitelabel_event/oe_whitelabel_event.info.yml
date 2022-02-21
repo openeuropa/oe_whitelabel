@@ -1,15 +1,15 @@
 name: OpenEuropa Whitelabel Event
 type: module
-description: Adds additional functionality to the News module
+description: Adds additional functionality to the Event module
 package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^8.9 || ^9.2
 dependencies:
   - drupal:twig_field_value
   - oe_whitelabel:oe_whitelabel_helper
   - oe_starter_content:oe_starter_content_event
-  
+
 config_devel:
   install:
     - core.entity_view_display.node.oe_event.full
     - core.entity_view_display.node.oe_event.teaser
-    - core.date_format.oe_whitelabel_news_date
+    - core.date_format.oe_whitelabel_event_date
