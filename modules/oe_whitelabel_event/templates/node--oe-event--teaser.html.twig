@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Search result template.
+ */
+#}
+{% set _title %}
+  <a class="text-underline-hover" href="{{ url }}">{{ label }}</a>
+{% endset %}
+{{ pattern('card', {
+  variant: 'search',
+  title: _title,
+  text: content.oe_summary,
+  image: image,
+  content: {
+    '#type': 'html_tag',
+    '#tag': 'span',
+    '#attributes': {
+      class: 'text-muted text-nowrap me-4-5',
+    },
+    '#value': content.oe_event_dates|render|striptags,
+  },
+  badges: badges|render|default([])
+}) }}

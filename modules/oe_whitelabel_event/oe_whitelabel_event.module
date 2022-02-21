@@ -1,0 +1,142 @@
+<?php
+
+/**
+ * @file
+ * OE Whitelabel theme Event.
+ */
+
+declare(strict_types =  1);
+
+use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\media\MediaInterface;
+use Drupal\media\Plugin\media\Source\Image;
+use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
+use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
+use Drupal\Component\Utility\Html;
+
+/**
+ * Implements template_preprocess_node() for the Event node type.
+ */
+function oe_whitelabel_event_preprocess_node__oe_event(&$variables) {
+
+  if ($variables['view_mode'] !== 'full' && $variables['view_mode'] !== 'teaser') {
+    return;
+  }
+  // Preprocess the event Featured media field.
+  _oe_whitelabel_event_oe_featured_media($variables);
+
+  // Preprocess the event Content and Documents field to be used with
+  // the inpage navigation pattern.
+  _oe_whitelabel_event_oe_inpage_navigation($variables);
+
+}
+
+/**
+ * Helper function to preprocess the Featured media field.
+ */
+function _oe_whitelabel_event_oe_featured_media(array &$variables): void {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+
+  // Bail out if there is no media present.
+  if ($node->get('oe_featured_media')->isEmpty()) {
+    return;
+  }
+
+  /** @var \Drupal\media\Entity\Media $media */
+  $media = $node->get('oe_featured_media')->entity;
+  if (!$media instanceof MediaInterface) {
+    // The media entity is not available anymore, bail out.
+    return;
+  }
+
+  // Retrieve the correct media translation.
+  /** @var \Drupal\media\Entity\Media $media */
+  $media = \Drupal::service('entity.repository')->getTranslationFromContext($media, $node->language()->getId());
+
+  // Caches are handled by the formatter usually. Since we are not rendering
+  // the original render arrays, we need to propagate our caches to the
+  // template.
+  $cacheability = CacheableMetadata::createFromRenderArray($variables);
+  $cacheability->addCacheableDependency($media);
+
+  // Run access checks on the media entity.
+  $access = $media->access('view', $variables['user'], TRUE);
+  $cacheability->addCacheableDependency($access);
+  if (!$access->isAllowed()) {
+    $cacheability->applyTo($variables);
+    return;
+  }
+
+  // Get the media source.
+  $source = $media->getSource();
+
+  $is_image = $source instanceof MediaAvPortalPhotoSource || $source instanceof Image;
+
+  // If it's not an image and not a video, bail out.
+  if (!$is_image) {
+    $cacheability->applyTo($variables);
+    return;
+  }
+
+  if ($is_image) {
+    $thumbnail = $media->get('thumbnail')->first();
+    $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
+  }
+
+  if ($variables['view_mode'] == 'teaser') {
+    $variables['image'] = ['#markup' => $variables['image']->getSource()];
+  }
+
+  $cacheability->applyTo($variables);
+}
+
+/**
+ * Helper function to preprocess the inpage navigation pattern fields.
+ */
+function _oe_whitelabel_event_oe_inpage_navigation(array &$variables): void {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+
+  if ($node->get('body')->isEmpty() && $node->get('oe_documents')->isEmpty()) {
+    return;
+  }
+
+  // Retrieve the correct node translation.
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = \Drupal::service('entity.repository')->getTranslationFromContext($node, $node->language()->getId());
+
+  // Caches are handled by the formatter usually. Since we are not rendering
+  // the original render arrays, we need to propagate our caches to the
+  // template.
+  $cacheability = CacheableMetadata::createFromRenderArray($variables);
+  $cacheability->addCacheableDependency($node);
+
+  // Run access checks on the node entity.
+  $access = $node->access('view', $variables['user'], TRUE);
+  $cacheability->addCacheableDependency($access);
+  if (!$access->isAllowed()) {
+    $cacheability->applyTo($variables);
+    return;
+  }
+
+  $variables['inpage_navigation_links'] = [];
+  foreach ($variables['content'] as $delta => &$item) {
+    if (!array_key_exists('#field_name', $item)) {
+      return;
+    }
+
+    if (!in_array($item['#field_name'], ['oe_documents', 'body'])) {
+      continue;
+    }
+
+    $unique_id = Html::getUniqueId('oe-content--' . $item['#field_name']);
+    $item['#attributes'] = ['id' => $unique_id];
+    $variables['inpage_navigation_links'][] = [
+      'path' => '#' . $unique_id,
+      'label' => $node->{$item['#field_name']}->getFieldDefinition()->getLabel(),
+    ];
+  }
+
+  $cacheability->applyTo($variables);
+}
