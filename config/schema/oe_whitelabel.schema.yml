@@ -1,5 +1,10 @@
-# Schema for the configuration files of the OE Whitelabel theme.
-
 oe_whitelabel.settings:
   type: theme_settings
   label: 'OE Whitelabel settings'
+  mapping:
+    component_library:
+      type: string
+      label: 'BCL component library, either EC or EU'
+    header_style:
+      type: string
+      label: 'Header style, either Blue header or Light header'

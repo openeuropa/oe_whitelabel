@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - oe_whitelabel_search
+  theme:
+    - oe_whitelabel
+id: oe_whitelabel_search_form
+theme: oe_whitelabel
+region: header_right
+weight: 0
+provider: null
+plugin: whitelabel_search_block
+settings:
+  id: whitelabel_search_block
+  label: 'Whitelabel Search Block'
+  provider: oe_whitelabel_search
+  label_display: '0'
+  form:
+    action: '#'
+  input:
+    name: text
+    label: Search
+    classes: ''
+    placeholder: Search
+  button:
+    classes: ''
+  view_options:
+    id: null
+    display: null
+    enable_autocomplete: false
+visibility: {  }

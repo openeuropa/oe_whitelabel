@@ -201,8 +201,6 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     ]);
     $button = $values['button'];
     $this->setConfigurationValue('button', [
-      'label' => $button['button_label'],
-      'display' => $button['button_display'],
       'classes' => $button['button_classes'],
     ]);
     $this->setConfigurationValue('view_options', [

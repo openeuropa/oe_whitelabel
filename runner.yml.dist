@@ -15,16 +15,21 @@ drupal:
     port: "8890"
   post_install:
     # Prepare the instance.
+    - "./vendor/bin/drush en config_devel -y"
+    - "./vendor/bin/drush en field_ui -y"
+    - "./vendor/bin/drush en oe_authentication -y"
+    - "./vendor/bin/drush en oe_corporate_blocks -y"
+    - "./vendor/bin/drush en oe_multilingual -y"
+    - "./vendor/bin/drush en oe_whitelabel_contact_forms -y"
     - "./vendor/bin/drush en oe_whitelabel_helper -y"
     - "./vendor/bin/drush en oe_whitelabel_search -y"
-    - "./vendor/bin/drush en oe_whitelabel_contact_forms -y"
-    - "./vendor/bin/drush en field_ui -y"
     - "./vendor/bin/drush en toolbar -y"
     - "./vendor/bin/drush theme:enable oe_whitelabel -y"
     - "./vendor/bin/drush theme:enable seven -y"
     - "./vendor/bin/drush config-set system.theme default oe_whitelabel -y"
     - "./vendor/bin/drush config-set system.theme admin seven -y"
     - "./vendor/bin/drush config-set node.settings use_admin_theme 1 -y"
+    - "./vendor/bin/drush config-set cas.settings forced_login.enabled 0 -y"
     - "./vendor/bin/drush cr"
   settings:
     settings:

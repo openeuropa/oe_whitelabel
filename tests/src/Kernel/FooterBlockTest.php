@@ -47,9 +47,6 @@ class FooterBlockTest extends SparqlKernelTestBase {
       ->getEditable('system.theme')
       ->set('default', 'oe_whitelabel')
       ->save();
-
-    $this->container->set('theme.registry', NULL);
-    \Drupal::service('kernel')->rebuildContainer();
   }
 
   /**
@@ -59,18 +56,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $entity_type_manager = $this->container
       ->get('entity_type.manager')
       ->getStorage('block');
-    $entity = $entity_type_manager->create([
-      'id' => 'ecfooterblock',
-      'theme' => 'oe_whitelabel',
-      'plugin' => 'oe_corporate_blocks_ec_footer',
-      'settings' => [
-        'id' => 'oe_corporate_blocks_ec_footer',
-        'label' => 'EC Footer block',
-        'provider' => 'oe_corporate_blocks',
-        'label_display' => '0',
-      ],
-    ]);
-    $entity->save();
+    $entity = $entity_type_manager->load('oe_whitelabel_ec_corporate_footer');
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);
