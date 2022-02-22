@@ -193,7 +193,7 @@ class TwigExtension extends AbstractExtension {
    * @return string
    *   The internal language ID, or the given language code if none found.
    */
-  public function toInternalLanguageId($language_code): string {
+  public function toInternalLanguageId(string $language_code): string {
     if (EuropeanUnionLanguages::hasLanguage($language_code)) {
       return EuropeanUnionLanguages::getInternalLanguageCode($language_code);
     }
