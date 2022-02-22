@@ -88,7 +88,7 @@
         },
         "patches": {
             "openeuropa/oe_bootstrap_theme": {
-                "Update oe_bootstrap_theme": "https://github.com/openeuropa/oe_bootstrap_theme/compare/0.1.202202072010...1.x.patch"
+                "Update oe_bootstrap_theme": "https://github.com/openeuropa/oe_bootstrap_theme/compare/0.1.202202072010...1.x.diff"
             }
         }
     },
