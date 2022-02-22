@@ -49,7 +49,6 @@ class SiteBrandingBlockTest extends KernelTestBase {
       ->save();
 
     \Drupal::state()->set('bcl_component_library', 'eu');
-
   }
 
   /**
