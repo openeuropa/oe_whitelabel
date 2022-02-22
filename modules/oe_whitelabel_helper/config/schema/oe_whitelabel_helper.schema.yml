@@ -1,0 +1,5 @@
+condition.plugin.oe_whitelabel_helper_current_component_library:
+  type: condition.plugin
+  mapping:
+    component_library:
+      type: string
