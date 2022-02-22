@@ -6,6 +6,8 @@ namespace Drupal\oe_whitelabel_helper;
 
 /**
  * Helper class storing European Union languages information.
+ *
+ * @see https://github.com/openeuropa/oe_theme/blob/HEAD/modules/oe_theme_helper/src/EuropeanUnionLanguages.php
  */
 class EuropeanUnionLanguages {
 

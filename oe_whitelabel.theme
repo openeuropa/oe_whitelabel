@@ -173,7 +173,7 @@ function oe_whitelabel_preprocess_page(&$variables) {
       $variables['current_language_id'] = 'no';
     }
     else {
-      // Check whether ECL provides a logo for the language.
+      // Check whether BCL provides a logo for the language.
       $bcl_logo = $variables['bcl_logo_path'] . '/' . $variables['bcl_component_library'] . '/';
       $bcl_logo .= 'logo-' . $variables['bcl_component_library'] . '--' . $language_code . '.svg';
       if (!file_exists($bcl_logo)) {
