@@ -23,6 +23,15 @@
     ],
   } %}
 
+  {% set eu_logo %}
+    <picture>
+      <source media="(max-width: 992px)"
+              srcset="{{ bcl_logo_path ~ 'eu/mobile/logo-eu--' ~ current_language_id|to_internal_language_id ~ '.svg' }}">
+      <img src="{{ bcl_logo_path ~ 'eu/logo-eu--' ~ current_language_id|to_internal_language_id ~ '.svg' }}"
+           alt="{{ site_logo_alt }}" title="{{ site_logo_title }}"/>
+    </picture>
+  {% endset %}
+
   {% set _bottom_sections =  {
     'extra_classes': 'pb-4 pb-lg-5 mt-4 mt-lg-5 bcl-footer__bordered-row row',
     'cols': [
@@ -31,7 +40,7 @@
         'items': [
         {
           'type': 'content',
-          'content': drupal_block('whitelabel_eu_logo_block'),
+          'content': eu_logo,
         },
       ],
       },
