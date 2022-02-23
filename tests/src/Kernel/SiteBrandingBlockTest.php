@@ -48,7 +48,7 @@ class SiteBrandingBlockTest extends KernelTestBase {
       ->set('slogan', 'Slogan')
       ->save();
 
-    \Drupal::state()->set('bcl_component_library', 'eu');
+    $this->container->set('theme.registry', NULL);
   }
 
   /**
@@ -58,26 +58,12 @@ class SiteBrandingBlockTest extends KernelTestBase {
     \Drupal::configFactory()->getEditable('oe_whitelabel.settings')
       ->set('component_library', 'ec')
       ->save();
-    drupal_static_reset('theme_get_setting');
 
     $entity_type_manager = $this->container
       ->get('entity_type.manager')
       ->getStorage('block');
-    $entity = $entity_type_manager->create([
-      'id' => 'test_block',
-      'theme' => 'oe_whitelabel',
-      'plugin' => 'system_branding_block',
-      'settings' => [
-        'id' => 'system_branding_block',
-        'label' => 'Site branding',
-        'provider' => 'system',
-        'label_display' => '0',
-        'use_site_logo' => TRUE,
-        'use_site_name' => TRUE,
-        'use_site_slogan' => FALSE,
-      ],
-    ]);
-    $entity->save();
+    $entity = $entity_type_manager->load('oe_whitelabel_branding');
+
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);

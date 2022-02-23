@@ -15,7 +15,7 @@ class CorporateHeaderLogosTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
+  protected $defaultTheme = 'oe_whitelabel';
 
   /**
    * {@inheritdoc}
@@ -31,13 +31,6 @@ class CorporateHeaderLogosTest extends BrowserTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    // Enable and set OpenEuropa Theme as default.
-    \Drupal::service('theme_installer')->install(['oe_whitelabel']);
-    \Drupal::configFactory()
-      ->getEditable('system.theme')
-      ->set('default', 'oe_whitelabel')
-      ->save();
-
     \Drupal::service('module_installer')->install(['language']);
     $language = ConfigurableLanguage::createFromLangcode('es');
     $language->save();
@@ -51,7 +44,7 @@ class CorporateHeaderLogosTest extends BrowserTestBase {
    * Tests that the breadcrumbs are cached correctly.
    */
   public function testCorporateHeaderLogos(): void {
-    // Create a user that does have permission to administer theme settings.
+    // Create a user that has permission to administer theme settings.
     $user = $this->drupalCreateUser(['administer themes']);
     $this->drupalLogin($user);
 
@@ -62,10 +55,8 @@ class CorporateHeaderLogosTest extends BrowserTestBase {
     $assert_session->elementExists('css', 'header.bcl-header.bcl-header--neutral');
     $assert_session->elementExists('css', 'img[alt="Home logo"]');
 
-    // Visit theme administration page.
-    $this->drupalGet('/admin/appearance/settings/oe_whitelabel');
-
     // Select EU component library and save configuration.
+    $this->drupalGet('/admin/appearance/settings/oe_whitelabel');
     $page->selectFieldOption('Component library', 'European Union');
     $page->pressButton('Save configuration');
 
@@ -83,10 +74,8 @@ class CorporateHeaderLogosTest extends BrowserTestBase {
     $assert_session->elementExists('css', 'picture > source[srcset="/build/themes/contrib/oe_bootstrap_theme/assets/logos/eu/mobile/logo-eu--es.svg"]');
     $assert_session->elementExists('css', 'picture > img[src="/build/themes/contrib/oe_bootstrap_theme/assets/logos/eu/logo-eu--es.svg"]');
 
-    // Visit theme administration page.
-    $this->drupalGet('/admin/appearance/settings/oe_whitelabel');
-
     // Select EC component library and save configuration.
+    $this->drupalGet('/admin/appearance/settings/oe_whitelabel');
     $page->selectFieldOption('Component library', 'European Commission');
     $page->pressButton('Save configuration');
 
