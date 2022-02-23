@@ -29,7 +29,6 @@ class SiteBrandingBlockTest extends KernelTestBase {
     parent::setUp();
 
     \Drupal::service('theme_installer')->install(['oe_whitelabel']);
-    $this->container->set('theme.registry', NULL);
     $url = '/' . drupal_get_path('theme', 'oe_whitelabel') . '/logo.svg';
 
     \Drupal::configFactory()
@@ -47,8 +46,6 @@ class SiteBrandingBlockTest extends KernelTestBase {
       ->set('name', 'Site name')
       ->set('slogan', 'Slogan')
       ->save();
-
-    $this->container->set('theme.registry', NULL);
   }
 
   /**

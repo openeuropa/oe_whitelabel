@@ -85,7 +85,7 @@
 
       {{ page.navbar_branding }}
 
-      {# navbar #}
+      {# Navbar. #}
       {% block navbar %}
         {{ pattern('navbar', {
           navigation: page.header_left,
@@ -96,7 +96,7 @@
           attributes: create_attribute().addClass(['bcl-header__navbar']),
         }) }}
       {% endblock %}
-      {# breadcrumbs #}
+      {# Breadcrumbs. #}
       <div class="container">
         {% block breadcrumbs %}
           {{ page.breadcrumbs }}
