@@ -34,7 +34,8 @@
             {% set name_classes = [
               'text-decoration-none',
               'align-bottom',
-              light ? 'text-dark': 'text-white',
+              'bcl-header__site-name',
+              'mw-100',
             ] %}
             {% set _site_name %}
               <a {{ create_attribute().addClass(name_classes).setAttribute('rel', 'Home') }}

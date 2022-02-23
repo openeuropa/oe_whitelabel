@@ -68,7 +68,7 @@ class SiteBrandingBlockTest extends KernelTestBase {
 
     $actual = $crawler->filter('.bcl-header__site-name.site-name');
     $this->assertCount(1, $actual);
-    $link = $actual->filter('.text-white.text-decoration-none.align-bottom');
+    $link = $actual->filter('.text-decoration-none.align-bottom');
     $this->assertCount(1, $link);
     $actual = $crawler->filter('.site-logo.d-none.d-lg-inline-block');
     $this->assertCount(1, $actual);
@@ -90,7 +90,7 @@ class SiteBrandingBlockTest extends KernelTestBase {
 
     $actual = $crawler->filter('.bcl-header__site-name.site-name');
     $this->assertCount(1, $actual);
-    $link = $actual->filter('.text-dark.text-decoration-none.align-bottom');
+    $link = $actual->filter('.text-decoration-none.align-bottom');
     $this->assertCount(1, $link);
     $actual = $crawler->filter('.site-logo.d-none.d-lg-inline-block');
     $this->assertCount(1, $actual);
@@ -111,7 +111,7 @@ class SiteBrandingBlockTest extends KernelTestBase {
 
     $actual = $crawler->filter('.bcl-header__site-name.site-name.h5.d-inline-block.d-lg-none');
     $this->assertCount(1, $actual);
-    $link = $actual->filter('.text-dark.text-decoration-none.align-bottom');
+    $link = $actual->filter('.text-decoration-none.align-bottom');
     $this->assertCount(1, $link);
   }
 
