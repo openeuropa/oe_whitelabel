@@ -1,31 +1,42 @@
 {#
 /**
  * @file
- * News full display.
+ * Event full display.
  */
 #}
-{% set _event_dates %}
-  {{ content.oe_event_dates|field_value|safe_join(', ') }}
-{% endset %}
-{% set _event_location %}
-  {{ content.oe_location|field_value|safe_join(', ') }}
-{% endset %}
-{% set description_items = [
-  {
-    term:[{
-    'label': content.oe_event_dates|field_label,
-    'icon': 'calendar-event',
-  }],
-    definition: _event_dates,
-  },
-  {
-    term: [{
-    'label': content.oe_location|field_label,
-    'icon': 'geo-alt-fill',
-  }],
-    definition: _event_location,
-  },
-]%}
+{% set description_items = [] %}
+{% if content.oe_event_dates|field_value is not empty %}
+  {% set _event_dates %}
+    {{ content.oe_event_dates|field_value|safe_join(', ') }}
+  {% endset %}
+{% endif %}
+{% if _event_dates %}
+  {% set description_items = description_items|merge([
+    {
+      term:[{
+        'label': content.oe_event_dates|field_label,
+        'icon': 'calendar-event',
+      }],
+      definition: _event_dates,
+    }
+  ]) %}
+{% endif %}
+{% if content.oe_location|field_value is not empty %}
+  {% set _event_location %}
+    {{ content.oe_location|field_value|safe_join(', ') }}
+  {% endset %}
+{% endif %}
+{% if _event_location %}
+  {% set description_items = description_items|merge([
+    {
+      term:[{
+        'label': content.oe_location|field_label,
+        'icon': 'geo-alt-fill',
+      }],
+      definition: _event_location,
+    }
+  ]) %}
+{% endif %}
 {# Set inpage navigation links and content #}
 {% set inpage_navigation_fields %}
   {{ pattern('description_list', {
@@ -41,7 +52,7 @@
 {% if attributes is empty %}
   {% set attributes = create_attribute() %}
 {% endif %}
-{% set attributes = attributes.addClass(["container", "mt-md-4-75", "mt-4"]) %}
+{% set attributes = attributes.addClass(["mt-md-4-75", "mt-4"]) %}
 
 {# Print event #}
 <article{{attributes}}>
