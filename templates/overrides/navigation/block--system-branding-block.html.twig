@@ -15,40 +15,43 @@
 {% set light = bcl_header_style == 'light' %}
 
 {% block content %}
-  <!-- project name -->
-  {% if site_logo is not empty or site_name is not empty %}
-    {% set project_classes = 'bcl-header__project' %}
-    {% if light is not empty %}
-      {% set project_classes = project_classes ~ ' light' %}
-    {% endif %}
-    <div {{ create_attribute().addClass(project_classes) }}>
-      <div class="container">
-        {% if site_logo is not empty and bcl_component_library != 'neutral' %}
-          {% set img_classes = ['d-none','d-lg-inline-block', 'text-decoration-none', 'site-logo'] %}
-          <a {{ create_attribute().addClass(img_classes).setAttribute('rel', 'Home') }} href="{{ path('<front>') }}">
-            <img {{ site_logo_img_attr.setAttribute('alt', 'Home'|t) }} src="{{ site_logo }}" />
-          </a>
-        {% endif %}
-        {% if site_name is not empty %}
-          {% set name_classes = [
-            'text-decoration-none',
-            'align-bottom',
-            light ? 'text-dark': 'text-white',
-          ] %}
-          {% set _site_name %}
-            <a {{ create_attribute().addClass(name_classes).setAttribute('rel', 'Home') }} href="{{ path('<front>') }}">
-              {{ site_name }}
+  {% apply spaceless %}
+    {# project name #}
+    {% if site_logo is not empty or site_name is not empty %}
+      {% set project_classes = 'bcl-header__project' %}
+      {% if light is not empty %}
+        {% set project_classes = project_classes ~ ' light' %}
+      {% endif %}
+      <div {{ create_attribute().addClass(project_classes) }}>
+        <div class="container">
+          {% if site_logo is not empty and bcl_component_library != 'neutral' %}
+            {% set img_classes = ['d-none','d-lg-inline-block', 'text-decoration-none', 'site-logo'] %}
+            <a {{ create_attribute().addClass(img_classes).setAttribute('rel', 'Home') }} href="{{ path('<front>') }}">
+              <img {{ site_logo_img_attr.setAttribute('alt', 'Home'|t) }} src="{{ site_logo }}"/>
             </a>
-          {% endset %}
-          {% set _site_name_classes = ['bcl-header__site-name', 'site-name'] %}
-          {% if bcl_component_library == 'neutral' %}
-            {% set _site_name_classes = _site_name_classes|merge(['h5', 'd-inline-block', 'd-lg-none']) %}
           {% endif %}
-          <div {{ create_attribute().addClass(_site_name_classes) }}>
-            {{- _site_name -}}
-          </div>
-        {% endif %}
+          {% if site_name is not empty %}
+            {% set name_classes = [
+              'text-decoration-none',
+              'align-bottom',
+              light ? 'text-dark': 'text-white',
+            ] %}
+            {% set _site_name %}
+              <a {{ create_attribute().addClass(name_classes).setAttribute('rel', 'Home') }}
+                href="{{ path('<front>') }}">
+                {{ site_name }}
+              </a>
+            {% endset %}
+            {% set _site_name_classes = ['bcl-header__site-name', 'site-name'] %}
+            {% if bcl_component_library == 'neutral' %}
+              {% set _site_name_classes = _site_name_classes|merge(['h5', 'd-inline-block', 'd-lg-none']) %}
+            {% endif %}
+            <div {{ create_attribute().addClass(_site_name_classes) }}>
+              {{ _site_name }}
+            </div>
+          {% endif %}
+        </div>
       </div>
-    </div>
-  {% endif %}
+    {% endif %}
+  {% endapply %}
 {% endblock %}
