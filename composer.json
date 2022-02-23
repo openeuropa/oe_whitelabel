@@ -32,7 +32,6 @@
         "openeuropa/oe_authentication": "^1.4",
         "openeuropa/oe_corporate_blocks": "^4.4",
         "openeuropa/oe_multilingual": "^1.9",
-        "openeuropa/oe_starter_content": "1.x-dev",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0",
         "phpspec/prophecy-phpunit": "^1 || ^2",
         "openeuropa/oe_contact_forms": "~1.1",
