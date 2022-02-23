@@ -24,7 +24,6 @@ class FooterBlockTest extends SparqlKernelTestBase {
     'rdf_skos',
     'system',
     'user',
-    'twig_tweak',
   ];
 
   /**
