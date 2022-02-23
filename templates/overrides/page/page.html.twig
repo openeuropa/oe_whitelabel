@@ -85,7 +85,7 @@
 
       {{ page.navbar_branding }}
 
-      <!-- navbar -->
+      {# navbar #}
       {% block navbar %}
         {{ pattern('navbar', {
           navigation: page.header_left,
@@ -96,7 +96,7 @@
           attributes: create_attribute().addClass(['bcl-header__navbar']),
         }) }}
       {% endblock %}
-      <!-- breadcrumbs -->
+      {# breadcrumbs #}
       <div class="container">
         {% block breadcrumbs %}
           {{ page.breadcrumbs }}
@@ -105,11 +105,7 @@
     </header>
   {% endblock %}
   <main>
-    {% if page.header %}
-    <div class="container mt-2">
-    {% else %}
-    <div class="container mt-5">
-    {% endif %}
+    <div class="container {{ page.header ? 'mt-2': 'mt-5' }} ">
       <div class="row">
         {% if page.header %}
           {{ page.header }}
