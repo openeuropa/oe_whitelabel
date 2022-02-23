@@ -4,17 +4,24 @@
  * News full display.
  */
 #}
+{% set _meta = [] %}
+{% if content.oe_publication_date is not empty %}
+  {% set _news_publication_date %}
+    {{ content.oe_publication_date|field_value }}
+  {% endset %}
+{% endif %}
+{% if _news_publication_date %}
+  {% set _meta = _meta|merge([content.oe_publication_date]) %}
+{% endif %}
 <article{{attributes}}>
   {{ pattern('content_banner', {
     background: 'gray',
     title: label,
     content: content.oe_summary,
     image: image,
-    meta: [
-      content.oe_publication_date,
-    ]
+    meta: _meta,
   }) }}
-  
+
   <div class="container mt-md-4-75 mt-4">
     <div class="row">
       <div class="col-12 col-lg-10 col-xl-9 col-xxl-8 mb-4">
