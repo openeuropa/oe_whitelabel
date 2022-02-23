@@ -28,7 +28,8 @@ function oe_whitelabel_event_preprocess_node__oe_event(&$variables) {
 /**
  * Helper function to preprocess the Featured media field.
  *
- * @var array $variables
+ * @param array $variables
+ *   Render array variables.
  */
 function _oe_whitelabel_event_preprocess_featured_media(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
@@ -87,7 +88,8 @@ function _oe_whitelabel_event_preprocess_featured_media(array &$variables): void
 /**
  * Helper function to preprocess the inpage navigation pattern fields.
  *
- * @var array $variables
+ * @param array $variables
+ *   Render array variables.
  */
 function _oe_whitelabel_event_preprocess_inpage_nav(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
@@ -97,16 +99,14 @@ function _oe_whitelabel_event_preprocess_inpage_nav(array &$variables): void {
     return;
   }
 
-  // Caches are handled by the formatter usually. Since we are not rendering
-  // the original render arrays, we need to propagate our caches to the
-  // template.
-  $cacheability = CacheableMetadata::createFromRenderArray($variables);
-  $cacheability->addCacheableDependency($node);
-
   $variables['inpage_navigation_links'] = [];
+  $fields = ['oe_documents', 'body'];
   foreach ($variables['content'] as &$item) {
-    if (!array_key_exists('#field_name', $item)
-      || !in_array($item['#field_name'], ['oe_documents', 'body'])) {
+    if (!array_key_exists('#field_name', $item)) {
+      continue;
+    }
+
+    if (!in_array($item['#field_name'], $fields)) {
       continue;
     }
 
@@ -118,5 +118,4 @@ function _oe_whitelabel_event_preprocess_inpage_nav(array &$variables): void {
     ];
   }
 
-  $cacheability->applyTo($variables);
 }
