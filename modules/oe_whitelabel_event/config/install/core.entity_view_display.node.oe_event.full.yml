@@ -61,9 +61,10 @@ content:
       view_mode: default
     third_party_settings: {  }
   oe_location:
-    type: address_default
+    type: oe_whitelabel_helper_address_inline
     label: inline
-    settings: {  }
+    settings:
+      delimiter: ', '
     third_party_settings: {  }
     weight: 5
     region: content

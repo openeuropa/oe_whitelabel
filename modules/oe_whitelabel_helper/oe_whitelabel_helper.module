@@ -13,3 +13,18 @@ declare(strict_types = 1);
 function oe_whitelabel_helper_locale_translation_projects_alter(&$projects) {
   $projects['oe_whitelabel_helper']['info']['interface translation server pattern'] = drupal_get_path('module', 'oe_whitelabel_helper') . '/translations/%project-%language.po';
 }
+
+/**
+ * Implements hook_theme().
+ */
+function oe_whitelabel_helper_theme($existing, $type, $theme, $path) {
+  return [
+    'oe_whitelabel_helper_address_inline' => [
+      'variables' => [
+        'address' => NULL,
+        'address_items' => [],
+        'address_delimiter' => NULL,
+      ],
+    ],
+  ];
+}
