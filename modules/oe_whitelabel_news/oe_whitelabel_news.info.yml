@@ -2,7 +2,7 @@ name: OpenEuropa Whitelabel News
 type: module
 description: Companion module to OE News providing styling to nodes.
 package: OpenEuropa Whitelabel Theme
-core_version_requirement: ^8.9 || ^9.2
+core_version_requirement: ^9.2
 dependencies:
   - oe_whitelabel:oe_whitelabel_helper
   - oe_starter_content:oe_starter_content_news

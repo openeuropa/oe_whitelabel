@@ -2,7 +2,7 @@ name: OpenEuropa Whitelabel Event
 type: module
 description: Adds additional functionality to the Event module
 package: OpenEuropa Whitelabel Theme
-core_version_requirement: ^8.9 || ^9.2
+core_version_requirement: ^9.2
 dependencies:
   - drupal:twig_field_value
   - oe_whitelabel:oe_whitelabel_helper
