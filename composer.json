@@ -27,6 +27,7 @@
         "drush/drush": "^10.3",
         "easyrdf/easyrdf": "1.0.0 as 0.9.1",
         "egulias/email-validator": "^2.1.22 || ^3.0",
+        "nikic/php-parser": "^4.13",
         "openeuropa/code-review": "^1.7 || ^2.0",
         "openeuropa/composer-artifacts": "^1.0.0-alpha1",
         "openeuropa/oe_authentication": "^1.4",
