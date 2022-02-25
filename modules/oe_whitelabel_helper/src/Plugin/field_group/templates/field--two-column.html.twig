@@ -1,0 +1,49 @@
+{#
+/**
+ * @file
+ * Default template for a field.
+ */
+#}
+{%
+  set classes = [
+  bundle|clean_class ~ '__' ~ field_name_clean|clean_class,
+  label_display == 'inline' ? 'd-flex',
+]
+%}
+{%
+  set title_classes = [
+  'field__label',
+  'col-12',
+  'col-md-6',
+  label_display == 'visually_hidden' ? 'visually-hidden',
+]
+%}
+
+{% if label_hidden %}
+  {% if multiple %}
+    <div{{ attributes.addClass(classes) }}>
+      {% for item in items %}
+        <div{{ item.attributes.addClass('field__item col-12 col-md-6') }}>{{ item.content }}</div>
+      {% endfor %}
+    </div>
+  {% else %}
+    {% for item in items %}
+      <div{{ attributes.addClass(classes) }}>{{ item.content }}</div>
+    {% endfor %}
+  {% endif %}
+{% else %}
+  <div{{ attributes.addClass(classes) }}>
+    <div{{ title_attributes.addClass(title_classes) }}>
+      {{ label }}{% if label_display == 'inline' %}<span class="me-1">:</span>{% endif %}
+    </div>
+    {% if multiple %}
+    <div class="field__items col-12 col-md-6">
+      {% endif %}
+      {% for item in items %}
+        <div{{ item.attributes.addClass('field__item col-12 col-md-6') }}>{{ item.content }}</div>
+      {% endfor %}
+      {% if multiple %}
+    </div>
+    {% endif %}
+  </div>
+{% endif %}

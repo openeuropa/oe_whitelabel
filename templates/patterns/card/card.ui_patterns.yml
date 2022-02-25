@@ -1,0 +1,135 @@
+card:
+  label: "Card"
+  description: "A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options. https://v5.getbootstrap.com/docs/5.0/components/card"
+  variants:
+    default:
+      label: Default
+    horizontal:
+      label: Horizontal
+    search:
+      label: Search
+    user_profile:
+      label: User Profile
+  settings:
+    style:
+      type: select
+      label: Card style
+      options:
+        primary: primary
+        secondary: secondary
+        success: success
+        danger: danger
+        warning: warning
+        info: info
+        light: light
+        dark: dark
+    border_variant:
+      type: select
+      label: Card border style
+      options:
+        primary: primary
+        secondary: secondary
+        success: success
+        danger: danger
+        warning: warning
+        info: info
+        light: light
+        dark: dark
+    text_color:
+      type: select
+      label: Card text color
+      options:
+        dark: dark
+        white: white
+    horizontal:
+      type: boolean
+      label: "Horizontal"
+      description: "Horizontal card"
+      preview: false
+    call_to_action_button_variant:
+      type: select
+      label: Call to action button variant
+      options:
+        primary: primary
+        secondary: secondary
+        success: success
+        danger: danger
+        warning: warning
+        info: info
+        light: light
+        dark: dark
+  fields:
+    title:
+      type: "array"
+      label: "Title"
+      description: "Card title [content, tag, classes]"
+      preview:
+        content: "Title card"
+        tag: "h5"
+    subtitle:
+      type: "array"
+      label: "Subtitle"
+      description: "Card subtitle [content, tag, classes]"
+      preview:
+        content: "Subtitle card"
+        classes: "mb-2"
+    text:
+      type: "array"
+      label: "Text"
+      description: "Card text [content, tag, classes]"
+      preview:
+        content: "Text card with longer text which is supported"
+        classes: "mb-2"
+    image:
+      type: "array"
+      label: "Image"
+      description: "Card image [path, alt, position]"
+      preview:
+        path: "https://placeimg.com/1000/500/arch"
+        alt: "Alternative text for card image"
+        position: "top"
+        rounded: 3
+    content:
+      type: "render"
+      label: "Content"
+      description: "Card content"
+      preview: "<button class='btn btn-primary'>Custom action</button>"
+    card_header:
+      type: "render"
+      label: "Card header"
+      description: "Card header content"
+      preview: "Header of card"
+    card_footer:
+      type: "render"
+      label: "Card footer"
+      description: "Card footer content"
+      preview: "Footer of card"
+    call_to_action_button:
+      type: "render"
+      label: "Call to action button"
+      description: "Add a call to action button"
+      preview: "<button class='btn btn-primary'>Custom action</button>"
+    horizontal_grid:
+      type: "array"
+      label: "Horizontal grid"
+      description: "Horizontal grid layout [left_col, right_col, gutter]"
+    extra_classes_body:
+      type: "text"
+      label: "Extra classes for card body"
+      preview: "body-class"
+    extra_classes_header:
+      type: "text"
+      label: "Extra classes for card header"
+      preview: "header-class"
+    extra_classes_footer:
+      type: "text"
+      label: "Extra classes for card footer"
+      preview: "footer-class"
+    badges:
+      type: "array"
+      label: "Badges for the card"
+      preview:
+        - label: "Primary badge"
+        - label: "Secondary badge"
+          assistive_text: "Assistive text for secondary badge"
+          rounded_pill: true
