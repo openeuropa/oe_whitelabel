@@ -9,8 +9,6 @@ use Drupal\Tests\address\Kernel\Formatter\FormatterTestBase;
 
 /**
  * Test AddressInlineFormatter plugin.
- *
- * @group batch2
  */
 class AddressInlineFormatterTest extends FormatterTestBase {
 

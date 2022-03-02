@@ -21,6 +21,8 @@ use Drupal\Core\Language\LanguageInterface;
  *     "address",
  *   },
  * )
+ *
+ * @see https://github.com/openeuropa/oe_theme/blob/3.x/modules/oe_theme_helper/src/Plugin/Field/FieldFormatter/AddressInlineFormatter.php
  */
 class AddressInlineFormatter extends AddressDefaultFormatter {
 
