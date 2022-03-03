@@ -82,7 +82,7 @@ class MultilingualBlockTest extends KernelTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($render->__toString());
 
-    $block = $crawler->filter('li.language-switcher');
+    $block = $crawler->filter('div.language-switcher');
     $this->assertCount(1, $block);
     $link = $crawler->filter('a.nav-link');
     $this->assertSame('English', trim($link->text()));

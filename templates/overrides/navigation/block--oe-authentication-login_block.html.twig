@@ -15,7 +15,7 @@
   <span class="d-block d-lg-inline-block">{{ title }}</span>
 {% endset %}
 
-<li class="nav-item oe-authentication">
+<div class="oe-authentication">
   {{ pattern('link', {
     label: link_title,
     path: content['#url']|render,
@@ -27,4 +27,4 @@
     standalone: true,
     attributes: extra_attributes
   }) }}
-</li>
+</div>
