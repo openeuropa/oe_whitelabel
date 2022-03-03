@@ -41,7 +41,7 @@ class CorporateHeaderLogosTest extends BrowserTestBase {
   }
 
   /**
-   * Tests that the breadcrumbs are cached correctly.
+   * Tests the header logos.
    */
   public function testCorporateHeaderLogos(): void {
     // Create a user that has permission to administer theme settings.

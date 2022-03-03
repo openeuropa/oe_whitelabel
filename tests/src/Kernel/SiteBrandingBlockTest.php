@@ -64,7 +64,7 @@ class SiteBrandingBlockTest extends KernelTestBase {
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler($render->__toString());
+    $crawler = new Crawler((string) $render);
 
     $actual = $crawler->filter('.bcl-header__site-name.site-name');
     $this->assertCount(1, $actual);
@@ -86,7 +86,7 @@ class SiteBrandingBlockTest extends KernelTestBase {
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler($render->__toString());
+    $crawler = new Crawler((string) $render);
 
     $actual = $crawler->filter('.bcl-header__site-name.site-name');
     $this->assertCount(1, $actual);
@@ -107,7 +107,7 @@ class SiteBrandingBlockTest extends KernelTestBase {
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler($render->__toString());
+    $crawler = new Crawler((string) $render);
 
     $actual = $crawler->filter('.bcl-header__site-name.site-name.h5.d-inline-block.d-lg-none');
     $this->assertCount(1, $actual);
