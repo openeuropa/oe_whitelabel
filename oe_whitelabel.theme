@@ -147,7 +147,7 @@ function oe_whitelabel_preprocess_page(&$variables) {
     $site_logo_href = 'https://ec.europa.eu/info';
   }
   elseif ($variables['bcl_component_library'] === 'eu') {
-    $variables['logo_aria_label'] = t('Home') . ' - ' . t('European Union');
+    $variables['logo_aria_label'] = t('Home - European Union');
     $variables['site_logo_alt'] = t('European Union flag');
     $variables['site_logo_title'] = t('European Union');
     $site_logo_href = 'https://european-union.europa.eu';
