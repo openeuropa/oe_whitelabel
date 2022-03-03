@@ -61,6 +61,7 @@ class SearchForm extends FormBase {
       '#title' => $config['input']['label'],
       '#title_display' => 'invisible',
       '#size' => 20,
+      '#margin_class' => 'mb-0',
       '#attributes' => [
         'placeholder' => $config['input']['placeholder'],
         'class' => [
