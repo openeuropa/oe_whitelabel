@@ -23,6 +23,7 @@
         "drupal/description_list_field": "^1.0@alpha",
         "drupal/drupal-extension": "~4.1",
         "drupal/file_link": "^2.0.6",
+        "drupal/facets_form": "1.0.0-alpha2",
         "drupal/pathauto": "^1.8",
         "drupal/search_api": "^1.21",
         "drupal/search_api_autocomplete": "^1.5",
