@@ -90,30 +90,27 @@ class FacetsFormTest extends KernelTestBase {
 
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
-    $render = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler($render->__toString());
+    $html = (string) $this->container->get('renderer')->renderRoot($build);
+    $crawler = new Crawler($html);
 
     $offcanvas = $crawler->filter('div#bcl-offcanvas');
-    $this->assertSame('bcl-offcanvas offcanvas offcanvas-start', $offcanvas->attr('class'));
-    $header = $offcanvas->filter('div.offcanvas-header.p-lg-0');
+    $header = $offcanvas->filter('div.offcanvas-header');
     $this->assertCount(1, $header);
-    $title = $header->filter('h4.offcanvas-title.mb-lg-4');
+    $title = $header->filter('h4.offcanvas-title');
     $this->assertSame('Facets form', $title->text());
     $button = $header->filter('button');
-    $this->assertSame('btn-close text-reset d-lg-none', $button->attr('class'));
     $this->assertSame('offcanvas', $button->attr('data-bs-dismiss'));
     $this->assertSame('button', $button->attr('type'));
-    $body = $offcanvas->filter('div.offcanvas-body.bcl-offcanvas.p-lg-0');
+    $body = $offcanvas->filter('div.offcanvas-body.bcl-offcanvas');
     $this->assertCount(1, $body);
     $form = $body->filter('form.facets-form');
     $this->assertCount(1, $form);
-    $button = $crawler->filter('button.d-lg-none.w-100.mb-4.btn.btn-light.btn-md');
+    $button = $crawler->filter('button.btn-light.btn-lg');
     $this->assertSame('button', $button->attr('type'));
     $this->assertSame('#bcl-offcanvas', $button->attr('data-bs-target'));
     $this->assertSame('offcanvas', $button->attr('data-bs-toggle'));
     $this->assertStringContainsString('Facets form', $button->text());
     $icon = $button->filter('svg');
-    $this->assertSame('me-2-5 bi icon--fluid', $icon->attr('class'));
     $this->assertStringContainsString('/assets/icons/bootstrap-icons.svg#filter', $icon->html());
   }
 
