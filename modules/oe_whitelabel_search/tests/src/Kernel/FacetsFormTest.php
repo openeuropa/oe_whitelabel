@@ -17,25 +17,26 @@ class FacetsFormTest extends KernelTestBase {
    */
   public static $modules = [
     'block',
+    'entity_test',
     'facets',
     'facets_form',
     'field',
+    'oe_bootstrap_theme_helper',
+    'rest',
     'search_api',
     'search_api_db',
+    'search_api_test',
     'search_api_test_db',
     'search_api_test_example_content',
     'search_api_test_views',
-    'search_api_test',
-    'user',
+    'serialization',
     'system',
-    'entity_test',
     'text',
     'ui_patterns',
     'ui_patterns_library',
     'ui_patterns_settings',
+    'user',
     'views',
-    'rest',
-    'serialization',
   ];
 
   /**
