@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Drupal\Tests\oe_whitelabel_search\Kernel;
+namespace Drupal\Tests\oe_whitelabel\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Symfony\Component\DomCrawler\Crawler;
