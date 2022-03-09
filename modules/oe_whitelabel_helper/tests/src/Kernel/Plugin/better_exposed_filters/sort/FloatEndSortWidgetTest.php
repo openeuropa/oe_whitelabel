@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Drupal\Tests\oe_whitelabel_helper\Kernel;
+namespace Drupal\Tests\oe_whitelabel_helper\Kernel\Plugin\better_exposed_filters\sort;
 
 use Drupal\Tests\better_exposed_filters\Kernel\BetterExposedFiltersKernelTestBase;
 use Drupal\views\Views;
