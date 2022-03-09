@@ -63,7 +63,7 @@ class FacetsFormTest extends KernelTestBase {
   }
 
   /**
-   * Tests the rendering of the whitelabel search block.
+   * Tests the rendering of the Facets Form block.
    */
   public function testBlockRendering(): void {
     $entity_type_manager = $this->container
