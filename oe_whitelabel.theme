@@ -31,10 +31,11 @@ function oe_whitelabel_preprocess_links__language_block(&$variables) {
     $label = $link['link']['#title'];
 
     $link = [
-      'href' => $href,
+      'path' => $href,
       'name' => $label,
       'id' => 'link_' . $language_code,
-      'hreflang' => $language_code,
+      'label' => $label,
+      'lang' => $language_code,
     ];
 
     if (!empty($current_language_id) && $language_code === $current_language_id) {
@@ -54,18 +55,15 @@ function oe_whitelabel_preprocess_links__language_block(&$variables) {
     }
   }
 
-  $variables['language']['modal'] = [
+  $variables['language']['modal']['language_list'] = [
+    'overlay' => TRUE,
+    'variant' => $variables['bcl_component_library'],
+    'title' => t('Select your language'),
+    'items' => $eu_links,
+    'non_eu_items' => $non_eu_links,
+    'icon_path' => $variables['bcl_icon_path'],
     'id' => 'languageModal',
     'size' => 'fullscreen',
-    'header' => [
-      'title' => t('Select your language'),
-      'label' => t('Close'),
-    ],
-    'eu_links' => $eu_links,
-    'non_eu_links' => $non_eu_links,
-    'footer' => [
-      'label' => t('Close'),
-    ],
   ];
 }
 
