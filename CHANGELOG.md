@@ -1,10 +1,33 @@
 # Change Log
 
+## [1.0.0-alpha5](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-alpha5) (2022-03-10)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-alpha4...1.0.0-alpha5)
+
+**Merged pull requests:**
+
+- OEL-1286: Composer modified for bootstrap theme release. [\#88](https://github.com/openeuropa/oe_whitelabel/pull/88) ([Maxfire](https://github.com/Maxfire))
+- OEL-1239: Update bootstrap release. [\#87](https://github.com/openeuropa/oe_whitelabel/pull/87) ([GilNovacomm](https://github.com/GilNovacomm))
+- OEL-1241: No margin in search box input field. [\#86](https://github.com/openeuropa/oe_whitelabel/pull/86) ([escuriola](https://github.com/escuriola))
+- OEL-1213: New inline address formatter. [\#84](https://github.com/openeuropa/oe_whitelabel/pull/84) ([Maxfire](https://github.com/Maxfire))
+- OEL-1191: Fix News meta and spacing [\#83](https://github.com/openeuropa/oe_whitelabel/pull/83) ([GilNovacomm](https://github.com/GilNovacomm))
+- OEL-1157: Use composer v2. [\#82](https://github.com/openeuropa/oe_whitelabel/pull/82) ([brummbar](https://github.com/brummbar))
+- OEL-1192: Remove page title [\#80](https://github.com/openeuropa/oe_whitelabel/pull/80) ([drishu](https://github.com/drishu))
+- OEL-1200: Use .diff instead of .patch for oe\_bootstrap\_theme. [\#77](https://github.com/openeuropa/oe_whitelabel/pull/77) ([donquixote](https://github.com/donquixote))
+- OEL-1026:  \[oe\_whitelabel\] Style the event content type [\#76](https://github.com/openeuropa/oe_whitelabel/pull/76) ([GilNovacomm](https://github.com/GilNovacomm))
+- OEL-1192: Export block configuration, update logo [\#74](https://github.com/openeuropa/oe_whitelabel/pull/74) ([drishu](https://github.com/drishu))
+- OEL-1133: Add Contact forms theming [\#73](https://github.com/openeuropa/oe_whitelabel/pull/73) ([Maxfire](https://github.com/Maxfire))
+- OEL-0000: Use composer v1 until support for 2 is complete in OpenEuropa. [\#72](https://github.com/openeuropa/oe_whitelabel/pull/72) ([drishu](https://github.com/drishu))
+- OEL-1017: \[oe\_whitelabel\] Style the news content type [\#68](https://github.com/openeuropa/oe_whitelabel/pull/68) ([GilNovacomm](https://github.com/GilNovacomm))
+- OEL-1130: Keep oe\_bootstrap\_theme release updated. [\#67](https://github.com/openeuropa/oe_whitelabel/pull/67) ([escuriola](https://github.com/escuriola))
+- OEL-836/OEL-1047: BCL 19 upgrades and content banner pattern. [\#65](https://github.com/openeuropa/oe_whitelabel/pull/65) ([escuriola](https://github.com/escuriola))
+- OEL-779: Update templates to use new pattern definitions [\#63](https://github.com/openeuropa/oe_whitelabel/pull/63) ([escuriola](https://github.com/escuriola))
+
 ## [1.0.0-alpha4](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-alpha4) (2022-01-14)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-alpha3...1.0.0-alpha4)
 
 **Merged pull requests:**
 
+- Prepare release 1.0.0-alpha4. [\#60](https://github.com/openeuropa/oe_whitelabel/pull/60) ([drishu](https://github.com/drishu))
 - OEL-597: Adapt to changes in oe\_bootstrap\_theme alpha5 [\#54](https://github.com/openeuropa/oe_whitelabel/pull/54) ([brummbar](https://github.com/brummbar))
 
 ## [1.0.0-alpha3](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-alpha3) (2022-01-07)
