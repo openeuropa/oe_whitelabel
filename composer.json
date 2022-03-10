@@ -10,7 +10,7 @@
         "cweagans/composer-patches": "^1.7",
         "drupal/core": "^9.2",
         "drupal/twig_field_value": "^2.0",
-        "openeuropa/oe_bootstrap_theme": "0.1.202203080945"
+        "openeuropa/oe_bootstrap_theme": "^1.0.0-alpha7"
     },
     "require-dev": {
         "composer/installers": "^1.11",
@@ -69,9 +69,9 @@
             }
         },
         "_readme": [
-            "Explicit minimum version requirement of drupal/ctools module due to D9.2 compatability.",
-            "Explicit requirement for drupal/file_link due to https://www.drupal.org/project/file_link/issues/3147517. It can be removed when oe_media requires version 2.0.4 or above.",
-            "Explicit requirement for drupal/pathauto due to D9.2 compatability according to https://www.drupal.org/node/2979476.",
+            "Explicit minimum version requirement of drupal/ctools module due to D9.2 compatibility.",
+            "Explicit requirement for drupal/file_link due to https://www.drupal.org/project/file_link/issues/3147517. It can be removed when oe_starter_content requires oe_media version 1.15.0 or above.",
+            "Explicit requirement for drupal/pathauto due to D9.2 compatibility according to https://www.drupal.org/node/2979476.",
             "Explicit requirement for egulias/email-validator due to https://www.drupal.org/project/drupal/issues/3061074#comment-14300579. It can be removed when Drupal core 9.2 support is droppped."
         ],
         "installer-paths": {
