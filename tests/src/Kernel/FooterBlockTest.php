@@ -66,7 +66,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $this->assertCount(1, $borderedSections);
     $sectionTitles = $crawler->filter('p.fw-bold.mb-2');
     $this->assertCount(2, $sectionTitles);
-    $sectionLinks = $crawler->filter('div.col-12.col-lg-4:nth-child(2) a.text-underline-hover.d-block.mb-1');
+    $sectionLinks = $crawler->filter('div.col-12.col-lg-4:nth-child(2) a.standalone.d-block.mb-1');
     $this->assertCount(3, $sectionLinks);
   }
 
@@ -102,7 +102,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $this->assertCount(1, $borderedSections);
     $sectionTitles = $crawler->filter('p.fw-bold.mb-2');
     $this->assertCount(5, $sectionTitles);
-    $sectionLinks = $crawler->filter('div.col-12.col-lg-4:nth-child(2) a.text-underline-hover.d-block.mb-1');
+    $sectionLinks = $crawler->filter('div.col-12.col-lg-4:nth-child(2) a.standalone.d-block.mb-1');
     $this->assertCount(10, $sectionLinks);
   }
 
