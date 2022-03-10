@@ -3,24 +3,24 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.oe_event.body
-    - field.field.node.oe_event.oe_documents
-    - field.field.node.oe_event.oe_event_dates
-    - field.field.node.oe_event.oe_featured_media
-    - field.field.node.oe_event.oe_location
-    - field.field.node.oe_event.oe_summary
-    - node.type.oe_event
+    - field.field.node.oe_sc_event.body
+    - field.field.node.oe_sc_event.oe_documents
+    - field.field.node.oe_sc_event.oe_sc_event_dates
+    - field.field.node.oe_sc_event.oe_featured_media
+    - field.field.node.oe_sc_event.oe_location
+    - field.field.node.oe_sc_event.oe_summary
+    - node.type.oe_sc_event
   module:
     - address
     - datetime_range
     - text
     - user
-id: node.oe_event.teaser
+id: node.oe_sc_event.teaser
 targetEntityType: node
-bundle: oe_event
+bundle: oe_sc_event
 mode: teaser
 content:
-  oe_event_dates:
+  oe_sc_event_dates:
     type: daterange_default
     label: hidden
     settings:

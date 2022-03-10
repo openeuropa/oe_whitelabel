@@ -3,19 +3,19 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.oe_news.body
-    - field.field.node.oe_news.oe_featured_media
-    - field.field.node.oe_news.oe_publication_date
-    - field.field.node.oe_news.oe_summary
-    - node.type.oe_news
+    - field.field.node.oe_sc_news.body
+    - field.field.node.oe_sc_news.oe_featured_media
+    - field.field.node.oe_sc_news.oe_publication_date
+    - field.field.node.oe_sc_news.oe_summary
+    - node.type.oe_sc_news
   module:
     - datetime
     - text
     - user
 
-id: node.oe_news.teaser
+id: node.oe_sc_news.teaser
 targetEntityType: node
-bundle: oe_news
+bundle: oe_sc_news
 mode: teaser
 content:
   body:

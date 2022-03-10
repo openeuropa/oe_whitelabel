@@ -11,5 +11,5 @@ dependencies:
 config_devel:
   install:
     - core.date_format.oel_whitelabel_news_date.yml
-    - core.entity_view_display.node.oe_news.full.yml
-    - core.entity_view_display.node.oe_news.teaser.yml
+    - core.entity_view_display.node.oe_sc_news.full.yml
+    - core.entity_view_display.node.oe_sc_news.teaser.yml

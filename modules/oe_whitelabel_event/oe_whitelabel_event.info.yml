@@ -10,6 +10,6 @@ dependencies:
 
 config_devel:
   install:
-    - core.entity_view_display.node.oe_event.full
-    - core.entity_view_display.node.oe_event.teaser
+    - core.entity_view_display.node.oe_sc_event.full
+    - core.entity_view_display.node.oe_sc_event.teaser
     - core.date_format.oe_whitelabel_event_date

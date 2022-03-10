@@ -17,7 +17,7 @@ use Drupal\Component\Utility\Html;
 /**
  * Implements template_preprocess_node() for the Event node type.
  */
-function oe_whitelabel_event_preprocess_node__oe_event(&$variables) {
+function oe_whitelabel_event_preprocess_node__oe_sc_event(&$variables) {
   if ($variables['view_mode'] !== 'full' && $variables['view_mode'] !== 'teaser') {
     return;
   }

@@ -32,9 +32,10 @@
         "openeuropa/composer-artifacts": "^1.0.0-alpha1",
         "openeuropa/oe_authentication": "^1.4",
         "openeuropa/oe_contact_forms": "~1.1",
+        "openeuropa/oe_content": "^2.8.0",
         "openeuropa/oe_corporate_blocks": "^4.4",
         "openeuropa/oe_multilingual": "^1.9",
-        "openeuropa/oe_starter_content": "1.x-dev#5a4a77b",
+        "openeuropa/oe_starter_content": "dev-OEL-1290",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta5",
         "phpspec/prophecy-phpunit": "^1 || ^2"
     },

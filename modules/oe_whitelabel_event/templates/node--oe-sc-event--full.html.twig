@@ -5,14 +5,14 @@
  */
 #}
 {% set description_items = [] %}
-{% if content.oe_event_dates|field_value is not empty %}
+{% if content.oe_sc_event_dates|field_value is not empty %}
   {% set _event_dates %}
-    {{ content.oe_event_dates|field_value|safe_join(', ') }}
+    {{ content.oe_sc_event_dates|field_value|safe_join(', ') }}
   {% endset %}
   {% set description_items = description_items|merge([
     {
       term:[{
-      'label': content.oe_event_dates|field_label,
+      'label': content.oe_sc_event_dates|field_label,
       'icon': 'calendar-event',
     }],
       definition: _event_dates,
