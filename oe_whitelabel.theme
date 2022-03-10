@@ -12,6 +12,62 @@ use Drupal\Core\Url;
 use Drupal\oe_whitelabel_helper\EuropeanUnionLanguages;
 
 /**
+ * Implements hook__preprocess_links__language_block().
+ */
+function oe_whitelabel_preprocess_links__language_block(&$variables) {
+  $currentLanguage = \Drupal::languageManager()->getCurrentLanguage();
+  $current_language_id = $currentLanguage->getId();
+  $language_config_storage = \Drupal::entityTypeManager()->getStorage('configurable_language');
+  $eu_links = [];
+  $non_eu_links = [];
+
+  foreach ($variables['links'] as $language_code => $link) {
+    /** @var \Drupal\Core\Url $url */
+    $url = $link['link']['#url'];
+    $href = $url
+      ->setOptions($link['link']['#options'])
+      ->setAbsolute(TRUE)
+      ->toString();
+    $label = $link['link']['#title'];
+
+    $link = [
+      'path' => $href,
+      'name' => $label,
+      'id' => 'link_' . $language_code,
+      'label' => $label,
+      'lang' => $language_code,
+    ];
+
+    if (!empty($current_language_id) && $language_code === $current_language_id) {
+      $variables['language']['link'] = $link;
+      $variables['language']['link']['target'] = 'languageModal';
+      $link['active'] = TRUE;
+    }
+
+    $language_config = $language_config_storage->load($language_code);
+    $category = $language_config->getThirdPartySetting('oe_multilingual', 'category');
+
+    if ($category === 'eu') {
+      $eu_links[$language_code] = $link;
+    }
+    else {
+      $non_eu_links[$language_code] = $link;
+    }
+  }
+
+  $variables['language']['modal']['language_list'] = [
+    'overlay' => TRUE,
+    'variant' => $variables['bcl_component_library'],
+    'title' => t('Select your language'),
+    'items' => $eu_links,
+    'non_eu_items' => $non_eu_links,
+    'icon_path' => $variables['bcl_icon_path'],
+    'id' => 'languageModal',
+    'size' => 'fullscreen',
+  ];
+}
+
+/**
  * Implements hook_form_FORM_ID_alter() for facets_forms.
  */
 function oe_whitelabel_form_facets_form_alter(&$form, FormStateInterface $form_state, $form_id) {
