@@ -19,14 +19,14 @@
     }
   ]) %}
 {% endif %}
-{% if content.oe_location|field_value is not empty %}
+{% if content.oe_sc_event_location|field_value is not empty %}
   {% set _event_location %}
-    {{ content.oe_location|field_value|safe_join(', ') }}
+    {{ content.oe_sc_event_location|field_value|safe_join(', ') }}
   {% endset %}
   {% set description_items = description_items|merge([
     {
       term:[{
-      'label': content.oe_location|field_label,
+      'label': content.oe_sc_event_location|field_label,
       'icon': 'geo-alt-fill',
     }],
       definition: _event_location,
