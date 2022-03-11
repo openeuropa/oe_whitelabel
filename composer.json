@@ -63,6 +63,11 @@
                 }
             }
         },
+        "patches": {
+            "openeuropa/oe_bootstrap_theme" : {
+                "ticket branch": "https://github.com/openeuropa/oe_bootstrap_theme/compare/1.0.0-alpha7..OEL-1160-navbar.diff"
+            }
+        },
         "drupal-scaffold": {
             "locations": {
                 "web-root": "./build"
