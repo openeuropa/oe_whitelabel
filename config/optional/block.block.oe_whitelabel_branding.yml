@@ -7,7 +7,7 @@ dependencies:
     - oe_whitelabel
 id: oe_whitelabel_branding
 theme: oe_whitelabel
-region: header_top
+region: navbar_branding
 weight: -2
 provider: null
 plugin: system_branding_block

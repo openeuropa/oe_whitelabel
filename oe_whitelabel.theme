@@ -8,6 +8,8 @@
 declare(strict_types = 1);
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\oe_whitelabel_helper\EuropeanUnionLanguages;
 
 /**
  * Implements hook__preprocess_links__language_block().
@@ -105,6 +107,7 @@ function oe_whitelabel_form_system_theme_settings_alter(&$form, FormStateInterfa
     '#type' => 'select',
     '#title' => t('Component library'),
     '#options' => [
+      'neutral' => t('Neutral'),
       'ec' => t('European Commission'),
       'eu' => t('European Union'),
     ],
@@ -127,6 +130,60 @@ function oe_whitelabel_form_system_theme_settings_alter(&$form, FormStateInterfa
  * Implements hook_preprocess().
  */
 function oe_whitelabel_preprocess(&$variables) {
-  $variables['bcl_component_library'] = theme_get_setting('component_library') ?? 'eu';
+  $variables['bcl_component_library'] = theme_get_setting('component_library') ?? 'neutral';
   $variables['bcl_header_style'] = theme_get_setting('header_style') ?? 'standard';
+  $variables['current_language_id'] = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  $variables['bcl_logo_path'] = base_path() . drupal_get_path('theme', 'oe_bootstrap_theme') . '/assets/logos/';
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function oe_whitelabel_preprocess_page(&$variables) {
+  if ($variables['bcl_component_library'] === 'ec') {
+    $variables['logo_aria_label'] = t('Home') . ' - ' . t('European Commission');
+    $variables['site_logo_alt'] = t('European Commission logo');
+    $variables['site_logo_title'] = t('European Commission');
+    $site_logo_href = 'https://ec.europa.eu/info';
+  }
+  elseif ($variables['bcl_component_library'] === 'eu') {
+    $variables['logo_aria_label'] = t('Home - European Union');
+    $variables['site_logo_alt'] = t('European Union flag');
+    $variables['site_logo_title'] = t('European Union');
+    $site_logo_href = 'https://european-union.europa.eu';
+  }
+  else {
+    $site_config = \Drupal::config('system.site');
+    $variables['site_name'] = $site_config->get('name');
+    $variables['site_logo_url'] = file_url_transform_relative(file_create_url(theme_get_setting('logo.url')));
+    $variables['logo_aria_label'] = t('Home');
+    $variables['site_logo_alt'] = t('Home logo');
+    $variables['site_logo_title'] = t('Home');
+    $site_logo_href = Url::fromRoute('<front>')->toString();
+  }
+
+  if ($variables['bcl_component_library'] === 'neutral') {
+    return;
+  }
+  // Provide correct icon for non-eu languages.
+  $language_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  if (!EuropeanUnionLanguages::hasLanguage($language_code)) {
+    if ($language_code === 'nb') {
+      // Set correct icon for Norwegian language.
+      $variables['current_language_id'] = 'no';
+    }
+    else {
+      // Check whether BCL provides a logo for the language.
+      $bcl_logo = $variables['bcl_logo_path'] . '/' . $variables['bcl_component_library'] . '/';
+      $bcl_logo .= 'logo-' . $variables['bcl_component_library'] . '--' . $language_code . '.svg';
+      if (!file_exists($bcl_logo)) {
+        // Provide fallback "en" icon if language logo doesn't exist.
+        $variables['current_language_id'] = 'en';
+      }
+    }
+  }
+  else {
+    $site_logo_href .= '/index_' . EuropeanUnionLanguages::getInternalLanguageCode($variables['current_language_id']);
+  }
+  $variables['site_logo_href'] = $site_logo_href;
 }

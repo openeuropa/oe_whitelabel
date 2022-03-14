@@ -47,29 +47,64 @@
  * @ingroup themeable
  */
 #}
-{%
-  set grid_classes = [
-    'col-12',
-    page.sidebar_left ? 'col-lg-9',
-  ]
-%}
-<div class="page">
-  {{ pattern('header', {
-    variant: bcl_component_library,
-    navbar_branding: page.navbar_branding,
-    navbar_right: page.navbar_right,
-    header_top: page.header_top,
-    header_left: page.header_left,
-    header_right: page.header_right,
-    breadcrumbs: page.breadcrumbs
-  }) }}
-
-  <main>
-    {% if page.header %}
-    <div class="container mt-2">
+{% set corporate_logos %}
+  {% set anchor_attributes = bcl_component_library == 'neutral'
+    ? create_attribute().addClass(['navbar-brand'])
+    : create_attribute().addClass(['navbar-brand']).setAttribute('target', '_blank')
+  %}
+  <a {{ anchor_attributes }} href="{{ site_logo_href }}">
+    {% if bcl_component_library == 'eu' %}
+      <picture>
+        <source media="(max-width: 992px)"
+                srcset="{{ bcl_logo_path ~ 'eu/mobile/logo-eu--' ~ current_language_id|to_internal_language_id ~ '.svg' }}">
+        <img src="{{ bcl_logo_path ~ 'eu/logo-eu--' ~ current_language_id|to_internal_language_id ~ '.svg' }}"
+             alt="{{ site_logo_alt }}" title="{{ site_logo_title }}"/>
+      </picture>
+    {% elseif bcl_component_library == 'ec' %}
+      <img src="{{ bcl_logo_path ~ 'ec/logo-ec--' ~ current_language_id|to_internal_language_id ~ '.svg' }}"
+      alt="{{ site_logo_alt }}" title="{{ site_logo_title }}" />
     {% else %}
-    <div class="container mt-5">
-    {% endif %}
+      <img src="{{ site_logo_url }}" alt="{{ site_logo_alt }}" title="{{ site_logo_title }}"/>
+      <div class="h5 ms-4-5 d-none d-lg-inline-block">{{ site_name }}</div>
+    {% endif %}</a>
+{% endset %}
+
+<div class="page">
+  {% block header %}
+    <header class="bcl-header bcl-header--{{ bcl_component_library }}">
+      {% block head %}
+        {{ pattern('navbar', {
+          navigation: corporate_logos,
+          right: page.navbar_right,
+          color_scheme: 'light',
+          background: false,
+          attributes: create_attribute().addClass(['w-100', 'shadow-sm']),
+        }) }}
+      {% endblock %}
+
+      {{ page.navbar_branding }}
+
+      {# Navbar. #}
+      {% block navbar %}
+        {{ pattern('navbar', {
+          navigation: page.header_left,
+          right: page.header_right,
+          color_scheme: 'dark',
+          background: false,
+          expanded_breakpoint: 'lg',
+          attributes: create_attribute().addClass(['bcl-header__navbar']),
+        }) }}
+      {% endblock %}
+      {# Breadcrumbs. #}
+      <div class="container">
+        {% block breadcrumbs %}
+          {{ page.breadcrumbs }}
+        {% endblock %}
+      </div>
+    </header>
+  {% endblock %}
+  <main>
+    <div class="container {{ page.header ? 'mt-2': 'mt-5' }}">
       <div class="row">
         {% if page.header %}
           {{ page.header }}

@@ -1,4 +1,3 @@
-{% extends "block.html.twig" %}
 {#
 /**
  * @file
@@ -13,44 +12,29 @@
  * - site_slogan: Slogan for site as defined in Site information settings.
  */
 #}
-{%
-  set logo_classes = [
-    'text-decoration-none',
-    'site-logo',
-  ]
-%}
-{%
-  set name_classes = [
-    'text-decoration-none',
-    'align-bottom',
-    bcl_header_style == 'light' ? 'text-dark': 'text-white',
-  ]
-%}
-{%
-  set img_classes = [
-    'd-none',
-    'd-lg-inline-block',
-  ]
-%}
-
-{% set site_logo_attr = create_attribute() %}
-{% set site_logo_img_attr = create_attribute() %}
-{% set site_name_attr = create_attribute() %}
+{% set light = bcl_header_style == 'light' %}
 
 {% block content %}
-  {% if site_logo %}
-    <a {{ site_logo_attr.addClass(logo_classes).setAttribute('rel', 'Home') }} href="{{ path('<front>') }}">
-      <img {{ site_logo_img_attr.addClass(img_classes).setAttribute('alt', 'Home'|t) }} src="{{ site_logo }}" />
-    </a>
-  {% endif %}
-  {% if site_name %}
-    <div class="site-name bcl-header__site-name">
-      <a {{ site_name_attr.addClass(name_classes).setAttribute('rel', 'Home') }} href="{{ path('<front>') }}">
-        {{ site_name }}
-      </a>
-    </div>
-  {% endif %}
-  {% if site_slogan %}
-    <div class="site-slogan">{{ site_slogan }}</div>
-  {% endif %}
+  {% apply spaceless %}
+    {# Project name. #}
+    {% if site_logo is not empty or site_name is not empty %}
+      <div class="bcl-header__project{{ light is not empty ? ' light' }}">
+        <div class="container">
+          {% if site_logo is not empty and bcl_component_library != 'neutral' %}
+            <a class="d-none d-lg-inline-block text-decoration-none site-logo" href="{{ path('<front>') }}">
+              <img alt="{{ 'Home'|t }}" src="{{ site_logo }}"/>
+            </a>
+          {% endif %}
+          {% if site_name is not empty %}
+            <div class="bcl-header__site-name site-name{{ bcl_component_library == 'neutral' ? ' h5 d-inline-block d-lg-none' }}">
+              <a class="text-decoration-none align-bottom bcl-header__site-name mw-100"
+                 href="{{ path('<front>') }}">
+                {{ site_name }}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  {% endapply %}
 {% endblock %}

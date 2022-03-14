@@ -22,7 +22,6 @@
 {% set extra_attributes = extra_attributes.setAttribute('data-bs-target', '#' ~ _language.link.target) %}
 {% set extra_attributes = extra_attributes.addClass(
   [
-    'nav-link',
     'text-center'
   ]
 ) %}
@@ -31,7 +30,7 @@
     <span class="d-block d-lg-inline-block">{{ title }}</span>
   {% endset %}
 
-  <li class="nav-item language-switcher">
+  <div class="language-switcher">
   {{ pattern('link', {
     label: link_title,
     path: _language.link.href,
@@ -43,7 +42,7 @@
     standalone: true,
     attributes: extra_attributes
   }) }}
-</li>
+</div>
 
 {% include '@oe_whitelabel/patterns/modal/modal-language.html.twig' with _language.modal only %}
 
