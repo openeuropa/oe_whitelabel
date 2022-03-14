@@ -37,4 +37,3 @@ function oe_whitelabel_helper_theme($existing, $type, $theme, $path) {
     ],
   ];
 }
-
