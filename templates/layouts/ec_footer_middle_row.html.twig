@@ -1,8 +1,0 @@
-<div class="col-12 col-lg-4">
-  <p class="fw-bold pb-2 mb-2"> {{ 'More information on:'|t }}</p>
-  {% if links is defined and links is not empty and links is iterable %}
-    {% for link in links %}
-      {{ pattern('link', link) }}
-    {% endfor %}
-  {% endif %}
-</div>

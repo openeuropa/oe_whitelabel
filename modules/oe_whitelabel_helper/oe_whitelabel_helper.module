@@ -26,5 +26,14 @@ function oe_whitelabel_helper_theme($existing, $type, $theme, $path) {
         'address_delimiter' => NULL,
       ],
     ],
+    'oe_corporate_blocks_neutral_footer' => [
+      'variables' => [
+        'corporate_footer' => [],
+        'site_specific_footer' => [],
+      ],
+      'preprocess functions' => [
+        'oe_corporate_blocks_preprocess_set_site_owner',
+      ],
+    ],
   ];
 }

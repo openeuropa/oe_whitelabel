@@ -7,6 +7,7 @@ namespace Drupal\oe_whitelabel_helper\TwigExtension;
 use Drupal\Core\Cache\CacheableDependencyInterface;
 use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
 use Drupal\oe_whitelabel_helper\EuropeanUnionLanguages;
+use Drupal\Core\Url;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -122,6 +123,9 @@ class TwigExtension extends AbstractExtension {
     $altered_links = [];
 
     foreach ($links as $link) {
+      if ($link['href'] instanceof Url) {
+        $link['href'] = $link['href']->toString();
+      }
       $altered_link = [
         'label' => $link['label'],
         'path' => $link['href'],
@@ -168,6 +172,8 @@ class TwigExtension extends AbstractExtension {
    *
    * @return array
    *   The block render array.
+   *
+   * @deprecated Use Twig Tweak instead.
    */
   public function bclBlock(string $id, array $configuration = []): array {
     $configuration += ['label_display' => 'hidden'];

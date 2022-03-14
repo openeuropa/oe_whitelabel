@@ -5,20 +5,20 @@ dependencies:
     - oe_corporate_blocks
   theme:
     - oe_whitelabel
-id: oe_whitelabel_ec_corporate_footer
+id: oe_whitelabel_eu_corporate_footer
 theme: oe_whitelabel
 region: footer
 weight: 0
 provider: null
-plugin: oe_corporate_blocks_ec_footer
+plugin: oe_corporate_blocks_eu_footer
 settings:
-  id: oe_corporate_blocks_ec_footer
-  label: 'EC Footer block'
+  id: oe_corporate_blocks_eu_footer
+  label: 'EU Footer block'
   provider: oe_corporate_blocks
   label_display: '0'
 visibility:
   oe_whitelabel_helper_current_component_library:
     id: oe_whitelabel_helper_current_component_library
-    component_library: ec
+    component_library: eu
     negate: false
     context_mapping: {  }
