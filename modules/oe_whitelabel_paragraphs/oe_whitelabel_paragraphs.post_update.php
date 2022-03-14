@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Post update functions for the OE Bootstrap theme paragraphs module.
+ * Post update functions for the OE Whitelabel paragraphs module.
  */
 
 declare(strict_types = 1);
