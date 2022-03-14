@@ -68,10 +68,8 @@
 {% endif %}
 
 {% set footer_top_left_content %}
-  <div class="col-12 col-lg-4">
-    <p class="fw-bold mb-2">{{ site_specific_footer.site_identity }}</p>
-    <p> {{ site_owner ? 'This site is managed by the @name'|t({'@name': site_owner}) }} </p>
-  </div>
+  <p class="fw-bold mb-2">{{ site_specific_footer.site_identity }}</p>
+  <p> {{ site_owner ? 'This site is managed by the @name'|t({'@name': site_owner}) }} </p>
 {% endset %}
 
 {% set attributes = create_attribute().addClass(['pb-4', 'mt-4']) %}
