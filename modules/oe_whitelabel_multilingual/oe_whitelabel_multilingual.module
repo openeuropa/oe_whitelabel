@@ -7,59 +7,61 @@
 
 declare(strict_types =  1);
 
-use Drupal\oe_whitelabel_helper\EuropeanUnionLanguages;
+use Drupal\Component\Utility\Html;
 
 /**
  * Implements hook_preprocess_links().
  */
 function oe_whitelabel_multilingual_preprocess_links__oe_multilingual_content_language_block(array &$variables): void {
   // Generate the label for the unavailable language.
+  /** @var \Drupal\Core\Language\LanguageInterface[] $languages */
+  $languages = \Drupal::service('language_manager')->getNativeLanguages();
   $currentLanguage = \Drupal::languageManager()->getCurrentLanguage();
   $current_language_id = $currentLanguage->getId();
-  $variables['unavailable_language'] = $currentLanguage->getName();
+  $variables['unavailable_language'] = $languages[$current_language_id]->getName();
 
+  // Normalize the links to an array of optional languages suitable for the ECL.
+  $variables['languages'] = [];
   foreach ($variables['links'] as $language_code => $link) {
-    // Handle both cases (block, page) when the link array structure differ.
-    if (isset($link['link'])) {
-      /** @var \Drupal\Core\Url $url */
-      $url = $link['link']['#url'];
-      $href = $url
-        ->setOptions($link['link']['#options'])
-        ->setAbsolute(TRUE)
-        ->toString();
-      $label = $link['link']['#title'];
-    }
-    else {
-      $href = $link['#url']->toString();
-      $label = $link['#title'];
-    }
+    /** @var \Drupal\Core\Url $url */
+    $url = $link['link']['#url'];
+    $href = $url
+      ->setOptions($link['link']['#options'])
+      ->setAbsolute(TRUE)
+      ->toString();
 
-    $language_internal = $language_code;
-    if (EuropeanUnionLanguages::hasLanguage($language_code)) {
-      $language_internal = EuropeanUnionLanguages::getInternalLanguageCode($language_code);
-    }
-
-    $language = [
+    $variables['languages'][] = [
       'path' => $href,
-      'label' => $label,
-      // Pass original language code which can be useful for some other
-      // preprocessors.
       'hreflang' => $language_code,
-      'lang' => $language_internal,
+      'label' => $link['link']['#title'],
+      'current' => FALSE,
     ];
-
-    if (!empty($current_language_id) && $language_code === $current_language_id) {
-      $variables['current_language'] = [
-        'path' => $href,
-        'hreflang' => $language_code,
-        'lang' => $language_internal,
-        'label' => $link['link']['#title'],
-      ];
-      $language['active'] = TRUE;
-    }
-
-    $variables['languages'][] = $language;
   }
+
+  // Add the current language to the list.
+  $multilingual_helper = \Drupal::service('oe_multilingual.helper');
+  $entity = $multilingual_helper->getEntityFromCurrentRoute();
+  /** @var \Drupal\Core\Entity\EntityInterface $translation */
+  $translation = $multilingual_helper->getCurrentLanguageEntityTranslation($entity);
+  $variables['languages'][] = [
+    'path' => $translation->toUrl()->setAbsolute(TRUE)->toString(),
+    'hreflang' => $translation->language()->getId(),
+    'label' => $languages[$translation->language()->getId()]->getName(),
+    'current' => TRUE,
+    'icon_position' => "before",
+    'remove_icon_spacers' => TRUE,
+    'icon' => [
+      'name' => "check-lg",
+      'path' => "/icons.svg",
+      'size' => "xs",
+      '#attributes' => [
+        'class' => ["me-2"],
+      ],
+    ],
+  ];
+
+  // Generate required ids.
+  $variables['expandable_id'] = Html::getUniqueId('ecl-expandable');
 }
 
 /**
