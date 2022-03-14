@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
     - field.field.node.oe_sc_news.body
     - field.field.node.oe_sc_news.oe_featured_media
     - field.field.node.oe_sc_news.oe_publication_date
@@ -13,10 +12,10 @@ dependencies:
     - text
     - user
 
-id: node.oe_sc_news.teaser
+id: node.oe_sc_news.full
 targetEntityType: node
 bundle: oe_sc_news
-mode: teaser
+mode: full
 content:
   body:
     type: text_default
@@ -31,20 +30,19 @@ content:
     weight: 100
     region: content
   oe_featured_media:
-    type: entity_reference_entity_view
-    label: hidden
+    type: oe_featured_media_label
+    label: above
     settings:
-      view_mode: default
-      link: false
+      link: true
     third_party_settings: {  }
-    weight: 10
+    weight: 102
     region: content
   oe_publication_date:
     type: datetime_default
     label: hidden
     settings:
       timezone_override: ''
-      format_type: oe_whitelabel_news_date
+      format_type: oe_whitelabel_starter_news_date
     third_party_settings: {  }
     weight: 13
     region: content

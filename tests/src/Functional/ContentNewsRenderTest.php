@@ -22,7 +22,7 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
-    'oe_whitelabel_news',
+    'oe_whitelabel_starter_news',
   ];
 
   /**

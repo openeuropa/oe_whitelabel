@@ -1,4 +1,4 @@
-name: OpenEuropa Whitelabel News
+name: OpenEuropa Whitelabel Starter News
 type: module
 description: Companion module to OE News providing styling to nodes.
 package: OpenEuropa Whitelabel Theme
@@ -10,6 +10,6 @@ dependencies:
 
 config_devel:
   install:
-    - core.date_format.oel_whitelabel_news_date.yml
+    - core.date_format.oe_whitelabel_starter_news_date.yml
     - core.entity_view_display.node.oe_sc_news.full.yml
     - core.entity_view_display.node.oe_sc_news.teaser.yml

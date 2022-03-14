@@ -46,20 +46,19 @@ content:
     label: inline
     settings:
       timezone_override: ''
-      format_type: oe_whitelabel_event_date
+      format_type: oe_whitelabel_starter_event_date
       separator: to
     third_party_settings: {  }
     weight: 4
     region: content
   oe_featured_media:
-    type: entity_reference_entity_view
-    weight: 3
-    region: content
-    label: hidden
+    type: oe_featured_media_label
+    label: above
     settings:
       link: true
-      view_mode: default
     third_party_settings: {  }
+    weight: 102
+    region: content
   oe_sc_event_location:
     type: oe_whitelabel_helper_address_inline
     label: inline

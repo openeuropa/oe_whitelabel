@@ -25,7 +25,7 @@ content:
     label: hidden
     settings:
       timezone_override: ''
-      format_type: oe_whitelabel_event_date
+      format_type: oe_whitelabel_starter_event_date
       separator: to
     third_party_settings: {  }
     weight: 4

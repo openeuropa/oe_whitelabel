@@ -16,7 +16,7 @@ use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
 /**
  * Implements template_preprocess_node() for the News node type.
  */
-function oe_whitelabel_news_preprocess_node__oe_sc_news(&$variables) {
+function oe_whitelabel_starter_news_preprocess_node__oe_sc_news(&$variables) {
   if ($variables['view_mode'] !== 'full' && $variables['view_mode'] !== 'teaser') {
     return;
   }

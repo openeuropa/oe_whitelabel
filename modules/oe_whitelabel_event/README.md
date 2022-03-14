@@ -1,1 +1,0 @@
-# OpenEuropa Whitelabel Event
