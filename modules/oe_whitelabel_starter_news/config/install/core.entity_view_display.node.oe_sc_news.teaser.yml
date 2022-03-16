@@ -10,9 +10,9 @@ dependencies:
     - node.type.oe_sc_news
   module:
     - datetime
+    - oe_content_featured_media_field
     - text
     - user
-
 id: node.oe_sc_news.teaser
 targetEntityType: node
 bundle: oe_sc_news
@@ -28,7 +28,7 @@ content:
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 14
     region: content
   oe_featured_media:
     type: oe_featured_media_label
@@ -36,7 +36,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 102
+    weight: 15
     region: content
   oe_publication_date:
     type: datetime_default
@@ -48,7 +48,7 @@ content:
     weight: 13
     region: content
   oe_summary:
-    type: basic_string
+    type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
@@ -56,4 +56,8 @@ content:
     region: content
 hidden:
   langcode: true
+  oe_content_content_owner: true
+  oe_content_legacy_link: true
+  oe_content_navigation_title: true
+  oe_content_short_title: true
   search_api_excerpt: true
