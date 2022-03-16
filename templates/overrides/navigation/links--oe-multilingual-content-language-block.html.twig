@@ -1,14 +1,13 @@
 {% apply spaceless %}
-  {# This template uses the BCL composition for
-  language switcher with following components:
-  - bcl-alert
-  - bcl-button
-  - bcl-link
+  {# This template uses the BCL composition for the
+  language switcher.
+  _id, _message and _expandable are overwritten.
+  @todo Call include once BCL 0.20 is available.
   #}
   {% set _id = "dropdown-languages" %}
   {% set _message = {
     message: "This page is not available in @language."|t({'@language': unavailable_language}),
-    icon_path: "/icons.svg",
+    path: bcl_icon_path,
     variant: "warning",
   }%}
   {% set _expandable = {
