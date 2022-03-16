@@ -1,30 +1,25 @@
-{% spaceless %}
-
-  {# Parameters:
-  - id (string) (default: collapse-{random number 0-1000}) - collapse custom id - optional
-  - message (alert object) (default: {})
-  - expandable (button object) (default: [])
-  - language (array of link object) (default: [])
+{% apply spaceless %}
+  {# This template uses the BCL composition for
+  language switcher with following components:
+  - bcl-alert
+  - bcl-button
+  - bcl-link
   #}
-
-  {% set id = "dropdown-languages" %}
-  {% set message = {
-    message: "This page is not available in %s."|format(unavailable_language)|t,
+  {% set _id = "dropdown-languages" %}
+  {% set _message = {
+    message: "This page is not available in @language."|t({'@language': unavailable_language}),
     icon_path: "/icons.svg",
     variant: "warning",
   }%}
-  {% set expandable = {
+  {% set _expandable = {
     label: "Choose another language"|t,
     icon: {
       name: "caret-down-fill",
-      path: "/icons.svg",
+      path: bcl_icon_path,
     },
     outline: "true",
   } %}
 
-  {% set _id = id|default('collapse-' ~ random(1000)) %}
-  {% set _message = message|default({}) %}
-  {% set _expandable = expandable|default({}) %}
   {% set _languages = languages|default([]) %}
   {% set _expandable_attributes = _expandable.attributes ?: create_attribute() %}
   {% set _expandable_attributes = _expandable_attributes
@@ -54,4 +49,4 @@
       </div>
     </div>
   </div>
-{% endspaceless %}
+{% endapply %}
