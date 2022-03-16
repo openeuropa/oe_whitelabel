@@ -7,8 +7,6 @@
 
 declare(strict_types =  1);
 
-use Drupal\Component\Utility\Html;
-
 /**
  * Implements hook_preprocess_links().
  */
@@ -20,7 +18,7 @@ function oe_whitelabel_multilingual_preprocess_links__oe_multilingual_content_la
   $current_language_id = $currentLanguage->getId();
   $variables['unavailable_language'] = $languages[$current_language_id]->getName();
 
-  // Normalize the links to an array of optional languages suitable for the ECL.
+  // Normalize the links to an array of optional languages suitable for the BCL.
   $variables['languages'] = [];
   foreach ($variables['links'] as $language_code => $link) {
     /** @var \Drupal\Core\Url $url */
@@ -48,20 +46,15 @@ function oe_whitelabel_multilingual_preprocess_links__oe_multilingual_content_la
     'hreflang' => $translation->language()->getId(),
     'label' => $languages[$translation->language()->getId()]->getName(),
     'current' => TRUE,
-    'icon_position' => "before",
-    'remove_icon_spacers' => TRUE,
+    'icon_position' => 'before',
+    'remove_icon_spacers' => FALSE,
     'icon' => [
       'name' => "check-lg",
-      'path' => "/icons.svg",
+      'path' => $variables['bcl_icon_path'],
       'size' => "xs",
-      '#attributes' => [
-        'class' => ["me-2"],
-      ],
+      '#attributes' => ['class' => ['me-2']],
     ],
   ];
-
-  // Generate required ids.
-  $variables['expandable_id'] = Html::getUniqueId('ecl-expandable');
 }
 
 /**
