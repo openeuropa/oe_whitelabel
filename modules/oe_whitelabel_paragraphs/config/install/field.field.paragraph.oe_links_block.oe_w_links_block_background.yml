@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.oe_bt_links_block_background
+    - field.storage.paragraph.oe_w_links_block_background
     - paragraphs.paragraphs_type.oe_links_block
   module:
     - options
-id: paragraph.oe_links_block.oe_bt_links_block_background
-field_name: oe_bt_links_block_background
+id: paragraph.oe_links_block.oe_w_links_block_background
+field_name: oe_w_links_block_background
 entity_type: paragraph
 bundle: oe_links_block
 label: Background

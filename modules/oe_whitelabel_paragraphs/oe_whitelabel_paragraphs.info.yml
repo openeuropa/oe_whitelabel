@@ -12,12 +12,12 @@ dependencies:
   - oe_paragraphs:oe_paragraphs_description_list
 config_devel:
   install:
-    - field.field.paragraph.oe_links_block.oe_bt_links_block_background
-    - field.field.paragraph.oe_links_block.oe_bt_links_block_orientation
-    - field.field.paragraph.oe_social_media_follow.oe_bt_links_block_background
-    - field.field.paragraph.oe_facts_figures.oe_bt_n_columns
-    - field.storage.paragraph.oe_bt_links_block_orientation
-    - field.storage.paragraph.oe_bt_links_block_background
-    - field.field.paragraph.oe_description_list.oe_bt_orientation
-    - field.storage.paragraph.oe_bt_orientation
-    - field.storage.paragraph.oe_bt_n_columns
+    - field.field.paragraph.oe_links_block.oe_w_links_block_background
+    - field.field.paragraph.oe_links_block.oe_w_links_block_orientation
+    - field.field.paragraph.oe_social_media_follow.oe_w_links_block_background
+    - field.field.paragraph.oe_facts_figures.oe_w_n_columns
+    - field.storage.paragraph.oe_w_links_block_orientation
+    - field.storage.paragraph.oe_w_links_block_background
+    - field.field.paragraph.oe_description_list.oe_w_orientation
+    - field.storage.paragraph.oe_w_orientation
+    - field.storage.paragraph.oe_w_n_columns

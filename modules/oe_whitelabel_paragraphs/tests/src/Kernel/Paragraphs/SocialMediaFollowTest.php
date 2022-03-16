@@ -22,7 +22,7 @@ class SocialMediaFollowTest extends LinksBlockAssertion {
       'type' => 'oe_social_media_follow',
       'field_oe_title' => 'Social media title',
       'field_oe_social_media_variant' => 'horizontal',
-      'oe_bt_links_block_background' => 'gray',
+      'oe_w_links_block_background' => 'gray',
       'field_oe_social_media_links' => $this->getSocialMediaLinks(),
       'field_oe_social_media_see_more' => [
         'title' => 'Other social networks',
@@ -58,7 +58,7 @@ class SocialMediaFollowTest extends LinksBlockAssertion {
 
     // Testing: SocialMediaFollow horizontal transparent.
     $paragraph->get('field_oe_social_media_variant')->setValue('horizontal');
-    $paragraph->get('oe_bt_links_block_background')->setValue('transparent');
+    $paragraph->get('oe_w_links_block_background')->setValue('transparent');
     $paragraph->save();
 
     $html = $this->renderParagraph($paragraph);
@@ -73,7 +73,7 @@ class SocialMediaFollowTest extends LinksBlockAssertion {
 
     // Testing: SocialMediaFollow vertical transparent.
     $paragraph->get('field_oe_social_media_variant')->setValue('vertical');
-    $paragraph->get('oe_bt_links_block_background')->setValue('transparent');
+    $paragraph->get('oe_w_links_block_background')->setValue('transparent');
     $paragraph->save();
 
     $html = $this->renderParagraph($paragraph);

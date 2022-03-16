@@ -21,8 +21,8 @@ class LinksBlockTest extends LinksBlockAssertion {
     $paragraph = Paragraph::create([
       'type' => 'oe_links_block',
       'field_oe_text' => 'More information',
-      'oe_bt_links_block_orientation' => 'vertical',
-      'oe_bt_links_block_background' => 'gray',
+      'oe_w_links_block_orientation' => 'vertical',
+      'oe_w_links_block_background' => 'gray',
       'field_oe_links' => $this->getBlockLinks(),
     ]);
     $paragraph->save();
@@ -36,7 +36,7 @@ class LinksBlockTest extends LinksBlockAssertion {
     $this->assertVerticalLinks($crawler);
 
     // Testing: LinksBlock horizontal gray.
-    $paragraph->get('oe_bt_links_block_orientation')->setValue('horizontal');
+    $paragraph->get('oe_w_links_block_orientation')->setValue('horizontal');
     $paragraph->save();
 
     $html = $this->renderParagraph($paragraph);
@@ -47,8 +47,8 @@ class LinksBlockTest extends LinksBlockAssertion {
     $this->assertHorizontalLinks($crawler, FALSE);
 
     // Testing: LinksBlock vertical transparent.
-    $paragraph->get('oe_bt_links_block_orientation')->setValue('vertical');
-    $paragraph->get('oe_bt_links_block_background')->setValue('transparent');
+    $paragraph->get('oe_w_links_block_orientation')->setValue('vertical');
+    $paragraph->get('oe_w_links_block_background')->setValue('transparent');
     $paragraph->save();
 
     $html = $this->renderParagraph($paragraph);
@@ -59,7 +59,7 @@ class LinksBlockTest extends LinksBlockAssertion {
     $this->assertVerticalLinks($crawler);
 
     // Testing: LinksBlock horizontal transparent.
-    $paragraph->get('oe_bt_links_block_orientation')->setValue('horizontal');
+    $paragraph->get('oe_w_links_block_orientation')->setValue('horizontal');
     $paragraph->save();
 
     $html = $this->renderParagraph($paragraph);

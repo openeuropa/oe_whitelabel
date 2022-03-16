@@ -16,8 +16,8 @@ function oe_whitelabel_paragraphs_post_update_00001(array &$sandbox): void {
   \Drupal::service('module_installer')->install(['oe_paragraphs_description_list']);
 
   $configs = [
-    'field.storage.paragraph.oe_bt_orientation',
-    'field.field.paragraph.oe_description_list.oe_bt_orientation',
+    'field.storage.paragraph.oe_w_orientation',
+    'field.field.paragraph.oe_description_list.oe_w_orientation',
     'core.entity_form_display.paragraph.oe_description_list.default',
     'core.entity_view_display.paragraph.oe_description_list.default',
   ];
@@ -42,8 +42,8 @@ function oe_whitelabel_paragraphs_post_update_00002(array &$sandbox): void {
  */
 function oe_whitelabel_paragraphs_post_update_00003(array &$sandbox): void {
   $configs = [
-    'field.storage.paragraph.oe_bt_n_columns',
-    'field.field.paragraph.oe_facts_figures.oe_bt_n_columns',
+    'field.storage.paragraph.oe_w_n_columns',
+    'field.field.paragraph.oe_facts_figures.oe_w_n_columns',
     'core.entity_form_display.paragraph.oe_facts_figures.default',
     'core.entity_view_display.paragraph.oe_facts_figures.default',
   ];

@@ -3,8 +3,8 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.oe_links_block.field_oe_links
-    - field.field.paragraph.oe_links_block.oe_bt_links_block_background
-    - field.field.paragraph.oe_links_block.oe_bt_links_block_orientation
+    - field.field.paragraph.oe_links_block.oe_w_links_block_background
+    - field.field.paragraph.oe_links_block.oe_w_links_block_orientation
     - field.field.paragraph.oe_links_block.field_oe_text
     - paragraphs.paragraphs_type.oe_links_block
   module:
@@ -22,13 +22,13 @@ content:
     third_party_settings: {  }
     type: link_default
     region: content
-  oe_bt_links_block_background:
+  oe_w_links_block_background:
     weight: 1
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
-  oe_bt_links_block_orientation:
+  oe_w_links_block_orientation:
     weight: 0
     settings: {  }
     third_party_settings: {  }

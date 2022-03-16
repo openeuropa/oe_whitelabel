@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.oe_bt_n_columns
+    - field.storage.paragraph.oe_w_n_columns
     - paragraphs.paragraphs_type.oe_facts_figures
-id: paragraph.oe_facts_figures.oe_bt_n_columns
-field_name: oe_bt_n_columns
+id: paragraph.oe_facts_figures.oe_w_n_columns
+field_name: oe_w_n_columns
 entity_type: paragraph
 bundle: oe_facts_figures
 label: 'Number of columns'

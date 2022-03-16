@@ -70,8 +70,8 @@ class ContentRowTest extends ParagraphsTestBase {
       Paragraph::create([
         'type' => 'oe_links_block',
         'field_oe_text' => 'Links block test',
-        'oe_bt_links_block_orientation' => 'vertical',
-        'oe_bt_links_block_background' => 'gray',
+        'oe_w_links_block_orientation' => 'vertical',
+        'oe_w_links_block_background' => 'gray',
         'field_oe_links' => [
           [
             'title' => 'Example 2',
@@ -106,7 +106,7 @@ class ContentRowTest extends ParagraphsTestBase {
         'type' => 'oe_social_media_follow',
         'field_oe_title' => 'Social media block',
         'field_oe_social_media_variant' => 'horizontal',
-        'oe_bt_links_block_background' => 'gray',
+        'oe_w_links_block_background' => 'gray',
         'field_oe_social_media_links' => [
           [
             'title' => 'Email',

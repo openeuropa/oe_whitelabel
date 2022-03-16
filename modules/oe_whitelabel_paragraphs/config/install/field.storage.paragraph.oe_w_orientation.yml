@@ -4,8 +4,8 @@ dependencies:
   module:
     - options
     - paragraphs
-id: paragraph.oe_bt_orientation
-field_name: oe_bt_orientation
+id: paragraph.oe_w_orientation
+field_name: oe_w_orientation
 entity_type: paragraph
 type: list_string
 settings:

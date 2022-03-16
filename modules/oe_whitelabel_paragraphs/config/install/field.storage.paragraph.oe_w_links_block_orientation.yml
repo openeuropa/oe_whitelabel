@@ -4,18 +4,18 @@ dependencies:
   module:
     - options
     - paragraphs
-id: paragraph.oe_bt_orientation
-field_name: oe_bt_orientation
+id: paragraph.oe_w_links_block_orientation
+field_name: oe_w_links_block_orientation
 entity_type: paragraph
 type: list_string
 settings:
   allowed_values:
     -
-      value: vertical
-      label: Vertical
-    -
       value: horizontal
       label: Horizontal
+    -
+      value: vertical
+      label: Vertical
   allowed_values_function: ''
 module: options
 locked: false

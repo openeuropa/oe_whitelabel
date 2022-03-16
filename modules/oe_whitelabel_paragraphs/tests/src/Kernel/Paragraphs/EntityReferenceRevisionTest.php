@@ -65,8 +65,8 @@ class EntityReferenceRevisionTest extends ParagraphsTestBase {
     $paragraph1 = Paragraph::create([
       'type' => 'oe_links_block',
       'field_oe_text' => 'More information',
-      'oe_bt_links_block_orientation' => 'vertical',
-      'oe_bt_links_block_background' => 'gray',
+      'oe_w_links_block_orientation' => 'vertical',
+      'oe_w_links_block_background' => 'gray',
       'field_oe_links' => [
         [
           'title' => 'European Commission',

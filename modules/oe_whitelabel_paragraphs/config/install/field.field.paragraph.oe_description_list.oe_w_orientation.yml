@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.oe_bt_orientation
+    - field.storage.paragraph.oe_w_orientation
     - paragraphs.paragraphs_type.oe_description_list
   module:
     - options
-id: paragraph.oe_description_list.oe_bt_orientation
-field_name: oe_bt_orientation
+id: paragraph.oe_description_list.oe_w_orientation
+field_name: oe_w_orientation
 entity_type: paragraph
 bundle: oe_description_list
 label: Orientation
