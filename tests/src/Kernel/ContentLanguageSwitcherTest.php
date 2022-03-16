@@ -23,12 +23,12 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
     'locale',
     'node',
     'oe_bootstrap_theme_helper',
+    'oe_corporate_blocks',
     'oe_multilingual',
     'oe_whitelabel_helper',
     'oe_whitelabel_multilingual',
     'system',
     'user',
-    'oe_corporate_blocks',
   ];
 
   /**
@@ -135,15 +135,13 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
 
     // Verify that the content has been rendered in the fallback language.
     $this->assertSelectedLanguage($crawler, 'English');
-    
-    // Re-render the block assuming a request to the base language English
-    // version of the node.
-    $this->setCurrentRequest('/en/node/' . $node->id());
+
+    // Simulate a request to the canonical route of the node base language.
+    $this->setCurrentRequest('/node/' . $node->id());
 
     $html = (string) $this->container->get('renderer')->renderRoot($render);
     $crawler = new Crawler($html);
-    $render = $plugin_block->build();
-    
+
     // Make sure that no language links are rendered.
     $this->assertTranslationLinks($crawler, []);
   }
