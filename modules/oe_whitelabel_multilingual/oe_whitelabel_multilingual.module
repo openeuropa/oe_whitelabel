@@ -49,9 +49,9 @@ function oe_whitelabel_multilingual_preprocess_links__oe_multilingual_content_la
     'icon_position' => 'before',
     'remove_icon_spacers' => FALSE,
     'icon' => [
-      'name' => "check-lg",
+      'name' => 'check-lg',
       'path' => $variables['bcl_icon_path'],
-      'size' => "xs",
+      'size' => 'xs',
       '#attributes' => ['class' => ['me-2']],
     ],
   ];
