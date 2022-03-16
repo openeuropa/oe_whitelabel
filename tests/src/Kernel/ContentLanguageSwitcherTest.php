@@ -28,6 +28,7 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
     'oe_whitelabel_multilingual',
     'system',
     'user',
+    'oe_corporate_blocks',
   ];
 
   /**
@@ -117,6 +118,37 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
 
     // Make sure that available languages are properly rendered.
     $this->assertTranslationLinks($crawler, ['español', 'English']);
+
+    // Remove the spanish translation.
+    $node->removeTranslation('es');
+    $node->save();
+
+    // Re-render the block assuming a request to the Spanish version of the
+    // node.
+    $this->setCurrentRequest('/es/node/' . $node->id());
+    $render = $plugin_block->build();
+
+    $html = (string) $this->container->get('renderer')->renderRoot($render);
+    $crawler = new Crawler($html);
+
+    // Verify that the requested language is set as unavailable.
+    $this->assertUnavailableLanguage($crawler, 'This page is not available in español.');
+
+    // Verify that the content has been rendered in the fallback language.
+    $this->assertSelectedLanguage($crawler, 'English');
+  }
+
+  /**
+   * Asserts that a language is marked as the current rendered.
+   *
+   * @param \Symfony\Component\DomCrawler\Crawler $crawler
+   *   The content language block crawler.
+   * @param string $expected
+   *   The label of the language.
+   */
+  protected function assertSelectedLanguage(Crawler $crawler, string $expected): void {
+    $actual = $crawler->filter('#dropdown-languages > div > a')->text();
+    $this->assertEquals($expected, trim($actual));
   }
 
   /**
