@@ -63,7 +63,6 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
 
     $this->container->get('theme_installer')->install(['oe_whitelabel']);
     $this->config('system.theme')->set('default', 'oe_whitelabel')->save();
-    $this->container->set('theme.registry', NULL);
 
     // Call the installation hook of the User module which creates the
     // Anonymous user and User 1. This is needed because the Anonymous user
