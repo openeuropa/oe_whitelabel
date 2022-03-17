@@ -17,12 +17,12 @@ use Drupal\Component\Utility\Html;
 /**
  * Implements template_preprocess_node() for the Event node type.
  */
-function oe_whitelabel_event_preprocess_node__oe_event(&$variables) {
+function oe_whitelabel_starter_event_preprocess_node__oe_sc_event(&$variables) {
   if ($variables['view_mode'] !== 'full' && $variables['view_mode'] !== 'teaser') {
     return;
   }
-  _oe_whitelabel_event_preprocess_featured_media($variables);
-  _oe_whitelabel_event_preprocess_inpage_nav($variables);
+  _oe_whitelabel_starter_event_preprocess_featured_media($variables);
+  _oe_whitelabel_starter_event_preprocess_inpage_nav($variables);
 }
 
 /**
@@ -31,7 +31,7 @@ function oe_whitelabel_event_preprocess_node__oe_event(&$variables) {
  * @param array $variables
  *   Render array variables.
  */
-function _oe_whitelabel_event_preprocess_featured_media(array &$variables): void {
+function _oe_whitelabel_starter_event_preprocess_featured_media(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
 
@@ -91,7 +91,7 @@ function _oe_whitelabel_event_preprocess_featured_media(array &$variables): void
  * @param array $variables
  *   Render array variables.
  */
-function _oe_whitelabel_event_preprocess_inpage_nav(array &$variables): void {
+function _oe_whitelabel_starter_event_preprocess_inpage_nav(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
 

@@ -1,7 +1,7 @@
 langcode: en
 status: true
 dependencies: {  }
-id: oe_whitelabel_event_date
+id: oe_whitelabel_starter_event_date
 label: 'OE Whitelabel Event date'
 locked: false
 pattern: 'd F Y'

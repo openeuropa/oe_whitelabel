@@ -22,7 +22,7 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
-    'oe_whitelabel_news',
+    'oe_whitelabel_starter_news',
   ];
 
   /**
@@ -60,12 +60,12 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
     $node = \Drupal::entityTypeManager()
       ->getStorage('node')
       ->create([
-        'type' => 'oe_news',
+        'type' => 'oe_sc_news',
         'title' => 'Test news node',
         'oe_summary' => 'http://www.example.org is a web page',
         'body' => 'News body',
         'oe_publication_date' => [
-          'value' => '2022-02-09T20:00:00',
+          'value' => '2022-02-09',
         ],
         'uid' => 1,
         'status' => 1,
@@ -104,18 +104,18 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
     );
     // Assert content banner publication date.
     $this->assertEquals(
-      '10 February 2022',
+      '09 February 2022',
       trim($content_banner->filter('.card-body > div.my-4')->text())
     );
     // Assert content banner summary.
     $this->assertEquals(
       'http://www.example.org is a web page',
-      trim($content_banner->filter('.oe-news__oe-summary')->text())
+      trim($content_banner->filter('.oe-sc-news__oe-summary')->text())
     );
     // Assert the news content.
     $this->assertEquals(
       'News body',
-      trim($crawler->filter('.oe-news__body')->text())
+      trim($crawler->filter('.oe-sc-news__body')->text())
     );
   }
 
@@ -149,7 +149,7 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
     );
     // Assert content banner publication date.
     $this->assertEquals(
-      '10 February 2022',
+      '09 February 2022',
       trim($crawler->filter('div.card-body > span.text-muted')->text())
     );
   }
