@@ -10,7 +10,7 @@
         "cweagans/composer-patches": "^1.7",
         "drupal/core": "^9.2",
         "drupal/twig_field_value": "^2.0",
-        "openeuropa/oe_bootstrap_theme": "^1.0.0-alpha7"
+        "openeuropa/oe_bootstrap_theme": "0.1255.202203171757"
     },
     "require-dev": {
         "composer/installers": "^1.11",
@@ -19,8 +19,9 @@
         "drupal/core-composer-scaffold": "^9.2",
         "drupal/core-dev": "^9.2",
         "drupal/ctools": "^3.7",
+        "drupal/description_list_field": "^1.0@alpha",
         "drupal/drupal-extension": "~4.1",
-        "drupal/file_link": "^2.0.4",
+        "drupal/file_link": "^2.0.6",
         "drupal/pathauto": "^1.8",
         "drupal/search_api": "^1.21",
         "drupal/search_api_autocomplete": "^1.5",
@@ -34,7 +35,9 @@
         "openeuropa/oe_contact_forms": "~1.1",
         "openeuropa/oe_content": "^2.8.0",
         "openeuropa/oe_corporate_blocks": "^4.4",
+        "openeuropa/oe_media": "^1.14",
         "openeuropa/oe_multilingual": "^1.9",
+        "openeuropa/oe_paragraphs": "^1.12",
         "openeuropa/oe_starter_content": "1.x-dev",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta5",
         "phpspec/prophecy-phpunit": "^1 || ^2"
@@ -62,11 +65,6 @@
                     "url": "https://github.com/{name}/releases/download/{pretty-version}/{project-name}-{pretty-version}.zip",
                     "type": "zip"
                 }
-            }
-        },
-        "patches": {
-            "openeuropa/oe_bootstrap_theme" : {
-                "1.x latest": "https://github.com/openeuropa/oe_bootstrap_theme/compare/1.0.0-alpha7..1.x.diff"
             }
         },
         "drupal-scaffold": {
