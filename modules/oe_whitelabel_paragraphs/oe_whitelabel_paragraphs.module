@@ -174,7 +174,7 @@ function oe_whitelabel_preprocess_paragraph__oe_text_feature_media(array &$varia
     $variables['image'] = ImageValueObject::fromStyledImageItem($thumbnail, 'oe_bootstrap_theme_medium_no_crop');
   }
   elseif ($is_video) {
-    _oe_whitelabel_paragraphs_featured_media_set_embedded_media($variables, $media, $cacheability, $source);
+    _oe_whitelabel_featured_media_set_embedded_media($variables, $media, $cacheability, $source);
   }
 
   $cacheability->applyTo($variables);
@@ -261,13 +261,13 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
 /**
  * Implements hook_preprocess_paragraph() for oe_banner paragraph.
  */
-function oe_whitelabel_paragraphs_preprocess_paragraph__oe_banner(array &$variables): void {
+function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void {
   /** @var Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
   $variables['title'] = $paragraph->get('field_oe_title')->value;
   $variables['description'] = $paragraph->get('field_oe_text')->value;
   $variables['full_width'] = (bool) $paragraph->get('field_oe_banner_full_width')->value;
-  oe_whitelabel_set_banner_link($paragraph, $variables);
+  _oe_whitelabel_set_banner_link($paragraph, $variables);
 
   // The alignment field value contains the information regarding the pattern
   // type and centering.
@@ -321,7 +321,7 @@ function oe_whitelabel_paragraphs_preprocess_paragraph__oe_banner(array &$variab
     return;
   }
 
-  $uri = oe_whitelabel_get_media_uri($source, $media, $cacheability);
+  $uri = _oe_whitelabel_get_media_uri($source, $media, $cacheability);
 
   // The uri might be empty if the source is of type Image and the file entity
   // was deleted.
@@ -466,7 +466,7 @@ function oe_whitelabel_preprocess_paragraph__oe_facts_figures(array &$variables)
  * @param array $variables
  *   The render array.
  */
-function oe_whitelabel_set_banner_link(Paragraph $paragraph, array &$variables): void {
+function _oe_whitelabel_set_banner_link(Paragraph $paragraph, array &$variables): void {
   if ($paragraph->get('field_oe_link')->isEmpty()) {
     return;
   }
@@ -489,7 +489,7 @@ function oe_whitelabel_set_banner_link(Paragraph $paragraph, array &$variables):
  * @return string
  *   The uri string.
  */
-function oe_whitelabel_get_media_uri(MediaSourceInterface $source, Media $media, CacheableMetadata $cacheability): string {
+function _oe_whitelabel_get_media_uri(MediaSourceInterface $source, Media $media, CacheableMetadata $cacheability): string {
   $field_name = $source->getConfiguration()['source_field'];
 
   if ($source instanceof Image && ($file_entity = $media->get($field_name)->entity)) {
@@ -517,7 +517,7 @@ function oe_whitelabel_get_media_uri(MediaSourceInterface $source, Media $media,
  * @param \Drupal\media\MediaSourceInterface $source
  *   Media source.
  */
-function _oe_whitelabel_paragraphs_featured_media_set_embedded_media(array &$variables, MediaInterface $media, CacheableMetadata $cacheability, MediaSourceInterface $source): void {
+function _oe_whitelabel_featured_media_set_embedded_media(array &$variables, MediaInterface $media, CacheableMetadata $cacheability, MediaSourceInterface $source): void {
   // Default video aspect ratio is set to 16x9.
   $variables['ratio'] = '16x9';
 
