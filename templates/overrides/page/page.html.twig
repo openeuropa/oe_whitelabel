@@ -117,7 +117,7 @@
         {% endif %}
 
         {% if page.content or page.content_top %}
-          <div{{ attributes.addClass(grid_classes) }}>
+          <div class="col-12 {{ page.sidebar_left ? 'col-lg-9' }}">
             {% if page.content_top %}
               <div class="mb-3 clearfix">
                 {{ page.content_top }}
