@@ -1,5 +1,17 @@
 # The OpenEuropa Whitelabel theme
 
+## Paragraphs
+
+The paragraphs below are not yet themed therefore not recommended for usage:
+
+- Contextual navigation
+- Document
+
+Some paragraphs are considered "internal", and only meant to be used inside other paragraphs:
+
+- Listing item: To be used as item paragraph within 'Listing item block'.
+- Fact: To be used as item paragraph within 'Facts and figures'.
+
 ## Requirements
 
 This depends on the following software:
@@ -18,7 +30,13 @@ composer require openeuropa/oe_whitelabel
 
 In order to enable the theme in your project perform the following steps:
 
-- Enable the OpenEuropa Whitelabel Theme and set it as default ```./vendor/bin/drush config-set system.theme default oe_bootstrap_theme```
+- Enable the OpenEuropa Whitelabel Theme and set it as default ```./vendor/bin/drush config-set system.theme default oe_whitelabel_theme```
+
+### Integration with oe_paragraphs
+
+In order to have full working integration with paragraphs in your project, you must enable oe_whitelabel_paragraphs module:
+
+```./vendor/bin/drush en oe_whitelabel_paragraphs```
 
 ## Development setup
 
