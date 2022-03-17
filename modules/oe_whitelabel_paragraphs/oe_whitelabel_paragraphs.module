@@ -29,7 +29,7 @@ use Drupal\paragraphs\Entity\Paragraph;
  *
  * Adds a bare, markup-free template suggestion to all paragraph fields.
  */
-function oe_whitelabel_paragraphs_paragraphs_theme_suggestions_field_alter(array &$suggestions, array $variables): void {
+function oe_whitelabel_paragraphs_theme_suggestions_field_alter(array &$suggestions, array $variables): void {
   $element = $variables['element'];
 
   // Do not output field labels and wrapping markup for paragraph fields.
@@ -171,7 +171,7 @@ function oe_whitelabel_paragraphs_preprocess_paragraph__oe_text_feature_media(ar
     $variables['image'] = ImageValueObject::fromStyledImageItem($thumbnail, 'oe_bootstrap_theme_medium_no_crop');
   }
   elseif ($is_video) {
-    _oe_whitelabel_featured_media_set_embedded_media($variables, $media, $cacheability, $source);
+    _oe_whitelabel_paragraphs_featured_media_set_embedded_media($variables, $media, $cacheability, $source);
   }
 
   $cacheability->applyTo($variables);
