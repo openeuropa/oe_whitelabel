@@ -21,19 +21,20 @@ function oe_whitelabel_paragraphs_install($is_syncing): void {
   }
 
   $configs = [
-    'core.entity_form_display.paragraph.oe_links_block.default',
-    'core.entity_form_display.paragraph.oe_social_media_follow.default',
-    'core.entity_view_display.paragraph.oe_links_block.default',
-    'core.entity_view_display.paragraph.oe_social_media_follow.default',
-    'core.entity_form_display.paragraph.oe_description_list.default',
-    'core.entity_view_display.paragraph.oe_description_list.default',
     'core.entity_form_display.paragraph.oe_accordion_item.default',
-    'core.entity_view_display.paragraph.oe_accordion_item.default',
+    'core.entity_form_display.paragraph.oe_description_list.default',
     'core.entity_form_display.paragraph.oe_facts_figures.default',
-    'core.entity_view_display.paragraph.oe_facts_figures.default',
+    'core.entity_form_display.paragraph.oe_links_block.default',
+    'core.entity_form_display.paragraph.oe_list_item.default',
     'core.entity_form_display.paragraph.oe_list_item_block.default',
     'core.entity_form_display.paragraph.oe_list_item_block.highlight',
-    'core.entity_form_display.paragraph.oe_list_item.default',
+    'core.entity_form_display.paragraph.oe_social_media_follow.default',
+    'core.entity_view_display.paragraph.oe_accordion_item.default',
+    'core.entity_view_display.paragraph.oe_description_list.default',
+    'core.entity_view_display.paragraph.oe_facts_figures.default',
+    'core.entity_view_display.paragraph.oe_links_block.default',
+    'core.entity_view_display.paragraph.oe_social_media_follow.default',
+    'field.field.paragraph.oe_social_media_follow.field_oe_social_media_variant',
   ];
 
   ConfigImporter::importMultiple('oe_whitelabel_paragraphs', '/config/overrides/', $configs);
