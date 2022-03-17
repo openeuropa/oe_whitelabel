@@ -5,8 +5,3 @@ package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^9.2
 dependencies:
   - openeuropa:oe_multilingual
-
-config_devel:
-  optional:
-    - block.block.oe_whitelabel_main_page_content
-    - block.block.openeuropa_content_language_switcher
