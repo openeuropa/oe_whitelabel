@@ -14,9 +14,7 @@ function oe_whitelabel_multilingual_preprocess_links__oe_multilingual_content_la
   // Generate the label for the unavailable language.
   /** @var \Drupal\Core\Language\LanguageInterface[] $languages */
   $languages = \Drupal::service('language_manager')->getNativeLanguages();
-  $currentLanguage = \Drupal::languageManager()->getCurrentLanguage();
-  $current_language_id = $currentLanguage->getId();
-  $variables['unavailable_language'] = $languages[$current_language_id]->getName();
+  $variables['unavailable_language'] = $languages[$variables['current_language_id']]->getName();
 
   // Normalize the links to an array of optional languages suitable for the BCL.
   $variables['languages'] = [];
