@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Test content language switcher rendering.
  */
 class ContentLanguageSwitcherTest extends KernelTestBase {
+
   /**
    * {@inheritdoc}
    */
@@ -84,7 +85,6 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
       'title' => 'Hello, world!',
       'type' => 'oe_demo_translatable_page',
     ]);
-
     /** @var \Drupal\Core\Entity\EntityInterface $translation */
     $node->addTranslation('es', ['title' => '¡Hola mundo!'])->save();
 
@@ -96,7 +96,7 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
     $block_manager = \Drupal::service('plugin.manager.block');
     $config = [
       'id' => 'oe_multilingual_content_language_switcher',
-      'label' => 'OpenEuropa Content Language Switcher',
+      'label' => 'Content language switcher',
       'provider' => 'oe_multilingual',
       'label_display' => '0',
     ];
@@ -104,6 +104,7 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
     /** @var \Drupal\Core\Block\BlockBase $plugin_block */
     $plugin_block = $block_manager->createInstance('oe_multilingual_content_language_switcher', $config);
     $render = $plugin_block->build();
+
     $html = (string) $this->container->get('renderer')->renderRoot($render);
     $crawler = new Crawler($html);
 
@@ -115,8 +116,11 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
     // will have it.
     $this->assertUnavailableLanguage($crawler, 'This page is not available in български.');
 
+    // Make sure that selected language is properly rendered.
+    $this->assertSelectedLanguage($crawler, 'English');
+
     // Make sure that available languages are properly rendered.
-    $this->assertTranslationLinks($crawler, ['español', 'English']);
+    $this->assertTranslationLinks($crawler, ['español']);
 
     // Remove the spanish translation.
     $node->removeTranslation('es');
@@ -136,12 +140,6 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
     // Verify that the content has been rendered in the fallback language.
     $this->assertSelectedLanguage($crawler, 'English');
 
-    // Simulate a request to the canonical route of the node base language.
-    $this->setCurrentRequest('/node/' . $node->id());
-
-    $html = (string) $this->container->get('renderer')->renderRoot($render);
-    $crawler = new Crawler($html);
-
     // Make sure that no language links are rendered.
     $this->assertTranslationLinks($crawler, []);
   }
@@ -155,7 +153,8 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
    *   The label of the language.
    */
   protected function assertSelectedLanguage(Crawler $crawler, string $expected): void {
-    $actual = $crawler->filter('#dropdown-languages > div > a')->text();
+    // The selected language link will contain a svg, so we target that.
+    $actual = $crawler->filter('#dropdown-languages > div > a > svg')->parents()->first()->text();
     $this->assertEquals($expected, trim($actual));
   }
 
@@ -182,6 +181,10 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
    */
   protected function assertTranslationLinks(Crawler $crawler, array $expected): void {
     $elements = $crawler->filter('#dropdown-languages > div > a');
+    // Filter out the selected language.
+    $elements = $elements->reduce(function (Crawler $crawler) {
+      return $crawler->filter('svg')->count() === 0;
+    });
     $this->assertSameSize($expected, $elements);
 
     $actual = array_column(iterator_to_array($elements), 'nodeValue');
