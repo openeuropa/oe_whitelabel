@@ -5,7 +5,7 @@ dependencies:
     - oe_multilingual
   theme:
     - oe_whitelabel
-id: oe_whitelabel_multilingual_language_switcher
+id: oe_whitelabel_content_language_switcher
 theme: oe_whitelabel
 region: content
 weight: -4
@@ -13,7 +13,7 @@ provider: null
 plugin: oe_multilingual_content_language_switcher
 settings:
   id: oe_multilingual_content_language_switcher
-  label: '777777777OpenEuropa Content Language Switcher'
+  label: 'Content Language Switcher'
   label_display: '0'
   provider: oe_multilingual
 visibility: {  }
