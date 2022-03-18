@@ -37,6 +37,7 @@ config_devel:
   optional:
     - block.block.oe_whitelabel_branding
     - block.block.oe_whitelabel_breadcrumbs
+    - block.block.oe_whitelabel_content_language_switcher
     - block.block.oe_whitelabel_ec_corporate_footer
     - block.block.oe_whitelabel_eu_corporate_footer
     - block.block.oe_whitelabel_eulogin
@@ -46,6 +47,5 @@ config_devel:
     - block.block.oe_whitelabel_main_navigation
     - block.block.oe_whitelabel_main_page_content
     - block.block.oe_whitelabel_messages
-    - block.block.oe_whitelabel_multilingual_language_switcher
     - block.block.oe_whitelabel_neutral_footer
     - block.block.oe_whitelabel_search_form
