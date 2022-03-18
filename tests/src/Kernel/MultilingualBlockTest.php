@@ -23,6 +23,7 @@ class MultilingualBlockTest extends KernelTestBase {
     'locale',
     'oe_bootstrap_theme_helper',
     'oe_multilingual',
+    'oe_whitelabel_multilingual',
     'path',
     'path_alias',
     'pathauto',
