@@ -13,7 +13,10 @@ use Drupal\oe_bootstrap_theme\ConfigImporter;
 /**
  * Implements hook_install().
  *
- * Customize paragraphs fields and display configuration.
+ * Customizes paragraphs fields and display configuration.
+ *
+ * If oe_bootstrap_theme_paragraphs was installed in the past, this will also
+ * migrate field data and clean up fields that have been renamed.
  */
 function oe_whitelabel_paragraphs_install(bool $is_syncing): void {
   // Find legacy fields from oe_bootstrap_theme_paragraphs.
@@ -74,19 +77,14 @@ function _oe_whitelabel_paragraphs_install_config(): void {
  * Gets a map of legacy fields to be migrated on install.
  *
  * @return string[][]
- *   Format: $[$bundle][$dest_field_name] = $legacy_field_name.
+ *   Legacy field names, indexed by paragraph type and destination field name.
+ *   Only contains entries where both the legacy field name and the destination
+ *   field name do exist.
  *   Empty, if oe_bootstrap_theme_paragraphs was not installed in the past.
  */
 function _oe_whitelabel_paragraphs_install_get_legacy_fields_map(): array {
   /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager */
   $entity_field_manager = \Drupal::service('entity_field.manager');
-  /**
-   * @var array[] $fields_map
-   *   Format: $[$field_name] = [
-   *     'type' => $field_type,
-   *     'bundles' => [$bundle_name => $bundle_name, ...],
-   *   ].
-   */
   $fields_map = $entity_field_manager->getFieldMap()['paragraph'] ?? [];
 
   $field_names_map = [
@@ -98,7 +96,7 @@ function _oe_whitelabel_paragraphs_install_get_legacy_fields_map(): array {
 
   /**
    * @var string[][] $field_names_by_bundle
-   *   Format: $[$bundle][$dest_field_name] = $source_field_name.
+   *   Legacy field names, indexed by paragraph type and destination field name.
    */
   $field_names_by_bundle = [];
   foreach ($field_names_map as $dest_field_name => $source_field_name) {
@@ -125,16 +123,14 @@ function _oe_whitelabel_paragraphs_install_get_legacy_fields_map(): array {
 /**
  * Migrates field data from the old oe_bootstrap_theme_paragraphs module.
  *
- * Normally this should happen through a batch process, e.g. via $sandbox in a
+ * This should happen through a batch process, e.g. via $sandbox in a
  * hook_update_N(). Unfortunately, hook_install() does not support batch
  * processes.
- * For the known projects where this will be used, we assume that not too many
- * paragraphs exist yet - fingers crossed.
  *
  * See https://atendesigngroup.com/articles/programmatically-copy-field-data-drupal-8.
  *
  * @param string[][] $field_names_by_bundle
- *   Format: $[$bundle][$dest_field_name] = $source_field_name.
+ *   Legacy field names, indexed by paragraph type and destination field name.
  */
 function _oe_whitelabel_paragraphs_install_migrate_field_data(array $field_names_by_bundle): void {
   $paragraphs_storage = \Drupal::entityTypeManager()->getStorage('paragraph');
@@ -181,7 +177,8 @@ function _oe_whitelabel_paragraphs_install_migrate_field_data(array $field_names
  * Removes legacy field instances from oe_bootstrap_theme_paragraphs module.
  *
  * @param string[][] $field_names_by_bundle
- *   Format: $[$bundle][*] = $source_field_name.
+ *   Legacy field names, indexed by paragraph type and destination field name.
+ *   (The destination field name is not relevant for this function.)
  */
 function _oe_whitelabel_paragraphs_install_drop_legacy_fields(array $field_names_by_bundle): void {
   foreach ($field_names_by_bundle as $bundle => $field_names) {
