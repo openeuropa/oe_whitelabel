@@ -14,11 +14,11 @@ plugin: oe_corporate_blocks_neutral_footer
 settings:
   id: oe_corporate_blocks_neutral_footer
   label: 'Neutral Footer block'
-  provider: oe_whitelabel_helper
   label_display: '0'
+  provider: oe_whitelabel_helper
 visibility:
   oe_whitelabel_helper_current_component_library:
     id: oe_whitelabel_helper_current_component_library
-    component_library: neutral
     negate: false
     context_mapping: {  }
+    component_library: neutral

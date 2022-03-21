@@ -1,0 +1,51 @@
+{% apply spaceless %}
+  {# This template uses the BCL composition for the
+  language switcher.
+  _id, _message and _expandable are overwritten.
+  @todo Call include once BCL 0.20 is available.
+  #}
+  {% set _id = expandable_id %}
+  {% set _message = {
+    message: "This page is not available in @language."|t({'@language': unavailable_language}),
+    path: bcl_icon_path,
+    variant: "warning",
+  }%}
+  {% set _expandable = {
+    label: "Choose another language"|t,
+    icon: {
+      name: "caret-down-fill",
+      path: bcl_icon_path,
+    },
+    outline: "true",
+  } %}
+
+  {% set _languages = languages|default([]) %}
+  {% set _expandable_attributes = _expandable.attributes ?: create_attribute() %}
+  {% set _expandable_attributes = _expandable_attributes
+    .setAttribute('data-bs-toggle', 'collapse')
+    .setAttribute('autocomplete', 'off')
+    .setAttribute('aria-expanded', 'false')
+    .setAttribute('aria-controls', _id)
+    .setAttribute('data-bs-target', '#' ~ _id)
+  %}
+
+  {% include '@oe-bcl/bcl-alert/alert.html.twig' with _message only %}
+  <div class="mb-3">
+    {% include '@oe-bcl/bcl-button/button.html.twig' with _expandable|merge({
+      attributes: _expandable_attributes
+    }) only %}
+
+    <div class="collapse mt-3" id="{{ _id }}">
+      <div
+        class="d-md-grid"
+        style="grid-auto-flow: column; grid-template-rows: repeat(4, 1fr)"
+      >
+        {% for language in languages %}
+          {% include '@oe-bcl/bcl-link/link.html.twig' with language|merge({
+            attributes: create_attribute().addClass(["btn", "btn-link", "d-block", "ps-0", "text-start"])
+          }) only %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endapply %}

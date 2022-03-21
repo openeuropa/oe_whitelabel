@@ -3,6 +3,7 @@ status: true
 dependencies:
   module:
     - oe_corporate_blocks
+    - oe_whitelabel_helper
   theme:
     - oe_whitelabel
 id: oe_whitelabel_ec_corporate_footer
@@ -14,11 +15,11 @@ plugin: oe_corporate_blocks_ec_footer
 settings:
   id: oe_corporate_blocks_ec_footer
   label: 'EC Footer block'
-  provider: oe_corporate_blocks
   label_display: '0'
+  provider: oe_corporate_blocks
 visibility:
   oe_whitelabel_helper_current_component_library:
     id: oe_whitelabel_helper_current_component_library
-    component_library: ec
     negate: false
     context_mapping: {  }
+    component_library: ec
