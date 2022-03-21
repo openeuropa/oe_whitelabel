@@ -12,31 +12,70 @@ Some paragraphs are considered "internal", and only meant to be used inside othe
 - Listing item: To be used as item paragraph within 'Listing item block'.
 - Fact: To be used as item paragraph within 'Facts and figures'.
 
-## Requirements
+## Usage as a dependency in another project
 
-This depends on the following software:
+Website projects can use `oe_whitelabel` either as an active theme, or they can create a custom theme using `oe_whitelabel` as a base theme.
 
-* [PHP 7.3](http://php.net/)
+### Requirements
 
-## Installation
+The package is meant for projects that manage their dependencies via [Composer](https://www.drupal.org/docs/develop/using-composer/using-composer-to-manage-drupal-site-dependencies#managing-contributed).
 
-The recommended way of installing the OpenEuropa Whitelabel Theme is via [Composer](https://www.drupal.org/docs/develop/using-composer/using-composer-to-manage-drupal-site-dependencies#managing-contributed).
+Ideally this project should be managed with [Docker](https://www.docker.com/get-docker) and
+[Docker Compose](https://docs.docker.com/compose/), but this is not a hard requirement.
+
+Check the [composer.json](composer.json) for required PHP version and other dependencies.
+
+
+### Installation (composer)
+
+Add this manually in composer.json, or combine with existing entries:
+
+```
+    "extra": {
+        "artifacts": {
+            "openeuropa/oe_bootstrap_theme": {
+                "dist": {
+                    "url": "https://github.com/{name}/releases/download/{pretty-version}/{project-name}-{pretty-version}.zip",
+                    "type": "zip"
+                }
+            },
+            "openeuropa/oe_whitelabel": {
+                "dist": {
+                    "url": "https://github.com/{name}/releases/download/{pretty-version}/{project-name}-{pretty-version}.zip",
+                    "type": "zip"
+                }
+            }
+        }
+    }
+```
+
+Require with composer:
 
 ```bash
 composer require openeuropa/oe_whitelabel
 ```
 
-### Enable the theme
+### Enable and configure
 
-In order to enable the theme in your project perform the following steps:
+Enable required and optional submodules:
 
-- Enable the OpenEuropa Whitelabel Theme and set it as default ```./vendor/bin/drush config-set system.theme default oe_whitelabel_theme```
+```bash
+# Always required.
+./vendor/bin/drush en oe_whitelabel_helper
 
-### Integration with oe_paragraphs
+# Required, if you use oe_paragraphs module, or if you copied any paragraph
+# types from that module.
+./vendor/bin/drush en oe_whitelabel_paragraphs
 
-In order to have full working integration with paragraphs in your project, you must enable oe_whitelabel_paragraphs module:
+# Other submodules are optional - check the /modules/ folder.
+./vendor/bin/drush en <modulename>
+```
 
-```./vendor/bin/drush en oe_whitelabel_paragraphs```
+Enable the theme and set as default:
+
+```bash
+./vendor/bin/drush config-set system.theme default oe_bootstrap_theme
+```
 
 ## Development setup
 
