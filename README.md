@@ -147,3 +147,26 @@ To run the phpunit tests:
 ```bash
 docker-compose exec web ./vendor/bin/phpunit
 ```
+
+## Upgrade from older versions
+
+### Upgrade from 1.0.0-alpha5 and earlier
+
+Target release: You can upgrade directly to the version that contains this README.md.
+
+#### Paragraphs migration
+
+Paragraphs-related theming and functionality has been moved from `oe_bootstrap_theme` to `oe_whitelabel`.
+
+If you have the `oe_paragraphs` module enabled, you should:
+- Create a `hook_update_N()` or `hook_post_update_NAME()` in a custom module, to enable the `oe_whitelabel_paragraphs` module.
+- Run `drush updb` in your local installation.
+- Run `drush config:export`, to export the changes.
+- For deployment, make sure that `drush updb` runs _before_ `drush config:import`.
+
+If you did _not_ have `oe_paragraphs` enabled, but you want to do so now, you should:
+- Enable the new `oe_whitelabel_paragraphs` module in your local installation, ideally with `drush en`.
+- Export configuration, e.g. via `drush cex`. This should add the module to `core.extension.yml`.
+- For deployment, `drush config:import` will do the job. No update hook needed.
+
+Note that `drush updb` will also trigger update hooks in `oe_bootstrap_theme_helper`, which will uninstall the legacy module `oe_bootstrap_theme_paragraphs`.
