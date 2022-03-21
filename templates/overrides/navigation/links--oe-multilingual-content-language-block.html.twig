@@ -4,7 +4,7 @@
   _id, _message and _expandable are overwritten.
   @todo Call include once BCL 0.20 is available.
   #}
-  {% set _id = "dropdown-languages" %}
+  {% set _id = expandable_id %}
   {% set _message = {
     message: "This page is not available in @language."|t({'@language': unavailable_language}),
     path: bcl_icon_path,

@@ -109,7 +109,7 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
     $crawler = new Crawler($html);
 
     // Make sure that content language switcher block is present.
-    $actual = $crawler->filter('#dropdown-languages');
+    $actual = $crawler->filter('div.collapse.mt-3');
     $this->assertCount(1, $actual);
 
     // Warning message doesn't contain the unavailable language, the translation
@@ -154,7 +154,7 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
    */
   protected function assertSelectedLanguage(Crawler $crawler, string $expected): void {
     // The selected language link will contain a svg, so we target that.
-    $actual = $crawler->filter('#dropdown-languages > div > a > svg')->parents()->first()->text();
+    $actual = $crawler->filter('div.collapse.mt-3 > div > a > svg')->parents()->first()->text();
     $this->assertEquals($expected, trim($actual));
   }
 
@@ -180,7 +180,7 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
    *   The labels of the translations that should be rendered as links.
    */
   protected function assertTranslationLinks(Crawler $crawler, array $expected): void {
-    $elements = $crawler->filter('#dropdown-languages > div > a');
+    $elements = $crawler->filter('div.collapse.mt-3 > div > a');
     // Filter out the selected language.
     $elements = $elements->reduce(function (Crawler $crawler) {
       return $crawler->filter('svg')->count() === 0;
