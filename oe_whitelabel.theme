@@ -17,6 +17,10 @@ use Drupal\oe_whitelabel_helper\EuropeanUnionLanguages;
 function oe_whitelabel_preprocess_links__language_block(&$variables) {
   $currentLanguage = \Drupal::languageManager()->getCurrentLanguage();
   $current_language_id = $currentLanguage->getId();
+  $language_internal = $current_language_id;
+  if (EuropeanUnionLanguages::hasLanguage($current_language_id)) {
+    $language_internal = EuropeanUnionLanguages::getInternalLanguageCode($current_language_id);
+  }
   $language_config_storage = \Drupal::entityTypeManager()->getStorage('configurable_language');
   $eu_links = [];
   $non_eu_links = [];
@@ -35,7 +39,7 @@ function oe_whitelabel_preprocess_links__language_block(&$variables) {
       'name' => $label,
       'id' => 'link_' . $language_code,
       'label' => $label,
-      'lang' => $language_code,
+      'lang' => $language_internal,
     ];
 
     if (!empty($current_language_id) && $language_code === $current_language_id) {
