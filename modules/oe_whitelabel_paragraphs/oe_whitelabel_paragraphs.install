@@ -147,8 +147,13 @@ function _oe_whitelabel_paragraphs_install_migrate_field_data(array $field_names
       // Revision not found - this is unexpected, but survivable.
       continue;
     }
+    $field_names_map = $field_names_by_bundle[$paragraph_revision->bundle()] ?? [];
+    if (!$field_names_map) {
+      // No field names to migrate - this is unexpected.
+      continue;
+    }
     $modified = FALSE;
-    foreach ($field_names_by_bundle[$paragraph_revision->bundle()] ?? [] as $dest_field_name => $source_field_name) {
+    foreach ($field_names_map as $dest_field_name => $source_field_name) {
       if ($paragraph_revision->get($source_field_name)->isEmpty()) {
         // Source field has no data.
         continue;
