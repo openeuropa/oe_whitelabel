@@ -37,9 +37,9 @@ function oe_whitelabel_multilingual_preprocess_links__oe_multilingual_content_la
   }
 
   // Add the current language to the list.
+  /** @var \Drupal\oe_multilingual\MultilingualHelper $multilingual_helper */
   $multilingual_helper = \Drupal::service('oe_multilingual.helper');
   $entity = $multilingual_helper->getEntityFromCurrentRoute();
-  /** @var \Drupal\Core\Entity\EntityInterface $translation */
   $translation = $multilingual_helper->getCurrentLanguageEntityTranslation($entity);
   // If we don't have a language id defined yet, the current translation wasn't
   // saved, so we don't add it to the list.
