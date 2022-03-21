@@ -180,6 +180,8 @@ class InstallTest extends BrowserTestBase {
       ],
     ];
 
+    // Produce reports instead of many individual assertions. This is less
+    // simple in code, but produces more useful output on test failure.
     $actual_updated = [];
     $actual_deleted = [];
     foreach ($ids as $name => $id) {
@@ -187,8 +189,11 @@ class InstallTest extends BrowserTestBase {
       self::assertNotNull($updated_paragraph);
       foreach ($expected_created[$name] as $field_name => $value) {
         if (!$updated_paragraph->hasField($field_name)) {
+          // The expected field was not created.
+          // Omit this entry in $actual_updated, to cause a fail below.
           continue;
         }
+        // The expected field was created, but the value might be wrong.
         $actual_updated[$name][$field_name] = $updated_paragraph->get($field_name)->value;
       }
       foreach ($expected_deleted[$name] as $field_name => $deleted) {
@@ -196,6 +201,7 @@ class InstallTest extends BrowserTestBase {
       }
     }
 
+    // Compare the reports to the expected values.
     self::assertSame($expected_created, $actual_updated);
     self::assertSame($expected_deleted, $actual_deleted);
   }
