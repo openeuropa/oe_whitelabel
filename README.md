@@ -40,50 +40,9 @@ In order to have full working integration with paragraphs in your project, you m
 
 ## Development setup
 
-OpenEuropa Whitelabel theme uses [Webpack](https://webpack.js.org) to compile and bundle SASS and JS.
+### Using LAMP stack or similar
 
-Make sure you have Node and npm installed.
-
-You can read a guide on how to install node here: https://docs.npmjs.com/getting-started/installing-node
-
-If you prefer to use [Yarn](https://yarnpkg.com) instead of npm, install Yarn by following the guide [here](https://yarnpkg.com/docs/install).
-
-To install required Node.js dependencies run:
-
-
-`npm install` or `yarn install`.
-
-To build the final artifacts run:
-
-```bash
-npm run build
-```
-
-This will compile all SASS and JavaScript files into self-contained assets that are exposed as [Drupal libraries][11].
-
-In order to download all required PHP code run:
-
-```bash
-composer install
-```
-
-This will build a fully functional Drupal site in the `./build` directory that can be used to develop and showcase the
-theme.
-
-Before setting up and installing the site make sure to customize default configuration values by copying [runner.yml.dist](runner.yml.dist)
-to `./runner.yml` and override relevant properties.
-
-To set up the project run:
-
-```bash
-./vendor/bin/run drupal:site-setup
-```
-
-A post command hook (`drupal:site-setup`) is triggered automatically after `composer install`.
-It will make sure that the necessary symlinks are properly setup in the development site.
-It will also perform token substitution in development configuration files such as `phpunit.xml.dist`.
-
-The development site web root should be available in the `build` directory.
+This is not officially supported. You are on your own.
 
 ### Using Docker Compose
 
