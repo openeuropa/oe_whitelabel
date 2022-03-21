@@ -39,20 +39,24 @@ function oe_whitelabel_multilingual_preprocess_links__oe_multilingual_content_la
   $entity = $multilingual_helper->getEntityFromCurrentRoute();
   /** @var \Drupal\Core\Entity\EntityInterface $translation */
   $translation = $multilingual_helper->getCurrentLanguageEntityTranslation($entity);
-  $variables['languages'][] = [
-    'path' => $translation->toUrl()->setAbsolute(TRUE)->toString(),
-    'hreflang' => $translation->language()->getId(),
-    'label' => $languages[$translation->language()->getId()]->getName(),
-    'current' => TRUE,
-    'icon_position' => 'before',
-    'remove_icon_spacers' => FALSE,
-    'icon' => [
-      'name' => 'check-lg',
-      'path' => $variables['bcl_icon_path'],
-      'size' => 'xs',
-      '#attributes' => ['class' => ['me-2']],
-    ],
-  ];
+  // If we don't have a language id defined yet, the current translation wasn't
+  // saved, so we don't add it to the list.
+  if ($translation->language()->getId() !== 'und') {
+    $variables['languages'][] = [
+      'path' => $translation->toUrl()->setAbsolute(TRUE)->toString(),
+      'hreflang' => $translation->language()->getId(),
+      'label' => $languages[$translation->language()->getId()]->getName(),
+      'current' => TRUE,
+      'icon_position' => 'before',
+      'remove_icon_spacers' => FALSE,
+      'icon' => [
+        'name' => 'check-lg',
+        'path' => $variables['bcl_icon_path'],
+        'size' => 'xs',
+        '#attributes' => ['class' => ['me-2']],
+      ],
+    ];
+  }
 }
 
 /**
