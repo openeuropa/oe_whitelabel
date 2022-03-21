@@ -10,6 +10,6 @@ dependencies:
 
 config_devel:
   install:
-    - core.date_format.oe_whitelabel_starter_news_date.yml
-    - core.entity_view_display.node.oe_sc_news.full.yml
-    - core.entity_view_display.node.oe_sc_news.teaser.yml
+    - core.date_format.oe_whitelabel_starter_news_date
+    - core.entity_view_display.node.oe_sc_news.full
+    - core.entity_view_display.node.oe_sc_news.teaser
