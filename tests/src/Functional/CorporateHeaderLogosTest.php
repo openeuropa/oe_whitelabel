@@ -63,14 +63,14 @@ class CorporateHeaderLogosTest extends BrowserTestBase {
     $this->drupalGet('<front>');
 
     $assert_session->elementExists('css', 'header.bcl-header.bcl-header--eu');
-    $assert_session->elementExists('css', 'header > nav > div > div > a[href="https://european-union.europa.eu/index_en"]');
+    $assert_session->elementExists('css', 'header > nav > div > a[href="https://european-union.europa.eu/index_en"]');
     $assert_session->elementExists('css', 'picture > source[srcset="/build/themes/contrib/oe_bootstrap_theme/assets/logos/eu/mobile/logo-eu--en.svg"]');
     $assert_session->elementExists('css', 'picture > img[src="/build/themes/contrib/oe_bootstrap_theme/assets/logos/eu/logo-eu--en.svg"]');
 
     $this->drupalGet('es/');
 
     $assert_session->elementExists('css', 'header.bcl-header.bcl-header--eu');
-    $assert_session->elementExists('css', 'header > nav > div > div > a[href="https://european-union.europa.eu/index_es"]');
+    $assert_session->elementExists('css', 'header > nav > div > a[href="https://european-union.europa.eu/index_es"]');
     $assert_session->elementExists('css', 'picture > source[srcset="/build/themes/contrib/oe_bootstrap_theme/assets/logos/eu/mobile/logo-eu--es.svg"]');
     $assert_session->elementExists('css', 'picture > img[src="/build/themes/contrib/oe_bootstrap_theme/assets/logos/eu/logo-eu--es.svg"]');
 
@@ -81,12 +81,12 @@ class CorporateHeaderLogosTest extends BrowserTestBase {
 
     $this->drupalGet('<front>');
     $assert_session->elementExists('css', 'header.bcl-header.bcl-header--ec');
-    $assert_session->elementExists('css', 'header > nav > div > div > a[href="https://ec.europa.eu/info/index_en"]');
+    $assert_session->elementExists('css', 'header > nav > div > a[href="https://ec.europa.eu/info/index_en"]');
     $assert_session->elementExists('css', 'img[src="/build/themes/contrib/oe_bootstrap_theme/assets/logos/ec/logo-ec--en.svg"]');
 
     $this->drupalGet('es/');
     $assert_session->elementExists('css', 'header.bcl-header.bcl-header--ec');
-    $assert_session->elementExists('css', 'header > nav > div > div > a[href="https://ec.europa.eu/info/index_es"]');
+    $assert_session->elementExists('css', 'header > nav > div > a[href="https://ec.europa.eu/info/index_es"]');
     $assert_session->elementExists('css', 'img[src="/build/themes/contrib/oe_bootstrap_theme/assets/logos/ec/logo-ec--es.svg"]');
   }
 

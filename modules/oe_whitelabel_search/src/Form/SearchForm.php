@@ -48,7 +48,7 @@ class SearchForm extends FormBase {
     $form_state->set('oe_whitelabel_search_config', $config);
     $input_value = '';
 
-    $form['#attributes']['class'][] = 'bcl_search_form';
+    $form['#attributes']['class'][] = 'd-flex mt-3 mt-lg-0';
 
     if (!empty($config['input']['name'])) {
       $input_value = $this->getRequest()->get($config['input']['name']);
