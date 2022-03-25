@@ -95,14 +95,14 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
   }
 
   /**
-   * Tests the event rendered in 'Full content' view mode.
+   * Tests the event page.
    */
-  public function testEventRenderingFull(): void {
-    // Build node full view.
-    $builder = \Drupal::entityTypeManager()->getViewBuilder('node');
-    $build = $builder->view($this->node, 'full');
-    $render = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler((string) $render);
+  public function testEventPage(): void {
+    $this->drupalGet('node/' . $this->node->id());
+
+    /** @var \Symfony\Component\BrowserKit\AbstractBrowser $client */
+    $client = $this->getSession()->getDriver()->getClient();
+    $crawler = $client->getCrawler();
 
     // Select the content banner element.
     $content_banner = $crawler->filter('.bcl-content-banner');
