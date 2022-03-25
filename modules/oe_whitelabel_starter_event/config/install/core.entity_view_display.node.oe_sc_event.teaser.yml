@@ -5,8 +5,8 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.oe_sc_event.body
     - field.field.node.oe_sc_event.oe_documents
-    - field.field.node.oe_sc_event.oe_sc_event_dates
     - field.field.node.oe_sc_event.oe_featured_media
+    - field.field.node.oe_sc_event.oe_sc_event_dates
     - field.field.node.oe_sc_event.oe_sc_event_location
     - field.field.node.oe_sc_event.oe_summary
     - node.type.oe_sc_event
@@ -46,6 +46,11 @@ content:
     region: content
 hidden:
   body: true
+  langcode: true
   links: true
+  oe_content_content_owner: true
+  oe_content_legacy_link: true
+  oe_content_navigation_title: true
+  oe_content_short_title: true
   oe_documents: true
   oe_featured_media: true
