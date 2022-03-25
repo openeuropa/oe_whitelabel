@@ -17,12 +17,22 @@ use Drupal\Component\Utility\Html;
 /**
  * Implements template_preprocess_node() for the Event node type.
  */
-function oe_whitelabel_starter_event_preprocess_node__oe_sc_event(&$variables) {
-  if ($variables['view_mode'] !== 'full' && $variables['view_mode'] !== 'teaser') {
-    return;
-  }
-  _oe_whitelabel_starter_event_preprocess_featured_media($variables);
+function oe_whitelabel_starter_event_preprocess_node__oe_sc_event__full(&$variables) {
   _oe_whitelabel_starter_event_preprocess_inpage_nav($variables);
+}
+
+/**
+ * Implements template_preprocess_node() for the Event node type.
+ */
+function oe_whitelabel_starter_event_preprocess_node__oe_sc_event__oe_w_content_banner(&$variables) {
+  _oe_whitelabel_starter_event_preprocess_featured_media($variables);
+}
+
+/**
+ * Implements template_preprocess_node() for the Event node type.
+ */
+function oe_whitelabel_starter_event_preprocess_node__oe_sc_event__teaser(&$variables) {
+  _oe_whitelabel_starter_event_preprocess_featured_media($variables);
 }
 
 /**

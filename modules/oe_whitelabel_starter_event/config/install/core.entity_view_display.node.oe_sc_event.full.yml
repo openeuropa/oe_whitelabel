@@ -12,7 +12,6 @@ dependencies:
     - node.type.oe_sc_event
   module:
     - datetime_range
-    - oe_content_featured_media_field
     - oe_whitelabel_helper
     - text
     - user
@@ -26,12 +25,12 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 0
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 4
     region: content
   oe_documents:
     type: entity_reference_entity_view
@@ -40,15 +39,7 @@ content:
       view_mode: default
       link: true
     third_party_settings: {  }
-    weight: 6
-    region: content
-  oe_featured_media:
-    type: oe_featured_media_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 8
+    weight: 3
     region: content
   oe_sc_event_dates:
     type: daterange_default
@@ -58,20 +49,13 @@ content:
       format_type: oe_whitelabel_starter_event_date
       separator: to
     third_party_settings: {  }
-    weight: 4
+    weight: 1
     region: content
   oe_sc_event_location:
     type: oe_whitelabel_helper_address_inline
     label: inline
     settings:
       delimiter: ', '
-    third_party_settings: {  }
-    weight: 5
-    region: content
-  oe_summary:
-    type: text_default
-    label: hidden
-    settings: {  }
     third_party_settings: {  }
     weight: 2
     region: content
@@ -81,3 +65,5 @@ hidden:
   oe_content_legacy_link: true
   oe_content_navigation_title: true
   oe_content_short_title: true
+  oe_featured_media: true
+  oe_summary: true
