@@ -10,3 +10,8 @@ dependencies:
   - openeuropa:oe_corporate_blocks
 
 'interface translation project': oe_whitelabel_helper
+
+config_devel:
+  optional:
+    # A view mode should not depend on a theme, so it is exported in a module.
+    - core.entity_view_mode.node.oe_w_content_banner
