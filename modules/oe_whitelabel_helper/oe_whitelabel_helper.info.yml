@@ -5,6 +5,7 @@ package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^9.2
 
 dependencies:
+  - drupal:node
   - oe_bootstrap_theme:oe_bootstrap_theme_helper
   - openeuropa:oe_corporate_blocks
 
