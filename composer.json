@@ -59,6 +59,11 @@
             "url": "https://github.com/openeuropa/oe_starter_content"
         }
     },
+    "autoload": {
+        "psr-4": {
+            "Drupal\\oe_whitelabel\\": "./src/"
+        }
+    },
     "extra": {
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
