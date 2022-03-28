@@ -79,7 +79,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       ->create([
         'type' => 'oe_sc_event',
         'title' => 'Test event node',
-        'oe_summary' => 'http://www.example.org is a web page',
+        'oe_summary' => 'https://www.example.org is a web page',
         'body' => 'Event body',
         'oe_sc_event_dates' => [
           'value' => '2022-02-09T20:00:00',
@@ -128,7 +128,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
 
     // Assert content banner summary.
     $this->assertEquals(
-      'http://www.example.org is a web page',
+      'https://www.example.org is a web page',
       trim($content_banner->filter('.oe-sc-event__oe-summary')->text())
     );
 
