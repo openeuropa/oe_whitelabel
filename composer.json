@@ -10,7 +10,7 @@
         "cweagans/composer-patches": "^1.7",
         "drupal/core": "^9.2",
         "drupal/twig_field_value": "^2.0",
-        "openeuropa/oe_bootstrap_theme": "0.1307.202203181216"
+        "openeuropa/oe_bootstrap_theme": "0.1307.202203281705"
     },
     "require-dev": {
         "composer/installers": "^1.11",
