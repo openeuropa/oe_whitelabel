@@ -5,17 +5,11 @@ declare(strict_types = 1);
 namespace Drupal\Tests\oe_whitelabel\Functional;
 
 use Drupal\language\Entity\ConfigurableLanguage;
-use Drupal\Tests\BrowserTestBase;
 
 /**
  * Tests that corporate logos are displayed correctly.
  */
-class CorporateHeaderLogosTest extends BrowserTestBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'oe_whitelabel';
+class CorporateHeaderLogosTest extends WhitelabelBrowserTestBase {
 
   /**
    * {@inheritdoc}
