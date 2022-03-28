@@ -4,11 +4,11 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel\Functional;
 
-use Symfony\Component\DomCrawler\Crawler;
-use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
-use Drupal\media\Entity\Media;
 use Drupal\file\Entity\File;
+use Drupal\media\Entity\Media;
+use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
 use Drupal\Tests\TestFileCreationTrait;
+use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Tests that the Event content type renders correctly.
@@ -95,7 +95,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
   }
 
   /**
-   * Tests that the Event page renders correctly in full display.
+   * Tests the event rendered in 'Full content' view mode.
    */
   public function testEventRenderingFull(): void {
     // Build node full view.
@@ -104,12 +104,15 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler((string) $render);
 
-    // Assert content banner title.
+    // Select the content banner element.
     $content_banner = $crawler->filter('.bcl-content-banner');
+
+    // Assert content banner title.
     $this->assertEquals(
       'Test event node',
       trim($content_banner->filter('.card-title')->text())
     );
+
     // Assert content banner image.
     $image = $content_banner->filter('img');
     $this->assertCount(1, $image);
@@ -118,20 +121,24 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       'image-test.png',
       trim($image->attr('src'))
     );
-    $this->assertEquals('Starter Image test alt',
+    $this->assertEquals(
+      'Starter Image test alt',
       $image->attr('alt')
     );
+
     // Assert content banner summary.
     $this->assertEquals(
       'http://www.example.org is a web page',
       trim($content_banner->filter('.oe-sc-event__oe-summary')->text())
     );
-    // Assert inpage-navigation.
+
+    // Assert in-page navigation title.
     $this->assertEquals(
       'Page content',
       trim($crawler->filter('nav.bcl-inpage-navigation > h5')->text())
     );
-    // Assert inpage-navigation.
+
+    // Assert in-page navigation links.
     $inpage_links = $crawler->filter('nav.bcl-inpage-navigation > ul');
     $this->assertCount(2, $inpage_links->filter('li'));
     $this->assertEquals(
@@ -142,11 +149,10 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       'Documents',
       trim($inpage_links->filter('li:nth-of-type(2)')->text())
     );
-
   }
 
   /**
-   * Tests that the Event page renders correctly in teaser display.
+   * Tests the event rendered in 'Teaser' view mode.
    */
   public function testEventRenderingTeaser(): void {
     // Build node teaser view.
@@ -155,12 +161,10 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler((string) $render);
 
-    // Assert content banner title.
     $this->assertEquals(
       'Test event node',
       trim($crawler->filter('h5.card-title')->text())
     );
-    // Assert content banner image.
     $image = $crawler->filter('img');
     $this->assertCount(1, $image);
     $this->assertCount(1, $image->filter('.card-img-top'));
