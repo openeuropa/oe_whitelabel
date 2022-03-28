@@ -149,6 +149,12 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       'Documents',
       trim($inpage_links->filter('li:nth-of-type(2)')->text())
     );
+
+    // Assert body text.
+    $this->assertSame(
+      'Event body',
+      $crawler->filter('#oe-content-body p')->text()
+    );
   }
 
   /**
