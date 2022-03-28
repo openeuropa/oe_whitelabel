@@ -62,7 +62,7 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
       ->create([
         'type' => 'oe_sc_news',
         'title' => 'Test news node',
-        'oe_summary' => 'http://www.example.org is a web page',
+        'oe_summary' => 'https://www.example.org is a web page',
         'body' => 'News body',
         'oe_publication_date' => [
           'value' => '2022-02-09',
@@ -110,7 +110,7 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
       trim($content_banner->filter('.card-body > div.my-4')->text())
     );
     $this->assertEquals(
-      'http://www.example.org is a web page',
+      'https://www.example.org is a web page',
       trim($content_banner->filter('.oe-sc-news__oe-summary')->text())
     );
 
@@ -143,7 +143,7 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
       trim($image->attr('src'))
     );
     $this->assertEquals(
-      'http://www.example.org is a web page',
+      'https://www.example.org is a web page',
       trim($crawler->filter('p.card-text')->text())
     );
     $this->assertEquals(
