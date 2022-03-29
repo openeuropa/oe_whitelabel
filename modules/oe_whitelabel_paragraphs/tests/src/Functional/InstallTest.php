@@ -96,11 +96,20 @@ class InstallTest extends BrowserTestBase {
       ],
     ];
 
-    $ids = [];
+    $revision_ids = [];
     foreach ($paragraphs_data as $name => $paragraph_data) {
       $paragraph = Paragraph::create($paragraph_data);
       $paragraph->save();
-      $ids[$name] = $paragraph->id();
+      $revision_ids[$name] = $paragraph->getRevisionId();
+      if ($name !== 'oe_links_block') {
+        // Don't create a revision for most of the paragraphs.
+        continue;
+      }
+      // Make this paragraph a revision.
+      $paragraph->setNewRevision();
+      $paragraph->oe_bt_links_block_orientation = 'horizontal';
+      $paragraph->save();
+      $revision_ids[$name . ':modified'] = $paragraph->getRevisionId();
     }
 
     /** @var \Drupal\Core\Extension\ModuleInstallerInterface $installer */
@@ -122,6 +131,10 @@ class InstallTest extends BrowserTestBase {
         'oe_w_links_block_orientation' => 'vertical',
         'oe_w_links_block_background' => 'gray',
       ],
+      'oe_links_block:modified' => [
+        'oe_w_links_block_orientation' => 'horizontal',
+        'oe_w_links_block_background' => 'gray',
+      ],
       'oe_social_media_follow' => [
         'oe_w_links_block_background' => 'gray',
       ],
@@ -138,29 +151,35 @@ class InstallTest extends BrowserTestBase {
         'oe_bt_links_block_orientation' => TRUE,
         'oe_bt_links_block_background' => TRUE,
       ],
+      'oe_links_block:modified' => [
+        'oe_bt_links_block_orientation' => TRUE,
+        'oe_bt_links_block_background' => TRUE,
+      ],
       'oe_social_media_follow' => [
         'oe_bt_links_block_background' => TRUE,
       ],
     ];
 
+    $storage = \Drupal::entityTypeManager()->getStorage('paragraph');
+
     // Produce reports instead of many individual assertions. This is less
     // simple in code, but produces more useful output on test failure.
     $actual_updated = [];
     $actual_deleted = [];
-    foreach ($ids as $name => $id) {
-      $updated_paragraph = Paragraph::load($id);
-      $this->assertNotNull($updated_paragraph);
+    foreach ($revision_ids as $name => $revision_id) {
+      $updated_revision = $storage->loadRevision($revision_id);
+      $this->assertNotNull($updated_revision);
       foreach ($expected_created[$name] as $field_name => $value) {
-        if (!$updated_paragraph->hasField($field_name)) {
+        if (!$updated_revision->hasField($field_name)) {
           // The expected field was not created.
           // Omit this entry in $actual_updated, to cause a fail below.
           continue;
         }
         // The expected field was created, but the value might be wrong.
-        $actual_updated[$name][$field_name] = $updated_paragraph->get($field_name)->value;
+        $actual_updated[$name][$field_name] = $updated_revision->get($field_name)->value;
       }
       foreach ($expected_deleted[$name] as $field_name => $deleted) {
-        $actual_deleted[$name][$field_name] = !$updated_paragraph->hasField($field_name);
+        $actual_deleted[$name][$field_name] = !$updated_revision->hasField($field_name);
       }
     }
 
