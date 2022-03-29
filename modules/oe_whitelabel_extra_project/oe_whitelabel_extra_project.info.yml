@@ -10,6 +10,4 @@ dependencies:
 config_devel:
   install:
     - core.entity_form_display.oe_organisation.oe_cx_project_stakeholder.default
-    - core.entity_view_display.node.oe_project.full
     - core.entity_view_display.oe_organisation.oe_cx_project_stakeholder.default
-    - field.field.oe_organisation.oe_cx_project_stakeholder.oe_cx_contribution_budget
