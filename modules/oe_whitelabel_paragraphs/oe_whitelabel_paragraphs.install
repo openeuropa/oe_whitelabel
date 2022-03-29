@@ -87,33 +87,37 @@ function _oe_whitelabel_paragraphs_install_get_legacy_fields_map(): array {
   $entity_field_manager = \Drupal::service('entity_field.manager');
   $fields_map = $entity_field_manager->getFieldMap()['paragraph'] ?? [];
 
-  $field_names_map = [
-    'oe_w_links_block_background' => 'oe_bt_links_block_background',
-    'oe_w_links_block_orientation' => 'oe_bt_links_block_orientation',
-    'oe_w_n_columns' => 'oe_bt_n_columns',
-    'oe_w_orientation' => 'oe_bt_orientation',
+  $field_names_by_bundle = [
+    'oe_description_list' => [
+      'oe_w_orientation' => 'oe_bt_orientation',
+    ],
+    'oe_facts_figures' => [
+      'oe_w_n_columns' => 'oe_bt_n_columns',
+    ],
+    'oe_links_block' => [
+      'oe_w_links_block_background' => 'oe_bt_links_block_background',
+      'oe_w_links_block_orientation' => 'oe_bt_links_block_orientation',
+    ],
+    'oe_social_media_follow' => [
+      'oe_w_links_block_background' => 'oe_bt_links_block_background',
+    ],
   ];
 
-  /**
-   * @var string[][] $field_names_by_bundle
-   *   Legacy field names, indexed by paragraph type and destination field name.
-   */
-  $field_names_by_bundle = [];
-  foreach ($field_names_map as $dest_field_name => $source_field_name) {
-    if (!isset($fields_map[$source_field_name])) {
-      // No field to migrate from.
-      continue;
-    }
-    if (!isset($fields_map[$dest_field_name])) {
-      // No target field to migrate to - this is unexpected.
-      continue;
-    }
-    // Find bundles where both source and destination fields exist.
-    foreach (array_intersect_key(
-      $fields_map[$dest_field_name]['bundles'],
-      $fields_map[$source_field_name]['bundles'],
-    ) as $bundle) {
-      $field_names_by_bundle[$bundle][$dest_field_name] = $source_field_name;
+  foreach ($field_names_by_bundle as $bundle => $field_names) {
+    foreach ($field_names as $dest_field_name => $source_field_name) {
+      if (!isset($fields_map[$source_field_name]['bundles'][$bundle])) {
+        // The legacy field does not exist.
+        // Perhaps the field or the paragraph type were removed manually.
+        unset($field_names_by_bundle[$bundle][$dest_field_name]);
+        continue;
+      }
+      if (!isset($fields_map[$dest_field_name]['bundles'][$bundle])) {
+        // A destination field is missing, that should have been created
+        // earlier. This could happen if a paragraph type was removed manually,
+        // but in that case the install should have already failed earlier.
+        // Either way, this case is not supported.
+        throw new \RuntimeException("Destination field 'paragraph.$bundle.$dest_field_name' was not properly created.");
+      }
     }
   }
 
