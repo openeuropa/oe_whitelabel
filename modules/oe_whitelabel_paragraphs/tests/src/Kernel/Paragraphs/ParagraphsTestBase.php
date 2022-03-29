@@ -30,6 +30,7 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
     'locale',
     'media',
     'media_avportal',
+    'media_avportal_mock',
     'node',
     'oe_media',
     'oe_media_avportal',
