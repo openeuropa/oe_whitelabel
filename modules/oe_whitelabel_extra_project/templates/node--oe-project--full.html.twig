@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * Project full display.
+ */
+#}
+{% if not content.oe_subject.isEmpty() %}
+  {% set _badge = {
+    label: content.oe_subject|field_value,
+    rounded_pill: true,
+  } %}
+{% endif %}
+{{ pattern('content_banner', {
+  background: 'gray',
+  title: label,
+  content: content.oe_teaser,
+  image: image,
+  attributes: create_attribute().addClass(['ps-0']),
+  badges: [_badge],
+}) }}
+{% set inpage_navigation_fields %}
+  {{ content.oe_summary }}
+  {{ content.oe_cx_objective }}
+  {{ content.oe_cx_impacts }}
+  {{ content.group_stakeholders }}
+  {{ content.oe_cx_achievements_and_milestone }}
+{% endset %}
+<div class="mt-md-4-75 mt-4">
+  {{ pattern('inpage_navigation', {
+    title: 'Page content',
+    links: inpage_navigation_links,
+    content: inpage_navigation_fields,
+    full_layout: true,
+  }) }}
+</div>
+

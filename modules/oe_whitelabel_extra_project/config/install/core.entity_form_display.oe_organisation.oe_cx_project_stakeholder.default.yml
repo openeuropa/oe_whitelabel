@@ -1,0 +1,90 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.oe_organisation.oe_cx_project_stakeholder.oe_acronym
+    - field.field.oe_organisation.oe_cx_project_stakeholder.oe_address
+    - field.field.oe_organisation.oe_cx_project_stakeholder.oe_contact_url
+    - field.field.oe_organisation.oe_cx_project_stakeholder.oe_cx_contribution_budget
+    - field.field.oe_organisation.oe_cx_project_stakeholder.oe_logo
+    - field.field.oe_organisation.oe_cx_project_stakeholder.oe_website
+    - oe_content_entity_organisation.oe_organisation_type.oe_cx_project_stakeholder
+  module:
+    - address
+    - link
+id: oe_organisation.oe_cx_project_stakeholder.default
+targetEntityType: oe_organisation
+bundle: oe_cx_project_stakeholder
+mode: default
+content:
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  oe_acronym:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  oe_address:
+    type: address_default
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  oe_contact_url:
+    type: link_default
+    weight: 6
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  oe_cx_contribution_budget:
+    type: number
+    weight: 7
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  oe_logo:
+    type: entity_reference_autocomplete
+    weight: 3
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  oe_website:
+    type: link_default
+    weight: 5
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 8
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  created: true
