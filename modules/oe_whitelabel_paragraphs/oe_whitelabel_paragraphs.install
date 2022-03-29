@@ -183,12 +183,12 @@ function _oe_whitelabel_paragraphs_install_migrate_field_data(array $field_names
 function _oe_whitelabel_paragraphs_install_drop_legacy_fields(array $field_names_by_bundle): void {
   foreach ($field_names_by_bundle as $bundle => $field_names) {
     foreach ($field_names as $field_name) {
-      $definition = FieldConfig::loadByName('paragraph', $bundle, $field_name);
-      if ($definition === NULL) {
+      $field_config = FieldConfig::loadByName('paragraph', $bundle, $field_name);
+      if ($field_config === NULL) {
         // Field no longer exists. This is unexpected, but can be ignored.
         continue;
       }
-      $definition->delete();
+      $field_config->delete();
     }
   }
 }
