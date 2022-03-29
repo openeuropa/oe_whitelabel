@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * Install and update functions for the whitelabel Extra Project module.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\oe_bootstrap_theme\ConfigImporter;
+
+/**
+ * Implements hook_install().
+ *
+ * Customise fields for content project.
+ */
+function oe_whitelabel_extra_project_install($is_syncing): void {
+  // If we are installing from config, we bail out.
+  if ($is_syncing) {
+    return;
+  }
+
+  $configs = [
+    'core.entity_form_display.oe_organisation.oe_cx_project_stakeholder.default',
+    'core.entity_view_display.node.oe_project.default',
+    'core.entity_view_display.oe_organisation.oe_cx_project_stakeholder.default',
+    'field.field.oe_organisation.oe_cx_project_stakeholder.oe_cx_contribution_budget',
+  ];
+
+  ConfigImporter::importMultiple('oe_whitelabel_extra_project', '/config/overrides/', $configs);
+}
