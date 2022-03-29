@@ -181,11 +181,11 @@ function _oe_whitelabel_paragraphs_install_migrate_field_data(array $field_names
  *   Legacy field names, indexed by paragraph type and destination field name.
  */
 function _oe_whitelabel_paragraphs_install_drop_legacy_fields(array $field_names_by_bundle): void {
-  foreach ($field_names_by_bundle as $bundle => $field_names) {
-    foreach ($field_names as $field_name) {
-      $field_config = FieldConfig::loadByName('paragraph', $bundle, $field_name);
+  foreach ($field_names_by_bundle as $bundle => $legacy_field_names) {
+    foreach ($legacy_field_names as $legacy_field_name) {
+      $field_config = FieldConfig::loadByName('paragraph', $bundle, $legacy_field_name);
       if ($field_config === NULL) {
-        throw new \RuntimeException("Legacy field 'paragraph.$bundle.$field_name' not found.");
+        throw new \RuntimeException("Legacy field 'paragraph.$bundle.$legacy_field_name' not found.");
       }
       $field_config->delete();
     }
