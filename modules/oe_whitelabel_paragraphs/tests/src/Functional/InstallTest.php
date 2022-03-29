@@ -149,7 +149,7 @@ class InstallTest extends BrowserTestBase {
     $actual_deleted = [];
     foreach ($ids as $name => $id) {
       $updated_paragraph = Paragraph::load($id);
-      self::assertNotNull($updated_paragraph);
+      $this->assertNotNull($updated_paragraph);
       foreach ($expected_created[$name] as $field_name => $value) {
         if (!$updated_paragraph->hasField($field_name)) {
           // The expected field was not created.
@@ -165,8 +165,8 @@ class InstallTest extends BrowserTestBase {
     }
 
     // Compare the reports to the expected values.
-    self::assertSame($expected_created, $actual_updated);
-    self::assertSame($expected_deleted, $actual_deleted);
+    $this->assertSame($expected_created, $actual_updated);
+    $this->assertSame($expected_deleted, $actual_deleted);
   }
 
 }
