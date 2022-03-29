@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Functional;
 
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Tests\BrowserTestBase;
 
@@ -112,6 +114,28 @@ class InstallTest extends BrowserTestBase {
       $revision_ids[$name . ':modified'] = $paragraph->getRevisionId();
     }
 
+    $legacy_field_config_ids = [
+      'paragraph.oe_description_list.oe_bt_orientation',
+      'paragraph.oe_facts_figures.oe_bt_n_columns',
+      'paragraph.oe_links_block.oe_bt_links_block_background',
+      'paragraph.oe_links_block.oe_bt_links_block_orientation',
+      'paragraph.oe_social_media_follow.oe_bt_links_block_background',
+    ];
+    $legacy_field_storage_ids = [
+      'paragraph.oe_bt_links_block_background',
+      'paragraph.oe_bt_links_block_orientation',
+      'paragraph.oe_bt_n_columns',
+      'paragraph.oe_bt_orientation',
+    ];
+    $this->assertEqualsCanonicalizing(
+      $legacy_field_config_ids,
+      \array_keys(FieldConfig::loadMultiple($legacy_field_config_ids)),
+    );
+    $this->assertEqualsCanonicalizing(
+      $legacy_field_storage_ids,
+      \array_keys(FieldStorageConfig::loadMultiple($legacy_field_storage_ids)),
+    );
+
     /** @var \Drupal\Core\Extension\ModuleInstallerInterface $installer */
     $installer = \Drupal::service('module_installer');
     $installer->install(['oe_whitelabel_paragraphs']);
@@ -119,6 +143,9 @@ class InstallTest extends BrowserTestBase {
     $this->assertTrue(
       \Drupal::moduleHandler()->moduleExists('oe_whitelabel_paragraphs'),
       "Module 'oe_whitelabel_paragraphs was successfully installed.");
+
+    $this->assertEmpty(FieldConfig::loadMultiple($legacy_field_config_ids));
+    $this->assertEmpty(FieldStorageConfig::loadMultiple($legacy_field_storage_ids));
 
     $expected_created = [
       'oe_description_list' => [
