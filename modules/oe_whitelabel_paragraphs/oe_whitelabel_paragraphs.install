@@ -144,16 +144,10 @@ function _oe_whitelabel_paragraphs_install_migrate_field_data(array $field_names
   $paragraph_ids = $query->execute();
 
   foreach ($paragraph_ids as $revision_id => $paragraph_id) {
+    // Revision can't be NULL.
+    /** @var \Drupal\paragraphs\ParagraphInterface $paragraph_revision */
     $paragraph_revision = $paragraphs_storage->loadRevision($revision_id);
-    if (!$paragraph_revision) {
-      // Revision not found - this is unexpected, but survivable.
-      continue;
-    }
-    $field_names_map = $field_names_by_bundle[$paragraph_revision->bundle()] ?? [];
-    if (!$field_names_map) {
-      // No field names to migrate - this is unexpected.
-      continue;
-    }
+    $field_names_map = $field_names_by_bundle[$paragraph_revision->bundle()];
     $modified = FALSE;
     foreach ($field_names_map as $dest_field_name => $source_field_name) {
       if ($paragraph_revision->get($source_field_name)->isEmpty()) {
