@@ -6,3 +6,8 @@ core_version_requirement: ^9.2
 dependencies:
   - oe_content_extra:oe_content_extra_project
   - oe_whitelabel_helper:oe_whitelabel_helper
+
+config_devel:
+  install:
+    - core.entity_view_display.oe_organisation.oe_cx_project_stakeholder.coordinators
+    - core.entity_view_mode.oe_organisation.coordinators
