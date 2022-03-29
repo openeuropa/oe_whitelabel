@@ -103,6 +103,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
 
     // Select the content banner element.
     $content_banner = $crawler->filter('.bcl-content-banner');
+    $this->assertSame(1, $content_banner->count(), 'Content banner found.');
 
     // Assert content banner title.
     $this->assertEquals(
