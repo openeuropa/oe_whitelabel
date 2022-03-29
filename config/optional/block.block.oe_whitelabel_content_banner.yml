@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   module:
-    - oe_whitelabel_helper
+    - node
   theme:
     - oe_whitelabel
 id: oe_whitelabel_content_banner
@@ -15,7 +15,7 @@ settings:
   id: oe_w_content_banner
   label: 'Content banner'
   label_display: '0'
-  provider: oe_whitelabel_helper
+  provider: node
   context_mapping:
     node: '@node.node_route_context:node'
 visibility: {  }

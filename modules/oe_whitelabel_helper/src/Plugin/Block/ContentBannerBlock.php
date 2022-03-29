@@ -17,6 +17,7 @@ use Drupal\Core\Session\AccountInterface;
  *   context_definitions = {
  *     "node" = @ContextDefinition("entity:node", label = @Translation("Node"))
  *   },
+ *   provider = "node",
  * )
  */
 class ContentBannerBlock extends BlockBase {
