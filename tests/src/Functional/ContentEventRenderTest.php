@@ -6,6 +6,7 @@ namespace Drupal\Tests\oe_whitelabel\Functional;
 
 use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
+use Drupal\node\NodeInterface;
 use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
 use Drupal\Tests\TestFileCreationTrait;
 use Symfony\Component\DomCrawler\Crawler;
@@ -26,18 +27,12 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
   ];
 
   /**
-   * A node to be rendered in diferent display views.
+   * Creates an example event node.
    *
-   * @var \Drupal\node\NodeInterface
+   * @return \Drupal\node\NodeInterface
+   *   Event node.
    */
-  protected $node;
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
+  protected function createExampleEvent(): NodeInterface {
     // Create a sample media entity to be embedded.
     File::create([
       'uri' => $this->getTestFiles('image')[0]->uri,
@@ -91,14 +86,15 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $node->set('oe_documents', [$media_document]);
     $node->set('oe_featured_media', [$media_image]);
     $node->save();
-    $this->node = $node;
+    return $node;
   }
 
   /**
    * Tests the event page.
    */
   public function testEventPage(): void {
-    $this->drupalGet('node/' . $this->node->id());
+    $node = $this->createExampleEvent();
+    $this->drupalGet('node/' . $node->id());
 
     /** @var \Symfony\Component\BrowserKit\AbstractBrowser $client */
     $client = $this->getSession()->getDriver()->getClient();
@@ -161,9 +157,10 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
    * Tests the event rendered in 'Teaser' view mode.
    */
   public function testEventRenderingTeaser(): void {
+    $node = $this->createExampleEvent();
     // Build node teaser view.
     $builder = \Drupal::entityTypeManager()->getViewBuilder('node');
-    $build = $builder->view($this->node, 'teaser');
+    $build = $builder->view($node, 'teaser');
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler((string) $render);
 
