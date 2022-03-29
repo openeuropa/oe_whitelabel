@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.full
     - field.field.node.oe_project.body
     - field.field.node.oe_project.oe_cx_achievements_and_milestone
     - field.field.node.oe_project.oe_cx_gallery
@@ -32,42 +31,71 @@ dependencies:
   module:
     - address
     - datetime_range
-    - entity_reference_revisions
     - field_group
+    - inline_entity_form
     - link
+    - oe_content_featured_media_field
+    - rdf_skos
     - text
-    - user
 third_party_settings:
   field_group:
-    group_stakeholders:
+    group_result:
       children:
-        - oe_project_participants
-      label: Stakeholders
+        - oe_project_results
+        - oe_project_result_files
+      label: Result
+      region: hidden
       parent_name: ''
-      region: content
-      weight: 5
-      format_type: html_element
+      weight: 30
+      format_type: details
       format_settings:
         classes: ''
         id: ''
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
-    group_project_details:
+        open: true
+        description: ''
+        required_fields: true
+    group_alternative_titles_teaser:
       children:
-        - oe_project_dates
+        - oe_featured_media
+        - status
+        - oe_teaser
+        - oe_subject
+      label: 'Alternative titles and teaser'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: tab
+      format_settings:
+        classes: ''
+        id: ''
+        formatter: open
+        description: ''
+        required_fields: true
+    group_budget:
+      children:
         - oe_project_budget
         - oe_project_budget_eu
+      label: Budget
+      region: content
+      parent_name: group_details
+      weight: 6
+      format_type: tab
+      format_settings:
+        classes: ''
+        id: ''
+        formatter: open
+        description: ''
+        required_fields: true
+    group_details:
+      children:
+        - oe_project_dates
+        - group_budget
         - oe_project_website
         - oe_project_locations
       label: 'Project details'
-      parent_name: ''
       region: content
-      weight: 0
+      parent_name: ''
+      weight: 2
       format_type: html_element
       format_settings:
         classes: ''
@@ -80,110 +108,151 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
-id: node.oe_project.full
+        required_fields: true
+id: node.oe_project.default
 targetEntityType: node
 bundle: oe_project
-mode: full
+mode: default
 content:
   oe_cx_achievements_and_milestone:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 6
-    region: content
-  oe_cx_impacts:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 4
-    region: content
-  oe_cx_objective:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  oe_project_budget:
-    type: number_decimal
-    label: above
-    settings:
-      thousand_separator: ''
-      decimal_separator: .
-      scale: 2
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  oe_project_budget_eu:
-    type: number_decimal
-    label: above
-    settings:
-      thousand_separator: ''
-      decimal_separator: .
-      scale: 2
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  oe_project_dates:
-    type: daterange_default
-    label: above
-    settings:
-      timezone_override: ''
-      format_type: medium
-      separator: '-'
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  oe_project_locations:
-    type: address_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 5
-    region: content
-  oe_project_participants:
-    type: entity_reference_revisions_entity_view
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
+    type: text_textarea
     weight: 7
     region: content
-  oe_project_website:
-    type: link
-    label: above
     settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
+      rows: 5
+      placeholder: ''
     third_party_settings: {  }
+  oe_cx_impacts:
+    type: text_textarea
+    weight: 5
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  oe_cx_objective:
+    type: text_textarea
     weight: 4
     region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  oe_featured_media:
+    type: oe_featured_media_autocomplete
+    weight: 8
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  oe_project_budget:
+    type: number
+    weight: 9
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  oe_project_budget_eu:
+    type: number
+    weight: 10
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  oe_project_dates:
+    type: daterange_datelist
+    weight: 5
+    region: content
+    settings:
+      increment: 15
+      date_order: DMY
+      time_type: none
+    third_party_settings: {  }
+  oe_project_locations:
+    type: address_default
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  oe_project_participants:
+    type: inline_entity_form_complex
+    weight: 6
+    region: content
+    settings:
+      form_mode: default
+      override_labels: true
+      label_singular: participant
+      label_plural: participants
+      allow_new: true
+      allow_existing: false
+      match_operator: CONTAINS
+      allow_duplicate: false
+      collapsible: true
+      collapsed: false
+      revision: true
+      removed_reference: keep
+    third_party_settings: {  }
+  oe_project_website:
+    type: link_default
+    weight: 7
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  oe_subject:
+    type: skos_concept_entity_reference_autocomplete
+    weight: 11
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   oe_summary:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
+    type: text_textarea
+    weight: 3
     region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   oe_teaser:
-    type: text_default
-    label: hidden
+    type: text_textarea
+    weight: 10
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 9
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
     settings: {  }
     third_party_settings: {  }
-    weight: 1
-    region: content
 hidden:
   body: true
+  created: true
   langcode: true
-  links: true
   oe_content_content_owner: true
   oe_content_legacy_link: true
   oe_content_navigation_title: true
@@ -192,7 +261,6 @@ hidden:
   oe_cx_lead_contributors: true
   oe_departments: true
   oe_documents: true
-  oe_featured_media: true
   oe_project_calls: true
   oe_project_contact: true
   oe_project_coordinators: true
@@ -200,4 +268,7 @@ hidden:
   oe_project_result_files: true
   oe_project_results: true
   oe_reference_code: true
-  oe_subject: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true
