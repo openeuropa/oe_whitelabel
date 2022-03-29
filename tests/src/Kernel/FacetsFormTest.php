@@ -111,7 +111,7 @@ class FacetsFormTest extends KernelTestBase {
     $this->assertSame('offcanvas', $button->attr('data-bs-toggle'));
     $this->assertStringContainsString('Facets form', $button->text());
     $icon = $button->filter('svg');
-    $this->assertStringContainsString('/assets/icons/bootstrap-icons.svg#filter', $icon->html());
+    $this->assertStringContainsString('/assets/icons/bcl-default-icons.svg#filter', $icon->html());
   }
 
 }
