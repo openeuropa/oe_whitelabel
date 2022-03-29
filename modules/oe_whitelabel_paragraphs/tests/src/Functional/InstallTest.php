@@ -15,20 +15,6 @@ use Drupal\Tests\BrowserTestBase;
 class InstallTest extends BrowserTestBase {
 
   /**
-   * Module handler to ensure installed modules.
-   *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
-   */
-  protected $moduleHandler;
-
-  /**
-   * Module installer.
-   *
-   * @var \Drupal\Core\Extension\ModuleInstallerInterface
-   */
-  protected $moduleInstaller;
-
-  /**
    * {@inheritdoc}
    */
   protected static $modules = [
@@ -40,30 +26,6 @@ class InstallTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected $defaultTheme = 'stark';
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-    $this->initServices();
-  }
-
-  /**
-   * Reloads services used by this test.
-   */
-  protected function reloadServices(): void {
-    $this->rebuildContainer();
-    $this->initServices();
-  }
-
-  /**
-   * Initializes services.
-   */
-  protected function initServices(): void {
-    $this->moduleHandler = $this->container->get('module_handler');
-    $this->moduleInstaller = $this->container->get('module_installer');
-  }
 
   /**
    * Test installation with legacy fields and data present.
@@ -141,12 +103,13 @@ class InstallTest extends BrowserTestBase {
       $ids[$name] = $paragraph->id();
     }
 
-    self::assertTrue($this->moduleHandler->moduleExists('oe_whitelabel_legacy_paragraphs_test'));
-    self::assertFalse($this->moduleHandler->moduleExists('oe_whitelabel_paragraphs'));
-    self::assertTrue($this->moduleInstaller->install(['oe_whitelabel_paragraphs']));
-    self::assertFalse($this->moduleHandler->moduleExists('oe_whitelabel_paragraphs'));
-    $this->reloadServices();
-    self::assertTrue($this->moduleHandler->moduleExists('oe_whitelabel_paragraphs'));
+    /** @var \Drupal\Core\Extension\ModuleInstallerInterface $installer */
+    $installer = \Drupal::service('module_installer');
+    $installer->install(['oe_whitelabel_paragraphs']);
+
+    $this->assertTrue(
+      \Drupal::moduleHandler()->moduleExists('oe_whitelabel_paragraphs'),
+      "Module 'oe_whitelabel_paragraphs was successfully installed.");
 
     $expected_created = [
       'oe_description_list' => [
