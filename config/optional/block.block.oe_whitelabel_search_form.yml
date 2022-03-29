@@ -14,8 +14,8 @@ plugin: whitelabel_search_block
 settings:
   id: whitelabel_search_block
   label: 'Whitelabel Search Block'
-  provider: oe_whitelabel_search
   label_display: '0'
+  provider: oe_whitelabel_search
   form:
     action: '#'
   input:
@@ -26,7 +26,7 @@ settings:
   button:
     classes: ''
   view_options:
+    enable_autocomplete: false
     id: null
     display: null
-    enable_autocomplete: false
 visibility: {  }

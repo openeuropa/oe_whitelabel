@@ -1,0 +1,123 @@
+<?php
+
+/**
+ * @file
+ * OE Whitelabel theme Multilingual.
+ */
+
+declare(strict_types =  1);
+
+use Drupal\Component\Utility\Html;
+
+/**
+ * Implements hook_preprocess_links().
+ */
+function oe_whitelabel_multilingual_preprocess_links__oe_multilingual_content_language_block(array &$variables): void {
+  // Generate the label for the unavailable language.
+  /** @var \Drupal\Core\Language\LanguageInterface[] $languages */
+  $languages = \Drupal::service('language_manager')->getNativeLanguages();
+  $variables['unavailable_language'] = $languages[$variables['current_language_id']]->getName();
+
+  // Normalize the links to an array of optional languages suitable for the BCL.
+  $variables['languages'] = [];
+  foreach ($variables['links'] as $language_code => $link) {
+    /** @var \Drupal\Core\Url $url */
+    $url = $link['link']['#url'];
+    $href = $url
+      ->setOptions($link['link']['#options'])
+      ->setAbsolute(TRUE)
+      ->toString();
+
+    $variables['languages'][] = [
+      'path' => $href,
+      'hreflang' => $language_code,
+      'label' => $link['link']['#title'],
+      'current' => FALSE,
+    ];
+  }
+
+  // Add the current language to the list.
+  /** @var \Drupal\oe_multilingual\MultilingualHelper $multilingual_helper */
+  $multilingual_helper = \Drupal::service('oe_multilingual.helper');
+  $entity = $multilingual_helper->getEntityFromCurrentRoute();
+  $translation = $multilingual_helper->getCurrentLanguageEntityTranslation($entity);
+  // If we don't have a language id defined yet, the current translation wasn't
+  // saved, so we don't add it to the list.
+  if ($translation->language()->getId() !== 'und') {
+    $variables['languages'][] = [
+      'path' => $translation->toUrl()->setAbsolute(TRUE)->toString(),
+      'hreflang' => $translation->language()->getId(),
+      'label' => $languages[$translation->language()->getId()]->getName(),
+      'current' => TRUE,
+      'icon_position' => 'before',
+      'remove_icon_spacers' => FALSE,
+      'icon' => [
+        'name' => 'check-lg',
+        'path' => $variables['bcl_icon_path'],
+        'size' => 'xs',
+        '#attributes' => ['class' => ['me-2']],
+      ],
+    ];
+  }
+
+  // Generate required ids.
+  $variables['expandable_id'] = Html::getUniqueId('bcl-expandable');
+}
+
+/**
+ * Implements hook_preprocess_links__language_block().
+ */
+function oe_whitelabel_multilingual_preprocess_links__language_block(&$variables) {
+  $currentLanguage = \Drupal::languageManager()->getCurrentLanguage();
+  $current_language_id = $currentLanguage->getId();
+  $language_config_storage = \Drupal::entityTypeManager()->getStorage('configurable_language');
+  $eu_links = [];
+  $non_eu_links = [];
+
+  foreach ($variables['links'] as $language_code => $link) {
+    /** @var \Drupal\Core\Url $url */
+    $url = $link['link']['#url'];
+    $href = $url
+      ->setOptions($link['link']['#options'])
+      ->setAbsolute(TRUE)
+      ->toString();
+    $label = $link['link']['#title'];
+
+    $link = [
+      'href' => $href,
+      'name' => $label,
+      'id' => 'link_' . $language_code,
+      'hreflang' => $language_code,
+    ];
+
+    if (!empty($current_language_id) && $language_code === $current_language_id) {
+      $variables['language']['link'] = $link;
+      $variables['language']['link']['target'] = 'languageModal';
+      $link['active'] = TRUE;
+    }
+
+    $language_config = $language_config_storage->load($language_code);
+    $category = $language_config->getThirdPartySetting('oe_multilingual', 'category');
+
+    if ($category === 'eu') {
+      $eu_links[$language_code] = $link;
+    }
+    else {
+      $non_eu_links[$language_code] = $link;
+    }
+  }
+
+  $variables['language']['modal'] = [
+    'id' => 'languageModal',
+    'size' => 'fullscreen',
+    'header' => [
+      'title' => t('Select your language'),
+      'label' => t('Close'),
+    ],
+    'eu_links' => $eu_links,
+    'non_eu_links' => $non_eu_links,
+    'footer' => [
+      'label' => t('Close'),
+    ],
+  ];
+}
