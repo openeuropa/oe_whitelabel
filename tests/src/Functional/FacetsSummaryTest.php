@@ -8,14 +8,16 @@ use Drupal\facets\Entity\Facet;
 use Drupal\facets_summary\Entity\FacetsSummary;
 use Drupal\Tests\facets\Functional\BlockTestTrait;
 use Drupal\Tests\facets\Functional\ExampleContentTrait;
+use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 
 /**
  * Tests the Facets Summary rendering.
  */
 class FacetsSummaryTest extends WhitelabelBrowserTestBase {
 
-  use ExampleContentTrait;
   use BlockTestTrait;
+  use ExampleContentTrait;
+  use SparqlConnectionTrait;
 
   /**
    * {@inheritdoc}
@@ -32,6 +34,7 @@ class FacetsSummaryTest extends WhitelabelBrowserTestBase {
    */
   public function setUp(): void {
     parent::setUp();
+    $this->setUpSparql();
     $this->setUpExampleStructure();
     $this->insertExampleContent();
     $this->assertSame(5, $this->indexItems('database_search_index'));
@@ -68,8 +71,8 @@ class FacetsSummaryTest extends WhitelabelBrowserTestBase {
     $this->drupalGet('search-api-test-fulltext');
 
     $assert = $this->assertSession();
-    $assert->elementTextContains('css', 'h4.mb-4', $block->label());
-    $assert->elementTextContains('css', 'h4.mb-4 span.source-summary-count', '(5)');
+    $assert->elementTextContains('css', 'main h4', $block->label());
+    $assert->elementTextContains('css', 'span.source-summary-count', '(5)');
   }
 
 }
