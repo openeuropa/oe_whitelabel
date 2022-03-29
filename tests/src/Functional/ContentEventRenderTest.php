@@ -23,6 +23,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'block',
     'oe_whitelabel_starter_event',
   ];
 
