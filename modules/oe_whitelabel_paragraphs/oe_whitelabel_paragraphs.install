@@ -185,8 +185,7 @@ function _oe_whitelabel_paragraphs_install_drop_legacy_fields(array $field_names
     foreach ($field_names as $field_name) {
       $field_config = FieldConfig::loadByName('paragraph', $bundle, $field_name);
       if ($field_config === NULL) {
-        // Field no longer exists. This is unexpected, but can be ignored.
-        continue;
+        throw new \RuntimeException("Legacy field 'paragraph.$bundle.$field_name' not found.");
       }
       $field_config->delete();
     }
