@@ -52,6 +52,7 @@ function oe_whitelabel_extra_project_preprocess_node__oe_project(&$variables) {
   }
   _oe_whitelabel_extra_project_preprocess_featured_media($variables);
   _oe_whitelabel_extra_project_preprocess_inpage_nav($variables);
+  _oe_whitelabel_extra_project_preprocess_badges($variables);
 }
 
 /**
@@ -146,4 +147,27 @@ function _oe_whitelabel_extra_project_preprocess_inpage_nav(array &$variables): 
     ];
   }
 
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function _oe_whitelabel_extra_project_preprocess_badges(&$variables) {
+  if ($variables['view_mode'] !== 'full' && $variables['view_mode'] !== 'teaser') {
+    return;
+  }
+
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+
+  if ($node->get('oe_subject')->isEmpty()) {
+    return;
+  }
+
+  $variables['badges'] = [];
+  foreach ($node->get('oe_subject') as $item) {
+    $variables['badges'][] = [
+      '#title' => $item->entity->label(),
+    ];
+  }
 }
