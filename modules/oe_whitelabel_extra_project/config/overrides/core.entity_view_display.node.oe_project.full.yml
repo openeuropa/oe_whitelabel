@@ -31,9 +31,9 @@ dependencies:
     - node.type.oe_project
   module:
     - address
+    - datetime_range
     - entity_reference_revisions
     - field_group
-    - rdf_skos
     - text
     - user
 third_party_settings:
@@ -44,7 +44,7 @@ third_party_settings:
       label: Stakeholders
       parent_name: ''
       region: content
-      weight: 7
+      weight: 8
       format_type: html_element
       format_settings:
         classes: ''
@@ -66,28 +66,60 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 9
     region: content
   oe_cx_impacts:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   oe_cx_objective:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 6
+    region: content
+  oe_project_budget:
+    type: number_decimal
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  oe_project_budget_eu:
+    type: number_decimal
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  oe_project_dates:
+    type: daterange_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+      separator: '-'
+    third_party_settings: {  }
+    weight: 0
     region: content
   oe_project_locations:
     type: address_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 3
     region: content
   oe_project_participants:
     type: entity_reference_revisions_entity_view
@@ -98,27 +130,19 @@ content:
     third_party_settings: {  }
     weight: 7
     region: content
-  oe_subject:
-    type: skos_concept_entity_reference_label
-    label: hidden
-    settings:
-      link: false
-    third_party_settings: {  }
-    weight: 2
-    region: content
   oe_summary:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
   oe_teaser:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
 hidden:
   body: true
@@ -133,14 +157,12 @@ hidden:
   oe_departments: true
   oe_documents: true
   oe_featured_media: true
-  oe_project_budget: true
-  oe_project_budget_eu: true
   oe_project_calls: true
   oe_project_contact: true
   oe_project_coordinators: true
-  oe_project_dates: true
   oe_project_funding_programme: true
   oe_project_result_files: true
   oe_project_results: true
   oe_project_website: true
   oe_reference_code: true
+  oe_subject: true
