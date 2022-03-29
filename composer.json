@@ -15,17 +15,21 @@
     "require-dev": {
         "composer/installers": "^1.11",
         "drupal/better_exposed_filters": "^5.0",
+        "drupal/composite_reference": "^2.1",
         "drupal/config_devel": "~1.2",
         "drupal/core-composer-scaffold": "^9.2",
         "drupal/core-dev": "^9.2",
         "drupal/ctools": "^3.7",
         "drupal/description_list_field": "^1.0@alpha",
         "drupal/drupal-extension": "~4.1",
+        "drupal/entity_reference_revisions": "^1.9",
+        "drupal/field_group": "^3.2",
         "drupal/file_link": "^2.0.6",
         "drupal/pathauto": "^1.8",
         "drupal/search_api": "^1.21",
         "drupal/search_api_autocomplete": "^1.5",
         "drupal/token": "^1.10",
+        "drupal/typed_link": "^2.0",
         "drush/drush": "^10.3",
         "easyrdf/easyrdf": "1.0.0 as 0.9.1",
         "egulias/email-validator": "^2.1.22 || ^3.0",
@@ -35,7 +39,8 @@
         "openeuropa/composer-artifacts": "^1.0.0-alpha1",
         "openeuropa/oe_authentication": "^1.4",
         "openeuropa/oe_contact_forms": "~1.1",
-        "openeuropa/oe_content": "^2.8.0",
+        "openeuropa/oe_content": "^3.0.0-beta11",
+        "openeuropa/oe_content_extra": "EPIC-1293-Project",
         "openeuropa/oe_corporate_blocks": "^4.4",
         "openeuropa/oe_media": "^1.14",
         "openeuropa/oe_multilingual": "^1.9",
@@ -57,6 +62,10 @@
         "openeuropa/oe_starter_content": {
             "type": "git",
             "url": "https://github.com/openeuropa/oe_starter_content"
+        },
+        "openeuropa/oe_content_extra": {
+            "type": "git",
+            "url": "https://github.com/openeuropa/oe_content_extra"
         }
     },
     "autoload": {
