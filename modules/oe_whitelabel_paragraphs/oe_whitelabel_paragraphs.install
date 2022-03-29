@@ -131,8 +131,6 @@ function _oe_whitelabel_paragraphs_install_get_legacy_fields_map(): array {
  * hook_update_N(). Unfortunately, hook_install() does not support batch
  * processes.
  *
- * See https://atendesigngroup.com/articles/programmatically-copy-field-data-drupal-8.
- *
  * @param string[][] $field_names_by_bundle
  *   Legacy field names, indexed by paragraph type and destination field name.
  */
@@ -187,7 +185,6 @@ function _oe_whitelabel_paragraphs_install_migrate_field_data(array $field_names
  *
  * @param string[][] $field_names_by_bundle
  *   Legacy field names, indexed by paragraph type and destination field name.
- *   (The destination field name is not relevant for this function.)
  */
 function _oe_whitelabel_paragraphs_install_drop_legacy_fields(array $field_names_by_bundle): void {
   foreach ($field_names_by_bundle as $bundle => $field_names) {
