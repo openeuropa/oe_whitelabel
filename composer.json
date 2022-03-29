@@ -40,7 +40,7 @@
         "openeuropa/oe_authentication": "^1.4",
         "openeuropa/oe_contact_forms": "~1.1",
         "openeuropa/oe_content": "^3.0.0-beta11",
-        "openeuropa/oe_content_extra": "EPIC-1293-Project",
+        "openeuropa/oe_content_extra": "dev-EPIC-1293-Project",
         "openeuropa/oe_corporate_blocks": "^4.4",
         "openeuropa/oe_media": "^1.14",
         "openeuropa/oe_multilingual": "^1.9",
