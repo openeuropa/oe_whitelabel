@@ -129,11 +129,11 @@ class InstallTest extends BrowserTestBase {
     ];
     $this->assertEqualsCanonicalizing(
       $legacy_field_config_ids,
-      \array_keys(FieldConfig::loadMultiple($legacy_field_config_ids)),
+      array_keys(FieldConfig::loadMultiple($legacy_field_config_ids)),
     );
     $this->assertEqualsCanonicalizing(
       $legacy_field_storage_ids,
-      \array_keys(FieldStorageConfig::loadMultiple($legacy_field_storage_ids)),
+      array_keys(FieldStorageConfig::loadMultiple($legacy_field_storage_ids)),
     );
 
     /** @var \Drupal\Core\Extension\ModuleInstallerInterface $installer */
