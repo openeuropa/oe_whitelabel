@@ -19,18 +19,23 @@ abstract class BasePatternAssert extends Assert implements PatternAssertInterfac
    * Assertions extending this class need to return an array containing the
    * assertions to be run for every possible value that can be expected.
    *
+   * @param string $variant
+   *   The variant name that is being checked.
+   *
    * @return array
    *   An array containing the assertions to be run.
    */
-  abstract protected function getAssertions(): array;
+  abstract protected function getAssertions(string $variant): array;
 
   /**
    * Method that asserts the base elements of a rendered pattern.
    *
    * @param string $html
    *   The rendered pattern.
+   * @param string $variant
+   *   The variant being asserted.
    */
-  abstract protected function assertBaseElements(string $html): void;
+  abstract protected function assertBaseElements(string $html, string $variant): void;
 
   /**
    * Returns the variant of the provided rendered pattern.
@@ -191,6 +196,26 @@ abstract class BasePatternAssert extends Assert implements PatternAssertInterfac
     $element = $crawler->filter($selector);
     self::assertEquals($expected_image['alt'], $element->attr('alt'));
     self::assertStringContainsString($expected_image['src'], $element->attr('src'));
+  }
+
+  /**
+   * Asserts the badges items of the pattern.
+   *
+   * @param array $badges
+   *   The expected badges item values.
+   * @param \Symfony\Component\DomCrawler\Crawler $crawler
+   *   The DomCrawler where to check the element.
+   */
+  protected function assertBadgesElements(array $badges, Crawler $crawler): void {
+    if (empty($badges)) {
+      $this->assertElementNotExists('.badge', $crawler);
+      return;
+    }
+    $badges_items = $crawler->filter('.mt-2-5');
+    self::assertCount(count($badges), $badges_items);
+    foreach ($badges as $index => $badge) {
+      self::assertEquals($badge, trim($badges_items->eq($index)->text()));
+    }
   }
 
 }
