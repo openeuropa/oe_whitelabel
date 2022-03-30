@@ -29,10 +29,6 @@ function oe_whitelabel_extra_project_preprocess_node__oe_project(&$variables) {
  * Implements hook_preprocess().
  */
 function _oe_whitelabel_extra_project_preprocess_featured_media(&$variables) {
-  if ($variables['view_mode'] !== 'full' && $variables['view_mode'] !== 'teaser') {
-    return;
-  }
-
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
 
