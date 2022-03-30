@@ -56,8 +56,6 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
-_core:
-  default_config_hash: jIuyfx94stqGE35SUgeVttHtWMdmhiAIQUi0108xRIY
 id: node.oe_project.teaser
 targetEntityType: node
 bundle: oe_project
