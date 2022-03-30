@@ -153,10 +153,6 @@ function _oe_whitelabel_extra_project_preprocess_inpage_nav(array &$variables): 
  * Implements hook_preprocess().
  */
 function _oe_whitelabel_extra_project_preprocess_badges(&$variables) {
-  if ($variables['view_mode'] !== 'full' && $variables['view_mode'] !== 'teaser') {
-    return;
-  }
-
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
 
