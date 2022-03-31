@@ -146,30 +146,30 @@ mode: full
 content:
   oe_cx_achievements_and_milestone:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 11
     region: content
   oe_cx_impacts:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 7
     region: content
   oe_cx_lead_contributors:
     type: entity_reference_revisions_entity_view
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 13
+    weight: 10
     region: content
   oe_cx_objective:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 6
@@ -225,12 +225,12 @@ content:
     region: content
   oe_project_participants:
     type: entity_reference_revisions_entity_view
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 12
+    weight: 9
     region: content
   oe_project_website:
     type: link
@@ -254,7 +254,7 @@ content:
     region: content
   oe_subject:
     type: skos_concept_entity_reference_label
-    label: above
+    label: hidden
     settings:
       link: false
     third_party_settings: {  }
@@ -262,7 +262,7 @@ content:
     region: content
   oe_summary:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 5
