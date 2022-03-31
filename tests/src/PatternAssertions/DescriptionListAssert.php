@@ -29,7 +29,7 @@ class DescriptionListAssert extends BasePatternAssert {
    */
   protected function assertBaseElements(string $html): void {
     $crawler = new Crawler($html);
-    $field_list_container = $crawler->filter('body');
+    $field_list_container = $crawler->filter('dl');
     self::assertCount(1, $field_list_container);
   }
 
