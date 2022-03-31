@@ -64,10 +64,9 @@ function _oe_whitelabel_extra_project_preprocess_featured_media(&$variables) {
 
   // Get the media source.
   $source = $media->getSource();
-  $media_source = $source instanceof OEmbed || $source instanceof Image;
 
-  // If it's not an image and not a video, bail out.
-  if (!$media_source) {
+  if (!$source instanceof OEmbed && !$source instanceof Image) {
+    // Media is not a video or image, no thumbnail will be shown.
     $cacheability->applyTo($variables);
     return;
   }
