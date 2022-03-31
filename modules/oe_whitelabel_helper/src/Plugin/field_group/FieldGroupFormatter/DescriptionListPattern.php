@@ -84,6 +84,15 @@ class DescriptionListPattern extends PatternFormatterBase implements ContainerFa
   /**
    * {@inheritdoc}
    */
+  public function preRender(&$element, $rendering_object) {
+    parent::preRender($element, $rendering_object);
+    // Only support horizontal mode in this field group formatter.
+    $element['pattern']['#settings']['orientation'] = 'horizontal';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   protected function getFields(array &$element, $rendering_object): array {
     $fields = [];
 
