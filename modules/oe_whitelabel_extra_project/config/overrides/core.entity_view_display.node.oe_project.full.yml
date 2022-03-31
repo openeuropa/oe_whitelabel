@@ -39,36 +39,16 @@ dependencies:
     - user
 third_party_settings:
   field_group:
-    group_stakeholders:
-      children:
-        - oe_project_participants
-        - oe_cx_lead_contributors
-      label: Stakeholders
-      parent_name: ''
-      region: content
-      weight: 7
-      format_type: html_element
-      format_settings:
-        classes: ''
-        id: ''
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
     group_project_details:
       children:
         - group_period
         - group_budget
-        - oe_project_website
-        - oe_project_funding_programme
-        - oe_reference_code
+        - group_website
+        - group_coordinators
       label: 'Project details'
       parent_name: ''
       region: content
-      weight: 0
+      weight: 2
       format_type: html_element
       format_settings:
         classes: ''
@@ -85,14 +65,16 @@ third_party_settings:
       children:
         - oe_project_coordinators
       label: Coordinators
-      parent_name: ''
+      parent_name: group_project_details
       region: content
-      weight: 1
-      format_type: html_element
+      weight: 3
+      format_type: oe_whitelabel_helper_description_list_pattern
       format_settings:
         classes: ''
         show_empty_fields: false
         id: ''
+        formatter: closed
+        description: ''
         element: div
         show_label: false
         label_element: div
@@ -107,18 +89,8 @@ third_party_settings:
       parent_name: group_project_details
       region: content
       weight: 0
-      format_type: html_element
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        element: div
-        show_label: false
-        label_element: h3
-        label_element_classes: ''
-        attributes: ''
-        effect: none
-        speed: fast
+      format_type: oe_whitelabel_helper_description_list_pattern
+      format_settings: {  }
     group_budget:
       children:
         - oe_project_budget
@@ -127,11 +99,13 @@ third_party_settings:
       parent_name: group_project_details
       region: content
       weight: 1
-      format_type: html_element
+      format_type: oe_whitelabel_helper_description_list_pattern
       format_settings:
         classes: ''
         show_empty_fields: false
         id: ''
+        formatter: closed
+        description: ''
         element: div
         show_label: false
         label_element: h3
@@ -139,6 +113,17 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
+    group_website:
+      children:
+        - oe_project_website
+        - oe_project_funding_programme
+        - oe_reference_code
+      label: Website
+      parent_name: group_project_details
+      region: content
+      weight: 2
+      format_type: oe_whitelabel_helper_description_list_pattern
+      format_settings: {  }
 id: node.oe_project.full
 targetEntityType: node
 bundle: oe_project
@@ -149,14 +134,14 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 8
     region: content
   oe_cx_impacts:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 5
     region: content
   oe_cx_lead_contributors:
     type: entity_reference_revisions_entity_view
@@ -165,14 +150,14 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 10
+    weight: 7
     region: content
   oe_cx_objective:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 4
     region: content
   oe_project_budget:
     type: number_decimal
@@ -203,7 +188,7 @@ content:
       view_mode: name
       link: ''
     third_party_settings: {  }
-    weight: 7
+    weight: 4
     region: content
   oe_project_dates:
     type: daterange_default
@@ -221,7 +206,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
   oe_project_participants:
     type: entity_reference_revisions_entity_view
@@ -230,7 +215,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 9
+    weight: 6
     region: content
   oe_project_website:
     type: link
@@ -242,7 +227,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   oe_reference_code:
     type: string
@@ -250,7 +235,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   oe_subject:
     type: skos_concept_entity_reference_label
@@ -258,21 +243,21 @@ content:
     settings:
       link: false
     third_party_settings: {  }
-    weight: 3
+    weight: 1
     region: content
   oe_summary:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 3
     region: content
   oe_teaser:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 0
     region: content
 hidden:
   body: true
