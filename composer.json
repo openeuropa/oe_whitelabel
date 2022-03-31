@@ -65,6 +65,11 @@
             "url": "https://github.com/openeuropa/oe_content_extra"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Drupal\\Tests\\oe_whitelabel\\": "./tests/src/"
+        }
+    },
     "extra": {
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
