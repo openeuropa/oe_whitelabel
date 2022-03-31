@@ -64,6 +64,7 @@ third_party_settings:
         - group_budget
         - oe_project_website
         - oe_project_funding_programme
+        - oe_reference_code
       label: 'Project details'
       parent_name: ''
       region: content
@@ -94,8 +95,8 @@ third_party_settings:
         id: ''
         element: div
         show_label: false
-        label_element: h3
-        label_element_classes: ''
+        label_element: div
+        label_element_classes: 'field__label fw-bold'
         attributes: ''
         effect: none
         speed: fast
@@ -197,9 +198,9 @@ content:
     region: content
   oe_project_coordinators:
     type: entity_reference_revisions_entity_view
-    label: inline
+    label: above
     settings:
-      view_mode: coordinators
+      view_mode: name
       link: ''
     third_party_settings: {  }
     weight: 7
@@ -220,7 +221,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 5
+    weight: 3
     region: content
   oe_project_participants:
     type: entity_reference_revisions_entity_view
@@ -240,6 +241,14 @@ content:
       url_plain: false
       rel: ''
       target: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  oe_reference_code:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
     third_party_settings: {  }
     weight: 4
     region: content
@@ -282,4 +291,3 @@ hidden:
   oe_project_locations: true
   oe_project_result_files: true
   oe_project_results: true
-  oe_reference_code: true

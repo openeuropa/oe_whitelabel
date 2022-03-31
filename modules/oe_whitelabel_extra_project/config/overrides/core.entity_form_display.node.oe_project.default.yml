@@ -92,6 +92,7 @@ third_party_settings:
         - group_budget
         - oe_project_website
         - oe_project_funding_programme
+        - oe_reference_code
       label: 'Project details'
       region: content
       parent_name: ''
@@ -281,6 +282,14 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
+  oe_reference_code:
+    type: string_textfield
+    weight: 9
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   oe_subject:
     type: skos_concept_entity_reference_autocomplete
     weight: 11
@@ -339,7 +348,6 @@ hidden:
   oe_project_calls: true
   oe_project_contact: true
   oe_project_locations: true
-  oe_reference_code: true
   path: true
   promote: true
   sticky: true
