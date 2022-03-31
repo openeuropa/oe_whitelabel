@@ -97,14 +97,16 @@ class DescriptionListPattern extends PatternFormatterBase implements ContainerFa
     $fields = [];
 
     foreach (Element::children($element) as $field_name) {
-      $build = [
-        '#label_display' => 'hidden',
-      ] + $element[$field_name];
-
+      $field_element = $element[$field_name];
+      $field_element['#label_display'] = 'hidden';
+      $field_markup = $this->renderer->render($field_element);
+      if (trim((string) $field_markup) === '') {
+        continue;
+      }
       // Assign field label and content to the pattern's fields.
       $fields['items'][] = [
-        'term' => $element[$field_name]['#title'] ?? '',
-        'definition' => $this->renderer->render($build),
+        'term' => $field_element['#title'] ?? '',
+        'definition' => $field_markup,
       ];
     }
 
