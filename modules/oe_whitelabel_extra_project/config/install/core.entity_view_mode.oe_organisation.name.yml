@@ -3,7 +3,7 @@ status: true
 dependencies:
   module:
     - oe_content_entity_organisation
-id: oe_organisation.coordinators
-label: Coordinators
+id: oe_organisation.name
+label: Name
 targetEntityType: oe_organisation
 cache: true
