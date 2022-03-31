@@ -12,11 +12,11 @@ use Drupal\ui_patterns\UiPatternsManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Format a field group using the field list pattern.
+ * Format a field group using the description list pattern.
  *
  * @FieldGroupFormatter(
- *   id = "oe_whitelabel_helper_field_list_pattern",
- *   label = @Translation("Description field list pattern"),
+ *   id = "oe_whitelabel_helper_description_list_pattern",
+ *   label = @Translation("Description list pattern"),
  *   description = @Translation("Format a field group using the description list pattern."),
  *   supported_contexts = {
  *     "view"
