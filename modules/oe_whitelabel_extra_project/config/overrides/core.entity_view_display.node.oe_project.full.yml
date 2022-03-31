@@ -46,7 +46,7 @@ third_party_settings:
       label: Stakeholders
       parent_name: ''
       region: content
-      weight: 8
+      weight: 7
       format_type: html_element
       format_settings:
         classes: ''
@@ -68,7 +68,7 @@ third_party_settings:
       label: 'Project details'
       parent_name: ''
       region: content
-      weight: 1
+      weight: 0
       format_type: html_element
       format_settings:
         classes: ''
@@ -87,7 +87,7 @@ third_party_settings:
       label: Coordinators
       parent_name: ''
       region: content
-      weight: 2
+      weight: 1
       format_type: html_element
       format_settings:
         classes: ''
@@ -156,7 +156,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 6
     region: content
   oe_cx_lead_contributors:
     type: entity_reference_revisions_entity_view
@@ -172,7 +172,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 5
     region: content
   oe_project_budget:
     type: number_decimal
@@ -206,11 +206,11 @@ content:
     weight: 7
     region: content
   oe_project_dates:
-    type: daterange_custom
+    type: daterange_default
     label: above
     settings:
       timezone_override: ''
-      date_format: d/m/Y
+      format_type: oe_whitelabel_project_date
       separator: '-'
     third_party_settings: {  }
     weight: 1
@@ -258,21 +258,21 @@ content:
     settings:
       link: false
     third_party_settings: {  }
-    weight: 4
+    weight: 3
     region: content
   oe_summary:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 4
     region: content
   oe_teaser:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
 hidden:
   body: true

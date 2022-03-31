@@ -1,12 +1,12 @@
-<h4 class="fw-bold mb-3">
-  {% if elements.oe_acronym is not empty %} {{ elements.oe_acronym }}{% endif %}
-</h4>
+{% if elements.oe_acronym is not empty %}
+  <h4 class="fw-bold mb-3">{{ elements.oe_acronym }}</h4>
+{% endif %}
 {% set _items = [] %}
-{% for _field in elements if _key|first != '#' %}
+{% for _field in elements|without('oe_acronym') if _key|first != '#' %}
   {% set _value %}
     {{ _field|field_value }}
   {% endset %}
-  {% if _value is not empty %}
+  {% if _value|trim is not empty %}
     {% set _items = _items|merge([{
       term: _field|field_label,
       definition: _value,

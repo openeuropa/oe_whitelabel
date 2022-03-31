@@ -5,6 +5,9 @@ type: theme
 base theme: oe_bootstrap_theme
 core_version_requirement: ^8.9 || ^9.1
 
+dependencies:
+  - drupal:twig_field_value
+
 libraries:
   - oe_whitelabel/style
 
