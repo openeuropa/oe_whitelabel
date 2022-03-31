@@ -5,10 +5,13 @@
  */
 #}
 {% if not content.oe_subject.isEmpty() %}
-  {% set _badge = {
-    label: content.oe_subject|field_value,
-    rounded_pill: true,
-  } %}
+  {% set _badges = [] %}
+  {% for _badge in content.oe_subject|field_value %}
+    {% set _badges = _badges|merge([{
+      label: _badge['#plain_text'],
+      rounded_pill: true,
+    }]) %}
+  {% endfor %}
 {% endif %}
 {{ pattern('content_banner', {
   background: 'gray',
@@ -16,15 +19,30 @@
   content: content.oe_teaser,
   image: image,
   attributes: create_attribute().addClass(['ps-0']),
-  badges: [_badge],
+  badges: _badges,
 }) }}
 {% set inpage_navigation_fields %}
   {{ content.group_project_details }}
   {{ content.group_coordinators }}
+  <h3 class="fw-bold mb-4 pt-3">
+    {{ content.oe_summary|field_label }}
+  </h3>
   {{ content.oe_summary }}
+  <h3 class="fw-bold mb-4 pt-3">
+    {{ content.oe_cx_objective|field_label }}
+  </h3>
   {{ content.oe_cx_objective }}
+  <h3 class="fw-bold mb-4 pt-3">
+    {{ content.oe_cx_impacts|field_label }}
+  </h3>
   {{ content.oe_cx_impacts }}
+  <h3 class="fw-bold mb-4 pt-3">
+    {{ content.group_stakeholders.oe_project_participants|field_label }}
+  </h3>
   {{ content.group_stakeholders }}
+  <h3 class="fw-bold mb-4 pt-3">
+    {{ content.oe_cx_achievements_and_milestone|field_label }}
+  </h3>
   {{ content.oe_cx_achievements_and_milestone }}
 {% endset %}
 <div class="mt-md-4-75 mt-4">

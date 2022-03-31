@@ -145,12 +145,12 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
           'href' => '#oe-project-oe-cx-impacts',
         ],
         [
-          'label' => 'Achievements and milestones',
-          'href' => '#oe-project-oe-cx-achievements-and-milestone',
-        ],
-        [
           'label' => 'Participants',
           'href' => '#oe-project-oe-project-participants',
+        ],
+        [
+          'label' => 'Achievements and milestones',
+          'href' => '#oe-project-oe-cx-achievements-and-milestone',
         ],
       ],
     ];
