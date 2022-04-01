@@ -22,7 +22,6 @@ class PatternFormatterTest extends BrowserTestBase {
   protected static $modules = [
     'node',
     'text',
-    'field_ui',
     'field_group',
     'oe_whitelabel_helper',
   ];
@@ -37,17 +36,6 @@ class PatternFormatterTest extends BrowserTestBase {
    */
   public function setUp(): void {
     parent::setUp();
-
-    // Create test user.
-    $admin_user = $this->drupalCreateUser([
-      'access content',
-      'administer content types',
-      'administer node fields',
-      'administer node form display',
-      'administer node display',
-      'bypass node access',
-    ]);
-    $this->drupalLogin($admin_user);
 
     // Create content type.
     $this->drupalCreateContentType([
@@ -121,12 +109,11 @@ class PatternFormatterTest extends BrowserTestBase {
 
     // Assert that fields are rendered using the field list horizontal pattern.
     $this->drupalGet('node/1');
-    $element_selector = 'dl';
-    $this->assertSession()->elementExists('css', $element_selector);
-    $assert_session->elementTextContains('css', $element_selector . ' div dt', 'Field 1');
-    $assert_session->elementTextContains('css', $element_selector . ' dd:nth-child(2)', 'Content test 1');
-    $assert_session->elementTextContains('css', $element_selector . ' div:nth-child(3) dt', 'Field 2');
-    $assert_session->elementTextContains('css', $element_selector . ' dd:nth-child(4)', 'Content test 2');
+    $assert_session->elementsCount('css', 'dl', 1);
+    $assert_session->elementTextContains('css', 'dl div dt', 'Field 1');
+    $assert_session->elementTextContains('css', 'dl dd:nth-child(2)', 'Content test 1');
+    $assert_session->elementTextContains('css', 'dl div:nth-child(3) dt', 'Field 2');
+    $assert_session->elementTextContains('css', 'dl dd:nth-child(4)', 'Content test 2');
   }
 
 }
