@@ -45,30 +45,12 @@ third_party_settings:
       label: Result
       region: content
       parent_name: ''
-      weight: 3
+      weight: 13
       format_type: details
       format_settings:
         classes: ''
         id: ''
         open: true
-        description: ''
-        required_fields: true
-    group_alternative_titles_teaser:
-      children:
-        - oe_subject
-        - oe_featured_media
-        - status
-        - oe_teaser
-        - oe_project_coordinators
-      label: 'Alternative titles and teaser'
-      region: content
-      parent_name: ''
-      weight: 1
-      format_type: tab
-      format_settings:
-        classes: ''
-        id: ''
-        formatter: open
         description: ''
         required_fields: true
     group_budget:
@@ -93,6 +75,7 @@ third_party_settings:
         - oe_project_website
         - oe_project_funding_programme
         - oe_reference_code
+        - oe_project_coordinators
       label: 'Project details'
       region: content
       parent_name: ''
@@ -135,7 +118,7 @@ content:
     third_party_settings: {  }
   oe_cx_impacts:
     type: text_textarea
-    weight: 9
+    weight: 7
     region: content
     settings:
       rows: 5
@@ -143,7 +126,7 @@ content:
     third_party_settings: {  }
   oe_cx_lead_contributors:
     type: inline_entity_form_complex
-    weight: 6
+    weight: 9
     region: content
     settings:
       form_mode: default
@@ -161,7 +144,7 @@ content:
     third_party_settings: {  }
   oe_cx_objective:
     type: text_textarea
-    weight: 8
+    weight: 6
     region: content
     settings:
       rows: 5
@@ -169,7 +152,7 @@ content:
     third_party_settings: {  }
   oe_documents:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 12
     region: content
     settings:
       match_operator: CONTAINS
@@ -179,7 +162,7 @@ content:
     third_party_settings: {  }
   oe_featured_media:
     type: oe_featured_media_autocomplete
-    weight: 12
+    weight: 1
     region: content
     settings:
       match_operator: CONTAINS
@@ -203,7 +186,7 @@ content:
     third_party_settings: {  }
   oe_project_coordinators:
     type: inline_entity_form_complex
-    weight: 15
+    weight: 10
     region: content
     settings:
       form_mode: default
@@ -240,7 +223,7 @@ content:
     third_party_settings: {  }
   oe_project_participants:
     type: inline_entity_form_complex
-    weight: 5
+    weight: 8
     region: content
     settings:
       form_mode: default
@@ -292,7 +275,7 @@ content:
     third_party_settings: {  }
   oe_subject:
     type: skos_concept_entity_reference_autocomplete
-    weight: 11
+    weight: 3
     region: content
     settings:
       match_operator: CONTAINS
@@ -302,7 +285,7 @@ content:
     third_party_settings: {  }
   oe_summary:
     type: text_textarea
-    weight: 7
+    weight: 5
     region: content
     settings:
       rows: 5
@@ -310,7 +293,7 @@ content:
     third_party_settings: {  }
   oe_teaser:
     type: text_textarea
-    weight: 14
+    weight: 2
     region: content
     settings:
       rows: 5
@@ -318,7 +301,7 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 13
+    weight: 14
     region: content
     settings:
       display_label: true
