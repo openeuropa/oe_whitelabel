@@ -145,8 +145,8 @@ class ProjectRenderTest extends ContentRenderTestBase {
         'alt' => 'Alternative text',
       ],
       'content' => [
-        '2020',
-        '2025',
+        '10 May 2020',
+        '15 May 2025',
       ],
     ];
     $assert->assertPattern($expected_values, $html);
