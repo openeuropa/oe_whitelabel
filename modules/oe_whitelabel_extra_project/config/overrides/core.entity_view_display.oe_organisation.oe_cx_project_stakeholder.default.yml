@@ -18,12 +18,11 @@ third_party_settings:
       children:
         - name
         - oe_address
-        - oe_acronym
         - oe_cx_contribution_budget
       label: Info
       parent_name: ''
       region: content
-      weight: 0
+      weight: 1
       format_type: oe_whitelabel_helper_description_list_pattern
       format_settings: {  }
 id: oe_organisation.oe_cx_project_stakeholder.default
@@ -41,15 +40,15 @@ content:
     region: content
   oe_acronym:
     type: string
-    label: visually_hidden
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 3
+    weight: 0
     region: content
   oe_address:
     type: oe_whitelabel_helper_address_inline
-    label: above
+    label: hidden
     settings:
       delimiter: ', '
     third_party_settings: {  }
@@ -57,7 +56,7 @@ content:
     region: content
   oe_cx_contribution_budget:
     type: number_decimal
-    label: above
+    label: hidden
     settings:
       thousand_separator: .
       decimal_separator: ','

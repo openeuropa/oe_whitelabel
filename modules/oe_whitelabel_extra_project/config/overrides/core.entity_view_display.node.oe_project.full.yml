@@ -57,7 +57,7 @@ third_party_settings:
         element: div
         show_label: true
         label_element: h3
-        label_element_classes: ''
+        label_element_classes: 'fw-bold mb-4'
         attributes: ''
         effect: none
         speed: fast
