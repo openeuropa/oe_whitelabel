@@ -15,7 +15,10 @@ use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
 use Drupal\Component\Utility\Html;
 
 /**
- * Implements hook_preprocess().
+ * Implements hook_preprocess_HOOK() for "pattern_description_list".
+ *
+ * Adds a bottom border for some instances of this pattern that are used in
+ * field groups on the project detail page.
  */
 function oe_whitelabel_extra_project_preprocess_pattern_description_list(array &$variables): void {
   /** @var \Drupal\ui_patterns\Element\PatternContext $context */

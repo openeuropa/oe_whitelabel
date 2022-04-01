@@ -14,42 +14,12 @@ field_group.field_group_formatter_plugin.oe_whitelabel_helper_pattern_base:
   type: field_group.field_group_formatter_plugin.base
   label: 'Mapping for the base pattern formatter settings'
   mapping:
-    classes:
+    label:
+      type: label
+      label: 'Field group label'
+    variant:
       type: string
-      label: 'Classes of the fieldgroup'
-    show_empty_fields:
-      type: boolean
-      label: 'Show Empty Fields'
-    id:
-      type: string
-      label: 'Html id of the fieldgroup'
-    formatter:
-      type: string
-      label: 'Formatting of the item'
-    description:
-      type: text
-      label: 'Description'
-    element:
-      type: string
-      label: 'html element tag to be used'
-    show_label:
-      type: boolean
-      label: 'show the label'
-    label_element:
-      type: string
-      label: 'html element tag to be used for the label'
-    label_element_classes:
-      type: string
-      label: 'html classes to be used for the label'
-    attributes:
-      type: string
-      label: 'html attributes for the element'
-    effect:
-      type: string
-      label: 'effect on the element'
-    speed:
-      type: string
-      label: 'speed of the effect'
+      label: 'Pattern variant'
 field_group.field_group_formatter_plugin.oe_whitelabel_helper_description_list_pattern:
   type: field_group.field_group_formatter_plugin.oe_whitelabel_helper_pattern_base
   label: 'Mapping for the description list pattern formatter settings'
