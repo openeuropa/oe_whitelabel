@@ -164,7 +164,8 @@ abstract class PatternFormatterBase extends FieldGroupFormatterBase implements C
    *   Field group rendering object.
    *
    * @return array|null
-   *   Pattern fields to be rendered, or an empty array if none.
+   *   Pattern fields to be rendered, or NULL if the field group
+   *   should not be displayed at all.
    */
   abstract protected function getFields(array &$element, $rendering_object): ?array;
 
