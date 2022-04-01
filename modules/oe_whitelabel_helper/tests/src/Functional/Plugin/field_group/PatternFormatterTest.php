@@ -10,8 +10,8 @@ use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\field_group\Functional\FieldGroupTestTrait;
 
 /**
- * Test the pattern field group formatter.
- **/
+ * Test the Description list pattern field group formatter.
+ */
 class PatternFormatterTest extends BrowserTestBase {
 
   use FieldGroupTestTrait;
@@ -38,7 +38,7 @@ class PatternFormatterTest extends BrowserTestBase {
   public function setUp(): void {
     parent::setUp();
 
-    // Enable oe_theme and set it as default.
+    // Enable oe_whitelabel and set it as default.
     $this->assertTrue($this->container->get('theme_installer')->install(['oe_whitelabel']));
     $this->container->get('config.factory')
       ->getEditable('system.theme')
@@ -46,7 +46,7 @@ class PatternFormatterTest extends BrowserTestBase {
       ->save();
 
     // Rebuild the ui_pattern definitions to collect the ones provided by
-    // oe_theme itself.
+    // oe_whitelabel itself.
     $this->container->get('plugin.manager.ui_patterns')->clearCachedDefinitions();
 
     // Create test user.
@@ -106,6 +106,8 @@ class PatternFormatterTest extends BrowserTestBase {
    * Test description list pattern formatter.
    */
   public function testDescriptionListPatternFormatter() {
+    $assert_session = $this->assertSession();
+
     $data = [
       'weight' => '1',
       'children' => [
@@ -116,6 +118,7 @@ class PatternFormatterTest extends BrowserTestBase {
       'format_type' => 'oe_whitelabel_helper_description_list_pattern',
     ];
     $group = $this->createGroup('node', 'test', 'view', 'default', $data);
+    field_group_group_save($group);
 
     $this->drupalCreateNode([
       'type' => 'test',
@@ -127,17 +130,14 @@ class PatternFormatterTest extends BrowserTestBase {
       ],
     ]);
 
-    field_group_group_save($group);
-
     // Assert that fields are rendered using the field list horizontal pattern.
     $this->drupalGet('node/1');
-
     $element_selector = 'dl';
     $this->assertSession()->elementExists('css', $element_selector);
-    $this->assertSession()->elementTextContains('css', $element_selector . ' dt:nth-child(1)', 'Field 1');
-    $this->assertSession()->elementTextContains('css', $element_selector . ' dd:nth-child(2)', 'Content test 1');
-    $this->assertSession()->elementTextContains('css', $element_selector . ' dt:nth-child(3)', 'Field 2');
-    $this->assertSession()->elementTextContains('css', $element_selector . ' dd:nth-child(4)', 'Content test 2');
+    $assert_session->elementTextContains('css', $element_selector . ' div dt', 'Field 1');
+    $assert_session->elementTextContains('css', $element_selector . ' dd:nth-child(2)', 'Content test 1');
+    $assert_session->elementTextContains('css', $element_selector . ' div:nth-child(3) dt', 'Field 2');
+    $assert_session->elementTextContains('css', $element_selector . ' dd:nth-child(4)', 'Content test 2');
   }
 
 }
