@@ -169,7 +169,7 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
       'items' => [
         [
           'term' => 'Project period',
-          'definition' => '10/05/2020 - 15/05/2025',
+          'definition' => "10/05/2020\n - 15/05/2025",
         ],
       ],
     ];
