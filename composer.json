@@ -64,6 +64,12 @@
             "Drupal\\oe_whitelabel\\": "./src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Drupal\\Tests\\oe_whitelabel\\": "./tests/src/",
+            "Drupal\\Tests\\oe_bootstrap_theme\\": "./build/themes/contrib/oe_bootstrap_theme/tests/src/"
+        }
+    },
     "extra": {
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
