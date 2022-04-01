@@ -169,7 +169,7 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
       'items' => [
         [
           'term' => 'Project period',
-          'definition' => "10/05/2020\n - 15/05/2025",
+          'definition' => "10 May 2020\n - 15 May 2025",
         ],
       ],
     ];
@@ -182,11 +182,11 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
       'items' => [
         [
           'term' => 'Overall budget',
-          'definition' => '€100.00',
+          'definition' => '€100,00',
         ],
         [
           'term' => 'EU contribution',
-          'definition' => '€100.00',
+          'definition' => '€100,00',
         ],
       ],
     ];
@@ -245,7 +245,7 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
         ],
         [
           'term' => 'Contribution to the budget',
-          'definition' => '€22.30',
+          'definition' => '€22,30',
         ],
       ],
     ];
