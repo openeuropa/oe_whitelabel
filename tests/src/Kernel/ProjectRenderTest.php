@@ -98,30 +98,6 @@ class ProjectRenderTest extends ContentRenderTestBase {
     ]);
     $media->save();
 
-    $coordinator = Organisation::create([
-      'name' => 'Coordinator 1',
-      'bundle' => 'oe_stakeholder',
-    ]);
-    $coordinator->set('oe_address', [
-      'country_code' => 'BE',
-      'locality' => 'Brussels',
-      'postal_code' => 1000,
-      'address_line1' => 'The street',
-    ]);
-    $coordinator->save();
-
-    $participant = Organisation::create([
-      'name' => 'Participant 1',
-      'bundle' => 'oe_stakeholder',
-    ]);
-    $participant->set('oe_address', [
-      'country_code' => 'BE',
-      'locality' => 'Brussels',
-      'postal_code' => 1000,
-      'address_line1' => 'The street',
-    ]);
-    $participant->save();
-
     $values = [
       'type' => 'oe_project',
       'title' => 'Project 1',
@@ -137,18 +113,6 @@ class ProjectRenderTest extends ContentRenderTestBase {
       ],
       'body' => 'The body text',
       'oe_teaser' => 'The teaser text',
-      'oe_project_coordinators' => [
-        [
-          'target_id' => $coordinator->id(),
-          'target_revision_id' => $coordinator->getRevisionId(),
-        ],
-      ],
-      'oe_project_participants' => [
-        [
-          'target_id' => $participant->id(),
-          'target_revision_id' => $participant->getRevisionId(),
-        ],
-      ],
       'oe_featured_media' => [
         [
           'target_id' => $media->id(),
