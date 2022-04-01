@@ -15,6 +15,32 @@ use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
 use Drupal\Component\Utility\Html;
 
 /**
+ * Implements hook_preprocess().
+ */
+function oe_whitelabel_extra_project_preprocess_pattern_description_list(array &$variables): void {
+  /** @var \Drupal\ui_patterns\Element\PatternContext $context */
+  $context = $variables['context'];
+  if ($context->getType() === 'field_group') {
+    $id = $context->getProperty('entity_type')
+      . '.' . $context->getProperty('bundle')
+      . '.' . $context->getProperty('view_mode')
+      . '.' . $context->getProperty('group_name');
+    switch ($id) {
+      case 'oe_organisation.oe_cx_project_stakeholder.default.group_info':
+      case 'node.oe_project.full.group_project_details':
+      case 'node.oe_project.full.group_coordinators':
+      case 'node.oe_project.full.group_period':
+      case 'node.oe_project.full.group_budget':
+      case 'node.oe_project.full.group_website':
+        /** @var \Drupal\Core\Template\Attribute $attributes */
+        $attributes = $variables['attributes'];
+        $attributes->addClass('border-bottom');
+        break;
+    }
+  }
+}
+
+/**
  * Implements template_preprocess_node() for the project node type.
  */
 function oe_whitelabel_extra_project_preprocess_node__oe_project(&$variables) {
