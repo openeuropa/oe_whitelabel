@@ -20,30 +20,11 @@ class ProjectRenderTest extends ContentRenderTestBase {
    * {@inheritdoc}
    */
   public static $modules = [
-    'address',
-    'composite_reference',
-    'datetime',
     'datetime_range',
-    'entity_reference_revisions',
-    'field_group',
-    'file',
     'image',
-    'inline_entity_form',
-    'link',
-    'maxlength',
-    'media',
-    'node',
-    'oe_content',
     'oe_content_extra',
     'oe_content_extra_project',
-    'oe_content_documents_field',
-    'oe_content_entity',
-    'oe_content_extra_project',
-    'oe_content_featured_media_field',
-    'oe_content_project',
-    'oe_media',
-    'options',
-    'rdf_skos',
+    'oe_whitelabel_extra_project',
     'system',
     'user',
   ];
@@ -54,29 +35,14 @@ class ProjectRenderTest extends ContentRenderTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    $this->installConfig('oe_content_entity');
-    $this->installEntitySchema('oe_contact');
-    $this->installEntitySchema('oe_organisation');
-
-    module_load_include('install', 'oe_content_documents_field');
-    oe_content_documents_field_install(FALSE);
-
     module_load_include('install', 'oe_whitelabel_extra_project');
     oe_whitelabel_extra_project_install(FALSE);
 
     $this->installConfig([
-      'media',
-      'node',
-      'oe_content',
-      'oe_content_entity',
-      'oe_content_documents_field',
-      'oe_content_featured_media_field',
-      'oe_content_project',
       'oe_content_extra_project',
+      'oe_whitelabel_extra_project',
     ]);
 
-    module_load_include('install', 'oe_content');
-    oe_content_install(FALSE);
   }
 
   /**
