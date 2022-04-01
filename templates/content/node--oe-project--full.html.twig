@@ -23,27 +23,41 @@
 }) }}
 {% macro field_with_header(field) %}
   {% if field|field_value is not empty %}
-    <h3 class="fw-bold mb-4 pt-3">{{ field|field_label }}</h3>
+    <h3 class="fw-bold mb-4 pt-3" id="{{ field['#inpage_nav_id'] }}">{{ field|field_label }}</h3>
     {{ field }}
   {% endif %}
 {% endmacro %}
-{% block inpage_navigation_content %}
-  {% set inpage_navigation_fields %}
-    {{ content.group_project_details }}
+{% set _project_details %}
+  {{ content.group_project_details }}
+{% endset %}
+{% if _project_details|trim is not empty %}
+  {% set _project_details %}
+    <div id="project-details">
+      {{ _project_details }}
+    </div>
+  {% endset %}
+  {% set inpage_navigation_links = [{
+    'path': '#project-details',
+    'label': content.group_project_details['#title'],
+  }]|merge(inpage_navigation_links) %}
+{% endif %}
+{% set inpage_navigation_fields %}
+  {% block inpage_navigation_content %}
+    {{ _project_details }}
     {{ _self.field_with_header(content.oe_summary) }}
     {{ _self.field_with_header(content.oe_cx_objective) }}
     {{ _self.field_with_header(content.oe_cx_impacts) }}
     {{ _self.field_with_header(content.oe_project_participants) }}
     {{ _self.field_with_header(content.oe_cx_lead_contributors) }}
     {{ _self.field_with_header(content.oe_cx_achievements_and_milestone) }}
-  {% endset %}
-  <div class="mt-md-4-75 mt-4">
-    {{ pattern('inpage_navigation', {
-      title: 'Page content'|t,
-      links: inpage_navigation_links,
-      content: inpage_navigation_fields,
-      full_layout: true,
-    }) }}
-  </div>
-{% endblock %}
+  {% endblock %}
+{% endset %}
+<div class="mt-md-4-75 mt-4">
+  {{ pattern('inpage_navigation', {
+    title: 'Page content'|t,
+    links: inpage_navigation_links,
+    content: inpage_navigation_fields,
+    full_layout: true,
+  }) }}
+</div>
 
