@@ -78,6 +78,9 @@
         "patches": {
             "openeuropa/oe_bootstrap_theme" : {
                 "OEL-494": "https://github.com/openeuropa/oe_bootstrap_theme/compare/0.1317.202203291220..OEL-494-v2.diff"
+            },
+            "openeuropa/oe_paragraphs": {
+                "OEL-494": "https://github.com/openeuropa/oe_paragraphs/compare/1.12.0..OEL-494.diff"
             }
         },
         "drupal-scaffold": {
