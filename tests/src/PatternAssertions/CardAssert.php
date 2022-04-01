@@ -20,11 +20,11 @@ class CardAssert extends BasePatternAssert {
     return [
       'title' => [
         [$this, 'assertElementText'],
-        'div.card.listing-item .card-title a span',
+        '.card-title a span',
       ],
       'url' => [
         [$this, 'assertElementAttribute'],
-        'div.card.listing-item .card-title a',
+        '.card-title a',
         'href',
       ],
       'image' => [
@@ -56,7 +56,7 @@ class CardAssert extends BasePatternAssert {
    */
   protected function assertCardImage($expected_image, string $variant, Crawler $crawler): void {
     if ($variant == 'search') {
-      $image_div = $crawler->filter('div.card div.col-md-3.col-lg-2.rounded.mw-listing-img img.card-img-top');
+      $image_div = $crawler->filter('.mw-listing-img img.card-img-top');
       self::assertEquals($expected_image['alt'], $image_div->attr('alt'));
       self::assertStringContainsString($expected_image['src'], $image_div->attr('src'));
     }
