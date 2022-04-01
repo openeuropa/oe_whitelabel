@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Drupal\oe_whitelabel_helper\Plugin\field_group\FieldGroupFormatter;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\ui_patterns\UiPatternsManager;
@@ -23,7 +22,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   }
  * )
  */
-class DescriptionListPattern extends PatternFormatterBase implements ContainerFactoryPluginInterface {
+class DescriptionListPattern extends PatternFormatterBase {
   /**
    * The entity type manager.
    *
