@@ -10,6 +10,7 @@
 {% set _content %}
   <span class="text-muted text-nowrap me-4-5">{{ content.oe_project_dates }}</span>
 {% endset %}
+{% block content %}
 <article{{attributes}}>
   {{ pattern('card', {
     variant: 'search',
@@ -20,3 +21,4 @@
     badges: badges,
   }) }}
 </article>
+{% endblock %}
