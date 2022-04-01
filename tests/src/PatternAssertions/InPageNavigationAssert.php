@@ -14,7 +14,7 @@ class InPageNavigationAssert extends BasePatternAssert {
   /**
    * {@inheritdoc}
    */
-  protected function getAssertions(): array {
+  protected function getAssertions(string $variant): array {
     return [
       'title' => [
         [$this, 'assertElementText'],
@@ -29,7 +29,7 @@ class InPageNavigationAssert extends BasePatternAssert {
   /**
    * {@inheritdoc}
    */
-  protected function assertBaseElements(string $html): void {
+  protected function assertBaseElements(string $html, string $variant): void {
     $crawler = new Crawler($html);
     $page_header = $crawler->filter('body');
     self::assertCount(1, $page_header);

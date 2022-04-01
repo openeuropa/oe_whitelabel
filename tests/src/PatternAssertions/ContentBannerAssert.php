@@ -14,7 +14,7 @@ class ContentBannerAssert extends BasePatternAssert {
   /**
    * {@inheritdoc}
    */
-  protected function getAssertions(): array {
+  protected function getAssertions(string $variant): array {
     return [
       'image' => [
         [$this, 'assertImage'],
@@ -37,7 +37,7 @@ class ContentBannerAssert extends BasePatternAssert {
   /**
    * {@inheritdoc}
    */
-  protected function assertBaseElements(string $html): void {
+  protected function assertBaseElements(string $html, string $variant): void {
     $crawler = new Crawler($html);
     $page_header = $crawler->filter('.bcl-content-banner');
     self::assertCount(1, $page_header);
