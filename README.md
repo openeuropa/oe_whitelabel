@@ -150,7 +150,7 @@ docker-compose exec web ./vendor/bin/phpunit
 
 ## Upgrade from older versions
 
-### Upgrade from 1.0.0-alpha5 and earlier
+### Upgrade to 1.0.0-alpha6
 
 #### Paragraphs migration
 
