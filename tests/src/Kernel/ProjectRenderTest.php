@@ -6,14 +6,11 @@ namespace Drupal\Tests\oe_whitelabel\Kernel;
 
 use Drupal\media\Entity\Media;
 use Drupal\node\Entity\Node;
-use Drupal\oe_content_entity_organisation\Entity\Organisation;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\CardAssert;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 
 /**
- * Tests the project rendering.
- *
- * @group batch2
+ * Tests the rendering of the teaser view mode of Project content type.
  */
 class ProjectRenderTest extends ContentRenderTestBase {
 
