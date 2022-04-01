@@ -10,6 +10,8 @@ use Drupal\oe_bootstrap_theme\ValueObject\FileValueObject;
 
 /**
  * Wraps a media entity of bundle "document".
+ *
+ * @internal
  */
 class DocumentMediaWrapper {
 
