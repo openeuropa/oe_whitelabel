@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\oe_bootstrap_theme_helper\EuropeanUnionLanguages;
 use Drupal\oe_whitelabel\DocumentMediaWrapper;
-use Drupal\oe_whitelabel_helper\EuropeanUnionLanguages;
 
 // Include all files from the includes directory.
 $includes_path = __DIR__ . '/includes/*.inc';
