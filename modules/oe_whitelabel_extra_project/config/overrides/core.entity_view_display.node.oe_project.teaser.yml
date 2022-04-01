@@ -74,7 +74,7 @@ content:
     label: hidden
     settings:
       timezone_override: ''
-      format_type: html_year
+      format_type: oe_whitelabel_project_date
       separator: '-'
     third_party_settings: {  }
     weight: 3
