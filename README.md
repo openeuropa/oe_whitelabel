@@ -147,3 +147,25 @@ To run the phpunit tests:
 ```bash
 docker-compose exec web ./vendor/bin/phpunit
 ```
+
+## Upgrade from older versions
+
+### Upgrade to 1.0.0-alpha6
+
+#### Paragraphs migration
+
+Paragraphs-related theming and functionality has been moved from the [OpenEuropa Bootstrap base theme](https://github.com/openeuropa/oe_bootstrap_theme) to [OpenEuropa Whitelabel](https://github.com/openeuropa/oe_whitelabel).
+
+Special paragraphs fields that were introduced in `oe_bootstrap_theme_paragraphs` are being renamed in `oe_whitelabel_paragraphs`.
+
+If you have the `oe_paragraphs` module enabled, you should create a `hook_post_update_NAME()` in your code, to enable the `oe_whitelabel_paragraphs` module during deployment.
+
+```php
+function EXAMPLE_post_update_00001(): void {
+  \Drupal::service('module_installer')->install(['oe_whitelabel_paragraphs']);
+}
+```
+
+This is needed to make sure that the install hook for `oe_whitelabel_paragraphs` runs _before_ config-import during a deployment.
+
+Note that `drush updb` will also trigger update hooks in `oe_bootstrap_theme_helper`, which will uninstall the legacy module `oe_bootstrap_theme_paragraphs`.
