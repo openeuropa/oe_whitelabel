@@ -4,4 +4,4 @@ dependencies: {  }
 id: oe_whitelabel_project_date
 label: 'OE Whitelabel Project date'
 locked: false
-pattern: d/m/Y
+pattern: 'd F Y'
