@@ -25,9 +25,7 @@ third_party_settings:
       region: content
       weight: 0
       format_type: oe_whitelabel_helper_description_list_pattern
-      format_settings:
-        classes: ''
-        id: ''
+      format_settings: {  }
 id: oe_organisation.oe_cx_project_stakeholder.default
 targetEntityType: oe_organisation
 bundle: oe_cx_project_stakeholder

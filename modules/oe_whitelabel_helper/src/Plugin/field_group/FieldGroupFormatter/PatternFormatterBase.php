@@ -117,12 +117,17 @@ abstract class PatternFormatterBase extends FieldGroupFormatterBase implements C
   public function preRender(&$element, $rendering_object) {
     parent::preRender($element, $rendering_object);
 
+    $fields = $this->getFields($element, $rendering_object);
+    if ($fields === NULL) {
+      // Don't render the pattern.
+      return;
+    }
     // Instantiate the pattern render array.
     $pattern = [
       '#type' => 'pattern',
       '#id' => $this->getPatternId(),
       '#variant' => $this->getSetting('variant'),
-      '#fields' => $this->getFields($element, $rendering_object),
+      '#fields' => $fields,
       '#context' => [
         'type' => 'field_group',
         'group_name' => $element['#group_name'],
@@ -158,9 +163,9 @@ abstract class PatternFormatterBase extends FieldGroupFormatterBase implements C
    * @param object $rendering_object
    *   Field group rendering object.
    *
-   * @return array
+   * @return array|null
    *   Pattern fields to be rendered, or an empty array if none.
    */
-  abstract protected function getFields(array &$element, $rendering_object): array;
+  abstract protected function getFields(array &$element, $rendering_object): ?array;
 
 }

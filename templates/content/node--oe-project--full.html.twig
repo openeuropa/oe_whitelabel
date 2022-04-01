@@ -27,21 +27,23 @@
     {{ field }}
   {% endif %}
 {% endmacro %}
-{% set inpage_navigation_fields %}
-  {{ content.group_project_details }}
-  {{ _self.field_with_header(content.oe_summary) }}
-  {{ _self.field_with_header(content.oe_cx_objective) }}
-  {{ _self.field_with_header(content.oe_cx_impacts) }}
-  {{ _self.field_with_header(content.oe_project_participants) }}
-  {{ _self.field_with_header(content.oe_cx_lead_contributors) }}
-  {{ _self.field_with_header(content.oe_cx_achievements_and_milestone) }}
-{% endset %}
-<div class="mt-md-4-75 mt-4">
-  {{ pattern('inpage_navigation', {
-    title: 'Page content'|t,
-    links: inpage_navigation_links,
-    content: inpage_navigation_fields,
-    full_layout: true,
-  }) }}
-</div>
+{% block inpage_navigation_content %}
+  {% set inpage_navigation_fields %}
+    {{ content.group_project_details }}
+    {{ _self.field_with_header(content.oe_summary) }}
+    {{ _self.field_with_header(content.oe_cx_objective) }}
+    {{ _self.field_with_header(content.oe_cx_impacts) }}
+    {{ _self.field_with_header(content.oe_project_participants) }}
+    {{ _self.field_with_header(content.oe_cx_lead_contributors) }}
+    {{ _self.field_with_header(content.oe_cx_achievements_and_milestone) }}
+  {% endset %}
+  <div class="mt-md-4-75 mt-4">
+    {{ pattern('inpage_navigation', {
+      title: 'Page content'|t,
+      links: inpage_navigation_links,
+      content: inpage_navigation_fields,
+      full_layout: true,
+    }) }}
+  </div>
+{% endblock %}
 

@@ -92,7 +92,7 @@ class DescriptionListPattern extends PatternFormatterBase {
   /**
    * {@inheritdoc}
    */
-  protected function getFields(array &$element, $rendering_object): array {
+  protected function getFields(array &$element, $rendering_object): ?array {
     $fields = [];
 
     foreach (Element::children($element) as $field_name) {
@@ -107,6 +107,10 @@ class DescriptionListPattern extends PatternFormatterBase {
         'term' => $field_element['#title'] ?? '',
         'definition' => $field_markup,
       ];
+    }
+
+    if (empty($fields['items'])) {
+      return NULL;
     }
 
     return $fields;

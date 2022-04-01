@@ -10,7 +10,7 @@ use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\field_group\Functional\FieldGroupTestTrait;
 
 /**
- * Test the Description list pattern field group formatter.
+ * Test the pattern field group formatter.
  */
 class PatternFormatterTest extends BrowserTestBase {
 
@@ -30,24 +30,13 @@ class PatternFormatterTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
+  protected $defaultTheme = 'oe_whitelabel';
 
   /**
    * {@inheritdoc}
    */
   public function setUp(): void {
     parent::setUp();
-
-    // Enable oe_whitelabel and set it as default.
-    $this->assertTrue($this->container->get('theme_installer')->install(['oe_whitelabel']));
-    $this->container->get('config.factory')
-      ->getEditable('system.theme')
-      ->set('default', 'oe_whitelabel')
-      ->save();
-
-    // Rebuild the ui_pattern definitions to collect the ones provided by
-    // oe_whitelabel itself.
-    $this->container->get('plugin.manager.ui_patterns')->clearCachedDefinitions();
 
     // Create test user.
     $admin_user = $this->drupalCreateUser([
