@@ -34,44 +34,41 @@ abstract class ContentRenderTestBase extends AbstractKernelTestBase {
    */
   public static $modules = [
     'address',
-    'field',
-    'field_group',
-    'link',
-    'file',
-    'text',
-    'typed_link',
-    'maxlength',
+    'composite_reference',
+    'datetime',
+    'entity_browser',
     'entity_reference',
     'entity_reference_revisions',
-    'composite_reference',
+    'field',
+    'field_group',
+    'file',
+    'file_link',
+    'filter',
     'inline_entity_form',
-    'datetime',
-    'datetime_range',
-    'node',
+    'link',
     'media',
-    'views',
-    'entity_browser',
     'media_avportal',
     'media_avportal_mock',
-    'filter',
-    'oe_media',
-    'oe_media_avportal',
+    'node',
     'oe_content',
+    'oe_content_departments_field',
+    'oe_content_documents_field',
     'oe_content_entity',
     'oe_content_entity_contact',
     'oe_content_entity_organisation',
     'oe_content_extra',
     'oe_content_extra_project',
-    'oe_content_departments_field',
-    'oe_content_documents_field',
-    'oe_content_reference_code_field',
     'oe_content_featured_media_field',
     'oe_content_project',
-    'oe_whitelabel_extra_project',
-    'sparql_entity_storage',
-    'rdf_skos',
-    'file_link',
+    'oe_content_reference_code_field',
+    'oe_media',
+    'oe_media_avportal',
     'options',
+    'rdf_skos',
+    'sparql_entity_storage',
+    'text',
+    'typed_link',
+    'views',
   ];
 
   /**
@@ -110,6 +107,9 @@ abstract class ContentRenderTestBase extends AbstractKernelTestBase {
     $this->container->get('module_handler')->loadInclude('oe_content_documents_field', 'install');
     oe_content_documents_field_install(FALSE);
 
+    $this->installEntitySchema('oe_contact');
+    $this->installEntitySchema('oe_organisation');
+
     $this->installConfig([
       'oe_content',
       'oe_content_entity',
@@ -121,7 +121,6 @@ abstract class ContentRenderTestBase extends AbstractKernelTestBase {
       'oe_content_project',
       'oe_content_extra',
       'oe_content_extra_project',
-      'oe_whitelabel_extra_project',
     ]);
 
     Role::load(RoleInterface::ANONYMOUS_ID)
