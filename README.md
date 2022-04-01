@@ -158,7 +158,7 @@ Paragraphs-related theming and functionality has been moved from the [OpenEuropa
 
 Special paragraphs fields that were introduced in `oe_bootstrap_theme_paragraphs` are being renamed in `oe_whitelabel_paragraphs`.
 
-If you have the `oe_paragraphs` module enabled, you should create a `hook_update_N()` or `hook_post_update_NAME()` in a custom module, to enable the `oe_whitelabel_paragraphs` module during deployment.
+If you have the `oe_paragraphs` module enabled, you should create a `hook_post_update_NAME()` in your code, to enable the `oe_whitelabel_paragraphs` module during deployment.
 
 ```php
 function EXAMPLE_post_update_00001(): void {
