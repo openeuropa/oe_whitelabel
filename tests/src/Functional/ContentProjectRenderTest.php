@@ -129,8 +129,8 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
       'title' => 'Page content',
       'links' => [
         [
-          'label' => 'Project period',
-          'href' => '#oe-project-oe-project-dates',
+          'label' => 'Project details',
+          'href' => '#project-details',
         ],
         [
           'label' => 'Summary',
@@ -238,10 +238,6 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
         [
           'term' => 'Address',
           'definition' => 'Belgium',
-        ],
-        [
-          'term' => 'Acronym',
-          'definition' => 'Acronym participant',
         ],
         [
           'term' => 'Contribution to the budget',
