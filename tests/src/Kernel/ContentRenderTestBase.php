@@ -16,13 +16,6 @@ abstract class ContentRenderTestBase extends AbstractKernelTestBase {
   use SparqlConnectionTrait;
 
   /**
-   * The node storage.
-   *
-   * @var \Drupal\node\NodeStorageInterface
-   */
-  protected $nodeStorage;
-
-  /**
    * The node view builder.
    *
    * @var \Drupal\Core\Entity\EntityViewBuilderInterface
@@ -36,7 +29,6 @@ abstract class ContentRenderTestBase extends AbstractKernelTestBase {
     'address',
     'composite_reference',
     'datetime',
-    'entity_browser',
     'entity_reference',
     'entity_reference_revisions',
     'field',
@@ -47,8 +39,6 @@ abstract class ContentRenderTestBase extends AbstractKernelTestBase {
     'inline_entity_form',
     'link',
     'media',
-    'media_avportal',
-    'media_avportal_mock',
     'node',
     'oe_content',
     'oe_content_departments_field',
@@ -62,13 +52,10 @@ abstract class ContentRenderTestBase extends AbstractKernelTestBase {
     'oe_content_project',
     'oe_content_reference_code_field',
     'oe_media',
-    'oe_media_avportal',
     'options',
     'rdf_skos',
     'sparql_entity_storage',
     'text',
-    'typed_link',
-    'views',
   ];
 
   /**
@@ -81,39 +68,18 @@ abstract class ContentRenderTestBase extends AbstractKernelTestBase {
 
     $this->installEntitySchema('node');
     $this->installSchema('file', 'file_usage');
-    $this->installSchema('node', ['node_access']);
     $this->installEntitySchema('media');
     $this->installEntitySchema('file');
-
-    $this->installConfig([
-      'file',
-      'field',
-      'entity_reference',
-      'entity_reference_revisions',
-      'composite_reference',
-      'node',
-      'media',
-      'filter',
-      'oe_media',
-      'media_avportal',
-      'oe_media_avportal',
-      'typed_link',
-      'address',
-    ]);
-
-    // Importing of configs which related to media av_portal output.
-    $this->container->get('config.installer')->installDefaultConfig('theme', 'oe_whitelabel');
 
     $this->container->get('module_handler')->loadInclude('oe_content_documents_field', 'install');
     oe_content_documents_field_install(FALSE);
 
-    $this->installEntitySchema('oe_contact');
-    $this->installEntitySchema('oe_organisation');
-
     $this->installConfig([
+      'node',
+      'filter',
+      'oe_media',
       'oe_content',
       'oe_content_entity',
-      'oe_content_entity_contact',
       'oe_content_entity_organisation',
       'oe_content_departments_field',
       'oe_content_reference_code_field',
@@ -132,10 +98,6 @@ abstract class ContentRenderTestBase extends AbstractKernelTestBase {
     module_load_include('install', 'oe_content');
     oe_content_install(FALSE);
 
-    $this->installEntitySchema('skos_concept');
-    $this->installEntitySchema('skos_concept_scheme');
-
-    $this->nodeStorage = $this->container->get('entity_type.manager')->getStorage('node');
     $this->nodeViewBuilder = $this->container->get('entity_type.manager')->getViewBuilder('node');
   }
 
