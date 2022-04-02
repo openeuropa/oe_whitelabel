@@ -51,8 +51,12 @@ function oe_whitelabel_extra_project_preprocess_node__oe_project(&$variables) {
     return;
   }
   _oe_whitelabel_extra_project_preprocess_featured_media($variables);
-  _oe_whitelabel_extra_project_preprocess_inpage_nav($variables);
-  _oe_whitelabel_extra_project_preprocess_badges($variables);
+  if ($variables['view_mode'] === 'full') {
+    _oe_whitelabel_extra_project_preprocess_inpage_nav($variables);
+  }
+  if ($variables['view_mode'] === 'teaser') {
+    _oe_whitelabel_extra_project_preprocess_badges($variables);
+  }
 }
 
 /**
@@ -152,13 +156,12 @@ function _oe_whitelabel_extra_project_preprocess_inpage_nav(array &$variables): 
 }
 
 /**
- * Implements hook_preprocess() for project badges.
+ * Implements hook_preprocess() for project teaser badges.
  *
- * This preprocess moves the label from field oe_subject items into badges to
- * prepare its renderization at the patter-card-variant-search.html.twig.
+ * The project teaser is themed with 'card' pattern 'search' variant,
+ * this expects a list of labels keyed by '#title' for the badges.
  *
- * @todo remove once the following issue is resolved.
- * @see https://citnet.tech.ec.europa.eu/CITnet/jira/browse/OEL-1159
+ * @todo Remove once the OEL-1159 issue is resolved.
  */
 function _oe_whitelabel_extra_project_preprocess_badges(&$variables) {
   /** @var \Drupal\node\NodeInterface $node */
