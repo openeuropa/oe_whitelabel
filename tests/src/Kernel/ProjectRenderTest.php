@@ -68,16 +68,6 @@ class ProjectRenderTest extends ContentRenderTestBase {
       'type' => 'oe_project',
       'title' => 'Project 1',
       'oe_subject' => 'http://data.europa.eu/uxp/1005',
-      'oe_author' => 'http://publications.europa.eu/resource/authority/corporate-body/ACJHR',
-      'oe_content_owner' => 'http://publications.europa.eu/resource/authority/corporate-body/ABEC',
-      'oe_project_locations' => [
-        [
-          'country_code' => 'BE',
-          'locality' => 'Brussels',
-          'postal_code' => 1000,
-        ],
-      ],
-      'body' => 'The body text',
       'oe_teaser' => 'The teaser text',
       'oe_featured_media' => [
         [
