@@ -1,0 +1,10 @@
+name: OpenEuropa Whitelabel List Pages Test
+type: module
+description: The test module for OE Whitelabel List Pages. Provides EventSubscriber, facets, index and content ready.
+package: OpenEuropa Whitelabel Theme
+core_version_requirement: ^9.2
+dependencies:
+  - facets
+  - oe_whitelabel_list_pages
+  - oe_whitelabel_starter_news
+  - search_api_db
