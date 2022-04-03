@@ -1,0 +1,10 @@
+{% for item in items %}
+  {{ pattern('badge', {
+    'background': 'light',
+    'label': item.label,
+    'dismissible': true,
+    'attributes': create_attribute({'class': ['me-2', 'fs-6']}),
+  }) }}
+{% endfor %}
+
+

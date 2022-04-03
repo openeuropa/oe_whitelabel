@@ -1,0 +1,43 @@
+<article{{ attributes }}>
+  <div class="container mt-md-4-75 mt-4">
+    <div class="row">
+      <div class="col-12 col-lg-3">
+        {% set filters = content['extra_field_oe_list_page_filters:node:oe_list_page']|render %}
+        {{ pattern('offcanvas', {
+          'variant': 'search',
+          'title': 'Filter options',
+          'body': filters,
+          'placement': 'start',
+          'body_scroll': false,
+          'backdrop': true,
+          'toggle': {
+            'label': 'Filters',
+            'variant': 'light',
+            'size': 'lg',
+            'icon': 'filter',
+            'icon_position': 'before',
+            'attributes': create_attribute().addClass(['d-lg-none', 'w-100', 'mb-4']),
+          },
+        }) }}
+      </div>
+      <div class="col-12 col-lg-9 col-xxl-8">
+        <div class="row">
+          <div class="col-md-6 col-lg-8 align-self-center">
+            <h4 class="mb-0">
+              <span class="text-capitalize">{{ label }}</span> ({{ content['extra_field_oe_list_page_total_count:node:oe_list_page'] }})
+            </h4>
+          </div>
+          <div class="col-md-12 order-md-2 mt-3">
+            {{ content['extra_field_oe_list_page_selected_filters:node:oe_list_page'] }}
+          </div>
+          <div class="col-md-6 col-lg-4 mt-3 mt-md-0">
+          </div>
+        </div>
+        {{ content['extra_field_oe_list_page_results:node:oe_list_page'] }}
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
