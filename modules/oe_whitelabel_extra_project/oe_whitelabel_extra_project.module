@@ -44,20 +44,25 @@ function oe_whitelabel_extra_project_preprocess_pattern_description_list(array &
 }
 
 /**
- * Implements template_preprocess_node() for the project node type.
+ * Implements hook_preprocess_node() for the project full view mode.
  */
-function oe_whitelabel_extra_project_preprocess_node__oe_project(array &$variables): void {
-  if ($variables['view_mode'] !== 'full' && $variables['view_mode'] !== 'teaser') {
-    return;
-  }
+function oe_whitelabel_extra_project_preprocess_node__oe_project__full(array &$variables): void {
   _oe_whitelabel_extra_project_preprocess_featured_media($variables);
-  if ($variables['view_mode'] === 'full') {
-    _oe_whitelabel_extra_project_preprocess_inpage_nav($variables);
-  }
+  _oe_whitelabel_extra_project_preprocess_inpage_nav($variables);
 }
 
 /**
- * Implements hook_preprocess().
+ * Implements hook_preprocess_node() for the project teaser.
+ */
+function oe_whitelabel_extra_project_preprocess_node__oe_project__teaser(array &$variables): void {
+  _oe_whitelabel_extra_project_preprocess_featured_media($variables);
+}
+
+/**
+ * Creates an image value object in $variables['image'].
+ *
+ * @param array $variables
+ *   Variables from hook_preprocess_node().
  */
 function _oe_whitelabel_extra_project_preprocess_featured_media(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
@@ -113,7 +118,7 @@ function _oe_whitelabel_extra_project_preprocess_featured_media(array &$variable
  * Helper function to preprocess the inpage navigation pattern fields.
  *
  * @param array $variables
- *   Render array variables.
+ *   Variables from hook_preprocess_node().
  */
 function _oe_whitelabel_extra_project_preprocess_inpage_nav(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
@@ -144,5 +149,4 @@ function _oe_whitelabel_extra_project_preprocess_inpage_nav(array &$variables): 
       'label' => $node->{$item['#field_name']}->getFieldDefinition()->getLabel(),
     ];
   }
-
 }
