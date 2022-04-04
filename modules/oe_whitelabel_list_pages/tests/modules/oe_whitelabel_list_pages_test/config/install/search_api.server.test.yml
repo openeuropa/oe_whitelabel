@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   module:
-    - search_api
     - search_api_db
 id: test
 name: test
