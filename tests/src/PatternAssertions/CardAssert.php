@@ -112,12 +112,10 @@ class CardAssert extends BasePatternAssert {
 
   /**
    * {@inheritdoc}
-   *
-   * @SuppressWarnings(PHPMD.CyclomaticComplexity)
    */
   protected function getPatternVariant(string $html): string {
     $crawler = new Crawler($html);
-    if ($crawler->filter('div.mw-listing-img')) {
+    if ($crawler->filter('div.listing-item')->count() > 0) {
       return 'search';
     }
     return 'default';
