@@ -10,3 +10,5 @@ dependencies:
 config_devel:
   install:
     - core.date_format.oe_whitelabel_project_date
+    - core.entity_view_display.node.oe_project.full
+    - core.entity_view_display.node.oe_project.teaser
