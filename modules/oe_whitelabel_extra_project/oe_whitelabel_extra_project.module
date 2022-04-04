@@ -46,7 +46,7 @@ function oe_whitelabel_extra_project_preprocess_pattern_description_list(array &
 /**
  * Implements template_preprocess_node() for the project node type.
  */
-function oe_whitelabel_extra_project_preprocess_node__oe_project(&$variables) {
+function oe_whitelabel_extra_project_preprocess_node__oe_project(array &$variables): void {
   if ($variables['view_mode'] !== 'full' && $variables['view_mode'] !== 'teaser') {
     return;
   }
@@ -59,7 +59,7 @@ function oe_whitelabel_extra_project_preprocess_node__oe_project(&$variables) {
 /**
  * Implements hook_preprocess().
  */
-function _oe_whitelabel_extra_project_preprocess_featured_media(&$variables) {
+function _oe_whitelabel_extra_project_preprocess_featured_media(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
 
