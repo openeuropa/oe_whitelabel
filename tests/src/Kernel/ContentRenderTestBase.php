@@ -46,10 +46,6 @@ abstract class ContentRenderTestBase extends AbstractKernelTestBase {
     'oe_content_entity',
     'oe_content_entity_contact',
     'oe_content_entity_organisation',
-    'oe_content_extra',
-    'oe_content_extra_project',
-    'oe_content_featured_media_field',
-    'oe_content_project',
     'oe_content_reference_code_field',
     'oe_media',
     'options',
@@ -83,10 +79,6 @@ abstract class ContentRenderTestBase extends AbstractKernelTestBase {
       'oe_content_entity_organisation',
       'oe_content_departments_field',
       'oe_content_reference_code_field',
-      'oe_content_featured_media_field',
-      'oe_content_project',
-      'oe_content_extra',
-      'oe_content_extra_project',
     ]);
 
     Role::load(RoleInterface::ANONYMOUS_ID)

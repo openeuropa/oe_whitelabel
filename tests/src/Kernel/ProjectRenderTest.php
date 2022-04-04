@@ -22,6 +22,8 @@ class ProjectRenderTest extends ContentRenderTestBase {
   public static $modules = [
     'datetime_range',
     'image',
+    'oe_content_featured_media_field',
+    'oe_content_project',
     'oe_content_extra',
     'oe_content_extra_project',
     'oe_whitelabel_extra_project',
@@ -35,14 +37,16 @@ class ProjectRenderTest extends ContentRenderTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    module_load_include('install', 'oe_whitelabel_extra_project');
-    oe_whitelabel_extra_project_install(FALSE);
-
     $this->installConfig([
+      'oe_content_featured_media_field',
+      'oe_content_project',
+      'oe_content_extra',
       'oe_content_extra_project',
       'oe_whitelabel_extra_project',
     ]);
 
+    module_load_include('install', 'oe_whitelabel_extra_project');
+    oe_whitelabel_extra_project_install(FALSE);
   }
 
   /**
