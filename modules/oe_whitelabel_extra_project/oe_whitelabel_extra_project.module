@@ -108,6 +108,13 @@ function _oe_whitelabel_extra_project_preprocess_featured_media(&$variables) {
   $thumbnail = $media->get('thumbnail')->first();
   $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
 
+  // @todo Remove once the OEL-1159 issue is resolved.
+  if ($variables['view_mode'] == 'teaser') {
+    $variables['image'] = [
+      '#markup' => $variables['image']->getSource(),
+    ];
+  }
+
   $cacheability->applyTo($variables);
 }
 
