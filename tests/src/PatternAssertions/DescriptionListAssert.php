@@ -16,7 +16,7 @@ class DescriptionListAssert extends BasePatternAssert {
   /**
    * {@inheritdoc}
    */
-  protected function getAssertions(): array {
+  protected function getAssertions(string $variant): array {
     return [
       'items' => [
         [$this, 'assertItems'],
@@ -27,7 +27,7 @@ class DescriptionListAssert extends BasePatternAssert {
   /**
    * {@inheritdoc}
    */
-  protected function assertBaseElements(string $html): void {
+  protected function assertBaseElements(string $html, string $variant): void {
     $crawler = new Crawler($html);
     $field_list_container = $crawler->filter('body');
     self::assertCount(1, $field_list_container);

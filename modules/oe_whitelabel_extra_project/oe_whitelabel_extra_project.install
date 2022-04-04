@@ -23,7 +23,6 @@ function oe_whitelabel_extra_project_install($is_syncing): void {
   $configs = [
     'core.entity_form_display.node.oe_project.default',
     'core.entity_form_display.oe_organisation.oe_cx_project_stakeholder.default',
-    'core.entity_view_display.node.oe_project.full',
     'core.entity_view_display.oe_organisation.oe_cx_project_stakeholder.default',
   ];
 

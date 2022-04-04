@@ -14,7 +14,7 @@ class ContentBannerAssert extends BasePatternAssert {
   /**
    * {@inheritdoc}
    */
-  protected function getAssertions(): array {
+  protected function getAssertions(string $variant): array {
     return [
       'image' => [
         [$this, 'assertImage'],
@@ -37,30 +37,10 @@ class ContentBannerAssert extends BasePatternAssert {
   /**
    * {@inheritdoc}
    */
-  protected function assertBaseElements(string $html): void {
+  protected function assertBaseElements(string $html, string $variant): void {
     $crawler = new Crawler($html);
     $page_header = $crawler->filter('.bcl-content-banner');
     self::assertCount(1, $page_header);
-  }
-
-  /**
-   * Asserts the badges items of the pattern.
-   *
-   * @param array $badges
-   *   The expected badges item values.
-   * @param \Symfony\Component\DomCrawler\Crawler $crawler
-   *   The DomCrawler where to check the element.
-   */
-  protected function assertBadgesElements(array $badges, Crawler $crawler): void {
-    if (empty($badges)) {
-      $this->assertElementNotExists('.badge', $crawler);
-      return;
-    }
-    $badges_items = $crawler->filter('.mt-2-5');
-    self::assertCount(count($badges), $badges_items);
-    foreach ($badges as $index => $badge) {
-      self::assertEquals($badge, trim($badges_items->eq($index)->text()));
-    }
   }
 
 }
