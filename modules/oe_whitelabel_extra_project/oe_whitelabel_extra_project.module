@@ -107,12 +107,6 @@ function _oe_whitelabel_extra_project_preprocess_featured_media(&$variables) {
 
   $thumbnail = $media->get('thumbnail')->first();
   $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
-  if ($variables['view_mode'] == 'teaser') {
-    $variables['image'] = [
-      'path' => $variables['image']->getSource(),
-      'alt' => $variables['image']->getAlt(),
-    ];
-  }
 
   $cacheability->applyTo($variables);
 }
