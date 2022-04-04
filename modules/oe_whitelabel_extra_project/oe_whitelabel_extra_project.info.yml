@@ -10,5 +10,3 @@ dependencies:
 config_devel:
   install:
     - core.date_format.oe_whitelabel_project_date
-    - core.entity_view_display.oe_organisation.oe_stakeholder.name
-    - core.entity_view_mode.oe_organisation.name
