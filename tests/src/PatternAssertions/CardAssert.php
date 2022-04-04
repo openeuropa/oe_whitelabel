@@ -40,6 +40,7 @@ class CardAssert extends BasePatternAssert {
       ],
       'content' => [
         [$this, 'assertContent'],
+        $variant,
       ],
     ];
   }
@@ -56,7 +57,7 @@ class CardAssert extends BasePatternAssert {
    */
   protected function assertCardImage($expected_image, string $variant, Crawler $crawler): void {
     if ($variant == 'search') {
-      $image_div = $crawler->filter('.mw-listing-img img.card-img-top');
+      $image_div = $crawler->filter('.row .col-md-3.mw-listing-img img.card-img-top');
       self::assertEquals($expected_image['alt'], $image_div->attr('alt'));
       self::assertStringContainsString($expected_image['src'], $image_div->attr('src'));
     }
@@ -72,14 +73,21 @@ class CardAssert extends BasePatternAssert {
    *
    * @param array $expected_items
    *   The expected item values.
+   * @param string $variant
+   *   The variant of the pattern being checked.
    * @param \Symfony\Component\DomCrawler\Crawler $crawler
    *   The DomCrawler where to check the element.
    */
-  protected function assertContent(array $expected_items, Crawler $crawler): void {
+  protected function assertContent(array $expected_items, string $variant, Crawler $crawler): void {
+    // There's no wrapping element in content that can be targeted,
+    // so we are checking that the expected items are present.
     foreach ($expected_items as $expected_item) {
-      // There's no wrapping element in content that can be targeted,
-      // so we are checking that the expected items are present.
-      self::assertStringContainsString($expected_item, $crawler->html());
+      if ($variant == 'search') {
+        self::assertStringContainsString($expected_item, $crawler->filter('.row .col-md-9')->html());
+      }
+      else {
+        self::assertStringContainsString($expected_item, $crawler->html());
+      }
     }
   }
 
