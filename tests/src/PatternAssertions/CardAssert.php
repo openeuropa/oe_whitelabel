@@ -77,6 +77,8 @@ class CardAssert extends BasePatternAssert {
    */
   protected function assertContent(array $expected_items, Crawler $crawler): void {
     foreach ($expected_items as $expected_item) {
+      // There's no wrapping element in content that can be targeted,
+      // so we are checking that the expected items are present.
       self::assertStringContainsString($expected_item, $crawler->html());
     }
   }
@@ -86,8 +88,7 @@ class CardAssert extends BasePatternAssert {
    */
   protected function assertBaseElements(string $html, string $variant): void {
     $crawler = new Crawler($html);
-    $base_selector = 'article ' . $this->getBaseItemClass($variant);
-    $card = $crawler->filter($base_selector);
+    $card = $crawler->filter($this->getBaseItemClass($variant));
     self::assertCount(1, $card);
   }
 
