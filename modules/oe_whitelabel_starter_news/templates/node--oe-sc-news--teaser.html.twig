@@ -7,17 +7,18 @@
 {% set _title %}
   <a class="standalone" href="{{ url }}">{{ label }}</a>
 {% endset %}
-{% set _content %}
-  <span class="text-muted text-nowrap me-4-5">{{ content.oe_publication_date }}</span>
-{% endset %}
 {% block content %}
 <article{{attributes}}>
   {{ pattern('card', {
     variant: 'search',
     title: _title,
     text: content.oe_summary,
-    image: image,
-    content: _content
+    image: image|merge({
+      path: image.src,
+    }),
+    meta: [
+      content.oe_publication_date
+    ],
   }) }}
 </article>
 {% endblock %}
