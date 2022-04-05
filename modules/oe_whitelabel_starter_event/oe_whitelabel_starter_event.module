@@ -76,10 +76,6 @@ function _oe_whitelabel_starter_event_preprocess_featured_media(array &$variable
   }
 
   $thumbnail = $media->get('thumbnail')->first();
-  if ($thumbnail === NULL) {
-    $cacheability->applyTo($variables);
-    return;
-  }
   $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
 
   $cacheability->applyTo($variables);
