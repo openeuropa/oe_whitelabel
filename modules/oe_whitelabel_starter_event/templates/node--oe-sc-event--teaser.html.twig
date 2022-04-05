@@ -13,9 +13,10 @@
     variant: 'search',
     title: _title,
     text: content.oe_summary,
-    image: image|merge({
+    image: image ? {
       path: image.src,
-    }),
+      alt: image.alt,
+    },
     meta: [
       content.oe_sc_event_dates,
     ],
