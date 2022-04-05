@@ -64,9 +64,9 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     $page->pressButton('Save');
 
     $assert_session->pageTextMatchesCount(10, '/News number/');
+    $assert_session->elementNotExists('css', 'h4.offcanvas-title');
     $assert_session->elementContains('css', 'h4.mb-0 > span', 'News list page');
     $assert_session->elementContains('css', 'h4.mb-0', '(12)');
-    $assert_session->elementExists('css', 'div.bcl-offcanvas');
     $assert_session->elementExists('css', 'nav > ul.pagination');
     $assert_session->elementsCount('css', 'div.bcl-listing.bcl-listing--default-1-col > div.row > div.col > article > div.listing-item', '10');
     $assert_session->elementsCount('css', 'hr', 2);
@@ -79,10 +79,15 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     $page->checkField('emr_plugins_oe_list_page[wrapper][exposed_filters][oe_sc_news_title]');
     $page->pressButton('Save');
 
-    $assert_session->elementContains('css', 'h4.offcanvas-title', 'Filter options');
+    $assert_session->elementTextEquals('css', 'h4.offcanvas-title', 'Filter options');
+    $assert_session->elementExists('css', 'div.bcl-offcanvas');
     $assert_session->elementExists('css', 'input[name="oe_sc_news_title"]');
     $assert_session->elementExists('css', 'button.btn-light > svg');
 
+    $page->fillField('Title', 'number');
+    $page->pressButton('Search');
+
+    $assert_session->elementTextEquals('css', 'span.badge.bg-light', 'number');
   }
 
 }
