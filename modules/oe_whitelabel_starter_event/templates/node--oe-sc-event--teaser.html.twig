@@ -1,15 +1,16 @@
 {#
 /**
  * @file
- * Search result template.
+ * Theme override to display a node of bundle event in the teaser view mode.
  */
 #}
 {% set _title %}
-  <a class="text-underline-hover" href="{{ url }}">{{ label }}</a>
+  <a class="standalone" href="{{ url }}">{{ label }}</a>
 {% endset %}
 {% set _content %}
   <span class="text-muted text-nowrap me-4-5">{{ content.oe_sc_event_dates }}</span>
 {% endset %}
+{% block content %}
 <article{{attributes}}>
   {{ pattern('card', {
     variant: 'search',
@@ -18,3 +19,5 @@
     image: image,
     content: _content
   }) }}
+</article>
+{% endblock %}
