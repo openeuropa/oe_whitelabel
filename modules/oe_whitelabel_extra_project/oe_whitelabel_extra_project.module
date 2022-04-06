@@ -54,9 +54,6 @@ function oe_whitelabel_extra_project_preprocess_node__oe_project(&$variables) {
   if ($variables['view_mode'] === 'full') {
     _oe_whitelabel_extra_project_preprocess_inpage_nav($variables);
   }
-  if ($variables['view_mode'] === 'teaser') {
-    _oe_whitelabel_extra_project_preprocess_badges($variables);
-  }
 }
 
 /**
@@ -108,13 +105,6 @@ function _oe_whitelabel_extra_project_preprocess_featured_media(&$variables) {
   $thumbnail = $media->get('thumbnail')->first();
   $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
 
-  // @todo Remove once the OEL-1159 issue is resolved.
-  if ($variables['view_mode'] == 'teaser') {
-    $variables['image'] = [
-      '#markup' => $variables['image']->getSource(),
-    ];
-  }
-
   $cacheability->applyTo($variables);
 }
 
@@ -154,31 +144,4 @@ function _oe_whitelabel_extra_project_preprocess_inpage_nav(array &$variables): 
     ];
   }
 
-}
-
-/**
- * Helper function to preprocess the project teaser badges.
- *
- * The project teaser is themed with 'card' pattern 'search' variant,
- * this expects a list of labels keyed by '#title' for the badges.
- *
- * @todo Remove once the OEL-1159 issue is resolved.
- *
- * @param array $variables
- *   Render array variables.
- */
-function _oe_whitelabel_extra_project_preprocess_badges(array &$variables): void {
-  /** @var \Drupal\node\NodeInterface $node */
-  $node = $variables['node'];
-
-  if ($node->get('oe_subject')->isEmpty()) {
-    return;
-  }
-
-  $variables['badges'] = [];
-  foreach ($node->get('oe_subject') as $item) {
-    $variables['badges'][] = [
-      '#title' => $item->entity->label(),
-    ];
-  }
 }
