@@ -10,7 +10,7 @@
         "cweagans/composer-patches": "^1.7",
         "drupal/core": "^9.2",
         "drupal/twig_field_value": "^2.0",
-        "openeuropa/oe_bootstrap_theme": "0.1.202203290731"
+        "openeuropa/oe_bootstrap_theme": "0.1.202204061107"
     },
     "require-dev": {
         "composer/installers": "^1.11",
@@ -59,6 +59,17 @@
             "url": "https://github.com/openeuropa/oe_starter_content"
         }
     },
+    "autoload": {
+        "psr-4": {
+            "Drupal\\oe_whitelabel\\": "./src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Drupal\\Tests\\oe_whitelabel\\": "./tests/src/",
+            "Drupal\\Tests\\oe_bootstrap_theme\\": "./build/themes/contrib/oe_bootstrap_theme/tests/src/"
+        }
+    },
     "extra": {
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
@@ -71,8 +82,8 @@
             }
         },
         "patches": {
-            "openeuropa/oe_bootstrap_theme" : {
-                "1.x latest": "https://github.com/openeuropa/oe_bootstrap_theme/compare/0.1.202203290731..1.x.diff"
+            "openeuropa/oe_paragraphs": {
+                "latest": "https://github.com/openeuropa/oe_paragraphs/compare/1.12.0..master.diff"
             }
         },
         "drupal-scaffold": {
