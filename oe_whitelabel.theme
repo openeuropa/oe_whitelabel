@@ -11,6 +11,14 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\oe_whitelabel_helper\EuropeanUnionLanguages;
 
+// Include all files from the includes directory.
+$includes_path = __DIR__ . '/includes/*.inc';
+foreach (glob($includes_path) as $filename) {
+  // The inspection disallowing basename() is not relevant for known paths.
+  // phpcs:ignore QualityAssurance.Functions.DrupalWrappers.FoundWithAlternative
+  require_once __DIR__ . '/includes/' . basename($filename);
+}
+
 /**
  * Implements hook_form_FORM_ID_alter() for facets_forms.
  */

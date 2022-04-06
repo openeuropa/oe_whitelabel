@@ -1,0 +1,23 @@
+name: OpenEuropa Whitelabel Paragraphs
+type: module
+description: Companion module to add support and customisations for oe_paragraphs.
+package: OpenEuropa Whitelabel Theme
+core_version_requirement: ^9.2
+dependencies:
+  - drupal:description_list_field
+  - oe_content:oe_content_timeline_field
+  - oe_paragraphs:oe_paragraphs
+  - oe_paragraphs:oe_paragraphs_description_list
+  - oe_paragraphs:oe_paragraphs_timeline
+  - oe_whitelabel:oe_whitelabel_helper
+config_devel:
+  install:
+    - field.field.paragraph.oe_description_list.oe_w_orientation
+    - field.field.paragraph.oe_facts_figures.oe_w_n_columns
+    - field.field.paragraph.oe_links_block.oe_w_links_block_background
+    - field.field.paragraph.oe_links_block.oe_w_links_block_orientation
+    - field.field.paragraph.oe_social_media_follow.oe_w_links_block_background
+    - field.storage.paragraph.oe_w_links_block_background
+    - field.storage.paragraph.oe_w_links_block_orientation
+    - field.storage.paragraph.oe_w_n_columns
+    - field.storage.paragraph.oe_w_orientation
