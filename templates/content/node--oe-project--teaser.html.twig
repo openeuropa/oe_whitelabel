@@ -18,7 +18,7 @@
   {{ pattern('card', {
     variant: 'search',
     title: _title,
-    text: content.oe_teaser,
+    text: content.oe_teaser|field_value,
     image: {
       path: image.src,
       alt: image.alt,
