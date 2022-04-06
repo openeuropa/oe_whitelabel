@@ -126,7 +126,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 7
+    weight: 6
     region: content
   oe_cx_objective:
     type: text_default
@@ -190,7 +190,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   oe_project_website:
     type: link
