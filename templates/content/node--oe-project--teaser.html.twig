@@ -7,9 +7,11 @@
 {% set _title %}
   <a class="standalone" href="{{ url }}">{{ label }}</a>
 {% endset %}
-{% set _content %}
-  <span class="text-muted text-nowrap me-4-5">{{ content.oe_project_dates }}</span>
-{% endset %}
+{% if content.oe_project_dates|field_value is not empty %}
+  {% set _content %}
+    <span class="text-muted text-nowrap me-4-5">{{ content.oe_project_dates }}</span>
+  {% endset %}
+{% endif %}
 {% block content %}
 <article{{attributes}}>
   {{ pattern('card', {
