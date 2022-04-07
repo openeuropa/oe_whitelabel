@@ -10,7 +10,7 @@
         "cweagans/composer-patches": "^1.7",
         "drupal/core": "^9.2",
         "drupal/twig_field_value": "^2.0",
-        "openeuropa/oe_bootstrap_theme": "0.1.202204061107"
+        "openeuropa/oe_bootstrap_theme": "^1.0.0-alpha8"
     },
     "require-dev": {
         "composer/installers": "^1.11",
@@ -84,9 +84,6 @@
         "patches": {
             "openeuropa/oe_paragraphs": {
                 "latest": "https://github.com/openeuropa/oe_paragraphs/compare/1.12.0..master.diff"
-            },
-            "openeuropa/oe_bootstrap_theme": {
-                "latest": "https://github.com/openeuropa/oe_bootstrap_theme/compare/0.1.202204061107..1.x.diff"
             }
         },
         "drupal-scaffold": {
