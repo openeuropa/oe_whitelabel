@@ -81,6 +81,11 @@
                 }
             }
         },
+        "patches": {
+            "openeuropa/oe_bootstrap_theme": {
+                "latest": "https://github.com/openeuropa/oe_bootstrap_theme/compare/1.0.0-alpha8..OEL-1425.diff"
+            }
+        },
         "drupal-scaffold": {
             "locations": {
                 "web-root": "./build"
