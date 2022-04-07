@@ -28,6 +28,7 @@ class ProjectRenderTest extends ContentRenderTestBase {
     'oe_content_extra_project',
     'oe_whitelabel_extra_project',
     'system',
+    'twig_field_value',
     'user',
   ];
 
