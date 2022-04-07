@@ -68,9 +68,5 @@ function oe_whitelabel_starter_news_preprocess_node__oe_sc_news(&$variables) {
   $thumbnail = $media->get('thumbnail')->first();
   $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
 
-  if ($variables['view_mode'] == 'teaser') {
-    $variables['image'] = ['#markup' => $variables['image']->getSource()];
-  }
-
   $cacheability->applyTo($variables);
 }

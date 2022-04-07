@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Install and update functions for the OE Whitelabel Helper module.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_requirements().
+ */
+function oe_whitelabel_helper_requirements($phase): array {
+  $requirements = [];
+
+  if (\Drupal::moduleHandler()->moduleExists('oe_paragraphs') && !\Drupal::moduleHandler()->moduleExists('oe_whitelabel_paragraphs')) {
+    $requirements['oe_whitelabel_paragraphs'] = [
+      'title' => 'OpenEuropa Whitelabel Paragraphs',
+      'description' => t('OpenEuropa Whitelabel Paragraphs is required if OpenEuropa Paragraphs is enabled.'),
+      'severity' => REQUIREMENT_ERROR,
+    ];
+  }
+
+  return $requirements;
+}
