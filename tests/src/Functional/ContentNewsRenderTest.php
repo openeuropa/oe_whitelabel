@@ -145,12 +145,12 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
     // Assert content banner content.
     $this->assertEquals(
       'http://www.example.org is a web page',
-      trim($crawler->filter('p.card-text')->text())
+      trim($crawler->filter('div.card-text')->text())
     );
     // Assert content banner publication date.
     $this->assertEquals(
       '09 February 2022',
-      trim($crawler->filter('div.card-body > span.text-muted')->text())
+      trim($crawler->filter('div.card-body > div > span.text-muted')->text())
     );
   }
 

@@ -10,7 +10,7 @@
         "cweagans/composer-patches": "^1.7",
         "drupal/core": "^9.2",
         "drupal/twig_field_value": "^2.0",
-        "openeuropa/oe_bootstrap_theme": "0.1.202203290731"
+        "openeuropa/oe_bootstrap_theme": "0.1.202204061107"
     },
     "require-dev": {
         "composer/installers": "^1.11",
@@ -20,10 +20,11 @@
         "drupal/core-composer-scaffold": "^9.2",
         "drupal/core-dev": "^9.2",
         "drupal/ctools": "^3.7",
+        "drupal/description_list_field": "^1.0@alpha",
         "drupal/drupal-extension": "~4.1",
         "drupal/entity_reference_revisions": "^1.9",
         "drupal/field_group": "^3.2",
-        "drupal/file_link": "^2.0.4",
+        "drupal/file_link": "^2.0.6",
         "drupal/pathauto": "^1.8",
         "drupal/search_api": "^1.21",
         "drupal/search_api_autocomplete": "^1.5",
@@ -41,7 +42,9 @@
         "openeuropa/oe_content": "^2.8.0",
         "openeuropa/oe_content_extra": "dev-EPIC-1293-Project",
         "openeuropa/oe_corporate_blocks": "^4.4",
+        "openeuropa/oe_media": "^1.14",
         "openeuropa/oe_multilingual": "^1.9",
+        "openeuropa/oe_paragraphs": "^1.12",
         "openeuropa/oe_starter_content": "1.x-dev",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta5",
         "phpspec/prophecy-phpunit": "^1 || ^2",
@@ -70,6 +73,17 @@
             "Drupal\\Tests\\oe_whitelabel\\": "./tests/src/"
         }
     },
+    "autoload": {
+        "psr-4": {
+            "Drupal\\oe_whitelabel\\": "./src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Drupal\\Tests\\oe_whitelabel\\": "./tests/src/",
+            "Drupal\\Tests\\oe_bootstrap_theme\\": "./build/themes/contrib/oe_bootstrap_theme/tests/src/"
+        }
+    },
     "extra": {
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
@@ -84,6 +98,12 @@
         "patches": {
             "drupal/entity_reference_revisions": {
                 "https://www.drupal.org/project/entity_reference_revisions/issues/2937835": "https://www.drupal.org/files/issues/2021-03-26/entity_reference_revisions-field_formatter_label-2937835-36.patch"
+            },
+            "openeuropa/oe_paragraphs": {
+                "latest": "https://github.com/openeuropa/oe_paragraphs/compare/1.12.0..master.diff"
+            },
+            "openeuropa/oe_bootstrap_theme": {
+                "latest": "https://github.com/openeuropa/oe_bootstrap_theme/compare/0.1.202204061107..1.x.diff"
             }
         },
         "drupal-scaffold": {
