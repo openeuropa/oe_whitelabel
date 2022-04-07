@@ -1,10 +1,33 @@
 # Change Log
 
+## [1.0.0-alpha6](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-alpha6) (2022-04-07)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-alpha5...1.0.0-alpha6)
+
+**Closed issues:**
+
+- Remove the dependency on oe\_multilingual from oe\_whitelabel\_helper [\#32](https://github.com/openeuropa/oe_whitelabel/issues/32)
+
+**Merged pull requests:**
+
+- OEL-0000: Prepare oe\_whitelabel release packages only once. [\#114](https://github.com/openeuropa/oe_whitelabel/pull/114) ([escuriola](https://github.com/escuriola))
+- OEL-1159: Adapt starter content entities to card last changes. [\#112](https://github.com/openeuropa/oe_whitelabel/pull/112) ([escuriola](https://github.com/escuriola))
+- OEL-494: Style document paragraph. [\#108](https://github.com/openeuropa/oe_whitelabel/pull/108) ([brummbar](https://github.com/brummbar))
+- OEL-0000: Improve News & Event teaser templates [\#106](https://github.com/openeuropa/oe_whitelabel/pull/106) ([drishu](https://github.com/drishu))
+- EPIC: OEL-1255: Migrate paragraphs [\#105](https://github.com/openeuropa/oe_whitelabel/pull/105) ([donquixote](https://github.com/donquixote))
+- OEL-1322: Upgrade oe\_whitelabel to PHP 8.0. [\#98](https://github.com/openeuropa/oe_whitelabel/pull/98) ([escuriola](https://github.com/escuriola))
+- OEL-0000: Fix broken two column layout [\#96](https://github.com/openeuropa/oe_whitelabel/pull/96) ([drishu](https://github.com/drishu))
+- OEL-1167: Theme the content language switcher [\#94](https://github.com/openeuropa/oe_whitelabel/pull/94) ([GilNovacomm](https://github.com/GilNovacomm))
+- OEL-1291: News and Event content types renamed. [\#92](https://github.com/openeuropa/oe_whitelabel/pull/92) ([Maxfire](https://github.com/Maxfire))
+- OEL-1307: Update oe\_whitelabel to BCL 0.20.0 [\#91](https://github.com/openeuropa/oe_whitelabel/pull/91) ([escuriola](https://github.com/escuriola))
+- OEL-1147 - Footer [\#81](https://github.com/openeuropa/oe_whitelabel/pull/81) ([escuriola](https://github.com/escuriola))
+- OEL-1160: Header refactor. [\#71](https://github.com/openeuropa/oe_whitelabel/pull/71) ([escuriola](https://github.com/escuriola))
+
 ## [1.0.0-alpha5](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-alpha5) (2022-03-10)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-alpha4...1.0.0-alpha5)
 
 **Merged pull requests:**
 
+- Prepare release 1.0.0-alpha5 [\#90](https://github.com/openeuropa/oe_whitelabel/pull/90) ([abel-santos-corral](https://github.com/abel-santos-corral))
 - OEL-1286: Composer modified for bootstrap theme release. [\#88](https://github.com/openeuropa/oe_whitelabel/pull/88) ([Maxfire](https://github.com/Maxfire))
 - OEL-1239: Update bootstrap release. [\#87](https://github.com/openeuropa/oe_whitelabel/pull/87) ([GilNovacomm](https://github.com/GilNovacomm))
 - OEL-1241: No margin in search box input field. [\#86](https://github.com/openeuropa/oe_whitelabel/pull/86) ([escuriola](https://github.com/escuriola))
