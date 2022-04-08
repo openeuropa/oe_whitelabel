@@ -152,6 +152,10 @@ docker-compose exec web ./vendor/bin/phpunit
 
 ### Upgrade to 1.0.0-alpha6
 
+Upgrade directly to 1.0.0-alpha7.
+
+### Upgrade to 1.0.0-alpha7
+
 #### Paragraphs migration
 
 Paragraphs-related theming and functionality has been moved from the [OpenEuropa Bootstrap base theme](https://github.com/openeuropa/oe_bootstrap_theme) to [OpenEuropa Whitelabel](https://github.com/openeuropa/oe_whitelabel).
