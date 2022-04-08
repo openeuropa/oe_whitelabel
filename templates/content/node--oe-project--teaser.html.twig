@@ -13,21 +13,26 @@
     label: _item,
   }]) %}
 {% endfor %}
+{% if content.oe_project_dates|field_value is not empty %}
+  {% set _content %}
+    <span class="text-muted text-nowrap me-4-5">{{ content.oe_project_dates }}</span>
+  {% endset %}
+{% endif %}
+{% if image is not empty %}
+  {% set _image = {
+    path: image.src,
+    alt: image.alt,
+  } %}
+{% endif %}
 {% block content %}
-<article{{attributes}}>
-  {{ pattern('card', {
-    variant: 'search',
-    title: _title,
-    text: content.oe_teaser|field_value,
-    image: {
-      path: image.src,
-      alt: image.alt,
-    },
-    meta: [
-      content.oe_project_dates|field_value,
-    ],
-    content: _content,
-    badges: _badges,
-  }) }}
-</article>
+  <article{{attributes}}>
+    {{ pattern('card', {
+      variant: 'search',
+      title: _title,
+      text: content.oe_teaser|field_value,
+      image: _image,
+      content: _content,
+      badges: _badges,
+    }) }}
+  </article>
 {% endblock %}
