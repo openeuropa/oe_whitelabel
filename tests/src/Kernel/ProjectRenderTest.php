@@ -28,6 +28,7 @@ class ProjectRenderTest extends ContentRenderTestBase {
     'oe_content_extra_project',
     'oe_whitelabel_extra_project',
     'system',
+    'twig_field_value',
     'user',
   ];
 
@@ -95,7 +96,6 @@ class ProjectRenderTest extends ContentRenderTestBase {
 
     $assert = new CardAssert();
 
-    // @todo Once the OEL-1159 issue is resolved, then add text to alt.
     $expected_values = [
       'title' => 'Project 1',
       'url' => '/node/1',
@@ -103,7 +103,7 @@ class ProjectRenderTest extends ContentRenderTestBase {
       'badges' => ['EU financing'],
       'image' => [
         'src' => 'example_1.jpeg',
-        'alt' => '',
+        'alt' => 'Alternative text',
       ],
       'content' => [
         '10 May 2020',

@@ -102,6 +102,7 @@ pipeline:
       event: tag
       matrix:
         COMPOSER_BOUNDARY: highest
+        PHP_VERSION: 7.4
 
   github-release:
     image: registry.fpfis.eu/drone-plugins/github-release
@@ -113,6 +114,7 @@ pipeline:
       event: tag
       matrix:
         COMPOSER_BOUNDARY: highest
+        PHP_VERSION: 7.4
 
 matrix:
   COMPOSER_BOUNDARY:

@@ -1,0 +1,193 @@
+<?php
+
+/**
+ * @file
+ * Install and update functions for the OE Whitelabel Paragraphs module.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\oe_bootstrap_theme\ConfigImporter;
+
+/**
+ * Implements hook_install().
+ *
+ * Customizes paragraphs fields and display configuration.
+ *
+ * If oe_bootstrap_theme_paragraphs was installed in the past, this will also
+ * migrate field data and clean up fields that have been renamed.
+ */
+function oe_whitelabel_paragraphs_install(bool $is_syncing): void {
+  // Find legacy fields from oe_bootstrap_theme_paragraphs.
+  // This needs to happen at the start, to allow for early abort.
+  $field_names_by_bundle = _oe_whitelabel_paragraphs_install_get_legacy_fields_map();
+
+  if ($is_syncing) {
+    // The module is being installed as part of a config import.
+    if ($field_names_by_bundle) {
+      // There is data to be migrated. This should not happen as a side effect
+      // of config-import. Instead, the installation should be enacted from an
+      // update hook.
+      throw new \Exception('This module should be installed through an update hook, not through config-import, if there is still leftover data from oe_bootstrap_theme_paragraphs to migrate.');
+    }
+    // No data needs to be migrated, but still, no configuration should be
+    // imported in hook_install() during config-import.
+    return;
+  }
+
+  // The module is being installed explicitly, e.g. via a hook_update_N().
+  // Configuration needs to be imported explicitly.
+  _oe_whitelabel_paragraphs_install_config();
+
+  if (!$field_names_by_bundle) {
+    // No fields to migrate and clean up - finished.
+    return;
+  }
+
+  _oe_whitelabel_paragraphs_install_migrate_field_data($field_names_by_bundle);
+  _oe_whitelabel_paragraphs_install_drop_legacy_fields($field_names_by_bundle);
+}
+
+/**
+ * Imports configuration on module install.
+ */
+function _oe_whitelabel_paragraphs_install_config(): void {
+  $configs = [
+    'core.entity_form_display.paragraph.oe_accordion_item.default',
+    'core.entity_form_display.paragraph.oe_description_list.default',
+    'core.entity_form_display.paragraph.oe_facts_figures.default',
+    'core.entity_form_display.paragraph.oe_links_block.default',
+    'core.entity_form_display.paragraph.oe_list_item.default',
+    'core.entity_form_display.paragraph.oe_list_item_block.default',
+    'core.entity_form_display.paragraph.oe_list_item_block.highlight',
+    'core.entity_form_display.paragraph.oe_social_media_follow.default',
+    'core.entity_view_display.paragraph.oe_accordion_item.default',
+    'core.entity_view_display.paragraph.oe_description_list.default',
+    'core.entity_view_display.paragraph.oe_facts_figures.default',
+    'core.entity_view_display.paragraph.oe_links_block.default',
+    'core.entity_view_display.paragraph.oe_social_media_follow.default',
+    'field.field.paragraph.oe_social_media_follow.field_oe_social_media_variant',
+  ];
+
+  ConfigImporter::importMultiple('oe_whitelabel_paragraphs', '/config/overrides/', $configs);
+}
+
+/**
+ * Gets a map of legacy fields to be migrated on install.
+ *
+ * @return string[][]
+ *   Legacy field names, indexed by paragraph type and destination field name.
+ *   Only contains entries where both the legacy field name and the destination
+ *   field name do exist.
+ *   Empty, if oe_bootstrap_theme_paragraphs was not installed in the past.
+ */
+function _oe_whitelabel_paragraphs_install_get_legacy_fields_map(): array {
+  /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager */
+  $entity_field_manager = \Drupal::service('entity_field.manager');
+  $fields_map = $entity_field_manager->getFieldMap()['paragraph'] ?? [];
+
+  $field_names_by_bundle = [
+    'oe_description_list' => [
+      'oe_w_orientation' => 'oe_bt_orientation',
+    ],
+    'oe_facts_figures' => [
+      'oe_w_n_columns' => 'oe_bt_n_columns',
+    ],
+    'oe_links_block' => [
+      'oe_w_links_block_background' => 'oe_bt_links_block_background',
+      'oe_w_links_block_orientation' => 'oe_bt_links_block_orientation',
+    ],
+    'oe_social_media_follow' => [
+      'oe_w_links_block_background' => 'oe_bt_links_block_background',
+    ],
+  ];
+
+  foreach ($field_names_by_bundle as $bundle => $field_names) {
+    foreach ($field_names as $dest_field_name => $source_field_name) {
+      if (!isset($fields_map[$source_field_name]['bundles'][$bundle])) {
+        // The legacy field does not exist.
+        // Perhaps the field or the paragraph type were removed manually.
+        unset($field_names_by_bundle[$bundle][$dest_field_name]);
+        continue;
+      }
+      if (!isset($fields_map[$dest_field_name]['bundles'][$bundle])) {
+        // A destination field is missing, that should have been created
+        // earlier. This could happen if a paragraph type was removed manually,
+        // but in that case the install should have already failed earlier.
+        // Either way, this case is not supported.
+        throw new \RuntimeException("Destination field 'paragraph.$bundle.$dest_field_name' was not properly created.");
+      }
+    }
+  }
+
+  return array_filter($field_names_by_bundle);
+}
+
+/**
+ * Migrates field data from the old oe_bootstrap_theme_paragraphs module.
+ *
+ * This should happen through a batch process, e.g. via $sandbox in a
+ * hook_update_N(). Unfortunately, hook_install() does not support batch
+ * processes.
+ *
+ * @param string[][] $field_names_by_bundle
+ *   Legacy field names, indexed by paragraph type and destination field name.
+ */
+function _oe_whitelabel_paragraphs_install_migrate_field_data(array $field_names_by_bundle): void {
+  $paragraphs_storage = \Drupal::entityTypeManager()->getStorage('paragraph');
+
+  // Load all the paragraph ids.
+  $query = $paragraphs_storage->getQuery();
+  $query->allRevisions();
+  $query->condition('type', array_keys($field_names_by_bundle), 'IN');
+  $paragraph_ids = $query->execute();
+
+  foreach ($paragraph_ids as $revision_id => $paragraph_id) {
+    // Revision can't be NULL.
+    /** @var \Drupal\paragraphs\ParagraphInterface $paragraph_revision */
+    $paragraph_revision = $paragraphs_storage->loadRevision($revision_id);
+    $field_names_map = $field_names_by_bundle[$paragraph_revision->bundle()];
+    $modified = FALSE;
+    foreach ($field_names_map as $dest_field_name => $source_field_name) {
+      if ($paragraph_revision->get($source_field_name)->isEmpty()) {
+        // Source field has no data.
+        continue;
+      }
+      if (!$paragraph_revision->get($dest_field_name)->isEmpty()) {
+        // Destination already has data.
+        continue;
+      }
+      // Copy the field value.
+      // For these simple field types, magic __set() does the job.
+      $paragraph_revision->$dest_field_name = $paragraph_revision->$source_field_name;
+      // Do not unset the old field, because it might be required.
+      // Remember that the revision needs saving.
+      $modified = TRUE;
+    }
+    if (!$modified) {
+      // No saving is needed.
+      continue;
+    }
+    $paragraph_revision->setNewRevision(FALSE);
+    $paragraph_revision->save();
+  }
+}
+
+/**
+ * Removes legacy field instances from oe_bootstrap_theme_paragraphs module.
+ *
+ * @param string[][] $field_names_by_bundle
+ *   Legacy field names, indexed by paragraph type and destination field name.
+ */
+function _oe_whitelabel_paragraphs_install_drop_legacy_fields(array $field_names_by_bundle): void {
+  foreach ($field_names_by_bundle as $bundle => $legacy_field_names) {
+    foreach ($legacy_field_names as $legacy_field_name) {
+      $field_config = FieldConfig::loadByName('paragraph', $bundle, $legacy_field_name);
+      if ($field_config === NULL) {
+        throw new \RuntimeException("Legacy field 'paragraph.$bundle.$legacy_field_name' not found.");
+      }
+      $field_config->delete();
+    }
+  }
+}
