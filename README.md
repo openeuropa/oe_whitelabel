@@ -150,10 +150,6 @@ docker-compose exec web ./vendor/bin/phpunit
 
 ## Upgrade from older versions
 
-### Upgrade to 1.0.0-alpha6
-
-Upgrade directly to 1.0.0-alpha7.
-
 ### Upgrade to 1.0.0-alpha7
 
 #### Paragraphs migration
@@ -173,3 +169,7 @@ function EXAMPLE_post_update_00001(): void {
 This is needed to make sure that the install hook for `oe_whitelabel_paragraphs` runs _before_ config-import during a deployment.
 
 Note that `drush updb` will also trigger update hooks in `oe_bootstrap_theme_helper`, which will uninstall the legacy module `oe_bootstrap_theme_paragraphs`.
+
+### Upgrade to 1.0.0-alpha6
+
+This release contains some bugs, please move directly to alpha7.
