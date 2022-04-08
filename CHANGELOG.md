@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.0.0-alpha7](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-alpha7) (2022-04-08)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-alpha6...1.0.0-alpha7)
+
+**Merged pull requests:**
+
+- OEL-1434: Filter out bundles if no legacy fields present [\#119](https://github.com/openeuropa/oe_whitelabel/pull/119) ([abel-santos-corral](https://github.com/abel-santos-corral))
+
 ## [1.0.0-alpha6](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-alpha6) (2022-04-07)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-alpha5...1.0.0-alpha6)
 
@@ -9,6 +16,7 @@
 
 **Merged pull requests:**
 
+- Prepare release 1.0.0-alpha6 [\#117](https://github.com/openeuropa/oe_whitelabel/pull/117) ([abel-santos-corral](https://github.com/abel-santos-corral))
 - OEL-0000: Prepare oe\_whitelabel release packages only once. [\#114](https://github.com/openeuropa/oe_whitelabel/pull/114) ([escuriola](https://github.com/escuriola))
 - OEL-1159: Adapt starter content entities to card last changes. [\#112](https://github.com/openeuropa/oe_whitelabel/pull/112) ([escuriola](https://github.com/escuriola))
 - OEL-494: Style document paragraph. [\#108](https://github.com/openeuropa/oe_whitelabel/pull/108) ([brummbar](https://github.com/brummbar))
