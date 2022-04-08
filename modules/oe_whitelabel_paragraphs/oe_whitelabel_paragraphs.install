@@ -121,7 +121,7 @@ function _oe_whitelabel_paragraphs_install_get_legacy_fields_map(): array {
     }
   }
 
-  return $field_names_by_bundle;
+  return array_filter($field_names_by_bundle);
 }
 
 /**
