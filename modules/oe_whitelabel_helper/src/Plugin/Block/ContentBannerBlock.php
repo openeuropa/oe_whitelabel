@@ -41,10 +41,10 @@ class ContentBannerBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build(): array {
-    /** @var \Drupal\Core\Entity\EntityInterface $entity */
-    $entity = $this->getContextValue('node');
-    $view_builder = \Drupal::entityTypeManager()->getViewBuilder($entity->getEntityTypeId());
-    return $view_builder->view($entity, 'oe_w_content_banner');
+    /** @var \Drupal\node\NodeInterface $node */
+    $node = $this->getContextValue('node');
+    $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
+    return $view_builder->view($node, 'oe_w_content_banner');
   }
 
 }
