@@ -78,7 +78,8 @@ class ContentBannerBlock extends BlockBase implements ContainerFactoryPluginInte
       ->getStorage('entity_view_display')
       ->load('node.' . $node->bundle() . '.oe_w_content_banner');
 
-    return AccessResult::allowedIf($view_mode_object !== NULL);
+    return AccessResult::allowedIf($view_mode_object !== NULL)
+      ->andIf($node->access('view', $account, TRUE));
   }
 
   /**
