@@ -82,13 +82,11 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     $assert_session->elementTextEquals('css', 'button[data-bs-toggle="offcanvas"]', 'Filters');
     // Assert Filters.
     $assert_session->elementExists('css', 'input[name="oe_sc_news_title"]');
-    $assert_session->elementExists('css', 'input.btn-primary');
-    $assert_session->fieldValueEquals('input.btn-primary', 'Search');
-    $assert_session->elementExists('css', 'input.btn-secondary');
-    $assert_session->fieldValueEquals('input.btn-secondary', 'Clear filters');
+    $assert_session->elementExists('css', 'input[data-drupal-selector="edit-submit"]');
+    $assert_session->elementExists('css', 'input[data-drupal-selector="edit-reset"]');
 
     // Assert right column.
-    $assert_session->elementExists('css', 'article > div.row > div.col-12 col-lg-9 col-xxl-8');
+    $assert_session->elementExists('css', 'article > div.row > div.col-12.col-lg-9.col-xxl-8');
     $assert_session->elementContains('css', 'h4.mb-0 > span', 'News list page');
     $assert_session->elementContains('css', 'h4.mb-0', '(12)');
     // Assert listing.
@@ -98,10 +96,11 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     $assert_session->elementExists('css', 'nav > ul.pagination');
     $assert_session->elementsCount('css', 'ul.pagination > li.page-item', 3);
 
-    $page->fillField('Title', 'number');
+    // Assert search.
+    $page->fillField('Title', 'News number 8');
     $page->pressButton('Search');
-
-    $assert_session->elementTextEquals('css', 'span.badge.bg-light', 'number');
+    $assert_session->elementContains('css', 'h4.mb-0', '(1)');
+    $assert_session->elementTextEquals('css', 'span.badge.bg-light', 'News number 8');
   }
 
   /**
