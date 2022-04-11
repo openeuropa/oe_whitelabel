@@ -7,3 +7,10 @@ dependencies:
   - oe_whitelabel_list_pages
   - oe_whitelabel_starter_news
   - search_api:search_api_db
+
+config_devel:
+  install:
+    - facets.facet.oe_sc_news_title
+    - facets.facet_source.list_facet_source__node__oe_sc_news
+    - search_api.index.oe_whitelabel_list_page_index_test
+    - search_api.server.oe_whitelabel_list_page_search_server_test

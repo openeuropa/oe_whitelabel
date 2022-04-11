@@ -9,6 +9,7 @@ use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\Tests\oe_whitelabel\Functional\WhitelabelBrowserTestBase;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
+use Drupal\search_api\Entity\Index;
 
 /**
  * Tests the whitelabel oe_list_pages.
@@ -101,6 +102,21 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     $page->pressButton('Search');
 
     $assert_session->elementTextEquals('css', 'span.badge.bg-light', 'number');
+  }
+
+  /**
+   * Indexes all (unindexed) items on the specified index.
+   *
+   * @param string $index_id
+   *   The ID of the index on which items should be indexed.
+   *
+   * @return int
+   *   The number of successfully indexed items.
+   */
+  protected function indexItems($index_id) {
+    /** @var \Drupal\search_api\IndexInterface $index */
+    $index = Index::load($index_id);
+    return $index->indexItems();
   }
 
 }
