@@ -18,19 +18,16 @@
     <span class="text-muted text-nowrap me-4-5">{{ content.oe_project_dates }}</span>
   {% endset %}
 {% endif %}
-{% if image is not empty %}
-  {% set _image = {
-    path: image.src,
-    alt: image.alt,
-  } %}
-{% endif %}
 {% block content %}
   <article{{attributes}}>
     {{ pattern('card', {
       variant: 'search',
       title: _title,
       text: content.oe_teaser|field_value,
-      image: _image,
+      image: (image is not empty) ? image|merge({
+        path: image.src,
+        alt: image.alt,
+      }) : {},
       content: _content,
       badges: _badges,
     }) }}
