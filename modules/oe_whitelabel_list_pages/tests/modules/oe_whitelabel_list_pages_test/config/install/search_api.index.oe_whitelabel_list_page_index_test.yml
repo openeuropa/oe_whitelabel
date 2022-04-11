@@ -2,24 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.body
-    - search_api.server.test
+    - search_api.server.oe_whitelabel_list_page_search_server_test
   module:
     - node
     - search_api
-id: test_index
-name: test_index
+id: oe_whitelabel_list_page_index_test
+name: oe_whitelabel_list_page_index_test
 description: ''
 read_only: false
 field_settings:
-  body:
-    label: Content
-    datasource_id: 'entity:node'
-    property_path: body
-    type: text
-    dependencies:
-      config:
-        - field.storage.node.body
   title:
     label: Title
     datasource_id: 'entity:node'
@@ -50,4 +41,4 @@ options:
   cron_limit: 50
   index_directly: true
   track_changes_in_references: true
-server: test
+server: oe_whitelabel_list_page_search_server_test
