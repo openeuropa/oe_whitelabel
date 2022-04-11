@@ -26,7 +26,6 @@
       text: content.oe_teaser|field_value,
       image: (image is not empty) ? image|merge({
         path: image.src,
-        alt: image.alt,
       }) : {},
       content: _content,
       badges: _badges,
