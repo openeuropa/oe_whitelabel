@@ -112,6 +112,12 @@ Find more information on Docker Compose extension mechanism on [the official Doc
 
 #### Start the container
 
+If you have other (demonized) containers running, you might want to stop them first:
+
+```bash
+docker stop $(docker ps -q)
+```
+
 To start, run:
 
 ```bash
