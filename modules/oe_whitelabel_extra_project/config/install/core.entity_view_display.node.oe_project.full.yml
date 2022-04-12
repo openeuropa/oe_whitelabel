@@ -55,7 +55,7 @@ third_party_settings:
         show_empty_fields: false
         id: ''
         element: div
-        show_label: true
+        show_label: false
         label_element: h3
         label_element_classes: 'fw-bold mb-4'
         attributes: ''
