@@ -110,7 +110,7 @@ If a service is defined in both files, Docker Compose merges the configurations.
 
 Find more information on Docker Compose extension mechanism on [the official Docker Compose documentation](https://docs.docker.com/compose/extends/).
 
-#### Usage
+#### Start the container
 
 To start, run:
 
@@ -125,7 +125,7 @@ However, if you'd like to daemonize it, you have to add the flag `-d`:
 docker-compose up -d
 ```
 
-Then:
+#### Installing the package
 
 ```bash
 docker-compose exec -u node node npm install
