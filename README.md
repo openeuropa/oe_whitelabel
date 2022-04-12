@@ -131,6 +131,16 @@ However, if you'd like to daemonize it, you have to add the flag `-d`:
 docker-compose up -d
 ```
 
+#### Optionally purge existing installation
+
+If you already had the package installed, and want a clean start:
+
+```bash
+docker-compose exec web rm composer.lock
+docker-compose exec web rm -rf vendor/
+docker-compose exec web rm -rf build/
+```
+
 #### Installing the package
 
 ```bash
