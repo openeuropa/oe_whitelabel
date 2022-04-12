@@ -119,16 +119,6 @@ function _oe_whitelabel_extra_project_preprocess_inpage_nav(array &$variables): 
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
   $variables['inpage_navigation_links'] = [];
-  $variables['project_details_group'] = FALSE;
-
-  // Get field groups.
-  foreach ($variables['elements']['#fieldgroups'] as $group) {
-    foreach ($group->children as $field) {
-      if (isset($node->{$field}) && !empty($node->{$field}->getValue())) {
-        $variables['project_details_group'] = TRUE;
-      }
-    }
-  }
 
   $fields = [
     'oe_summary',
