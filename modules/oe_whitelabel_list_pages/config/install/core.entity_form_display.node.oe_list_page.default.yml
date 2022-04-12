@@ -4,7 +4,7 @@ dependencies:
   config:
     - node.type.oe_list_page
   module:
-    - user
+    - path
 id: node.oe_list_page.default
 targetEntityType: node
 bundle: oe_list_page
@@ -12,64 +12,40 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 6
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 4
+    weight: 1
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
-  oe_content_legacy_link:
-    type: link_default
-    weight: 3
-    region: content
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-  oe_content_navigation_title:
-    type: string_textfield
-    weight: 2
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  oe_content_short_title:
-    type: string_textfield
-    weight: 1
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   path:
     type: path
-    weight: 9
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 7
+    weight: 4
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 10
+    weight: 7
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 8
+    weight: 5
     region: content
     settings:
       display_label: true
@@ -84,7 +60,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 2
     region: content
     settings:
       match_operator: CONTAINS
@@ -94,3 +70,6 @@ content:
     third_party_settings: {  }
 hidden:
   oe_content_content_owner: true
+  oe_content_legacy_link: true
+  oe_content_navigation_title: true
+  oe_content_short_title: true
