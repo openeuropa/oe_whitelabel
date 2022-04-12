@@ -1,6 +1,8 @@
 # The OpenEuropa Whitelabel theme
 
-## Paragraphs
+## Features
+
+### Paragraphs
 
 The paragraphs below are not yet themed therefore not recommended for usage:
 
