@@ -23,7 +23,7 @@ regions:
   header_top: Header top
   header_left: Header left
   header_right: Header right
-  banner: Banner
+  hero: 'Hero (full width)'
   header: Header
   breadcrumbs: Breadcrumbs
   sidebar_left:  Sidebar

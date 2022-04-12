@@ -7,7 +7,7 @@ dependencies:
     - oe_whitelabel
 id: oe_whitelabel_content_banner
 theme: oe_whitelabel
-region: banner
+region: hero
 weight: -6
 provider: null
 plugin: oe_w_content_banner
