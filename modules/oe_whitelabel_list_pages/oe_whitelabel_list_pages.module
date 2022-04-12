@@ -10,43 +10,19 @@ declare(strict_types = 1);
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Implements hook_theme().
- */
-function oe_whitelabel_list_pages_theme() {
-  return [
-    'node__oe_list_page__full' => [
-      'render element' => 'elements',
-      'base hook' => 'node',
-    ],
-  ];
-}
-
-/**
  * Implements hook_form_FORM_ID_alter() for facets_forms.
  */
-function oe_whitelabel_form_oe_list_pages_facets_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+function oe_whitelabel_list_pages_form_oe_list_pages_facets_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if (isset($form['actions'])) {
     $action_classes = ['mt-4', 'd-grid', 'gap-4', 'd-md-block'];
-    foreach ($action_classes as $action_class) {
-      if (!isset($action_class, $form['actions']['#attributes']['class']) || !in_array($action_class, $form['actions']['#attributes']['class'], TRUE)) {
-        $form['actions']['#attributes']['class'][] = $action_class;
-      }
-    }
+    $form['actions']['#attributes']['class'] = array_unique(array_merge($form['actions']['#attributes']['class'] ?? [], $action_classes));
   }
   if (isset($form['actions']['submit'])) {
     $submit_classes = ['me-md-3', 'btn', 'btn-primary', 'btn-md'];
-    foreach ($submit_classes as $submit_class) {
-      if (!isset($submit_class, $form['actions']['submit']['#attributes']['class']) || !in_array($submit_class, $form['actions']['submit']['#attributes']['class'], TRUE)) {
-        $form['actions']['submit']['#attributes']['class'][] = $submit_class;
-      }
-    }
+    $form['actions']['submit']['#attributes']['class'] = array_unique(array_merge($form['actions']['submit']['#attributes']['class'] ?? [], $submit_classes));
   }
   if (isset($form['actions']['reset'])) {
     $reset_classes = ['btn', 'btn-light', 'btn-md'];
-    foreach ($reset_classes as $reset_class) {
-      if (!isset($form['actions']['reset']['#attributes']['class']) || !in_array($reset_class, $form['actions']['reset']['#attributes']['class'], TRUE)) {
-        $form['actions']['reset']['#attributes']['class'][] = $reset_class;
-      }
-    }
+    $form['actions']['reset']['#attributes']['class'] = array_unique(array_merge($form['actions']['reset']['#attributes']['class'] ?? [], $reset_classes));
   }
 }
