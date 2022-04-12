@@ -8,14 +8,15 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\Tests\oe_whitelabel\Functional\WhitelabelBrowserTestBase;
+use Drupal\Tests\search_api\Functional\ExampleContentTrait;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
-use Drupal\search_api\Entity\Index;
 
 /**
  * Tests the whitelabel oe_list_pages.
  */
 class ListPagesTest extends WhitelabelBrowserTestBase {
 
+  use ExampleContentTrait;
   use SparqlConnectionTrait;
 
   /**
@@ -74,7 +75,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     $this->drupalGet('node/' . $list_page->id());
 
     // Assert the left column.
-    $assert_session->elementExists('css', 'article > div.row > div.col-12.col-lg-3');
+    $assert_session->elementExists('css', 'div.row > div.col-12.col-lg-3');
     // Assert offcanvas.
     $assert_session->elementExists('css', 'div.bcl-offcanvas');
     $assert_session->elementTextEquals('css', 'h4.offcanvas-title', 'Filter options');
@@ -86,12 +87,12 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     $assert_session->elementExists('css', 'input[data-drupal-selector="edit-reset"]');
 
     // Assert right column.
-    $assert_session->elementExists('css', 'article > div.row > div.col-12.col-lg-9.col-xxl-8');
+    $assert_session->elementExists('css', 'div.row > div.col-12.col-lg-9.col-xxl-8');
     $assert_session->elementContains('css', 'h4.mb-0 > span', 'News list page');
     $assert_session->elementContains('css', 'h4.mb-0', '(12)');
     // Assert listing.
     $assert_session->elementsCount('css', 'hr', 2);
-    $assert_session->elementsCount('css', 'div.bcl-listing.bcl-listing--default-1-col > div.row > div.col > article > div.listing-item', '10');
+    $assert_session->elementsCount('css', 'div.listing-item', '10');
     // Assert pagination.
     $assert_session->elementExists('css', 'nav > ul.pagination');
     $assert_session->elementsCount('css', 'ul.pagination > li.page-item', 3);
@@ -101,21 +102,6 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     $page->pressButton('Search');
     $assert_session->elementContains('css', 'h4.mb-0', '(1)');
     $assert_session->elementTextEquals('css', 'span.badge.bg-light', 'News number 8');
-  }
-
-  /**
-   * Indexes all (unindexed) items on the specified index.
-   *
-   * @param string $index_id
-   *   The ID of the index on which items should be indexed.
-   *
-   * @return int
-   *   The number of successfully indexed items.
-   */
-  protected function indexItems($index_id) {
-    /** @var \Drupal\search_api\IndexInterface $index */
-    $index = Index::load($index_id);
-    return $index->indexItems();
   }
 
 }
