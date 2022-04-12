@@ -1,5 +1,7 @@
 # The OpenEuropa Whitelabel theme
 
+Sub-theme of [OpenEuropa Bootstrap base theme](https://github.com/openeuropa/bootstrap-component-library), with integration for many of the Drupal modules from the OpenEuropa ecosystem.
+
 ## Features
 
 ### Paragraphs
