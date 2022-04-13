@@ -3,8 +3,6 @@ status: true
 dependencies:
   config:
     - node.type.oe_list_page
-  module:
-    - path
 id: node.oe_list_page.default
 targetEntityType: node
 bundle: oe_list_page
@@ -23,12 +21,6 @@ content:
     settings:
       include_locked: true
     third_party_settings: {  }
-  path:
-    type: path
-    weight: 6
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   promote:
     type: boolean_checkbox
     weight: 4
@@ -38,7 +30,7 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 7
+    weight: 6
     region: content
     settings:
       display_label: true
