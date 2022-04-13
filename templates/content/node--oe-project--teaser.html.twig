@@ -8,26 +8,28 @@
   <a class="standalone" href="{{ url }}">{{ label }}</a>
 {% endset %}
 {% set _badges = [] %}
+{% set _meta = [] %}
 {% for _item in content.oe_subject|field_value %}
   {% set _badges = _badges|merge([{
     label: _item,
   }]) %}
 {% endfor %}
+{% if content.oe_project_dates|field_value is not empty %}
+  {% set _meta = _meta|merge([
+    content.oe_project_dates|field_value,
+  ]) %}
+{% endif %}
 {% block content %}
-<article{{attributes}}>
-  {{ pattern('card', {
-    variant: 'search',
-    title: _title,
-    text: content.oe_teaser|field_value,
-    image: {
-      path: image.src,
-      alt: image.alt,
-    },
-    meta: [
-      content.oe_project_dates|field_value,
-    ],
-    content: _content,
-    badges: _badges,
-  }) }}
-</article>
+  <article{{attributes}}>
+    {{ pattern('card', {
+      variant: 'search',
+      title: _title,
+      text: content.oe_teaser|field_value,
+      image: (image is not empty) ? image|merge({
+        path: image.src,
+      }) : {},
+      meta: _meta,
+      badges: _badges,
+    }) }}
+  </article>
 {% endblock %}

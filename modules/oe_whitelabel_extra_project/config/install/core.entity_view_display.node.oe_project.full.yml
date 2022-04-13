@@ -55,7 +55,7 @@ third_party_settings:
         show_empty_fields: false
         id: ''
         element: div
-        show_label: true
+        show_label: false
         label_element: h3
         label_element_classes: 'fw-bold mb-4'
         attributes: ''
@@ -126,7 +126,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 7
+    weight: 6
     region: content
   oe_cx_objective:
     type: text_default
@@ -190,7 +190,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   oe_project_website:
     type: link

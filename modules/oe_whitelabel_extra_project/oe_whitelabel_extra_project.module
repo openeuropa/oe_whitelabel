@@ -118,14 +118,14 @@ function _oe_whitelabel_extra_project_preprocess_featured_media(&$variables) {
 function _oe_whitelabel_extra_project_preprocess_inpage_nav(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
-
   $variables['inpage_navigation_links'] = [];
+
   $fields = [
     'oe_summary',
     'oe_cx_objective',
     'oe_cx_impacts',
-    'oe_project_participants',
     'oe_cx_lead_contributors',
+    'oe_project_participants',
     'oe_cx_achievements_and_milestone',
   ];
   foreach ($variables['content'] as &$item) {
