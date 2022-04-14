@@ -4,11 +4,12 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel\Functional;
 
-use Symfony\Component\DomCrawler\Crawler;
-use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
-use Drupal\media\Entity\Media;
 use Drupal\file\Entity\File;
+use Drupal\media\Entity\Media;
+use Drupal\node\NodeInterface;
+use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
 use Drupal\Tests\TestFileCreationTrait;
+use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Tests that the News content type renders correctly.
@@ -22,22 +23,17 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'block',
     'oe_whitelabel_starter_news',
   ];
 
   /**
-   * A node to be rendered in different display views.
+   * Creates an example news node.
    *
-   * @var \Drupal\node\NodeInterface
+   * @return \Drupal\node\NodeInterface
+   *   News node.
    */
-  protected $node;
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
+  protected function createExampleNews(): NodeInterface {
     // Create a sample image media entity to be embedded.
     File::create([
       'uri' => $this->getTestFiles('image')[0]->uri,
@@ -62,7 +58,7 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
       ->create([
         'type' => 'oe_sc_news',
         'title' => 'Test news node',
-        'oe_summary' => 'http://www.example.org is a web page',
+        'oe_summary' => 'https://www.example.org is a web page',
         'body' => 'News body',
         'oe_publication_date' => [
           'value' => '2022-02-09',
@@ -72,25 +68,23 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
       ]);
     $node->set('oe_featured_media', [$media_image]);
     $node->save();
-    $this->node = $node;
+    return $node;
   }
 
   /**
-   * Tests that the News page renders correctly in full display.
+   * Tests the news page.
    */
-  public function testNewsRenderingFull(): void {
-    // Build node full view.
-    $builder = \Drupal::entityTypeManager()->getViewBuilder('node');
-    $build = $builder->view($this->node, 'full');
-    $render = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler((string) $render);
+  public function testNewsPage(): void {
+    $node = $this->createExampleNews();
+    $this->drupalGet('node/' . $node->id());
+    /** @var \Symfony\Component\BrowserKit\AbstractBrowser $client */
+    $client = $this->getSession()->getDriver()->getClient();
+    $crawler = $client->getCrawler();
 
-    // Assert content banner title.
+    // Select the content banner element.
     $content_banner = $crawler->filter('.bcl-content-banner');
-    $this->assertEquals(
-      'Test news node',
-      trim($content_banner->filter('.card-title')->text())
-    );
+    $this->assertCount(1, $content_banner);
+
     // Assert content banner image.
     $image = $content_banner->filter('img');
     $this->assertCount(1, $image);
@@ -102,17 +96,22 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
     $this->assertEquals('Starter Image test alt',
       $image->attr('alt')
     );
-    // Assert content banner publication date.
+
+    // Assert content banner content elements.
+    $this->assertEquals(
+      'Test news node',
+      trim($content_banner->filter('.card-title')->text())
+    );
     $this->assertEquals(
       '09 February 2022',
       trim($content_banner->filter('.card-body > div.my-4')->text())
     );
-    // Assert content banner summary.
     $this->assertEquals(
-      'http://www.example.org is a web page',
+      'https://www.example.org is a web page',
       trim($content_banner->filter('.oe-sc-news__oe-summary')->text())
     );
-    // Assert the news content.
+
+    // Assert the news body text.
     $this->assertEquals(
       'News body',
       trim($crawler->filter('.oe-sc-news__body')->text())
@@ -120,21 +119,20 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
   }
 
   /**
-   * Tests that the News page renders correctly in teaser display.
+   * Tests the news rendered in 'Teaser' view mode.
    */
   public function testNewsRenderingTeaser(): void {
+    $node = $this->createExampleNews();
     // Build node teaser view.
     $builder = \Drupal::entityTypeManager()->getViewBuilder('node');
-    $build = $builder->view($this->node, 'teaser');
+    $build = $builder->view($node, 'teaser');
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler((string) $render);
 
-    // Assert content banner title.
     $this->assertEquals(
       'Test news node',
       trim($crawler->filter('h5.card-title')->text())
     );
-    // Assert content banner image.
     $image = $crawler->filter('img');
     $this->assertCount(1, $image);
     $this->assertCount(1, $image->filter('.card-img-top'));
@@ -142,12 +140,10 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
       'image-test.png',
       trim($image->attr('src'))
     );
-    // Assert content banner content.
     $this->assertEquals(
-      'http://www.example.org is a web page',
+      'https://www.example.org is a web page',
       trim($crawler->filter('div.card-text')->text())
     );
-    // Assert content banner publication date.
     $this->assertEquals(
       '09 February 2022',
       trim($crawler->filter('div.card-body > div > span.text-muted')->text())

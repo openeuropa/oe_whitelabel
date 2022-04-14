@@ -23,6 +23,7 @@ regions:
   header_top: Header top
   header_left: Header left
   header_right: Header right
+  hero: 'Hero (full width)'
   header: Header
   breadcrumbs: Breadcrumbs
   sidebar_left:  Sidebar
@@ -37,6 +38,7 @@ config_devel:
   optional:
     - block.block.oe_whitelabel_branding
     - block.block.oe_whitelabel_breadcrumbs
+    - block.block.oe_whitelabel_content_banner
     - block.block.oe_whitelabel_ec_corporate_footer
     - block.block.oe_whitelabel_eu_corporate_footer
     - block.block.oe_whitelabel_eulogin
