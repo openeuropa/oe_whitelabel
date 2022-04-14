@@ -83,7 +83,7 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
 
     // Select the content banner element.
     $content_banner = $crawler->filter('.bcl-content-banner');
-    $this->assertSame(1, $content_banner->count(), 'Content banner found.');
+    $this->assertCount(1, $content_banner);
 
     // Assert content banner image.
     $image = $content_banner->filter('img');
