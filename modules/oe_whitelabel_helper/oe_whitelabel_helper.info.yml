@@ -12,5 +12,5 @@ dependencies:
 'interface translation project': oe_whitelabel_helper
 
 config_devel:
-  optional:
+  install:
     - core.entity_view_mode.node.oe_w_content_banner
