@@ -27,6 +27,7 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    'block',
     'oe_whitelabel_extra_project',
   ];
 

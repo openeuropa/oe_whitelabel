@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Project content banner display.
+ */
+#}
+{% if not content.oe_subject.isEmpty() %}
+  {% set _badges = [] %}
+  {% for _badge in content.oe_subject|field_value %}
+    {% set _badges = _badges|merge([{
+      label: _badge|raw,
+      rounded_pill: true,
+    }]) %}
+  {% endfor %}
+{% endif %}
+{{ pattern('content_banner', {
+  background: 'gray',
+  title: label,
+  content: content.oe_teaser,
+  image: image,
+  attributes: create_attribute().addClass(['ps-0']),
+  badges: _badges,
+}) }}

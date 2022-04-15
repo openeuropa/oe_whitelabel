@@ -212,27 +212,12 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
-  oe_subject:
-    type: skos_concept_entity_reference_label
-    label: hidden
-    settings:
-      link: false
-    third_party_settings: {  }
-    weight: 1
-    region: content
   oe_summary:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 3
-    region: content
-  oe_teaser:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
     region: content
 hidden:
   body: true
@@ -251,3 +236,5 @@ hidden:
   oe_project_locations: true
   oe_project_result_files: true
   oe_project_results: true
+  oe_subject: true
+  oe_teaser: true
