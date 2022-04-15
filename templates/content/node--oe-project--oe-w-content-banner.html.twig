@@ -13,5 +13,5 @@
   badges: content.oe_subject ? content.oe_subject|field_value|default([])|map(_item => {
     label: _item|raw,
     rounded_pill: true,
-  }),
+  })|filter(_badge => _badge.label|drupal_escape|striptags|trim is not empty),
 }) }}
