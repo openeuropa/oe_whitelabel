@@ -12,10 +12,10 @@
 {% endmacro %}
 
 {% set _project_details %}
-  {{ content.group_project_details }}
+  {{ content.group_project_details|filter((subgroup, key) => key|first != '#') }}
 {% endset %}
 
-{% if _project_details|striptags|trim is not empty %}
+{% if _project_details|trim is not empty %}
   {% set _project_details_title = 'Project details'|t %}
   {% set _project_details %}
     <h3 class="fw-bold mb-4" id="project-details">{{ _project_details_title }}</h3>
