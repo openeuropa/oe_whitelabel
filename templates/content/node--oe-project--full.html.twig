@@ -18,10 +18,8 @@
 {% if _project_details|striptags|trim is not empty %}
   {% set _project_details_title = 'Project details'|t %}
   {% set _project_details %}
-    <h3 class="fw-bold mb-4">{{ _project_details_title }}</h3>
-    <div id="project-details">
-      {{ _project_details }}
-    </div>
+    <h3 class="fw-bold mb-4" id="project-details">{{ _project_details_title }}</h3>
+    {{ _project_details }}
   {% endset %}
   {% set inpage_navigation_links = [{
     'path': '#project-details',
