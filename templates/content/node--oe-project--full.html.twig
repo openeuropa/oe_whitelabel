@@ -10,9 +10,11 @@
     {{ field }}
   {% endif %}
 {% endmacro %}
+
 {% set _project_details %}
   {{ content.group_project_details }}
 {% endset %}
+
 {% if _project_details|striptags|trim is not empty %}
   {% set _project_details_title = 'Project details'|t %}
   {% set _project_details %}
@@ -26,6 +28,7 @@
     'label': _project_details_title,
   }]|merge(inpage_navigation_links) %}
 {% endif %}
+
 {% set inpage_navigation_fields %}
   {% block inpage_navigation_content %}
     {{ _project_details }}
@@ -37,6 +40,7 @@
     {{ _self.field_with_header(content.oe_cx_achievements_and_milestone) }}
   {% endblock %}
 {% endset %}
+
 <div class="mt-md-4-75 mt-4">
   {{ pattern('inpage_navigation', {
     title: 'Page content'|t,
