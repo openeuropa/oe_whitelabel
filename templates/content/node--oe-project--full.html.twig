@@ -34,6 +34,11 @@
 {% endif %}
 
 {% set inpage_navigation_fields %}
+  {#
+    Reliably absorb top margin of first element.
+    @todo Add a utility class 'eat-margin-top' with :before style.
+  #}
+  <div class="h-0 invisible mt-n5 mb-5"></div>
   {% block inpage_navigation_content %}
     {{ _project_details }}
     {{ _self.field_with_header(content.oe_summary) }}
