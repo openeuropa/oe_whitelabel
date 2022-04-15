@@ -6,7 +6,7 @@
 #}
 {% macro header(title, id) %}
   {% set attributes = id ? create_attribute({'id': id}) %}
-  <h3 class="fw-bold mb-4 pt-3"{{ attributes }}>{{ title }}</h3>
+  <h3 class="fw-bold mb-4 mt-4-5"{{ attributes }}>{{ title }}</h3>
 {% endmacro %}
 
 {% macro field_with_header(field) %}
