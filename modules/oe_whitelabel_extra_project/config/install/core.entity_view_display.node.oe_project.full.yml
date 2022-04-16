@@ -40,13 +40,12 @@ third_party_settings:
   field_group:
     group_project_details:
       children:
-        - group_budget
         - group_website
         - group_coordinators
       label: 'Project details'
       parent_name: ''
       region: content
-      weight: 0
+      weight: 1
       format_type: html_element
       format_settings:
         classes: ''
@@ -73,11 +72,21 @@ third_party_settings:
         - oe_project_budget
         - oe_project_budget_eu
       label: Budget
-      parent_name: group_project_details
+      parent_name: ''
       region: content
-      weight: 1
-      format_type: oe_whitelabel_helper_description_list_pattern
-      format_settings: {  }
+      weight: 0
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
     group_website:
       children:
         - oe_project_website
@@ -99,14 +108,14 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   oe_cx_impacts:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
   oe_cx_lead_contributors:
     type: entity_reference_revisions_entity_view
@@ -115,14 +124,14 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   oe_cx_objective:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   oe_project_budget:
     type: number_decimal
@@ -169,7 +178,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   oe_project_website:
     type: link
@@ -196,7 +205,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
 hidden:
   body: true

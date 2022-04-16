@@ -51,6 +51,7 @@ function oe_whitelabel_extra_project_preprocess_pattern_description_list(array &
 function oe_whitelabel_extra_project_preprocess_node__oe_project__full(array &$variables): void {
   _oe_whitelabel_extra_project_preprocess_inpage_nav($variables);
   _oe_whitelabel_extra_project_preprocess_status_and_progress($variables);
+  _oe_whitelabel_extra_project_preprocess_contributions($variables);
 }
 
 /**
@@ -221,4 +222,27 @@ function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$var
       'class' => ['d-none'],
     ]),
   ];
+}
+
+/**
+ * Adds variables for the project contributions chart.
+ *
+ * @param array $variables
+ *   Variables from hook_preprocess_node().
+ */
+function _oe_whitelabel_extra_project_preprocess_contributions(array &$variables): void {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+  /** @var \Drupal\Core\Field\Plugin\Field\FieldType\FloatItem|null $overall_budget_item */
+  $overall_budget = $node->get('oe_project_budget')->value;
+  /** @var \Drupal\Core\Field\Plugin\Field\FieldType\FloatItem|null $eu_budget_item */
+  $eu_budget = $node->get('oe_project_budget_eu')->value;
+  if ($overall_budget === NULL || !$eu_budget === NULL
+    || $overall_budget <= 0 || $eu_budget < 0
+    || $eu_budget > $overall_budget
+  ) {
+    // Missing field value, or values are not suitable for a chart.
+    return;
+  }
+  $variables['corporate_contributions'] = (int) round($eu_budget / $overall_budget * 10) * 10;
 }

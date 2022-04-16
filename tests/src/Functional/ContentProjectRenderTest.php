@@ -95,8 +95,8 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
         'value' => '2020-05-10',
         'end_value' => '2025-05-15',
       ],
-      'oe_project_budget' => '100',
-      'oe_project_budget_eu' => '100',
+      'oe_project_budget' => '200',
+      'oe_project_budget_eu' => '70',
       'oe_project_website' => [
         [
           'uri' => 'http://example.com',
@@ -168,6 +168,11 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
 
     $this->assertProjectStatusTimestampsAsDateStrings('2020-05-10 00:00:00', '2025-05-16 00:00:00');
 
+    $contributions_chart = $assert_session->elementExists('css', '.bcl-project-contributions .circular-progress');
+    // The correct value would be 35, but it is rounded up to 40, because no
+    // utility classes are available for smaller increments.
+    $this->assertSame('40', $contributions_chart->getAttribute('data-percentage'));
+
     // Select the description blocks inside the Project details.
     $description_lists = $project_content->findAll('css', '.grid-3-9');
     $this->assertCount(4, $description_lists);
@@ -179,11 +184,11 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
       'items' => [
         [
           'term' => 'Overall budget',
-          'definition' => '€100,00',
+          'definition' => '€200,00',
         ],
         [
           'term' => 'EU contribution',
-          'definition' => '€100,00',
+          'definition' => '€70,00',
         ],
       ],
     ], $description_lists[0]->getHtml());
