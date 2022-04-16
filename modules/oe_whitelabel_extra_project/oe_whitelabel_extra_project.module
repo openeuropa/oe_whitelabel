@@ -9,6 +9,8 @@ declare(strict_types =  1);
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Template\Attribute;
 use Drupal\media\MediaInterface;
 use Drupal\media\Plugin\media\Source\Image;
 use Drupal\media\Plugin\media\Source\OEmbed;
@@ -48,6 +50,7 @@ function oe_whitelabel_extra_project_preprocess_pattern_description_list(array &
  */
 function oe_whitelabel_extra_project_preprocess_node__oe_project__full(array &$variables): void {
   _oe_whitelabel_extra_project_preprocess_inpage_nav($variables);
+  _oe_whitelabel_extra_project_preprocess_status_and_progress($variables);
 }
 
 /**
@@ -155,4 +158,65 @@ function _oe_whitelabel_extra_project_preprocess_inpage_nav(array &$variables): 
       'label' => $node->{$item['#field_name']}->getFieldDefinition()->getLabel(),
     ];
   }
+}
+
+/**
+ * Adds variables for the project status.
+ *
+ * @param array $variables
+ *   Variables from hook_preprocess_node().
+ */
+function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$variables): void {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+  /** @var \Drupal\datetime_range\Plugin\Field\FieldType\DateRangeItem|null $date_range_item */
+  $date_range_item = $node->get('oe_project_dates')->first();
+  if ($date_range_item === NULL) {
+    return;
+  }
+  $status_keys = ['planned', 'ongoing', 'closed'];
+  $status_labels = [t('Planned'), t('Ongoing'), t('Closed')];
+
+  if (!$date_range_item->value || !$date_range_item->end_value) {
+    // One of the fields is empty.
+    return;
+  }
+
+  // Dates only store the date, not the time.
+  // Use the site-wide configured timezone, not a user-specific timezone.
+  /* @see \Drupal\system\TimeZoneResolver::getTimeZone() */
+  /** @var string $timezone */
+  $timezone = \Drupal::config('system.date')->get('timezone.default') ?? 'UTC';
+  $get_timestamp = static function (string $date_string) use ($timezone): int {
+    return (new DrupalDateTime($date_string, $timezone))->getTimestamp();
+  };
+  // Project starts at the beginning of the first day at 00:00.
+  $t_start = $get_timestamp($date_range_item->value);
+  // Project ends at the end of the last day at 24:00.
+  $t_end = $get_timestamp($date_range_item->end_value . ' +1 day');
+
+  if ($t_start >= $t_end) {
+    // Cannot show a progress bar if start and end timestamp are the same.
+    return;
+  }
+
+  $t_now = \Drupal::time()->getCurrentTime();
+  $status_id = ($t_now > $t_start) + ($t_now > $t_end);
+  $progress_01 = max(0, min(1, ($t_now - $t_start) / ($t_end - $t_start)));
+  $variables['project_status_args'] = [
+    'status' => $status_keys[$status_id],
+    'start_date' => $date_range_item->value,
+    'start_label' => t('Start'),
+    'end_date' => $date_range_item->end_value,
+    'end_label' => t('End'),
+    'label' => t('Status'),
+    'badge' => $status_labels[$status_id],
+    // Steps of 0.5 are smaller than a pixel, without too many decimals.
+    'progress' => round($progress_01 * 200) / 2,
+    'attributes' => new Attribute([
+      'data-start-timestamp' => $t_start,
+      'data-end-timestamp' => $t_end,
+      'data-status-labels' => implode('|', $status_labels),
+    ]),
+  ];
 }

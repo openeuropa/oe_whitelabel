@@ -4,9 +4,11 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel\Functional;
 
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
+use Drupal\node\NodeInterface;
 use Drupal\oe_content_entity\Entity\CorporateEntityInterface;
 use Drupal\oe_content_entity_organisation\Entity\OrganisationInterface;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\ContentBannerAssert;
@@ -42,6 +44,10 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
       ->grantPermission('view published skos concept entities')
       ->grantPermission('view media')
       ->grantPermission('view published oe_organisation')
+      ->save();
+
+    $this->config('system.date')
+      ->set('timezone.default', 'Europe/Brussels')
       ->save();
   }
 
@@ -157,24 +163,16 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
       ],
     ], $inpage_nav->getOuterHtml());
 
-    // Assert top region - Project details.
-    $project_data = $assert_session->elementExists('css', '.col-md-9');
+    // Select the content column next to the in-page navigation.
+    $project_content = $assert_session->elementExists('css', '.col-md-9');
 
-    // Assert the description blocks inside the Project details.
-    $description_lists = $project_data->findAll('css', '.grid-3-9');
-    $this->assertCount(5, $description_lists);
+    $this->assertProjectStatusTimestampsAsDateStrings('2020-05-10 00:00:00', '2025-05-16 00:00:00');
+
+    // Select the description blocks inside the Project details.
+    $description_lists = $project_content->findAll('css', '.grid-3-9');
+    $this->assertCount(4, $description_lists);
 
     $description_list_assert = new DescriptionListAssert();
-
-    // Period list group.
-    $description_list_assert->assertPattern([
-      'items' => [
-        [
-          'term' => 'Project period',
-          'definition' => "10 May 2020\n - 15 May 2025",
-        ],
-      ],
-    ], $description_lists[0]->getHtml());
 
     // Assert budget list group.
     $description_list_assert->assertPattern([
@@ -188,7 +186,7 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
           'definition' => '€100,00',
         ],
       ],
-    ], $description_lists[1]->getHtml());
+    ], $description_lists[0]->getHtml());
 
     // Assert details list group.
     $description_list_assert->assertPattern([
@@ -206,7 +204,7 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
           'definition' => 'Project reference',
         ],
       ],
-    ], $description_lists[2]->getHtml());
+    ], $description_lists[1]->getHtml());
 
     // Assert coordinators list group.
     $description_list_assert->assertPattern([
@@ -216,7 +214,7 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
           'definition' => 'coordinator',
         ],
       ],
-    ], $description_lists[3]->getHtml());
+    ], $description_lists[2]->getHtml());
 
     // Assert participants list group.
     $description_list_assert->assertPattern([
@@ -234,7 +232,33 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
           'definition' => '€22,30',
         ],
       ],
-    ], $description_lists[4]->getHtml());
+    ], $description_lists[3]->getHtml());
+
+    // Set a project period that is fully in the past.
+    // @todo Enable web driver testing for javascript behavior.
+    $this->setProjectDateRange($node, '2019-03-07', '2019-03-21');
+    $node->save();
+    $this->drupalGet($node->toUrl());
+
+    $this->assertProjectStatusTimestampsAsDateStrings('2019-03-07 00:00:00', '2019-03-22 00:00:00');
+    $this->assertProjectStatus('bg-dark', 'Closed');
+    $this->assertProjectProgress(100);
+
+    // Set a project period that is ongoing.
+    $this->setProjectDateRange($node, '-5 day', '+15 days');
+    $node->save();
+    $this->drupalGet($node->toUrl());
+
+    $this->assertProjectStatus('bg-info', 'Ongoing');
+    $this->assertProjectProgress(15, 35);
+
+    // Set a project period that is fully in the future.
+    $this->setProjectDateRange($node, '+5 days', '+12 days');
+    $node->save();
+    $this->drupalGet($node->toUrl());
+
+    $this->assertProjectStatus('bg-secondary', 'Planned');
+    $this->assertProjectProgress(0);
   }
 
   /**
@@ -277,6 +301,96 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
    */
   protected function getStorage(string $entity_type_id): EntityStorageInterface {
     return \Drupal::entityTypeManager()->getStorage($entity_type_id);
+  }
+
+  /**
+   * Updates the project date, saves the node, and refreshes the page.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   Node to update.
+   * @param string $begin
+   *   Start date string.
+   * @param string $end
+   *   End date string.
+   */
+  protected function setProjectDateRange(NodeInterface $node, string $begin, string $end): void {
+    $node->oe_project_dates = [
+      'value' => (new DrupalDateTime($begin, 'Europe/Brussels'))->format('Y-m-d'),
+      'end_value' => (new DrupalDateTime($end, 'Europe/Brussels'))->format('Y-m-d'),
+    ];
+    $node->save();
+    $this->drupalGet($node->toUrl());
+  }
+
+  /**
+   * Asserts start and end timestamp in project status section.
+   *
+   * @param string $begin
+   *   Expected start date string as 'Y-m-d H:i:s'.
+   * @param string $end
+   *   Expected end date string as 'Y-m-d H:i:s'.
+   */
+  protected function assertProjectStatusTimestampsAsDateStrings(string $begin, string $end): void {
+    $status_section = $this->assertSession()->elementExists('css', '.bcl-project-status');
+    $t_begin = (int) $status_section->getAttribute('data-start-timestamp');
+    $t_end = (int) $status_section->getAttribute('data-end-timestamp');
+    $this->assertTimestampAsDateString($begin, $t_begin, 'Europe/Brussels');
+    $this->assertTimestampAsDateString($end, $t_end, 'Europe/Brussels');
+  }
+
+  /**
+   * Asserts a timestamp matches a date string in a given timezone.
+   *
+   * @param string $expected
+   *   Expected date string as 'Y-m-d H:i:s'.
+   * @param int $timestamp
+   *   Actual timestamp.
+   * @param string $timezone
+   *   Timezone for the conversion.
+   */
+  protected function assertTimestampAsDateString(string $expected, int $timestamp, string $timezone): void {
+    $this->assertSame(
+      $expected,
+      DrupalDateTime::createFromTimestamp($timestamp, $timezone)
+        ->format('Y-m-d H:i:s'),
+    );
+  }
+
+  /**
+   * Asserts the state of the status badge and the color of the progress bar.
+   *
+   * @param string $color_class
+   *   Expected color class.
+   * @param string $status_text
+   *   Expected status text.
+   */
+  protected function assertProjectStatus(string $color_class, string $status_text): void {
+    $status_badge = $this->assertSession()->elementExists('css', '.bcl-project-status .badge');
+    $this->assertTrue($status_badge->hasClass($color_class));
+    $this->assertSame($status_text, $status_badge->getText());
+    $progress_bar = $this->assertSession()->elementExists('css', '.bcl-project-status .progress-bar');
+    $this->assertTrue($progress_bar->hasClass($color_class));
+  }
+
+  /**
+   * Asserts the value of the progress bar.
+   *
+   * @param int $min
+   *   Minimum progress in percent.
+   * @param int|null $max
+   *   Maximum progress in percent.
+   */
+  protected function assertProjectProgress(int $min, int $max = NULL): void {
+    $progress_bar = $this->assertSession()->elementExists('css', '.bcl-project-status .progress-bar');
+    $progress_string = $progress_bar->getAttribute('aria-valuenow');
+    $this->assertStringContainsString("width: $progress_string%", $progress_bar->getAttribute('style'));
+    if ($max === NULL) {
+      $this->assertSame((string) $min, $progress_string);
+    }
+    else {
+      $this->assertGreaterThanOrEqual($min, (float) $progress_string);
+      $this->assertLessThanOrEqual($max, (float) $progress_string);
+    }
   }
 
 }

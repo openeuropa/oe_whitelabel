@@ -18,6 +18,10 @@
 {% endmacro %}
 
 {% set _project_details %}
+  {% if project_status_args is not empty %}
+    {{ attach_library('oe_whitelabel/project_status') }}
+    {% include '@oe-bcl/project-status' with project_status_args only %}
+  {% endif %}
   {{ content.group_project_details|filter((subgroup, key) => key|first != '#') }}
 {% endset %}
 
