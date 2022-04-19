@@ -7,7 +7,7 @@ dependencies:
     - oe_whitelabel
 id: oe_whitelabel_messages
 theme: oe_whitelabel
-region: content
+region: highlighted
 weight: -6
 provider: null
 plugin: system_messages_block
