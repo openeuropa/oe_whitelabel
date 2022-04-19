@@ -29,7 +29,6 @@ regions:
   sidebar_left:  'Sidebar'
   content_top: 'Content top'
   content: 'Content'
-  page_bottom: 'Page bottom'
   footer: 'Footer'
 
 config_devel:
