@@ -28,14 +28,16 @@
  *   comment/reply/12345).
  *
  * Regions:
- * - page.navbar_branding: Items for the navbar brand region (logo).
- * - page.navbar_left: Items for the navbar left region (primary menu).
+ * - page.header_branding: Items for the header branding region (logo).
  * - page.header_top: Items for the header top region.
- * - page.navigation_left: Items for the navbar right region.
- * - page.navigation_right: Items for the navbar right region.
+ * - page.navigation_left: Items for the navigation right region.
+ * - page.navigation_right: Items for the navigation right region.
+ * - page.hero: Items for the hero region.
  * - page.header: Items for the header region.
+ * - page.breadcrumbs: Items for the breadcrumbs region.
+ * - page.highlighted: Items for the highlighted region.
  * - page.sidebar_left: Items for the sidebar left region.
- * - page.sidebar_right: Items for the sidebar right region.
+ * - page.content_top: Items for the top content.
  * - page.content: The main content of the current page.
  * - page.footer: Items for the footer region.
  *
@@ -80,7 +82,7 @@
         }) }}
       {% endblock %}
 
-      {{ page.navbar_branding }}
+      {{ page.header_branding }}
 
       {# Navbar. #}
       {% block navbar %}
