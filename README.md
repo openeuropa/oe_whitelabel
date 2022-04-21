@@ -53,10 +53,30 @@ Add this manually in composer.json, or combine with existing entries:
     }
 ```
 
+If your project is still in development, you may modify composer.json to allow alpha versions, while this package and some of its dependencies are still in their `alpha` phase.
+
+Review this again when the site goes into production.
+
+```
+    "minimum-stability": "alpha",
+```
+
 Require with composer:
 
 ```bash
 composer require openeuropa/oe_whitelabel
+```
+
+If composer.json does not allow alpha versions, a version string needs to be appended to the package name in the require command, and other dependencies with alpha versions also need to be required with explicit version strings. The version string could be `:^1.0@alpha`, or a specific version like `:^1.0.0-alpha7`.
+
+```bash
+composer require openeuropa/oe_whitelabel:^1.0@alpha openeuropa/oe_bootstrap_theme:^1.0@alpha
+```
+
+Review the installed package versions. Make sure that oe_whitelabel and oe_bootstrap theme are using 1.x or higher.
+
+```bash
+composer show -i | grep oe_
 ```
 
 ### Enable and configure
