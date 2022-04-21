@@ -30,7 +30,7 @@ Ideally this project should be managed with [Docker](https://www.docker.com/get-
 Check the [composer.json](composer.json) for required PHP version and other dependencies.
 
 
-### Installation (composer)
+### Add the composer package
 
 Add this manually in composer.json, or combine with existing entries:
 
@@ -141,7 +141,7 @@ docker-compose exec web rm -rf vendor/
 docker-compose exec web rm -rf build/
 ```
 
-#### Installing the package
+#### Install the package
 
 ```bash
 docker-compose exec -u node node npm install
@@ -152,7 +152,7 @@ docker-compose exec web ./vendor/bin/run drupal:site-install
 
 Using default configuration, the development site files should be available in the `build` directory and the development site should be available at: [http://127.0.0.1:8080/build](http://127.0.0.1:8080/build) or [http://web:8080/build](http://web:8080/build).
 
-#### Running the tests
+#### Run the tests
 
 To run the grumphp checks:
 
