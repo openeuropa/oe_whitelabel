@@ -18,7 +18,7 @@ ckeditor_stylesheets:
   - assets/css/oe-bcl-default.min.css
 
 regions:
-  navbar_branding: 'Navbar branding'
+  header_branding: 'Header branding'
   header_top: 'Header top'
   navigation_left: 'Navigation left'
   navigation_right: 'Navigation right'
