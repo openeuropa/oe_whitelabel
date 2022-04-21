@@ -24,11 +24,9 @@ Website projects can use `oe_whitelabel` either as an active theme, or they can 
 
 The package is meant for Drupal projects that manage their dependencies with [Composer](https://www.drupal.org/docs/develop/using-composer/using-composer-to-manage-drupal-site-dependencies#managing-contributed).
 
-Ideally this project should be managed with [Docker](https://www.docker.com/get-docker) and
-[Docker Compose](https://docs.docker.com/compose/), but this is not a hard requirement.
+Ideally this project should be managed with [Docker](https://www.docker.com/get-docker) and [Docker Compose](https://docs.docker.com/compose/), but this is not a hard requirement.
 
 Check the [composer.json](composer.json) for required PHP version and other dependencies.
-
 
 ### Add the composer package
 
