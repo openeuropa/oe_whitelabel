@@ -9,7 +9,7 @@ dependencies:
     - oe_whitelabel
 id: oe_whitelabel_main_navigation
 theme: oe_whitelabel
-region: header_left
+region: navigation_left
 weight: 0
 provider: null
 plugin: 'system_menu_block:main'

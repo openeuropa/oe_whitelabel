@@ -7,7 +7,7 @@ dependencies:
     - oe_whitelabel
 id: oe_whitelabel_language_switcher
 theme: oe_whitelabel
-region: navbar_right
+region: header_top
 weight: -5
 provider: null
 plugin: 'language_block:language_interface'
