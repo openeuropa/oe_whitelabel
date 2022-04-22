@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * OE Whitelabel Search Module.
+ */
+
+declare(strict_types =  1);
+
+/**
+ * Helper function to preprocess the facets_summary item list.
+ *
+ * @param array $variables
+ *   Render array variables.
+ */
+function oe_whitelabel_search_preprocess_facets_summary_item_list(array &$variables) {
+  $variables['result_items'] = [];
+  foreach ($variables['items'] as $item) {
+    if ($item['value']['#type'] === 'link') {
+      $item['value']['#attributes']['class'] = 'standalone';
+      $variables['result_items'][] = $item;
+    }
+  }
+
+}
