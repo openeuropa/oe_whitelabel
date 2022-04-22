@@ -27,9 +27,10 @@
  * @ingroup themeable
  */
 #}
-{% if label and content['#items'][0]['#theme'] is defined and content['#items'][0]['#theme'] == 'facets_summary_count' %}
+{% if label and content['#items'][0]['#theme'] is defined and content['#items'][1]['#theme'] == 'facets_summary_count' %}
+  {% set results_count = content['#items'][1] %}
+{% elseif label and content['#items'][0]['#theme'] is defined and content['#items'][0]['#theme'] == 'facets_summary_count'%}
   {% set results_count = content['#items'][0] %}
-  {% set content = content['#items']|slice(1) %}
 {% endif %}
 {% block content %}
   {% spaceless %}
