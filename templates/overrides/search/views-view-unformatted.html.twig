@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Theme implementation to display showcase_search unformatted rows.
+ *
+ * @see ./core/modules/views/templates/views-view-unformatted.html.
+ */
+#}
+{% if view.current_display == 'showcase_search_page' %}
+  {% if title %}
+    <h3>{{ title }}</h3>
+  {% endif %}
+  {% for row in rows %}
+    {% set row_classes = [
+      default_row_class ? 'views-row',
+    ] %}
+    <div{{ row.attributes.addClass(row_classes) }}>
+      {{- row.content -}}
+    </div>
+  {% endfor %}
+{% endif %}
+<hr class="d-none d-md-block mt-4-5">
