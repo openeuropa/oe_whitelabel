@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
+use Drupal\filter\Entity\FilterFormat;
 use Drupal\paragraphs\Entity\Paragraph;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -11,6 +12,34 @@ use Symfony\Component\DomCrawler\Crawler;
  * Tests the "Description list" paragraphs.
  */
 class DescriptionListTest extends ParagraphsTestBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+
+    FilterFormat::create([
+      'format' => 'full_html',
+      'name' => 'Full HTML',
+      'weight' => 0,
+      'filters' => [],
+    ])->save();
+
+    FilterFormat::create([
+      'format' => 'filtered_html',
+      'name' => 'Filtered HTML',
+      'weight' => 1,
+      'filters' => [
+        'filter_html' => [
+          'status' => 1,
+          'settings' => [
+            'allowed_html' => '<em>',
+          ],
+        ],
+      ],
+    ])->save();
+  }
 
   /**
    * Tests the rendering of the paragraph type.
@@ -22,13 +51,15 @@ class DescriptionListTest extends ParagraphsTestBase {
       'field_oe_title' => 'Description list paragraph',
       'oe_w_orientation' => 'horizontal',
       'field_oe_description_list_items' => [
-        0 => [
+        [
           'term' => 'Aliquam ultricies',
-          'description' => 'Donec et leo ac velit posuere tempor mattis ac mi. Vivamus nec dictum lectus. Aliquam ultricies placerat eros, vitae ornare sem.',
+          'description' => 'Donec et leo ac velit posuere tempor <em>mattis</em> ac mi. Vivamus nec <strong>dictum</strong> lectus. Aliquam ultricies placerat eros, vitae ornare sem.',
+          'format' => 'full_html',
         ],
-        1 => [
-          'term' => 'Etiam lacinia',
-          'description' => 'Quisque tempor sollicitudin lacinia. Morbi imperdiet nulla et nunc aliquet, vel lobortis nunc cursus. Mauris vitae hendrerit felis.',
+        [
+          'term' => 'Etiam <em>lacinia</em>',
+          'description' => 'Quisque tempor sollicitudin <em>lacinia</em>. Morbi imperdiet nulla et nunc <strong>aliquet</strong>, vel lobortis nunc cursus. Mauris vitae hendrerit felis.',
+          'format' => 'filtered_html',
         ],
       ],
     ]);
@@ -47,19 +78,19 @@ class DescriptionListTest extends ParagraphsTestBase {
     $this->assertEquals('Description list paragraph', $title->text());
 
     $term_1 = $crawler->filter('dl > div:nth-child(1) > dt');
-    $this->assertEquals('Aliquam ultricies', $term_1->text());
-    $description_1 = $crawler->filter('dl > div:nth-child(1) + dd');
+    $this->assertEquals('Aliquam ultricies', $term_1->html());
+    $description_1 = $crawler->filter('dl > div:nth-child(1) + dd > div');
     $this->assertEquals(
-      'Donec et leo ac velit posuere tempor mattis ac mi. Vivamus nec dictum lectus. Aliquam ultricies placerat eros, vitae ornare sem.',
-      $description_1->text()
+      'Donec et leo ac velit posuere tempor <em>mattis</em> ac mi. Vivamus nec <strong>dictum</strong> lectus. Aliquam ultricies placerat eros, vitae ornare sem.',
+      $description_1->html()
     );
 
     $term_2 = $crawler->filter('dl > div:nth-child(3) > dt');
-    $this->assertEquals('Etiam lacinia', $term_2->text());
-    $description_2 = $crawler->filter('dl > div:nth-child(3) + dd');
+    $this->assertEquals('Etiam &lt;em&gt;lacinia&lt;/em&gt;', $term_2->html());
+    $description_2 = $crawler->filter('dl > div:nth-child(3) + dd > div');
     $this->assertEquals(
-      'Quisque tempor sollicitudin lacinia. Morbi imperdiet nulla et nunc aliquet, vel lobortis nunc cursus. Mauris vitae hendrerit felis.',
-      $description_2->text()
+      'Quisque tempor sollicitudin <em>lacinia</em>. Morbi imperdiet nulla et nunc aliquet, vel lobortis nunc cursus. Mauris vitae hendrerit felis.',
+      $description_2->html()
     );
 
     // Testing: Description list paragraph with vertical variant.
@@ -73,19 +104,19 @@ class DescriptionListTest extends ParagraphsTestBase {
     $this->assertEquals('Description list paragraph', $title->text());
 
     $term_1 = $crawler->filter('dl > dt:nth-child(1)');
-    $this->assertEquals('Aliquam ultricies', $term_1->text());
+    $this->assertEquals('Aliquam ultricies', $term_1->html());
     $description_1 = $crawler->filter('dl > dt:nth-child(1) + dd');
     $this->assertEquals(
-      'Donec et leo ac velit posuere tempor mattis ac mi. Vivamus nec dictum lectus. Aliquam ultricies placerat eros, vitae ornare sem.',
-      $description_1->text()
+      'Donec et leo ac velit posuere tempor <em>mattis</em> ac mi. Vivamus nec <strong>dictum</strong> lectus. Aliquam ultricies placerat eros, vitae ornare sem.',
+      $description_1->html()
     );
 
     $term_2 = $crawler->filter('dl > dt:nth-child(3)');
-    $this->assertEquals('Etiam lacinia', $term_2->text());
+    $this->assertEquals('Etiam &lt;em&gt;lacinia&lt;/em&gt;', $term_2->html());
     $description_2 = $crawler->filter('dl > dt:nth-child(3) + dd');
     $this->assertEquals(
-      'Quisque tempor sollicitudin lacinia. Morbi imperdiet nulla et nunc aliquet, vel lobortis nunc cursus. Mauris vitae hendrerit felis.',
-      $description_2->text()
+      'Quisque tempor sollicitudin <em>lacinia</em>. Morbi imperdiet nulla et nunc aliquet, vel lobortis nunc cursus. Mauris vitae hendrerit felis.',
+      $description_2->html()
     );
   }
 
