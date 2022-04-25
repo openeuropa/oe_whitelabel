@@ -9,9 +9,9 @@ use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 use Drupal\oe_content_entity\Entity\CorporateEntityInterface;
 use Drupal\oe_content_entity_organisation\Entity\OrganisationInterface;
-use Drupal\Tests\oe_whitelabel\PatternAssertions\InPageNavigationAssert;
-use Drupal\Tests\oe_whitelabel\PatternAssertions\DescriptionListAssert;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\ContentBannerAssert;
+use Drupal\Tests\oe_whitelabel\PatternAssertions\DescriptionListAssert;
+use Drupal\Tests\oe_whitelabel\PatternAssertions\InPageNavigationAssert;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 use Drupal\Tests\TestFileCreationTrait;
 
