@@ -72,7 +72,7 @@
   }]|merge(inpage_navigation_links) %}
 {% endif %}
 
-{% set inpage_navigation_fields %}
+{% set inpage_navigation_content %}
   {#
     Reliably absorb top margin of first element.
     @todo Add a utility class 'eat-margin-top' with :before style.
@@ -93,7 +93,7 @@
   {{ pattern('inpage_navigation', {
     title: 'Page content'|t,
     links: inpage_navigation_links,
-    content: inpage_navigation_fields,
+    content: inpage_navigation_content,
     full_layout: true,
   }) }}
 </div>
