@@ -217,15 +217,8 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
   foreach ($variables['paragraph']->get('field_oe_paragraphs') as $card_paragraph_item) {
     /** @var \Drupal\paragraphs\ParagraphInterface $card_paragraph */
     $card_paragraph = $card_paragraph_item->entity;
-
-    /** @var \Drupal\file\Plugin\Field\FieldType\FileFieldItemList $card_image_items */
-    $card_image_items = $card_paragraph->get('field_oe_image');
-    /** @var \Drupal\file\FileInterface|null $card_image_file */
-    $card_image_file = $card_image_items->entity;
-    $card_image = $card_image_file ? [
-      'path' => file_url_transform_relative(file_create_url($card_image_file->getFileUri())),
-      'alt' => $card_image_items->alt,
-    ] : [];
+    $card_image_item = $card_paragraph->get('field_oe_image')->first();
+    $card_image = $card_image_item ? ImageValueObject::fromImageItem($card_image_item) : NULL;
 
     // Prepare the metas if available.
     $card_badges = [];

@@ -12,4 +12,5 @@ config_devel:
   install:
     - core.date_format.oe_whitelabel_starter_news_date
     - core.entity_view_display.node.oe_sc_news.full
+    - core.entity_view_display.node.oe_sc_news.oe_w_content_banner
     - core.entity_view_display.node.oe_sc_news.teaser

@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.oe_w_content_banner
+label: 'Content banner'
+targetEntityType: node
+cache: true

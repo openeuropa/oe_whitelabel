@@ -5,7 +5,7 @@ dependencies:
     - oe_whitelabel
 id: oe_whitelabel_local_tasks
 theme: oe_whitelabel
-region: content
+region: highlighted
 weight: -5
 provider: null
 plugin: local_tasks_block

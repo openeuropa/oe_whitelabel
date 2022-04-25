@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.oe_w_content_banner
     - field.field.node.oe_sc_event.body
     - field.field.node.oe_sc_event.oe_documents
     - field.field.node.oe_sc_event.oe_featured_media
@@ -11,38 +11,28 @@ dependencies:
     - field.field.node.oe_sc_event.oe_summary
     - node.type.oe_sc_event
   module:
-    - address
-    - datetime_range
+    - oe_content_featured_media_field
     - text
     - user
-id: node.oe_sc_event.teaser
+id: node.oe_sc_event.oe_w_content_banner
 targetEntityType: node
 bundle: oe_sc_event
-mode: teaser
+mode: oe_w_content_banner
 content:
-  oe_sc_event_dates:
-    type: daterange_default
+  oe_featured_media:
+    type: oe_featured_media_label
     label: hidden
     settings:
-      timezone_override: ''
-      format_type: oe_whitelabel_starter_event_date
-      separator: to
+      link: true
     third_party_settings: {  }
-    weight: 4
-    region: content
-  oe_sc_event_location:
-    type: address_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 5
+    weight: 1
     region: content
   oe_summary:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 0
     region: content
 hidden:
   body: true
@@ -53,4 +43,5 @@ hidden:
   oe_content_navigation_title: true
   oe_content_short_title: true
   oe_documents: true
-  oe_featured_media: true
+  oe_sc_event_dates: true
+  oe_sc_event_location: true
