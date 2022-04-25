@@ -43,10 +43,10 @@ class AuthenticationBlockTest extends KernelTestBase {
    * Tests the rendering of the authentication block.
    */
   public function testBlockRendering(): void {
-    $entity_type_manager = $this->container
+    $block_entity_storage = $this->container
       ->get('entity_type.manager')
       ->getStorage('block');
-    $entity = $entity_type_manager->load('oe_whitelabel_eulogin');
+    $entity = $block_entity_storage->load('oe_whitelabel_eulogin');
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);

@@ -66,10 +66,10 @@ class FacetsFormTest extends KernelTestBase {
    * Tests the rendering of the Facets Form block.
    */
   public function testBlockRendering(): void {
-    $entity_type_manager = $this->container
+    $block_entity_storage = $this->container
       ->get('entity_type.manager')
       ->getStorage('block');
-    $entity = $entity_type_manager->create([
+    $block = $block_entity_storage->create([
       'id' => 'whitelabel_facets_form_block',
       'theme' => 'oe_whitelabel',
       'plugin' => 'facets_form:search_api:views_page__search_api_test_view__page_1',
@@ -86,10 +86,10 @@ class FacetsFormTest extends KernelTestBase {
         'facets' => [],
       ],
     ]);
-    $entity->save();
+    $block->save();
 
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
-    $build = $builder->view($entity, 'block');
+    $build = $builder->view($block, 'block');
     $html = (string) $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($html);
 
