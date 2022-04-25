@@ -125,6 +125,9 @@
             $element.attr('aria-label', percent);
           });
         });
+
+        // Reveal the entire section.
+        $element.removeClass('d-none');
       });
     }
   };

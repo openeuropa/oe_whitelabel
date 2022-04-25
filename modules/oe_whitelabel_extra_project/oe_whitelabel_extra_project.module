@@ -217,6 +217,8 @@ function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$var
       'data-start-timestamp' => $t_start,
       'data-end-timestamp' => $t_end,
       'data-status-labels' => implode('|', $status_labels),
+      // Hide for non-js users, to avoid showing wrong/outdated information.
+      'class' => ['d-none'],
     ]),
   ];
 }
