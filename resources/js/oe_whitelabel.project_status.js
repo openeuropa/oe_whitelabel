@@ -94,10 +94,6 @@
         let msBegin = $element.data('start-timestamp') * 1000;
         let msEnd = $element.data('end-timestamp') * 1000;
         const statusLabels = $element.data('status-labels').split('|');
-        // Temporarily set a much shorter interval for a visible animation.
-        // @todo Remove this.
-        msBegin = Date.now() + 2000;
-        msEnd = Date.now() + 9000;
 
         // Process the status label.
         $('.badge', this).each(function () {
