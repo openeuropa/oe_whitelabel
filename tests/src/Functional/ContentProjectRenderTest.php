@@ -107,7 +107,7 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
     // Assert content banner.
     $content_banner = $assert_session->elementExists('css', '.bcl-content-banner');
     $assert = new ContentBannerAssert();
-    $expected_values = [
+    $assert->assertPattern([
       'image' => [
         'alt' => 'Image test alt',
         'src' => 'image-test.png',
@@ -115,13 +115,12 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
       'badges' => ['wood industry'],
       'title' => 'Test project node',
       'description' => 'Test project node',
-    ];
-    $assert->assertPattern($expected_values, $content_banner->getOuterHtml());
+    ], $content_banner->getOuterHtml());
 
     // Assert in-page navigation.
     $inpage_nav = $this->assertSession()->elementExists('css', 'nav.bcl-inpage-navigation');
     $inpage_nav_assert = new InPageNavigationAssert();
-    $inpage_nav_expected_values = [
+    $inpage_nav_assert->assertPattern([
       'title' => 'Page content',
       'links' => [
         [
@@ -149,8 +148,7 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
           'href' => '#oe-project-oe-cx-achievements-and-milestone',
         ],
       ],
-    ];
-    $inpage_nav_assert->assertPattern($inpage_nav_expected_values, $inpage_nav->getOuterHtml());
+    ], $inpage_nav->getOuterHtml());
 
     // Assert top region - Project details.
     $project_data = $assert_session->elementExists('css', '.col-md-9');
@@ -162,19 +160,17 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
     $description_list_assert = new DescriptionListAssert();
 
     // Period list group.
-    $first_field_list_expected_values = [
+    $description_list_assert->assertPattern([
       'items' => [
         [
           'term' => 'Project period',
           'definition' => "10 May 2020\n - 15 May 2025",
         ],
       ],
-    ];
-    $field_list_html = $description_lists[0]->getHtml();
-    $description_list_assert->assertPattern($first_field_list_expected_values, $field_list_html);
+    ], $description_lists[0]->getHtml());
 
     // Assert budget list group.
-    $second_field_list_expected_values = [
+    $description_list_assert->assertPattern([
       'items' => [
         [
           'term' => 'Overall budget',
@@ -185,12 +181,10 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
           'definition' => '€100,00',
         ],
       ],
-    ];
-    $field_list_html = $description_lists[1]->getHtml();
-    $description_list_assert->assertPattern($second_field_list_expected_values, $field_list_html);
+    ], $description_lists[1]->getHtml());
 
     // Assert details list group.
-    $third_field_list_expected_values = [
+    $description_list_assert->assertPattern([
       'items' => [
         [
           'term' => 'Website',
@@ -205,24 +199,20 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
           'definition' => 'Project reference',
         ],
       ],
-    ];
-    $field_list_html = $description_lists[2]->getHtml();
-    $description_list_assert->assertPattern($third_field_list_expected_values, $field_list_html);
+    ], $description_lists[2]->getHtml());
 
     // Assert coordinators list group.
-    $fourth_field_list_expected_values = [
+    $description_list_assert->assertPattern([
       'items' => [
         [
           'term' => 'Coordinators',
           'definition' => 'coordinator',
         ],
       ],
-    ];
-    $field_list_html = $description_lists[3]->getHtml();
-    $description_list_assert->assertPattern($fourth_field_list_expected_values, $field_list_html);
+    ], $description_lists[3]->getHtml());
 
     // Assert participants list group.
-    $fifth_field_list_expected_values = [
+    $description_list_assert->assertPattern([
       'items' => [
         [
           'term' => 'Name',
@@ -237,9 +227,7 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
           'definition' => '€22,30',
         ],
       ],
-    ];
-    $field_list_html = $description_lists[4]->getHtml();
-    $description_list_assert->assertPattern($fifth_field_list_expected_values, $field_list_html);
+    ], $description_lists[4]->getHtml());
   }
 
   /**
