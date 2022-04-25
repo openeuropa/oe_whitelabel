@@ -40,6 +40,7 @@ function oe_whitelabel_extra_project_preprocess_pattern_description_list(array &
         /** @var \Drupal\Core\Template\Attribute $attributes */
         $attributes = $variables['attributes'];
         $attributes->addClass('border-bottom');
+        $attributes->addClass('pb-3');
         break;
     }
   }
