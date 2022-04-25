@@ -13,6 +13,8 @@ use Drupal\Tests\oe_whitelabel\PatternAssertions\ContentBannerAssert;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\DescriptionListAssert;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\InPageNavigationAssert;
 use Drupal\Tests\TestFileCreationTrait;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
 
 /**
  * Tests that our Project content type renders correctly.
@@ -34,8 +36,12 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    $admin = $this->createUser([], NULL, TRUE);
-    $this->drupalLogin($admin);
+    Role::load(RoleInterface::ANONYMOUS_ID)
+      ->grantPermission('bypass node access')
+      ->grantPermission('view published skos concept entities')
+      ->grantPermission('view media')
+      ->grantPermission('view published oe_organisation')
+      ->save();
   }
 
   /**
