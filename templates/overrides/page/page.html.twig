@@ -121,9 +121,9 @@
         {% endif %}
 
         {% if page.content or page.content_top %}
-          <div class="col-12 {{ page.sidebar_left ? 'col-lg-9' }}">
+          <div class="col-12 {{ page.sidebar_left ? 'col-lg-9  col-xxl-8' }}">
             {% if page.content_top %}
-              <div class="mb-3 clearfix">
+              <div class="row">
                 {{ page.content_top }}
               </div>
               <hr class="d-none d-md-block mt-4 mb-4-75">

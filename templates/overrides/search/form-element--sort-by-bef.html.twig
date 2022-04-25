@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * Theme implementation for the bef sort by form element.
+ *
+ * @see ./core/themes/stable/templates/form/form-element.html.twig
+ */
+#}
+{%
+  set classes = [
+  'float-md-end',
+  'd-md-flex',
+  'align-items-center',
+  'mb-4',
+  'mb-md-0',
+  'js-form-item',
+  'mw-100',
+  'form-item',
+  'js-form-type-' ~ type|clean_class,
+  'form-item-' ~ name|clean_class,
+  'js-form-item-' ~ name|clean_class,
+  title_display not in ['after', 'before'] ? 'form-no-label',
+  disabled == 'disabled' ? 'form-disabled',
+  errors ? 'form-item--error',
+]
+%}
+
+<div{{ attributes.addClass(classes) }}>
+  <div class="text-nowrap"> {{ label }} </div>
+  {{ children }}
+{% if errors %}
+  <div class="form-item--error-message invalid-feedback d-block">
+    {{ errors }}
+  </div>
+{% endif %}
+</div>
