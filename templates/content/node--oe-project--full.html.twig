@@ -4,6 +4,8 @@
  * Project full display.
  */
 #}
+{% apply spaceless %}
+
 {% macro header(title, id) %}
   {% set attributes = id ? create_attribute({'id': id}) %}
   <h3 class="fw-bold mb-4 mt-4-5"{{ attributes }}>{{ title }}</h3>
@@ -96,3 +98,4 @@
   }) }}
 </div>
 
+{% endapply %}
