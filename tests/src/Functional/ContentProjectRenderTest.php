@@ -159,8 +159,9 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
     $description_lists = $project_data->findAll('css', '.grid-3-9');
     $this->assertCount(5, $description_lists);
 
-    // Period list group.
     $description_list_assert = new DescriptionListAssert();
+
+    // Period list group.
     $first_field_list_expected_values = [
       'items' => [
         [
@@ -173,7 +174,6 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
     $description_list_assert->assertPattern($first_field_list_expected_values, $field_list_html);
 
     // Assert budget list group.
-    $description_list_assert = new DescriptionListAssert();
     $second_field_list_expected_values = [
       'items' => [
         [
@@ -190,7 +190,6 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
     $description_list_assert->assertPattern($second_field_list_expected_values, $field_list_html);
 
     // Assert details list group.
-    $description_list_assert = new DescriptionListAssert();
     $third_field_list_expected_values = [
       'items' => [
         [
@@ -211,7 +210,6 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
     $description_list_assert->assertPattern($third_field_list_expected_values, $field_list_html);
 
     // Assert coordinators list group.
-    $description_list_assert = new DescriptionListAssert();
     $fourth_field_list_expected_values = [
       'items' => [
         [
@@ -224,7 +222,6 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
     $description_list_assert->assertPattern($fourth_field_list_expected_values, $field_list_html);
 
     // Assert participants list group.
-    $description_list_assert = new DescriptionListAssert();
     $fifth_field_list_expected_values = [
       'items' => [
         [
