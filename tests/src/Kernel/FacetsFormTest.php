@@ -101,15 +101,18 @@ class FacetsFormTest extends KernelTestBase {
     $button = $header->filter('button');
     $this->assertSame('offcanvas', $button->attr('data-bs-dismiss'));
     $this->assertSame('button', $button->attr('type'));
+
     $body = $offcanvas->filter('div.offcanvas-body.bcl-offcanvas');
     $this->assertCount(1, $body);
     $form = $body->filter('form.facets-form');
     $this->assertCount(1, $form);
+
     $button = $crawler->filter('button.btn-light.btn-lg');
     $this->assertSame('button', $button->attr('type'));
     $this->assertSame('#bcl-offcanvas', $button->attr('data-bs-target'));
     $this->assertSame('offcanvas', $button->attr('data-bs-toggle'));
     $this->assertStringContainsString('Facets form', $button->text());
+
     $icon = $button->filter('svg');
     $this->assertStringContainsString('/assets/icons/bcl-default-icons.svg#filter', $icon->html());
   }
