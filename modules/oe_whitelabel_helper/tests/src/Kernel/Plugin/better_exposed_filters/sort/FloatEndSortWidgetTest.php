@@ -9,7 +9,9 @@ use Drupal\views\Views;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
- * Tests the FloatEndSort exposed form sort widget rendering.
+ * Tests theming of the "Float End Sort" widget for "better exposed filters".
+ *
+ * @coversDefaultClass \Drupal\oe_whitelabel_helper\Plugin\better_exposed_filters\sort\FloatEndSortWidget
  */
 class FloatEndSortWidgetTest extends BetterExposedFiltersKernelTestBase {
 
