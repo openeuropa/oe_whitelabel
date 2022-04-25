@@ -5,13 +5,13 @@
  */
 #}
 {{ pattern('content_banner', {
-  background: 'gray',
-  title: label,
-  content: content.oe_teaser,
-  image: image,
-  attributes: create_attribute().addClass(['ps-0']),
-  badges: content.oe_subject ? content.oe_subject|field_value|default([])|map(_item => {
-    label: _item,
-    rounded_pill: true,
+  'background': 'gray',
+  'title': label,
+  'content': content.oe_teaser,
+  'image': image,
+  'attributes': create_attribute().addClass(['ps-0']),
+  'badges': content.oe_subject ? content.oe_subject|field_value|default([])|map(_item => {
+    'label': _item,
+    'rounded_pill': true,
   })|filter(_badge => _badge.label|drupal_escape|striptags|trim is not empty),
 }) }}
