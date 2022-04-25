@@ -43,7 +43,6 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
    */
   public function testProjectRendering(): void {
     $assert_session = $this->assertSession();
-    $page = $this->getSession()->getPage();
 
     // Create a media entity.
     // Create file and media.
