@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * News content banner display.
+ */
+#}
+
+{% if not node.oe_publication_date.isEmpty() %}
+  {% set _meta = [] %}
+  {% set _news_publication_date %}
+    {{ content.oe_publication_date|field_value }}
+  {% endset %}
+  {% set _meta = _meta|merge([content.oe_publication_date]) %}
+{% endif %}
+
+<div{{attributes}}>
+  {{ pattern('content_banner', {
+    background: 'gray',
+    title: label,
+    content: content.oe_summary,
+    image: image,
+    meta: _meta,
+  }) }}
+</div>

@@ -45,19 +45,10 @@
 {% endset %}
 
 <article{{attributes}}>
-  {{ pattern('content_banner', {
-    background: 'gray',
-    title: label,
-    content: content.oe_summary,
-    image: image,
-    attributes: create_attribute().addClass(['ps-0']),
+  {{ pattern('inpage_navigation', {
+    title: 'Page content',
+    links: inpage_navigation_links,
+    content: inpage_navigation_fields,
+    full_layout: true,
   }) }}
-  <div class="mt-md-4-75 mt-4">
-    {{ pattern('inpage_navigation', {
-      title: 'Page content',
-      links: inpage_navigation_links,
-      content: inpage_navigation_fields,
-      full_layout: true,
-    }) }}
-  </div>
 </article>

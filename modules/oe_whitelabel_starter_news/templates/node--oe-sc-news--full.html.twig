@@ -5,29 +5,10 @@
  */
 #}
 
-{% if not node.oe_publication_date.isEmpty() %}
-  {% set _meta = [] %}
-  {% set _news_publication_date %}
-    {{ content.oe_publication_date|field_value }}
-  {% endset %}
-  {% set _meta = _meta|merge([content.oe_publication_date]) %}
-{% endif %}
-
 <article{{attributes}}>
-  {{ pattern('content_banner', {
-    background: 'gray',
-    title: label,
-    content: content.oe_summary,
-    image: image,
-    meta: _meta,
-    attributes: create_attribute().addClass(['ps-0']),
-  }) }}
-
-  <div class="mt-md-4-75 mt-4">
-    <div class="row">
-      <div class="col-12 col-lg-10 col-xl-9 col-xxl-8 mb-4">
-        {{ content.body }}
-      </div>
+  <div class="row">
+    <div class="col-12 col-lg-10 col-xl-9 col-xxl-8 mb-4">
+      {{ content.body }}
     </div>
   </div>
 </article>

@@ -7,7 +7,7 @@ dependencies:
     - oe_whitelabel
 id: oe_whitelabel_eulogin
 theme: oe_whitelabel
-region: navbar_right
+region: header_top
 weight: -4
 provider: null
 plugin: oe_authentication_login_block

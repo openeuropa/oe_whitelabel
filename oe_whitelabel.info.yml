@@ -18,18 +18,18 @@ ckeditor_stylesheets:
   - assets/css/oe-bcl-default.min.css
 
 regions:
-  navbar_branding: Navbar branding
-  navbar_right: Navbar right
-  header_top: Header top
-  header_left: Header left
-  header_right: Header right
-  header: Header
-  breadcrumbs: Breadcrumbs
-  sidebar_left:  Sidebar
-  content_top: Content top
-  content: Content
-  page_bottom: Page bottom
-  footer: Footer
+  header_branding: 'Header branding'
+  header_top: 'Header top'
+  navigation_left: 'Navigation left'
+  navigation_right: 'Navigation right'
+  hero: 'Hero (full width)'
+  header: 'Header'
+  breadcrumbs: 'Breadcrumbs'
+  highlighted: 'Highlighted'
+  sidebar_left:  'Sidebar'
+  content_top: 'Content top'
+  content: 'Content'
+  footer: 'Footer'
 
 config_devel:
   install:
@@ -37,6 +37,7 @@ config_devel:
   optional:
     - block.block.oe_whitelabel_branding
     - block.block.oe_whitelabel_breadcrumbs
+    - block.block.oe_whitelabel_content_banner
     - block.block.oe_whitelabel_ec_corporate_footer
     - block.block.oe_whitelabel_eu_corporate_footer
     - block.block.oe_whitelabel_eulogin
