@@ -104,8 +104,8 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
     $node->save();
     $this->drupalGet($node->toUrl());
 
-    // Assert page header - metadata.
-    $page_header = $assert_session->elementExists('css', '.bcl-content-banner');
+    // Assert content banner.
+    $content_banner = $assert_session->elementExists('css', '.bcl-content-banner');
     $assert = new ContentBannerAssert();
     $expected_values = [
       'image' => [
@@ -116,10 +116,10 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
       'title' => 'Test project node',
       'description' => 'Test project node',
     ];
-    $assert->assertPattern($expected_values, $page_header->getOuterHtml());
+    $assert->assertPattern($expected_values, $content_banner->getOuterHtml());
 
-    // Assert navigation.
-    $navigation = $this->assertSession()->elementExists('css', 'nav.bcl-inpage-navigation');
+    // Assert in-page navigation.
+    $inpage_nav = $this->assertSession()->elementExists('css', 'nav.bcl-inpage-navigation');
     $inpage_nav_assert = new InPageNavigationAssert();
     $inpage_nav_expected_values = [
       'title' => 'Page content',
@@ -150,7 +150,7 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
         ],
       ],
     ];
-    $inpage_nav_assert->assertPattern($inpage_nav_expected_values, $navigation->getOuterHtml());
+    $inpage_nav_assert->assertPattern($inpage_nav_expected_values, $inpage_nav->getOuterHtml());
 
     // Assert top region - Project details.
     $project_data = $assert_session->elementExists('css', '.col-md-9');
@@ -160,7 +160,7 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
     $this->assertCount(5, $description_lists);
 
     // Period list group.
-    $field_list_assert = new DescriptionListAssert();
+    $description_list_assert = new DescriptionListAssert();
     $first_field_list_expected_values = [
       'items' => [
         [
@@ -170,10 +170,10 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
       ],
     ];
     $field_list_html = $description_lists[0]->getHtml();
-    $field_list_assert->assertPattern($first_field_list_expected_values, $field_list_html);
+    $description_list_assert->assertPattern($first_field_list_expected_values, $field_list_html);
 
     // Assert budget list group.
-    $field_list_assert = new DescriptionListAssert();
+    $description_list_assert = new DescriptionListAssert();
     $second_field_list_expected_values = [
       'items' => [
         [
@@ -187,10 +187,10 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
       ],
     ];
     $field_list_html = $description_lists[1]->getHtml();
-    $field_list_assert->assertPattern($second_field_list_expected_values, $field_list_html);
+    $description_list_assert->assertPattern($second_field_list_expected_values, $field_list_html);
 
     // Assert details list group.
-    $field_list_assert = new DescriptionListAssert();
+    $description_list_assert = new DescriptionListAssert();
     $third_field_list_expected_values = [
       'items' => [
         [
@@ -208,10 +208,10 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
       ],
     ];
     $field_list_html = $description_lists[2]->getHtml();
-    $field_list_assert->assertPattern($third_field_list_expected_values, $field_list_html);
+    $description_list_assert->assertPattern($third_field_list_expected_values, $field_list_html);
 
     // Assert coordinators list group.
-    $field_list_assert = new DescriptionListAssert();
+    $description_list_assert = new DescriptionListAssert();
     $fourth_field_list_expected_values = [
       'items' => [
         [
@@ -221,10 +221,10 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
       ],
     ];
     $field_list_html = $description_lists[3]->getHtml();
-    $field_list_assert->assertPattern($fourth_field_list_expected_values, $field_list_html);
+    $description_list_assert->assertPattern($fourth_field_list_expected_values, $field_list_html);
 
     // Assert participants list group.
-    $field_list_assert = new DescriptionListAssert();
+    $description_list_assert = new DescriptionListAssert();
     $fifth_field_list_expected_values = [
       'items' => [
         [
@@ -242,7 +242,7 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
       ],
     ];
     $field_list_html = $description_lists[4]->getHtml();
-    $field_list_assert->assertPattern($fifth_field_list_expected_values, $field_list_html);
+    $description_list_assert->assertPattern($fifth_field_list_expected_values, $field_list_html);
   }
 
   /**
