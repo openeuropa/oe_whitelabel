@@ -12,7 +12,6 @@ use Drupal\oe_content_entity_organisation\Entity\OrganisationInterface;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\ContentBannerAssert;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\DescriptionListAssert;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\InPageNavigationAssert;
-use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 use Drupal\Tests\TestFileCreationTrait;
 
 /**
@@ -20,7 +19,6 @@ use Drupal\Tests\TestFileCreationTrait;
  */
 class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
 
-  use SparqlConnectionTrait;
   use TestFileCreationTrait;
 
   /**
@@ -35,7 +33,6 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->setUpSparql();
 
     $admin = $this->createUser([], NULL, TRUE);
     $this->drupalLogin($admin);
