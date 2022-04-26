@@ -176,7 +176,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     $project_content = $assert_session->elementExists('css', '.col-md-9');
 
     $this->assertProjectStatusTimestampsAsDateStrings('2020-05-10 00:00:00', '2025-05-16 00:00:00');
-    $this->waitProjectStatusReveal();
+    $this->assertProjectStatusRevealed();
 
     $contributions_chart = $assert_session->elementExists('css', '.bcl-project-contributions .circular-progress');
     // The correct value would be 35, but it is rounded up to 40, because no
@@ -255,11 +255,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     $this->drupalGet($node->toUrl());
 
     $this->assertProjectStatusTimestampsAsDateStrings('2019-03-07 00:00:00', '2019-03-22 00:00:00');
-    $this->assertProjectStatus('bg-dark', 'Closed');
-    $this->assertProjectProgress(100);
-
-    // Let javascript update the progress.
-    $this->waitProjectStatusReveal();
+    $this->assertProjectStatusRevealed();
     $this->assertProjectStatus('bg-dark', 'Closed');
     $this->assertProjectProgress(100);
 
@@ -268,11 +264,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     $node->save();
     $this->drupalGet($node->toUrl());
 
-    $this->assertProjectStatus('bg-info', 'Ongoing');
-    $this->assertProjectProgress(15, 35);
-
-    $this->waitProjectStatusReveal();
-
+    $this->assertProjectStatusRevealed();
     $this->assertProjectStatus('bg-info', 'Ongoing');
     $this->assertProjectProgress(15, 35);
 
@@ -281,11 +273,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     $node->save();
     $this->drupalGet($node->toUrl());
 
-    $this->assertProjectStatus('bg-secondary', 'Planned');
-    $this->assertProjectProgress(0);
-
-    $this->waitProjectStatusReveal();
-
+    $this->assertProjectStatusRevealed();
     $this->assertProjectStatus('bg-secondary', 'Planned');
     $this->assertProjectProgress(0);
   }
@@ -352,6 +340,14 @@ class ContentProjectRenderTest extends WebDriverTestBase {
   }
 
   /**
+   * Asserts that the d-none class has been removed from project status.
+   */
+  protected function assertProjectStatusRevealed(): void {
+    $status_section = $this->assertSession()->elementExists('css', '.bcl-project-status');
+    $this->assertFalse($status_section->hasClass('d-none'));
+  }
+
+  /**
    * Asserts start and end timestamp in project status section.
    *
    * @param string $begin
@@ -383,19 +379,6 @@ class ContentProjectRenderTest extends WebDriverTestBase {
       DrupalDateTime::createFromTimestamp($timestamp, $timezone)
         ->format('Y-m-d H:i:s'),
     );
-  }
-
-  /**
-   * Waits for the project status to be revealed by js.
-   */
-  protected function waitProjectStatusReveal(): void {
-    $status_section = $this->assertSession()->elementExists('css', '.bcl-project-status');
-    // Assert that the element starts hidden.
-    $this->assertTrue($status_section->hasClass('d-none'));
-    // Assert that the element is revealed through javascript.
-    $this->assertTrue($this->getSession()->wait(10000, "!jQuery('.bcl-project-status').hasClass('d-none')"));
-    // The following check is redundant, and is only added for transparency.
-    $this->assertFalse($status_section->hasClass('d-none'));
   }
 
   /**
