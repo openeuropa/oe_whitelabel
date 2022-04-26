@@ -176,7 +176,6 @@ function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$var
   if ($date_range_item === NULL) {
     return;
   }
-  $status_keys = ['planned', 'ongoing', 'closed'];
   $status_labels = [t('Planned'), t('Ongoing'), t('Closed')];
 
   if (!$date_range_item->value || !$date_range_item->end_value) {
@@ -202,19 +201,21 @@ function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$var
     return;
   }
 
-  $t_now = \Drupal::time()->getCurrentTime();
-  $status_id = ($t_now > $t_start) + ($t_now > $t_end);
-  $progress_01 = max(0, min(1, ($t_now - $t_start) / ($t_end - $t_start)));
+  // Values for the 'bcl-project-status' component.
+  // Some values contain placeholders that will be updated with javascript.
+  // This makes sure that tests will fail if js does not run.
   $variables['project_status_args'] = [
-    'status' => $status_keys[$status_id],
+    // Placeholder value.
+    'status' => 'ongoing',
     'start_date' => $date_range_item->value,
     'start_label' => t('Start'),
     'end_date' => $date_range_item->end_value,
     'end_label' => t('End'),
     'label' => t('Status'),
-    'badge' => $status_labels[$status_id],
-    // Steps of 0.5 are smaller than a pixel, without too many decimals.
-    'progress' => round($progress_01 * 200) / 2,
+    // Placeholder value.
+    'badge' => '?',
+    // Placeholder value.
+    'progress' => 5,
     'attributes' => new Attribute([
       'data-start-timestamp' => $t_start,
       'data-end-timestamp' => $t_end,
