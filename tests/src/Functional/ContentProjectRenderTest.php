@@ -7,6 +7,7 @@ namespace Drupal\Tests\oe_whitelabel\Functional;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\file\Entity\File;
+use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\media\Entity\Media;
 use Drupal\node\NodeInterface;
 use Drupal\oe_content_entity\Entity\CorporateEntityInterface;
@@ -14,6 +15,7 @@ use Drupal\oe_content_entity_organisation\Entity\OrganisationInterface;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\ContentBannerAssert;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\DescriptionListAssert;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\InPageNavigationAssert;
+use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 use Drupal\Tests\TestFileCreationTrait;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
@@ -21,9 +23,15 @@ use Drupal\user\RoleInterface;
 /**
  * Tests that our Project content type renders correctly.
  */
-class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
+class ContentProjectRenderTest extends WebDriverTestBase {
 
+  use SparqlConnectionTrait;
   use TestFileCreationTrait;
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'oe_whitelabel';
 
   /**
    * {@inheritdoc}
@@ -38,6 +46,7 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
+    $this->setUpSparql();
 
     Role::load(RoleInterface::ANONYMOUS_ID)
       ->grantPermission('bypass node access')
@@ -167,6 +176,7 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
     $project_content = $assert_session->elementExists('css', '.col-md-9');
 
     $this->assertProjectStatusTimestampsAsDateStrings('2020-05-10 00:00:00', '2025-05-16 00:00:00');
+    $this->waitProjectStatusReveal();
 
     $contributions_chart = $assert_session->elementExists('css', '.bcl-project-contributions .circular-progress');
     // The correct value would be 35, but it is rounded up to 40, because no
@@ -240,12 +250,16 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
     ], $description_lists[3]->getHtml());
 
     // Set a project period that is fully in the past.
-    // @todo Enable web driver testing for javascript behavior.
     $this->setProjectDateRange($node, '2019-03-07', '2019-03-21');
     $node->save();
     $this->drupalGet($node->toUrl());
 
     $this->assertProjectStatusTimestampsAsDateStrings('2019-03-07 00:00:00', '2019-03-22 00:00:00');
+    $this->assertProjectStatus('bg-dark', 'Closed');
+    $this->assertProjectProgress(100);
+
+    // Let javascript update the progress.
+    $this->waitProjectStatusReveal();
     $this->assertProjectStatus('bg-dark', 'Closed');
     $this->assertProjectProgress(100);
 
@@ -257,10 +271,20 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
     $this->assertProjectStatus('bg-info', 'Ongoing');
     $this->assertProjectProgress(15, 35);
 
+    $this->waitProjectStatusReveal();
+
+    $this->assertProjectStatus('bg-info', 'Ongoing');
+    $this->assertProjectProgress(15, 35);
+
     // Set a project period that is fully in the future.
     $this->setProjectDateRange($node, '+5 days', '+12 days');
     $node->save();
     $this->drupalGet($node->toUrl());
+
+    $this->assertProjectStatus('bg-secondary', 'Planned');
+    $this->assertProjectProgress(0);
+
+    $this->waitProjectStatusReveal();
 
     $this->assertProjectStatus('bg-secondary', 'Planned');
     $this->assertProjectProgress(0);
@@ -359,6 +383,19 @@ class ContentProjectRenderTest extends WhitelabelBrowserTestBase {
       DrupalDateTime::createFromTimestamp($timestamp, $timezone)
         ->format('Y-m-d H:i:s'),
     );
+  }
+
+  /**
+   * Waits for the project status to be revealed by js.
+   */
+  protected function waitProjectStatusReveal(): void {
+    $status_section = $this->assertSession()->elementExists('css', '.bcl-project-status');
+    // Assert that the element starts hidden.
+    $this->assertTrue($status_section->hasClass('d-none'));
+    // Assert that the element is revealed through javascript.
+    $this->assertTrue($this->getSession()->wait(10000, "!jQuery('.bcl-project-status').hasClass('d-none')"));
+    // The following check is redundant, and is only added for transparency.
+    $this->assertFalse($status_section->hasClass('d-none'));
   }
 
   /**
