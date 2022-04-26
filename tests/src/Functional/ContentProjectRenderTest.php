@@ -392,7 +392,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
   protected function assertProjectStatus(string $color_class, string $status_text): void {
     $status_badge = $this->assertSession()->elementExists('css', '.bcl-project-status .badge');
     $this->assertTrue($status_badge->hasClass($color_class));
-    $this->assertSame($status_text, $status_badge->getText());
+    $this->assertSame($status_text, $status_badge->getHtml());
     $progress_bar = $this->assertSession()->elementExists('css', '.bcl-project-status .progress-bar');
     $this->assertTrue($progress_bar->hasClass($color_class));
   }
