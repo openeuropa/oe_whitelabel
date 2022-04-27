@@ -97,8 +97,8 @@
     attach: function (context) {
       $('.bcl-project-status', context).once('bcl-project-status').each(function () {
         const $element = $(this);
-        let msBegin = $element.data('start-timestamp') * 1000;
-        let msEnd = $element.data('end-timestamp') * 1000;
+        const msBegin = $element.data('start-timestamp') * 1000;
+        const msEnd = $element.data('end-timestamp') * 1000;
         const statusLabels = $element.data('status-labels').split('|');
 
         // Process the status label.
