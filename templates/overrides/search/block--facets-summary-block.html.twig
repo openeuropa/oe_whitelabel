@@ -6,9 +6,7 @@
  * @see ./core/themes/stable/templates/block/block.html.twig
  */
 #}
-{% if label and content['#items'][0]['#theme'] is defined and content['#items'][1]['#theme'] == 'facets_summary_count' %}
-  {% set results_count = content['#items'][1] %}
-{% elseif label and content['#items'][0]['#theme'] is defined and content['#items'][0]['#theme'] == 'facets_summary_count'%}
+{% if label and content['#items'][0]['#theme'] is defined and content['#items'][0]['#theme'] == 'facets_summary_count'%}
   {% set results_count = content['#items'][0] %}
 {% endif %}
 {% block content %}
@@ -17,7 +15,7 @@
     {% if label %}
       <div class="col-md-6 col-lg-8 align-self-center">
         <h4 class="mb-0">
-          {{ label }}
+          <span class="text-capitalize">{{ label }}</span>
           {{ results_count }}
         </h4>
       </div>
