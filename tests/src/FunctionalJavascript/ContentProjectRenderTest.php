@@ -346,7 +346,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
   }
 
   /**
-   * Asserts start and end timestamp in project status section.
+   * Asserts 'start' and 'end' timestamp in project status section.
    *
    * @param string $begin
    *   Expected start date string as 'Y-m-d H:i:s'.
