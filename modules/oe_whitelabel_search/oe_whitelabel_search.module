@@ -41,9 +41,6 @@ function oe_whitelabel_form_facets_form_alter(&$form, FormStateInterface $form_s
 
 /**
  * Preprocess the facets_summary item list.
- *
- * @param array $variables
- *   Render array variables.
  */
 function oe_whitelabel_search_preprocess_facets_summary_item_list(array &$variables) {
   $variables['result_items'] = [];
@@ -54,14 +51,4 @@ function oe_whitelabel_search_preprocess_facets_summary_item_list(array &$variab
     }
   }
 
-}
-
-/**
- * Implements hook_form_FORM_ID_alter().
- */
-function oe_whitelabel_search_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if ($form['#id'] === 'views-exposed-form-showcase-search-showcase-search-page') {
-    $form['#inline_label'] = TRUE;
-    $form['sort_bef_combine']['#attributes']['class'][] = 'ms-md-2';
-  }
 }
