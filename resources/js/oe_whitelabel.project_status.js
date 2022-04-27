@@ -11,6 +11,8 @@
   ];
 
   /**
+   * Passes an updated status value to a function at given timestamps.
+   *
    * @param {int} msBegin
    *   Start timestamp in milliseconds.
    * @param {int} msEnd
@@ -35,6 +37,8 @@
   }
 
   /**
+   * Passes an updated progress value to a function at a series of timestamps.
+   *
    * @param {int} msBegin
    *   Start timestamp in milliseconds.
    * @param {int} msEnd
