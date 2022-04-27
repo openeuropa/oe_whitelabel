@@ -21,6 +21,7 @@
    *   Callback to set the status: 0 = planned, 1 = ongoing, 2 = closed.
    */
   function animateStatus(msBegin, msEnd, setStatus) {
+    // @todo setTimeout() only works properly for durations up to ~10 years.
     const msNow = Date.now();
     if (msNow < msBegin) {
       setStatus(0);
@@ -63,6 +64,7 @@
     const msIntervalDelay = msBegin - msNow + Math.max(0, tickNext) * msTick;
 
     // Register a repeated interval.
+    // @todo setTimeout() only works properly for durations up to ~10 years.
     window.setTimeout(function () {
       let tick = Math.max(0, tickNext);
       setProgress(tick);
