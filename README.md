@@ -16,7 +16,7 @@ Some paragraphs are considered "internal", and only meant to be used inside othe
 - Listing item: To be used as item paragraph within 'Listing item block'.
 - Fact: To be used as item paragraph within 'Facts and figures'.
 
-## Usage as a dependency in another project
+## Usage as a dependency
 
 Website projects can use `oe_whitelabel` either as an active theme, or they can create a custom theme using `oe_whitelabel` as a base theme.
 
