@@ -24,38 +24,8 @@
     {{ attach_library('oe_whitelabel/project_status') }}
     {% include '@oe-bcl/project-status' with project_status_args only %}
   {% endif %}
-  {% if content.group_budget is not empty %}
-    {% set _contribution_legend_args = {
-      'variant': 'horizontal',
-      'items': content.group_budget|filter(
-        (item, key) => key|first != '#' and item|field_value is not empty
-      )|map((item, key) => {
-        'term': [{
-          'label': item|field_label,
-          'color': (corporate_contributions is defined) ? (key == 'oe_project_budget') ? "bg-gray-400" : "bg-primary",
-        }],
-        'definition': [{
-          'label': item|field_value,
-        }],
-      }),
-    } %}
-    {% if corporate_contributions is defined %}
-      {% include '@oe-bcl/project-status/project-contributions' with {
-        'corporate_contributions': corporate_contributions,
-        'chart': true,
-        'legend': _contribution_legend_args,
-      } only %}
-    {% else %}
-      {#
-        The contributions pie chart cannot be drawn, possibly because there is
-        only one budget field filled in.
-        Call the BCL component, not the pattern, because parameters already have
-        the required structure for BCL.
-      #}
-      {% include '@oe-bcl/description-list' with _contribution_legend_args|merge({
-        'attributes': create_attribute().addClass('border-bottom'),
-      }) only %}
-    {% endif %}
+  {% if contributions_args is defined %}
+    {% include '@oe-bcl/project-status/project-contributions' with contributions_args only %}
   {% endif %}
   {{ content.group_project_details|filter((subgroup, key) => key|first != '#') }}
 {% endset %}
