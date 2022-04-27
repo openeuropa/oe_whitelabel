@@ -201,15 +201,31 @@ function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$var
     return;
   }
 
+  // Use the formatted field values for start / end date.
+  $element = $variables['elements']['oe_project_dates'][0];
+  if ($element['#theme'] ?? NULL === 'time') {
+    // Project lasts a single day.
+    $start_date_element = $element;
+    $end_date_element = $element;
+  }
+  elseif (isset($element['start_date']['#theme'], $element['end_date']['#theme'])) {
+    // Project lasts multiple days.
+    $start_date_element = $element['start_date'];
+    $end_date_element = $element['end_date'];
+  }
+  else {
+    return;
+  }
+
   // Values for the 'bcl-project-status' component.
   // Some values contain placeholders that will be updated with javascript.
   // This makes sure that tests will fail if js does not run.
   $variables['project_status_args'] = [
     // Placeholder value.
     'status' => 'ongoing',
-    'start_date' => $date_range_item->value,
+    'start_date' => $start_date_element,
     'start_label' => t('Start'),
-    'end_date' => $date_range_item->end_value,
+    'end_date' => $end_date_element,
     'end_label' => t('End'),
     'label' => t('Status'),
     // Placeholder value.
