@@ -173,12 +173,7 @@ function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$var
   $node = $variables['node'];
   /** @var \Drupal\datetime_range\Plugin\Field\FieldType\DateRangeItem|null $date_range_item */
   $date_range_item = $node->get('oe_project_dates')->first();
-  if ($date_range_item === NULL) {
-    return;
-  }
-  $status_labels = [t('Planned'), t('Ongoing'), t('Closed')];
-
-  if (!$date_range_item->value || !$date_range_item->end_value) {
+  if ($date_range_item === NULL || !$date_range_item->value || !$date_range_item->end_value) {
     // One of the fields is empty.
     return;
   }
@@ -216,6 +211,8 @@ function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$var
   else {
     return;
   }
+
+  $status_labels = [t('Planned'), t('Ongoing'), t('Closed')];
 
   // Values for the 'bcl-project-status' component.
   // Some values contain placeholders that will be updated with javascript.
