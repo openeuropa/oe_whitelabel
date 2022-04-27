@@ -26,6 +26,10 @@ class FloatEndSortWidget extends DefaultWidget {
     $form['#attributes']['class'][] = 'd-none';
     $form['#attributes']['class'][] = 'd-md-flex';
     $form['#attributes']['class'][] = 'align-items-baseline';
+    $form['#attributes']['class'][] = 'col-md-6';
+    $form['#attributes']['class'][] = 'col-lg-4';
+    $form['#attributes']['class'][] = 'mt-3';
+    $form['#attributes']['class'][] = 'mt-md-0';
   }
 
 }
