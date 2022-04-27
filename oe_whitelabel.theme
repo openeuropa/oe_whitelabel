@@ -149,7 +149,7 @@ function oe_whitelabel_theme_suggestions_form_element_alter(array &$suggestions,
 }
 
 /**
- * Helper function to preprocess sort by bef label.
+ * Preprocess sort by bef form element label.
  */
 function oe_whitelabel_preprocess_form_element_label(&$variables) {
   if (str_contains($variables['element']['#id'], 'sort-bef-combine')) {
