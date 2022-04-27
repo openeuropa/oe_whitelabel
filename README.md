@@ -94,7 +94,7 @@ Enable required and optional submodules:
 Enable the theme and set as default:
 
 ```bash
-./vendor/bin/drush config-set system.theme default oe_bootstrap_theme
+./vendor/bin/drush config-set system.theme default oe_whitelabel
 ```
 
 ## Development setup
