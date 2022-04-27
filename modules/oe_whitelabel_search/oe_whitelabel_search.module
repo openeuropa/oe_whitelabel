@@ -40,7 +40,7 @@ function oe_whitelabel_form_facets_form_alter(&$form, FormStateInterface $form_s
 }
 
 /**
- * Helper function to preprocess the facets_summary item list.
+ * Preprocess the facets_summary item list.
  *
  * @param array $variables
  *   Render array variables.
