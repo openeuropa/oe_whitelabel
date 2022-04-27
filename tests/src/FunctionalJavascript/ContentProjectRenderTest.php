@@ -335,8 +335,6 @@ class ContentProjectRenderTest extends WebDriverTestBase {
       'value' => (new DrupalDateTime($begin, 'Europe/Brussels'))->format('Y-m-d'),
       'end_value' => (new DrupalDateTime($end, 'Europe/Brussels'))->format('Y-m-d'),
     ];
-    $node->save();
-    $this->drupalGet($node->toUrl());
   }
 
   /**
