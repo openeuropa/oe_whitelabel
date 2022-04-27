@@ -21,6 +21,7 @@
         "drupal/core-composer-scaffold": "^9.2",
         "drupal/core-dev": "^9.2",
         "drupal/ctools": "^3.7",
+        "drupal/datetime_testing": "^1.0@beta",
         "drupal/description_list_field": "^1.0@alpha",
         "drupal/drupal-extension": "~4.1",
         "drupal/entity_reference_revisions": "^1.9",
