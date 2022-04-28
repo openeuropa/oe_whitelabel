@@ -45,9 +45,6 @@
           const $element = $(this);
           $element.removeClass(colorClasses);
           $element.addClass(colorClasses[status]);
-          // Disable css transition.
-          // It looks bad for the initial setting, and afterwards it does not help.
-          $element.css('transition', false);
           $element.css('width', percent + '%');
           $element.attr('aria-valuenow', percent);
           $element.attr('aria-label', percent);
