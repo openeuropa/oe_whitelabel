@@ -1,6 +1,10 @@
 # The OpenEuropa Whitelabel theme
 
-## Paragraphs
+Sub-theme of [OpenEuropa Bootstrap base theme](https://github.com/openeuropa/bootstrap-component-library), with theming for OpenEuropa library features.
+
+## Features
+
+### Paragraphs
 
 The paragraphs below are not yet themed therefore not recommended for usage:
 
@@ -12,78 +16,92 @@ Some paragraphs are considered "internal", and only meant to be used inside othe
 - Listing item: To be used as item paragraph within 'Listing item block'.
 - Fact: To be used as item paragraph within 'Facts and figures'.
 
-## Requirements
+## Usage as a dependency
 
-This depends on the following software:
+Website projects can use `oe_whitelabel` either as an active theme, or they can create a custom theme using `oe_whitelabel` as a base theme.
 
-* [PHP 7.3](http://php.net/)
+### Requirements
 
-## Installation
+The package is meant for Drupal projects that manage their dependencies with [Composer](https://www.drupal.org/docs/develop/using-composer/using-composer-to-manage-drupal-site-dependencies#managing-contributed).
 
-The recommended way of installing the OpenEuropa Whitelabel Theme is via [Composer](https://www.drupal.org/docs/develop/using-composer/using-composer-to-manage-drupal-site-dependencies#managing-contributed).
+Ideally this project should be managed with [Docker](https://www.docker.com/get-docker) and [Docker Compose](https://docs.docker.com/compose/), but this is not a hard requirement.
 
-```bash
-composer require openeuropa/oe_whitelabel
+Check the [composer.json](composer.json) for required PHP version and other dependencies.
+
+### Add the composer package
+
+Add this manually in composer.json, or combine with existing entries:
+
+```
+    "extra": {
+        "artifacts": {
+            "openeuropa/oe_bootstrap_theme": {
+                "dist": {
+                    "url": "https://github.com/{name}/releases/download/{pretty-version}/{project-name}-{pretty-version}.zip",
+                    "type": "zip"
+                }
+            },
+            "openeuropa/oe_whitelabel": {
+                "dist": {
+                    "url": "https://github.com/{name}/releases/download/{pretty-version}/{project-name}-{pretty-version}.zip",
+                    "type": "zip"
+                }
+            }
+        }
+    }
 ```
 
-### Enable the theme
+While this package is still in its `alpha` phase, you need an extra step in composer, to avoid getting anything from the obsolete and unsupported `0.x` branch.
 
-In order to enable the theme in your project perform the following steps:
+One option is to set `minimum-stability` and require the `^1.0` version.
+You should also set `prefer-stable` to mitigate the impact on other dependencies.
+Review this again when the site goes into production.
 
-- Enable the OpenEuropa Whitelabel Theme and set it as default ```./vendor/bin/drush config-set system.theme default oe_whitelabel_theme```
+```bash
+composer config minimum-stability alpha
+composer config prefer-stable true
+composer require openeuropa/oe_whitelabel:^1.0
+```
 
-### Integration with oe_paragraphs
+Alternatively, if you don't want to set `minimum-stability`, you need to specify explicit versions for all dependencies with alpha versions:
 
-In order to have full working integration with paragraphs in your project, you must enable oe_whitelabel_paragraphs module:
+```bash
+composer require openeuropa/oe_whitelabel:^1.0@alpha openeuropa/oe_bootstrap_theme:^1.0@alpha
+```
 
-```./vendor/bin/drush en oe_whitelabel_paragraphs```
+Review the installed package versions.
+
+```bash
+composer show -i | grep oe_
+```
+
+### Enable and configure
+
+Enable required and optional submodules:
+
+```bash
+# Always required.
+./vendor/bin/drush en oe_whitelabel_helper
+
+# Required, if you use oe_paragraphs module, or if you copied any paragraph
+# types from that module.
+./vendor/bin/drush en oe_whitelabel_paragraphs
+
+# Other submodules are optional - check the /modules/ folder.
+./vendor/bin/drush en <modulename>
+```
+
+Enable the theme and set as default:
+
+```bash
+./vendor/bin/drush config-set system.theme default oe_whitelabel
+```
 
 ## Development setup
 
-OpenEuropa Whitelabel theme uses [Webpack](https://webpack.js.org) to compile and bundle SASS and JS.
+### Using LAMP stack or similar
 
-Make sure you have Node and npm installed.
-
-You can read a guide on how to install node here: https://docs.npmjs.com/getting-started/installing-node
-
-If you prefer to use [Yarn](https://yarnpkg.com) instead of npm, install Yarn by following the guide [here](https://yarnpkg.com/docs/install).
-
-To install required Node.js dependencies run:
-
-
-`npm install` or `yarn install`.
-
-To build the final artifacts run:
-
-```bash
-npm run build
-```
-
-This will compile all SASS and JavaScript files into self-contained assets that are exposed as [Drupal libraries][11].
-
-In order to download all required PHP code run:
-
-```bash
-composer install
-```
-
-This will build a fully functional Drupal site in the `./build` directory that can be used to develop and showcase the
-theme.
-
-Before setting up and installing the site make sure to customize default configuration values by copying [runner.yml.dist](runner.yml.dist)
-to `./runner.yml` and override relevant properties.
-
-To set up the project run:
-
-```bash
-./vendor/bin/run drupal:site-setup
-```
-
-A post command hook (`drupal:site-setup`) is triggered automatically after `composer install`.
-It will make sure that the necessary symlinks are properly setup in the development site.
-It will also perform token substitution in development configuration files such as `phpunit.xml.dist`.
-
-The development site web root should be available in the `build` directory.
+This is not officially supported. You are on your own.
 
 ### Using Docker Compose
 
@@ -93,7 +111,7 @@ Alternatively, you can build a development site using [Docker](https://www.docke
 Docker provides the necessary services and tools such as a web server and a database server to get the site running,
 regardless of your local host configuration.
 
-#### Requirements:
+#### Requirements
 
 - [Docker](https://www.docker.com/get-docker)
 - [Docker Compose](https://docs.docker.com/compose/)
@@ -108,7 +126,13 @@ If a service is defined in both files, Docker Compose merges the configurations.
 
 Find more information on Docker Compose extension mechanism on [the official Docker Compose documentation](https://docs.docker.com/compose/extends/).
 
-#### Usage
+#### Start the container
+
+If you have other (daemonized) containers running, you might want to stop them first:
+
+```bash
+docker stop $(docker ps -q)
+```
 
 To start, run:
 
@@ -123,7 +147,17 @@ However, if you'd like to daemonize it, you have to add the flag `-d`:
 docker-compose up -d
 ```
 
-Then:
+#### Optionally purge existing installation
+
+If you already had the package installed, and want a clean start:
+
+```bash
+docker-compose exec web rm composer.lock
+docker-compose exec web rm -rf vendor/
+docker-compose exec web rm -rf build/
+```
+
+#### Install the package
 
 ```bash
 docker-compose exec -u node node npm install
@@ -132,9 +166,9 @@ docker-compose exec web composer install
 docker-compose exec web ./vendor/bin/run drupal:site-install
 ```
 
-Using default configuration, the development site files should be available in the `build` directory and the development site should be available at: [http://127.0.0.1:8080/build](http://127.0.0.1:8080/build).
+Using default configuration, the development site files should be available in the `build` directory and the development site should be available at: [http://127.0.0.1:8080/build](http://127.0.0.1:8080/build) or [http://web:8080/build](http://web:8080/build).
 
-#### Running the tests
+#### Run the tests
 
 To run the grumphp checks:
 
