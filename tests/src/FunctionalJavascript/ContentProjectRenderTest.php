@@ -6,7 +6,6 @@ namespace Drupal\Tests\oe_whitelabel\FunctionalJavascript;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\datetime_testing\TestTimeInterface;
 use Drupal\file\Entity\File;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\media\Entity\Media;
@@ -39,7 +38,6 @@ class ContentProjectRenderTest extends WebDriverTestBase {
    */
   public static $modules = [
     'block',
-    'datetime_testing',
     'oe_whitelabel_extra_project',
   ];
 
@@ -254,8 +252,6 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     // Set a project period that is fully in the past.
     $this->setProjectDateRange($node, '2019-03-07', '2019-03-21');
     $node->save();
-    // Manipulate the server time to a date even further in the past.
-    $this->getTestTimeObject()->setTime('2017-01-01');
     $this->drupalGet($node->toUrl());
 
     $this->assertProjectStatusTimestampsAsDateStrings('2019-03-07 00:00:00', '2019-03-22 00:00:00');
@@ -266,8 +262,6 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     // Set a project period that is ongoing.
     $this->setProjectDateRange($node, '-5 day', '+15 days');
     $node->save();
-    // Manipulate the server time to a date far in the past.
-    $this->getTestTimeObject()->setTime('2017-01-01');
     $this->drupalGet($node->toUrl());
 
     $this->assertProjectStatusVisible();
@@ -277,8 +271,6 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     // Set a project period that is fully in the future.
     $this->setProjectDateRange($node, '+5 days', '+12 days');
     $node->save();
-    // Manipulate the server time to a date further in the future.
-    $this->getTestTimeObject()->setTime('+40 days');
     $this->drupalGet($node->toUrl());
 
     $this->assertProjectStatusVisible();
@@ -422,20 +414,6 @@ class ContentProjectRenderTest extends WebDriverTestBase {
       $this->assertGreaterThanOrEqual($min, (float) $progress_string);
       $this->assertLessThanOrEqual($max, (float) $progress_string);
     }
-  }
-
-  /**
-   * Gets the overridden time object to manipulate time.
-   *
-   * This is in a custom method for better static analysis.
-   *
-   * @return \Drupal\datetime_testing\TestTimeInterface
-   *   Overridden time object.
-   */
-  protected function getTestTimeObject(): TestTimeInterface {
-    $time = \Drupal::time();
-    $this->assertInstanceOf(TestTimeInterface::class, $time);
-    return $time;
   }
 
 }
