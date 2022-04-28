@@ -192,12 +192,12 @@ function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$var
   $t_end = $get_timestamp($date_range_item->end_value . ' +1 day');
 
   if ($t_start >= $t_end) {
-    // Cannot show a progress bar if start and end timestamp are the same.
+    // Invalid date range. No progress or status can be shown.
     return;
   }
 
   // Use the formatted field values for start / end date.
-  $element = $variables['elements']['oe_project_dates'][0];
+  $element = $variables['elements']['oe_project_dates'][0] ?? [];
   if ($element['#theme'] ?? NULL === 'time') {
     // Project lasts a single day.
     $start_date_element = $element;
@@ -209,6 +209,7 @@ function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$var
     $end_date_element = $element['end_date'];
   }
   else {
+    // Empty or incomplete date range. No progress or status can be shown.
     return;
   }
 
