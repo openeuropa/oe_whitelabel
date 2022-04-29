@@ -32,23 +32,21 @@ class AuthenticationBlockTest extends KernelTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    /** @var \Drupal\Core\Extension\ThemeInstallerInterface $theme_installer */
-    \Drupal::service('theme_installer')->install(['oe_whitelabel']);
 
-    \Drupal::configFactory()
-      ->getEditable('system.theme')
+    \Drupal::service('theme_installer')->install(['oe_whitelabel']);
+    $this->config('system.theme')
       ->set('default', 'oe_whitelabel')
       ->save();
   }
 
   /**
-   * Tests the rendering of blocks.
+   * Tests the rendering of the authentication block.
    */
   public function testBlockRendering(): void {
-    $entity_type_manager = $this->container
+    $block_entity_storage = $this->container
       ->get('entity_type.manager')
       ->getStorage('block');
-    $entity = $entity_type_manager->load('oe_whitelabel_eulogin');
+    $entity = $block_entity_storage->load('oe_whitelabel_eulogin');
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);
