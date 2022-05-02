@@ -127,7 +127,7 @@ class SearchBlockTest extends KernelTestBase {
     $this->assertCount(1, $block);
     $form = $block->filter('#oe-whitelabel-search-form');
     $this->assertCount(1, $form);
-    $this->assertSame('d-flex bcl-search-form submittable', $form->attr('class'));
+    $this->assertSame('d-flex mt-3 mt-lg-0', $form->attr('class'));
     // Assert the field wrapper rendering.
     $wrapper = $form->filter('.bcl-search-form__group');
     $this->assertCount(1, $wrapper);
