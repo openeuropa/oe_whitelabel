@@ -57,7 +57,7 @@ class FloatEndSortWidgetTest extends BetterExposedFiltersKernelTestBase {
 
     $widget = $crawler->filter('form.bef-exposed-form');
     $this->assertCount(1, $widget);
-    $this->assertStringContainsString('float-lg-end d-none d-md-flex align-items-baseline', $widget->attr('class'));
+    $this->assertStringContainsString('col-md-6 col-lg-4 mt-3 mt-md-0', $widget->attr('class'));
 
     $view->destroy();
   }
