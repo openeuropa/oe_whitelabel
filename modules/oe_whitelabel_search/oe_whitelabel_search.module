@@ -40,7 +40,7 @@ function oe_whitelabel_form_facets_form_alter(&$form, FormStateInterface $form_s
 }
 
 /**
- * Preprocess the facets_summary item list.
+ * Implements hook_preprocess_HOOK() for facet_summary_item_list.
  */
 function oe_whitelabel_search_preprocess_facets_summary_item_list(array &$variables) {
   $variables['result_items'] = [];
