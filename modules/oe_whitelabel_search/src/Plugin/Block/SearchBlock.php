@@ -273,6 +273,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
     if (!$view) {
       $form_state->setErrorByName('view_id', $this->t('View id was not found.'));
+      return;
     }
 
     if (!$view->getDisplay($values['view_display'])) {
