@@ -194,6 +194,9 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
         'visible' => [
           ':input[name="settings[enable_autocomplete]"]' => ['checked' => TRUE],
         ],
+        'required' => [
+          ':input[name="settings[enable_autocomplete]"]' => ['checked' => TRUE],
+        ],
       ],
     ];
     $form['view_display'] = [
@@ -203,6 +206,9 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#default_value' => $config['view_options']['display'],
       '#states' => [
         'visible' => [
+          ':input[name="settings[enable_autocomplete]"]' => ['checked' => TRUE],
+        ],
+        'required' => [
           ':input[name="settings[enable_autocomplete]"]' => ['checked' => TRUE],
         ],
       ],
