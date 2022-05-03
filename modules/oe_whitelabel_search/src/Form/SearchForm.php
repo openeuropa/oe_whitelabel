@@ -53,19 +53,16 @@ class SearchForm extends FormBase {
     }
 
     $form['search_input'] = [
-      '#prefix' => '<div class="bcl-search-form__group w-100">',
-      '#suffix' => '</div>',
       '#type' => 'textfield',
       '#title' => $config['input']['label'],
       '#title_display' => 'invisible',
       '#size' => 20,
       '#margin_class' => 'mb-0',
+      '#form_id' => $this->getFormId(),
       '#attributes' => [
         'placeholder' => $config['input']['placeholder'],
         'class' => [
           $config['input']['classes'],
-          'rounded-0',
-          'rounded-start',
         ],
       ],
       '#default_value' => $input_value,
