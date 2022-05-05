@@ -50,30 +50,26 @@ function oe_whitelabel_search_preprocess_facets_summary_item_list(array &$variab
   $variables['items'] = $items;
 }
 
+use Drupal\block\Entity\Block;
+
 /**
- * Implements hook_theme_suggestions_HOOK_alter().
+ * Implements hook_preprocess_HOOK().
  */
-function oe_whitelabel_search_theme_suggestions_block_alter(array &$suggestions, array $variables) {
-
-  if ($variables['elements']['#plugin_id'] !== 'whitelabel_search_block') {
-    return;
+function oe_whitelabel_search_preprocess_block(&$variables) {
+  if ($variables['plugin_id'] === 'whitelabel_search_block') {
+    $block = Block::load($variables['elements']['#id']);
+    $variables['content']['#region'] = $block->getRegion();
   }
-
-  /** @var \Drupal\block\BlockInterface $block */
-  $block = \Drupal::entityTypeManager()
-    ->getStorage('block')
-    ->load($variables['elements']['#id']);
-
-  $suggestions[] = 'block__' . $block->getRegion() . '__whitelabel_search_block';
 }
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function oe_whitelabel_search_theme_suggestions_form_alter(array &$suggestions, array $variables) {
-  $suggestions[] = 'form__header';
-  $suggestions[] = 'form__header__' . $variables['element']['#form_id'];
-  $suggestions[] = 'form__navigation_right__' . $variables['element']['#form_id'];
+  if (!empty($variables['element']['#form_id'])) {
+    $suggestions[] = 'form__' . $variables['element']['#region'];
+    $suggestions[] = 'form__' . $variables['element']['#region'] . '__' . $variables['element']['#form_id'];
+  }
 }
 
 /**
@@ -91,9 +87,10 @@ function oe_whitelabel_search_theme_suggestions_form_element_alter(array &$sugge
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function oe_whitelabel_search_theme_suggestions_input_alter(array &$suggestions, array $variables) {
+
   if ($variables['element']['#form_id'] !== 'oe_whitelabel_search_form') {
     return;
   }
 
-  $suggestions[] = 'input_textfield__' . $variables['element']['#form_id'];
+  $suggestions[] = 'input__textfield__' . $variables['element']['#region'] . '__' . $variables['element']['#form_id'];
 }
