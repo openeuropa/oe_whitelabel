@@ -59,12 +59,7 @@ class SearchForm extends FormBase {
       '#size' => 20,
       '#margin_class' => 'mb-0',
       '#form_id' => $this->getFormId(),
-      '#attributes' => [
-        'placeholder' => $config['input']['placeholder'],
-        'class' => [
-          $config['input']['classes'],
-        ],
-      ],
+      '#region' => $config['region'],
       '#default_value' => $input_value,
       '#required' => TRUE,
     ];
@@ -73,27 +68,6 @@ class SearchForm extends FormBase {
       '#input' => TRUE,
       '#is_button' => TRUE,
       '#executes_submit_callback' => TRUE,
-      '#type' => 'pattern',
-      '#id' => 'button',
-      '#variant' => 'light',
-      '#fields' => [
-        'icon' => 'search',
-        'settings' => [
-          'type' => 'submit',
-        ],
-        'attributes' => [
-          'id' => 'submit',
-          'class' => [
-            'border-start-0',
-            'rounded-0 rounded-end',
-            'd-flex',
-            'btn btn-light',
-            'btn-md',
-            'py-2',
-            $config['button']['classes'],
-          ],
-        ],
-      ],
     ];
 
     if (!$config['view_options']['enable_autocomplete']) {
