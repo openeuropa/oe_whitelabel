@@ -308,7 +308,8 @@ function _oe_whitelabel_extra_project_preprocess_contributions(array &$variables
     return;
   }
 
-  $ratio_01 = max(0, min(1, $eu_budget / $overall_budget));
+  // The ratio will be in the range of 0..1, thanks to the checks above.
+  $ratio_01 = $eu_budget / $overall_budget;
   $percent = (int) round($ratio_01 * 10) * 10;
 
   $variables['contributions_args']['corporate_contributions'] = $percent;
