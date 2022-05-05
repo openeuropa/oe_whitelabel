@@ -82,7 +82,6 @@ abstract class ContentRenderTestBase extends AbstractKernelTestBase {
     ]);
 
     Role::load(RoleInterface::ANONYMOUS_ID)
-      ->grantPermission('bypass node access')
       ->grantPermission('view published skos concept entities')
       ->grantPermission('view media')
       ->save();
