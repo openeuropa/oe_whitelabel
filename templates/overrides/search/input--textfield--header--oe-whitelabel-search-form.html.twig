@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Theme for the header search input textfield element.
+ *
+ * @see ./core/modules/system/templates/input.html.twig
+ */
+#}
+{%
+  set classes = [
+  'form-control',
+  'bcl-search-form__input',
+  attributes.hasClass('error') ? 'is-invalid',
+]
+%}
+<input{{ attributes.addClass(classes).setAttribute('placeholder', 'Search'|t).removeClass('form-text') }} />{{ children }}
+
