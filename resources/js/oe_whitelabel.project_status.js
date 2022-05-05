@@ -39,9 +39,7 @@
           const $element = $(this);
           $element.removeClass(colorClasses);
           $element.addClass(colorClasses[status]);
-          if (statusLabels) {
-            $element.html(statusLabels[status]);
-          }
+          $element.html(statusLabels[status]);
         });
 
         // Process the progress bar.
