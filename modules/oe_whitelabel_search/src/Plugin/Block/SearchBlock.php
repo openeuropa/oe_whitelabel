@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_whitelabel_search\Plugin\Block;
 
-use Drupal\Component\Utility\Html;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -119,59 +118,16 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $form = parent::blockForm($form, $form_state);
     $config = $this->getConfiguration();
 
-    $form['form_action'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Form action'),
-      '#description' => $this->t('The url the form should submit to. Is the url of the Search API view set at the view page settings.'),
-      '#default_value' => $config['form']['action'],
-      '#required' => TRUE,
+    $form['region'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Region'),
+      '#options' => [
+        'navigation_right' => 'Navigation right',
+        'header' => 'Header',
+      ],
+      '#default_value' => $config['region'] ?? 'navigation_right',
     ];
-    $form['input'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Input Field Settings'),
-      '#open' => TRUE,
-      '#tree' => TRUE,
-      '#description' => $this->t('Fill in the settings of the Input field.'),
-    ];
-    $form['input']['input_name'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Input name'),
-      '#description' => $this->t('A name for the search input. Is the Query parameter of the contextual filter used at the Search API view.'),
-      '#default_value' => $config['input']['name'],
-      '#required' => TRUE,
-    ];
-    $form['input']['input_label'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Input Label'),
-      '#description' => $this->t('A label text for the search input.'),
-      '#default_value' => $config['input']['label'],
-      '#required' => TRUE,
-    ];
-    $form['input']['input_classes'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Input classes'),
-      '#description' => $this->t('Add space-separated classes that will be added to the input.'),
-      '#default_value' => $config['input']['classes'],
-    ];
-    $form['input']['input_placeholder'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Input placeholder text'),
-      '#description' => $this->t('The placeholder that will be shown inside the input field.'),
-      '#default_value' => $config['input']['placeholder'],
-    ];
-    $form['button'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Button Field Settings'),
-      '#open' => TRUE,
-      '#tree' => TRUE,
-      '#description' => $this->t('Fill in the settings of the Button field.'),
-    ];
-    $form['button']['button_classes'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Button classes'),
-      '#description' => $this->t('Add space-separated classes that will be added to the button.'),
-      '#default_value' => $config['button']['classes'],
-    ];
+
     $form['enable_autocomplete'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable autocomplete'),
@@ -222,20 +178,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
    */
   public function blockSubmit($form, FormStateInterface $form_state): void {
     $values = $form_state->getValues();
-    $this->setConfigurationValue('form', [
-      'action' => $form_state->getValue('form_action'),
-    ]);
-    $input = $values['input'];
-    $this->setConfigurationValue('input', [
-      'name' => $input['input_name'],
-      'label' => $input['input_label'],
-      'classes' => $input['input_classes'],
-      'placeholder' => $input['input_placeholder'],
-    ]);
-    $button = $values['button'];
-    $this->setConfigurationValue('button', [
-      'classes' => $button['button_classes'],
-    ]);
+    $this->setConfigurationValue('region', $values['region']);
     $this->setConfigurationValue('view_options', [
       'id' => $form_state->getValue('view_id'),
       'display' => $form_state->getValue('view_display'),
@@ -248,18 +191,6 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
    */
   public function blockValidate($form, FormStateInterface $form_state): void {
     $values = $form_state->getValues();
-
-    if ($values['input']['input_classes'] !== Html::cleanCssIdentifier($values['input']['input_classes'])) {
-      $form_state->setErrorByName('input][input_classes', $this->t('Field "@field_name" does not contain a valid css class.', [
-        '@field_name' => $form['input']['input_classes']['#title'],
-      ]));
-    }
-
-    if ($values['button']['button_classes'] !== Html::cleanCssIdentifier($values['button']['button_classes'])) {
-      $form_state->setErrorByName('button][button_classes', $this->t('Field "@field_name" does not contain a valid css class.', [
-        '@field_name' => $form['button']['button_classes']['#title'],
-      ]));
-    }
 
     if (!$this->moduleHandler->moduleExists('views') || !$this->moduleHandler->moduleExists('search_api_autocomplete')) {
       return;
