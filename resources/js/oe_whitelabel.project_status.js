@@ -26,7 +26,9 @@
         const msEnd = $element.data('end-timestamp') * 1000;
         const statusLabels = $element.data('status-labels').split('|');
         const msNow = Date.now();
+        // Calculate a status id: planned = 0, ongoing = 1, closed = 2.
         const status = (msNow >= msBegin) + (msNow > msEnd);
+        // Calculate a progress: planned = 0, ongoing = 0..1, closed = 1.
         const progress01 = Math.max(0, Math.min(1, (msNow - msBegin) / (msEnd - msBegin)));
         const percent = Math.round(progress01 * 200) / 2;
 
