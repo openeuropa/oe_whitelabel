@@ -49,7 +49,6 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     $this->setUpSparql();
 
     Role::load(RoleInterface::ANONYMOUS_ID)
-      ->grantPermission('bypass node access')
       ->grantPermission('view published skos concept entities')
       ->grantPermission('view media')
       ->grantPermission('view published oe_organisation')
