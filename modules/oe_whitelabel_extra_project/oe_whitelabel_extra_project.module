@@ -310,6 +310,8 @@ function _oe_whitelabel_extra_project_preprocess_contributions(array &$variables
 
   // The ratio will be in the range of 0..1, thanks to the checks above.
   $ratio_01 = $eu_budget / $overall_budget;
+  // Convert to percent.
+  // The pie chart only supports multiples of 10%.
   $percent = (int) round($ratio_01 * 10) * 10;
 
   $variables['contributions_args']['corporate_contributions'] = $percent;
