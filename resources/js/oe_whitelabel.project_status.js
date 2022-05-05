@@ -30,7 +30,9 @@
         const status = (msNow >= msBegin) + (msNow > msEnd);
         // Calculate a progress: planned = 0, ongoing = 0..1, closed = 1.
         const progress01 = Math.max(0, Math.min(1, (msNow - msBegin) / (msEnd - msBegin)));
-        const percent = Math.round(progress01 * 200) / 2;
+        // Convert to percent: planned = 0%, ongoing = 0%..100%, closed = 100%.
+        // Round to 1%, to avoid overwhelming float digits in aria attributes.
+        const percent = Math.round(progress01 * 100);
 
         // Process the status label.
         $('.badge', this).each(function () {
