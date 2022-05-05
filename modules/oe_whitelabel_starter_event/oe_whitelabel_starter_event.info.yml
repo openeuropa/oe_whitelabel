@@ -4,7 +4,6 @@ description: Adds additional functionality to the Event module
 package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^9.2
 dependencies:
-  - drupal:twig_field_value
   - oe_whitelabel:oe_whitelabel_helper
   - oe_starter_content:oe_starter_content_event
 
