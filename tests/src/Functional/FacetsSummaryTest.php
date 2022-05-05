@@ -26,6 +26,7 @@ class FacetsSummaryTest extends WhitelabelBrowserTestBase {
     'block',
     'facets_search_api_dependency',
     'facets_summary',
+    'oe_corporate_blocks',
     'oe_whitelabel_helper',
   ];
 
