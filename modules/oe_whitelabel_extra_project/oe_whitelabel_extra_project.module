@@ -181,8 +181,15 @@ function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$var
   // Dates only store the date, not the time.
   // Use the site-wide configured timezone, not a user-specific timezone.
   /* @see \Drupal\system\TimeZoneResolver::getTimeZone() */
+  $system_date_config = \Drupal::config('system.date');
   /** @var string $timezone */
-  $timezone = \Drupal::config('system.date')->get('timezone.default') ?? 'UTC';
+  $timezone = $system_date_config->get('timezone.default') ?? 'UTC';
+
+  // Invalidate cache when site timezone is changed.
+  CacheableMetadata::createFromRenderArray($variables)
+    ->addCacheableDependency($system_date_config)
+    ->applyTo($variables);
+
   $get_timestamp = static function (string $date_string) use ($timezone): int {
     return (new DrupalDateTime($date_string, $timezone))->getTimestamp();
   };
