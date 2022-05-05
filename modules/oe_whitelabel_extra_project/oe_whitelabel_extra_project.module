@@ -254,11 +254,12 @@ function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$var
  *   Variables from hook_preprocess_node().
  */
 function _oe_whitelabel_extra_project_preprocess_contributions(array &$variables): void {
-  $legend_items = [];
-  foreach ([
+  $field_bg_classes = [
     'oe_project_budget' => 'bg-gray-400',
     'oe_project_budget_eu' => 'bg-primary',
-  ] as $field_name => $bg_class) {
+  ];
+  $legend_items = [];
+  foreach ($field_bg_classes as $field_name => $bg_class) {
     $field_element = $variables['elements'][$field_name] ?? NULL;
     if (!isset($field_element[0])) {
       continue;
