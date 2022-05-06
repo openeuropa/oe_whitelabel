@@ -88,7 +88,7 @@ function oe_whitelabel_search_theme_suggestions_form_element_alter(array &$sugge
  */
 function oe_whitelabel_search_theme_suggestions_input_alter(array &$suggestions, array $variables) {
 
-  if ($variables['element']['#form_id'] !== 'oe_whitelabel_search_form') {
+  if (!isset($variables['element']['#form_id']) || $variables['element']['#form_id'] !== 'oe_whitelabel_search_form') {
     return;
   }
 
