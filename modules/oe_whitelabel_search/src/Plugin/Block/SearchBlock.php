@@ -118,6 +118,14 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $form = parent::blockForm($form, $form_state);
     $config = $this->getConfiguration();
 
+    $form['form_action'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Form action'),
+      '#description' => $this->t('The url the form should submit to. Is the url of the Search API view set at the view page settings.'),
+      '#default_value' => $config['form']['action'],
+      '#required' => TRUE,
+    ];
+
     $form['region'] = [
       '#type' => 'select',
       '#title' => $this->t('Region'),
@@ -178,7 +186,10 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
    */
   public function blockSubmit($form, FormStateInterface $form_state): void {
     $values = $form_state->getValues();
-    $this->setConfigurationValue('region', $values['region']);
+    $this->setConfigurationValue('form', [
+      'action' => $form_state->getValue('form_action'),
+      'region' => $values['region'],
+    ]);
     $this->setConfigurationValue('view_options', [
       'id' => $form_state->getValue('view_id'),
       'display' => $form_state->getValue('view_display'),
