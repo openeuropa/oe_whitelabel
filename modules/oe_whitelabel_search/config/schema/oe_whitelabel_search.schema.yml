@@ -2,9 +2,16 @@ block.settings.whitelabel_search_block:
   type: block_settings
   label: OE Whitelabel search block
   mapping:
-    region:
-      type: string
-      label: region
+    form:
+      type: mapping
+      label: Form
+      mapping:
+        action:
+          type: string
+          label: Action
+        region:
+          type: string
+          label: region
     view_options:
       type: mapping
       label: View Options
