@@ -126,14 +126,14 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#required' => TRUE,
     ];
 
-    $form['region'] = [
+    $form['layout'] = [
       '#type' => 'select',
-      '#title' => $this->t('Region'),
+      '#title' => $this->t('Layout'),
       '#options' => [
-        'navigation_right' => 'Navigation right',
-        'header' => 'Header',
+        'navigation_right' => 'Navigation right Layout',
+        'header' => 'Header Layout',
       ],
-      '#default_value' => $config['region'] ?? 'navigation_right',
+      '#default_value' => $config['layout'] ?? 'navigation_right',
     ];
 
     $form['enable_autocomplete'] = [
@@ -188,7 +188,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $values = $form_state->getValues();
     $this->setConfigurationValue('form', [
       'action' => $form_state->getValue('form_action'),
-      'region' => $values['region'],
+      'layout' => $values['layout'],
     ]);
     $this->setConfigurationValue('view_options', [
       'id' => $form_state->getValue('view_id'),

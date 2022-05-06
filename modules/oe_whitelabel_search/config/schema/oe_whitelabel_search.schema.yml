@@ -9,9 +9,9 @@ block.settings.whitelabel_search_block:
         action:
           type: string
           label: Action
-        region:
+        layout:
           type: string
-          label: region
+          label: Region
     view_options:
       type: mapping
       label: View Options
