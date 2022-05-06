@@ -133,7 +133,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
         'navigation_right' => 'Navigation right Layout',
         'header' => 'Header Layout',
       ],
-      '#default_value' => $config['layout'] ?? 'navigation_right',
+      '#default_value' => $config['form']['layout'] ?? 'navigation_right',
     ];
 
     $form['enable_autocomplete'] = [
