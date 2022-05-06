@@ -9,14 +9,13 @@
 {% set submit_button = pattern('button', {
   'variant': 'primary',
   'icon': 'search',
-  'label': 'Search'|t
+  'label': 'Search'|t,
   'type': 'submit',
+  'icon_position': 'before',
   'attributes': {
     'id': 'submit',
     'class': [
-      'border-start-0',
-      'rounded-0',
-      'rounded-end',
+      'bcl-search-form__submit',
       'px-3',
     ],
   },
@@ -26,6 +25,9 @@
   '#markup': submit_button|render,
 })
 %}
+
+{% set element = element|merge({submit}) %}
+
 <div class="bg-lighter py-4 py-lg-3">
   <div class="container">
     <div class="row">
