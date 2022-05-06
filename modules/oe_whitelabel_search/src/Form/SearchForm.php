@@ -54,12 +54,14 @@ class SearchForm extends FormBase {
       '#size' => 20,
       '#margin_class' => 'mb-0',
       '#form_id' => $this->getFormId(),
-      '#region' => $config['form']['region'],
+      '#region' => $config['form']['layout'],
       '#default_value' => $this->getRequest()->get('search_api_fulltext'),
       '#required' => TRUE,
     ];
 
     $form['submit'] = [
+      '#type' => 'pattern',
+      '#id' => 'button',
       '#input' => TRUE,
       '#is_button' => TRUE,
       '#executes_submit_callback' => TRUE,

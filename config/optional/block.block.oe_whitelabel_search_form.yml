@@ -18,13 +18,7 @@ settings:
   provider: oe_whitelabel_search
   form:
     action: '#'
-  input:
-    name: text
-    label: Search
-    classes: ''
-    placeholder: Search
-  button:
-    classes: ''
+    layout: navigation_right
   view_options:
     enable_autocomplete: false
     id: null
