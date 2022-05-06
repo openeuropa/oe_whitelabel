@@ -6,31 +6,30 @@
  * @see ./core/modules/system/templates/form.html.twig
  */
 #}
-{% set submit = element.submit|merge({
-  '#type': 'pattern',
-  '#variant': 'light',
-  '#icon': 'search',
-  '#id': 'button',
-  '#fields': {
-    'icon': 'search',
-    'settings': {
-      'type': 'submit',
-    },
-    'attributes': {
-      'id': 'submit',
-      'class': [
-        'border-start-0',
-        'rounded-0',
-        'rounded-end',
-        'px-3',
-      ],
-    },
+
+{% set submit_button = pattern('button', {
+  'variant': 'light',
+  'icon': 'search',
+  'type': 'submit',
+  'attributes': {
+    'id': 'submit',
+    'class': [
+      'border-start-0',
+      'rounded-0',
+      'rounded-end',
+      'px-3',
+    ],
   },
 })%}
 
+{% set submit = element.submit|merge({
+  '#markup': submit_button|render,
+  })
+%}
+
 {% set element = element|merge({submit}) %}
 
-<form action="search" {{ attributes.addClass('d-flex', 'mt-3', 'mt-lg-0') }}>
+<form {{ attributes.addClass('d-flex', 'mt-3', 'mt-lg-0') }}>
   {{ element.search_input }}
   {{ element.submit }}
   {{ element.form_build_id }}

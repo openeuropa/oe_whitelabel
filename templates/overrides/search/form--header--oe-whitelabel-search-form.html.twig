@@ -6,34 +6,31 @@
  * @see ./core/modules/system/templates/form.html.twig
  */
 #}
-{% set submit = element.submit|merge({
-  '#type': 'pattern',
-  '#variant': 'primary',
-  '#icon': 'search',
-  '#id': 'button',
-  '#fields': {
-    'label': 'Search'|t,
-    'icon': 'search',
-    'settings': {
-      'type': 'submit',
-      'icon_position': 'before',
-    },
-    'attributes': {
-      'id': 'submit',
-      'class': [
-        'bcl-search-form__submit',
-        'px-3',
-      ],
-    },
+{% set submit_button = pattern('button', {
+  'variant': 'primary',
+  'icon': 'search',
+  'label': 'Search'|t
+  'type': 'submit',
+  'attributes': {
+    'id': 'submit',
+    'class': [
+      'border-start-0',
+      'rounded-0',
+      'rounded-end',
+      'px-3',
+    ],
   },
-}) %}
+})%}
 
-{% set element = element|merge({submit}) %}
+{% set submit = element.submit|merge({
+  '#markup': submit_button|render,
+})
+%}
 <div class="bg-lighter py-4 py-lg-3">
   <div class="container">
     <div class="row">
       <div class="col-12 col-lg-6 offset-lg-3">
-        <form action="search" {{ attributes.addClass('bcl-search-form', 'submittable') }}>
+        <form {{ attributes.addClass('bcl-search-form', 'submittable') }}>
           <div class="bcl-search-form__group">
             {{ element.search_input }}
             {{ element.submit }}
