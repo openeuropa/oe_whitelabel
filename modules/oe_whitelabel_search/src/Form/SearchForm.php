@@ -46,21 +46,16 @@ class SearchForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, array $config = NULL): array {
     $form_state->set('oe_whitelabel_search_config', $config);
-    $input_value = '';
-
-    if (!empty($config['input']['name'])) {
-      $input_value = $this->getRequest()->get($config['input']['name']);
-    }
 
     $form['search_input'] = [
       '#type' => 'textfield',
-      '#title' => $config['input']['label'],
+      '#title' => $this->t('Search'),
       '#title_display' => 'invisible',
       '#size' => 20,
       '#margin_class' => 'mb-0',
       '#form_id' => $this->getFormId(),
-      '#region' => $config['region'],
-      '#default_value' => $input_value,
+      '#region' => $config['form']['region'],
+      '#default_value' => $this->getRequest()->get('search_api_fulltext'),
       '#required' => TRUE,
     ];
 
@@ -79,7 +74,7 @@ class SearchForm extends FormBase {
     $form['search_input']['#search_id'] = $config['view_options']['id'];
     $form['search_input']['#additional_data'] = [
       'display' => $config['view_options']['display'],
-      'filter' => $config['input']['name'],
+      'filter' => 'search_api_fulltext',
     ];
 
     return $form;
@@ -94,7 +89,7 @@ class SearchForm extends FormBase {
       'language' => $this->languageManager->getCurrentLanguage(),
       'absolute' => TRUE,
       'query' => [
-        $config['input']['name'] => $form_state->getValue('search_input'),
+        'search_api_fulltext' => $form_state->getValue('search_input'),
       ],
     ]);
     $form_state->setRedirectUrl($url);
