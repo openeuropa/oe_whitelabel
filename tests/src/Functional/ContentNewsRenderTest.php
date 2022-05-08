@@ -24,7 +24,6 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
    */
   protected static $modules = [
     'block',
-    'oe_corporate_blocks',
     'oe_whitelabel_starter_news',
   ];
 
