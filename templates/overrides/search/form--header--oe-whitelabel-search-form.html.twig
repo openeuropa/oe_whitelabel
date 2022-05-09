@@ -6,10 +6,13 @@
  * @see ./core/modules/system/templates/form.html.twig
  */
 #}
+{% set label %}
+  <span class="d-none d-lg-inline-block">{{ 'Search'|t }}</span>
+{% endset %}
 {% set submit_button = pattern('button', {
   'variant': 'primary',
   'icon': 'search',
-  'label': 'Search'|t,
+  'label': label,
   'type': 'submit',
   'icon_position': 'before',
   'attributes': {
