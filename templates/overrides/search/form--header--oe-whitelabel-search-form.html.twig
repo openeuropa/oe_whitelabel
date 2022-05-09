@@ -29,8 +29,6 @@
 })
 %}
 
-{% set element = element|merge({submit}) %}
-
 <div class="bg-lighter py-4 py-lg-3">
   <div class="container">
     <div class="row">
@@ -38,7 +36,7 @@
         <form {{ attributes.addClass('bcl-search-form', 'submittable') }}>
           <div class="bcl-search-form__group">
             {{ element.search_input }}
-            {{ element.submit }}
+            {{ submit }}
             {{ element.form_build_id }}
             {{ element.form_token }}
             {{ element.form_id }}
