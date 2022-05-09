@@ -27,11 +27,9 @@
   })
 %}
 
-{% set element = element|merge({submit}) %}
-
 <form {{ attributes.addClass('d-flex', 'mt-3', 'mt-lg-0') }}>
   {{ element.search_input }}
-  {{ element.submit }}
+  {{ submit }}
   {{ element.form_build_id }}
   {{ element.form_token }}
   {{ element.form_id }}
