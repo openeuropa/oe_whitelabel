@@ -47,6 +47,8 @@ class SearchForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state, array $config = NULL): array {
     $form_state->set('oe_whitelabel_search_config', $config);
 
+    $form['#region'] = $config['form']['layout'];
+
     $form['search_input'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Search'),
