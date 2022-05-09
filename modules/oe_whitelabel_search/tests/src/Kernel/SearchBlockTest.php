@@ -95,7 +95,7 @@ class SearchBlockTest extends KernelTestBase {
     $crawler = new Crawler($render->__toString());
 
     // Assert the form rendering.
-    $block = $crawler->filter('.oe-whitelabel-search-form');
+    $block = $crawler->filter('div.oe-whitelabel-search-form');
     $this->assertCount(1, $block);
     // Select the search form in the block.
     // The block template removes the block wrapper, so the form is the root
@@ -116,6 +116,66 @@ class SearchBlockTest extends KernelTestBase {
     $this->assertSame($classes, $button->attr('class'));
     $icon = $button->filter('.bi.icon--fluid');
     $this->assertCount(1, $icon);
+  }
+
+  /**
+   * Tests the rendering of the whitelabel search block.
+   */
+  public function testHeaderSearchBlockRendering(): void {
+    $block_entity_storage = $this->container
+      ->get('entity_type.manager')
+      ->getStorage('block');
+    $entity = $block_entity_storage->create([
+      'id' => 'whitelabel_search_block',
+      'theme' => 'oe_whitelabel',
+      'plugin' => 'whitelabel_search_block',
+      'settings' => [
+        'id' => 'whitelabel_search_block',
+        'label' => 'Header Search block',
+        'provider' => 'oe_whitelabel_search',
+        'form' => [
+          'action' => 'search',
+          'layout' => 'header',
+        ],
+        'view_options' => [
+          'enable_autocomplete' => TRUE,
+          'id' => 'search_api_autocomplete_test_view',
+          'display' => 'default',
+        ],
+      ],
+    ]);
+    $entity->save();
+
+    $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
+    $build = $builder->view($entity, 'block');
+    $render = $this->container->get('renderer')->renderRoot($build);
+    $crawler = new Crawler($render->__toString());
+
+    // Assert the form rendering.
+    $block = $crawler->filter('div.oe-whitelabel-search-form');
+    $this->assertCount(1, $block);
+    $form = $block->filter('form#oe-whitelabel-search-form');
+    $this->assertCount(1, $form);
+    $this->assertSame('bcl-search-form submittable', $form->attr('class'));
+    // Assert the field wrapper rendering.
+    $wrapper = $form->filter('.bcl-search-form__group');
+    $this->assertCount(1, $wrapper);
+    // Assert search text box.
+    $input = $crawler->filter('input[name="search_input"]');
+    $this->assertCount(1, $input);
+    $classes = 'form-autocomplete required form-control bcl-search-form__input';
+    $this->assertSame($classes, $input->attr('class'));
+    $this->assertSame('Search', $input->attr('placeholder'));
+    // Assert the button and icon rendering.
+    $button = $crawler->filter('button#submit');
+    $this->assertCount(1, $button);
+    $classes = 'bcl-search-form__submit px-3 btn btn-primary btn-md';
+    $this->assertSame($classes, $button->attr('class'));
+    $icon = $button->filter('.bi.icon--fluid');
+    $this->assertCount(1, $icon);
+    $label = $button->filter('span.d-none.d-lg-inline-block');
+    $this->assertCount(1, $label);
+    $this->assertEquals('Search', $label->text());
   }
 
 }
