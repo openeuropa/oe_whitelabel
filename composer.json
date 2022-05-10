@@ -10,6 +10,7 @@
         "cweagans/composer-patches": "^1.7",
         "drupal/core": "^9.2",
         "drupal/twig_field_value": "^2.0",
+        "openeuropa/composer-artifacts": "^1.0.0-alpha1",
         "openeuropa/oe_bootstrap_theme": "0.1.202204221756"
     },
     "require-dev": {
@@ -25,6 +26,7 @@
         "drupal/entity_reference_revisions": "^1.9",
         "drupal/field_group": "^3.2",
         "drupal/file_link": "^2.0.6",
+        "drupal/facets_form": "1.0.0-alpha2",
         "drupal/pathauto": "^1.8",
         "drupal/search_api": "^1.21",
         "drupal/search_api_autocomplete": "^1.5",
@@ -36,7 +38,6 @@
         "league/csv": "^9.1",
         "nikic/php-parser": "^4.13",
         "openeuropa/code-review": "^1.7 || ^2.0",
-        "openeuropa/composer-artifacts": "^1.0.0-alpha1",
         "openeuropa/oe_authentication": "^1.4",
         "openeuropa/oe_contact_forms": "~1.1",
         "openeuropa/oe_content": "^2.8.0",
@@ -93,6 +94,9 @@
         "patches": {
             "drupal/entity_reference_revisions": {
                 "https://www.drupal.org/project/entity_reference_revisions/issues/2937835": "https://www.drupal.org/files/issues/2021-03-26/entity_reference_revisions-field_formatter_label-2937835-36.patch"
+            },
+            "openeuropa/oe_bootstrap_theme": {
+                "latest": "https://github.com/openeuropa/oe_bootstrap_theme/compare/0.1.202204221756..1.x.diff"
             }
         },
         "drupal-scaffold": {

@@ -88,6 +88,33 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
   /**
    * {@inheritdoc}
    */
+  public function defaultConfiguration() {
+    // Most of these placeholder values must be overwritten in the block
+    // creation form.
+    return [
+      'form' => [
+        'action' => '',
+      ],
+      'input' => [
+        'name' => '',
+        'label' => '',
+        'classes' => '',
+        'placeholder' => $this->t('Search'),
+      ],
+      'button' => [
+        'classes' => '',
+      ],
+      'view_options' => [
+        'enable_autocomplete' => FALSE,
+        'id' => '',
+        'display' => '',
+      ],
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function blockForm($form, FormStateInterface $form_state): array {
     $form = parent::blockForm($form, $form_state);
     $config = $this->getConfiguration();
@@ -130,7 +157,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#type' => 'textfield',
       '#title' => $this->t('Input placeholder text'),
       '#description' => $this->t('The placeholder that will be shown inside the input field.'),
-      '#default_value' => $config['input']['placeholder'] ?? $this->t('Search'),
+      '#default_value' => $config['input']['placeholder'],
     ];
     $form['button'] = [
       '#type' => 'details',
@@ -148,7 +175,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $form['enable_autocomplete'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable autocomplete'),
-      '#default_value' => $config['view_options']['enable_autocomplete'] ?? 0,
+      '#default_value' => $config['view_options']['enable_autocomplete'],
     ];
 
     if (!$this->moduleHandler->moduleExists('views') || !$this->moduleHandler->moduleExists('search_api_autocomplete')) {
@@ -162,9 +189,12 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#type' => 'textfield',
       '#title' => $this->t('View id'),
       '#description' => $this->t('The view id will be the machine name for the view.'),
-      '#default_value' => $config['view_options']['id'] ?? '',
+      '#default_value' => $config['view_options']['id'],
       '#states' => [
         'visible' => [
+          ':input[name="settings[enable_autocomplete]"]' => ['checked' => TRUE],
+        ],
+        'required' => [
           ':input[name="settings[enable_autocomplete]"]' => ['checked' => TRUE],
         ],
       ],
@@ -173,9 +203,12 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#type' => 'textfield',
       '#title' => $this->t('View display'),
       '#description' => $this->t('The view display will be the machine name of the views display.'),
-      '#default_value' => $config['view_options']['display'] ?? '',
+      '#default_value' => $config['view_options']['display'],
       '#states' => [
         'visible' => [
+          ':input[name="settings[enable_autocomplete]"]' => ['checked' => TRUE],
+        ],
+        'required' => [
           ':input[name="settings[enable_autocomplete]"]' => ['checked' => TRUE],
         ],
       ],
@@ -240,6 +273,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
     if (!$view) {
       $form_state->setErrorByName('view_id', $this->t('View id was not found.'));
+      return;
     }
 
     if (!$view->getDisplay($values['view_display'])) {
