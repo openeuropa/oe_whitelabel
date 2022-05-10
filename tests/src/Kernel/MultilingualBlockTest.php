@@ -39,11 +39,10 @@ class MultilingualBlockTest extends KernelTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    /** @var \Drupal\Core\Extension\ThemeInstallerInterface $theme_installer */
+
     \Drupal::service('theme_installer')->install(['oe_whitelabel']);
 
-    \Drupal::configFactory()
-      ->getEditable('system.theme')
+    $this->config('system.theme')
       ->set('default', 'oe_whitelabel')
       ->save();
 

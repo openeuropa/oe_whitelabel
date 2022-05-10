@@ -404,10 +404,20 @@ function oe_whitelabel_preprocess_paragraph__oe_description_list(array &$variabl
   $variables['title'] = $paragraph->get('field_oe_title')->value ?? '';
   $variables['orientation'] = $paragraph->get('oe_w_orientation')->value;
 
-  foreach ($paragraph->get('field_oe_description_list_items') as $item) {
+  // Reuse the output of the description list formatter, where the correct
+  // text format is specified for the items.
+  // The description list formatter doesn't wrap its output with field template
+  // rendering, so we are forced to process the data here.
+  foreach ($variables['content']['field_oe_description_list_items']['#items'] ?? [] as $item) {
+    // The term and definition are render arrays, so we need to use the verbose
+    // syntax for the description list pattern items.
     $variables['items'][] = [
-      'term' => $item->term,
-      'definition' => $item->description,
+      'term' => [
+        ['label' => $item['term']],
+      ],
+      'definition' => [
+        ['label' => $item['description']],
+      ],
     ];
   }
 }
