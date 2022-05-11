@@ -18,8 +18,10 @@
       </div>
     {% endif %}
     {{ title_suffix }}
-    <div class="col-md-12 order-md-2 mt-3">
-      {{ content }}
-    </div>
+    {% if content['#items'][1] is not empty %}
+      <div class="col-md-12 order-md-2 mt-3">
+        {{ content }}
+      </div>
+    {% endif %}
   {% endspaceless %}
 {% endblock %}
