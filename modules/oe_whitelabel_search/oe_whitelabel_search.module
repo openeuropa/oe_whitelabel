@@ -12,37 +12,34 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Implements hook_form_FORM_ID_alter() for facets_forms.
  */
-function oe_whitelabel_form_facets_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+function oe_whitelabel_search_form_facets_form_alter(&$form, FormStateInterface $form_state, $form_id): void {
   if (isset($form['actions'])) {
     $action_classes = ['mt-4', 'd-grid', 'gap-4', 'd-md-block'];
-    foreach ($action_classes as $action_class) {
-      if (!isset($action_class, $form['actions']['#attributes']['class']) || !in_array($action_class, $form['actions']['#attributes']['class'], TRUE)) {
-        $form['actions']['#attributes']['class'][] = $action_class;
-      }
+    if (!isset($form['actions']['#attributes']['class'])) {
+      $form['actions']['#attributes']['class'] = [];
     }
+    $form['actions']['#attributes']['class'] = array_merge($form['actions']['#attributes']['class'], $action_classes);
   }
   if (isset($form['actions']['submit'])) {
     $submit_classes = ['me-md-3', 'btn', 'btn-primary', 'btn-md'];
-    foreach ($submit_classes as $submit_class) {
-      if (!isset($submit_class, $form['actions']['submit']['#attributes']['class']) || !in_array($submit_class, $form['actions']['submit']['#attributes']['class'], TRUE)) {
-        $form['actions']['submit']['#attributes']['class'][] = $submit_class;
-      }
+    if (!isset($form['actions']['submit']['#attributes']['class'])) {
+      $form['actions']['submit']['#attributes']['class'] = [];
     }
+    $form['actions']['submit']['#attributes']['class'] = array_merge($form['actions']['submit']['#attributes']['class'], $submit_classes);
   }
   if (isset($form['actions']['reset'])) {
     $reset_classes = ['btn', 'btn-light', 'btn-md'];
-    foreach ($reset_classes as $reset_class) {
-      if (!isset($form['actions']['reset']['#attributes']['class']) || !in_array($reset_class, $form['actions']['reset']['#attributes']['class'], TRUE)) {
-        $form['actions']['reset']['#attributes']['class'][] = $reset_class;
-      }
+    if (!isset($form['actions']['reset']['#attributes']['class'])) {
+      $form['actions']['reset']['#attributes']['class'] = [];
     }
+    $form['actions']['reset']['#attributes']['class'] = array_merge($form['actions']['reset']['#attributes']['class'], $reset_classes);
   }
 }
 
 /**
  * Implements hook_preprocess_HOOK() for facet_summary_item_list.
  */
-function oe_whitelabel_search_preprocess_facets_summary_item_list(array &$variables) {
+function oe_whitelabel_search_preprocess_facets_summary_item_list(array &$variables): void {
   $variables['result_items'] = [];
   foreach ($variables['items'] as $item) {
     if ($item['value']['#type'] === 'link') {
@@ -50,5 +47,4 @@ function oe_whitelabel_search_preprocess_facets_summary_item_list(array &$variab
       $variables['result_items'][] = $item;
     }
   }
-
 }
