@@ -1,12 +1,12 @@
 {#
 /**
  * @file
- * Template for the navigation right search form element .
+ * Search form template for the navigation right region.
  *
  * @see ./core/modules/system/templates/form.html.twig
  */
 #}
-
+{# todo button drupal attributes #}
 {% set submit_button = pattern('button', {
   'variant': 'light',
   'icon': 'search',
@@ -28,9 +28,5 @@
 %}
 
 <form {{ attributes.addClass('d-flex', 'mt-3', 'mt-lg-0') }}>
-  {{ element.search_input }}
-  {{ submit }}
-  {{ element.form_build_id }}
-  {{ element.form_token }}
-  {{ element.form_id }}
+  {{ children }}
 </form>
