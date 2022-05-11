@@ -99,7 +99,8 @@ class SearchBlockTest extends KernelTestBase {
     $this->assertCount(1, $block);
     $form = $block->filter('form#oe-whitelabel-search-form');
     $this->assertCount(1, $form);
-    $this->assertSame('d-flex mt-3 mt-lg-0', $form->attr('class'));
+    $this->assertStringContainsString('d-flex', $form->attr('class'));
+
     // Assert search text box.
     $input = $crawler->filter('input[name="search_input"]');
     $this->assertCount(1, $input);
@@ -109,8 +110,12 @@ class SearchBlockTest extends KernelTestBase {
     // Assert the button and icon rendering.
     $button = $crawler->filter('button#submit');
     $this->assertCount(1, $button);
-    $classes = 'border-start-0 rounded-0 rounded-end px-3 btn btn-light btn-md';
-    $this->assertSame($classes, $button->attr('class'));
+    $this->assertStringContainsString('rounded-end', $button->attr('class'));
+    $this->assertStringContainsString('rounded-0', $button->attr('class'));
+    $this->assertStringContainsString('border-start-0', $button->attr('class'));
+    $this->assertStringContainsString('btn', $button->attr('class'));
+    $this->assertStringContainsString('btn-md', $button->attr('class'));
+    $this->assertStringContainsString('btn-light', $button->attr('class'));
     $icon = $button->filter('.bi.icon--fluid');
     $this->assertCount(1, $icon);
   }
@@ -132,7 +137,10 @@ class SearchBlockTest extends KernelTestBase {
         'provider' => 'oe_whitelabel_search',
         'form' => [
           'action' => 'search',
-          'layout' => 'header',
+          'region' => 'header',
+        ],
+        'input' => [
+          'name' => 'search_api_fulltext',
         ],
         'view_options' => [
           'enable_autocomplete' => TRUE,
@@ -147,6 +155,12 @@ class SearchBlockTest extends KernelTestBase {
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($render->__toString());
+
+    // Assert header form wrappers.
+    $wrapper = $crawler->filter(
+      'div.bg-lighter > div.container > div.row > div.col-12.col-lg-6.offset-lg-3'
+    );
+    $this->assertCount(1, $wrapper);
 
     // Assert the form rendering.
     $block = $crawler->filter('div.oe-whitelabel-search-form');
@@ -166,8 +180,10 @@ class SearchBlockTest extends KernelTestBase {
     // Assert the button and icon rendering.
     $button = $crawler->filter('button#submit');
     $this->assertCount(1, $button);
-    $classes = 'bcl-search-form__submit px-3 btn btn-primary btn-md';
-    $this->assertSame($classes, $button->attr('class'));
+    $this->assertStringContainsString('bcl-search-form__submit', $button->attr('class'));
+    $this->assertStringContainsString('btn', $button->attr('class'));
+    $this->assertStringContainsString('btn-primary', $button->attr('class'));
+    $this->assertStringContainsString('btn-md', $button->attr('class'));
     $icon = $button->filter('.bi.icon--fluid');
     $this->assertCount(1, $icon);
     $label = $button->filter('span.d-none.d-lg-inline-block');
