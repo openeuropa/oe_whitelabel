@@ -93,15 +93,10 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     return [
       'form' => [
         'action' => '',
+        'region' => '',
       ],
       'input' => [
         'name' => '',
-        'label' => '',
-        'classes' => '',
-        'placeholder' => $this->t('Search'),
-      ],
-      'button' => [
-        'classes' => '',
       ],
       'view_options' => [
         'enable_autocomplete' => FALSE,
@@ -125,15 +120,19 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#default_value' => $config['form']['action'],
       '#required' => TRUE,
     ];
-
-    $form['layout'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Layout'),
-      '#options' => [
-        'navigation_right' => 'Navigation right Layout',
-        'header' => 'Header Layout',
-      ],
-      '#default_value' => $config['form']['layout'] ?? 'navigation_right',
+    $form['input'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Input Field Settings'),
+      '#open' => TRUE,
+      '#tree' => TRUE,
+      '#description' => $this->t('Fill in the settings of the Input field.'),
+    ];
+    $form['input']['input_name'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Input name'),
+      '#description' => $this->t('A name for the search input. Is the Query parameter of the contextual filter used at the Search API view.'),
+      '#default_value' => $config['input']['name'],
+      '#required' => TRUE,
     ];
 
     $form['enable_autocomplete'] = [
@@ -185,11 +184,6 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state): void {
-    $values = $form_state->getValues();
-    $this->setConfigurationValue('form', [
-      'action' => $form_state->getValue('form_action'),
-      'layout' => $values['layout'],
-    ]);
     $this->setConfigurationValue('view_options', [
       'id' => $form_state->getValue('view_id'),
       'display' => $form_state->getValue('view_display'),
@@ -202,6 +196,12 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
    */
   public function blockValidate($form, FormStateInterface $form_state): void {
     $values = $form_state->getValues();
+
+    $completeForm = $form_state->getCompleteForm();
+    $this->setConfigurationValue('form', [
+      'action' => $form_state->getValue('form_action'),
+      'region' => $completeForm['region']['#value'],
+    ]);
 
     if (!$this->moduleHandler->moduleExists('views') || !$this->moduleHandler->moduleExists('search_api_autocomplete')) {
       return;
