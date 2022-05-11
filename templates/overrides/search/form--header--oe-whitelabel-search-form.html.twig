@@ -1,33 +1,12 @@
 {#
 /**
  * @file
- * Template for the header search form element .
+ * Search form template for the header region.
  *
  * @see ./core/modules/system/templates/form.html.twig
  */
 #}
-{% set label %}
-  <span class="d-none d-lg-inline-block">{{ 'Search'|t }}</span>
-{% endset %}
-{% set submit_button = pattern('button', {
-  'variant': 'primary',
-  'icon': 'search',
-  'label': label,
-  'type': 'submit',
-  'icon_position': 'before',
-  'attributes': {
-    'id': 'submit',
-    'class': [
-      'bcl-search-form__submit',
-      'px-3',
-    ],
-  },
-})%}
 
-{% set submit = element.submit|merge({
-  '#markup': submit_button|render,
-})
-%}
 
 <div class="bg-lighter py-4 py-lg-3">
   <div class="container">
@@ -35,11 +14,7 @@
       <div class="col-12 col-lg-6 offset-lg-3">
         <form {{ attributes.addClass('bcl-search-form', 'submittable') }}>
           <div class="bcl-search-form__group">
-            {{ element.search_input }}
-            {{ submit }}
-            {{ element.form_build_id }}
-            {{ element.form_token }}
-            {{ element.form_id }}
+            {{ children }}
           </div>
         </form>
       </div>
