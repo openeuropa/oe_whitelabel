@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenEuropa Showcase post updates.
+ * OpenEuropa Whitelabel Search post updates.
  */
 
 declare(strict_types=1);
