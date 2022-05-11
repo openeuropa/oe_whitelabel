@@ -123,9 +123,9 @@ class SearchBlockTest extends KernelTestBase {
     $crawler = new Crawler($render->__toString());
 
     // Assert the form rendering.
-    $block = $crawler->filter('#block-whitelabel-search-block');
-    $this->assertCount(1, $block);
-    $form = $block->filter('#oe-whitelabel-search-form');
+    $form = $crawler->filter('#oe-whitelabel-search-form');
+    // The template removes block wrappers for this block.
+    $this->assertSame('body', $form->parents()->getNode(0)->tagName);
     $this->assertCount(1, $form);
     $this->assertSame('d-flex mt-3 mt-lg-0', $form->attr('class'));
     // Assert the field wrapper rendering.
