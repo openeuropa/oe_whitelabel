@@ -1,9 +1,9 @@
 {#
 /**
  * @file
- * Theme block implementation to display facets summary.
+ * Override for blocks with plugin id = 'facets_summary_block'.
  *
- * @see ./core/themes/stable/templates/block/block.html.twig
+ * @see \Drupal\facets_summary\Plugin\Block\FacetsSummaryBlock
  */
 #}
 {% if label and content['#items'][0]['#theme'] is defined and content['#items'][0]['#theme'] == 'facets_summary_count' %}
