@@ -3,3 +3,10 @@ style:
   css:
     theme:
       assets/css/oe_whitelabel.style.min.css: {}
+
+project_status:
+  version: VERSION
+  js:
+    resources/js/oe_whitelabel.project_status.js: {}
+  dependencies:
+    - core/jquery.once
