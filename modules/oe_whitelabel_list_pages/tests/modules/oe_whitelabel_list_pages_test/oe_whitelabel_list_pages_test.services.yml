@@ -1,6 +1,0 @@
-services:
-  oe_whitelabel_list_pages_test.list_page_allowed_types_subscriber:
-    class: Drupal\oe_whitelabel_list_pages_test\EventSubscriber\ListPageAllowedTypesSubscriber
-    arguments: ['@state']
-    tags:
-      - { name: event_subscriber }
