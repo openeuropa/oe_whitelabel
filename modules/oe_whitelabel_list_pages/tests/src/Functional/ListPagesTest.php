@@ -2,9 +2,8 @@
 
 declare(strict_types = 1);
 
-namespace Drupal\Tests\oe_whitelabel_list_pages_test\FunctionalJavascript;
+namespace Drupal\Tests\oe_whitelabel_list_pages_test\Functional;
 
-use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\Tests\oe_whitelabel\Functional\WhitelabelBrowserTestBase;
@@ -35,13 +34,12 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
 
     // Create some test nodes.
     for ($i = 0; $i < 12; $i++) {
-      $date = new DrupalDateTime('20-10-2020');
       $values = [
         'title' => 'News number ' . $i,
         'type' => 'oe_sc_news',
         'body' => 'This is content number ' . $i,
         'status' => NodeInterface::PUBLISHED,
-        'created' => $date->getTimestamp(),
+        'created' => sprintf('2022-04-%02d', $i + 1),
       ];
       $node = Node::create($values);
       $node->save();
@@ -75,33 +73,44 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     $this->drupalGet('node/' . $list_page->id());
 
     // Assert the left column.
-    $assert_session->elementExists('css', 'div.row > div.col-12.col-lg-3');
+    $left_column = $assert_session->elementExists('css', '#oe-list-pages-left-column');
+
     // Assert offcanvas.
-    $assert_session->elementExists('css', 'div.bcl-offcanvas');
-    $assert_session->elementTextEquals('css', 'h4.offcanvas-title', 'Filter options');
-    $assert_session->elementExists('css', 'button.btn-light > svg');
-    $assert_session->elementTextEquals('css', 'button[data-bs-toggle="offcanvas"]', 'Filters');
-    // Assert Filters.
-    $assert_session->elementExists('css', 'input[name="oe_sc_news_title"]');
-    $assert_session->elementExists('css', 'input[data-drupal-selector="edit-submit"]');
-    $assert_session->elementExists('css', 'input[data-drupal-selector="edit-reset"]');
+    $offcanvas = $left_column->find('css', '#bcl-offcanvas');
+    $title = $offcanvas->find('css', 'h4');
+    $this->assertSame('Filter options', $title->getText());
+    $offcanvas->hasButton('Filters');
+
+    // Assert Filters and buttons.
+    $offcanvas->hasField('Title');
+    $offcanvas->hasButton('Search');
+    $offcanvas->hasButton('Clear filters');
 
     // Assert right column.
-    $assert_session->elementExists('css', 'div.row > div.col-12.col-lg-9.col-xxl-8');
-    $assert_session->elementContains('css', 'h4.mb-0 > span', 'News list page');
-    $assert_session->elementContains('css', 'h4.mb-0', '(12)');
+    $right_column = $assert_session->elementExists('css', '#oe-list-pages-right-column');
+    $facets_summary = $right_column->find('css', 'h4');
+    $this->assertSame('News list page (12)', $facets_summary->getText());
+
     // Assert listing.
-    $assert_session->elementsCount('css', 'hr', 2);
-    $assert_session->elementsCount('css', 'div.listing-item', '10');
+    $hr = $right_column->findAll('css', 'hr');
+    $this->assertCount(2, $hr);
+    $items = $right_column->findAll('css', '.listing-item');
+    $this->assertCount(10, $items);
+
     // Assert pagination.
-    $assert_session->elementExists('css', 'nav > ul.pagination');
-    $assert_session->elementsCount('css', 'ul.pagination > li.page-item', 3);
+    $navigation = $right_column->find('css', 'nav');
+    $pages = $navigation->findAll('css', 'li');
+    $this->assertCount(3, $pages);
 
     // Assert search.
-    $page->fillField('Title', 'News number 8');
-    $page->pressButton('Search');
-    $assert_session->elementContains('css', 'h4.mb-0', '(1)');
-    $assert_session->elementTextEquals('css', 'span.badge.bg-light', 'News number 8');
+    $offcanvas->fillField('Title', 'News number 8');
+    $offcanvas->pressButton('Search');
+    $facets_summary = $right_column->find('css', 'h4');
+    $this->assertSame('News list page (1)', $facets_summary->getText());
+    $items = $right_column->findAll('css', '.listing-item');
+    $this->assertCount(1, $items);
+    $results = $right_column->find('css', '.bcl-listing');
+    $this->assertSame('News number 8', $results->getText());
   }
 
 }
