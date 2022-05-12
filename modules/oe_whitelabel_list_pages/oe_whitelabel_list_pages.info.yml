@@ -1,6 +1,6 @@
 name: OpenEuropa Whitelabel List Pages
 type: module
-description: Provides list pages to Open Whitelabel entities.
+description: Companion module for the OE List Pages module.
 package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^9.2
 
