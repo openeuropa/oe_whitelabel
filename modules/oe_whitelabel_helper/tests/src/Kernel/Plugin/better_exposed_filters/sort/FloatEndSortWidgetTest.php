@@ -46,6 +46,7 @@ class FloatEndSortWidgetTest extends BetterExposedFiltersKernelTestBase {
     $view->storage->getDisplay('default');
 
     $this->setBetterExposedOptions($view, [
+      // @todo Add combined sort.
       'sort' => [
         'plugin_id' => 'oe_whitelabel_float_end_sort',
       ],
@@ -54,10 +55,10 @@ class FloatEndSortWidgetTest extends BetterExposedFiltersKernelTestBase {
     // Render the exposed form.
     $this->renderExposedForm($view);
     $crawler = new Crawler($this->content->__toString());
-
     $widget = $crawler->filter('form.bef-exposed-form');
+
     $this->assertCount(1, $widget);
-    $this->assertStringContainsString('float-lg-end d-none d-md-flex align-items-baseline', $widget->attr('class'));
+    $this->assertStringContainsString('col-lg-4 col-md-6 mt-3 mt-md-0', $widget->attr('class'));
 
     $view->destroy();
   }
