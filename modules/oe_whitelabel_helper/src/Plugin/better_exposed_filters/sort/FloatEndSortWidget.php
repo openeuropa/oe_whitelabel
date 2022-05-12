@@ -28,6 +28,11 @@ class FloatEndSortWidget extends DefaultWidget {
     $form['#attributes']['class'][] = 'col-md-6';
     $form['#attributes']['class'][] = 'mt-3';
     $form['#attributes']['class'][] = 'mt-md-0';
+
+    if (empty($form['sort_bef_combine'])) {
+      return;
+    }
+
     $form['sort_bef_combine']['#attributes']['class'][] = 'ms-md-2';
     $form['sort_bef_combine']['#label_attributes']['class'][] = 'mb-0';
     $form['sort_bef_combine']['#label_attributes']['class'][] = 'text-nowrap';
