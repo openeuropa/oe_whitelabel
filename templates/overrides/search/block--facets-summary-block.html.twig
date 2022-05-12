@@ -6,7 +6,7 @@
  * @see ./core/themes/stable/templates/block/block.html.twig
  */
 #}
-{% if label and content['#items'][0]['#theme'] is defined and content['#items'][0]['#theme'] == 'facets_summary_count'%}
+{% if label and content['#items'][0]['#theme'] is defined and content['#items'][0]['#theme'] == 'facets_summary_count' %}
   {% set results_count = content['#items'][0] %}
 {% endif %}
 {% block content %}
