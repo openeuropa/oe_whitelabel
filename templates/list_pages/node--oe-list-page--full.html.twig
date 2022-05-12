@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-12 col-lg-3">
+  <div class="col-12 col-lg-3" id="oe-list-pages-left-column">
     {% set filters = content['extra_field_oe_list_page_filters:node:oe_list_page']|render %}
     {% if filters|render is not empty %}
       {{ pattern('offcanvas', {
@@ -20,7 +20,7 @@
       }) }}
     {% endif %}
   </div>
-  <div class="col-12 col-lg-9 col-xxl-8">
+  <div class="col-12 col-lg-9 col-xxl-8" id="oe-list-pages-right-column">
     <div class="row">
       <div class="col-md-6 col-lg-8 align-self-center">
         <h4 class="mb-0">
@@ -29,7 +29,10 @@
         </h4>
       </div>
       <div class="col-md-12 order-md-2 mt-3">
-        {{ content['extra_field_oe_list_page_selected_filters:node:oe_list_page'] }}
+        {% set selected_filters = content['extra_field_oe_list_page_selected_filters:node:oe_list_page'] %}
+        {% if selected_filters[0]|length > 1 %}
+          {{ selected_filters }}
+        {% endif %}
       </div>
       <div class="col-md-6 col-lg-4 mt-3 mt-md-0">
       </div>
