@@ -7,8 +7,8 @@
  *
  */
 #}
-{%- if result_items -%}
-  {%- for item in result_items -%}
+{%- if items -%}
+  {%- for item in items -%}
     {{ item.value }}
   {%- endfor -%}
 {%- else -%}
