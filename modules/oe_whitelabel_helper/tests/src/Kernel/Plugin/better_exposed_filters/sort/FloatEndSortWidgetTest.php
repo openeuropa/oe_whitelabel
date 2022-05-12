@@ -46,6 +46,7 @@ class FloatEndSortWidgetTest extends BetterExposedFiltersKernelTestBase {
     $view->storage->getDisplay('default');
 
     $this->setBetterExposedOptions($view, [
+      // @todo Add combined sort.
       'sort' => [
         'plugin_id' => 'oe_whitelabel_float_end_sort',
       ],
