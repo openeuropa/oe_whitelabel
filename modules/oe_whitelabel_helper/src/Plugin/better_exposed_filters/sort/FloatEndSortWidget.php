@@ -23,6 +23,7 @@ class FloatEndSortWidget extends DefaultWidget {
   public function exposedFormAlter(array &$form, FormStateInterface $form_state) {
     parent::exposedFormAlter($form, $form_state);
 
+    // @todo This will be done via theming in OEL-1583.
     $form['#attributes']['class'][] = 'col-lg-4';
     $form['#attributes']['class'][] = 'col-md-6';
     $form['#attributes']['class'][] = 'mt-3';
