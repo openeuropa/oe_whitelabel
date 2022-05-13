@@ -18,7 +18,6 @@ drupal:
     - "./vendor/bin/drush en config_devel -y"
     - "./vendor/bin/drush en field_ui -y"
     - "./vendor/bin/drush en oe_authentication -y"
-    - "./vendor/bin/drush en oe_corporate_blocks -y"
     - "./vendor/bin/drush en oe_whitelabel_multilingual -y"
     - "./vendor/bin/drush en oe_whitelabel_contact_forms -y"
     - "./vendor/bin/drush en oe_whitelabel_helper -y"

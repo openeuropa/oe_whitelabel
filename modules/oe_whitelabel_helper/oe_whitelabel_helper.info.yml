@@ -6,6 +6,7 @@ core_version_requirement: ^9.2
 
 dependencies:
   - drupal:node
+  - drupal:twig_field_value
   - oe_bootstrap_theme:oe_bootstrap_theme_helper
   - openeuropa:oe_corporate_blocks
 
