@@ -82,7 +82,7 @@ class SearchBlockTest extends KernelTestBase {
   }
 
   /**
-   * Tests the rendering of the whitelabel search block.
+   * Tests the rendering of the whitelabel search block navigation_right region.
    */
   public function testNavigationRightSearchBlockRendering(): void {
     $block_entity_storage = $this->container
@@ -95,15 +95,10 @@ class SearchBlockTest extends KernelTestBase {
     $crawler = new Crawler($render->__toString());
 
     // Assert the form rendering.
-    $block = $crawler->filter('div.oe-whitelabel-search-form');
-    $this->assertCount(1, $block);
-    // Select the search form in the block.
-    // The block template removes the block wrapper, so the form is the root
-    // element.
-    $form = $crawler->filter('body > form#oe-whitelabel-search-form');
+    $form = $crawler->filter('form');
     $this->assertCount(1, $form);
+    $this->assertSame('oe-whitelabel-search-form', $form->attr('id'));
     $this->assertStringContainsString('d-flex', $form->attr('class'));
-
     // Assert search text box.
     $input = $crawler->filter('input[name="search_input"]');
     $this->assertCount(1, $input);
@@ -124,7 +119,7 @@ class SearchBlockTest extends KernelTestBase {
   }
 
   /**
-   * Tests the rendering of the whitelabel search block.
+   * Tests the rendering of the whitelabel search block header region.
    */
   public function testHeaderSearchBlockRendering(): void {
     $block_entity_storage = $this->container
@@ -164,12 +159,10 @@ class SearchBlockTest extends KernelTestBase {
       'div.bg-lighter > div.container > div.row > div.col-12.col-lg-6.offset-lg-3'
     );
     $this->assertCount(1, $wrapper);
-
     // Assert the form rendering.
-    $block = $crawler->filter('div.oe-whitelabel-search-form');
-    $this->assertCount(1, $block);
-    $form = $block->filter('form#oe-whitelabel-search-form');
+    $form = $wrapper->filter('form');
     $this->assertCount(1, $form);
+    $this->assertSame('oe-whitelabel-search-form', $form->attr('id'));
     $this->assertSame('bcl-search-form submittable', $form->attr('class'));
     // Assert the field wrapper rendering.
     $wrapper = $form->filter('.bcl-search-form__group');
