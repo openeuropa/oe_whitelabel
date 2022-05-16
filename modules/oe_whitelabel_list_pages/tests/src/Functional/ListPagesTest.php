@@ -100,7 +100,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     // Assert pagination.
     $navigation = $right_column->find('css', 'nav');
     $pages = $navigation->findAll('css', 'li');
-    $this->assertCount(3, $pages);
+    $this->assertCount(4, $pages);
 
     // Assert search.
     $offcanvas->fillField('Title', 'News number 8');
