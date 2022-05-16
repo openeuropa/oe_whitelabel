@@ -45,13 +45,12 @@ class SearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, array $config = NULL): array {
+    if (empty($config['input']['name'])) {
+      return [];
+    }
     $form_state->set('oe_whitelabel_search_config', $config);
-    $input_value = '';
 
     $form['#region'] = $config['form']['region'];
-    if (!empty($config['input']['name'])) {
-      $input_value = $this->getRequest()->get($config['input']['name']);
-    }
 
     $form['search_input'] = [
       '#type' => 'textfield',
@@ -61,15 +60,12 @@ class SearchForm extends FormBase {
       '#margin_class' => 'mb-0',
       '#form_id' => $this->getFormId(),
       '#region' => $config['form']['region'],
-      '#default_value' => $input_value,
+      '#default_value' => $config['input']['name'],
       '#required' => TRUE,
     ];
 
     $form['submit'] = [
       '#type' => 'submit',
-      '#input' => TRUE,
-      '#is_button' => TRUE,
-      '#executes_submit_callback' => TRUE,
       '#form_id' => $this->getFormId(),
       '#region' => $config['form']['region'],
     ];
