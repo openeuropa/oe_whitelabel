@@ -1,20 +1,18 @@
 {#
 /**
  * @file
- * Theme for the navigation_right search input textfield element.
- *
- * @see ./core/modules/system/templates/input.html.twig
+ * Theme for the navigation right search input textfield element.
  */
 #}
-{%
-  set classes = [
-  'form-control',
-  'border-start-0',
-  'rounded-0',
-  'rounded-start',
-  'form-control',
-  attributes.hasClass('error') ? 'is-invalid',
-]
-%}
-<input{{ attributes.addClass(classes).setAttribute('placeholder', 'Search'|t).removeClass('form-text') }} />{{ children }}
+{% extends "input--textfield.html.twig" %}
+{% set attributes = attributes
+  .addClass([
+    'form-control',
+    'border-start-0',
+    'rounded-0',
+    'rounded-start',
+    attributes.hasClass('error') ? 'is-invalid',
+  ])
+  .setAttribute('placeholder', 'Search'|t)
+  .removeClass('form-text') %}
 
