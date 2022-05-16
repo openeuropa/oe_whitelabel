@@ -2,31 +2,7 @@
 /**
  * @file
  * Search form template for the navigation right region.
- *
- * @see ./core/modules/system/templates/form.html.twig
  */
 #}
-{# todo button drupal attributes #}
-{% set submit_button = pattern('button', {
-  'variant': 'light',
-  'icon': 'search',
-  'type': 'submit',
-  'attributes': {
-    'id': 'submit',
-    'class': [
-      'border-start-0',
-      'rounded-0',
-      'rounded-end',
-      'px-3',
-    ],
-  },
-})%}
-
-{% set submit = element.submit|merge({
-  '#markup': submit_button|render,
-  })
-%}
-
-<form {{ attributes.addClass('d-flex', 'mt-3', 'mt-lg-0') }}>
-  {{ children }}
-</form>
+{% extends "form.html.twig" %}
+{% set attributes = attributes.addClass('d-flex', 'mt-3', 'mt-lg-0') %}
