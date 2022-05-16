@@ -93,7 +93,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
 
     // Assert listing.
     $hr = $right_column->findAll('css', 'hr');
-    $this->assertCount(2, $hr);
+    $this->assertCount(3, $hr);
     $items = $right_column->findAll('css', '.listing-item');
     $this->assertCount(10, $items);
 
