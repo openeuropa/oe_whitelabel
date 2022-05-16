@@ -184,6 +184,15 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state): void {
+    $values = $form_state->getValues();
+    $this->setConfigurationValue('form', [
+      'action' => $form_state->getValue('form_action'),
+      'region' => $form_state->getValue('region'),
+    ]);
+    $input = $values['input'];
+    $this->setConfigurationValue('input', [
+      'name' => $input['input_name'],
+    ]);
     $this->setConfigurationValue('view_options', [
       'id' => $form_state->getValue('view_id'),
       'display' => $form_state->getValue('view_display'),
@@ -198,10 +207,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $values = $form_state->getValues();
 
     $completeForm = $form_state->getCompleteForm();
-    $this->setConfigurationValue('form', [
-      'action' => $form_state->getValue('form_action'),
-      'region' => $completeForm['region']['#value'],
-    ]);
+    $form_state->setValue('region', $completeForm['region']['#value']);
 
     if (!$this->moduleHandler->moduleExists('views') || !$this->moduleHandler->moduleExists('search_api_autocomplete')) {
       return;
