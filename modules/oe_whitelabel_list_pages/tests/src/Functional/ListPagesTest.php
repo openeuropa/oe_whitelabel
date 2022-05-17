@@ -50,8 +50,8 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     $this->indexItems('oe_whitelabel_list_page_index_test');
 
     $list_page = Node::create([
-      'type'        => 'oe_list_page',
-      'title'       => 'News list page',
+      'type' => 'oe_list_page',
+      'title' => 'News list page',
     ]);
 
     /** @var \Drupal\emr\Entity\EntityMetaInterface $list_page_entity_meta */
