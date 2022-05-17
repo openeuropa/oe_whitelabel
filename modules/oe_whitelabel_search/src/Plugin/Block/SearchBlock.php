@@ -144,7 +144,6 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#title' => $this->t('Input Label'),
       '#description' => $this->t('A label text for the search input.'),
       '#default_value' => $config['input']['label'],
-      '#required' => TRUE,
     ];
     $form['input']['input_placeholder'] = [
       '#type' => 'textfield',
