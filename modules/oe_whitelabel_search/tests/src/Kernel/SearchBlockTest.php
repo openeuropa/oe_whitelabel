@@ -139,6 +139,11 @@ class SearchBlockTest extends KernelTestBase {
         ],
         'input' => [
           'name' => 'search_api_fulltext',
+          'label' => 'Search',
+          'placeholder' => 'Search',
+        ],
+        'button' => [
+          'label' => 'Search',
         ],
         'view_options' => [
           'enable_autocomplete' => TRUE,

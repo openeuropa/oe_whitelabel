@@ -59,7 +59,7 @@ class SearchForm extends FormBase {
 
     $form['search_input'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Search'),
+      '#title' => $config['input']['label'],
       '#title_display' => 'invisible',
       '#size' => 20,
       '#margin_class' => 'mb-0',
@@ -67,12 +67,16 @@ class SearchForm extends FormBase {
       '#region' => $config['form']['region'],
       '#default_value' => $input_value,
       '#required' => TRUE,
+      '#attributes' => [
+        'placeholder' => $config['input']['placeholder'],
+      ],
     ];
 
     $form['submit'] = [
       '#type' => 'submit',
       '#form_id' => $this->getFormId(),
       '#region' => $config['form']['region'],
+      '#value' => $config['button']['label'],
     ];
 
     if (!$config['view_options']['enable_autocomplete']) {

@@ -97,6 +97,11 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       ],
       'input' => [
         'name' => '',
+        'label' => '',
+        'placeholder' => $this->t('Search'),
+      ],
+      'button' => [
+        'label' => '',
       ],
       'view_options' => [
         'enable_autocomplete' => FALSE,
@@ -134,7 +139,32 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#default_value' => $config['input']['name'],
       '#required' => TRUE,
     ];
-
+    $form['input']['input_label'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Input Label'),
+      '#description' => $this->t('A label text for the search input.'),
+      '#default_value' => $config['input']['label'],
+      '#required' => TRUE,
+    ];
+    $form['input']['input_placeholder'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Input placeholder text'),
+      '#description' => $this->t('The placeholder that will be shown inside the input field.'),
+      '#default_value' => $config['input']['placeholder'],
+    ];
+    $form['button'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Button Field Settings'),
+      '#open' => TRUE,
+      '#tree' => TRUE,
+      '#description' => $this->t('Fill in the settings of the Button field.'),
+    ];
+    $form['button']['button_label'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Button label'),
+      '#description' => $this->t('A label text for the button input.'),
+      '#default_value' => $config['button']['label'],
+    ];
     $form['enable_autocomplete'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable autocomplete'),
@@ -192,6 +222,12 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $input = $values['input'];
     $this->setConfigurationValue('input', [
       'name' => $input['input_name'],
+      'label' => $input['input_label'],
+      'placeholder' => $input['input_placeholder'],
+    ]);
+    $button = $values['button'];
+    $this->setConfigurationValue('button', [
+      'label' => $button['button_label'],
     ]);
     $this->setConfigurationValue('view_options', [
       'id' => $form_state->getValue('view_id'),

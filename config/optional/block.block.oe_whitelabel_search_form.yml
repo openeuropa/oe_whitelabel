@@ -21,6 +21,10 @@ settings:
     region: navigation_right
   input:
     name: text
+    label: Search
+    placeholder: Search
+  button:
+    label: ''
   view_options:
     enable_autocomplete: false
     id: null

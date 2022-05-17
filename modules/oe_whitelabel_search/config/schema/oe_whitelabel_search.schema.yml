@@ -19,6 +19,19 @@ block.settings.whitelabel_search_block:
         name:
           type: string
           label: Name
+        label:
+          type: string
+          label: Label
+        placeholder:
+          type: string
+          label: Placeholder
+    button:
+      type: mapping
+      label: Button
+      mapping:
+        label:
+          type: string
+          label: Button label
     view_options:
       type: mapping
       label: View Options
