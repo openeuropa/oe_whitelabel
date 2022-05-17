@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * Item list theme override for a oe_list_pages list template.
+ *
+ * Available variables:
+ * - items: A list of items. Each item contains:
+ *   - attributes: HTML attributes to be applied to each list item.
+ *   - value: The content of the list element.
+ * - title: The title of the list.
+ * - list_type: The tag for list element ("ul" or "ol").
+ * - wrapper_attributes: HTML attributes to be applied to the list wrapper.
+ * - attributes: HTML attributes to be applied to the list.
+ * - empty: A message to display when there are no items. Allowed value is a
+ *   string or render array.
+ * - context: A list of contextual data associated with the list. May contain:
+ *   - list_style: The custom list style.
+ *
+ * @see template_preprocess_item_list()
+ */
+#}
+<hr class="d-none d-md-block mb-4-75">
+<div class="bcl-listing bcl-listing--default-1-col">
+  <div class="row row-cols-1 g-4">
+    {%- if items -%}
+      {%- for item in items -%}
+        <div class="col">{{ item.value }}</div>
+      {%- endfor -%}
+    {%- else -%}
+      {{- empty -}}
+    {%- endif -%}
+  </div>
+</div>
+<hr class="d-none d-md-block mt-4-5">

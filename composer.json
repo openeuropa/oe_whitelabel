@@ -22,6 +22,8 @@
         "drupal/ctools": "^3.7",
         "drupal/description_list_field": "^1.0@alpha",
         "drupal/drupal-extension": "~4.1",
+        "drupal/extra_field": "^2.1",
+        "drupal/facets": "1.8.0 as 2.0.1",
         "drupal/file_link": "^2.0.6",
         "drupal/facets_form": "1.0.0-alpha2",
         "drupal/pathauto": "^1.8",
@@ -38,12 +40,13 @@
         "openeuropa/oe_contact_forms": "~1.1",
         "openeuropa/oe_content": "^2.8.0",
         "openeuropa/oe_corporate_blocks": "^4.4",
+        "openeuropa/oe_list_pages": "^0.16",
         "openeuropa/oe_media": "^1.14",
         "openeuropa/oe_multilingual": "^1.9",
         "openeuropa/oe_paragraphs": "^1.13",
         "openeuropa/oe_starter_content": "1.x-dev",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta5",
-        "phpspec/prophecy-phpunit": "^1 || ^2",
+        "phpspec/prophecy-phpunit": "^2",
         "symfony/dom-crawler": "^4.4.12"
     },
     "scripts": {
