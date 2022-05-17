@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Drupal\Tests\oe_whitelabel_list_pages_test\FunctionalJavascript;
+namespace Drupal\Tests\oe_whitelabel_list_pages\Functional;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\node\Entity\Node;
