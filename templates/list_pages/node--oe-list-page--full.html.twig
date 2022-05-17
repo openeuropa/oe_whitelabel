@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12 col-lg-3" id="oe-list-pages-left-column">
     {% set filters = content['extra_field_oe_list_page_filters:node:oe_list_page']|render %}
-    {% if filters|render is not empty %}
+    {% if filters %}
       {{ pattern('offcanvas', {
         'variant': 'search',
         'title': 'Filter options',
@@ -24,8 +24,8 @@
     <div class="row">
       <div class="col-md-6 col-lg-8 align-self-center">
         <h4 class="mb-0">
-          <span class="text-capitalize">{{ label|render|striptags|trim }}</span>
-          ({{ content['extra_field_oe_list_page_total_count:node:oe_list_page']|render|trim }})
+          <span class="text-capitalize">{{ label }}</span>
+          ({{ content['extra_field_oe_list_page_total_count:node:oe_list_page'] }})
         </h4>
       </div>
       <div class="col-md-12 order-md-2 mt-3">
