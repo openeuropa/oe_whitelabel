@@ -29,8 +29,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
   /**
    * Tests a list page node rendering.
    */
-  public function testListPage(): void {
-    $page = $this->getSession()->getPage();
+  public function testListPageRendering(): void {
     $assert_session = $this->assertSession();
 
     // Create some test nodes.
