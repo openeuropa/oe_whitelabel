@@ -12,7 +12,7 @@ use Drupal\Tests\search_api\Functional\ExampleContentTrait;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 
 /**
- * Tests the whitelabel oe_list_pages.
+ * Tests the list pages rendering.
  */
 class ListPagesTest extends WhitelabelBrowserTestBase {
 
@@ -27,7 +27,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
   ];
 
   /**
-   * Test fields an oe_whitelabel list page.
+   * Tests a list page node rendering.
    */
   public function testListPage(): void {
     $page = $this->getSession()->getPage();
