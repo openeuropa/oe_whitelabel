@@ -8,7 +8,6 @@
 declare(strict_types = 1);
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
 use Drupal\oe_bootstrap_theme_helper\EuropeanUnionLanguages;
 use Drupal\oe_whitelabel\DocumentMediaWrapper;
 
@@ -80,7 +79,6 @@ function oe_whitelabel_preprocess_page(&$variables) {
     $variables['logo_aria_label'] = t('Home');
     $variables['site_logo_alt'] = t('Home logo');
     $variables['site_logo_title'] = t('Home');
-    $site_logo_href = Url::fromRoute('<front>')->toString();
   }
 
   if ($variables['bcl_component_library'] === 'neutral') {
