@@ -1,0 +1,11 @@
+{#
+/**
+ * @file
+ * Override for oe_bootstrap_theme 'pager' template.
+ */
+#}
+{% extends "@oe_bootstrap_theme/overrides/navigation/pager.html.twig" %}
+{% block pager %}
+  <hr class="d-none d-md-block mt-4-5">
+  {{ parent()}}
+{% endblock %}

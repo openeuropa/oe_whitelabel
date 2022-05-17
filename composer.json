@@ -46,7 +46,7 @@
         "openeuropa/oe_media": "^1.14",
         "openeuropa/oe_multilingual": "^1.9",
         "openeuropa/oe_paragraphs": "^1.13",
-        "openeuropa/oe_starter_content": "1.x-dev",
+        "openeuropa/oe_starter_content": "^1.0.0-beta1",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta5",
         "phpspec/prophecy-phpunit": "^1 || ^2",
         "symfony/dom-crawler": "^4.4.12"
@@ -59,10 +59,6 @@
         "drupal":{
             "type": "composer",
             "url": "https://packages.drupal.org/8"
-        },
-        "openeuropa/oe_starter_content": {
-            "type": "git",
-            "url": "https://github.com/openeuropa/oe_starter_content"
         },
         "openeuropa/oe_content_extra": {
             "type": "git",
