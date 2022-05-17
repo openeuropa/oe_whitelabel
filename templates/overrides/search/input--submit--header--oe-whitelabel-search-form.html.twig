@@ -6,10 +6,11 @@
  * @see ./core/modules/system/templates/input.html.twig
  */
 #}
-{% set label %}
-  <span class="d-none d-lg-inline-block">{{ 'Search'|t }}</span>
-{% endset %}
-
+{% if element['#value'] is not empty %}
+  {% set label %}
+    <span class="d-none d-lg-inline-block">{{ element['#value']|t }}</span>
+  {% endset %}
+{% endif %}
 {{ pattern('button', {
   'variant': 'primary',
   'icon': 'search',
