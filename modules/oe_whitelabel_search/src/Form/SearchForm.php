@@ -48,10 +48,6 @@ class SearchForm extends FormBase {
     if (empty($config['input']['name'])) {
       return [];
     }
-    $input_value = '';
-    if (!empty($config['input']['name'])) {
-      $input_value = $this->getRequest()->get($config['input']['name']);
-    }
 
     $form_state->set('oe_whitelabel_search_config', $config);
 
@@ -65,7 +61,7 @@ class SearchForm extends FormBase {
       '#margin_class' => 'mb-0',
       '#form_id' => $this->getFormId(),
       '#region' => $config['form']['region'],
-      '#default_value' => $input_value,
+      '#default_value' => $this->getRequest()->get($config['input']['name']),
       '#required' => TRUE,
       '#attributes' => [
         'placeholder' => $config['input']['placeholder'],
