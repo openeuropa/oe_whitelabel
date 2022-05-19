@@ -11,7 +11,7 @@
         "drupal/core": "^9.2",
         "drupal/twig_field_value": "^2.0",
         "openeuropa/composer-artifacts": "^1.0.0-alpha1",
-        "openeuropa/oe_bootstrap_theme": "0.1.202204221756"
+        "openeuropa/oe_bootstrap_theme": "0.1618.202205191818"
     },
     "require-dev": {
         "composer/installers": "^1.11",
@@ -76,11 +76,6 @@
                     "url": "https://github.com/{name}/releases/download/{pretty-version}/{project-name}-{pretty-version}.zip",
                     "type": "zip"
                 }
-            }
-        },
-        "patches": {
-            "openeuropa/oe_bootstrap_theme": {
-                "latest": "https://github.com/openeuropa/oe_bootstrap_theme/compare/0.1.202204221756..1.x.diff"
             }
         },
         "drupal-scaffold": {
