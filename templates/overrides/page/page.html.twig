@@ -47,12 +47,13 @@
  * @ingroup themeable
  */
 #}
+{% set neutral = bcl_component_library == 'neutral' %}
 {% set corporate_logos %}
-  {% set anchor_attributes = bcl_component_library == 'neutral'
+  {% set anchor_attributes = neutral
     ? create_attribute().addClass(['navbar-brand'])
     : create_attribute().addClass(['navbar-brand']).setAttribute('target', '_blank')
   %}
-  <a {{ anchor_attributes }} href="{{ site_logo_href }}">
+  <a {{ anchor_attributes }} href="{{ neutral ? front_page : site_logo_href }}">
     {% if bcl_component_library == 'eu' %}
       <picture>
         <source media="(max-width: 992px)"
