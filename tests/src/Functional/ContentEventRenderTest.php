@@ -133,7 +133,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     // Assert in-page navigation title.
     $this->assertEquals(
       'Page content',
-      trim($crawler->filter('nav.bcl-inpage-navigation > h5')->text())
+      trim($crawler->filter('nav.bcl-inpage-navigation > h3')->text())
     );
 
     // Assert in-page navigation links.

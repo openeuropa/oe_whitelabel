@@ -132,7 +132,7 @@ class ListingParagraphsTest extends ParagraphsTestBase {
     $assert->assertHighlightListingRendering($crawler, $image_file);
     $this->assertCount(1, $crawler->filter('div.bcl-listing--highlight-2-col'));
     $this->assertCount(1, $crawler->filter('div.row.row-cols-1.row-cols-md-2'));
-    $this->assertCount(6, $crawler->filter('div.listing-item--highlight'));
+    $this->assertCount(6, $crawler->filter('article.listing-item--highlight'));
     $this->assertCount(6, $crawler->filter('div.card-body'));
 
     // Testing Highlight 3 col.
@@ -146,7 +146,7 @@ class ListingParagraphsTest extends ParagraphsTestBase {
     $assert->assertHighlightListingRendering($crawler, $image_file);
     $this->assertCount(1, $crawler->filter('div.bcl-listing--highlight-3-col'));
     $this->assertCount(1, $crawler->filter('div.row.row-cols-1.row-cols-md-3'));
-    $this->assertCount(6, $crawler->filter('div.listing-item--highlight'));
+    $this->assertCount(6, $crawler->filter('article.listing-item--highlight'));
     $this->assertCount(6, $crawler->filter('div.card-body'));
   }
 
