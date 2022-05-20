@@ -23,7 +23,7 @@ class ListingAssertion extends Assert {
    *   Image file added to the list item.
    */
   public function assertDefaultListingRendering(Crawler $crawler, File $file): void {
-    $this->assertCount(6, $crawler->filter('div.listing-item.border-bottom.border-md-0.border-0.card'));
+    $this->assertCount(6, $crawler->filter('article.listing-item.border-bottom.border-md-0.border-0.card'));
     $this->assertCount(6, $crawler->filter('div.mw-listing-img'));
     $this->assertCount(6, $crawler->filter('div.card-body.p-0.pb-md-0.pb-3'));
     $text_element = $crawler->filter('div.card-text');
@@ -40,7 +40,7 @@ class ListingAssertion extends Assert {
    *   Image file added to the list item.
    */
   public function assertHighlightListingRendering(Crawler $crawler, File $file): void {
-    $this->assertCount(6, $crawler->filter('div.listing-item--highlight.border-0.bg-lighter.card'));
+    $this->assertCount(6, $crawler->filter('article.listing-item--highlight.border-0.bg-lighter.card'));
     $text_element = $crawler->filter('div.card-text');
     $this->assertCount(6, $text_element);
     $this->assertImageRendering($crawler, $file);
@@ -57,7 +57,7 @@ class ListingAssertion extends Assert {
   public function assertListingRendering(Crawler $crawler, int $nid): void {
     $this->assertCount(1, $crawler->filter('div.bcl-listing'));
     $this->assertCount(6, $crawler->filter('div.row-cols-1.g-4 > div.col'));
-    $this->assertStringContainsString('Listing item block title', trim($crawler->filter('h2.fw-bold')->text()));
+    $this->assertStringContainsString('Listing item block title', trim($crawler->filter('h2.bcl-heading')->text()));
     $this->assertCount(6, $crawler->filter('h5.card-title'));
     $link_element = $crawler->filter('a.text-underline-hover');
     $this->assertCount(6, $link_element);
