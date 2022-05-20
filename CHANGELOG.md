@@ -1,10 +1,38 @@
 # Change Log
 
+## [1.0.0-beta1](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-beta1) (2022-05-20)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-alpha7...1.0.0-beta1)
+
+**Closed issues:**
+
+- The header pattern displays an empty navbar when both regions are empty [\#50](https://github.com/openeuropa/oe_whitelabel/issues/50)
+
+**Merged pull requests:**
+
+- OEL-1585: Fix logo url link in neutral flavour and test coverage. [\#142](https://github.com/openeuropa/oe_whitelabel/pull/142) ([escuriola](https://github.com/escuriola))
+- Update EPIC-1293-Project [\#140](https://github.com/openeuropa/oe_whitelabel/pull/140) ([donquixote](https://github.com/donquixote))
+- OEL-0000: Remove explicit version requirement for drupal/remote\_stream\_wrapper [\#134](https://github.com/openeuropa/oe_whitelabel/pull/134) ([donquixote](https://github.com/donquixote))
+- OEL-1528: Fix whitelabel issues on template, composer and dependencies. [\#133](https://github.com/openeuropa/oe_whitelabel/pull/133) ([Maxfire](https://github.com/Maxfire))
+- OEL-0000: Fix remote\_stream\_wrapper version to 1.5.0 temporarily. [\#132](https://github.com/openeuropa/oe_whitelabel/pull/132) ([donquixote](https://github.com/donquixote))
+- OEL-1536: Specify extension type when using ConfigImporter. [\#131](https://github.com/openeuropa/oe_whitelabel/pull/131) ([donquixote](https://github.com/donquixote))
+- OEL-1525: Uninitialized config keys in SearchBlock [\#130](https://github.com/openeuropa/oe_whitelabel/pull/130) ([donquixote](https://github.com/donquixote))
+- OEL-1452: Escaped markup in description list paragraph. [\#127](https://github.com/openeuropa/oe_whitelabel/pull/127) ([brummbar](https://github.com/brummbar))
+- OEL-1374: Search page look & feel update [\#126](https://github.com/openeuropa/oe_whitelabel/pull/126) ([escuriola](https://github.com/escuriola))
+- OEL-1453: Consolidate theme regions [\#125](https://github.com/openeuropa/oe_whitelabel/pull/125) ([escuriola](https://github.com/escuriola))
+- OEL-1416: Fix tests for BCL 0.22.0 [\#124](https://github.com/openeuropa/oe_whitelabel/pull/124) ([donquixote](https://github.com/donquixote))
+- OEL-1357: README improvements [\#123](https://github.com/openeuropa/oe_whitelabel/pull/123) ([donquixote](https://github.com/donquixote))
+- OEL-1425: Use imageValueObject on oe\_whitelabel. [\#118](https://github.com/openeuropa/oe_whitelabel/pull/118) ([escuriola](https://github.com/escuriola))
+- EPIC-1293-Project [\#109](https://github.com/openeuropa/oe_whitelabel/pull/109) ([Maxfire](https://github.com/Maxfire))
+- OEL-1227: Move content banner into a block. [\#101](https://github.com/openeuropa/oe_whitelabel/pull/101) ([donquixote](https://github.com/donquixote))
+- OEL-1317: Improve navbar search form. [\#100](https://github.com/openeuropa/oe_whitelabel/pull/100) ([escuriola](https://github.com/escuriola))
+- OEL-486: Improve test coverage [\#89](https://github.com/openeuropa/oe_whitelabel/pull/89) ([drishu](https://github.com/drishu))
+
 ## [1.0.0-alpha7](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-alpha7) (2022-04-08)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-alpha6...1.0.0-alpha7)
 
 **Merged pull requests:**
 
+- Prepare release 1.0.0-alpha7 [\#120](https://github.com/openeuropa/oe_whitelabel/pull/120) ([abel-santos-corral](https://github.com/abel-santos-corral))
 - OEL-1434: Filter out bundles if no legacy fields present [\#119](https://github.com/openeuropa/oe_whitelabel/pull/119) ([abel-santos-corral](https://github.com/abel-santos-corral))
 
 ## [1.0.0-alpha6](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-alpha6) (2022-04-07)
