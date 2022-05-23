@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.0.0-beta2](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-beta2) (2022-05-23)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-beta1...1.0.0-beta2)
+
+**Merged pull requests:**
+
+- OEL-1632: Add upgrade hooks for moving content banner into block. [\#147](https://github.com/openeuropa/oe_whitelabel/pull/147) ([donquixote](https://github.com/donquixote))
+
 ## [1.0.0-beta1](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-beta1) (2022-05-20)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-alpha7...1.0.0-beta1)
 
@@ -9,6 +16,8 @@
 
 **Merged pull requests:**
 
+- Prepare dependencies for release 1.0.0-beta1 [\#146](https://github.com/openeuropa/oe_whitelabel/pull/146) ([drishu](https://github.com/drishu))
+- Prepare release 1.0.0-beta1 [\#145](https://github.com/openeuropa/oe_whitelabel/pull/145) ([drishu](https://github.com/drishu))
 - OEL-1585: Fix logo url link in neutral flavour and test coverage. [\#142](https://github.com/openeuropa/oe_whitelabel/pull/142) ([escuriola](https://github.com/escuriola))
 - Update EPIC-1293-Project [\#140](https://github.com/openeuropa/oe_whitelabel/pull/140) ([donquixote](https://github.com/donquixote))
 - OEL-0000: Remove explicit version requirement for drupal/remote\_stream\_wrapper [\#134](https://github.com/openeuropa/oe_whitelabel/pull/134) ([donquixote](https://github.com/donquixote))
