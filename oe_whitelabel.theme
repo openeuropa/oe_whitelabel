@@ -8,7 +8,6 @@
 declare(strict_types = 1);
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
 use Drupal\oe_bootstrap_theme_helper\EuropeanUnionLanguages;
 use Drupal\oe_whitelabel\DocumentMediaWrapper;
 
@@ -18,36 +17,6 @@ foreach (glob($includes_path) as $filename) {
   // The inspection disallowing basename() is not relevant for known paths.
   // phpcs:ignore QualityAssurance.Functions.DrupalWrappers.FoundWithAlternative
   require_once __DIR__ . '/includes/' . basename($filename);
-}
-
-/**
- * Implements hook_form_FORM_ID_alter() for facets_forms.
- */
-function oe_whitelabel_form_facets_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if (isset($form['actions'])) {
-    $action_classes = ['mt-4', 'd-grid', 'gap-4', 'd-md-block'];
-    foreach ($action_classes as $action_class) {
-      if (!isset($action_class, $form['actions']['#attributes']['class']) || !in_array($action_class, $form['actions']['#attributes']['class'], TRUE)) {
-        $form['actions']['#attributes']['class'][] = $action_class;
-      }
-    }
-  }
-  if (isset($form['actions']['submit'])) {
-    $submit_classes = ['me-md-3', 'btn', 'btn-primary', 'btn-md'];
-    foreach ($submit_classes as $submit_class) {
-      if (!isset($submit_class, $form['actions']['submit']['#attributes']['class']) || !in_array($submit_class, $form['actions']['submit']['#attributes']['class'], TRUE)) {
-        $form['actions']['submit']['#attributes']['class'][] = $submit_class;
-      }
-    }
-  }
-  if (isset($form['actions']['reset'])) {
-    $reset_classes = ['btn', 'btn-light', 'btn-md'];
-    foreach ($reset_classes as $reset_class) {
-      if (!isset($form['actions']['reset']['#attributes']['class']) || !in_array($reset_class, $form['actions']['reset']['#attributes']['class'], TRUE)) {
-        $form['actions']['reset']['#attributes']['class'][] = $reset_class;
-      }
-    }
-  }
 }
 
 /**
@@ -110,7 +79,6 @@ function oe_whitelabel_preprocess_page(&$variables) {
     $variables['logo_aria_label'] = t('Home');
     $variables['site_logo_alt'] = t('Home logo');
     $variables['site_logo_title'] = t('Home');
-    $site_logo_href = Url::fromRoute('<front>')->toString();
   }
 
   if ($variables['bcl_component_library'] === 'neutral') {
