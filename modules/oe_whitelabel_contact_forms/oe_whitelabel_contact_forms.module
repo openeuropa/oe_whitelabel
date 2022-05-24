@@ -74,13 +74,11 @@ function oe_whitelabel_contact_forms_preprocess_status_messages(&$variables) {
       if ($field->isEmpty() || !$field->access()) {
         continue;
       }
-      $value = 'value';
-      if ($field->getFieldDefinition()->getType() == 'skos_concept_entity_reference') {
-        $value = 'target_id';
-      }
       $items[] = [
         'term' => $field->getFieldDefinition()->getLabel(),
-        'definition' => $field->first()->getValue()[$value],
+        'definition' => $field->getFieldDefinition()->getType() === 'skos_concept_entity_reference'
+        ? $field->referencedEntities()
+        : $field->first()->getValue()['value'],
       ];
     }
     $variables['message_list']['status'][$key] = [
