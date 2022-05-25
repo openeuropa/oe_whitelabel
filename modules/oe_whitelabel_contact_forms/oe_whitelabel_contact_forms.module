@@ -74,11 +74,22 @@ function oe_whitelabel_contact_forms_preprocess_status_messages(&$variables) {
       if ($field->isEmpty() || !$field->access()) {
         continue;
       }
+
+      $definition = '';
+      if ($field->getFieldDefinition()->getType() === 'skos_concept_entity_reference') {
+        /** @var \Drupal\rdf_skos\Entity\Concept[] $concept_entities */
+        $concept_entities = $field->referencedEntities();
+        if (isset($concept_entities[0])) {
+          $definition = [['label' => $concept_entities[0]->label()]];
+        }
+      }
+      else {
+        $definition = $field->first()->getValue()['value'];
+      }
+
       $items[] = [
         'term' => $field->getFieldDefinition()->getLabel(),
-        'definition' => $field->getFieldDefinition()->getType() === 'skos_concept_entity_reference'
-        ? $field->referencedEntities()
-        : $field->first()->getValue()['value'],
+        'definition' => $definition,
       ];
     }
     $variables['message_list']['status'][$key] = [
