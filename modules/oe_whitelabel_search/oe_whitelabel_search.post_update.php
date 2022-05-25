@@ -10,7 +10,7 @@ declare(strict_types=1);
 use Drupal\block\Entity\Block;
 
 /**
- * Set the updated values to the search form block.
+ * Add region in form settings for template suggestions.
  */
 function oe_whitelabel_search_post_update_00001(&$sandbox) {
   $block = Block::load('oe_whitelabel_search_form');
