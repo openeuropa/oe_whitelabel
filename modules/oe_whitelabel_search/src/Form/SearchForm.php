@@ -58,7 +58,6 @@ class SearchForm extends FormBase {
       '#title' => $config['input']['label'],
       '#title_display' => 'invisible',
       '#size' => 20,
-      '#margin_class' => 'mb-0',
       '#form_id' => $this->getFormId(),
       '#region' => $config['form']['region'],
       '#default_value' => $this->getRequest()->get($config['input']['name']),
