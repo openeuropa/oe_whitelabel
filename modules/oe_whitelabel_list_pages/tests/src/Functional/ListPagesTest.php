@@ -95,7 +95,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     $assert_session->elementsCount('css', 'div.listing-item', '10');
     // Assert pagination.
     $assert_session->elementExists('css', 'nav > ul.pagination');
-    $assert_session->elementsCount('css', 'ul.pagination > li.page-item', 3);
+    $assert_session->elementsCount('css', 'ul.pagination > li.page-item', 4);
 
     // Assert search.
     $page->fillField('Title', 'News number 8');

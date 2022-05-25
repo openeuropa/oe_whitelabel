@@ -6,7 +6,6 @@ core_version_requirement: ^9.2
 dependencies:
   - oe_whitelabel:oe_whitelabel_helper
   - oe_starter_content:oe_starter_content_news
-  - drupal:twig_field_value
 
 config_devel:
   install:
