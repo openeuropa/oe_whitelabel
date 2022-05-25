@@ -106,7 +106,7 @@ class SearchBlockTest extends KernelTestBase {
     $this->assertSame($classes, $input->attr('class'));
     $this->assertSame('Search', $input->attr('placeholder'));
     // Assert the button and icon rendering.
-    $button = $crawler->filter('button#submit');
+    $button = $form->filter('button');
     $this->assertCount(1, $button);
     $this->assertStringContainsString('rounded-end', $button->attr('class'));
     $this->assertStringContainsString('rounded-0', $button->attr('class'));
@@ -179,7 +179,7 @@ class SearchBlockTest extends KernelTestBase {
     $this->assertSame($classes, $input->attr('class'));
     $this->assertSame('Search', $input->attr('placeholder'));
     // Assert the button and icon rendering.
-    $button = $crawler->filter('button#submit');
+    $button = $form->filter('button');
     $this->assertCount(1, $button);
     $this->assertStringContainsString('bcl-search-form__submit', $button->attr('class'));
     $this->assertStringContainsString('btn', $button->attr('class'));
