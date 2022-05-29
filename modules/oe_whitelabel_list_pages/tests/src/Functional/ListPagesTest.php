@@ -47,7 +47,48 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
 
     // Index content.
     $this->indexItems('oe_whitelabel_list_page_index_test');
+    $list_page = $this->createListPage();
 
+    $this->drupalGet('node/' . $list_page->id());
+
+    // Assert the left column.
+    $left_column = $assert_session->elementExists('css', 'div.row > .col-lg-3');
+
+    // Assert offcanvas.
+    $offcanvas = $left_column->find('css', 'div.bcl-offcanvas');
+    $title = $offcanvas->find('css', 'h4.offcanvas-title');
+    $this->assertSame('Filter options', $title->getText());
+    $offcanvas->hasField('Title');
+    $offcanvas->hasButton('Search');
+    $offcanvas->hasButton('Clear filters');
+    $offcanvas->hasButton('Filters');
+
+    // Assert right column.
+    $right_column = $assert_session->elementExists('css', 'div.row > .col-lg-9');
+    $assert_session->elementsCount('css', 'hr', 2, $right_column);
+
+    $this->assertFacetsSummaryTitle(12, $right_column);
+    $this->assertActiveFilterBadges([], $right_column);
+    $this->assertListing(10, $right_column);
+    $this->assertPager(4, $right_column);
+
+    // Use a filter to get a badge.
+    $page->fillField('Title', 'News number 8');
+    $page->pressButton('Search');
+
+    $this->assertFacetsSummaryTitle(1, $right_column);
+    $this->assertActiveFilterBadges(['News number 8'], $right_column);
+    $this->assertListing(1, $right_column);
+    $this->assertPager(0, $right_column);
+  }
+
+  /**
+   * Create a list page node with filters configured.
+   *
+   * @return \Drupal\node\NodeInterface
+   *   The list page node created.
+   */
+  protected function createListPage(): NodeInterface {
     $list_page = Node::create([
       'type' => 'oe_list_page',
       'title' => 'News list page',
@@ -70,7 +111,8 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     $list_page->get('emr_entity_metas')->attach($list_page_entity_meta);
     $list_page->save();
 
-    $this->drupalGet('node/' . $list_page->id());
+    return $list_page;
+  }
 
     // Assert the left column.
     $assert_session->elementExists('css', 'div.row > div.col-12.col-lg-3');
