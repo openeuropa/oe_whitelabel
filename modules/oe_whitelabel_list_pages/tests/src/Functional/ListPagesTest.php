@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel_list_pages\Functional;
 
-use Drupal\Core\Datetime\DrupalDateTime;
+use Behat\Mink\Element\ElementInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\Tests\oe_whitelabel\Functional\WhitelabelBrowserTestBase;
@@ -34,13 +34,12 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
 
     // Create some test nodes.
     for ($i = 0; $i < 12; $i++) {
-      $date = new DrupalDateTime('20-10-2020');
       $values = [
         'title' => 'News number ' . $i,
         'type' => 'oe_sc_news',
         'body' => 'This is content number ' . $i,
         'status' => NodeInterface::PUBLISHED,
-        'created' => $date->getTimestamp(),
+        'created' => '2020-10-20',
       ];
       $node = Node::create($values);
       $node->save();
