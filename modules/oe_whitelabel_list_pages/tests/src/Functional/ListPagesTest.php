@@ -30,6 +30,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
    * Tests a list page node rendering.
    */
   public function testListPageRendering(): void {
+    $page = $this->getSession()->getPage();
     $assert_session = $this->assertSession();
 
     // Create some test nodes.
@@ -45,7 +46,6 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
       $node->save();
     }
 
-    // Index content.
     $this->indexItems('oe_whitelabel_list_page_index_test');
     $list_page = $this->createListPage();
 
