@@ -9,7 +9,6 @@ use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\Tests\oe_whitelabel\Functional\WhitelabelBrowserTestBase;
 use Drupal\Tests\search_api\Functional\ExampleContentTrait;
-use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 
 /**
  * Tests the list pages rendering.
@@ -17,7 +16,6 @@ use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 class ListPagesTest extends WhitelabelBrowserTestBase {
 
   use ExampleContentTrait;
-  use SparqlConnectionTrait;
 
   /**
    * {@inheritdoc}
