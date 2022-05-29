@@ -114,34 +114,78 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     return $list_page;
   }
 
-    // Assert the left column.
-    $assert_session->elementExists('css', 'div.row > div.col-12.col-lg-3');
-    // Assert offcanvas.
-    $assert_session->elementExists('css', 'div.bcl-offcanvas');
-    $assert_session->elementTextEquals('css', 'h4.offcanvas-title', 'Filter options');
-    $assert_session->elementExists('css', 'button.btn-light > svg');
-    $assert_session->elementTextEquals('css', 'button[data-bs-toggle="offcanvas"]', 'Filters');
-    // Assert Filters.
-    $assert_session->elementExists('css', 'input[name="oe_sc_news_title"]');
-    $assert_session->elementExists('css', 'input[data-drupal-selector="edit-submit"]');
-    $assert_session->elementExists('css', 'input[data-drupal-selector="edit-reset"]');
+  /**
+   * Asserts the title in the facets summary.
+   *
+   * @param int $expected_count
+   *   Expected number of results to be reported in the title.
+   * @param \Behat\Mink\Element\ElementInterface $container
+   *   Document to check against.
+   */
+  protected function assertFacetsSummaryTitle(int $expected_count, ElementInterface $container): void {
+    $facets_summary = $container->find('css', 'div.col-md-6.col-lg-8');
+    $title = $facets_summary->find('css', 'h4');
+    $text = $title->find('css', 'span.text-capitalize');
 
-    // Assert right column.
-    $assert_session->elementExists('css', 'div.row > div.col-12.col-lg-9.col-xxl-8');
-    $assert_session->elementContains('css', 'h4.mb-0 > span', 'News list page');
-    $assert_session->elementContains('css', 'h4.mb-0', '(12)');
-    // Assert listing.
-    $assert_session->elementsCount('css', 'hr', 2);
-    $assert_session->elementsCount('css', 'div.listing-item', '10');
-    // Assert pagination.
-    $assert_session->elementExists('css', 'nav > ul.pagination');
-    $assert_session->elementsCount('css', 'ul.pagination > li.page-item', 4);
+    $this->assertSame(
+      sprintf('%s (%s)', $text->getText(), $expected_count),
+      $title->getText()
+    );
+  }
 
-    // Assert search.
-    $page->fillField('Title', 'News number 8');
-    $page->pressButton('Search');
-    $assert_session->elementContains('css', 'h4.mb-0', '(1)');
-    $assert_session->elementTextEquals('css', 'span.badge.bg-light', 'News number 8');
+  /**
+   * Asserts badges for active filters.
+   *
+   * @param string[] $expected
+   *   Expected badge labels.
+   * @param \Behat\Mink\Element\ElementInterface $container
+   *   Document to check against.
+   */
+  protected function assertActiveFilterBadges(array $expected, ElementInterface $container): void {
+    $badges = $container->findAll('css', '.badge');
+    $this->assertElementsTexts($expected, $badges);
+  }
+
+  /**
+   * Asserts link text on pager links.
+   *
+   * @param int $expected_count
+   *   Expected number of links in the pager.
+   * @param \Behat\Mink\Element\ElementInterface $container
+   *   Document to check against.
+   */
+  protected function assertPager(int $expected_count, ElementInterface $container): void {
+    $links = $container->findAll('css', 'ul.pagination > li.page-item');
+    $this->assertCount($expected_count, $links);
+  }
+
+  /**
+   * Asserts listing items.
+   *
+   * @param int $expected_count
+   *   Expected number of results in the listing.
+   * @param \Behat\Mink\Element\ElementInterface $container
+   *   Document to check against.
+   */
+  protected function assertListing(int $expected_count, ElementInterface $container): void {
+    $listing = $container->find('css', 'div.bcl-listing');
+    $this->assertSession()->elementsCount('css', 'div.listing-item', $expected_count, $listing);
+  }
+
+  /**
+   * Asserts text contents for multiple elements at once.
+   *
+   * @param string[] $expected
+   *   Expected element texts.
+   * @param \Behat\Mink\Element\NodeElement[] $elements
+   *   Elements to compare.
+   */
+  protected function assertElementsTexts(array $expected, array $elements): void {
+    $actual = [];
+    foreach ($elements as $element) {
+      $actual[] = $element->getText();
+    }
+    $this->assertSame($expected, $actual);
   }
 
 }
