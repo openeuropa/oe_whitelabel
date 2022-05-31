@@ -75,13 +75,10 @@ function oe_whitelabel_contact_forms_preprocess_status_messages(&$variables) {
         continue;
       }
 
-      $definition = '';
       if ($field->getFieldDefinition()->getType() === 'skos_concept_entity_reference') {
         /** @var \Drupal\rdf_skos\Entity\Concept[] $concept_entities */
         $concept_entities = $field->referencedEntities();
-        if (isset($concept_entities[0])) {
-          $definition = [['label' => $concept_entities[0]->label()]];
-        }
+        $definition = $concept_entities[0]->label();
       }
       else {
         $definition = $field->first()->getValue()['value'];
