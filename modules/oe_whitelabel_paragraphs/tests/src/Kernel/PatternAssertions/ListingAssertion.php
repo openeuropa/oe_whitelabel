@@ -58,7 +58,7 @@ class ListingAssertion extends Assert {
     $this->assertCount(1, $crawler->filter('div.bcl-listing'));
     $this->assertCount(6, $crawler->filter('div.row-cols-1.g-4 > div.col'));
     $this->assertStringContainsString('Listing item block title', trim($crawler->filter('h2.bcl-heading')->text()));
-    $this->assertCount(6, $crawler->filter('h5.card-title'));
+    $this->assertCount(6, $crawler->filter('h1.card-title'));
     $link_element = $crawler->filter('a.text-underline-hover');
     $this->assertCount(6, $link_element);
     $this->assertStringContainsString(
@@ -66,7 +66,7 @@ class ListingAssertion extends Assert {
       $link_element->attr('href')
     );
     $text_element = $crawler->filter('div.card-text');
-    $this->assertStringContainsString('Item title 1', trim($crawler->filter('h5.card-title > a.text-underline-hover')->text()));
+    $this->assertStringContainsString('Item title 1', trim($crawler->filter('h1.card-title > a.text-underline-hover')->text()));
     $this->assertStringContainsString('Label 1 - 1', trim($crawler->filter('span.badge')->eq(0)->text()));
     $this->assertStringContainsString('Label 2 - 1', trim($crawler->filter('span.badge')->eq(1)->text()));
     $this->assertStringContainsString(
