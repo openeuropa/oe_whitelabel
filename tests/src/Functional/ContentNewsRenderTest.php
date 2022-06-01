@@ -129,11 +129,14 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler((string) $render);
 
+    $article = $crawler->filter('article');
+    $this->assertCount(1, $article);
+
     $this->assertEquals(
       'Test news node',
-      trim($crawler->filter('h5.card-title')->text())
+      trim($article->filter('h1.card-title')->text())
     );
-    $image = $crawler->filter('img');
+    $image = $article->filter('img');
     $this->assertCount(1, $image);
     $this->assertCount(1, $image->filter('.card-img-top'));
     $this->assertStringContainsString(
@@ -142,11 +145,11 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
     );
     $this->assertEquals(
       'https://www.example.org is a web page',
-      trim($crawler->filter('div.card-text')->text())
+      trim($article->filter('div.card-text')->text())
     );
     $this->assertEquals(
       '09 February 2022',
-      trim($crawler->filter('div.card-body > div > span.text-muted')->text())
+      trim($article->filter('div.card-body > div > span.text-muted')->text())
     );
   }
 
