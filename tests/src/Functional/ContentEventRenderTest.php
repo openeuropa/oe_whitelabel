@@ -153,6 +153,17 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       'Event body',
       $crawler->filter('#oe-content-body p')->text()
     );
+
+    // Assert inpage_navigation not loaded if there is no body and documents.
+    /** @var \Drupal\node\Entity\Node $node */
+    $node = \Drupal::entityTypeManager()->getStorage('node')->load($node->id());
+    $node->set('oe_documents', NULL);
+    $node->set('body', NULL);
+    $node->save();
+
+    $this->drupalGet('node/' . $node->id());
+
+    $this->assertSession()->elementNotExists('css', 'nav.bcl-inpage-navigation');
   }
 
   /**
