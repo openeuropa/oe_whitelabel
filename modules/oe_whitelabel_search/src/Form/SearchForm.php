@@ -51,15 +51,18 @@ class SearchForm extends FormBase {
 
     $form_state->set('oe_whitelabel_search_config', $config);
 
-    $form['#region'] = $config['form']['region'];
+    $theme_hook_suffix = $config['form']['region'] . '__' . $this->getFormId();
+
+    $form['#theme_wrappers'] = ['form__' . $theme_hook_suffix];
 
     $form['search_input'] = [
+      /* @see \Drupal\Core\Render\Element\Textfield */
       '#type' => 'textfield',
+      '#theme' => 'input__textfield__' . $theme_hook_suffix,
+      '#theme_wrappers' => ['form_element__' . $this->getFormId()],
       '#title' => $config['input']['label'],
       '#title_display' => 'invisible',
       '#size' => 20,
-      '#form_id' => $this->getFormId(),
-      '#region' => $config['form']['region'],
       '#default_value' => $this->getRequest()->get($config['input']['name']),
       '#required' => TRUE,
       '#attributes' => [
@@ -68,9 +71,9 @@ class SearchForm extends FormBase {
     ];
 
     $form['submit'] = [
+      /* @see \Drupal\Core\Render\Element\Submit */
       '#type' => 'submit',
-      '#form_id' => $this->getFormId(),
-      '#region' => $config['form']['region'],
+      '#theme_wrappers' => ['input__submit__' . $theme_hook_suffix],
       '#value' => $config['button']['label'],
     ];
 
@@ -78,6 +81,7 @@ class SearchForm extends FormBase {
       return $form;
     }
 
+    /* @see \Drupal\search_api_autocomplete\Element\SearchApiAutocomplete */
     $form['search_input']['#type'] = 'search_api_autocomplete';
     // The view id.
     $form['search_input']['#search_id'] = $config['view_options']['id'];
