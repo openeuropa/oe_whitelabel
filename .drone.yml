@@ -46,6 +46,8 @@ pipeline:
     commands:
       - composer self-update --2
       - composer install --ansi --no-progress
+      - composer why doctrine/instantiator
+      - php --version
     when:
       matrix:
         COMPOSER_BOUNDARY: highest
@@ -58,6 +60,7 @@ pipeline:
     commands:
       - composer self-update --2
       - composer update --prefer-lowest --prefer-stable --ansi --no-progress
+      - composer why phpunit/phpunit
     when:
       event:
         exclude: tag
