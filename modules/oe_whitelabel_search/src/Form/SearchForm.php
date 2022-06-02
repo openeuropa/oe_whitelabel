@@ -51,7 +51,10 @@ class SearchForm extends FormBase {
 
     $form_state->set('oe_whitelabel_search_config', $config);
 
-    $theme_hook_suffix = $config['form']['region'] . '__' . $this->getFormId();
+    $theme_hook_suffix = $this->getFormId();
+    if (isset($config['form']['region'])) {
+      $theme_hook_suffix = $config['form']['region'] . '__' . $theme_hook_suffix;
+    }
 
     $form['#theme_wrappers'] = ['form__' . $theme_hook_suffix];
 
