@@ -45,7 +45,7 @@
 {% endset %}
 
 <article{{attributes}}>
-  {% if inpage_navigation_links is null %}
+  {% if inpage_navigation_links is empty %}
     {{ inpage_navigation_fields }}
   {% else %}
     {{ pattern('inpage_navigation', {
