@@ -69,12 +69,12 @@ class DescriptionListTest extends ParagraphsTestBase {
     $html = $this->renderParagraph($paragraph);
     $crawler = new Crawler($html);
 
-    $this->assertCount(1, $crawler->filter('h4'));
+    $this->assertCount(1, $crawler->filter('h2.bcl-heading'));
     $this->assertCount(1, $crawler->filter('dl.d-md-grid.grid-3-9'));
     $this->assertCount(2, $crawler->filter('dd'));
     $this->assertCount(2, $crawler->filter('dt'));
 
-    $title = $crawler->filter('h4.fw-bold.mb-4');
+    $title = $crawler->filter('h2.bcl-heading');
     $this->assertEquals('Description list paragraph', $title->text());
 
     $term_1 = $crawler->filter('dl > div:nth-child(1) > dt');
@@ -100,7 +100,7 @@ class DescriptionListTest extends ParagraphsTestBase {
     $html = $this->renderParagraph($paragraph);
     $crawler = new Crawler($html);
 
-    $title = $crawler->filter('h4.fw-bold.mb-4');
+    $title = $crawler->filter('h2.bcl-heading');
     $this->assertEquals('Description list paragraph', $title->text());
 
     $term_1 = $crawler->filter('dl > dt:nth-child(1)');
