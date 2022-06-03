@@ -159,9 +159,9 @@ class ContentRowTest extends ParagraphsTestBase {
     // Assert the paragraphs where added into the right side column.
     $content = $crawler->filter('div.col-md-9');
     $this->assertCount(1, $content);
-    $rich_text_title = $content->filter('h4.fw-bold.mb-4');
+    $rich_text_title = $content->filter('h2.bcl-heading')->eq(0);
     $this->assertSame('Title rich text test 1', trim($rich_text_title->text()));
-    $links_block_title = $content->filter('h2.bcl-heading');
+    $links_block_title = $content->filter('h2.bcl-heading')->eq(1);
     $this->assertSame('Links block test', $links_block_title->text());
     $facts_figures = $content->filter('div.bcl-fact-figures--default');
     $this->assertStringContainsString('Facts and Figures test', $facts_figures->filter('h2.bcl-heading')->text());
@@ -169,7 +169,7 @@ class ContentRowTest extends ParagraphsTestBase {
     $this->assertStringContainsString('Maecenas id urna eleifend', $blockquote_blockquote->text());
     $blockquote_footer = $content->filter('figcaption.blockquote-footer');
     $this->assertSame('Quote 1', trim($blockquote_footer->text()));
-    $social_media_title = $content->filter('h2.bcl-heading')->eq(2);
+    $social_media_title = $content->filter('h2.bcl-heading')->eq(3);
     $this->assertStringContainsString('Social media block', $social_media_title->text());
     $accordion_items = $content->filter('.accordion-item');
     $this->assertStringContainsString('Accordion item 1', $accordion_items->eq(0)->text());
