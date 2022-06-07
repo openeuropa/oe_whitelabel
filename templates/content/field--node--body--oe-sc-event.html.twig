@@ -10,14 +10,6 @@
   label_display == 'inline' ? 'd-flex',
 ]
 %}
-{%
-  set title_classes = [
-  'field__label',
-  'fw-bold',
-  label_display == 'visually_hidden' ? 'visually-hidden',
-]
-%}
-
 {% if label_hidden %}
   {% if multiple %}
     <div{{ attributes.addClass(classes) }}>
@@ -32,9 +24,20 @@
   {% endif %}
 {% else %}
   <div{{ attributes.addClass(classes) }}>
-    <h3{{ title_attributes.addClass(title_classes) }}>
-      {{ label }}{% if label_display == 'inline' %}<span class="me-1">:</span>{% endif %}
-    </h3>
+    {%- set _label -%}
+      {{- label -}}
+      {%- if label_display == 'inline' -%}
+        <span class="me-1">:</span>
+      {%- endif -%}
+    {%- endset -%}
+    {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
+      title: _label,
+      title_tag: 'h3',
+      attributes: create_attribute().addClass([
+        'field__label',
+        label_display == 'visually_hidden' ? 'visually-hidden',
+      ])
+    } only %}
     {% if multiple %}
     <div class="field__items">
       {% endif %}
