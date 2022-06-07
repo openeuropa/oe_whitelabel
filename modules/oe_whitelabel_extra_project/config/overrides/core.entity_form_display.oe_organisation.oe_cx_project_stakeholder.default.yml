@@ -1,0 +1,54 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.oe_organisation.oe_cx_project_stakeholder.oe_acronym
+    - field.field.oe_organisation.oe_cx_project_stakeholder.oe_address
+    - field.field.oe_organisation.oe_cx_project_stakeholder.oe_contact_url
+    - field.field.oe_organisation.oe_cx_project_stakeholder.oe_cx_contribution_budget
+    - field.field.oe_organisation.oe_cx_project_stakeholder.oe_logo
+    - field.field.oe_organisation.oe_cx_project_stakeholder.oe_website
+    - oe_content_entity_organisation.oe_organisation_type.oe_cx_project_stakeholder
+  module:
+    - address
+id: oe_organisation.oe_cx_project_stakeholder.default
+targetEntityType: oe_organisation
+bundle: oe_cx_project_stakeholder
+mode: default
+content:
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  oe_acronym:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  oe_address:
+    type: address_default
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  oe_cx_contribution_budget:
+    type: number
+    weight: 3
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  langcode: true
+  oe_contact_url: true
+  oe_logo: true
+  oe_website: true
+  status: true

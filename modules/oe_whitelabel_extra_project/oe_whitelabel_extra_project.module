@@ -1,0 +1,319 @@
+<?php
+
+/**
+ * @file
+ * OE Whitelabel theme extra project.
+ */
+
+declare(strict_types =  1);
+
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Template\Attribute;
+use Drupal\media\MediaInterface;
+use Drupal\media\Plugin\media\Source\Image;
+use Drupal\media\Plugin\media\Source\OEmbed;
+use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
+
+/**
+ * Implements hook_preprocess_HOOK() for "pattern_description_list".
+ *
+ * Adds a bottom border for some instances of this pattern that are used in
+ * field groups on the project detail page.
+ */
+function oe_whitelabel_extra_project_preprocess_pattern_description_list(array &$variables): void {
+  /** @var \Drupal\ui_patterns\Element\PatternContext $context */
+  $context = $variables['context'];
+  if ($context->getType() === 'field_group') {
+    $id = $context->getProperty('entity_type')
+      . '.' . $context->getProperty('bundle')
+      . '.' . $context->getProperty('view_mode')
+      . '.' . $context->getProperty('group_name');
+    switch ($id) {
+      case 'oe_organisation.oe_cx_project_stakeholder.default.group_info':
+      case 'node.oe_project.full.group_project_details':
+      case 'node.oe_project.full.group_coordinators':
+      case 'node.oe_project.full.group_period':
+      case 'node.oe_project.full.group_budget':
+      case 'node.oe_project.full.group_website':
+        /** @var \Drupal\Core\Template\Attribute $attributes */
+        $attributes = $variables['attributes'];
+        $attributes->addClass('border-bottom');
+        $attributes->addClass('pb-3');
+        break;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_node() for the project full view mode.
+ */
+function oe_whitelabel_extra_project_preprocess_node__oe_project__full(array &$variables): void {
+  _oe_whitelabel_extra_project_preprocess_inpage_nav($variables);
+  _oe_whitelabel_extra_project_preprocess_status_and_progress($variables);
+  _oe_whitelabel_extra_project_preprocess_contributions($variables);
+}
+
+/**
+ * Implements hook_preprocess_node() for the project content banner view mode.
+ */
+function oe_whitelabel_extra_project_preprocess_node__oe_project__oe_w_content_banner(array &$variables): void {
+  _oe_whitelabel_extra_project_preprocess_featured_media($variables);
+}
+
+/**
+ * Implements hook_preprocess_node() for the project teaser.
+ */
+function oe_whitelabel_extra_project_preprocess_node__oe_project__teaser(array &$variables): void {
+  _oe_whitelabel_extra_project_preprocess_featured_media($variables);
+}
+
+/**
+ * Creates an image value object in $variables['image'].
+ *
+ * @param array $variables
+ *   Variables from hook_preprocess_node().
+ */
+function _oe_whitelabel_extra_project_preprocess_featured_media(array &$variables): void {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+
+  // Bail out if there is no media present.
+  if ($node->get('oe_featured_media')->isEmpty()) {
+    return;
+  }
+
+  /** @var \Drupal\media\Entity\Media $media */
+  $media = $node->get('oe_featured_media')->entity;
+  if (!$media instanceof MediaInterface) {
+    // The media entity is not available anymore, bail out.
+    return;
+  }
+
+  // Retrieve the correct media translation.
+  /** @var \Drupal\media\Entity\Media $media */
+  $media = \Drupal::service('entity.repository')->getTranslationFromContext($media, $node->language()->getId());
+
+  // Caches are handled by the formatter usually. Since we are not rendering
+  // the original render arrays, we need to propagate our caches to the
+  // paragraph template.
+  $cacheability = CacheableMetadata::createFromRenderArray($variables);
+  $cacheability->addCacheableDependency($media);
+
+  // Run access checks on the media entity.
+  $access = $media->access('view', $variables['user'], TRUE);
+  $cacheability->addCacheableDependency($access);
+  if (!$access->isAllowed()) {
+    $cacheability->applyTo($variables);
+    return;
+  }
+
+  // Get the media source.
+  $source = $media->getSource();
+
+  if (!$source instanceof OEmbed && !$source instanceof Image) {
+    // Media is not a video or image, no thumbnail will be shown.
+    $cacheability->applyTo($variables);
+    return;
+  }
+
+  /** @var \Drupal\image\Plugin\Field\FieldType\ImageItem $thumbnail */
+  $thumbnail = $media->get('thumbnail')->first();
+  $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
+
+  $cacheability->applyTo($variables);
+}
+
+/**
+ * Helper function to preprocess the inpage navigation pattern fields.
+ *
+ * @param array $variables
+ *   Variables from hook_preprocess_node().
+ */
+function _oe_whitelabel_extra_project_preprocess_inpage_nav(array &$variables): void {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+  $variables['inpage_navigation_links'] = [];
+
+  $fields = [
+    'oe_summary',
+    'oe_cx_objective',
+    'oe_cx_impacts',
+    'oe_cx_lead_contributors',
+    'oe_project_participants',
+    'oe_cx_achievements_and_milestone',
+  ];
+  foreach ($variables['content'] as &$item) {
+    if (!array_key_exists('#field_name', $item)) {
+      continue;
+    }
+
+    if (!in_array($item['#field_name'], $fields)) {
+      continue;
+    }
+
+    $unique_id = Html::getUniqueId('oe-project--' . $item['#field_name']);
+    $item['#inpage_nav_id'] = $unique_id;
+    $variables['inpage_navigation_links'][] = [
+      'path' => '#' . $unique_id,
+      'label' => $node->{$item['#field_name']}->getFieldDefinition()->getLabel(),
+    ];
+  }
+}
+
+/**
+ * Adds variables for the project status.
+ *
+ * @param array $variables
+ *   Variables from hook_preprocess_node().
+ */
+function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$variables): void {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+  /** @var \Drupal\datetime_range\Plugin\Field\FieldType\DateRangeItem|null $date_range_item */
+  $date_range_item = $node->get('oe_project_dates')->first();
+  if ($date_range_item === NULL || !$date_range_item->value || !$date_range_item->end_value) {
+    // One of the fields is empty.
+    return;
+  }
+
+  // Dates only store the date, not the time.
+  // Use the site-wide configured timezone, not a user-specific timezone.
+  /* @see \Drupal\system\TimeZoneResolver::getTimeZone() */
+  $system_date_config = \Drupal::config('system.date');
+  /** @var string $timezone */
+  $timezone = $system_date_config->get('timezone.default') ?? 'UTC';
+
+  // Invalidate cache when site timezone is changed.
+  CacheableMetadata::createFromRenderArray($variables)
+    ->addCacheableDependency($system_date_config)
+    ->applyTo($variables);
+
+  $get_timestamp = static function (string $date_string) use ($timezone): int {
+    return (new DrupalDateTime($date_string, $timezone))->getTimestamp();
+  };
+  // Project starts at the beginning of the first day at 00:00.
+  $t_start = $get_timestamp($date_range_item->value);
+  // Project ends at the end of the last day at 24:00.
+  $t_end = $get_timestamp($date_range_item->end_value . ' +1 day');
+
+  if ($t_start >= $t_end) {
+    // Invalid date range. No progress or status can be shown.
+    return;
+  }
+
+  // Use the formatted field values for start / end date.
+  $element = $variables['elements']['oe_project_dates'][0] ?? [];
+  if ($element['#theme'] ?? NULL === 'time') {
+    // Project lasts a single day.
+    $start_date_element = $element;
+    $end_date_element = $element;
+  }
+  elseif (isset($element['start_date']['#theme'], $element['end_date']['#theme'])) {
+    // Project lasts multiple days.
+    $start_date_element = $element['start_date'];
+    $end_date_element = $element['end_date'];
+  }
+  else {
+    // Empty or incomplete date range. No progress or status can be shown.
+    return;
+  }
+
+  $status_labels = [t('Planned'), t('Ongoing'), t('Closed')];
+
+  // Values for the 'bcl-project-status' component.
+  // Some values contain placeholders that will be updated with javascript.
+  // This makes sure that tests will fail if js does not run.
+  $variables['project_status_args'] = [
+    // Placeholder value.
+    'status' => 'planned',
+    'start_date' => $start_date_element,
+    'start_label' => t('Start'),
+    'end_date' => $end_date_element,
+    'end_label' => t('End'),
+    'label' => t('Status'),
+    // Placeholder value.
+    'badge' => '&ellipsis;',
+    // Placeholder value, identical to 'planned'.
+    'progress' => 0,
+    'attributes' => new Attribute([
+      'data-start-timestamp' => $t_start,
+      'data-end-timestamp' => $t_end,
+      'data-status-labels' => implode('|', $status_labels),
+      // Hide for non-js users, to avoid showing wrong/outdated information.
+      'class' => ['d-none'],
+    ]),
+  ];
+}
+
+/**
+ * Adds variables for the project contributions chart.
+ *
+ * @param array $variables
+ *   Variables from hook_preprocess_node().
+ */
+function _oe_whitelabel_extra_project_preprocess_contributions(array &$variables): void {
+  $field_bg_classes = [
+    'oe_project_budget' => 'bg-gray-400',
+    'oe_project_budget_eu' => 'bg-primary',
+  ];
+  $legend_items = [];
+  foreach ($field_bg_classes as $field_name => $bg_class) {
+    $field_element = $variables['elements'][$field_name] ?? NULL;
+    if (!isset($field_element[0])) {
+      continue;
+    }
+    $legend_items[] = [
+      'term' => [
+        [
+          'label' => $field_element['#title'],
+          'color' => $bg_class,
+        ],
+      ],
+      'definition' => [
+        [
+          // Render only the field value, without field wrappers.
+          'label' => $field_element[0],
+        ],
+      ],
+    ];
+  }
+
+  if (!$legend_items) {
+    return;
+  }
+
+  $variables['contributions_args'] = [
+    'corporate_contributions' => NULL,
+    'chart' => FALSE,
+    'legend' => [
+      'variant' => 'horizontal',
+      'items' => $legend_items,
+    ],
+  ];
+
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+  $overall_budget = $node->get('oe_project_budget')->value;
+  $eu_budget = $node->get('oe_project_budget_eu')->value;
+
+  if ($overall_budget === NULL
+    || $eu_budget === NULL
+    || $overall_budget <= 0
+    || $eu_budget < 0
+    || $overall_budget < $eu_budget
+  ) {
+    // No pie chart can be drawn with these values.
+    return;
+  }
+
+  // The ratio will be in the range of 0..1, thanks to the checks above.
+  $ratio_01 = $eu_budget / $overall_budget;
+  // Convert to percent.
+  // The pie chart only supports multiples of 10%.
+  $percent = (int) round($ratio_01 * 10) * 10;
+
+  $variables['contributions_args']['corporate_contributions'] = $percent;
+  $variables['contributions_args']['chart'] = TRUE;
+}
