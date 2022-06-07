@@ -11,7 +11,7 @@
         "drupal/core": "^9.2",
         "drupal/twig_field_value": "^2.0",
         "openeuropa/composer-artifacts": "^1.0.0-alpha1",
-        "openeuropa/oe_bootstrap_theme": "1.0.0-beta1"
+        "openeuropa/oe_bootstrap_theme": "0.1.202206071025"
     },
     "require-dev": {
         "composer/installers": "^1.11",
