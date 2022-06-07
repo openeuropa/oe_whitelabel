@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
+use Drupal\Core\Url;
 use Drupal\KernelTests\KernelTestBase;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -71,6 +72,7 @@ class SiteBrandingBlockTest extends KernelTestBase {
     $link = $actual->filter('.text-decoration-none.align-bottom');
     $this->assertCount(1, $link);
     $actual = $crawler->filter('.site-logo.d-none.d-lg-inline-block');
+    $this->assertSame(Url::fromRoute('<front>')->toString(), $actual->attr('href'));
     $this->assertCount(1, $actual);
     $logo = $actual->filter('img');
     $this->assertCount(1, $logo);
@@ -93,6 +95,7 @@ class SiteBrandingBlockTest extends KernelTestBase {
     $link = $actual->filter('.text-decoration-none.align-bottom');
     $this->assertCount(1, $link);
     $actual = $crawler->filter('.site-logo.d-none.d-lg-inline-block');
+    $this->assertSame(Url::fromRoute('<front>')->toString(), $actual->attr('href'));
     $this->assertCount(1, $actual);
     $logo = $actual->filter('img');
     $this->assertCount(1, $logo);
@@ -112,6 +115,7 @@ class SiteBrandingBlockTest extends KernelTestBase {
     $actual = $crawler->filter('.bcl-header__site-name.site-name.h5.d-inline-block.d-lg-none');
     $this->assertCount(1, $actual);
     $link = $actual->filter('.text-decoration-none.align-bottom');
+    $this->assertSame(Url::fromRoute('<front>')->toString(), $link->attr('href'));
     $this->assertCount(1, $link);
   }
 
