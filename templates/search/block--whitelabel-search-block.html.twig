@@ -1,0 +1,13 @@
+{#
+/**
+ * @file
+ * Override for blocks with plugin id = 'whitelabel_search_block'.
+ *
+ * Removes outer wrapper div and block label.
+ *
+ * @see \Drupal\oe_whitelabel_search\Plugin\Block\SearchBlock
+ */
+#}
+{% block content %}
+  {{ content }}
+{% endblock %}

@@ -1,0 +1,13 @@
+{#
+/**
+ * @file
+ * Override for blocks with plugin id = 'language_block:language_interface'.
+ *
+ * @see \Drupal\language\Plugin\Block\LanguageBlock
+ */
+#}
+{% block content %}
+  <div class="language-switcher-block nav-link">
+    {{ content }}
+  </div>
+{% endblock %}
