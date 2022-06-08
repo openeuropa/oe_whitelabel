@@ -29,7 +29,12 @@
           ({{ content['extra_field_oe_list_page_total_count:node:oe_list_page'] }})
         </h4>
       </div>
-      {{ content['extra_field_oe_list_page_selected_filters:node:oe_list_page'] }}
+      {% set selected_filters = content['extra_field_oe_list_page_selected_filters:node:oe_list_page'] %}
+      {% if selected_filters[0]|length > 1 %}
+      <div class="col-md-12 order-md-2 mt-3">
+        {{ selected_filters }}
+      </div>
+      {% endif %}
     </div>
     {{ content['extra_field_oe_list_page_results:node:oe_list_page'] }}
   </div>

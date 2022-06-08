@@ -1,13 +1,9 @@
-{% if items -%}
-<div class="col-md-12 order-md-2 mt-3">
-  {%- for item in items -%}
-    {{ pattern('badge', {
-      'background': 'light',
-      'label': item.label,
-      'url': item.url,
-      'dismissible': true,
-      'attributes': create_attribute({'class': ['me-2', 'fs-6']}),
-    }) }}
-  {%- endfor -%}
-</div>
-{%- endif %}
+{%- for item in items -%}
+  {{ pattern('badge', {
+    'background': 'light',
+    'label': item.label,
+    'url': item.url,
+    'dismissible': true,
+    'attributes': create_attribute({'class': ['me-2', 'fs-6']}),
+  }) }}
+{%- endfor -%}
