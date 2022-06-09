@@ -1,0 +1,71 @@
+{#
+/**
+ * @file
+ * Project full display.
+ */
+#}
+{% apply spaceless %}
+
+{% macro header(title, id) %}
+  {% set attributes = id ? create_attribute({'id': id}) %}
+  <h3 class="fw-bold mb-4 mt-4-5"{{ attributes }}>{{ title }}</h3>
+{% endmacro %}
+
+{% macro field_with_header(field) %}
+  {% set _content %}{{ field|field_value }}{% endset %}
+  {% if _content|trim %}
+    {{ _self.header(field|field_label, field['#inpage_nav_id'] ?? null) }}
+    {{ _content }}
+  {% endif %}
+{% endmacro %}
+
+{% set _project_details %}
+  {% if project_status_args is not empty %}
+    {{ attach_library('oe_whitelabel/project_status') }}
+    {% include '@oe-bcl/project-status' with project_status_args only %}
+  {% endif %}
+  {% if contributions_args is defined %}
+    {% include '@oe-bcl/project-status/project-contributions' with contributions_args only %}
+  {% endif %}
+  {{ content.group_project_details|filter((subgroup, key) => key|first != '#') }}
+{% endset %}
+
+{% if _project_details|trim is not empty %}
+  {% set _project_details_title = 'Project details'|t %}
+  {% set _project_details %}
+    {{ _self.header(_project_details_title, 'project-details') }}
+    {{ _project_details }}
+  {% endset %}
+  {% set inpage_navigation_links = [{
+    'path': '#project-details',
+    'label': _project_details_title,
+  }]|merge(inpage_navigation_links) %}
+{% endif %}
+
+{% set inpage_navigation_content %}
+  {#
+    Reliably absorb top margin of first element.
+    @todo Add a utility class 'eat-margin-top' with :before style.
+  #}
+  <div class="h-0 invisible mt-n5 mb-5"></div>
+  {% block inpage_navigation_content %}
+    {{ _project_details }}
+    {{ _self.field_with_header(content.oe_summary) }}
+    {{ _self.field_with_header(content.oe_cx_objective) }}
+    {{ _self.field_with_header(content.oe_cx_impacts) }}
+    {{ _self.field_with_header(content.oe_cx_lead_contributors) }}
+    {{ _self.field_with_header(content.oe_project_participants) }}
+    {{ _self.field_with_header(content.oe_cx_achievements_and_milestone) }}
+  {% endblock %}
+{% endset %}
+
+<article{{ attributes }}>
+  {{ pattern('inpage_navigation', {
+    'title': 'Page content'|t,
+    'links': inpage_navigation_links,
+    'content': inpage_navigation_content,
+    'full_layout': true,
+  }) }}
+</article>
+
+{% endapply %}

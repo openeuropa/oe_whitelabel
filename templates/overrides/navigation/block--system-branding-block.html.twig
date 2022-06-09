@@ -1,15 +1,10 @@
 {#
 /**
  * @file
- * Theme override for a branding block.
+ * Override for blocks with plugin id = 'system_branding_block'.
  *
- * Each branding element variable (logo, name, slogan) is only available if
- * enabled in the block configuration.
- *
- * Available variables:
- * - site_logo: Logo for site as defined in Appearance or theme settings.
- * - site_name: Name for site as defined in Site information settings.
- * - site_slogan: Slogan for site as defined in Site information settings.
+ * @see build/core/modules/system/templates/block--system-branding-block.html.twig
+ * @see \Drupal\system\Plugin\Block\SystemBrandingBlock
  */
 #}
 {% set light = bcl_header_style == 'light' %}

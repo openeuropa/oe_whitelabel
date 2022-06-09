@@ -1,0 +1,26 @@
+{#
+/**
+ * @file
+ * Theme for the header search input submit element.
+ *
+ * @see ./core/modules/system/templates/input.html.twig
+ */
+#}
+{% if element['#value'] is not empty %}
+  {% set label %}
+    <span class="d-none d-lg-inline-block">{{ element['#value']|t }}</span>
+  {% endset %}
+{% endif %}
+{{ pattern('button', {
+  'variant': 'primary',
+  'icon': 'search',
+  'label': label,
+  'type': 'submit',
+  'icon_position': 'before',
+  'attributes': attributes
+    .addClass([
+      'bcl-search-form__submit',
+      'px-3'
+    ])
+}) }}
+{{ children }}

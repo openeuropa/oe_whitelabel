@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Search form template for the header region.
+ *
+ * @see ./core/modules/system/templates/form.html.twig
+ */
+#}
+<div class="bg-lighter py-4 py-lg-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-6 offset-lg-3">
+        <form {{ attributes.addClass('bcl-search-form', 'submittable') }}>
+          <div class="bcl-search-form__group">
+            {{ children }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

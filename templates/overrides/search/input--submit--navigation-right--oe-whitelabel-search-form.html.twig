@@ -1,0 +1,28 @@
+{#
+/**
+ * @file
+ * Theme for the navigation_right search input submit element.
+ *
+ * @see ./core/modules/system/templates/input.html.twig
+ */
+#}
+{% if element['#value'] is not empty %}
+  {% set label %}
+    <span class="d-none d-lg-inline-block">{{ element['#value']|t }}</span>
+  {% endset %}
+{% endif %}
+{{ pattern('button', {
+  'variant': 'light',
+  'label': label,
+  'icon': 'search',
+  'type': 'submit',
+  'icon_position': 'before',
+  'attributes': attributes
+    .addClass([
+      'border-start-0',
+      'rounded-0',
+      'rounded-end',
+      'px-3',
+    ])
+}) }}
+{{ children }}

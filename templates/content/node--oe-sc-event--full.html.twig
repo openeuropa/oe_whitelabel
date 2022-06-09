@@ -45,10 +45,14 @@
 {% endset %}
 
 <article{{attributes}}>
-  {{ pattern('inpage_navigation', {
-    title: 'Page content',
-    links: inpage_navigation_links,
-    content: inpage_navigation_fields,
-    full_layout: true,
-  }) }}
+  {% if inpage_navigation_links is empty %}
+    {{ inpage_navigation_fields }}
+  {% else %}
+    {{ pattern('inpage_navigation', {
+      title: 'Page content',
+      links: inpage_navigation_links,
+      content: inpage_navigation_fields,
+      full_layout: true,
+    }) }}
+  {% endif %}
 </article>

@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Theme implementation for the search form element.
+ *
+ * Display search form without wrappers or other elements like label, prefix, suffix or description.
+ *
+ * @see ./core/modules/system/templates/form-element.html.twig
+ */
+#}
+{{ children }}
+
+{% if errors %}
+  <div class="form-item--error-message invalid-feedback d-block">
+    {{ errors }}
+  </div>
+{% endif %}

@@ -9,6 +9,9 @@ block.settings.whitelabel_search_block:
         action:
           type: string
           label: Action
+        region:
+          type: string
+          label: Region
     input:
       type: mapping
       label: Input
@@ -19,9 +22,6 @@ block.settings.whitelabel_search_block:
         label:
           type: string
           label: Label
-        classes:
-          type: string
-          label: Classes
         placeholder:
           type: string
           label: Placeholder
@@ -29,9 +29,9 @@ block.settings.whitelabel_search_block:
       type: mapping
       label: Button
       mapping:
-        classes:
+        label:
           type: string
-          label: Classes
+          label: Button label
     view_options:
       type: mapping
       label: View Options
