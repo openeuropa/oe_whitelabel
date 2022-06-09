@@ -32,8 +32,7 @@
       {% set selected_filters %}
         {{ content['extra_field_oe_list_page_selected_filters:node:oe_list_page']|merge({'#theme': 'field__bare'}) }}
       {% endset %}
-
-      {% if selected_filters is not empty %}
+      {% if selected_filters|trim is not empty %}
         <div class="col-md-12 order-md-2 mt-3">
           {{ selected_filters }}
         </div>
