@@ -118,7 +118,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
    * @param int $expected_count
    *   Expected number of results to be reported in the title.
    * @param \Behat\Mink\Element\ElementInterface $container
-   *   Document to check against.
+   *   Container with the expected elements.
    */
   protected function assertFacetsSummaryTitle(int $expected_count, ElementInterface $container): void {
     $title = $container->find('css', 'div.col-md-6.col-lg-8 h4');
@@ -136,7 +136,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
    * @param string[] $expected
    *   Expected badge labels.
    * @param \Behat\Mink\Element\ElementInterface $container
-   *   Document to check against.
+   *   Container with the expected elements.
    */
   protected function assertActiveFilterBadges(array $expected, ElementInterface $container): void {
     $badges = $container->findAll('css', '.badge');
@@ -149,7 +149,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
    * @param int $expected_count
    *   Expected number of links in the pager.
    * @param \Behat\Mink\Element\ElementInterface $container
-   *   Document to check against.
+   *   Container with the expected elements.
    */
   protected function assertPager(int $expected_count, ElementInterface $container): void {
     $links = $container->findAll('css', 'ul.pagination > li.page-item');
@@ -162,7 +162,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
    * @param int $expected_count
    *   Expected number of results in the listing.
    * @param \Behat\Mink\Element\ElementInterface $container
-   *   Document to check against.
+   *   Container with the expected elements.
    */
   protected function assertListing(int $expected_count, ElementInterface $container): void {
     $listing = $container->find('css', 'div.bcl-listing');
