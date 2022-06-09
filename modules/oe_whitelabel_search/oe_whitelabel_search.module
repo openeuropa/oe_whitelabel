@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OE Whitelabel Search Module.
+ * Module file used for theming the search feature.
  */
 
 declare(strict_types =  1);

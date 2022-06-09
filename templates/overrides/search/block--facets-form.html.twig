@@ -1,12 +1,11 @@
 {#
 /**
  * @file
- * Theme block implementation to display facet form.
+ * Override for blocks with plugin id = 'facets_form'.
  *
- * @see ./core/themes/stable/templates/block/block.html.twig
+ * @see \Drupal\facets_form\Plugin\Block\FacetsFormBlock
  */
 #}
-
 {% if content.actions.reset['#type'] == 'link' %}
   {% set extra_attributes = create_attribute() %}
   {% set reset = pattern('link', {
