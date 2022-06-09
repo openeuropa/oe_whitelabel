@@ -45,64 +45,46 @@ class SearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, array $config = NULL): array {
-    $form_state->set('oe_whitelabel_search_config', $config);
-    $input_value = '';
-
-    if (!empty($config['input']['name'])) {
-      $input_value = $this->getRequest()->get($config['input']['name']);
+    if (empty($config['input']['name'])) {
+      return [];
     }
 
+    $form_state->set('oe_whitelabel_search_config', $config);
+
+    $theme_hook_suffix = $this->getFormId();
+    if (isset($config['form']['region'])) {
+      $theme_hook_suffix = $config['form']['region'] . '__' . $theme_hook_suffix;
+    }
+
+    $form['#theme_wrappers'] = ['form__' . $theme_hook_suffix];
+
     $form['search_input'] = [
-      '#prefix' => '<div class="bcl-search-form__group w-100">',
-      '#suffix' => '</div>',
+      /* @see \Drupal\Core\Render\Element\Textfield */
       '#type' => 'textfield',
+      '#theme' => 'input__textfield__' . $theme_hook_suffix,
+      '#theme_wrappers' => ['form_element__' . $this->getFormId()],
       '#title' => $config['input']['label'],
       '#title_display' => 'invisible',
       '#size' => 20,
-      '#margin_class' => 'mb-0',
+      '#default_value' => $this->getRequest()->get($config['input']['name']),
+      '#required' => TRUE,
       '#attributes' => [
         'placeholder' => $config['input']['placeholder'],
-        'class' => [
-          $config['input']['classes'],
-          'rounded-0',
-          'rounded-start',
-        ],
       ],
-      '#default_value' => $input_value,
-      '#required' => TRUE,
     ];
 
     $form['submit'] = [
-      '#input' => TRUE,
-      '#is_button' => TRUE,
-      '#executes_submit_callback' => TRUE,
-      '#type' => 'pattern',
-      '#id' => 'button',
-      '#variant' => 'light',
-      '#fields' => [
-        'icon' => 'search',
-        'settings' => [
-          'type' => 'submit',
-        ],
-        'attributes' => [
-          'id' => 'submit',
-          'class' => [
-            'border-start-0',
-            'rounded-0 rounded-end',
-            'd-flex',
-            'btn btn-light',
-            'btn-md',
-            'py-2',
-            $config['button']['classes'],
-          ],
-        ],
-      ],
+      /* @see \Drupal\Core\Render\Element\Submit */
+      '#type' => 'submit',
+      '#theme_wrappers' => ['input__submit__' . $theme_hook_suffix],
+      '#value' => $config['button']['label'],
     ];
 
     if (!$config['view_options']['enable_autocomplete']) {
       return $form;
     }
 
+    /* @see \Drupal\search_api_autocomplete\Element\SearchApiAutocomplete */
     $form['search_input']['#type'] = 'search_api_autocomplete';
     // The view id.
     $form['search_input']['#search_id'] = $config['view_options']['id'];

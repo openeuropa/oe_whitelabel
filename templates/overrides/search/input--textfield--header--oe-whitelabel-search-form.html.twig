@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ * Theme for the header search input textfield element.
+ */
+#}
+{% extends "input--textfield.html.twig" %}
+{% set attributes = attributes
+  .addClass([
+    'form-control',
+    'bcl-search-form__input',
+    attributes.hasClass('error') ? 'is-invalid',
+  ])
+  .removeClass('form-text') %}

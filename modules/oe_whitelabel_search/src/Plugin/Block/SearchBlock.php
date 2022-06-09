@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_whitelabel_search\Plugin\Block;
 
-use Drupal\Component\Utility\Html;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -94,15 +93,15 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     return [
       'form' => [
         'action' => '',
+        'region' => '',
       ],
       'input' => [
         'name' => '',
         'label' => '',
-        'classes' => '',
         'placeholder' => $this->t('Search'),
       ],
       'button' => [
-        'classes' => '',
+        'label' => '',
       ],
       'view_options' => [
         'enable_autocomplete' => FALSE,
@@ -145,13 +144,6 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#title' => $this->t('Input Label'),
       '#description' => $this->t('A label text for the search input.'),
       '#default_value' => $config['input']['label'],
-      '#required' => TRUE,
-    ];
-    $form['input']['input_classes'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Input classes'),
-      '#description' => $this->t('Add space-separated classes that will be added to the input.'),
-      '#default_value' => $config['input']['classes'],
     ];
     $form['input']['input_placeholder'] = [
       '#type' => 'textfield',
@@ -166,11 +158,11 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#tree' => TRUE,
       '#description' => $this->t('Fill in the settings of the Button field.'),
     ];
-    $form['button']['button_classes'] = [
+    $form['button']['button_label'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Button classes'),
-      '#description' => $this->t('Add space-separated classes that will be added to the button.'),
-      '#default_value' => $config['button']['classes'],
+      '#title' => $this->t('Button label'),
+      '#description' => $this->t('A label text for the button input.'),
+      '#default_value' => $config['button']['label'],
     ];
     $form['enable_autocomplete'] = [
       '#type' => 'checkbox',
@@ -224,17 +216,17 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $values = $form_state->getValues();
     $this->setConfigurationValue('form', [
       'action' => $form_state->getValue('form_action'),
+      'region' => $form_state->getCompleteFormState()->getValue('region'),
     ]);
     $input = $values['input'];
     $this->setConfigurationValue('input', [
       'name' => $input['input_name'],
       'label' => $input['input_label'],
-      'classes' => $input['input_classes'],
       'placeholder' => $input['input_placeholder'],
     ]);
     $button = $values['button'];
     $this->setConfigurationValue('button', [
-      'classes' => $button['button_classes'],
+      'label' => $button['button_label'],
     ]);
     $this->setConfigurationValue('view_options', [
       'id' => $form_state->getValue('view_id'),
@@ -248,18 +240,6 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
    */
   public function blockValidate($form, FormStateInterface $form_state): void {
     $values = $form_state->getValues();
-
-    if ($values['input']['input_classes'] !== Html::cleanCssIdentifier($values['input']['input_classes'])) {
-      $form_state->setErrorByName('input][input_classes', $this->t('Field "@field_name" does not contain a valid css class.', [
-        '@field_name' => $form['input']['input_classes']['#title'],
-      ]));
-    }
-
-    if ($values['button']['button_classes'] !== Html::cleanCssIdentifier($values['button']['button_classes'])) {
-      $form_state->setErrorByName('button][button_classes', $this->t('Field "@field_name" does not contain a valid css class.', [
-        '@field_name' => $form['button']['button_classes']['#title'],
-      ]));
-    }
 
     if (!$this->moduleHandler->moduleExists('views') || !$this->moduleHandler->moduleExists('search_api_autocomplete')) {
       return;

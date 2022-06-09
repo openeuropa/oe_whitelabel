@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Theme for the navigation right search input textfield element.
+ */
+#}
+{% extends "input--textfield.html.twig" %}
+{% set attributes = attributes
+  .addClass([
+    'form-control',
+    'border-start-0',
+    'rounded-0',
+    'rounded-start',
+    attributes.hasClass('error') ? 'is-invalid',
+  ])
+  .removeClass('form-text') %}
