@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * The OpenEuropa Whitelabel List Pages install file.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_install().
+ */
+function oe_whitelabel_list_pages_test_install($is_syncing) {
+  // Clear the facets source cached definitions so the new ones can be found.
+  \Drupal::service('plugin.manager.facets.facet_source')->clearCachedDefinitions();
+}

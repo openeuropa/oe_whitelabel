@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Override for item list wrapping items in a bcl-listing.
+ *
+ * @see ./core/modules/system/templates/item-list.html.twig
+ */
+#}
+<hr class="d-none d-md-block mb-4-75">
+<div class="bcl-listing bcl-listing--default-1-col">
+  <div class="row row-cols-1 g-4">
+    {%- if items -%}
+      {%- for item in items -%}
+        <div class="col">{{ item.value }}</div>
+      {%- endfor -%}
+    {%- else -%}
+      {{- empty -}}
+    {%- endif -%}
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * OE Whitelabel List Pages module.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter() for facets_forms.
+ */
+function oe_whitelabel_list_pages_form_oe_list_pages_facets_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (isset($form['actions'])) {
+    $action_classes = ['mt-4', 'd-grid', 'gap-4', 'd-md-block'];
+    $form['actions']['#attributes']['class'] = array_unique(array_merge($form['actions']['#attributes']['class'] ?? [], $action_classes));
+  }
+  if (isset($form['actions']['submit'])) {
+    $submit_classes = ['me-md-3', 'btn', 'btn-primary', 'btn-md'];
+    $form['actions']['submit']['#attributes']['class'] = array_unique(array_merge($form['actions']['submit']['#attributes']['class'] ?? [], $submit_classes));
+  }
+  if (isset($form['actions']['reset'])) {
+    $reset_classes = ['btn', 'btn-light', 'btn-md'];
+    $form['actions']['reset']['#attributes']['class'] = array_unique(array_merge($form['actions']['reset']['#attributes']['class'] ?? [], $reset_classes));
+  }
+}

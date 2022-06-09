@@ -23,6 +23,7 @@ drupal:
     - "./vendor/bin/drush en oe_whitelabel_extra_project -y"
     - "./vendor/bin/drush en oe_whitelabel_helper -y"
     - "./vendor/bin/drush en oe_whitelabel_search -y"
+    - "./vendor/bin/drush en oe_whitelabel_list_pages -y"
     - "./vendor/bin/drush en oe_whitelabel_starter_news -y"
     - "./vendor/bin/drush en oe_whitelabel_starter_event -y"
     - "./vendor/bin/drush en oe_whitelabel_paragraphs -y"
