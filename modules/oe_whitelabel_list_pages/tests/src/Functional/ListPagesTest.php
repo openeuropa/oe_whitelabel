@@ -54,7 +54,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
 
     // Assert offcanvas.
     $offcanvas = $left_column->find('css', 'div.bcl-offcanvas');
-    $title = $offcanvas->find('css', 'h4.offcanvas-title');
+    $title = $offcanvas->find('css', 'h3.offcanvas-title');
     $this->assertSame('Filter options', $title->getText());
     $offcanvas->hasField('Title');
     $offcanvas->hasButton('Search');
