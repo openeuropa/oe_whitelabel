@@ -1,8 +1,9 @@
+{{ dump() }}
 {%- for item in items -%}
   {{ pattern('badge', {
     'background': 'light',
     'label': item.label,
-    'url': item.url,
+    'url': item.url.toString(),
     'dismissible': true,
     'attributes': create_attribute({'class': ['me-2', 'fs-6']}),
   }) }}

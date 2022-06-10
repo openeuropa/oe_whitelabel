@@ -166,7 +166,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
    */
   protected function assertListing(int $expected_count, ElementInterface $container): void {
     $listing = $container->find('css', 'div.bcl-listing');
-    $this->assertSession()->elementsCount('css', 'div.listing-item', $expected_count, $listing);
+    $this->assertSession()->elementsCount('css', 'article.listing-item', $expected_count, $listing);
   }
 
   /**
