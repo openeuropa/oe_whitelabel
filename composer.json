@@ -11,7 +11,7 @@
         "drupal/core": "^9.2",
         "drupal/twig_field_value": "^2.0",
         "openeuropa/composer-artifacts": "^1.0.0-alpha1",
-        "openeuropa/oe_bootstrap_theme": "0.1618.202206071320"
+        "openeuropa/oe_bootstrap_theme": "0.1618.202206100945"
     },
     "require-dev": {
         "composer/installers": "^1.11",
@@ -93,9 +93,6 @@
         "patches": {
             "drupal/entity_reference_revisions": {
                 "https://www.drupal.org/project/entity_reference_revisions/issues/2937835": "https://www.drupal.org/files/issues/2021-03-26/entity_reference_revisions-field_formatter_label-2937835-36.patch"
-            },
-            "openeuropa/oe_bootstrap_theme": {
-                "latest": "https://github.com/openeuropa/oe_bootstrap_theme/compare/0.1.202206071025..1.x.diff"
             }
         },
         "drupal-scaffold": {
