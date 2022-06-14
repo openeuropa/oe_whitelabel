@@ -130,6 +130,24 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       trim($content_banner->filter('.oe-sc-event__oe-summary')->text())
     );
 
+    // Assert event dates starting and ending same day.
+    $this->assertSession()->pageTextMatches(
+      '/[a-zA-Z]+\\s[0-9]+\\s[a-zA-Z]+\\s2022,\\s[0-9]*\\.[0-9]+-[0-9]*\\.[0-9]+\\s\\([a-zA-Z]+\\)/i'
+      );
+
+    // Assert event dates starting and ending at different days.
+    $node->set('oe_sc_event_dates', [
+      'value' => '2022-02-15T08:00:00',
+      'end_value' => '2022-02-22T18:00:00',
+    ]);
+    $node->save();
+
+    $this->drupalGet('node/' . $node->id());
+
+    $this->assertSession()->pageTextMatches(
+      '/[a-zA-Z]+\\s[0-9]+\\s[a-zA-Z]+\\s2022,\\s[0-9]*\\.[0-9]+-[a-zA-Z]+\\s[0-9]+\\s[a-zA-Z]+\\s2022,\\s[0-9]*\\.[0-9]+\\s\\([a-zA-Z]+\\)/i'
+    );
+
     // Assert in-page navigation title.
     $this->assertEquals(
       'Page content',
