@@ -6,6 +6,7 @@ namespace Drupal\oe_whitelabel_starter_event\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\datetime\Plugin\Field\FieldFormatter\DateTimeFormatterBase;
 use Drupal\datetime_range\DateTimeRangeTrait;
 
@@ -26,6 +27,27 @@ use Drupal\datetime_range\DateTimeRangeTrait;
 class EventDateRangeFormatter extends DateTimeFormatterBase {
 
   use DateTimeRangeTrait;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function defaultSettings() {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function settingsForm(array $form, FormStateInterface $form_state) {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function settingsSummary() {
+    return [];
+  }
 
   /**
    * {@inheritdoc}
@@ -86,9 +108,7 @@ class EventDateRangeFormatter extends DateTimeFormatterBase {
    * {@inheritdoc}
    */
   protected function formatDate($date) {
-    $format_type = $this->getSetting('format_type');
-    $timezone = $this->getSetting('timezone_override') ?: $date->getTimezone()->getName();
-    return $this->dateFormatter->format($date->getTimestamp(), $format_type, '', $timezone != '' ? $timezone : NULL);
+    return $this->dateFormatter->format($date->getTimestamp(), 'custom', 'Y-m-d');
   }
 
 }

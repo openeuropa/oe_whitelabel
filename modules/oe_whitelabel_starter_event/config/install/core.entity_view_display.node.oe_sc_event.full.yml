@@ -44,8 +44,7 @@ content:
   oe_sc_event_dates:
     type: event_date_range_format
     label: inline
-    settings:
-      timezone_override: ''
+    settings: {  }
     third_party_settings: {  }
     weight: 1
     region: content
