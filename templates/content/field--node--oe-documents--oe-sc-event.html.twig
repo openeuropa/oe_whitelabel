@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Default template for a field.
+ * Template for event documents field.
  */
 #}
 {%
@@ -10,6 +10,13 @@
   label_display == 'inline' ? 'd-flex',
 ]
 %}
+{%
+  set title_classes = [
+  'field__label',
+  label_display == 'visually_hidden' ? 'visually-hidden',
+]
+%}
+
 {% if label_hidden %}
   {% if multiple %}
     <div{{ attributes.addClass(classes) }}>
@@ -25,18 +32,12 @@
 {% else %}
   <div{{ attributes.addClass(classes) }}>
     {%- set _label -%}
-      {{- label -}}
-      {%- if label_display == 'inline' -%}
-        <span class="me-1">:</span>
-      {%- endif -%}
+      {{- label -}}{%- if label_display == 'inline' -%}<span class="me-1">:</span>{%- endif -%}
     {%- endset -%}
     {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
       title: _label,
-      title_tag: 'h3',
-      attributes: create_attribute().addClass([
-        'field__label',
-        label_display == 'visually_hidden' ? 'visually-hidden',
-      ])
+      title_tag: 'h2',
+      attributes: create_attribute().addClass(title_classes)
     } only %}
     {% if multiple %}
     <div class="field__items">
