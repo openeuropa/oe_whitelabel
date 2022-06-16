@@ -32,21 +32,52 @@ class EventDateRangeFormatter extends DateTimeFormatterBase {
    * {@inheritdoc}
    */
   public static function defaultSettings() {
-    return [];
+    return [
+      'date_format' => 'l d F Y',
+      'time_format' => 'H.i',
+      'datetime_format' => 'l d F Y, H.i',
+    ];
   }
 
   /**
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
-    return [];
+    $form['date_format'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Date format'),
+      '#description' => $this->t('See <a href="https://www.php.net/manual/datetime.format.php#refsect1-datetime.format-parameters" target="_blank">the documentation for PHP date formats</a>.'),
+      '#default_value' => $this->getSetting('date_format'),
+    ];
+
+    $form['time_format'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Time format'),
+      '#description' => $this->t('See <a href="https://www.php.net/manual/datetime.format.php#refsect1-datetime.format-parameters" target="_blank">the documentation for PHP date formats</a>.'),
+      '#default_value' => $this->getSetting('time_format'),
+    ];
+
+    $form['datetime_format'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Date/time format'),
+      '#description' => $this->t('See <a href="https://www.php.net/manual/datetime.format.php#refsect1-datetime.format-parameters" target="_blank">the documentation for PHP date formats</a>.'),
+      '#default_value' => $this->getSetting('datetime_format'),
+    ];
+
+    return $form;
   }
 
   /**
    * {@inheritdoc}
    */
   public function settingsSummary() {
-    return [];
+    $date = new DrupalDateTime();
+    $this->setTimeZone($date);
+    $summary[] = 'Date format: ' . $date->format($this->getSetting('date_format'), $this->getFormatSettings());
+    $summary[] = 'Time format: ' . $date->format($this->getSetting('time_format'), $this->getFormatSettings());
+    $summary[] = 'Datetime format: ' . $date->format($this->getSetting('datetime_format'), $this->getFormatSettings());
+
+    return $summary;
   }
 
   /**
@@ -56,7 +87,7 @@ class EventDateRangeFormatter extends DateTimeFormatterBase {
     $elements = [];
 
     foreach ($items as $delta => $item) {
-      if (empty($item->start_date) && empty($item->end_date)) {
+      if (empty($item->start_date) || empty($item->end_date)) {
         continue;
       }
 
@@ -65,20 +96,23 @@ class EventDateRangeFormatter extends DateTimeFormatterBase {
       /** @var \Drupal\Core\Datetime\DrupalDateTime $end_date */
       $end_date = $item->end_date;
 
-      // Event on a single day.
+      $this->setTimeZone($start_date);
+      $this->setTimeZone($end_date);
+
       if ($start_date->format('Y-m-d') === $end_date->format('Y-m-d')) {
+        // The event is on a single day.
         $elements[$delta] = [
-          'start_date' => $this->buildCustomDate($start_date, 'l d F Y, H.i'),
+          'start_date' => $this->buildCustomDate($start_date, $this->getSetting('datetime_format')),
           'separator' => ['#plain_text' => '-'],
-          'end_date' => $this->buildCustomDate($end_date, 'H.i (T)'),
+          'end_date' => $this->buildCustomDate($end_date, $this->getSetting('time_format') . ' (T)'),
         ];
       }
-      // Event on multiple days.
       else {
+        // Start day and end day are different in the displayed time zone.
         $elements[$delta] = [
-          'start_date' => $this->buildCustomDate($start_date, 'l d F Y, H.i'),
-          'separator' => ['#plain_text' => '-'],
-          'end_date' => $this->buildCustomDate($end_date, 'l d F Y, H.i (T)'),
+          'start_date' => $this->buildCustomDate($start_date, $this->getSetting('datetime_format')),
+          'separator' => ['#plain_text' => ' - '],
+          'end_date' => $this->buildCustomDate($end_date, $this->getSetting('datetime_format') . ' (T)'),
         ];
       }
     }
