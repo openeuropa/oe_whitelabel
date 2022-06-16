@@ -94,6 +94,12 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
    * Tests the event page.
    */
   public function testEventPage(): void {
+    // Set an explicit site timezone, and disallow per-user timezones.
+    $this->config('system.date')
+      ->set('timezone.user.configurable', 0)
+      ->set('timezone.default', 'CET')
+      ->save();
+
     $node = $this->createExampleEvent();
     $this->drupalGet('node/' . $node->id());
 
@@ -130,10 +136,10 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       trim($content_banner->filter('.oe-sc-event__oe-summary')->text())
     );
 
+    $date = $crawler->filter('dd');
+
     // Assert event dates starting and ending same day.
-    $this->assertSession()->pageTextMatches(
-      '/[a-zA-Z]+\\s[0-9]+\\s[a-zA-Z]+\\s2022,\\s[0-9]*\\.[0-9]+-[0-9]*\\.[0-9]+\\s\\([a-zA-Z]+\\)/i'
-      );
+    $this->assertEquals('Wednesday 09 February 2022, 21.00-23.00 (CET)', trim($date->text()));
 
     // Assert event dates starting and ending at different days.
     $node->set('oe_sc_event_dates', [
@@ -142,11 +148,11 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     ]);
     $node->save();
 
-    $this->drupalGet('node/' . $node->id());
+    $this->drupalGet($node->toUrl());
+    $crawler = $client->getCrawler();
 
-    $this->assertSession()->pageTextMatches(
-      '/[a-zA-Z]+\\s[0-9]+\\s[a-zA-Z]+\\s2022,\\s[0-9]*\\.[0-9]+-[a-zA-Z]+\\s[0-9]+\\s[a-zA-Z]+\\s2022,\\s[0-9]*\\.[0-9]+\\s\\([a-zA-Z]+\\)/i'
-    );
+    $date = $crawler->filter('dd');
+    $this->assertEquals('Tuesday 15 February 2022, 09.00 - Tuesday 22 February 2022, 19.00 (CET)', trim($date->text()));
 
     // Assert in-page navigation title.
     $this->assertEquals(
