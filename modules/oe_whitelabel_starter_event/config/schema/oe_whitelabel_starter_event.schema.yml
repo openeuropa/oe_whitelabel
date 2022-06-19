@@ -1,0 +1,10 @@
+field.formatter.settings.event_date_range_format:
+  type: mapping
+  label: 'Date Time range format'
+  mapping:
+    time_format:
+      type: string
+      label: 'Time format'
+    datetime_format:
+      type: string
+      label: 'DateTime format'
