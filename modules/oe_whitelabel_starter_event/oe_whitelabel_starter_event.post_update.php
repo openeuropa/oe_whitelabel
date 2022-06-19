@@ -28,6 +28,7 @@ function oe_whitelabel_starter_event_post_update_00002(): void {
   $configs = [
     'core.entity_view_display.node.oe_sc_event.full',
     'core.entity_view_display.node.oe_sc_event.teaser',
+    'core.date_format.oe_whitelabel_project_date',
   ];
   ConfigImporter::importMultiple(
     'module',

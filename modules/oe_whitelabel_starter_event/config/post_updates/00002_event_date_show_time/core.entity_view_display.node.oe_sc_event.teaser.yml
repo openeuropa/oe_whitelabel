@@ -12,7 +12,7 @@ dependencies:
     - node.type.oe_sc_event
   module:
     - address
-    - datetime_range
+    - oe_whitelabel_starter_event
     - text
     - user
 id: node.oe_sc_event.teaser
@@ -21,12 +21,11 @@ bundle: oe_sc_event
 mode: teaser
 content:
   oe_sc_event_dates:
-    type: daterange_default
+    type: event_date_range_format
     label: hidden
     settings:
-      timezone_override: ''
-      format_type: oe_whitelabel_starter_event_date
-      separator: '-'
+      time_format: ''
+      datetime_format: 'd M Y'
     third_party_settings: {  }
     weight: 4
     region: content
