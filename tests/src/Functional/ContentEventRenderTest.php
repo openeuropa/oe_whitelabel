@@ -94,7 +94,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
    * Tests the event page.
    */
   public function testEventPage(): void {
-    // Set an explicit site timezone, and disallow per-user timezones.
+    // Set an explicit site timezone.
     $this->config('system.date')
       ->set('timezone.user.configurable', 0)
       ->set('timezone.default', 'CET')
@@ -136,7 +136,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       trim($content_banner->filter('.oe-sc-event__oe-summary')->text())
     );
 
-    $date = $crawler->filter('dd');
+    $date = $crawler->filter('dl > dd');
 
     // Assert event dates starting and ending same day.
     $this->assertEquals('Wednesday 09 February 2022, 21.00-23.00 (CET)', trim($date->text()));
@@ -151,7 +151,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $this->drupalGet($node->toUrl());
     $crawler = $client->getCrawler();
 
-    $date = $crawler->filter('dd');
+    $date = $crawler->filter('dl > dd');
     $this->assertEquals('Tuesday 15 February 2022, 09.00 - Tuesday 22 February 2022, 19.00 (CET)', trim($date->text()));
 
     // Assert in-page navigation title.
@@ -192,6 +192,11 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
    * Tests the event rendered in 'Teaser' view mode.
    */
   public function testEventRenderingTeaser(): void {
+    // Set an explicit site timezone.
+    $this->config('system.date')
+      ->set('timezone.user.configurable', 0)
+      ->set('timezone.default', 'CET')
+      ->save();
     $node = $this->createExampleEvent();
     // Build node teaser view.
     $builder = \Drupal::entityTypeManager()->getViewBuilder('node');
@@ -213,6 +218,25 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       'image-test.png',
       trim($image->attr('src'))
     );
+
+    $time = $crawler->filter('div > span.text-muted');
+    $this->assertEquals('09 Feb 2022', trim($time->text()));
+
+    // Assert event dates starting and ending at different days.
+    $node->set('oe_sc_event_dates', [
+      'value' => '2022-02-15T08:00:00',
+      'end_value' => '2022-02-22T18:00:00',
+    ]);
+    $node->save();
+
+    $builder = \Drupal::entityTypeManager()->getViewBuilder('node');
+    $build = $builder->view($node, 'teaser');
+    $render = $this->container->get('renderer')->renderRoot($build);
+    $crawler = new Crawler((string) $render);
+    $this->drupalGet($node->toUrl());
+
+    $time = $crawler->filter('div > span.text-muted');
+    $this->assertEquals('15 Feb 2022 - 22 Feb 2022', trim($time->text()));
   }
 
 }
