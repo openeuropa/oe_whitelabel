@@ -1,3 +1,4 @@
+uuid: afb9cc2b-4f04-456e-a129-992427b532e3
 langcode: en
 status: true
 dependencies:
@@ -12,7 +13,7 @@ dependencies:
     - field.field.node.oe_sc_event.oe_summary
     - node.type.oe_sc_event
   module:
-    - daterange_compact
+    - datetime_range
     - oe_starter_content_event
     - oe_whitelabel_helper
     - text
@@ -44,10 +45,12 @@ content:
     weight: 3
     region: content
   oe_sc_event_dates:
-    type: daterange_compact
+    type: daterange_default
     label: inline
     settings:
-      daterange_compact_format: oe_whitelabel_date_time_long
+      timezone_override: ''
+      format_type: oe_whitelabel_starter_event_date
+      separator: to
     third_party_settings: {  }
     weight: 1
     region: content
