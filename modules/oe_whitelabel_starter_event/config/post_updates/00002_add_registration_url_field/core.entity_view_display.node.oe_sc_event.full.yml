@@ -1,4 +1,3 @@
-uuid: afb9cc2b-4f04-456e-a129-992427b532e3
 langcode: en
 status: true
 dependencies:
@@ -14,7 +13,6 @@ dependencies:
     - node.type.oe_sc_event
   module:
     - datetime_range
-    - oe_starter_content_event
     - oe_whitelabel_helper
     - text
     - user
@@ -62,18 +60,6 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  oe_sc_event_registration_url:
-    type: event_link_external
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: 5
-    region: content
 hidden:
   langcode: true
   oe_content_content_owner: true
@@ -81,5 +67,6 @@ hidden:
   oe_content_navigation_title: true
   oe_content_short_title: true
   oe_featured_media: true
+  oe_sc_event_registration_url: true
   oe_summary: true
   search_api_excerpt: true

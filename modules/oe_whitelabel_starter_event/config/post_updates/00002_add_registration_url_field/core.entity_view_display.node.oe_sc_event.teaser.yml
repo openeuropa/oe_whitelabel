@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.full
+    - core.entity_view_mode.node.teaser
     - field.field.node.oe_sc_event.body
     - field.field.node.oe_sc_event.oe_documents
     - field.field.node.oe_sc_event.oe_featured_media
@@ -12,59 +12,48 @@ dependencies:
     - field.field.node.oe_sc_event.oe_summary
     - node.type.oe_sc_event
   module:
-    - daterange_compact
-    - oe_whitelabel_helper
+    - address
+    - datetime_range
     - text
     - user
-id: node.oe_sc_event.full
+id: node.oe_sc_event.teaser
 targetEntityType: node
 bundle: oe_sc_event
-mode: full
+mode: teaser
 content:
-  body:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
-  links:
-    settings: {  }
+  oe_sc_event_dates:
+    type: daterange_default
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: oe_whitelabel_starter_event_date
+      separator: to
     third_party_settings: {  }
     weight: 4
     region: content
-  oe_documents:
-    type: entity_reference_entity_view
-    label: above
-    settings:
-      view_mode: default
-      link: true
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  oe_sc_event_dates:
-    type: daterange_compact
-    label: inline
-    settings:
-      daterange_compact_format: oe_whitelabel_date_time_long
-    third_party_settings: {  }
-    weight: 1
-    region: content
   oe_sc_event_location:
-    type: oe_whitelabel_helper_address_inline
-    label: inline
-    settings:
-      delimiter: ', '
+    type: address_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  oe_summary:
+    type: text_default
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
     weight: 2
     region: content
 hidden:
+  body: true
   langcode: true
+  links: true
   oe_content_content_owner: true
   oe_content_legacy_link: true
   oe_content_navigation_title: true
   oe_content_short_title: true
+  oe_documents: true
   oe_featured_media: true
   oe_sc_event_registration_url: true
-  oe_summary: true
   search_api_excerpt: true
