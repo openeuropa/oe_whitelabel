@@ -80,6 +80,12 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       trim($content_banner->filter('.oe-sc-event__oe-summary')->text())
     );
 
+    // Assert registration button.
+    $link = $crawler->filter('div.container > div.row > div.col-8 > a[target="_blank"]');
+    $this->assertCount(1, $link);
+    $this->assertStringContainsString('Register', $link->text());
+    $this->assertStringContainsString('calendar-check', $link->html());
+
     $date = $crawler->filter('dl > dd');
 
     // Assert event dates starting and ending same day.
@@ -237,6 +243,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       ]);
     $node->set('oe_documents', [$media_document]);
     $node->set('oe_featured_media', [$media_image]);
+    $node->set('oe_sc_event_registration_url', 'https://europa.eu');
     $node->save();
     return $node;
   }
