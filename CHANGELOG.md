@@ -1,10 +1,24 @@
 # Change Log
 
+## [1.0.0-beta3](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-beta3) (2022-06-22)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-beta2...1.0.0-beta3)
+
+**Merged pull requests:**
+
+- OEL-1450: Epic list pages. [\#156](https://github.com/openeuropa/oe_whitelabel/pull/156) ([drishu](https://github.com/drishu))
+- OEL-1668: Use latest dev release of oebt. [\#154](https://github.com/openeuropa/oe_whitelabel/pull/154) ([drishu](https://github.com/drishu))
+- OEL-1540: Fix Scrollspy js file requirement when there is no items to display. [\#152](https://github.com/openeuropa/oe_whitelabel/pull/152) ([escuriola](https://github.com/escuriola))
+- OEL-1571: Display country instead skos entity reference country URL. [\#150](https://github.com/openeuropa/oe_whitelabel/pull/150) ([escuriola](https://github.com/escuriola))
+- OEL-1293: EPIC Project. [\#143](https://github.com/openeuropa/oe_whitelabel/pull/143) ([donquixote](https://github.com/donquixote))
+- OEL-1543: Rename block templates to target plugin ids instead of block ids. [\#137](https://github.com/openeuropa/oe_whitelabel/pull/137) ([donquixote](https://github.com/donquixote))
+- OEL-1367: New Look & Feel for search form in search page and remove theming from block config form. [\#136](https://github.com/openeuropa/oe_whitelabel/pull/136) ([escuriola](https://github.com/escuriola))
+
 ## [1.0.0-beta2](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-beta2) (2022-05-23)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-beta1...1.0.0-beta2)
 
 **Merged pull requests:**
 
+- Prepare release 1.0.0-beta2 [\#148](https://github.com/openeuropa/oe_whitelabel/pull/148) ([drishu](https://github.com/drishu))
 - OEL-1632: Add upgrade hooks for moving content banner into block. [\#147](https://github.com/openeuropa/oe_whitelabel/pull/147) ([donquixote](https://github.com/donquixote))
 
 ## [1.0.0-beta1](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-beta1) (2022-05-20)
