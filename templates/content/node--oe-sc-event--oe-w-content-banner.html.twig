@@ -4,12 +4,15 @@
  * Event content banner display.
  */
 #}
+{% set _content %}
+  {{ content.oe_summary }}
+  {{ content.oe_sc_event_registration_url }}
+{% endset %}
 <div{{attributes}}>
   {{ pattern('content_banner', {
     background: 'gray',
     title: label,
-    content: content.oe_summary,
+    content: _content,
     image: image,
   }) }}
-    {{  content.oe_sc_event_registration_url }}
 </div>
