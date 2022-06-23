@@ -4,17 +4,18 @@
  * Event registration button display.
  */
 #}
-{% set button %}
-  {{ pattern('button', {
-    'label': 'Register'|t,
-    'icon': 'calendar-check',
-    'icon_position': 'before',
+<div class="mt-4">
+  {% set button %}
+    {{ pattern('button', {
+      'label': 'Register'|t,
+      'icon': 'calendar-check',
+      'icon_position': 'before',
+    }) }}
+  {% endset %}
+  {% set _attributes = element[0]['#options']['attributes'] %}
+  {{ pattern('link', {
+    'label': button,
+    'path': element[0]['#url'].toString(),
+    'attributes': _attributes,
   }) }}
-{% endset %}
-{% set _attributes = element[0]['#options']['attributes'] %}
-{{ pattern('link', {
-  'label': button,
-  'path': element[0]['#url'].toString(),
-  'attributes': _attributes,
-}) }}
-
+</div>
