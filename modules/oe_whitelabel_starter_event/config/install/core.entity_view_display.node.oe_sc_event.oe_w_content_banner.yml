@@ -30,7 +30,7 @@ content:
     weight: 1
     region: content
   oe_sc_event_registration_url:
-    type: event_link_external
+    type: external_link
     label: above
     settings:
       trim_length: 80

@@ -23,3 +23,22 @@ field_group.field_group_formatter_plugin.oe_whitelabel_helper_pattern_base:
 field_group.field_group_formatter_plugin.oe_whitelabel_helper_description_list_pattern:
   type: field_group.field_group_formatter_plugin.oe_whitelabel_helper_pattern_base
   label: 'Mapping for the description list pattern formatter settings'
+field.formatter.settings.external_link:
+  type: mapping
+  label: 'Link format settings'
+  mapping:
+    trim_length:
+      type: integer
+      label: 'Trim link text length'
+    url_only:
+      type: boolean
+      label: 'URL only'
+    url_plain:
+      type: boolean
+      label: 'Show URL as plain text'
+    rel:
+      type: string
+      label: 'Add rel="nofollow" to links'
+    target:
+      type: string
+      label: 'Open link in new window'
