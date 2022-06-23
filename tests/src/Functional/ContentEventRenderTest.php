@@ -81,10 +81,11 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     );
 
     // Assert registration button.
-    $link = $crawler->filter('div.container > div.row > div.col-8 > a[target="_blank"]');
+    $link = $crawler->filter('.bcl-content-banner a[target="_blank"]');
     $this->assertCount(1, $link);
-    $this->assertStringContainsString('Register', $link->text());
-    $this->assertStringContainsString('calendar-check', $link->html());
+    $button = $link->filter('button');
+    $this->assertStringContainsString('Register', $button->text());
+    $this->assertStringContainsString('calendar-check', $button->html());
 
     $date = $crawler->filter('dl > dd');
 
