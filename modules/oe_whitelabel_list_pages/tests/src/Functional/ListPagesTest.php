@@ -54,7 +54,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
 
     // Assert offcanvas.
     $offcanvas = $left_column->find('css', 'div.bcl-offcanvas');
-    $title = $offcanvas->find('css', 'h4.offcanvas-title');
+    $title = $offcanvas->find('css', 'h3.offcanvas-title');
     $this->assertSame('Filter options', $title->getText());
     $offcanvas->hasField('Title');
     $offcanvas->hasButton('Search');
@@ -166,7 +166,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
    */
   protected function assertListing(int $expected_count, ElementInterface $container): void {
     $listing = $container->find('css', 'div.bcl-listing');
-    $this->assertSession()->elementsCount('css', 'div.listing-item', $expected_count, $listing);
+    $this->assertSession()->elementsCount('css', 'article.listing-item', $expected_count, $listing);
   }
 
   /**

@@ -133,7 +133,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     // Assert in-page navigation title.
     $this->assertEquals(
       'Page content',
-      trim($crawler->filter('nav.bcl-inpage-navigation > h5')->text())
+      trim($crawler->filter('nav.bcl-inpage-navigation > h3')->text())
     );
 
     // Assert in-page navigation links.
@@ -175,11 +175,14 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler((string) $render);
 
+    $article = $crawler->filter('article');
+    $this->assertCount(1, $article);
+
     $this->assertEquals(
       'Test event node',
-      trim($crawler->filter('h5.card-title')->text())
+      trim($article->filter('h1.card-title')->text())
     );
-    $image = $crawler->filter('img');
+    $image = $article->filter('img');
     $this->assertCount(1, $image);
     $this->assertCount(1, $image->filter('.card-img-top'));
     $this->assertStringContainsString(

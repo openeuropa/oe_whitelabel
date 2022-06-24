@@ -33,7 +33,7 @@ class CardAssert extends BasePatternAssert {
       ],
       'description' => [
         [$this, 'assertElementText'],
-        '.card-text',
+        '.card-text p',
       ],
       'badges' => [
         [$this, 'assertBadgesElements'],
@@ -56,13 +56,13 @@ class CardAssert extends BasePatternAssert {
    *   The DomCrawler where to check the element.
    */
   protected function assertCardImage($expected_image, string $variant, Crawler $crawler): void {
-    if ($variant == 'search') {
-      $image_div = $crawler->filter('.row .col-md-3.mw-listing-img img.card-img-top');
+    if ($variant === 'search') {
+      $image_div = $crawler->filter('.row .col-md-3 img.card-img-top');
       self::assertEquals($expected_image['alt'], $image_div->attr('alt'));
       self::assertStringContainsString($expected_image['src'], $image_div->attr('src'));
     }
     else {
-      $image_div = $crawler->filter('div.card img');
+      $image_div = $crawler->filter('article.card img');
       self::assertEquals($expected_image['alt'], $image_div->attr('alt'));
       self::assertStringContainsString($expected_image['src'], $image_div->attr('src'));
     }
@@ -82,7 +82,7 @@ class CardAssert extends BasePatternAssert {
     // There's no wrapping element in content that can be targeted,
     // so we are checking that the expected items are present.
     foreach ($expected_items as $expected_item) {
-      if ($variant == 'search') {
+      if ($variant === 'search') {
         self::assertStringContainsString($expected_item, $crawler->filter('.row .col-md-9')->html());
       }
       else {
@@ -112,10 +112,10 @@ class CardAssert extends BasePatternAssert {
   protected function getBaseItemClass(string $variant): string {
     switch ($variant) {
       case 'search':
-        return 'div.listing-item.card';
+        return 'article.listing-item.card';
 
       default:
-        return 'div.card';
+        return 'article.card';
     }
   }
 
@@ -124,7 +124,7 @@ class CardAssert extends BasePatternAssert {
    */
   protected function getPatternVariant(string $html): string {
     $crawler = new Crawler($html);
-    if ($crawler->filter('div.listing-item')->count() > 0) {
+    if ($crawler->filter('article.listing-item')->count() > 0) {
       return 'search';
     }
     return 'default';

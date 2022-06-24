@@ -73,7 +73,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
 
     $this->assertCount(1, $crawler->filter('div.row'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-4'));
-    $this->assertCount(0, $crawler->filter('h3'));
+    $this->assertCount(0, $crawler->filter('h2'));
     $this->assertCount(0, $crawler->filter('div.col-12.col-md-6.order-md-1'));
     $this->assertCount(0, $crawler->filter('div.col-12.col-md-6.order-md-2'));
     $figure = $crawler->filter('figure');
@@ -95,7 +95,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
 
     $this->assertCount(1, $crawler->filter('div.row'));
     $this->assertCount(0, $crawler->filter('div.col-12.col-md-4'));
-    $this->assertCount(1, $crawler->filter('h3'));
+    $this->assertCount(1, $crawler->filter('h2'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-6.order-md-1'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-6.order-md-2'));
     $figure = $crawler->filter('figure');
@@ -119,7 +119,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
 
     $this->assertCount(1, $crawler->filter('div.row'));
     $this->assertCount(0, $crawler->filter('div.col-12.col-md-4'));
-    $this->assertCount(1, $crawler->filter('h3'));
+    $this->assertCount(1, $crawler->filter('h2'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-6.order-md-1'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-6.order-md-2'));
     $figure = $crawler->filter('figure');
@@ -162,7 +162,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
 
     $this->assertCount(1, $crawler->filter('div.row'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-4'));
-    $this->assertCount(0, $crawler->filter('h3'));
+    $this->assertCount(0, $crawler->filter('h2'));
     $this->assertCount(0, $crawler->filter('div.col-12.col-md-6.order-md-1'));
     $this->assertCount(0, $crawler->filter('div.col-12.col-md-6.order-md-2'));
     $this->assertCount(1, $crawler->filter('div.ratio.ratio-16x9'));
@@ -189,7 +189,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
 
     $this->assertCount(1, $crawler->filter('div.row'));
     $this->assertCount(0, $crawler->filter('div.col-12.col-md-4'));
-    $this->assertCount(1, $crawler->filter('h3'));
+    $this->assertCount(1, $crawler->filter('h2'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-6.order-md-1'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-6.order-md-2'));
     $this->assertCount(1, $crawler->filter('div.ratio.ratio-16x9'));
@@ -218,7 +218,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
 
     $this->assertCount(1, $crawler->filter('div.row'));
     $this->assertCount(0, $crawler->filter('div.col-12.col-md-4'));
-    $this->assertCount(1, $crawler->filter('h3'));
+    $this->assertCount(1, $crawler->filter('h2'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-6.order-md-1'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-6.order-md-2'));
     $this->assertCount(1, $crawler->filter('div.ratio.ratio-16x9'));
@@ -252,7 +252,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
 
     $this->assertCount(1, $crawler->filter('div.row'));
     $this->assertCount(0, $crawler->filter('div.col-12.col-md-4'));
-    $this->assertCount(1, $crawler->filter('h3'));
+    $this->assertCount(1, $crawler->filter('h2'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-6.order-md-1'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-6.order-md-2'));
     $this->assertCount(1, $crawler->filter('div.ratio.ratio-16x9'));
