@@ -22,10 +22,23 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'block',
     'oe_whitelabel_starter_event',
   ];
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp() {
+    parent::setUp();
+
+    // Set an explicit site timezone.
+    $this->config('system.date')
+      ->set('timezone.user.configurable', 0)
+      ->set('timezone.default', 'CET')
+      ->save();
+  }
 
   /**
    * Creates an example event node.
@@ -94,12 +107,6 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
    * Tests the event page.
    */
   public function testEventPage(): void {
-    // Set an explicit site timezone.
-    $this->config('system.date')
-      ->set('timezone.user.configurable', 0)
-      ->set('timezone.default', 'CET')
-      ->save();
-
     $node = $this->createExampleEvent();
     $this->drupalGet('node/' . $node->id());
 
@@ -192,11 +199,6 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
    * Tests the event rendered in 'Teaser' view mode.
    */
   public function testEventRenderingTeaser(): void {
-    // Set an explicit site timezone.
-    $this->config('system.date')
-      ->set('timezone.user.configurable', 0)
-      ->set('timezone.default', 'CET')
-      ->save();
     $node = $this->createExampleEvent();
     // Build node teaser view.
     $builder = \Drupal::entityTypeManager()->getViewBuilder('node');
