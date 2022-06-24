@@ -11,8 +11,8 @@ dependencies:
     - field.field.node.oe_sc_event.oe_summary
     - node.type.oe_sc_event
   module:
+    - daterange_compact
     - oe_whitelabel_helper
-    - oe_whitelabel_starter_event
     - text
     - user
 id: node.oe_sc_event.full
@@ -42,9 +42,10 @@ content:
     weight: 3
     region: content
   oe_sc_event_dates:
-    type: event_date_range_format
+    type: daterange_compact
     label: inline
-    settings: {  }
+    settings:
+      daterange_compact_format: oe_whitelabel_date_time_long
     third_party_settings: {  }
     weight: 1
     region: content

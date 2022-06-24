@@ -152,7 +152,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $crawler = $client->getCrawler();
 
     $date = $crawler->filter('dl > dd');
-    $this->assertEquals('Tuesday 15 February 2022, 09.00 - Tuesday 22 February 2022, 19.00 (CET)', trim($date->text()));
+    $this->assertEquals('Tuesday 15 February 2022, 09.00 (CET) - Tuesday 22 February 2022, 19.00 (CET)', trim($date->text()));
 
     // Assert in-page navigation title.
     $this->assertEquals(

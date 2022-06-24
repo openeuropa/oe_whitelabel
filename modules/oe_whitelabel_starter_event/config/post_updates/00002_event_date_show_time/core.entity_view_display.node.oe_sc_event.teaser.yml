@@ -12,7 +12,7 @@ dependencies:
     - node.type.oe_sc_event
   module:
     - address
-    - oe_whitelabel_starter_event
+    - daterange_compact
     - text
     - user
 id: node.oe_sc_event.teaser
@@ -21,11 +21,10 @@ bundle: oe_sc_event
 mode: teaser
 content:
   oe_sc_event_dates:
-    type: event_date_range_format
+    type: daterange_compact
     label: hidden
     settings:
-      time_format: ''
-      datetime_format: 'd M Y'
+      daterange_compact_format: oe_whitelabel_date_only_short_month
     third_party_settings: {  }
     weight: 4
     region: content
