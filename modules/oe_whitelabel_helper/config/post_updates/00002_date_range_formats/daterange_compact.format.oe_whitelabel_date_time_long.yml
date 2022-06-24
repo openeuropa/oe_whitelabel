@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies: {  }
+id: oe_whitelabel_date_time_long
+label: 'Date and time, long names'
+default_pattern: 'l d F Y, H.i (T)'
+default_separator: ' - '
+same_day_start_pattern: 'l d F Y, H.i'
+same_day_end_pattern: 'H.i (T)'
+same_day_separator: ' - '
+same_month_start_pattern: ''
+same_month_end_pattern: ''
+same_month_separator: ''
+same_year_start_pattern: ''
+same_year_end_pattern: ''
+same_year_separator: ''
