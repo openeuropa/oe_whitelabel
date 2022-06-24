@@ -41,69 +41,6 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
   }
 
   /**
-   * Creates an example event node.
-   *
-   * @return \Drupal\node\NodeInterface
-   *   Event node.
-   */
-  protected function createExampleEvent(): NodeInterface {
-    // Create a sample media entity to be embedded.
-    File::create([
-      'uri' => $this->getTestFiles('image')[0]->uri,
-    ])->save();
-    $media_image = Media::create([
-      'bundle' => 'image',
-      'name' => 'Starter Image test',
-      'oe_media_image' => [
-        [
-          'target_id' => 1,
-          'alt' => 'Starter Image test alt',
-          'title' => 'Starter Image test title',
-        ],
-      ],
-    ]);
-    $media_image->save();
-
-    // Create a sample document media entity to be embedded.
-    File::create([
-      'uri' => $this->getTestFiles('text')[0]->uri,
-    ])->save();
-    $media_document = Media::create([
-      'bundle' => 'document',
-      'name' => 'Event document test',
-      'oe_media_file_type' => 'local',
-      'oe_media_file' => [
-        [
-          'target_id' => 2,
-          'alt' => 'Event document alt',
-          'title' => 'Event document title',
-        ],
-      ],
-    ]);
-    $media_document->save();
-
-    /** @var \Drupal\node\Entity\Node $node */
-    $node = \Drupal::entityTypeManager()
-      ->getStorage('node')
-      ->create([
-        'type' => 'oe_sc_event',
-        'title' => 'Test event node',
-        'oe_summary' => 'https://www.example.org is a web page',
-        'body' => 'Event body',
-        'oe_sc_event_dates' => [
-          'value' => '2022-02-09T20:00:00',
-          'end_value' => '2022-02-09T22:00:00',
-        ],
-        'uid' => 1,
-        'status' => 1,
-      ]);
-    $node->set('oe_documents', [$media_document]);
-    $node->set('oe_featured_media', [$media_image]);
-    $node->save();
-    return $node;
-  }
-
-  /**
    * Tests the event page.
    */
   public function testEventPage(): void {
@@ -239,6 +176,69 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
 
     $time = $crawler->filter('div > span.text-muted');
     $this->assertEquals('15 Feb 2022 - 22 Feb 2022', trim($time->text()));
+  }
+
+  /**
+   * Creates an example event node.
+   *
+   * @return \Drupal\node\NodeInterface
+   *   Event node.
+   */
+  protected function createExampleEvent(): NodeInterface {
+    // Create a sample media entity to be embedded.
+    File::create([
+      'uri' => $this->getTestFiles('image')[0]->uri,
+    ])->save();
+    $media_image = Media::create([
+      'bundle' => 'image',
+      'name' => 'Starter Image test',
+      'oe_media_image' => [
+        [
+          'target_id' => 1,
+          'alt' => 'Starter Image test alt',
+          'title' => 'Starter Image test title',
+        ],
+      ],
+    ]);
+    $media_image->save();
+
+    // Create a sample document media entity to be embedded.
+    File::create([
+      'uri' => $this->getTestFiles('text')[0]->uri,
+    ])->save();
+    $media_document = Media::create([
+      'bundle' => 'document',
+      'name' => 'Event document test',
+      'oe_media_file_type' => 'local',
+      'oe_media_file' => [
+        [
+          'target_id' => 2,
+          'alt' => 'Event document alt',
+          'title' => 'Event document title',
+        ],
+      ],
+    ]);
+    $media_document->save();
+
+    /** @var \Drupal\node\Entity\Node $node */
+    $node = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->create([
+        'type' => 'oe_sc_event',
+        'title' => 'Test event node',
+        'oe_summary' => 'https://www.example.org is a web page',
+        'body' => 'Event body',
+        'oe_sc_event_dates' => [
+          'value' => '2022-02-09T20:00:00',
+          'end_value' => '2022-02-09T22:00:00',
+        ],
+        'uid' => 1,
+        'status' => 1,
+      ]);
+    $node->set('oe_documents', [$media_document]);
+    $node->set('oe_featured_media', [$media_image]);
+    $node->save();
+    return $node;
   }
 
 }
