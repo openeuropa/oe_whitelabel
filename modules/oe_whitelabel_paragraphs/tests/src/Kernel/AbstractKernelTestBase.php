@@ -21,6 +21,7 @@ abstract class AbstractKernelTestBase extends KernelTestBase {
    */
   protected static $modules = [
     'breakpoint',
+    'daterange_compact',
     'image',
     'oe_bootstrap_theme_helper',
     'oe_whitelabel_helper',
