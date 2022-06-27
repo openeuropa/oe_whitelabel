@@ -83,11 +83,11 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $date = $crawler->filter('dl > dd');
 
     // Assert event dates starting and ending same day.
-    $this->assertEquals('Wednesday 09 February 2022, 21.00-23.00 (CET)', trim($date->text()));
+    $this->assertEquals('Wednesday 9 February 2022, 21.00-23.00 (CET)', trim($date->text()));
 
     // Assert event dates starting and ending at different days.
     $node->set('oe_sc_event_dates', [
-      'value' => '2022-02-15T08:00:00',
+      'value' => '2022-02-07T08:00:00',
       'end_value' => '2022-02-22T18:00:00',
     ]);
     $node->save();
@@ -96,7 +96,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $crawler = $client->getCrawler();
 
     $date = $crawler->filter('dl > dd');
-    $this->assertEquals('Tuesday 15 February 2022, 09.00 (CET) - Tuesday 22 February 2022, 19.00 (CET)', trim($date->text()));
+    $this->assertEquals('Monday 7 February 2022, 09.00 (CET) - Tuesday 22 February 2022, 19.00 (CET)', trim($date->text()));
 
     // Assert in-page navigation title.
     $this->assertEquals(
@@ -159,11 +159,11 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     );
 
     $time = $crawler->filter('div > span.text-muted');
-    $this->assertEquals('09 Feb 2022', trim($time->text()));
+    $this->assertEquals('9 Feb 2022', trim($time->text()));
 
     // Assert event dates starting and ending at different days.
     $node->set('oe_sc_event_dates', [
-      'value' => '2022-02-15T08:00:00',
+      'value' => '2022-02-07T08:00:00',
       'end_value' => '2022-02-22T18:00:00',
     ]);
     $node->save();
@@ -175,7 +175,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $this->drupalGet($node->toUrl());
 
     $time = $crawler->filter('div > span.text-muted');
-    $this->assertEquals('15 Feb 2022 - 22 Feb 2022', trim($time->text()));
+    $this->assertEquals('7 Feb 2022 - 22 Feb 2022', trim($time->text()));
   }
 
   /**

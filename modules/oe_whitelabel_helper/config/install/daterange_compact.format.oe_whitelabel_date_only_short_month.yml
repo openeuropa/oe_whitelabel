@@ -3,9 +3,9 @@ status: true
 dependencies: {  }
 id: oe_whitelabel_date_only_short_month
 label: 'Date only, short month'
-default_pattern: 'd M Y'
+default_pattern: 'j M Y'
 default_separator: ' - '
-same_day_start_pattern: 'd M Y'
+same_day_start_pattern: 'j M Y'
 same_day_end_pattern: ''
 same_day_separator: ''
 same_month_start_pattern: ''
