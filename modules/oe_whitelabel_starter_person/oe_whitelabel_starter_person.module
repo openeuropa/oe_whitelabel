@@ -1,0 +1,72 @@
+<?php
+
+/**
+ * @file
+ * OE Whitelabel theme Person.
+ */
+
+declare(strict_types =  1);
+
+use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\media\MediaInterface;
+use Drupal\media\Plugin\media\Source\Image;
+use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
+use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
+
+/**
+ * Implements template_preprocess_node() for the News node type.
+ */
+function oe_whitelabel_starter_person_preprocess_node__oe_sc_person(&$variables) {
+  if ($variables['view_mode'] !== 'oe_w_content_banner' && $variables['view_mode'] !== 'teaser') {
+    return;
+  }
+
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+
+  // Bail out if there is no media present.
+  if ($node->get('oe_sc_person_image')->isEmpty()) {
+    return;
+  }
+
+  /** @var \Drupal\media\Entity\Media $media */
+  $media = $node->get('oe_sc_person_image')->entity;
+  if (!$media instanceof MediaInterface) {
+    // The media entity is not available anymore, bail out.
+    return;
+  }
+
+  // Retrieve the correct media translation.
+  /** @var \Drupal\media\Entity\Media $media */
+  $media = \Drupal::service('entity.repository')->getTranslationFromContext($media, $node->language()->getId());
+
+  // Caches are handled by the formatter usually. Since we are not rendering
+  // the original render arrays, we need to propagate our caches to the
+  // paragraph template.
+  $cacheability = CacheableMetadata::createFromRenderArray($variables);
+  $cacheability->addCacheableDependency($media);
+
+  // Run access checks on the media entity.
+  $access = $media->access('view', $variables['user'], TRUE);
+  $cacheability->addCacheableDependency($access);
+  if (!$access->isAllowed()) {
+    $cacheability->applyTo($variables);
+    return;
+  }
+
+  // Get the media source.
+  $source = $media->getSource();
+
+  $is_image = $source instanceof MediaAvPortalPhotoSource || $source instanceof Image;
+
+  // If it's not an image and not a video, bail out.
+  if (!$is_image) {
+    $cacheability->applyTo($variables);
+    return;
+  }
+
+  $thumbnail = $media->get('thumbnail')->first();
+  $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
+
+  $cacheability->applyTo($variables);
+}
