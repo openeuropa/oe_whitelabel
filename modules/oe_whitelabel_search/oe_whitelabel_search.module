@@ -42,6 +42,9 @@ function oe_whitelabel_search_form_facets_form_alter(&$form, FormStateInterface 
 function oe_whitelabel_search_preprocess_facets_summary_item_list(array &$variables): void {
   $items = [];
   foreach ($variables['items'] as $item) {
+    if (empty($item['value']['#type'])) {
+      continue;
+    }
     if ($item['value']['#type'] === 'link') {
       $item['value']['#attributes']['class'] = 'standalone';
       $items[] = $item;
