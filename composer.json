@@ -97,7 +97,10 @@
                 "https://www.drupal.org/project/entity_reference_revisions/issues/2937835": "https://www.drupal.org/files/issues/2021-03-26/entity_reference_revisions-field_formatter_label-2937835-36.patch"
             },
             "openeuropa/oe_starter_content": {
-                "latest": "https://github.com/openeuropa/oe_starter_content/compare/1.0.0-beta1..OEL-1662.diff"
+                "OEL-1551-Document_fields_for_person": "https://github.com/openeuropa/oe_starter_content/compare/1.0.0-beta1...OEL-1551.diff"
+            },
+            "openeuropa/oe_content": {
+                "OEL-1551-Document_fields_for_person": "https://github.com/openeuropa/oe_content/compare/3.x...OEL-1551.diff"
             }
         },
         "drupal-scaffold": {
