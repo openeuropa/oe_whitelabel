@@ -5,19 +5,17 @@ declare(strict_types = 1);
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
 use Drupal\Tests\oe_bootstrap_theme\Kernel\AbstractKernelTestBase as BootstrapKernelTestBase;
-use Drupal\Tests\oe_bootstrap_theme\Kernel\Traits\RenderTrait;
 
 /**
  * Base class for theme's kernel tests.
  */
 abstract class AbstractKernelTestBase extends BootstrapKernelTestBase {
 
-  use RenderTrait;
-
   /**
    * {@inheritdoc}
    */
   protected static $modules = [
+    'daterange_compact',
     'oe_whitelabel_helper',
   ];
 

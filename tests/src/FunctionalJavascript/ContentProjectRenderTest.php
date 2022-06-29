@@ -174,6 +174,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     // Select the content column next to the in-page navigation.
     $project_content = $assert_session->elementExists('css', '.col-md-9');
 
+    $this->assertProjectDates('10 May 2020', '15 May 2025');
     $this->assertProjectStatusTimestampsAsDateStrings('2020-05-10 00:00:00', '2025-05-16 00:00:00');
     $this->assertProjectStatusVisible();
 
@@ -253,6 +254,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     $node->save();
     $this->drupalGet($node->toUrl());
 
+    $this->assertProjectDates('07 March 2019', '21 March 2019');
     $this->assertProjectStatusTimestampsAsDateStrings('2019-03-07 00:00:00', '2019-03-22 00:00:00');
     $this->assertProjectStatusVisible();
     $this->assertProjectStatus('bg-dark', 'Closed');
@@ -413,6 +415,22 @@ class ContentProjectRenderTest extends WebDriverTestBase {
       $this->assertGreaterThanOrEqual($min, (float) $progress_string);
       $this->assertLessThanOrEqual($max, (float) $progress_string);
     }
+  }
+
+  /**
+   * Assert the rendered dates in the project status area.
+   *
+   * @param string $expected_start_date
+   *   The expected start date string.
+   * @param string $expected_end_date
+   *   The expected end date string.
+   */
+  protected function assertProjectDates(string $expected_start_date, string $expected_end_date): void {
+    $wrapper = $this->assertSession()->elementExists('css', '.bcl-project-status');
+    $start_element = $this->assertSession()->elementExists('xpath', '//p[contains(text(), "Start")]//time', $wrapper);
+    $this->assertEquals($expected_start_date, trim($start_element->getText()));
+    $end_element = $this->assertSession()->elementExists('xpath', '//p[contains(text(), "End")]//time', $wrapper);
+    $this->assertEquals($expected_end_date, trim($end_element->getText()));
   }
 
 }

@@ -17,9 +17,10 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'block',
     'content_translation',
+    'daterange_compact',
     'language',
     'locale',
     'node',

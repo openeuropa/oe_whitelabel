@@ -7,6 +7,7 @@ core_version_requirement: ^9.2
 dependencies:
   - drupal:node
   - drupal:twig_field_value
+  - drupal:daterange_compact
   - oe_bootstrap_theme:oe_bootstrap_theme_helper
   - openeuropa:oe_corporate_blocks
 
@@ -15,3 +16,5 @@ dependencies:
 config_devel:
   install:
     - core.entity_view_mode.node.oe_w_content_banner
+    - daterange_compact.format.oe_whitelabel_date_only_short_month
+    - daterange_compact.format.oe_whitelabel_date_time_long
