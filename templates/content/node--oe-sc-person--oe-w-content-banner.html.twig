@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Person content banner display.
+ */
+#}
+
+{% set _meta = [] %}
+{% if not node.oe_sc_person_position.isEmpty() %}
+  {% set _meta = _meta|merge([content.oe_sc_person_position|field_value]) %}
+{% endif %}
+{% if not node.oe_sc_person_occupation.isEmpty() %}
+  {% set _meta = _meta|merge([content.oe_sc_person_occupation|field_value]) %}
+{% endif %}
+
+<div{{attributes}}>
+  {{ pattern('content_banner', {
+    background: 'gray',
+    title: label,
+    content: content.oe_sc_person_additional_info,
+    image: image,
+    meta: _meta,
+  }) }}
+</div>
