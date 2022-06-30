@@ -15,7 +15,7 @@ use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
 use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
 
 /**
- * Implements template_preprocess_node() for the News node type.
+ * Implements template_preprocess_node() for the Person node type.
  */
 function oe_whitelabel_starter_person_preprocess_node__oe_sc_person(&$variables) {
   if ($variables['view_mode'] !== 'oe_w_content_banner' && $variables['view_mode'] !== 'teaser') {
