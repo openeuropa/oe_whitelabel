@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Field template of the document group reference entity.
+ *
+ * @see ./core/themes/stable/templates/field/field.html.twig
+ */
+#}
+{% for item in items %}
+  {% if item.content['#media'] is empty %}
+    <h6 class="mt-4 mb-4">{{ item.content }}</h6>
+  {% else %}
+    <div class="ps-4">
+      {{ item.content }}
+    </div>
+  {% endif %}
+{% endfor %}
