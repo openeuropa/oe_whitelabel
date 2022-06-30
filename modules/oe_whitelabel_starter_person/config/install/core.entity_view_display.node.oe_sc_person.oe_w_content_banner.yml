@@ -1,0 +1,103 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.oe_w_content_banner
+    - field.field.node.oe_sc_person.oe_sc_person_additional_info
+    - field.field.node.oe_sc_person.oe_sc_person_country
+    - field.field.node.oe_sc_person.oe_sc_person_documents
+    - field.field.node.oe_sc_person.oe_sc_person_first_name
+    - field.field.node.oe_sc_person.oe_sc_person_image
+    - field.field.node.oe_sc_person.oe_sc_person_last_name
+    - field.field.node.oe_sc_person.oe_sc_person_occupation
+    - field.field.node.oe_sc_person.oe_sc_person_position
+    - field.field.node.oe_sc_person.oe_social_media_links
+    - field.field.node.oe_sc_person.oe_summary
+    - node.type.oe_sc_person
+  module:
+    - address
+    - text
+    - typed_link
+    - user
+id: node.oe_sc_person.oe_w_content_banner
+targetEntityType: node
+bundle: oe_sc_person
+mode: oe_w_content_banner
+content:
+  oe_sc_person_country:
+    type: address_country_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  oe_sc_person_first_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  oe_sc_person_image:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  oe_sc_person_last_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  oe_sc_person_occupation:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  oe_sc_person_position:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  oe_social_media_links:
+    type: typed_link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  oe_summary:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  langcode: true
+  links: true
+  oe_content_content_owner: true
+  oe_content_legacy_link: true
+  oe_content_navigation_title: true
+  oe_content_short_title: true
+  oe_sc_person_additional_info: true
+  oe_sc_person_documents: true
+  search_api_excerpt: true
