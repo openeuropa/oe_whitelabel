@@ -12,13 +12,32 @@
 {% if not node.oe_sc_person_occupation.isEmpty() %}
   {% set _meta = _meta|merge([content.oe_sc_person_occupation|field_value]) %}
 {% endif %}
-
-<div{{attributes}}>
+{% if not node.oe_sc_person_country.isEmpty() %}
+  {% set _meta = _meta|merge([content.oe_sc_person_country|field_value]) %}
+{% endif %}
+{% set _content %}
+  {{ content.oe_summary|field_value }}
+  <div class="mt-2-5 mb-2">
+    {% for _link in social_links %}
+      {% set _link = _link|merge(
+        {
+          'attributes': create_attribute().addClass(['d-block', 'd-md-inline-block', 'mb-3', 'mb-md-0', 'standalone'])
+        }
+      ) %}
+      <div class="mb-3 mb-md-0 d-block d-md-inline-block me-md-4-5">
+        {{ pattern('link', _link) }}
+      </div>
+    {% endfor %}
+  </div>
+  </div>
+{% endset %}
+<div{{ attributes }}>
   {{ pattern('content_banner', {
     background: 'gray',
     title: label,
-    content: content.oe_sc_person_additional_info,
+    content: _content,
     image: image,
     meta: _meta,
   }) }}
-</div>
+
+
