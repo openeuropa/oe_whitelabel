@@ -8,6 +8,7 @@
 declare(strict_types =  1);
 
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Url;
 use Drupal\media\MediaInterface;
 use Drupal\media\Plugin\media\Source\Image;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
@@ -67,6 +68,17 @@ function oe_whitelabel_starter_person_preprocess_node__oe_sc_person(&$variables)
 
   $thumbnail = $media->get('thumbnail')->first();
   $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
+
+  $social_links = $node->get('oe_social_media_links')->getValue();
+
+  $variables['social_links'] = [];
+  foreach ($social_links as $key => $link) {
+    $variables['social_links'][$key]['icon_position'] = 'before';
+    $variables['social_links'][$key]['icon']['path'] = $variables['bcl_icon_path'];
+    $variables['social_links'][$key]['icon']['name'] = $link['link_type'];
+    $variables['social_links'][$key]['label'] = $link['title'];
+    $variables['social_links'][$key]['path'] = Url::fromUri($link['uri'])->toString();
+  }
 
   $cacheability->applyTo($variables);
 }
