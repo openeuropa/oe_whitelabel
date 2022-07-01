@@ -22,8 +22,26 @@ function oe_whitelabel_starter_person_preprocess_node__oe_sc_person(&$variables)
     return;
   }
 
+  // Caches are handled by the formatter usually. Since we are not rendering
+  // the original render arrays, we need to propagate our caches to the
+  // paragraph template.
+  $cacheability = CacheableMetadata::createFromRenderArray($variables);
+
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
+
+  $social_links = $node->get('oe_social_media_links')->getValue();
+
+  $variables['social_links'] = [];
+  foreach ($social_links as $key => $link) {
+    $variables['social_links'][$key]['icon_position'] = 'before';
+    $variables['social_links'][$key]['icon']['path'] = $variables['bcl_icon_path'];
+    $variables['social_links'][$key]['icon']['name'] = $link['link_type'];
+    $variables['social_links'][$key]['label'] = $link['title'];
+    $variables['social_links'][$key]['path'] = Url::fromUri($link['uri'])->toString();
+  }
+
+  $cacheability->applyTo($variables);
 
   // Bail out if there is no media present.
   if ($node->get('oe_sc_person_image')->isEmpty()) {
@@ -40,11 +58,6 @@ function oe_whitelabel_starter_person_preprocess_node__oe_sc_person(&$variables)
   // Retrieve the correct media translation.
   /** @var \Drupal\media\Entity\Media $media */
   $media = \Drupal::service('entity.repository')->getTranslationFromContext($media, $node->language()->getId());
-
-  // Caches are handled by the formatter usually. Since we are not rendering
-  // the original render arrays, we need to propagate our caches to the
-  // paragraph template.
-  $cacheability = CacheableMetadata::createFromRenderArray($variables);
   $cacheability->addCacheableDependency($media);
 
   // Run access checks on the media entity.
@@ -60,7 +73,7 @@ function oe_whitelabel_starter_person_preprocess_node__oe_sc_person(&$variables)
 
   $is_image = $source instanceof MediaAvPortalPhotoSource || $source instanceof Image;
 
-  // If it's not an image and not a video, bail out.
+  // If it's not an image bail out.
   if (!$is_image) {
     $cacheability->applyTo($variables);
     return;
@@ -68,17 +81,6 @@ function oe_whitelabel_starter_person_preprocess_node__oe_sc_person(&$variables)
 
   $thumbnail = $media->get('thumbnail')->first();
   $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
-
-  $social_links = $node->get('oe_social_media_links')->getValue();
-
-  $variables['social_links'] = [];
-  foreach ($social_links as $key => $link) {
-    $variables['social_links'][$key]['icon_position'] = 'before';
-    $variables['social_links'][$key]['icon']['path'] = $variables['bcl_icon_path'];
-    $variables['social_links'][$key]['icon']['name'] = $link['link_type'];
-    $variables['social_links'][$key]['label'] = $link['title'];
-    $variables['social_links'][$key]['path'] = Url::fromUri($link['uri'])->toString();
-  }
 
   $cacheability->applyTo($variables);
 }
