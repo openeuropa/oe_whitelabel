@@ -8,11 +8,11 @@
   <a class="standalone" href="{{ url }}">{{ label }}</a>
 {% endset %}
 {% set _meta = [] %}
-{% if not node.oe_sc_person_position.isEmpty() %}
-  {% set _meta = _meta|merge([content.oe_sc_person_position|field_value]) %}
-{% endif %}
 {% if not node.oe_sc_person_occupation.isEmpty() %}
   {% set _meta = _meta|merge([content.oe_sc_person_occupation|field_value]) %}
+{% endif %}
+{% if not node.oe_sc_person_position.isEmpty() %}
+  {% set _meta = _meta|merge([content.oe_sc_person_position|field_value]) %}
 {% endif %}
 {% block content %}
   {{ pattern('card', {

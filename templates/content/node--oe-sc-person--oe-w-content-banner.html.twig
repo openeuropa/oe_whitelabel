@@ -6,11 +6,11 @@
 #}
 
 {% set _meta = [] %}
-{% if not node.oe_sc_person_position.isEmpty() %}
-  {% set _meta = _meta|merge([content.oe_sc_person_position|field_value]) %}
-{% endif %}
 {% if not node.oe_sc_person_occupation.isEmpty() %}
   {% set _meta = _meta|merge([content.oe_sc_person_occupation|field_value]) %}
+{% endif %}
+{% if not node.oe_sc_person_position.isEmpty() %}
+  {% set _meta = _meta|merge([content.oe_sc_person_position|field_value]) %}
 {% endif %}
 {% if not node.oe_sc_person_country.isEmpty() %}
   {% set _meta = _meta|merge([content.oe_sc_person_country|field_value]) %}
@@ -29,7 +29,6 @@
       </div>
     {% endfor %}
   </div>
-  </div>
 {% endset %}
 <div{{ attributes }}>
   {{ pattern('content_banner', {
@@ -39,3 +38,4 @@
     image: image,
     meta: _meta,
   }) }}
+</div>
