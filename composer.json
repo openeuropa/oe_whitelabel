@@ -98,9 +98,6 @@
             },
             "openeuropa/oe_starter_content": {
                 "OEL-1551-Document_fields_for_person": "https://github.com/openeuropa/oe_starter_content/compare/1.0.0-beta1...EPIC-OEL-1548-Person-v1.diff"
-            },
-            "openeuropa/oe_content": {
-                "OEL-1551-Document_fields_for_person": "https://github.com/openeuropa/oe_content/compare/3.x...OEL-1551.diff"
             }
         },
         "drupal-scaffold": {
