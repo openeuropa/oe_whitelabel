@@ -47,6 +47,13 @@
  * @ingroup themeable
  */
 #}
+<noscript>
+  {{ pattern('alert', {
+    variant: 'warning',
+    message: 'Please enable JavaScript to continue using this application'|t,
+    icon: 'exclamation-triangle-fill',
+  }) }}
+</noscript>
 {% set neutral = bcl_component_library == 'neutral' %}
 {% set corporate_logos %}
   {% set anchor_attributes = neutral
