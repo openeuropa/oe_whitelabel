@@ -24,7 +24,7 @@ mode: full
 content:
   oe_sc_person_additional_info:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 0

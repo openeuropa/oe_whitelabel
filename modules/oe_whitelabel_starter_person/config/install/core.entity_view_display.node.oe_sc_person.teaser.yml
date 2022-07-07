@@ -21,46 +21,30 @@ targetEntityType: node
 bundle: oe_sc_person
 mode: teaser
 content:
-  oe_sc_person_first_name:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 0
-    region: content
   oe_sc_person_image:
     type: entity_reference_entity_view
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: false
     third_party_settings: {  }
-    weight: 2
+    weight: 0
     region: content
-  oe_sc_person_last_name:
+  oe_sc_person_occupation:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     weight: 1
     region: content
-  oe_sc_person_occupation:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 3
-    region: content
   oe_sc_person_position:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 4
+    weight: 2
     region: content
 hidden:
   langcode: true
@@ -72,6 +56,8 @@ hidden:
   oe_sc_person_additional_info: true
   oe_sc_person_country: true
   oe_sc_person_documents: true
+  oe_sc_person_first_name: true
+  oe_sc_person_last_name: true
   oe_social_media_links: true
   oe_summary: true
   search_api_excerpt: true
