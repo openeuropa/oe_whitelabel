@@ -7,5 +7,7 @@
  */
 #}
 {% for item in items %}
-  {{ item.content }}
+  <div{{ not loop.last ? ' class="mb-3"' }}">
+    {{ item.content }}
+  </div>
 {% endfor %}
