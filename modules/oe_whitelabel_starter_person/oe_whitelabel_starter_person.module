@@ -17,33 +17,29 @@ use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
 /**
  * Implements template_preprocess_node() for the Person node type.
  */
-function oe_whitelabel_starter_person_preprocess_node__oe_sc_person(&$variables) {
-  if ($variables['view_mode'] !== 'oe_w_content_banner' && $variables['view_mode'] !== 'teaser') {
-    return;
-  }
+function oe_whitelabel_starter_person_preprocess_node__oe_sc_person__oe_w_content_banner(array &$variables) {
+  _oe_whitelabel_starter_person_preprocess_image($variables);
+  _oe_whitelabel_starter_person_social_media_links($variables);
+}
 
-  // Caches are handled by the formatter usually. Since we are not rendering
-  // the original render arrays, we need to propagate our caches to the
-  // paragraph template.
-  $cacheability = CacheableMetadata::createFromRenderArray($variables);
+/**
+ * Implements template_preprocess_node() for the Person node type.
+ */
+function oe_whitelabel_starter_person_preprocess_node__oe_sc_person__teaser(array &$variables) {
+  _oe_whitelabel_starter_person_preprocess_image($variables);
+}
 
+/**
+ * Helper function to preprocess the media.
+ *
+ * @param array $variables
+ *   Render array variables.
+ */
+function _oe_whitelabel_starter_person_preprocess_image(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
 
-  $social_links = $node->get('oe_social_media_links')->getValue();
-
-  $variables['social_links'] = [];
-  foreach ($social_links as $key => $link) {
-    $variables['social_links'][$key]['icon_position'] = 'before';
-    $variables['social_links'][$key]['icon']['path'] = $variables['bcl_icon_path'];
-    $variables['social_links'][$key]['icon']['name'] = $link['link_type'];
-    $variables['social_links'][$key]['label'] = $link['title'];
-    $variables['social_links'][$key]['path'] = Url::fromUri($link['uri'])->toString();
-  }
-
-  $cacheability->applyTo($variables);
-
-  // Bail out if there is no media present.
+  // Bail out if there is no image present.
   if ($node->get('oe_sc_person_image')->isEmpty()) {
     return;
   }
@@ -58,6 +54,7 @@ function oe_whitelabel_starter_person_preprocess_node__oe_sc_person(&$variables)
   // Retrieve the correct media translation.
   /** @var \Drupal\media\Entity\Media $media */
   $media = \Drupal::service('entity.repository')->getTranslationFromContext($media, $node->language()->getId());
+  $cacheability = CacheableMetadata::createFromRenderArray($variables);
   $cacheability->addCacheableDependency($media);
 
   // Run access checks on the media entity.
@@ -83,4 +80,31 @@ function oe_whitelabel_starter_person_preprocess_node__oe_sc_person(&$variables)
   $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
 
   $cacheability->applyTo($variables);
+}
+
+/**
+ * Helper function to preprocess the social media links.
+ *
+ * @param array $variables
+ *   Render array variables.
+ */
+function _oe_whitelabel_starter_person_social_media_links(array &$variables): void {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+
+  $social_links = $node->get('oe_social_media_links')->getValue();
+
+  $variables['social_links'] = [];
+  foreach ($social_links as $key => $link) {
+    $variables['social_links'][] = [
+      'icon_position' => 'before',
+      'icon' => [
+        'path' => $variables['bcl_icon_path'],
+        'name' => $link['link_type'],
+      ],
+      'label' => $link['title'],
+      'path' => Url::fromUri($link['uri'])->toString(),
+    ];
+  }
+
 }
