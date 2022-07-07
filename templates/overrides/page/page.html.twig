@@ -47,13 +47,6 @@
  * @ingroup themeable
  */
 #}
-<noscript>
-  {{ pattern('alert', {
-    variant: 'warning',
-    message: 'Please enable JavaScript to continue using this application'|t,
-    icon: 'exclamation-triangle-fill',
-  }) }}
-</noscript>
 {% set neutral = bcl_component_library == 'neutral' %}
 {% set corporate_logos %}
   {% set anchor_attributes = neutral
@@ -118,6 +111,16 @@
     {{ page.hero }}
     <div class="container mt-md-4-75 mt-4">
       <div class="row">
+        {% block noscript %}
+          <noscript>
+            {{ pattern('alert', {
+              variant: 'warning',
+              message: 'Please enable JavaScript and reload the page.'|t,
+              dismissible: false,
+              icon: 'exclamation-triangle-fill',
+            }) }}
+          </noscript>
+        {% endblock %}
         {% if page.highlighted %}
           {{ page.highlighted }}
         {% endif %}
