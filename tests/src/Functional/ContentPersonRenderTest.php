@@ -68,18 +68,16 @@ class ContentPersonRenderTest extends WhitelabelBrowserTestBase {
     // Assert no social media links are present.
     $this->assertCount(0, $content_banner->filter('a.standalone'));
 
-    $content = $crawler->filter('div.col-12.col-lg-10.col-xl-9.col-xxl-8');
-
     // Assert additional information is not present.
     $this->assertStringNotContainsString(
       'Additional information',
-      $content->text()
+      $crawler->text()
     );
 
     // Assert documents are not present.
     $this->assertStringNotContainsString(
       'Related documents',
-      $content->text()
+      $crawler->text()
     );
 
     // Test person with all fields.
@@ -107,9 +105,8 @@ class ContentPersonRenderTest extends WhitelabelBrowserTestBase {
     );
 
     // Assert content banner image.
-    $image = $content_banner->filter('img');
+    $image = $content_banner->filter('img.card-img-top');
     $this->assertCount(1, $image);
-    $this->assertCount(1, $image->filter('.card-img-top'));
     $this->assertStringContainsString(
       'image-test.png',
       $image->attr('src')
@@ -157,8 +154,8 @@ class ContentPersonRenderTest extends WhitelabelBrowserTestBase {
     // Build node teaser view.
     $builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $build = $builder->view($node, 'teaser');
-    $render = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler((string) $render);
+    $markup = $this->container->get('renderer')->renderRoot($build);
+    $crawler = new Crawler((string) $markup);
 
     $article = $crawler->filter('article');
     $this->assertCount(1, $article);
@@ -167,9 +164,8 @@ class ContentPersonRenderTest extends WhitelabelBrowserTestBase {
       'Stefan Mayer',
       $article->filter('h1.card-title')->text()
     );
-    $image = $article->filter('img');
+    $image = $article->filter('img.card-img-top');
     $this->assertCount(1, $image);
-    $this->assertCount(1, $image->filter('.card-img-top'));
     $this->assertStringContainsString(
       'image-test.png',
       $image->attr('src')
@@ -217,7 +213,18 @@ class ContentPersonRenderTest extends WhitelabelBrowserTestBase {
    */
   protected function createExamplePersonWithAllFields(): NodeInterface {
     /** @var \Drupal\node\Entity\Node $node */
-    $node = $this->createExamplePersonWithRequiredFieldsOnly();
+    $node = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->create([
+        'type' => 'oe_sc_person',
+        'oe_sc_person_first_name' => 'Stefan',
+        'oe_sc_person_last_name' => 'Mayer',
+        'oe_sc_person_country' => 'DE',
+        'oe_sc_person_occupation' => 'DG Test',
+        'oe_sc_person_position' => 'Director',
+        'uid' => 1,
+        'status' => 1,
+      ]);
     // Create a sample image media entity to be embedded.
     $image_file = File::create([
       'uri' => $this->getTestFiles('image')[0]->uri,
