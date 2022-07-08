@@ -96,7 +96,7 @@ class FacetsFormTest extends KernelTestBase {
     $offcanvas = $crawler->filter('div#bcl-offcanvas');
     $header = $offcanvas->filter('div.offcanvas-header');
     $this->assertCount(1, $header);
-    $title = $header->filter('h3.offcanvas-title');
+    $title = $header->filter('h2.offcanvas-title');
     $this->assertSame('Facets form', $title->text());
     $button = $header->filter('button');
     $this->assertSame('offcanvas', $button->attr('data-bs-dismiss'));
