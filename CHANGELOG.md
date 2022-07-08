@@ -1,10 +1,20 @@
 # Change Log
 
-## [1.0.0-beta3](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-beta3) (2022-06-22)
+## [1.0.0-beta4](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-beta4) (2022-07-08)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-beta3...1.0.0-beta4)
+
+**Merged pull requests:**
+
+- OEL-1638: Check variable items has facets before trying to modify them to avoid warning. [\#161](https://github.com/openeuropa/oe_whitelabel/pull/161) ([escuriola](https://github.com/escuriola))
+- OEL-1653: Show time in event dates [\#158](https://github.com/openeuropa/oe_whitelabel/pull/158) ([escuriola](https://github.com/escuriola))
+- OEL-1618: Upgrade BCL to 0.23.0. [\#144](https://github.com/openeuropa/oe_whitelabel/pull/144) ([escuriola](https://github.com/escuriola))
+
+## [1.0.0-beta3](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-beta3) (2022-06-23)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-beta2...1.0.0-beta3)
 
 **Merged pull requests:**
 
+- Prepare release 1.0.0-beta3. [\#160](https://github.com/openeuropa/oe_whitelabel/pull/160) ([drishu](https://github.com/drishu))
 - OEL-1450: Epic list pages. [\#156](https://github.com/openeuropa/oe_whitelabel/pull/156) ([drishu](https://github.com/drishu))
 - OEL-1668: Use latest dev release of oebt. [\#154](https://github.com/openeuropa/oe_whitelabel/pull/154) ([drishu](https://github.com/drishu))
 - OEL-1540: Fix Scrollspy js file requirement when there is no items to display. [\#152](https://github.com/openeuropa/oe_whitelabel/pull/152) ([escuriola](https://github.com/escuriola))
