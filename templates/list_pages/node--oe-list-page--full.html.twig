@@ -1,7 +1,7 @@
 {% apply spaceless %}
   {{ content|without('extra_field_oe_list_page_filters:node:oe_list_page', 'extra_field_oe_list_page_results:node:oe_list_page', 'extra_field_oe_list_page_selected_filters:node:oe_list_page', 'extra_field_oe_list_page_total_count:node:oe_list_page') }}
   <div class="row">
-    <div class="col-12 col-lg-3">
+    <div class="col-12 bcl-sidebar col-lg-3">
       {% set filters = content['extra_field_oe_list_page_filters:node:oe_list_page']|render %}
       {% if filters %}
         {{ pattern('offcanvas', {
