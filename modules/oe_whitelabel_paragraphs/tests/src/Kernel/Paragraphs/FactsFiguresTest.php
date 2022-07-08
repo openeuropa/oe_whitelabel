@@ -83,7 +83,7 @@ class FactsFiguresTest extends ParagraphsTestBase {
     $this->assertCount(1, $crawler->filter('h2.bcl-heading'));
     $this->assertCount(1, $crawler->filter('div.row-cols-md-3.row'));
     $this->assertCount(6, $crawler->filter('svg.bi.icon--l'));
-    $this->assertCount(6, $crawler->filter('div.fs-3'));
+    $this->assertCount(6, $crawler->filter('div.fs-4'));
     $this->assertCount(6, $crawler->filter('div.fs-5'));
     $this->assertCount(6, $crawler->filter('div.col'));
 
@@ -93,7 +93,7 @@ class FactsFiguresTest extends ParagraphsTestBase {
       $link->html()
     );
 
-    $title_fact = $crawler->filter('div.row-cols-md-3.row > div.col:nth-child(1) > div.fs-3');
+    $title_fact = $crawler->filter('div.row-cols-md-3.row > div.col:nth-child(1) > div.fs-4');
     $this->assertStringContainsString(
       '1529 JIRA Ticket',
       $title_fact->html()
@@ -109,7 +109,7 @@ class FactsFiguresTest extends ParagraphsTestBase {
       $description_fact->html()
     );
 
-    $title_fact = $crawler->filter('div.row-cols-md-3.row > div.col:nth-child(2) > div.fs-3');
+    $title_fact = $crawler->filter('div.row-cols-md-3.row > div.col:nth-child(2) > div.fs-4');
     $this->assertStringContainsString(
       '337 Features',
       $title_fact->html()
@@ -125,7 +125,7 @@ class FactsFiguresTest extends ParagraphsTestBase {
       $description_fact->html()
     );
 
-    $title_fact = $crawler->filter('div.row-cols-md-3.row > div.col:nth-child(3) > div.fs-3');
+    $title_fact = $crawler->filter('div.row-cols-md-3.row > div.col:nth-child(3) > div.fs-4');
     $this->assertStringContainsString(
       '107 Tests',
       $title_fact->html()
@@ -141,7 +141,7 @@ class FactsFiguresTest extends ParagraphsTestBase {
       $description_fact->html()
     );
 
-    $title_fact = $crawler->filter('div.row-cols-md-3.row > div.col:nth-child(4) > div.fs-3');
+    $title_fact = $crawler->filter('div.row-cols-md-3.row > div.col:nth-child(4) > div.fs-4');
     $this->assertStringContainsString(
       '5670 Variants',
       $title_fact->html()
@@ -157,7 +157,7 @@ class FactsFiguresTest extends ParagraphsTestBase {
       $description_fact->html()
     );
 
-    $title_fact = $crawler->filter('div.row-cols-md-3.row > div.col:nth-child(5) > div.fs-3');
+    $title_fact = $crawler->filter('div.row-cols-md-3.row > div.col:nth-child(5) > div.fs-4');
     $this->assertStringContainsString(
       '345 Dev Ticket',
       $title_fact->html()
@@ -173,7 +173,7 @@ class FactsFiguresTest extends ParagraphsTestBase {
       $description_fact->html()
     );
 
-    $title_fact = $crawler->filter('div.row-cols-md-3.row > div.col:nth-child(6) > div.fs-3');
+    $title_fact = $crawler->filter('div.row-cols-md-3.row > div.col:nth-child(6) > div.fs-4');
     $this->assertStringContainsString(
       '43 Components',
       $title_fact->html()

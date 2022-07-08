@@ -144,11 +144,11 @@ class ContentRowTest extends ParagraphsTestBase {
     $this->assertCount(1, $crawler->filter('div.row > div > nav.bcl-inpage-navigation'));
     $this->assertCount(8, $crawler->filter('p'));
     // Assert the left column navigation.
-    $left = $crawler->filter('div.col-md-3.d-none.d-md-block');
+    $left = $crawler->filter('div.bcl-sidebar');
     $nav = $left->filter('nav.bcl-inpage-navigation');
     $this->assertCount(1, $nav);
-    $h3 = $nav->filter('h3');
-    $this->assertSame('Page content', $h3->text());
+    $h2 = $nav->filter('h2');
+    $this->assertSame('Page content', $h2->text());
     $ul = $left->filter('ul.nav.nav-pills.flex-column');
     $this->assertCount(1, $ul);
     $links = $ul->filter('li.nav-item a.nav-link');
