@@ -7,18 +7,8 @@
 <article{{attributes}}>
   <div class="row">
     <div class="col-12 col-lg-10 col-xl-9 col-xxl-8">
-      {% if not node.oe_sc_person_additional_info.isEmpty() %}
-        <h2 class="mb-4">{{ 'Additional information'|t }}</h2>
-        <div class="mb-4-5">
-          {{ content.oe_sc_person_additional_info|field_value }}
-        </div>
-      {% endif %}
-      {% if not node.oe_sc_person_documents.isEmpty() %}
-        <h2 class="mb-4">{{ 'Related documents'|t }}</h2>
-        <div class="mb-4-5">
-          {{ content.oe_sc_person_documents|field_value }}
-        </div>
-      {% endif %}
+      {{ content.oe_sc_person_additional_info }}
+      {{ content.oe_sc_person_documents }}
     </div>
   </div>
 </article>
