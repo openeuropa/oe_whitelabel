@@ -14,7 +14,7 @@ use Symfony\Component\DomCrawler\Crawler;
 /**
  * Tests that the Person content type renders correctly.
  */
-class ContentPersonRenderTest extends WhitelabelBrowserTestBase {
+class PersonContentRenderTest extends WhitelabelBrowserTestBase {
 
   use MediaTypeCreationTrait;
   use TestFileCreationTrait;
