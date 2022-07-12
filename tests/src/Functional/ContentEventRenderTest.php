@@ -83,6 +83,21 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     // Assert registration button.
     $link = $crawler->filter('.bcl-content-banner a[target="_blank"]');
     $this->assertCount(1, $link);
+    $this->assertEquals('https://europa.eu', $link->attr('href'));
+    $button = $link->filter('button');
+    $this->assertStringContainsString('Register', $button->text());
+    $this->assertStringContainsString('calendar-check', $button->html());
+
+    // Assert registration button with internal route.
+    $node->set('oe_sc_event_registration_url', 'entity:node/' . $node->id());
+    $node->save();
+
+    $this->drupalGet('node/' . $node->id());
+    $crawler = $client->getCrawler();
+
+    $link = $crawler->filter('.bcl-content-banner a[href="/build/node/' . $node->id() . '"]');
+    $this->assertCount(1, $link);
+    $this->assertObjectNotHasAttribute('target', $link);
     $button = $link->filter('button');
     $this->assertStringContainsString('Register', $button->text());
     $this->assertStringContainsString('calendar-check', $button->html());
