@@ -12,8 +12,8 @@ dependencies:
     - field.field.node.oe_sc_event.oe_summary
     - node.type.oe_sc_event
   module:
+    - link
     - oe_content_featured_media_field
-    - oe_starter_content_event
     - text
     - user
 id: node.oe_sc_event.oe_w_content_banner
@@ -30,7 +30,7 @@ content:
     weight: 1
     region: content
   oe_sc_event_registration_url:
-    type: external_link
+    type: link
     label: above
     settings:
       trim_length: 80
