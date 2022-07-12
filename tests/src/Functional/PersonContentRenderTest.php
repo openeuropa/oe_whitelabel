@@ -213,18 +213,7 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
    */
   protected function createExamplePersonWithAllFields(): NodeInterface {
     /** @var \Drupal\node\Entity\Node $node */
-    $node = \Drupal::entityTypeManager()
-      ->getStorage('node')
-      ->create([
-        'type' => 'oe_sc_person',
-        'oe_sc_person_first_name' => 'Stefan',
-        'oe_sc_person_last_name' => 'Mayer',
-        'oe_sc_person_country' => 'DE',
-        'oe_sc_person_occupation' => 'DG Test',
-        'oe_sc_person_position' => 'Director',
-        'uid' => 1,
-        'status' => 1,
-      ]);
+    $node = $this->createExamplePersonWithRequiredFieldsOnly();
     // Create a sample image media entity to be embedded.
     $image_file = File::create([
       'uri' => $this->getTestFiles('image')[0]->uri,
