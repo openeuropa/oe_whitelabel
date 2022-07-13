@@ -111,6 +111,16 @@
     {{ page.hero }}
     <div class="container mt-md-4-75 mt-4">
       <div class="row">
+        {% block noscript %}
+          <noscript>
+            {{ pattern('alert', {
+              variant: 'warning',
+              message: 'Please enable JavaScript and reload the page.'|t,
+              dismissible: false,
+              icon: 'exclamation-triangle-fill',
+            }) }}
+          </noscript>
+        {% endblock %}
         {% if page.highlighted %}
           {{ page.highlighted }}
         {% endif %}
