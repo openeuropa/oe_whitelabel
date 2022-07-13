@@ -1,13 +1,13 @@
 {#
 /**
  * @file
- * Field template of the document reference document group entity.
+ * Field template of the oe_document_reference for the Document Group entity.
  *
  * @see ./core/themes/stable/templates/field/field.html.twig
  */
 #}
 {% for item in items %}
-  <div{{ not loop.last ? ' class="mb-3"' }}">
+  <div{{ not loop.last ? ' class="mb-3"' }}>
     {{ item.content }}
   </div>
 {% endfor %}
