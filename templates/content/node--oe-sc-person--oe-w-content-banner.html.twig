@@ -5,17 +5,19 @@
  */
 #}
 {% set _content %}
-  {{ content.oe_summary|field_value }}
+  {{ content.oe_summary }}
   <div class="mt-2-5 mb-2">
-    {% for _link in social_links %}
-      <div class="mb-3 mb-md-0 d-block d-md-inline-block me-md-4-5">
-        {{ pattern('link', _link|merge(
-          {
-            'attributes': create_attribute().addClass(['d-block', 'd-md-inline-block', 'mb-3', 'mb-md-0', 'standalone'])
-          }
-        ) ) }}
-      </div>
-    {% endfor %}
+    {% if social_links is not empty %}
+      {% for _link in social_links %}
+        <div class="mb-3 mb-md-0 d-block d-md-inline-block me-md-4-5">
+          {{ pattern('link', _link|merge(
+            {
+              'attributes': create_attribute().addClass(['d-block', 'd-md-inline-block', 'mb-3', 'mb-md-0', 'standalone'])
+            }
+          ) ) }}
+        </div>
+      {% endfor %}
+    {% endif %}
   </div>
 {% endset %}
 <div{{ attributes }}>
