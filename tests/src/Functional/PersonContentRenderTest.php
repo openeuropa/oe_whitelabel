@@ -125,7 +125,7 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
       $content_banner->filter('div.mb-2 > div.mb-3 > a.standalone')->text()
     );
 
-    $content = $crawler->filter('div.col-12.col-lg-10.col-xl-9.col-xxl-8');
+    $content = $crawler->filter('div.col-12');
 
     $this->assertEquals(
       'Additional information',
@@ -140,10 +140,16 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
       'Related documents',
       $content->filter('h2')->eq(1)->text()
     );
+
+    $document_group_title = $content->filter('h3.fs-4');
+    $this->assertEquals('Curriculum Vitae', $document_group_title->text());
+    $files = $content->filter('.bcl-file');
     $this->assertEquals(
-      'Event document test',
-      $content->filter('.bcl-file p')->text()
+      'Person document test',
+      $files->filter('p')->text()
     );
+
+    $this->assertCount(3, $files);
   }
 
   /**
@@ -239,13 +245,13 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
     $document_file->save();
     $media_document = Media::create([
       'bundle' => 'document',
-      'name' => 'Event document test',
+      'name' => 'Person document test',
       'oe_media_file_type' => 'local',
       'oe_media_file' => [
         [
           'target_id' => (int) $document_file->id(),
-          'alt' => 'Event document alt',
-          'title' => 'Event document title',
+          'alt' => 'Person document alt',
+          'title' => 'Person document title',
         ],
       ],
     ]);
@@ -257,7 +263,18 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
         'type' => 'oe_document',
         'oe_document' => $media_document,
         'status' => 1,
-      ]);
+      ],
+      );
+    $document_reference->save();
+    $document_group_reference = \Drupal::entityTypeManager()
+      ->getStorage('oe_document_reference')
+      ->create([
+        'type' => 'oe_document_group',
+        'oe_title' => 'Curriculum Vitae',
+        'oe_documents' => [$media_document, $media_document],
+        'status' => 1,
+      ],
+      );
     $document_reference->save();
 
     $node->set('oe_summary', 'This field is used to add a short biography of the person.');
@@ -267,7 +284,10 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
       'title' => 'Twitter profile',
       'link_type' => 'twitter',
     ]);
-    $node->set('oe_sc_person_documents', [$document_reference]);
+    $node->set(
+      'oe_sc_person_documents',
+      [$document_reference, $document_group_reference]
+    );
     $node->set('oe_sc_person_image', [$media_image]);
     $node->save();
     return $node;
