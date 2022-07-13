@@ -17,7 +17,6 @@ dependencies:
   module:
     - address
     - text
-    - typed_link
     - user
 id: node.oe_sc_person.oe_w_content_banner
 targetEntityType: node
@@ -47,18 +46,6 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
-  oe_social_media_links:
-    type: typed_link
-    label: hidden
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: 4
-    region: content
   oe_summary:
     type: text_default
     label: hidden
@@ -78,4 +65,5 @@ hidden:
   oe_sc_person_first_name: true
   oe_sc_person_image: true
   oe_sc_person_last_name: true
+  oe_social_media_links: true
   search_api_excerpt: true
