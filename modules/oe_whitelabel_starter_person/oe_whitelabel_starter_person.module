@@ -23,14 +23,14 @@ function oe_whitelabel_starter_person_preprocess_node__oe_sc_person__oe_w_conten
 }
 
 /**
- * IImplements hook_preprocess_HOOK() for Person ct in teaser view mode.
+ * Implements hook_preprocess_HOOK() for Person ct in teaser view mode.
  */
 function oe_whitelabel_starter_person_preprocess_node__oe_sc_person__teaser(array &$variables) {
   _oe_whitelabel_starter_person_preprocess_image($variables);
 }
 
 /**
- * Helper function to preprocess the media.
+ * Helper function to prepare the image for Person ct.
  *
  * @param array $variables
  *   Variables from the theme preprocess function.
