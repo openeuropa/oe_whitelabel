@@ -263,8 +263,7 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
         'type' => 'oe_document',
         'oe_document' => $media_document,
         'status' => 1,
-      ],
-      );
+      ]);
     $document_reference->save();
     $document_group_reference = \Drupal::entityTypeManager()
       ->getStorage('oe_document_reference')
@@ -273,8 +272,7 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
         'oe_title' => 'Curriculum Vitae',
         'oe_documents' => [$media_document, $media_document],
         'status' => 1,
-      ],
-      );
+      ]);
     $document_reference->save();
 
     $node->set('oe_summary', 'This field is used to add a short biography of the person.');
