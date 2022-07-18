@@ -1,0 +1,35 @@
+{#
+/**
+ * @file
+ * Person content banner display.
+ */
+#}
+{% set _content %}
+  {{ content.oe_summary }}
+  {% if social_links is not empty %}
+    <div class="mt-2-5 mb-2">
+      {% for _link in social_links %}
+        <div class="mb-3 mb-md-0 d-block d-md-inline-block me-md-4-5">
+          {{ pattern('link', _link|merge(
+            {
+              'attributes': create_attribute().addClass(['d-block', 'd-md-inline-block', 'mb-3', 'mb-md-0', 'standalone'])
+            }
+          ) ) }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endset %}
+<div{{ attributes }}>
+  {{ pattern('content_banner', {
+    background: 'gray',
+    title: label,
+    content: _content,
+    image: image,
+    meta: [
+      content.oe_sc_person_occupation|field_value,
+      content.oe_sc_person_position|field_value,
+      content.oe_sc_person_country|field_value,
+    ]|filter(element => element is not empty),
+  }) }}
+</div>

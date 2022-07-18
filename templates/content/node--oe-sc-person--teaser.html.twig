@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Theme override to display a node of bundle person in the teaser view mode.
+ */
+#}
+{% set _title %}
+  <a class="standalone" href="{{ url }}">{{ label }}</a>
+{% endset %}
+{% block content %}
+  {{ pattern('card', {
+    variant: 'search',
+    title: _title,
+    image: image,
+    meta: [
+      content.oe_sc_person_occupation|field_value,
+      content.oe_sc_person_position|field_value,
+    ]|filter(element => element is not empty),
+    attributes: attributes,
+  }) }}
+{% endblock %}
