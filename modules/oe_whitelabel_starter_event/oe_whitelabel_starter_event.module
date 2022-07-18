@@ -125,3 +125,14 @@ function _oe_whitelabel_starter_event_preprocess_inpage_nav(array &$variables): 
   }
 
 }
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function oe_whitelabel_starter_event_preprocess_field__node__oe_sc_event_registration_url(&$variables) {
+  foreach ($variables['items'] as &$item) {
+    if ($item['content']['#url']->isExternal()) {
+      $item['content']['attributes']['target'] = '_blank';
+    }
+  }
+}

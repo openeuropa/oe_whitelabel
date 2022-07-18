@@ -80,6 +80,28 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       trim($content_banner->filter('.oe-sc-event__oe-summary')->text())
     );
 
+    // Assert registration button.
+    $link = $crawler->filter('.bcl-content-banner a[target="_blank"]');
+    $this->assertCount(1, $link);
+    $this->assertEquals('https://europa.eu', $link->attr('href'));
+    $button = $link->filter('button');
+    $this->assertStringContainsString('Register', $button->text());
+    $this->assertStringContainsString('calendar-check', $button->html());
+
+    // Assert registration button with internal route.
+    $node->set('oe_sc_event_registration_url', 'entity:node/' . $node->id());
+    $node->save();
+
+    $this->drupalGet('node/' . $node->id());
+    $crawler = $client->getCrawler();
+
+    $link = $crawler->filter('.bcl-content-banner a[href="/build/node/' . $node->id() . '"]');
+    $this->assertCount(1, $link);
+    $this->assertObjectNotHasAttribute('target', $link);
+    $button = $link->filter('button');
+    $this->assertStringContainsString('Register', $button->text());
+    $this->assertStringContainsString('calendar-check', $button->html());
+
     $date = $crawler->filter('dl > dd');
 
     // Assert event dates starting and ending same day.
@@ -237,6 +259,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       ]);
     $node->set('oe_documents', [$media_document]);
     $node->set('oe_featured_media', [$media_image]);
+    $node->set('oe_sc_event_registration_url', 'https://europa.eu');
     $node->save();
     return $node;
   }
