@@ -12,7 +12,7 @@ dependencies:
     - field.field.node.oe_sc_event.oe_summary
     - node.type.oe_sc_event
   module:
-    - datetime_range
+    - daterange_compact
     - oe_whitelabel_helper
     - text
     - user
@@ -43,12 +43,10 @@ content:
     weight: 3
     region: content
   oe_sc_event_dates:
-    type: daterange_default
+    type: daterange_compact
     label: inline
     settings:
-      timezone_override: ''
-      format_type: oe_whitelabel_starter_event_date
-      separator: to
+      daterange_compact_format: oe_whitelabel_date_time_long
     third_party_settings: {  }
     weight: 1
     region: content
