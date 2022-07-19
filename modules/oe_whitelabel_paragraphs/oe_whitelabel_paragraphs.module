@@ -226,11 +226,10 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
       $card_badges[] = $meta_item->value;
     }
 
-    $card_title = $card_paragraph->get('field_oe_title')->value;
     /** @var \Drupal\link\LinkItemInterface|null $card_link_item */
     $card_link_item = $card_paragraph->get('field_oe_link')->first();
     $variables['items'][] = [
-      'title' => $card_title,
+      'title' => $card_paragraph->get('field_oe_title')->value,
       'url' => $card_link_item ? $card_link_item->getUrl() : '',
       'text' => $card_paragraph->get('field_oe_text_long')->value,
       'image' => $card_image,
