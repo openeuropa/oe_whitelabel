@@ -30,6 +30,7 @@
         "drupal/facets_form": "1.0.0-alpha2",
         "drupal/field_group": "^3.2",
         "drupal/file_link": "^2.0.6",
+        "drupal/inline_entity_form": "^1.0-rc12",
         "drupal/pathauto": "^1.8",
         "drupal/search_api": "^1.21",
         "drupal/search_api_autocomplete": "^1.5",
@@ -43,7 +44,7 @@
         "openeuropa/code-review": "^1.7 || ^2.0",
         "openeuropa/oe_authentication": "^1.4",
         "openeuropa/oe_contact_forms": "~1.1",
-        "openeuropa/oe_content": "^2.8.0",
+        "openeuropa/oe_content": "3.x-dev",
         "openeuropa/oe_content_extra": "^1.0.0-alpha1",
         "openeuropa/oe_corporate_blocks": "^4.4",
         "openeuropa/oe_list_pages": "^0.16",
@@ -111,7 +112,8 @@
             "Explicit requirement for egulias/email-validator due to https://www.drupal.org/project/drupal/issues/3061074#comment-14300579. It can be removed when Drupal core 9.2 support is droppped.",
             "Explicit requirement for league/csv due to PHP 8.0 compatibility",
             "Explicit minimum version requirement for symfony/dom-crawler due to its lower versions using the deprecated function libxml_disable_entity_loader() in PHP8.",
-            "Explicit requirement of token module due to PHP 8 compatbility."
+            "Explicit requirement of token module due to PHP 8 compatbility.",
+            "Explicit minimum version requirement of drupal/inline_entity_form due to failing patch in lower versions. To be removed once oe_media required the same minimum version."
         ],
         "installer-paths": {
             "build/core": [
