@@ -51,7 +51,7 @@
         "openeuropa/oe_media": "^1.14",
         "openeuropa/oe_multilingual": "^1.9",
         "openeuropa/oe_paragraphs": "^1.13",
-        "openeuropa/oe_starter_content": "^1.0.0-beta1",
+        "openeuropa/oe_starter_content": "dev-EPIC-OEL-1548-Person-v1",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta5",
         "phpspec/prophecy-phpunit": "^2",
         "symfony/dom-crawler": "^4.4.12"
@@ -95,9 +95,6 @@
         "patches": {
             "drupal/entity_reference_revisions": {
                 "https://www.drupal.org/project/entity_reference_revisions/issues/2937835": "https://www.drupal.org/files/issues/2021-03-26/entity_reference_revisions-field_formatter_label-2937835-36.patch"
-            },
-            "openeuropa/oe_starter_content": {
-                "OEL-1551-Document_fields_for_person": "https://github.com/openeuropa/oe_starter_content/compare/1.0.0-beta1...EPIC-OEL-1548-Person-v1.diff"
             }
         },
         "drupal-scaffold": {
