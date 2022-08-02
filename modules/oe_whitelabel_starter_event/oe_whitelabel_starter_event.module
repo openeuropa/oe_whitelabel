@@ -13,6 +13,7 @@ use Drupal\media\Plugin\media\Source\Image;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
 use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Template\Attribute;
 
 /**
  * Implements template_preprocess_node() for the Event node type.
@@ -26,6 +27,51 @@ function oe_whitelabel_starter_event_preprocess_node__oe_sc_event__full(&$variab
  */
 function oe_whitelabel_starter_event_preprocess_node__oe_sc_event__oe_w_content_banner(&$variables) {
   _oe_whitelabel_starter_event_preprocess_featured_media($variables);
+  _oe_whitelabel_starter_event_preprocess_links($variables);
+}
+
+/**
+ * Helper function to preprocess the content banner links.
+ *
+ * @param array $variables
+ *   Render array variables.
+ */
+function _oe_whitelabel_starter_event_preprocess_links(array &$variables): void {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+
+  // Bail out if there is no link item.
+  if ($node->get('oe_sc_event_registration_url')->isEmpty()) {
+    return;
+  }
+
+  $attributes = new Attribute([
+    'class' => [
+      'btn',
+      'btn-primary',
+      'd-block',
+      'd-md-inline-block',
+      'text-white',
+    ],
+  ]);
+  $url = $variables['elements']['oe_sc_event_registration_url']['0']['#url'];
+
+  if ($url->isExternal()) {
+    $attributes->setAttribute('target', '_blank');
+  }
+
+  $variables['links'] = [
+    [
+      'label' => 'Register',
+      'path' => $url->toString(),
+      'icon_position' => 'before',
+      'icon' => [
+        'name' => 'calendar-check',
+        'path' => $variables['bcl_icon_path'],
+      ],
+      'attributes' => $attributes,
+    ],
+  ];
 }
 
 /**
