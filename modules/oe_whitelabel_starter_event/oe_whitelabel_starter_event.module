@@ -7,13 +7,14 @@
 
 declare(strict_types =  1);
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Template\Attribute;
+use Drupal\Core\Url;
 use Drupal\media\MediaInterface;
 use Drupal\media\Plugin\media\Source\Image;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
 use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
-use Drupal\Component\Utility\Html;
-use Drupal\Core\Template\Attribute;
 
 /**
  * Implements template_preprocess_node() for the Event node type.
@@ -39,9 +40,10 @@ function oe_whitelabel_starter_event_preprocess_node__oe_sc_event__oe_w_content_
 function _oe_whitelabel_starter_event_preprocess_links(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
+  $registration_url = $node->get('oe_sc_event_registration_url');
 
   // Bail out if there is no link item.
-  if ($node->get('oe_sc_event_registration_url')->isEmpty()) {
+  if ($registration_url->isEmpty()) {
     return;
   }
 
@@ -54,7 +56,7 @@ function _oe_whitelabel_starter_event_preprocess_links(array &$variables): void 
       'text-white',
     ],
   ]);
-  $url = $variables['elements']['oe_sc_event_registration_url']['0']['#url'];
+  $url = Url::fromUri($registration_url->getValue()[0]['uri']);
 
   if ($url->isExternal()) {
     $attributes->setAttribute('target', '_blank');
