@@ -56,7 +56,7 @@ function _oe_whitelabel_starter_event_preprocess_links(array &$variables): void 
       'text-white',
     ],
   ]);
-  $url = Url::fromUri($registration_url->getValue()[0]['uri']);
+  $url = $registration_url->first()->getUrl();
 
   if ($url->isExternal()) {
     $attributes->setAttribute('target', '_blank');
