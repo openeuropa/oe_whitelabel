@@ -36,7 +36,6 @@ class ListingParagraphsTest extends ParagraphsTestBase {
    * Test List Items Block paragraph rendering.
    */
   public function testListing(): void {
-
     // Create a sample media entity to be embedded.
     $image_file = File::create([
       'uri' => $this->getTestFiles('image')[0]->uri,
@@ -50,7 +49,6 @@ class ListingParagraphsTest extends ParagraphsTestBase {
     ]);
 
     $node = $this->createNode([
-      'created' => 1636977600,
       'type' => 'article',
     ]);
     $nid = (int) $node->id();
@@ -75,8 +73,7 @@ class ListingParagraphsTest extends ParagraphsTestBase {
     $assert->assertDefaultListingRendering($crawler, $image_file);
     $this->assertCount(1, $crawler->filter('div.bcl-listing--default-1-col'));
     $this->assertCount(1, $crawler->filter('div.row.row-cols-1'));
-    $this->assertCount(6, $crawler->filter('div.col-md-3.col-lg-2.rounded'));
-    $this->assertCount(6, $crawler->filter('div.col-md-9.col-lg-10'));
+    $this->assertCount(6, $crawler->filter('div.card-body'));
 
     // Testing Default 2 col.
     $paragraph->get('field_oe_list_item_block_layout')->setValue('two_columns');
@@ -88,9 +85,8 @@ class ListingParagraphsTest extends ParagraphsTestBase {
     $assert->assertListingRendering($crawler, $nid);
     $assert->assertDefaultListingRendering($crawler, $image_file);
     $this->assertCount(1, $crawler->filter('div.bcl-listing--default-2-col'));
-    $this->assertCount(1, $crawler->filter('div.row.row-cols-1.row-cols-md-2'));
-    $this->assertCount(6, $crawler->filter('div.col-xl-3.col-md-5'));
-    $this->assertCount(6, $crawler->filter('div.col-xl-9.col-md-7'));
+    $this->assertCount(1, $crawler->filter('div.row.row-cols-1'));
+    $this->assertCount(6, $crawler->filter('div.card-body'));
 
     // Testing Default 3 col.
     $paragraph->get('field_oe_list_item_block_layout')->setValue('three_columns');
@@ -102,9 +98,8 @@ class ListingParagraphsTest extends ParagraphsTestBase {
     $assert->assertListingRendering($crawler, $nid);
     $assert->assertDefaultListingRendering($crawler, $image_file);
     $this->assertCount(1, $crawler->filter('div.bcl-listing--default-3-col'));
-    $this->assertCount(1, $crawler->filter('div.row.row-cols-1.row-cols-md-2.row-cols-xl-3'));
-    $this->assertCount(6, $crawler->filter('div.col-lg-4.col-md-6'));
-    $this->assertCount(6, $crawler->filter('div.col-lg-8.col-md-6'));
+    $this->assertCount(1, $crawler->filter('div.row.row-cols-1'));
+    $this->assertCount(6, $crawler->filter('div.card-body'));
 
     // Testing Highlight 1 col.
     $paragraph->get('oe_paragraphs_variant')->setValue('highlight');
@@ -118,7 +113,6 @@ class ListingParagraphsTest extends ParagraphsTestBase {
     $assert->assertHighlightListingRendering($crawler, $image_file);
     $this->assertCount(1, $crawler->filter('div.bcl-listing--highlight-1-col'));
     $this->assertCount(1, $crawler->filter('div.row.row-cols-1'));
-    $this->assertCount(6, $crawler->filter('div.col.mt-4-5'));
     $this->assertCount(6, $crawler->filter('div.card-body'));
 
     // Testing Highlight 2 col.
@@ -174,7 +168,6 @@ class ListingParagraphsTest extends ParagraphsTestBase {
           'alt' => 'Alt for image ' . $i,
           'target_id' => $image_file->id(),
         ],
-        'field_oe_date' => '2011-11-13',
         'field_oe_meta' => [
           0 => [
             'value' => 'Label 1 - ' . $i,
