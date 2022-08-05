@@ -119,25 +119,25 @@ class TimelineParagraphTest extends ParagraphsTestBase {
     $this->assertCount(7, $crawler->filter('ol.bcl-timeline li'));
     $this->assertCount(1, $crawler->filter('ol.bcl-timeline li .label-collapsed'));
     $this->assertCount(1, $crawler->filter('ol.bcl-timeline li.bcl-timeline__item--toggle'));
-    $this->assertEquals('Label 1', trim($crawler->filter('ol.bcl-timeline li:nth-child(1) h5')->html()));
-    $this->assertEquals('Title 1', trim($crawler->filter('ol.bcl-timeline li:nth-child(1) h6')->html()));
+    $this->assertEquals('Label 1', trim($crawler->filter('ol.bcl-timeline li:nth-child(1) p.fs-5.fw-medium')->html()));
+    $this->assertEquals('Title 1', trim($crawler->filter('ol.bcl-timeline li:nth-child(1) p.fs-6.fw-medium')->html()));
     $this->assertEquals('Description 1', trim($crawler->filter('ol.bcl-timeline li:nth-child(1) div')->html()));
-    $this->assertEquals('Label 2', trim($crawler->filter('ol.bcl-timeline li:nth-child(2) h5')->html()));
-    $this->assertEquals('Title 2', trim($crawler->filter('ol.bcl-timeline li:nth-child(2) h6')->html()));
+    $this->assertEquals('Label 2', trim($crawler->filter('ol.bcl-timeline li:nth-child(2) p.fs-5.fw-medium')->html()));
+    $this->assertEquals('Title 2', trim($crawler->filter('ol.bcl-timeline li:nth-child(2) p.fs-6.fw-medium')->html()));
     // Explicit format "plain_text" specified.
     $this->assertEquals('&lt;p&gt;Description 2&lt;/p&gt;', trim($crawler->filter('ol.bcl-timeline li:nth-child(2) div')->html()));
-    $this->assertEquals('Label 3', trim($crawler->filter('ol.bcl-timeline li:nth-child(3) h5')->html()));
-    $this->assertEquals('Title 3', trim($crawler->filter('ol.bcl-timeline li:nth-child(3) h6')->html()));
+    $this->assertEquals('Label 3', trim($crawler->filter('ol.bcl-timeline li:nth-child(3) p.fs-5.fw-medium')->html()));
+    $this->assertEquals('Title 3', trim($crawler->filter('ol.bcl-timeline li:nth-child(3) p.fs-6.fw-medium')->html()));
     $this->assertEquals('&lt;p&gt;Description &lt;strong&gt;3&lt;/strong&gt;&lt;/p&gt;', trim($crawler->filter('ol.bcl-timeline li:nth-child(3) div')->html()));
-    $this->assertEquals('Label 4', trim($crawler->filter('ol.bcl-timeline li:nth-child(4) h5')->html()));
-    $this->assertEquals('Title 4', trim($crawler->filter('ol.bcl-timeline li:nth-child(4) h6')->html()));
+    $this->assertEquals('Label 4', trim($crawler->filter('ol.bcl-timeline li:nth-child(4) p.fs-5.fw-medium')->html()));
+    $this->assertEquals('Title 4', trim($crawler->filter('ol.bcl-timeline li:nth-child(4) p.fs-6.fw-medium')->html()));
     // Explicit format "filtered_html" specified.
     $this->assertEquals('Description <strong>4</strong>', trim($crawler->filter('ol.bcl-timeline li:nth-child(4) div')->html()));
     $this->assertEquals('<p>Description <strong>5</strong></p>', trim($crawler->filter('ol.bcl-timeline li:nth-child(5) div')->html()));
-    $this->assertEquals('Label 5', trim($crawler->filter('ol.bcl-timeline li:nth-child(5) h5')->html()));
-    $this->assertEquals('Title 5', trim($crawler->filter('ol.bcl-timeline li:nth-child(5) h6')->html()));
-    $this->assertEquals('Label 6', trim($crawler->filter('ol.bcl-timeline li:nth-child(6) h5')->html()));
-    $this->assertEquals('Title 6', trim($crawler->filter('ol.bcl-timeline li:nth-child(6) h6')->html()));
+    $this->assertEquals('Label 5', trim($crawler->filter('ol.bcl-timeline li:nth-child(5) p.fs-5.fw-medium')->html()));
+    $this->assertEquals('Title 5', trim($crawler->filter('ol.bcl-timeline li:nth-child(5) p.fs-6.fw-medium')->html()));
+    $this->assertEquals('Label 6', trim($crawler->filter('ol.bcl-timeline li:nth-child(6) p.fs-5.fw-medium')->html()));
+    $this->assertEquals('Title 6', trim($crawler->filter('ol.bcl-timeline li:nth-child(6) p.fs-6.fw-medium')->html()));
     // Explicit format "full_html" specified.
     $this->assertEquals('Description 6', trim($crawler->filter('ol.bcl-timeline li:nth-child(6) div')->html()));
     $this->assertEquals('Show more 3 items', trim($crawler->filter('button .label-collapsed')->text()));
