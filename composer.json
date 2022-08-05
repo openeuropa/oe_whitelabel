@@ -97,7 +97,7 @@
                 "https://www.drupal.org/project/entity_reference_revisions/issues/2937835": "https://www.drupal.org/files/issues/2021-03-26/entity_reference_revisions-field_formatter_label-2937835-36.patch"
             },
             "openeuropa/oe_bootstrap_theme": {
-                "Links in content_banner": "https://github.com/openeuropa/oe_bootstrap_theme/compare/1.0.0-beta4...OEL-1650.diff"
+                "Links in content_banner": "https://github.com/openeuropa/oe_bootstrap_theme/compare/0.1.202208041835...OEL-1650.diff"
             }
         },
         "drupal-scaffold": {
