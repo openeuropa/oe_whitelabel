@@ -84,9 +84,8 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $link = $crawler->filter('.bcl-content-banner a[target="_blank"]');
     $this->assertCount(1, $link);
     $this->assertEquals('https://europa.eu', $link->attr('href'));
-    $button = $link->filter('button');
-    $this->assertStringContainsString('Register', $button->text());
-    $this->assertStringContainsString('calendar-check', $button->html());
+    $this->assertStringContainsString('Register', $link->text());
+    $this->assertStringContainsString('calendar-check', $link->html());
 
     // Assert registration button with internal route.
     $node->set('oe_sc_event_registration_url', 'entity:node/' . $node->id());
@@ -98,9 +97,8 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $link = $crawler->filter('.bcl-content-banner a[href="/build/node/' . $node->id() . '"]');
     $this->assertCount(1, $link);
     $this->assertObjectNotHasAttribute('target', $link);
-    $button = $link->filter('button');
-    $this->assertStringContainsString('Register', $button->text());
-    $this->assertStringContainsString('calendar-check', $button->html());
+    $this->assertStringContainsString('Register', $link->text());
+    $this->assertStringContainsString('calendar-check', $link->html());
 
     $date = $crawler->filter('dl > dd');
 

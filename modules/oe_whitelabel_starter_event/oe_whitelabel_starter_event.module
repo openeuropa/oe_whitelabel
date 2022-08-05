@@ -7,12 +7,13 @@
 
 declare(strict_types =  1);
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Template\Attribute;
 use Drupal\media\MediaInterface;
 use Drupal\media\Plugin\media\Source\Image;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
 use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
-use Drupal\Component\Utility\Html;
 
 /**
  * Implements template_preprocess_node() for the Event node type.
@@ -26,6 +27,52 @@ function oe_whitelabel_starter_event_preprocess_node__oe_sc_event__full(&$variab
  */
 function oe_whitelabel_starter_event_preprocess_node__oe_sc_event__oe_w_content_banner(&$variables) {
   _oe_whitelabel_starter_event_preprocess_featured_media($variables);
+  _oe_whitelabel_starter_event_preprocess_links($variables);
+}
+
+/**
+ * Helper function to preprocess the content banner links.
+ *
+ * @param array $variables
+ *   Render array variables.
+ */
+function _oe_whitelabel_starter_event_preprocess_links(array &$variables): void {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+  $registration_url = $node->get('oe_sc_event_registration_url');
+
+  // Bail out if there is no link item.
+  if ($registration_url->isEmpty()) {
+    return;
+  }
+
+  $attributes = new Attribute([
+    'class' => [
+      'btn',
+      'btn-primary',
+      'd-block',
+      'd-md-inline-block',
+      'text-white',
+    ],
+  ]);
+  $url = $registration_url->first()->getUrl();
+
+  if ($url->isExternal()) {
+    $attributes->setAttribute('target', '_blank');
+  }
+
+  $variables['links'] = [
+    [
+      'label' => 'Register',
+      'path' => $url->toString(),
+      'icon_position' => 'before',
+      'icon' => [
+        'name' => 'calendar-check',
+        'path' => $variables['bcl_icon_path'],
+      ],
+      'attributes' => $attributes,
+    ],
+  ];
 }
 
 /**
@@ -122,17 +169,5 @@ function _oe_whitelabel_starter_event_preprocess_inpage_nav(array &$variables): 
       'path' => '#' . $unique_id,
       'label' => $node->{$item['#field_name']}->getFieldDefinition()->getLabel(),
     ];
-  }
-
-}
-
-/**
- * Implements hook_preprocess_HOOK().
- */
-function oe_whitelabel_starter_event_preprocess_field__node__oe_sc_event_registration_url(&$variables) {
-  foreach ($variables['items'] as &$item) {
-    if ($item['content']['#url']->isExternal()) {
-      $item['content']['attributes']['target'] = '_blank';
-    }
   }
 }
