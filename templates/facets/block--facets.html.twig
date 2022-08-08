@@ -1,0 +1,10 @@
+<div{{ attributes }}>
+  {{ title_prefix }}
+  {% if label %}
+    <legend {{ title_attributes.addClass('col-form-label') }}><span class="fieldset-legend">{{ label }}</span></legend>
+  {% endif %}
+  {{ title_suffix }}
+  {% block content %}
+    {{ content }}
+  {% endblock %}
+</div>
