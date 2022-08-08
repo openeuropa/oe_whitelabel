@@ -11,9 +11,9 @@ use Drupal\Tests\facets\Functional\ExampleContentTrait;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 
 /**
- * Tests the Facets Summary rendering.
+ * Tests the Facets rendering.
  */
-class FacetsSummaryTest extends WhitelabelBrowserTestBase {
+class FacetsRenderTest extends WhitelabelBrowserTestBase {
 
   use BlockTestTrait;
   use ExampleContentTrait;
@@ -47,7 +47,6 @@ class FacetsSummaryTest extends WhitelabelBrowserTestBase {
     $this->createFacet('Emu', 'emu', 'type', 'page_1', 'views_page__search_api_test_view', FALSE);
     $facet = Facet::load('emu');
     $facet->setOnlyVisibleWhenFacetSourceIsVisible(FALSE);
-    $facet->setWidget('links');
     $facet->save();
 
     FacetsSummary::create([
@@ -73,6 +72,30 @@ class FacetsSummaryTest extends WhitelabelBrowserTestBase {
     $assert = $this->assertSession();
     $assert->elementTextContains('css', 'main h4', $block->label());
     $assert->elementTextContains('css', 'span.source-summary-count', '(5)');
+  }
+
+  /**
+   * Tests facets block rendering.
+   */
+  public function testFacetBlock(): void {
+    $this->createFacet('Emu', 'emu', 'type', 'page_1', 'views_page__search_api_test_view', FALSE);
+    $facet = Facet::load('emu');
+    $facet->setOnlyVisibleWhenFacetSourceIsVisible(FALSE);
+    $facet->setWidget('checkbox');
+    $facet->save();
+
+    $this->placeBlock('facet_block:emu', [
+      'region' => 'content',
+      'id' => 'emu',
+    ]);
+    $this->drupalGet('search-api-test-fulltext');
+
+    $assert = $this->assertSession();
+    $block = $assert->elementExists('css', '#block-emu');
+    $title_wrapper = $block->find('css', 'legend.col-form-label');
+    $this->assertNotNull($title_wrapper);
+    $title = $title_wrapper->find('css', 'span.fieldset-legend');
+    $this->assertNotNull($title);
   }
 
 }
