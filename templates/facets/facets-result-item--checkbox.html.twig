@@ -1,0 +1,13 @@
+{#
+/**
+ * @file
+ * Override to alter the label rendering.
+ */
+#}
+{% if is_active %}
+  <span class="facet-item__status js-facet-deactivate">(-)</span>
+{% endif %}
+  <span class="ms-2 form-check-label facet-item__value">{{ value }}</span>
+{% if show_count %}
+  <span class="facet-item__count">({{ count }})</span>
+{% endif %}
