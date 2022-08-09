@@ -1,10 +1,30 @@
 # Change Log
 
+## [1.0.0-beta5](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-beta5) (2022-08-09)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-beta4...1.0.0-beta5)
+
+**Closed issues:**
+
+- Avoid notice: Undefined index: \#type in oe\_whitelabel\_search\_preprocess\_facets\_summary\_item\_list [\#165](https://github.com/openeuropa/oe_whitelabel/issues/165)
+- EU logo is not displayed on mobile [\#95](https://github.com/openeuropa/oe_whitelabel/issues/95)
+
+**Merged pull requests:**
+
+- OEL-1875: Use latest changes in 1.x of oe\_bootstrap\_theme. [\#174](https://github.com/openeuropa/oe_whitelabel/pull/174) ([brummbar](https://github.com/brummbar))
+- OEL-1650: Move Event registration url to links. [\#172](https://github.com/openeuropa/oe_whitelabel/pull/172) ([drishu](https://github.com/drishu))
+- OEL-1893: Move to oe\_content version 3. [\#170](https://github.com/openeuropa/oe_whitelabel/pull/170) ([drishu](https://github.com/drishu))
+- OEL-1577: Javascript fallback message. [\#168](https://github.com/openeuropa/oe_whitelabel/pull/168) ([escuriola](https://github.com/escuriola))
+- OEL-1823: Upgrade to BCL 0.24.1 [\#166](https://github.com/openeuropa/oe_whitelabel/pull/166) ([escuriola](https://github.com/escuriola))
+- OEL-1326: Cleaning patterns & paragraphs from OEL-755 [\#163](https://github.com/openeuropa/oe_whitelabel/pull/163) ([escuriola](https://github.com/escuriola))
+- OEL-1552: Theme the person content type [\#162](https://github.com/openeuropa/oe_whitelabel/pull/162) ([escuriola](https://github.com/escuriola))
+- OEL-1662: Add registration URL field to the full content view [\#159](https://github.com/openeuropa/oe_whitelabel/pull/159) ([escuriola](https://github.com/escuriola))
+
 ## [1.0.0-beta4](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-beta4) (2022-07-08)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-beta3...1.0.0-beta4)
 
 **Merged pull requests:**
 
+- Prepare for release 1.0.0-beta4. [\#167](https://github.com/openeuropa/oe_whitelabel/pull/167) ([brummbar](https://github.com/brummbar))
 - OEL-1638: Check variable items has facets before trying to modify them to avoid warning. [\#161](https://github.com/openeuropa/oe_whitelabel/pull/161) ([escuriola](https://github.com/escuriola))
 - OEL-1653: Show time in event dates [\#158](https://github.com/openeuropa/oe_whitelabel/pull/158) ([escuriola](https://github.com/escuriola))
 - OEL-1618: Upgrade BCL to 0.23.0. [\#144](https://github.com/openeuropa/oe_whitelabel/pull/144) ([escuriola](https://github.com/escuriola))
