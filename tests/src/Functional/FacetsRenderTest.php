@@ -78,24 +78,65 @@ class FacetsRenderTest extends WhitelabelBrowserTestBase {
    * Tests facets block rendering.
    */
   public function testFacetBlock(): void {
-    $this->createFacet('Emu', 'emu', 'type', 'page_1', 'views_page__search_api_test_view', FALSE);
+    $this->createFacet('Emu', 'emu', 'type', 'page_1', 'views_page__search_api_test_view', TRUE);
     $facet = Facet::load('emu');
-    $facet->setOnlyVisibleWhenFacetSourceIsVisible(FALSE);
     $facet->setWidget('checkbox');
     $facet->save();
 
-    $this->placeBlock('facet_block:emu', [
-      'region' => 'content',
-      'id' => 'emu',
-    ]);
-    $this->drupalGet('search-api-test-fulltext');
+    $this->createFacet('Pingu', 'pingu', 'type', 'page_1', 'views_page__search_api_test_view', TRUE);
+    $facet = Facet::load('pingu');
+    $facet->setWidget('dropdown');
+    $facet->save();
 
+    $this->createFacet('Lulu', 'lulu');
+
+    $this->drupalGet('search-api-test-fulltext');
     $assert = $this->assertSession();
     $block = $assert->elementExists('css', '#block-emu');
+
+    // Assert the block title rendering.
     $title_wrapper = $block->find('css', 'legend.col-form-label');
     $this->assertNotNull($title_wrapper);
     $title = $title_wrapper->find('css', 'span.fieldset-legend');
     $this->assertNotNull($title);
+
+    // Assert the checkbox list rendering.
+    $list = $block->find('css', 'ul.oel-facets-checkbox-list');
+    $this->assertFalse($list->hasClass('form-select'));
+    $items = $list->findAll('css', 'li.mb-3');
+    $this->assertCount(2, $items);
+
+    foreach ($items as $item) {
+      $label = $item->find('css', 'span.ms-2.form-check-label');
+      $this->assertNotNull($label);
+    }
+
+    // Assert the dropdown list rendering.
+    $block = $assert->elementExists('css', '#block-pingu');
+    $list = $block->find('css', 'ul.form-select');
+    $this->assertFalse($list->hasClass('oel-facets-checkbox-list'));
+    $items = $list->findAll('css', 'li.mb-3');
+    $this->assertCount(2, $items);
+
+    foreach ($items as $item) {
+      $label = $item->find('css', 'span');
+      $this->assertFalse($label->hasClass('form-check-label'));
+      $this->assertFalse($label->hasClass('ms-2'));
+    }
+
+    // Assert the links list rendering.
+    $block = $assert->elementExists('css', '#block-lulu');
+    $list = $block->find('css', 'ul');
+    $this->assertFalse($list->hasClass('form-select'));
+    $this->assertFalse($list->hasClass('oel-facets-checkbox-list'));
+    $items = $list->findAll('css', 'li.mb-3');
+    $this->assertCount(2, $items);
+
+    foreach ($items as $item) {
+      $label = $item->find('css', 'span');
+      $this->assertFalse($label->hasClass('form-check-label'));
+      $this->assertFalse($label->hasClass('ms-2'));
+    }
   }
 
 }
