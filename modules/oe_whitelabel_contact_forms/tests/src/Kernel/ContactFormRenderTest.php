@@ -2,10 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace Drupal\Tests\oe_whitelabel_helper\Kernel;
+namespace Drupal\Tests\oe_whitelabel_contact_forms\Kernel;
 
 use Drupal\contact\Entity\ContactForm;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\Tests\oe_whitelabel\PatternAssertions\DescriptionListAssert;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -112,20 +113,63 @@ class ContactFormRenderTest extends KernelTestBase {
     // Assert message success and values.
     $actual = $crawler->filter('div.alert-success');
     $this->assertCount(1, $actual);
-    $dt = $crawler->filter('dt');
-    $dd = $crawler->filter('dd');
-    $this->assertEquals("The sender's name", $dt->eq(0)->text());
-    $this->assertEquals("The sender's email", $dt->eq(1)->text());
-    $this->assertEquals("Subject", $dt->eq(2)->text());
-    $this->assertEquals("Message", $dt->eq(3)->text());
-    $this->assertEquals("Topic", $dt->eq(4)->text());
-    $this->assertEquals("Phone", $dt->eq(5)->text());
-    $this->assertEquals("sender_name", $dd->eq(0)->text());
-    $this->assertEquals("test@example.com", $dd->eq(1)->text());
-    $this->assertEquals("subject", $dd->eq(2)->text());
-    $this->assertEquals("welcome_message", $dd->eq(3)->text());
-    $this->assertEquals("Topic name", $dd->eq(4)->text());
-    $this->assertEquals("0123456", $dd->eq(5)->text());
+
+    $description_lists = $crawler->filter('dl');
+    $description_list_assert = new DescriptionListAssert();
+
+    $description_list_assert->assertPattern([
+      'items' => [
+        [
+          'term' => 'The sender\'s name',
+          'definition' => 'sender_name',
+        ],
+      ],
+    ], $description_lists->eq(0)->html());
+
+    $description_list_assert->assertPattern([
+      'items' => [
+        [
+          'term' => 'The sender\'s email',
+          'definition' => 'test@example.com',
+        ],
+      ],
+    ], $description_lists->eq(1)->html());
+
+    $description_list_assert->assertPattern([
+      'items' => [
+        [
+          'term' => 'Subject',
+          'definition' => 'subject',
+        ],
+      ],
+    ], $description_lists->eq(2)->html());
+
+    $description_list_assert->assertPattern([
+      'items' => [
+        [
+          'term' => 'Message',
+          'definition' => 'welcome_message',
+        ],
+      ],
+    ], $description_lists->eq(3)->html());
+
+    $description_list_assert->assertPattern([
+      'items' => [
+        [
+          'term' => 'Topic',
+          'definition' => 'Topic name',
+        ],
+      ],
+    ], $description_lists->eq(4)->html());
+
+    $description_list_assert->assertPattern([
+      'items' => [
+        [
+          'term' => 'Phone',
+          'definition' => '0123456',
+        ],
+      ],
+    ], $description_lists->eq(5)->html());
   }
 
 }

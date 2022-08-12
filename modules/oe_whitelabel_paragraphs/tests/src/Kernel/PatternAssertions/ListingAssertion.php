@@ -23,9 +23,9 @@ class ListingAssertion extends Assert {
    *   Image file added to the list item.
    */
   public function assertDefaultListingRendering(Crawler $crawler, File $file): void {
-    $this->assertCount(6, $crawler->filter('article.listing-item.border-bottom.border-md-0.border-0.card'));
-    $this->assertCount(6, $crawler->filter('div.mw-listing-img'));
-    $this->assertCount(6, $crawler->filter('div.card-body.p-0.pb-md-0.pb-3'));
+    $this->assertCount(6, $crawler->filter('article.listing-item.card'));
+    $this->assertCount(6, $crawler->filter('.bcl-card-start-col'));
+    $this->assertCount(6, $crawler->filter('div.card-body'));
     $text_element = $crawler->filter('div.card-text');
     $this->assertCount(6, $text_element);
     $this->assertImageRendering($crawler, $file);
