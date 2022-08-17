@@ -89,6 +89,12 @@ class FacetsRenderTest extends WhitelabelBrowserTestBase {
     $facet->save();
 
     $this->createFacet('Lulu', 'lulu');
+    $facet = Facet::load('lulu');
+    $facet->set('show_title', TRUE);
+    $facet->save();
+    $block = $this->blocks['lulu'];
+    $block->getPlugin()->setConfigurationValue('label_display', FALSE);
+    $block->save();
 
     $this->drupalGet('search-api-test-fulltext');
     $assert = $this->assertSession();
@@ -126,6 +132,13 @@ class FacetsRenderTest extends WhitelabelBrowserTestBase {
 
     // Assert the links list rendering.
     $block = $assert->elementExists('css', '#block-lulu');
+
+    // Assert the facet title renders the same as block title.
+    $title_wrapper = $block->find('css', 'legend.col-form-label');
+    $this->assertNotNull($title_wrapper);
+    $title = $title_wrapper->find('css', 'span.fieldset-legend');
+    $this->assertNotNull($title);
+
     $list = $block->find('css', 'ul');
     $this->assertFalse($list->hasClass('form-select'));
     $this->assertFalse($list->hasClass('oel-facets-checkbox-list'));
