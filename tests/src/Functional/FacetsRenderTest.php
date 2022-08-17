@@ -109,7 +109,7 @@ class FacetsRenderTest extends WhitelabelBrowserTestBase {
     // Assert the checkbox list rendering.
     $list = $block->find('css', 'ul.oel-facets-checkbox-list');
     $this->assertFalse($list->hasClass('form-select'));
-    $items = $list->findAll('css', 'li.mb-3');
+    $items = $list->findAll('css', 'li.mb-2');
     $this->assertCount(2, $items);
 
     foreach ($items as $item) {
@@ -121,7 +121,7 @@ class FacetsRenderTest extends WhitelabelBrowserTestBase {
     $block = $assert->elementExists('css', '#block-pingu');
     $list = $block->find('css', 'ul.form-select');
     $this->assertFalse($list->hasClass('oel-facets-checkbox-list'));
-    $items = $list->findAll('css', 'li.mb-3');
+    $items = $list->findAll('css', 'li.mb-2');
     $this->assertCount(2, $items);
 
     foreach ($items as $item) {
@@ -142,7 +142,7 @@ class FacetsRenderTest extends WhitelabelBrowserTestBase {
     $list = $block->find('css', 'ul');
     $this->assertFalse($list->hasClass('form-select'));
     $this->assertFalse($list->hasClass('oel-facets-checkbox-list'));
-    $items = $list->findAll('css', 'li.mb-3');
+    $items = $list->findAll('css', 'li.mb-2');
     $this->assertCount(2, $items);
 
     foreach ($items as $item) {
