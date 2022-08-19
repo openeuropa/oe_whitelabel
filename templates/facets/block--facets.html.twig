@@ -4,7 +4,7 @@
  * Override to alter the label rendering.
  */
 #}
-<div{{ attributes }}>
+<div{{ attributes.addClass('mb-3') }}>
   {{ title_prefix }}
   {% if label %}
     <legend {{ title_attributes.addClass('col-form-label') }}><span class="fieldset-legend">{{ label }}</span></legend>
