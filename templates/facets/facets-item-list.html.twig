@@ -11,9 +11,6 @@
   {% if facet.widget.type == 'dropdown' -%}
     {%- set attributes = attributes.addClass('form-select') %}
   {%- endif %}
-  {% if facet.widget.type == 'checkbox' -%}
-    {%- set attributes = attributes.addClass('oel-facets-checkbox-list') %}
-  {%- endif %}
   {% if items or empty %}
     {%- if title is not empty -%}
       <legend class="col-form-label"><span class="fieldset-legend">{{ title }}</span></legend>
