@@ -99,6 +99,7 @@ class FacetsRenderTest extends WhitelabelBrowserTestBase {
     $this->drupalGet('search-api-test-fulltext');
     $assert = $this->assertSession();
     $block = $assert->elementExists('css', '#block-emu');
+    $this->assertTrue($block->hasClass('mb-3'));
 
     // Assert the block title rendering.
     $title_wrapper = $block->find('css', 'legend.col-form-label');
@@ -107,7 +108,7 @@ class FacetsRenderTest extends WhitelabelBrowserTestBase {
     $this->assertNotNull($title);
 
     // Assert the checkbox list rendering.
-    $list = $block->find('css', 'ul.oel-facets-checkbox-list');
+    $list = $block->find('css', 'ul');
     $this->assertFalse($list->hasClass('form-select'));
     $items = $list->findAll('css', 'li.mb-2');
     $this->assertCount(2, $items);
@@ -119,8 +120,9 @@ class FacetsRenderTest extends WhitelabelBrowserTestBase {
 
     // Assert the dropdown list rendering.
     $block = $assert->elementExists('css', '#block-pingu');
+    $this->assertTrue($block->hasClass('mb-3'));
+
     $list = $block->find('css', 'ul.form-select');
-    $this->assertFalse($list->hasClass('oel-facets-checkbox-list'));
     $items = $list->findAll('css', 'li.mb-2');
     $this->assertCount(2, $items);
 
@@ -132,6 +134,7 @@ class FacetsRenderTest extends WhitelabelBrowserTestBase {
 
     // Assert the links list rendering.
     $block = $assert->elementExists('css', '#block-lulu');
+    $this->assertTrue($block->hasClass('mb-3'));
 
     // Assert the facet title renders the same as block title.
     $title_wrapper = $block->find('css', 'legend.col-form-label');
@@ -141,8 +144,7 @@ class FacetsRenderTest extends WhitelabelBrowserTestBase {
 
     $list = $block->find('css', 'ul');
     $this->assertFalse($list->hasClass('form-select'));
-    $this->assertFalse($list->hasClass('oel-facets-checkbox-list'));
-    $items = $list->findAll('css', 'li.mb-2');
+    $items = $list->findAll('css', 'li.mb-1');
     $this->assertCount(2, $items);
 
     foreach ($items as $item) {
