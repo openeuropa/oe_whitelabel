@@ -13,18 +13,23 @@
   {%- endif %}
   {% if items or empty %}
     {%- if title is not empty -%}
+      {% block title %}
       <legend class="col-form-label"><span class="fieldset-legend">{{ title }}</span></legend>
+      {% endblock %}
     {%- endif -%}
 
+  {%- set list_margin = facet.widget.type == 'links' ? 'mb-1' : 'mb-2' %}
+  {% block content %}
     {%- if items -%}
       <{{ list_type }}{{ attributes }}>
         {%- for item in items -%}
-          <li{{ item.attributes.addClass('mb-2') }}>{{ item.value }}</li>
+          <li{{ item.attributes.addClass(list_margin) }}>{{ item.value }}</li>
         {%- endfor -%}
      </{{ list_type }}>
     {%- else -%}
       {{- empty -}}
     {%- endif -%}
+  {% endblock %}
   {%- endif %}
 
 {% if facet.widget.type == "dropdown" %}
