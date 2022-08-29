@@ -6,7 +6,6 @@ namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
 use Drupal\Core\Site\Settings;
 use Drupal\file\Entity\File;
-use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\media\Entity\Media;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\FilePatternAssert;
@@ -51,9 +50,6 @@ class DocumentParagraphTest extends ParagraphsTestBase {
     $this->container->get('module_handler')->loadInclude('oe_paragraphs_media_field_storage', 'install');
     oe_paragraphs_media_field_storage_install(FALSE);
     $this->installConfig(['oe_paragraphs_document']);
-
-    ConfigurableLanguage::createFromLangcode('it')->save();
-    ConfigurableLanguage::createFromLangcode('es')->save();
 
     // Enable translations for the document media bundle.
     $this->container->get('content_translation.manager')->setEnabled('media', 'document', TRUE);
@@ -166,7 +162,7 @@ class DocumentParagraphTest extends ParagraphsTestBase {
     $expected['translations'] = [
       [
         'title' => 'Italian translation',
-        'language' => 'Italian',
+        'language' => 'italiano',
         'url' => file_create_url($uri_it),
         'meta' => '(2.96 KB - PDF)',
       ],
@@ -185,12 +181,12 @@ class DocumentParagraphTest extends ParagraphsTestBase {
     $crawler = new Crawler($html);
     $paragraph_wrapper = $crawler->filter('.paragraph');
     $this->assertCount(1, $paragraph_wrapper);
-    $expected['translations'][] = [
+    array_unshift($expected['translations'], [
       'title' => 'Spanish translation',
-      'language' => 'Spanish',
+      'language' => 'español',
       'url' => 'http://oe_whitelabel.drupal/spanish-document.txt',
       'meta' => '(44.13 KB - TXT)',
-    ];
+    ]);
     $assert->assertPattern($expected, $paragraph_wrapper->html());
 
     // Test a remote document as main file, to make sure that the
