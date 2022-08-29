@@ -15,49 +15,6 @@ class CarouselTest extends ParagraphsTestBase {
   /**
    * {@inheritdoc}
    */
-  protected static $modules = [
-    'allowed_formats',
-    'content_translation',
-    'composite_reference',
-    'datetime',
-    'description_list_field',
-    'entity_browser',
-    'entity_reference_revisions',
-    'field',
-    'file',
-    'file_link',
-    'filter',
-    'language',
-    'link',
-    'locale',
-    'media',
-    'media_avportal',
-    'media_avportal_mock',
-    'node',
-    'oe_media',
-    'oe_media_avportal',
-    'oe_media_iframe',
-    'oe_media_oembed_mock',
-    'oe_paragraphs',
-    'oe_paragraphs_banner',
-    'oe_paragraphs_description_list',
-    'oe_paragraphs_iframe_media',
-    'oe_paragraphs_media',
-    'oe_paragraphs_media_field_storage',
-    'oe_whitelabel_paragraphs',
-    'oe_paragraphs_carousel',
-    'oe_multilingual',
-    'options',
-    'paragraphs',
-    'text',
-    'typed_link',
-    'user',
-    'views',
-  ];
-
-  /**
-   * {@inheritdoc}
-   */
   protected function setUp(): void {
     parent::setUp();
 
