@@ -521,7 +521,7 @@ function oe_whitelabel_preprocess_paragraph__oe_carousel(array &$variables): voi
     if (!$sub_paragraph->get('field_oe_link')->isEmpty()) {
       /** @var \Drupal\link\Plugin\Field\FieldType\LinkItem $link_item */
       $link_item = $sub_paragraph->get('field_oe_link')->first();
-      $variables['link'] = [
+      $slide['link'] = [
         'path' => $link_item->getUrl()->toString(),
         'label' => $link_item->get('title')->getValue(),
       ];
