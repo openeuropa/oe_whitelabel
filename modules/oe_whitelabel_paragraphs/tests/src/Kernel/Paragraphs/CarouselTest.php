@@ -8,7 +8,7 @@ use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CarouselPatternAssert;
 
 /**
- * Tests the document paragraph.
+ * Tests the Carousel paragraph.
  */
 class CarouselTest extends ParagraphsTestBase {
 
