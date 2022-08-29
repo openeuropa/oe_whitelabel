@@ -6,6 +6,8 @@
  *
  * Preprocess hooks are implemented on behalf of the oe_whitelabel theme.
  * This prevents hooks from running if oe_whitelabel is not the active theme.
+ *
+ * phpcs:disable Drupal.NamingConventions.ValidFunctionName.InvalidPrefix
  */
 
 declare(strict_types = 1);
