@@ -18,6 +18,9 @@ class ParagraphsTest extends BrowserTestBase {
    */
   protected static $modules = [
     'node',
+    'oe_media',
+    'composite_reference',
+    'oe_paragraphs_carousel',
     'oe_whitelabel_paragraphs',
   ];
 
@@ -287,6 +290,97 @@ class ParagraphsTest extends BrowserTestBase {
     $this->assertSession()->pageTextContains('Card title');
     $this->assertSession()->pageTextContains('Lorem Ipsum dolor sit amet.');
     $this->assertSession()->pageTextContains('label1');
+  }
+
+  /**
+   * Test Carousel paragraphs form.
+   */
+  public function testCarouselParagraph(): void {
+    $page = $this->getSession()->getPage();
+    $assert = $this->assertSession();
+    $fixtures_path = \Drupal::service('extension.list.module')->getPath('oe_whitelabel_paragraphs') . '/tests/fixtures/';
+
+    $file_1 = file_save_data(file_get_contents($fixtures_path . 'example_1.jpeg'), 'public://example_1.jpeg');
+    $file_1->setPermanent();
+    $file_1->save();
+
+    $file_2 = file_save_data(file_get_contents($fixtures_path . 'example_1.jpeg'), 'public://example_2.jpeg');
+    $file_2->setPermanent();
+    $file_2->save();
+
+    $media_storage = $this->container->get('entity_type.manager')
+      ->getStorage('media');
+    $media = $media_storage->create([
+      'bundle' => 'image',
+      'name' => 'First image',
+      'oe_media_image' => [
+        'target_id' => $file_1->id(),
+      ],
+    ]);
+    $media->save();
+    $media = $media_storage->create([
+      'bundle' => 'image',
+      'name' => 'Second image',
+      'oe_media_image' => [
+        'target_id' => $file_2->id(),
+      ],
+    ]);
+    $media->save();
+
+    $this->drupalGet('/node/add/paragraphs_test');
+    $page->pressButton('Add Carousel');
+
+    // Assert the Listing fields appears.
+    $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_carousel_items][0][subform][field_oe_title][0][value]');
+    $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_carousel_items][0][subform][field_oe_text][0][value]');
+    $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_carousel_items][0][subform][field_oe_link][0][uri]');
+    $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_carousel_items][0][subform][field_oe_link][0][title]');
+    $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_carousel_items][0][subform][field_oe_media][0][target_id]');
+
+    $values = [
+      'title[0][value]' => 'Title',
+      'oe_w_paragraphs[0][subform][field_oe_carousel_items][0][subform][field_oe_title][0][value]' => 'Carousel item 1',
+      'oe_w_paragraphs[0][subform][field_oe_carousel_items][0][subform][field_oe_text][0][value]' => 'Caption 1',
+      'oe_w_paragraphs[0][subform][field_oe_carousel_items][0][subform][field_oe_link][0][uri]'  => 'https://www.example1.com',
+      'oe_w_paragraphs[0][subform][field_oe_carousel_items][0][subform][field_oe_link][0][title]'  => 'Link 1',
+      'oe_w_paragraphs[0][subform][field_oe_carousel_items][0][subform][field_oe_media][0][target_id]'  => 'First image',
+    ];
+
+    $this->submitForm($values, 'Save');
+
+    $this->assertSession()->pageTextContains('The Carousel paragraph should contain at least 2 items.');
+
+    $this->submitForm([], 'Add Carousel item');
+    $values += [
+      'oe_w_paragraphs[0][subform][field_oe_carousel_items][1][subform][field_oe_title][0][value]' => 'Carousel item 2',
+      'oe_w_paragraphs[0][subform][field_oe_carousel_items][1][subform][field_oe_text][0][value]' => 'Caption 2',
+      'oe_w_paragraphs[0][subform][field_oe_carousel_items][1][subform][field_oe_link][0][uri]'  => 'https://www.example2.com',
+      'oe_w_paragraphs[0][subform][field_oe_carousel_items][1][subform][field_oe_link][0][title]'  => 'Link 2',
+      'oe_w_paragraphs[0][subform][field_oe_carousel_items][1][subform][field_oe_media][0][target_id]'  => 'Second image',
+    ];
+    $this->submitForm($values, 'Save');
+
+    // Assert paragraph values are displayed correctly.
+    $assert->pageTextContains('Title');
+    $wrapper = $assert->elementExists('css', '.paragraph--type--oe-carousel');
+    $items = $wrapper->findAll('css', '.paragraph--type--oe-carousel-item');
+    $this->assertCount(2, $items);
+
+    $this->assertStringContainsString('Carousel item 1', $items[0]->getHtml());
+    $this->assertStringContainsString('Caption 1', $items[0]->getHtml());
+    $link = $items[0]->find('css', 'a');
+    $this->assertSame('Link 1', $link->getText());
+    $this->assertSame('https://www.example1.com', $link->getAttribute('href'));
+    $image = $items[0]->find('css', 'img');
+    $this->assertStringContainsString('example_1.jpeg', $image->getAttribute('src'));
+
+    $this->assertStringContainsString('Carousel item 2', $items[1]->getHtml());
+    $this->assertStringContainsString('Caption 2', $items[1]->getHtml());
+    $link = $items[1]->find('css', 'a');
+    $this->assertSame('Link 2', $link->getText());
+    $this->assertSame('https://www.example2.com', $link->getAttribute('href'));
+    $image = $items[1]->find('css', 'img');
+    $this->assertStringContainsString('example_2.jpeg', $image->getAttribute('src'));
   }
 
   /**
