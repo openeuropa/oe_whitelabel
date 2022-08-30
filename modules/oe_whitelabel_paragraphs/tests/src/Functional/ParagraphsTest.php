@@ -18,7 +18,6 @@ class ParagraphsTest extends BrowserTestBase {
    */
   protected static $modules = [
     'node',
-    'oe_media',
     'composite_reference',
     'oe_paragraphs_carousel',
     'oe_whitelabel_paragraphs',
