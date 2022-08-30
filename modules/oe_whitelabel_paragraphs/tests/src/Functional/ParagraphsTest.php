@@ -329,7 +329,6 @@ class ParagraphsTest extends BrowserTestBase {
     $this->drupalGet('/node/add/paragraphs_test');
     $page->pressButton('Add Carousel');
 
-    // Assert the Listing fields appears.
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_carousel_items][0][subform][field_oe_title][0][value]');
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_carousel_items][0][subform][field_oe_text][0][value]');
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_carousel_items][0][subform][field_oe_link][0][uri]');
