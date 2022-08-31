@@ -28,6 +28,7 @@ function oe_whitelabel_helper_theme($existing, $type, $theme, $path) {
         'address' => NULL,
         'address_items' => [],
         'address_delimiter' => NULL,
+        'country_flag' => NULL,
       ],
     ],
     'oe_whitelabel_helper_country_flag' => [

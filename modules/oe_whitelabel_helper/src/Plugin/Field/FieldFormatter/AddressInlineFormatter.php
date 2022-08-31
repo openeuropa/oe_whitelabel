@@ -34,6 +34,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
     return [
       'delimiter' => ', ',
       'properties' => [],
+      'show_country_flag' => FALSE,
     ];
   }
 
@@ -48,13 +49,17 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
       '#description' => $this->t('Specify delimiter between address items.'),
       '#required' => TRUE,
     ];
-
     $form['properties'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Properties'),
       '#default_value' => $this->getActiveProperties(),
       '#description' => $this->t('Which properties should be displayed. Leave empty for all.'),
       '#options' => $this->getPropertiesDisplayOptions(),
+    ];
+    $form['show_country_flag'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Show country flag'),
+      '#default_value' => $this->getSetting('show_country_flag'),
     ];
 
     return $form;
@@ -64,14 +69,20 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
    * {@inheritdoc}
    */
   public function settingsSummary() {
-    return [
+    $summary = [
       $this->t('Delimiter: @delimiter', [
         '@delimiter' => $this->getSetting('delimiter'),
       ]),
       $this->t('Properties: @properties', [
         '@properties' => implode(', ', $this->getActiveProperties()),
-      ]),
+      ])
     ];
+
+    if ($this->getSetting('show_country_flag')) {
+      $summary[] = $this->t('Show country flag');
+    }
+
+    return $summary;
   }
 
   /**
@@ -125,7 +136,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
 
     $items = $this->extractAddressItems($format_string, $address_elements);
 
-    return [
+    $build = [
       '#theme' => 'oe_whitelabel_helper_address_inline',
       '#address' => $address,
       '#address_items' => $items,
@@ -136,6 +147,19 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
         ],
       ],
     ];
+
+    if ($this->getSetting('show_country_flag')) {
+      $build['#country_flag'] = [
+        '#theme' => 'oe_whitelabel_helper_country_flag',
+        '#country_code' => $country_code,
+        '#attributes' => [
+          'class' => ['me-2'],
+          'alt' => $countries[$country_code],
+        ],
+      ];
+    }
+
+    return $build;
   }
 
   /**
