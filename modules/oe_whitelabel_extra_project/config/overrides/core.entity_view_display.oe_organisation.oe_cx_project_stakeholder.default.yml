@@ -51,6 +51,7 @@ content:
     label: hidden
     settings:
       delimiter: ', '
+      show_country_flag: true
     third_party_settings: {  }
     weight: 2
     region: content
