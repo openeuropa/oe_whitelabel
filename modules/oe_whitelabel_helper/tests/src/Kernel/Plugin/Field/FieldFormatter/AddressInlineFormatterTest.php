@@ -42,7 +42,29 @@ class AddressInlineFormatterTest extends FormatterTestBase {
       $cloned_entity->{$this->fieldName} = $data['address'];
       $this->renderEntityFields($cloned_entity, $this->display);
       $this->assertRaw($data['expected']);
-      unset($cloned_entity);
+      $this->assertNoRaw('<img');
+    }
+
+    // Enable the formatter to show the icon.
+    $this->display->setComponent($this->fieldName, [
+      'type' => 'oe_whitelabel_helper_address_inline',
+      'settings' => [
+        'show_country_flag' => TRUE,
+      ],
+    ]);
+    $this->display->save();
+    $country_flags_folder = $this->container->get('extension.list.theme')->getPath('oe_whitelabel') . '/assets/icons/world-flags/';
+    $file_url_generator = $this->container->get('file_url_generator');
+    $country_repository = $this->container->get('address.country_repository');
+
+    foreach ($this->addressFieldTestData() as $data) {
+      $entity->set($this->fieldName, $data['address']);
+      $this->renderEntityFields($entity, $this->display);
+
+      $country_code = strtolower($data['address']['country_code']);
+      $country_flag_path = $file_url_generator->generateString($country_flags_folder . $country_code . '.svg');
+      $country_flag_html = sprintf('<img class="me-2 icon--fluid" alt="%s" src="%s" />', $country_repository->get($country_code)->getName(), $country_flag_path);
+      $this->assertRaw($country_flag_html . ' ' . $data['expected']);
     }
   }
 
