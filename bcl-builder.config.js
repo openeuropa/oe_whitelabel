@@ -18,5 +18,11 @@ module.exports = {
       },
     },
   ],
-  copy: []
+  copy: [
+    {
+      from: ["node_modules/@openeuropa/bcl-theme-default/icons/world-flags/*.svg"],
+      to: path.resolve(outputFolder, "assets/icons/world-flags"),
+      options: { up: true },
+    },
+  ]
 };
