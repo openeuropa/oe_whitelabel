@@ -15,6 +15,18 @@ class CarouselTest extends ParagraphsTestBase {
   /**
    * {@inheritdoc}
    */
+  protected static $modules = [
+    'composite_reference',
+    'content_translation',
+    'node',
+    'oe_multilingual',
+    'oe_paragraphs_carousel',
+    'oe_whitelabel_paragraphs',
+  ];
+
+  /**
+   * {@inheritdoc}
+   */
   protected function setUp(): void {
     parent::setUp();
 
@@ -24,7 +36,6 @@ class CarouselTest extends ParagraphsTestBase {
     $this->installConfig([
       'content_translation',
       'media',
-      'media_avportal',
       'oe_media',
       'oe_paragraphs_carousel',
       'oe_paragraphs_media',
