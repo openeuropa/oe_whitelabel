@@ -225,7 +225,7 @@ class CarouselTest extends ParagraphsTestBase {
           'caption' => 'BG Item description 4',
           'link' => [
             'label' => 'BG CTA 4',
-            'path' => '/',
+            'path' => 'http://www.example.com/',
           ],
           'image' => [
             'src' => file_create_url($bg_file_2->getFileUri()),
