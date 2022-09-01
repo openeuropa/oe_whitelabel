@@ -93,7 +93,7 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
    *
    * @throws \Exception
    */
-  protected function renderParagraph(ParagraphInterface $paragraph, string $langcode = 'en'): string {
+  protected function renderParagraph(ParagraphInterface $paragraph, string $langcode = NULL): string {
     $render = \Drupal::entityTypeManager()
       ->getViewBuilder('paragraph')
       ->view($paragraph, 'default', $langcode);
