@@ -469,6 +469,7 @@ function oe_whitelabel_preprocess_paragraph__oe_carousel(array &$variables): voi
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
   $variables['items'] = [];
+  $entity_repository = \Drupal::service('entity.repository');
   $cacheability = CacheableMetadata::createFromRenderArray($variables);
 
   /** @var \Drupal\paragraphs\Entity\Paragraph $sub_paragraph */
@@ -483,7 +484,7 @@ function oe_whitelabel_preprocess_paragraph__oe_carousel(array &$variables): voi
       continue;
     }
     // Retrieve the correct media translation.
-    $media = \Drupal::service('entity.repository')->getTranslationFromContext($media, $paragraph->language()->getId());
+    $media = $entity_repository->getTranslationFromContext($media, $paragraph->language()->getId());
     // Caches are handled by the formatter usually. Since we are not rendering
     // the original render arrays, we need to propagate our caches to the
     // paragraph template.
