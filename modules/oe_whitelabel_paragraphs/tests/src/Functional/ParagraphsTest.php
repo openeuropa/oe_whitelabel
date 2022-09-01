@@ -7,6 +7,7 @@ namespace Drupal\Tests\oe_whitelabel_paragraphs\Functional;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CarouselPatternAssert;
 
 /**
  * Tests paragraphs forms.
@@ -360,25 +361,39 @@ class ParagraphsTest extends BrowserTestBase {
 
     // Assert paragraph values are displayed correctly.
     $assert->pageTextContains('Title');
-    $wrapper = $assert->elementExists('css', '.paragraph--type--oe-carousel');
-    $items = $wrapper->findAll('css', '.paragraph--type--oe-carousel-item');
-    $this->assertCount(2, $items);
+    $paragraph = $assert->elementExists('css', '.paragraph--type--oe-carousel');
 
-    $this->assertStringContainsString('Carousel item 1', $items[0]->getHtml());
-    $this->assertStringContainsString('Caption 1', $items[0]->getHtml());
-    $link = $items[0]->find('css', 'a');
-    $this->assertSame('Link 1', $link->getText());
-    $this->assertSame('https://www.example1.com', $link->getAttribute('href'));
-    $image = $items[0]->find('css', 'img');
-    $this->assertStringContainsString('example_1.jpeg', $image->getAttribute('src'));
-
-    $this->assertStringContainsString('Carousel item 2', $items[1]->getHtml());
-    $this->assertStringContainsString('Caption 2', $items[1]->getHtml());
-    $link = $items[1]->find('css', 'a');
-    $this->assertSame('Link 2', $link->getText());
-    $this->assertSame('https://www.example2.com', $link->getAttribute('href'));
-    $image = $items[1]->find('css', 'img');
-    $this->assertStringContainsString('example_2.jpeg', $image->getAttribute('src'));
+    // Assert paragraph rendering for English version.
+    $assert = new CarouselPatternAssert();
+    $expected_values = [
+      'items' => [
+        [
+          'caption_title' => 'Carousel item 1',
+          'caption' => 'Caption 1',
+          'link' => [
+            'label' => 'Link 1',
+            'path' => 'https://www.example1.com',
+          ],
+          'image' => [
+            'src' => file_create_url($file_1->getFileUri()),
+            'alt' => 'First image en',
+          ],
+        ],
+        [
+          'caption_title' => 'Carousel item 2',
+          'caption' => 'Caption 2',
+          'link' => [
+            'label' => 'Link 2',
+            'path' => 'https://www.example2.com',
+          ],
+          'image' => [
+            'src' => file_create_url($file_2->getFileUri()),
+            'alt' => 'Second image en',
+          ],
+        ],
+      ],
+    ];
+    $assert->assertPattern($expected_values, $paragraph->getHtml());
   }
 
   /**
