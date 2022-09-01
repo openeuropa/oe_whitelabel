@@ -308,8 +308,8 @@ class ParagraphsTest extends BrowserTestBase {
     $file_2->setPermanent();
     $file_2->save();
 
-    $media_storage = $this->container->get('entity_type.manager')
-      ->getStorage('media');
+    $media_storage = \Drupal::service('entity_type.manager')->getStorage('media');
+
     $media = $media_storage->create([
       'bundle' => 'image',
       'name' => 'First image',
