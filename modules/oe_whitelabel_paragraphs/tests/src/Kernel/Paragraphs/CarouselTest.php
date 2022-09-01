@@ -181,23 +181,48 @@ class CarouselTest extends ParagraphsTestBase {
 
     // Assert paragraph rendering for Bulgarian version.
     $html = $this->renderParagraph($paragraph, 'bg');
-    $expected_values['items'][0]['caption_title'] = 'BG Item 1';
-    $expected_values['items'][0]['image']['src'] = file_create_url($bg_file_1->getFileUri());
-    $expected_values['items'][0]['image']['alt'] = 'First image bg';
-    $expected_values['items'][1]['caption_title'] = 'BG Item 2';
-    $expected_values['items'][1]['caption'] = 'BG Item description 2';
-    $expected_values['items'][1]['link']['label'] = 'BG CTA 2';
-    $expected_values['items'][1]['image']['src'] = file_create_url($bg_file_2->getFileUri());
-    $expected_values['items'][1]['image']['alt'] = 'Second image bg';
-    $expected_values['items'][2]['caption_title'] = 'BG Item 3';
-    $expected_values['items'][2]['image']['src'] = file_create_url($bg_file_1->getFileUri());
-    $expected_values['items'][2]['image']['alt'] = 'First image bg';
-    $expected_values['items'][3]['caption_title'] = 'BG Item 4';
-    $expected_values['items'][3]['caption'] = 'BG Item description 4';
-    $expected_values['items'][3]['link']['path'] = 'http://www.example.com/';
-    $expected_values['items'][3]['link']['label'] = 'BG CTA 4';
-    $expected_values['items'][3]['image']['src'] = file_create_url($bg_file_2->getFileUri());
-    $expected_values['items'][3]['image']['alt'] = 'Second image bg';
+    $expected_values = [
+      'items' => [
+        [
+          'caption_title' => 'BG Item 1',
+          'image' => [
+            'src' => file_create_url($bg_file_1->getFileUri()),
+            'alt' => 'First image bg',
+          ],
+        ],
+        [
+          'caption_title' => 'BG Item 2',
+          'caption' => 'BG Item description 2',
+          'link' => [
+            'label' => 'BG CTA 2',
+            'path' => 'http://www.example.com/',
+          ],
+          'image' => [
+            'src' => file_create_url($bg_file_2->getFileUri()),
+            'alt' => 'Second image bg',
+          ],
+        ],
+        [
+          'caption_title' => 'BG Item 3',
+          'image' => [
+            'src' => file_create_url($bg_file_1->getFileUri()),
+            'alt' => 'First image bg',
+          ],
+        ],
+        [
+          'caption_title' => 'BG Item 4',
+          'caption' => 'BG Item description 4',
+          'link' => [
+            'label' => 'BG CTA 4',
+            'path' => '/',
+          ],
+          'image' => [
+            'src' => file_create_url($bg_file_2->getFileUri()),
+            'alt' => 'Second image bg',
+          ],
+        ],
+      ],
+    ];
 
     $assert->assertPattern($expected_values, $html);
   }
