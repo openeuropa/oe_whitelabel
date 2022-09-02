@@ -4,8 +4,10 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
+use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CarouselPatternAssert;
+use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Tests the Carousel paragraph.
@@ -18,8 +20,11 @@ class CarouselTest extends ParagraphsTestBase {
   protected static $modules = [
     'composite_reference',
     'content_translation',
+    'language',
+    'media_avportal',
+    'media_avportal_mock',
     'node',
-    'oe_multilingual',
+    'oe_media_avportal',
     'oe_paragraphs_carousel',
     'oe_whitelabel_paragraphs',
   ];
@@ -36,20 +41,27 @@ class CarouselTest extends ParagraphsTestBase {
     $this->installConfig([
       'content_translation',
       'media',
+      'language',
+      'media_avportal',
       'oe_media',
-      'oe_multilingual',
+      'oe_media_avportal',
       'oe_paragraphs_carousel',
       'oe_paragraphs_media',
     ]);
     // Call the install hook of the Media module.
     $this->container->get('module_handler')->loadInclude('media', 'install');
     media_install();
+
+    ConfigurableLanguage::createFromLangcode('bg')->save();
   }
 
   /**
    * Tests the file paragraph rendering.
    */
   public function testRendering(): void {
+    // Set AV Photo as translatable.
+    $this->container->get('content_translation.manager')
+      ->setEnabled('media', 'av_portal_photo', TRUE);
     // Set image media translatable.
     $this->container->get('content_translation.manager')
       ->setEnabled('media', 'image', TRUE);
@@ -62,59 +74,47 @@ class CarouselTest extends ParagraphsTestBase {
 
     $fixtures_path = \Drupal::service('extension.list.module')->getPath('oe_whitelabel_paragraphs') . '/tests/fixtures/';
     // Create English files.
-    $en_file_1 = file_save_data(file_get_contents($fixtures_path . 'example_1.jpeg'), 'public://example_1_en.jpeg');
-    $en_file_1->setPermanent();
-    $en_file_1->save();
-    $en_file_2 = file_save_data(file_get_contents($fixtures_path . 'example_1.jpeg'), 'public://example_2_en.jpeg');
-    $en_file_2->setPermanent();
-    $en_file_2->save();
+    $en_image = file_save_data(file_get_contents($fixtures_path . 'example_1.jpeg'), 'public://example_1_en.jpeg');
+    $en_image->setPermanent();
+    $en_image->save();
 
     // Create Bulgarian files.
-    $bg_file_1 = file_save_data(file_get_contents($fixtures_path . 'example_1.jpeg'), 'public://example_1_bg.jpeg');
-    $bg_file_1->setPermanent();
-    $bg_file_1->save();
-    $bg_file_2 = file_save_data(file_get_contents($fixtures_path . 'example_1.jpeg'), 'public://example_2_bg.jpeg');
-    $bg_file_2->setPermanent();
-    $bg_file_2->save();
+    $bg_image = file_save_data(file_get_contents($fixtures_path . 'example_1.jpeg'), 'public://example_1_bg.jpeg');
+    $bg_image->setPermanent();
+    $bg_image->save();
 
     // Create a couple of media items with Bulgarian translation.
-    $media_storage = $this->container->get('entity_type.manager')
-      ->getStorage('media');
-    $first_media = $media_storage->create([
+    $media_storage = $this->container->get('entity_type.manager')->getStorage('media');
+    $image_media = $media_storage->create([
       'bundle' => 'image',
       'name' => 'First image en',
       'oe_media_image' => [
-        'target_id' => $en_file_1->id(),
+        'target_id' => $en_image->id(),
       ],
     ]);
-    $first_media->save();
-    $first_media_bg = $first_media->addTranslation('bg', [
+    $image_media->save();
+    $bg_image_translation = $image_media->addTranslation('bg', [
       'name' => 'First image bg',
       'oe_media_image' => [
-        'target_id' => $bg_file_1->id(),
+        'target_id' => $bg_image->id(),
       ],
     ]);
-    $first_media_bg->save();
-    $second_media = $media_storage->create([
-      'bundle' => 'image',
-      'name' => 'Second image en',
-      'oe_media_image' => [
-        'target_id' => $en_file_2->id(),
-      ],
+    $bg_image_translation->save();
+
+    $av_photo_media = $media_storage->create([
+      'bundle' => 'av_portal_photo',
+      'oe_media_avportal_photo' => 'P-038924/00-15',
     ]);
-    $second_media->save();
-    $second_media_bg = $second_media->addTranslation('bg', [
-      'name' => 'Second image bg',
-      'oe_media_image' => [
-        'target_id' => $bg_file_2->id(),
-      ],
-    ]);
-    $second_media_bg->save();
+    $av_photo_media->save();
+    $bg_av_photo_translation = $av_photo_media->addTranslation('bg', [
+      'name' => 'AV Portal photo bg',
+    ] + $av_photo_media->toArray());
+    $bg_av_photo_translation->save();
 
     // Create a few Carousel items paragraphs with Bulgarian translation.
     $items = [];
     for ($i = 1; $i <= 4; $i++) {
-      $paragraph = Paragraph::create([
+      $item = Paragraph::create([
         'type' => 'oe_carousel_item',
         'field_oe_title' => 'Item ' . $i,
         'field_oe_text' => $i % 2 === 0 ? 'Item description ' . $i : '',
@@ -123,10 +123,10 @@ class CarouselTest extends ParagraphsTestBase {
           'uri' => $i === 4 ? 'route:<front>' : 'http://www.example.com/',
           'title' => 'CTA ' . $i,
         ] : [],
-        'field_oe_media' => $i % 2 !== 0 ? $first_media : $second_media,
+        'field_oe_media' => $i % 2 !== 0 ? $image_media : $av_photo_media,
       ]);
-      $paragraph->save();
-      $paragraph->addTranslation('bg', [
+      $item->save();
+      $item->addTranslation('bg', [
         'field_oe_title' => 'BG Item ' . $i,
         'field_oe_text' => $i % 2 === 0 ? 'BG Item description ' . $i : '',
         'field_oe_link' => $i % 2 === 0 ? [
@@ -134,7 +134,7 @@ class CarouselTest extends ParagraphsTestBase {
           'title' => 'BG CTA ' . $i,
         ] : [],
       ])->save();
-      $items[$i] = $paragraph;
+      $items[$i] = $item;
     }
     // Create a Carousel paragraph with Bulgarian translation.
     $paragraph = Paragraph::create([
@@ -152,7 +152,7 @@ class CarouselTest extends ParagraphsTestBase {
         [
           'caption_title' => 'Item 1',
           'image' => [
-            'src' => file_create_url($en_file_1->getFileUri()),
+            'src' => file_create_url($en_image->getFileUri()),
             'alt' => 'First image en',
           ],
         ],
@@ -164,14 +164,14 @@ class CarouselTest extends ParagraphsTestBase {
             'path' => 'http://www.example.com/',
           ],
           'image' => [
-            'src' => file_create_url($en_file_2->getFileUri()),
-            'alt' => 'Second image en',
+            'src' => file_create_url('avportal://P-038924/00-15.jpg'),
+            'alt' => 'Euro with miniature figurines',
           ],
         ],
         [
           'caption_title' => 'Item 3',
           'image' => [
-            'src' => file_create_url($en_file_1->getFileUri()),
+            'src' => file_create_url($en_image->getFileUri()),
             'alt' => 'First image en',
           ],
         ],
@@ -183,13 +183,20 @@ class CarouselTest extends ParagraphsTestBase {
             'path' => '/',
           ],
           'image' => [
-            'src' => file_create_url($en_file_2->getFileUri()),
-            'alt' => 'Second image en',
+            'src' => file_create_url('avportal://P-038924/00-15.jpg'),
+            'alt' => 'Euro with miniature figurines',
           ],
         ],
       ],
     ];
     $assert->assertPattern($expected_values, $html);
+
+    // The caption texts are wrapped by an extra <p> tag which is not tested
+    // by the carousel pattern.
+    $crawler = new Crawler($html);
+    $slides = $crawler->filter('.carousel .carousel-inner .carousel-item');
+    $this->assertEquals('Item description 2', $slides->eq(1)->filter('.carousel-caption p')->html());
+    $this->assertEquals('Item description 4', $slides->eq(3)->filter('.carousel-caption p')->html());
 
     // Assert paragraph rendering for Bulgarian version.
     $html = $this->renderParagraph($paragraph, 'bg');
@@ -198,7 +205,7 @@ class CarouselTest extends ParagraphsTestBase {
         [
           'caption_title' => 'BG Item 1',
           'image' => [
-            'src' => file_create_url($bg_file_1->getFileUri()),
+            'src' => file_create_url($bg_image->getFileUri()),
             'alt' => 'First image bg',
           ],
         ],
@@ -210,14 +217,14 @@ class CarouselTest extends ParagraphsTestBase {
             'path' => 'http://www.example.com/',
           ],
           'image' => [
-            'src' => file_create_url($bg_file_2->getFileUri()),
-            'alt' => 'Second image bg',
+            'src' => file_create_url('avportal://P-038924/00-15.jpg'),
+            'alt' => 'AV Portal photo bg',
           ],
         ],
         [
           'caption_title' => 'BG Item 3',
           'image' => [
-            'src' => file_create_url($bg_file_1->getFileUri()),
+            'src' => file_create_url($bg_image->getFileUri()),
             'alt' => 'First image bg',
           ],
         ],
@@ -229,8 +236,8 @@ class CarouselTest extends ParagraphsTestBase {
             'path' => 'http://www.example.com/',
           ],
           'image' => [
-            'src' => file_create_url($bg_file_2->getFileUri()),
-            'alt' => 'Second image bg',
+            'src' => file_create_url('avportal://P-038924/00-15.jpg'),
+            'alt' => 'AV Portal photo bg',
           ],
         ],
       ],
