@@ -71,7 +71,6 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
       'filter',
       'locale',
       'language',
-      'oe_multilingual',
       'node',
     ]);
   }

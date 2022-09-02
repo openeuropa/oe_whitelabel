@@ -37,6 +37,7 @@ class CarouselTest extends ParagraphsTestBase {
       'content_translation',
       'media',
       'oe_media',
+      'oe_multilingual',
       'oe_paragraphs_carousel',
       'oe_paragraphs_media',
     ]);
