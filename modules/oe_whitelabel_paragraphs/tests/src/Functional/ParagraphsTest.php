@@ -27,7 +27,7 @@ class ParagraphsTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
+  protected $defaultTheme = 'oe_whitelabel';
 
   /**
    * {@inheritdoc}
@@ -361,7 +361,7 @@ class ParagraphsTest extends BrowserTestBase {
 
     // Assert paragraph values are displayed correctly.
     $assert->pageTextContains('Title');
-    $paragraph = $assert->elementExists('css', '.paragraph--type--oe-carousel');
+    $paragraph = $assert->elementExists('css', 'div.carousel');
 
     // Assert paragraph rendering for English version.
     $assert = new CarouselPatternAssert();
@@ -376,7 +376,7 @@ class ParagraphsTest extends BrowserTestBase {
           ],
           'image' => [
             'src' => file_create_url($file_1->getFileUri()),
-            'alt' => 'First image en',
+            'alt' => 'First image',
           ],
         ],
         [
@@ -388,12 +388,12 @@ class ParagraphsTest extends BrowserTestBase {
           ],
           'image' => [
             'src' => file_create_url($file_2->getFileUri()),
-            'alt' => 'Second image en',
+            'alt' => 'Second image',
           ],
         ],
       ],
     ];
-    $assert->assertPattern($expected_values, $paragraph->getHtml());
+    $assert->assertPattern($expected_values, $paragraph->getOuterHtml());
   }
 
   /**
