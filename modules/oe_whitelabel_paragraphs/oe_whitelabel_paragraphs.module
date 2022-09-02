@@ -6,6 +6,8 @@
  *
  * Preprocess hooks are implemented on behalf of the oe_whitelabel theme.
  * This prevents hooks from running if oe_whitelabel is not the active theme.
+ *
+ * phpcs:disable Drupal.NamingConventions.ValidFunctionName.InvalidPrefix
  */
 
 declare(strict_types = 1);
@@ -458,6 +460,80 @@ function oe_whitelabel_preprocess_paragraph__oe_facts_figures(array &$variables)
   if (!$paragraph->get('oe_w_n_columns')->isEmpty()) {
     $variables['columns'] = $paragraph->get('oe_w_n_columns')->value;
   }
+}
+
+/**
+ * Implements hook_preprocess_paragraph() for oe_carousel paragraph.
+ */
+function oe_whitelabel_preprocess_paragraph__oe_carousel(array &$variables): void {
+  /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+  $paragraph = $variables['paragraph'];
+  $variables['items'] = [];
+  $entity_repository = \Drupal::service('entity.repository');
+  $cacheability = CacheableMetadata::createFromRenderArray($variables);
+
+  /** @var \Drupal\paragraphs\Entity\Paragraph $sub_paragraph */
+  foreach ($paragraph->get('field_oe_carousel_items')->referencedEntities() as $sub_paragraph) {
+    // Get sub-paragraph translation.
+    $sub_paragraph = \Drupal::service('entity.repository')
+      ->getTranslationFromContext($sub_paragraph, $paragraph->language()->getId());
+    /** @var \Drupal\media\Entity\Media $media */
+    $media = $sub_paragraph->get('field_oe_media')->entity;
+    if (!$media instanceof MediaInterface) {
+      // The media entity is not available anymore, skip the item.
+      continue;
+    }
+    // Retrieve the correct media translation.
+    $media = $entity_repository->getTranslationFromContext($media, $paragraph->language()->getId());
+    // Caches are handled by the formatter usually. Since we are not rendering
+    // the original render arrays, we need to propagate our caches to the
+    // paragraph template.
+    $cacheability->addCacheableDependency($media);
+    // Run access checks on the media entity.
+    $access = $media->access('view', $variables['user'], TRUE);
+    $cacheability->addCacheableDependency($access);
+    if (!$access->isAllowed()) {
+      $cacheability->applyTo($variables);
+      continue;
+    }
+    $source = $media->getSource();
+    // We only support images and AV Portal photos for now.
+    if (!$source instanceof MediaAvPortalSourceInterface && !$source instanceof Image) {
+      $cacheability->applyTo($variables);
+      continue;
+    }
+
+    $uri = _oe_whitelabel_get_media_uri($source, $media, $cacheability);
+
+    // The uri might be empty if the source is of type Image and the file entity
+    // was deleted.
+    if (empty($uri)) {
+      $cacheability->applyTo($variables);
+      continue;
+    }
+
+    $slide = [
+      'caption_title' => $sub_paragraph->get('field_oe_title')->value,
+      'caption' => !$sub_paragraph->get('field_oe_text')->isEmpty() ? $sub_paragraph->get('field_oe_text')->value : '',
+      'image' => [
+        'src' => file_create_url($uri),
+        'alt' => $media->label(),
+      ],
+    ];
+
+    if (!$sub_paragraph->get('field_oe_link')->isEmpty()) {
+      /** @var \Drupal\link\Plugin\Field\FieldType\LinkItem $link_item */
+      $link_item = $sub_paragraph->get('field_oe_link')->first();
+      $slide['link'] = [
+        'path' => $link_item->getUrl()->toString(),
+        'label' => $link_item->get('title')->getValue(),
+      ];
+    }
+
+    $variables['slides'][] = $slide;
+  }
+
+  $cacheability->applyTo($variables);
 }
 
 /**
