@@ -6,8 +6,25 @@
  * @see ./modules/contrib/paragraphs/templates/paragraph.html.twig
  */
 #}
+{% apply spaceless %}
+  {% set _slides = [] %}
+  {% for _slide in slides %}
+    {# Wrap captions in a <p> tag. #}
+    {% if _slide.caption is not empty %}
+      {% set _caption %}
+        {% block slide_caption %}
+          <p>{{ _slide.caption }}</p>
+        {% endblock %}
+      {% endset %}
+      {% set _slide = _slide|merge({
+        caption: _caption
+      }) %}
+    {% endif %}
+    {% set _slides = _slides|merge([_slide]) %}
+  {% endfor %}
+{% endapply %}
 {{ pattern('carousel', {
   'show_controls': true,
   'show_indicators': true,
-  'slides': slides
+  'slides': _slides
 }) }}
