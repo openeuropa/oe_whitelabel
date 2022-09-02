@@ -517,7 +517,7 @@ function oe_whitelabel_preprocess_paragraph__oe_carousel(array &$variables): voi
       'caption' => !$sub_paragraph->get('field_oe_text')->isEmpty() ? $sub_paragraph->get('field_oe_text')->value : '',
       'image' => [
         'src' => file_create_url($uri),
-        'alt' => $source->getMetadata($media, 'thumbnail_alt_value') ?? $media->label(),
+        'alt' => $media->label(),
       ],
     ];
 
