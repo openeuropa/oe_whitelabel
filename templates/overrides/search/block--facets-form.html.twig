@@ -10,7 +10,7 @@
   {% set extra_attributes = create_attribute() %}
   {% set reset = pattern('link', {
     'label': content.actions['reset']['#title'],
-    'path': content.actions['reset']['#url'].toString(),
+    'path': content.actions['reset']['#url'],
     'variant': 'secondary',
     'attributes': extra_attributes.addClass(['ms-2', 'btn', 'btn-secondary'])
   })
