@@ -8,6 +8,7 @@
 declare(strict_types =  1);
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Template\Attribute;
 use Drupal\oe_bootstrap_theme_helper\EuropeanUnionLanguages;
 
 /**
@@ -87,15 +88,19 @@ function oe_whitelabel_multilingual_preprocess_links__language_block(&$variables
     $link = [
       'path' => $url,
       'name' => $label,
-      'id' => 'link_' . $language_code,
       'label' => $label,
       'lang' => $language_internal,
+      'attributes' => new Attribute([
+        'id' => 'link_' . $language_code,
+      ]),
     ];
 
     if (!empty($current_language_id) && $language_code === $current_language_id) {
-      $variables['language']['link'] = $link;
-      $variables['language']['link']['target'] = 'languageModal';
+      $link['attributes']->addClass('text-center');
+      $link['attributes']->setAttribute('data-bs-toggle', 'modal');
+      $link['attributes']->setAttribute('data-bs-target', '#languageModal');
       $link['active'] = TRUE;
+      $variables['language']['link'] = $link;
     }
 
     $language_config = $language_config_storage->load($language_code);
