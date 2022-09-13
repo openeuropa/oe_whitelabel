@@ -8,7 +8,7 @@
 declare(strict_types =  1);
 
 use Drupal\Core\Cache\CacheableMetadata;
-use Drupal\Core\Url;
+use Drupal\Core\Template\Attribute;
 use Drupal\media\MediaInterface;
 use Drupal\media\Plugin\media\Source\Image;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
@@ -91,19 +91,27 @@ function _oe_whitelabel_starter_person_preprocess_image(array &$variables): void
 function _oe_whitelabel_starter_person_social_media_links(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
-
-  $social_links = $node->get('oe_social_media_links')->getValue();
-
-  foreach ($social_links as $link) {
+  $attributes = new Attribute([
+    'class' => [
+      'd-block',
+      'd-md-inline-block',
+      'mb-3',
+      'mb-md-0',
+      'standalone',
+    ],
+    'target' => '_blank',
+  ]);
+  /** @var \Drupal\typed_link\Plugin\Field\FieldType\TypedLinkItem $link */
+  foreach ($node->get('oe_social_media_links') as $link) {
     $variables['social_links'][] = [
       'icon_position' => 'before',
       'icon' => [
         'path' => $variables['bcl_icon_path'],
-        'name' => $link['link_type'],
+        'name' => $link->link_type,
       ],
-      'label' => $link['title'],
-      'path' => Url::fromUri($link['uri'])->toString(),
+      'title' => $link->title,
+      'url' => $link->getUrl(),
+      'attributes' => $attributes,
     ];
   }
-
 }
