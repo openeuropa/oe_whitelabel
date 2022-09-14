@@ -109,8 +109,8 @@ function _oe_whitelabel_starter_person_social_media_links(array &$variables): vo
         'path' => $variables['bcl_icon_path'],
         'name' => $link->link_type,
       ],
-      'title' => $link->title,
-      'url' => $link->getUrl(),
+      'label' => $link->title,
+      'path' => $link->getUrl(),
       'attributes' => $attributes,
     ];
   }

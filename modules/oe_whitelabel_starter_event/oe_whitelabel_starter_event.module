@@ -63,8 +63,8 @@ function _oe_whitelabel_starter_event_preprocess_links(array &$variables): void 
 
   $variables['links'] = [
     [
-      'title' => t('Register'),
-      'url' => $url,
+      'label' => t('Register'),
+      'path' => $url,
       'icon_position' => 'before',
       'icon' => [
         'name' => 'calendar-check',

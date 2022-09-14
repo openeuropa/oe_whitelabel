@@ -121,7 +121,7 @@ class TwigExtension extends AbstractExtension {
 
     foreach ($links as $link) {
       $altered_link = $link + [
-        'url' => $link['href'],
+        'path' => $link['href'],
         'icon_position' => 'after',
         'standalone' => TRUE,
         'attributes' => [
