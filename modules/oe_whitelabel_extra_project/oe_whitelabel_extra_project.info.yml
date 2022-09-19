@@ -2,7 +2,7 @@ name: OpenEuropa Whitelabel Content Extra Project
 type: module
 description: Module to override content extra project.
 package: OpenEuropa Whitelabel Theme
-core_version_requirement: ^9.2
+core_version_requirement: ^9.3
 dependencies:
   - oe_content_extra:oe_content_extra_project
   - oe_whitelabel_helper:oe_whitelabel_helper

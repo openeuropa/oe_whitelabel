@@ -6,6 +6,9 @@ dependencies:
   module:
     - node
     - search_api
+third_party_settings:
+  oe_list_pages:
+    lists_pages_index: true
 id: oe_whitelabel_list_page_index_test
 name: oe_whitelabel_list_page_index_test
 description: ''
