@@ -23,14 +23,12 @@ function oe_whitelabel_multilingual_preprocess_links__oe_multilingual_content_la
   $variables['languages'] = [];
   foreach ($variables['links'] as $language_code => $link) {
     /** @var \Drupal\Core\Url $url */
-    $url = $link['link']['#url'];
-    $href = $url
+    $url = $link['link']['#url']
       ->setOptions($link['link']['#options'])
-      ->setAbsolute(TRUE)
-      ->toString();
+      ->setAbsolute(TRUE);
 
     $variables['languages'][] = [
-      'path' => $href,
+      'path' => $url,
       'hreflang' => $language_code,
       'label' => $link['link']['#title'],
       'current' => FALSE,
@@ -46,7 +44,7 @@ function oe_whitelabel_multilingual_preprocess_links__oe_multilingual_content_la
   // saved, so we don't add it to the list.
   if ($translation->language()->getId() !== 'und') {
     $variables['languages'][] = [
-      'path' => $translation->toUrl()->setAbsolute(TRUE)->toString(),
+      'path' => $translation->toUrl()->setAbsolute(TRUE),
       'hreflang' => $translation->language()->getId(),
       'label' => $languages[$translation->language()->getId()]->getName(),
       'current' => TRUE,
@@ -81,15 +79,13 @@ function oe_whitelabel_multilingual_preprocess_links__language_block(&$variables
 
   foreach ($variables['links'] as $language_code => $link) {
     /** @var \Drupal\Core\Url $url */
-    $url = $link['link']['#url'];
-    $href = $url
+    $url = $link['link']['#url']
       ->setOptions($link['link']['#options'])
-      ->setAbsolute(TRUE)
-      ->toString();
+      ->setAbsolute(TRUE);
     $label = $link['link']['#title'];
 
     $link = [
-      'path' => $href,
+      'path' => $url,
       'name' => $label,
       'id' => 'link_' . $language_code,
       'label' => $label,
