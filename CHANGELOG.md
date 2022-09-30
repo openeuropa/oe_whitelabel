@@ -1,5 +1,23 @@
 # Change Log
 
+## [1.0.0-beta6](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-beta6) (2022-09-30)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-beta5...1.0.0-beta6)
+
+**Fixed bugs:**
+
+- EU and EC logos are missing from the oe\_bootstrap\_theme artifact. [\#169](https://github.com/openeuropa/oe_whitelabel/issues/169)
+- PHP notices after adding Whitelabel Search Block to block layout [\#37](https://github.com/openeuropa/oe_whitelabel/issues/37)
+
+**Closed issues:**
+
+- Can not use Default "node--oe-w-content-banner.html.twig" [\#178](https://github.com/openeuropa/oe_whitelabel/issues/178)
+
+**Merged pull requests:**
+
+- OEL-1910: Drop drupal 9.2 support. [\#183](https://github.com/openeuropa/oe_whitelabel/pull/183) ([drishu](https://github.com/drishu))
+- OEL-1913: Theme oe\_carousel paragraph. [\#179](https://github.com/openeuropa/oe_whitelabel/pull/179) ([drishu](https://github.com/drishu))
+- OEL-1919: Fix broken styling for facetapi. [\#176](https://github.com/openeuropa/oe_whitelabel/pull/176) ([drishu](https://github.com/drishu))
+
 ## [1.0.0-beta5](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-beta5) (2022-08-09)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-beta4...1.0.0-beta5)
 
@@ -10,6 +28,7 @@
 
 **Merged pull requests:**
 
+- Prepare release 1.0.0-beta5. [\#175](https://github.com/openeuropa/oe_whitelabel/pull/175) ([drishu](https://github.com/drishu))
 - OEL-1875: Use latest changes in 1.x of oe\_bootstrap\_theme. [\#174](https://github.com/openeuropa/oe_whitelabel/pull/174) ([brummbar](https://github.com/brummbar))
 - OEL-1650: Move Event registration url to links. [\#172](https://github.com/openeuropa/oe_whitelabel/pull/172) ([drishu](https://github.com/drishu))
 - OEL-1893: Move to oe\_content version 3. [\#170](https://github.com/openeuropa/oe_whitelabel/pull/170) ([drishu](https://github.com/drishu))
