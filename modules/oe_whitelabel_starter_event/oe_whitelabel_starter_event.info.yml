@@ -2,7 +2,7 @@ name: OpenEuropa Whitelabel Starter Event
 type: module
 description: Adds additional functionality to the Event module
 package: OpenEuropa Whitelabel Theme
-core_version_requirement: ^9.2
+core_version_requirement: ^9.3
 dependencies:
   - oe_whitelabel:oe_whitelabel_helper
   - oe_starter_content:oe_starter_content_event
