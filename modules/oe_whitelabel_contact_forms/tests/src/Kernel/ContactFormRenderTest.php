@@ -111,10 +111,11 @@ class ContactFormRenderTest extends KernelTestBase {
     $crawler = new Crawler($html);
 
     // Assert message success and values.
-    $actual = $crawler->filter('div.alert-success');
-    $this->assertCount(1, $actual);
+    $alert = $crawler->filter('div.alert-success');
+    $this->assertCount(1, $alert);
 
-    $description_lists = $crawler->filter('dl');
+    $description_lists = $alert->filter('.bcl-description-list');
+    $this->assertCount(1, $description_lists);
     $description_list_assert = new DescriptionListAssert();
 
     $description_list_assert->assertPattern([
@@ -123,53 +124,28 @@ class ContactFormRenderTest extends KernelTestBase {
           'term' => 'The sender\'s name',
           'definition' => 'sender_name',
         ],
-      ],
-    ], $description_lists->eq(0)->html());
-
-    $description_list_assert->assertPattern([
-      'items' => [
         [
           'term' => 'The sender\'s email',
           'definition' => 'test@example.com',
         ],
-      ],
-    ], $description_lists->eq(1)->html());
-
-    $description_list_assert->assertPattern([
-      'items' => [
         [
           'term' => 'Subject',
           'definition' => 'subject',
         ],
-      ],
-    ], $description_lists->eq(2)->html());
-
-    $description_list_assert->assertPattern([
-      'items' => [
         [
           'term' => 'Message',
           'definition' => 'welcome_message',
         ],
-      ],
-    ], $description_lists->eq(3)->html());
-
-    $description_list_assert->assertPattern([
-      'items' => [
         [
           'term' => 'Topic',
           'definition' => 'Topic name',
         ],
-      ],
-    ], $description_lists->eq(4)->html());
-
-    $description_list_assert->assertPattern([
-      'items' => [
         [
           'term' => 'Phone',
           'definition' => '0123456',
         ],
       ],
-    ], $description_lists->eq(5)->html());
+    ], $description_lists->outerHtml());
   }
 
 }

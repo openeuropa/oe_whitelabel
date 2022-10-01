@@ -192,8 +192,8 @@ class CarouselTest extends ParagraphsTestBase {
     // by the carousel pattern.
     $crawler = new Crawler($html);
     $slides = $crawler->filter('.carousel .carousel-inner .carousel-item');
-    $this->assertEquals('Item description 2', $slides->eq(1)->filter('.carousel-caption p')->html());
-    $this->assertEquals('Item description 4', $slides->eq(3)->filter('.carousel-caption p')->html());
+    $this->assertEquals('Item description 2', $slides->eq(1)->filter('.carousel-caption p:nth-of-type(2)')->html());
+    $this->assertEquals('Item description 4', $slides->eq(3)->filter('.carousel-caption p:nth-of-type(2)')->html());
 
     // Assert paragraph rendering for Bulgarian version.
     $html = $this->renderParagraph($paragraph, 'bg');

@@ -28,9 +28,7 @@ class DescriptionListAssert extends BasePatternAssert {
    * {@inheritdoc}
    */
   protected function assertBaseElements(string $html, string $variant): void {
-    $crawler = new Crawler($html);
-    $field_list_container = $crawler->filter('body');
-    self::assertCount(1, $field_list_container);
+    $this->assertElementExists('body > .bcl-description-list', new Crawler($html));
   }
 
   /**
@@ -45,7 +43,7 @@ class DescriptionListAssert extends BasePatternAssert {
     // Assert all labels are correct.
     $expected_labels = array_column($expected_items, 'term');
     $label_items = $crawler->filter('dt');
-    self::assertCount(count($expected_labels), $label_items);
+    self::assertSameSize($expected_labels, $label_items);
     foreach ($expected_labels as $index => $expected_label) {
       self::assertEquals($expected_label, trim($label_items->eq($index)->text()));
     }

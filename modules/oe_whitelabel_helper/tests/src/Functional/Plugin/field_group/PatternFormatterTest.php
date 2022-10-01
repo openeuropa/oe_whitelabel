@@ -111,8 +111,8 @@ class PatternFormatterTest extends BrowserTestBase {
     // Assert that fields are rendered using the field list horizontal pattern.
     $this->drupalGet('node/1');
 
-    $description_lists = $page->findAll('css', 'dl');
-    $this->assertCount(2, $description_lists);
+    $description_lists = $page->findAll('css', '.bcl-description-list');
+    $this->assertCount(1, $description_lists);
 
     $description_list_assert = new DescriptionListAssert();
     $description_list_assert->assertPattern([
@@ -121,17 +121,12 @@ class PatternFormatterTest extends BrowserTestBase {
           'term' => 'Field 1',
           'definition' => 'Content test 1',
         ],
-      ],
-    ], $description_lists[0]->getHtml());
-
-    $description_list_assert->assertPattern([
-      'items' => [
         [
           'term' => 'Field 2',
           'definition' => 'Content test 2',
         ],
       ],
-    ], $description_lists[1]->getHtml());
+    ], $description_lists[0]->getOuterHtml());
   }
 
 }

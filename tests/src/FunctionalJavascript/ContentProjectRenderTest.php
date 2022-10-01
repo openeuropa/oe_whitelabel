@@ -184,8 +184,8 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     $this->assertSame('40', $contributions_chart->getAttribute('data-percentage'));
 
     // Select the description blocks inside the Project details.
-    $description_lists = $project_content->findAll('css', '.grid-3-9');
-    $this->assertCount(9, $description_lists);
+    $description_lists = $project_content->findAll('css', '.bcl-description-list');
+    $this->assertCount(4, $description_lists);
 
     $description_list_assert = new DescriptionListAssert();
 
@@ -196,17 +196,12 @@ class ContentProjectRenderTest extends WebDriverTestBase {
           'term' => 'Overall budget',
           'definition' => '€200,00',
         ],
-      ],
-    ], $description_lists[0]->getHtml());
-
-    $description_list_assert->assertPattern([
-      'items' => [
         [
           'term' => 'EU contribution',
           'definition' => '€70,00',
         ],
       ],
-    ], $description_lists[1]->getHtml());
+    ], $description_lists[0]->getOuterHtml());
 
     // Assert details list group.
     $description_list_assert->assertPattern([
@@ -215,26 +210,16 @@ class ContentProjectRenderTest extends WebDriverTestBase {
           'term' => 'Website',
           'definition' => 'Example website',
         ],
-      ],
-    ], $description_lists[2]->getHtml());
-
-    $description_list_assert->assertPattern([
-      'items' => [
         [
           'term' => 'Funding programme',
           'definition' => 'Anti Fraud Information System (AFIS)',
         ],
-      ],
-    ], $description_lists[3]->getHtml());
-
-    $description_list_assert->assertPattern([
-      'items' => [
         [
           'term' => 'Reference',
           'definition' => 'Project reference',
         ],
       ],
-    ], $description_lists[4]->getHtml());
+    ], $description_lists[1]->getOuterHtml());
 
     // Assert coordinators list group.
     $description_list_assert->assertPattern([
@@ -244,7 +229,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
           'definition' => 'coordinator',
         ],
       ],
-    ], $description_lists[5]->getHtml());
+    ], $description_lists[2]->getOuterHtml());
 
     // Assert participants list group.
     $description_list_assert->assertPattern([
@@ -253,26 +238,16 @@ class ContentProjectRenderTest extends WebDriverTestBase {
           'term' => 'Name',
           'definition' => 'participant',
         ],
-      ],
-    ], $description_lists[6]->getHtml());
-
-    $description_list_assert->assertPattern([
-      'items' => [
         [
           'term' => 'Address',
           'definition' => 'Belgium',
         ],
-      ],
-    ], $description_lists[7]->getHtml());
-
-    $description_list_assert->assertPattern([
-      'items' => [
         [
           'term' => 'Contribution to the budget',
           'definition' => '€22,30',
         ],
       ],
-    ], $description_lists[8]->getHtml());
+    ], $description_lists[3]->getOuterHtml());
 
     // Set a project period that is fully in the past.
     $this->setProjectDateRange($node, '2019-03-07', '2019-03-21');

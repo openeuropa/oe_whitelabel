@@ -74,7 +74,8 @@ class DescriptionListTest extends ParagraphsTestBase {
     $this->assertCount(1, $title);
     $this->assertEquals('Description list paragraph', $title->text());
 
-    $description_lists = $crawler->filter('dl');
+    $description_lists = $crawler->filter('.bcl-description-list');
+    $this->assertCount(1, $description_lists);
     $description_list_assert = new DescriptionListAssert();
 
     $description_list_assert->assertPattern([
@@ -83,17 +84,12 @@ class DescriptionListTest extends ParagraphsTestBase {
           'term' => 'Aliquam ultricies',
           'definition' => 'Donec et leo ac velit posuere tempor mattis ac mi. Vivamus nec dictum lectus. Aliquam ultricies placerat eros, vitae ornare sem.',
         ],
-      ],
-    ], $description_lists->eq(0)->html());
-
-    $description_list_assert->assertPattern([
-      'items' => [
         [
           'term' => 'Etiam <em>lacinia</em>',
           'definition' => 'Quisque tempor sollicitudin lacinia. Morbi imperdiet nulla et nunc aliquet, vel lobortis nunc cursus. Mauris vitae hendrerit felis.',
         ],
       ],
-    ], $description_lists->eq(1)->html());
+    ], $description_lists->outerHtml());
 
     // Testing: Description list paragraph with vertical variant.
     $paragraph->get('oe_w_orientation')->setValue('vertical');
@@ -105,7 +101,8 @@ class DescriptionListTest extends ParagraphsTestBase {
     $title = $crawler->filter('h2.bcl-heading');
     $this->assertEquals('Description list paragraph', $title->text());
 
-    $description_lists = $crawler->filter('dl');
+    $description_lists = $crawler->filter('.bcl-description-list');
+    $this->assertCount(1, $description_lists);
 
     $description_list_assert->assertPattern([
       'items' => [
@@ -113,17 +110,12 @@ class DescriptionListTest extends ParagraphsTestBase {
           'term' => 'Aliquam ultricies',
           'definition' => 'Donec et leo ac velit posuere tempor mattis ac mi. Vivamus nec dictum lectus. Aliquam ultricies placerat eros, vitae ornare sem.',
         ],
-      ],
-    ], $description_lists->eq(0)->html());
-
-    $description_list_assert->assertPattern([
-      'items' => [
         [
           'term' => 'Etiam <em>lacinia</em>',
           'definition' => 'Quisque tempor sollicitudin lacinia. Morbi imperdiet nulla et nunc aliquet, vel lobortis nunc cursus. Mauris vitae hendrerit felis.',
         ],
       ],
-    ], $description_lists->eq(1)->html());
+    ], $description_lists->outerHtml());
   }
 
 }
