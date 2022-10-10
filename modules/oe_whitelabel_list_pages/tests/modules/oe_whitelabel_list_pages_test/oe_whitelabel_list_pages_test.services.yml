@@ -1,0 +1,5 @@
+services:
+  oe_whitelabel_list_pages_test.event_subscriber:
+    class: Drupal\oe_whitelabel_list_pages_test\EventSubscriber\ListPagesTestSubscriber
+    tags:
+      - { name: event_subscriber }
