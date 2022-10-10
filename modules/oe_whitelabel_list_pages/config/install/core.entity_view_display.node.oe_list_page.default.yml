@@ -13,17 +13,22 @@ content:
   'extra_field_oe_list_page_filters:node:oe_list_page':
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   'extra_field_oe_list_page_results:node:oe_list_page':
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   'extra_field_oe_list_page_selected_filters:node:oe_list_page':
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 4
+    region: content
+  'extra_field_oe_list_page_sort:node:oe_list_page':
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
     region: content
   'extra_field_oe_list_page_total_count:node:oe_list_page':
     settings: {  }
