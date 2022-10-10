@@ -1,17 +1,2 @@
-// Layout
-// -----------------------------------------------------------------------------
-@import "layout/page.header";
-@import "layout/page.content";
-@import "layout/page.footer";
-
-// Component
-// -----------------------------------------------------------------------------
-@import "components/my.component";
 @import "components/facets";
 @import "components/list_pages";
-
-// Other
-// -----------------------------------------------------------------------------
-@import "block/block";
-@import "content/node.page";
-@import "content/node.article";
