@@ -102,7 +102,7 @@ function _oe_whitelabel_starter_person_social_media_links(array &$variables): vo
         'name' => $link['link_type'],
       ],
       'label' => $link['title'],
-      'path' => Url::fromUri($link['uri'])->toString(),
+      'path' => Url::fromUri($link['uri']),
     ];
   }
 
