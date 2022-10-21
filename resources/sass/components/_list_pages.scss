@@ -16,3 +16,18 @@
 .oe-list-pages-sort-form .form-label {
   margin-right: 1.5rem;
 }
+
+@media (max-width: 576px) {
+  .oe-list-pages-sort-form {
+    display: block;
+  }
+
+  .oe-list-pages-sort-form .form-item {
+    margin: 0;
+  }
+
+  .oe-list-pages-sort-form .form-label,
+  .oe-list-pages-sort-form .form-select {
+    width: 100%;
+  }
+}
