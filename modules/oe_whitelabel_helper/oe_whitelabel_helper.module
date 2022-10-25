@@ -7,6 +7,10 @@
 
 declare(strict_types = 1);
 
+use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FormatterInterface;
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_locale_translation_projects_alter().
  */
@@ -36,4 +40,47 @@ function oe_whitelabel_helper_theme($existing, $type, $theme, $path) {
       ],
     ],
   ];
+}
+
+/**
+ * Implements hook_field_formatter_third_party_settings_form().
+ */
+function oe_whitelabel_helper_field_formatter_third_party_settings_form(FormatterInterface $plugin, FieldDefinitionInterface $field_definition, $view_mode, array $form, FormStateInterface $form_state) {
+  $element = [];
+
+  if ($view_mode !== 'oe_w_pattern_gallery_item') {
+    return $element;
+  }
+
+  $element['gallery_formatter'] = [
+    '#type' => 'select',
+    '#title' => t('Use this field for'),
+    '#options' => [
+      'caption_title' => t('Caption title'),
+      'caption' => t('Caption'),
+      'thumbnail' => t('Thumbnail'),
+      'media' => t('Media'),
+    ],
+    '#empty_value' => '',
+    '#default_value' => $plugin->getThirdPartySetting('oe_whitelabel_helper', 'gallery_formatter', ''),
+  ];
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary_alter().
+ */
+function oe_whitelabel_helper_field_formatter_settings_summary_alter(array &$summary, array $context) {
+  if ($context['view_mode'] !== 'oe_w_pattern_gallery_item') {
+    return;
+  }
+
+  $mapping = $context['formatter']->getThirdPartySetting('oe_whitelabel_helper', 'gallery_formatter');
+  if ($mapping) {
+    // @todo We should show labels.
+    $summary[] = t('Gallery formatter: mapped to @field.', [
+      '@field' => $mapping,
+    ]);
+  }
 }
