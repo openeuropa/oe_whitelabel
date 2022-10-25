@@ -630,3 +630,14 @@ function _oe_whitelabel_featured_media_set_embedded_media(array &$variables, Med
     $variables['ratio'] = str_replace('_', 'x', $ratio);
   }
 }
+
+/**
+ * Implements hook_preprocess_HOOK() for gallery paragraph.
+ */
+function oe_whitelabel_paragraphs_preprocess_paragraph__oe_gallery(&$variables) {
+  // Since the gallery paragraph has a description field, we cannot use the
+  // title of the gallery pattern. To allow the flexibility of changing the
+  // title tag, we set it up here so that further preprocess hooks can change
+  // it.
+  $variables['title_tag'] = 'h2';
+}
