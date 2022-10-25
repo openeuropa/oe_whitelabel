@@ -18,3 +18,9 @@ config_devel:
     - core.entity_view_mode.node.oe_w_content_banner
     - daterange_compact.format.oe_whitelabel_date_only_short_month
     - daterange_compact.format.oe_whitelabel_date_time_long
+  optional:
+    - core.entity_view_mode.media.oe_w_pattern_gallery_item
+    - core.entity_view_display.media.av_portal_photo.oe_w_pattern_gallery_item
+    - core.entity_view_display.media.av_portal_video.oe_w_pattern_gallery_item
+    - core.entity_view_display.media.image.oe_w_pattern_gallery_item
+    - core.entity_view_display.media.remote_video.oe_w_pattern_gallery_item
