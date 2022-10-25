@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * Template override to display the gallery paragraph.
+ *
+ * @see ./modules/contrib/paragraphs/templates/paragraph.html.twig
+ */
+#}
+{%
+  set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {% block title %}
+    {% if not paragraph.get('field_oe_title').isEmpty() %}
+      <{{ title_tag }} class="bcl-heading mb-4">{{ content.field_oe_title }}</{{ title_tag }}>
+    {% endif %}
+  {% endblock %}
+
+  {% block description %}
+    {% if not paragraph.get('field_oe_plain_text_long').isEmpty() %}
+      <p>{{ content.field_oe_plain_text_long }}</p>
+    {% endif %}
+  {% endblock %}
+
+  {% block content %}
+    {{ content.field_oe_gallery_items }}
+  {% endblock %}
+</div>
