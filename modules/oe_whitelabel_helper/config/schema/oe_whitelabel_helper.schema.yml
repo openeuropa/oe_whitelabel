@@ -23,3 +23,15 @@ field_group.field_group_formatter_plugin.oe_whitelabel_helper_pattern_base:
 field_group.field_group_formatter_plugin.oe_whitelabel_helper_description_list_pattern:
   type: field_group.field_group_formatter_plugin.oe_whitelabel_helper_pattern_base
   label: 'Mapping for the description list pattern formatter settings'
+
+field.formatter.settings.oe_whitelabel_helper_gallery:
+  type: mapping
+  label: 'Gallery formatter settings'
+
+field.formatter.third_party.oe_whitelabel_helper:
+  type: mapping
+  label: 'OpenEuropa Whitelabel Helper third party setting'
+  mapping:
+    gallery_formatter:
+      type: string
+      label: 'To which gallery item property the field is mapped.'
