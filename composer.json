@@ -93,6 +93,9 @@
             },
             "openeuropa/oe_paragraphs": {
                 "EPIC": "https://github.com/openeuropa/oe_paragraphs/compare/1.15.0..OEL-2069.diff"
+            },
+            "openeuropa/oe_bootstrap_theme": {
+                "EPIC": "https://github.com/openeuropa/oe_bootstrap_theme/compare/0.2082.202210241647..OEL-2082.diff"
             }
         },
         "drupal-scaffold": {
