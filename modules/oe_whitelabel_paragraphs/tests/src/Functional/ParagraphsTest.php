@@ -365,6 +365,7 @@ class ParagraphsTest extends BrowserTestBase {
 
     // Assert paragraph rendering for English version.
     $assert = new CarouselPatternAssert();
+    $file_url_generator = \Drupal::service('file_url_generator');
     $expected_values = [
       'items' => [
         [
@@ -374,10 +375,10 @@ class ParagraphsTest extends BrowserTestBase {
             'label' => 'Link 1',
             'path' => 'https://www.example1.com',
           ],
-          'image' => [
-            'src' => file_create_url($file_1->getFileUri()),
-            'alt' => 'First image',
-          ],
+          'image' => sprintf(
+            '<img src="%s" alt="First image" class="d-block w-100">',
+            $file_url_generator->generate($file_1->getFileUri())->setAbsolute()->toString()
+          ),
         ],
         [
           'caption_title' => 'Carousel item 2',
@@ -386,10 +387,10 @@ class ParagraphsTest extends BrowserTestBase {
             'label' => 'Link 2',
             'path' => 'https://www.example2.com',
           ],
-          'image' => [
-            'src' => file_create_url($file_2->getFileUri()),
-            'alt' => 'Second image',
-          ],
+          'image' => sprintf(
+            '<img src="%s" alt="Second image" class="d-block w-100">',
+            $file_url_generator->generate($file_2->getFileUri())->setAbsolute()->toString()
+          ),
         ],
       ],
     ];

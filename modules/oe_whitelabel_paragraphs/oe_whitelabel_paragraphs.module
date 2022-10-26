@@ -487,6 +487,8 @@ function oe_whitelabel_preprocess_paragraph__oe_carousel(array &$variables): voi
   $variables['items'] = [];
   $entity_repository = \Drupal::service('entity.repository');
   $cacheability = CacheableMetadata::createFromRenderArray($variables);
+  /** @var \Drupal\Core\File\FileUrlGeneratorInterface $file_url_generator */
+  $file_url_generator = \Drupal::service('file_url_generator');
 
   /** @var \Drupal\paragraphs\Entity\Paragraph $sub_paragraph */
   foreach ($paragraph->get('field_oe_carousel_items')->referencedEntities() as $sub_paragraph) {
@@ -532,7 +534,7 @@ function oe_whitelabel_preprocess_paragraph__oe_carousel(array &$variables): voi
       'caption_title' => $sub_paragraph->get('field_oe_title')->value,
       'caption' => !$sub_paragraph->get('field_oe_text')->isEmpty() ? $sub_paragraph->get('field_oe_text')->value : '',
       'image' => [
-        'src' => file_create_url($uri),
+        'src' => $file_url_generator->generateAbsoluteString($uri),
         'alt' => $media->label(),
       ],
     ];
