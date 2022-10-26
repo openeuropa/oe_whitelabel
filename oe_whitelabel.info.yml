@@ -15,7 +15,7 @@ libraries-override:
         css/system.admin.css: false
 
 ckeditor_stylesheets:
-  - assets/css/oe-bcl-default.min.css
+  - assets/css/oe_whitelabel.style.min.css
 
 regions:
   header_branding: 'Header branding'
