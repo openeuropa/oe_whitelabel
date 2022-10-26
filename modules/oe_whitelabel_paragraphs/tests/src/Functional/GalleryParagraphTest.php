@@ -62,16 +62,14 @@ class GalleryParagraphTest extends BrowserTestBase {
           'caption_title' => 'Image title',
           'rendered' => sprintf(
             '<img loading="lazy" src="%s" width="200" height="89" alt="Alt text" class="img-fluid">',
-            $file_url_generator->generate($image->get('oe_media_image')->entity->getFileUri())
-              ->toString()
+            $file_url_generator->generate($image->get('oe_media_image')->entity->getFileUri())->toString()
           ),
         ],
         'media' => [
           'caption_title' => 'Image title',
           'rendered' => sprintf(
             '<img loading="lazy" data-src="%s" width="200" height="89" alt="Alt text" class="img-fluid">',
-            $file_url_generator->generate($image->get('oe_media_image')->entity->getFileUri())
-              ->toString()
+            $file_url_generator->generate($image->get('oe_media_image')->entity->getFileUri())->toString()
           ),
         ],
       ],
@@ -80,8 +78,7 @@ class GalleryParagraphTest extends BrowserTestBase {
           'caption_title' => 'Euro with miniature figurines',
           'rendered' => sprintf(
             '<img loading="lazy" src="%s" width="639" height="426" alt="Euro with miniature figurines" class="img-fluid">',
-            $file_url_generator->generate($avportal_photo->get('thumbnail')->entity->getFileUri())
-              ->toString()
+            $file_url_generator->generate($avportal_photo->get('thumbnail')->entity->getFileUri())->toString()
           ),
         ],
         'media' => [
@@ -94,8 +91,7 @@ class GalleryParagraphTest extends BrowserTestBase {
           'caption_title' => 'Economic and Financial Affairs Council - Arrivals',
           'rendered' => sprintf(
             '<img loading="lazy" src="%s" width="352" height="200" alt="" class="img-fluid">',
-            $file_url_generator->generate($avportal_video->get('thumbnail')->entity->getFileUri())
-              ->toString()
+            $file_url_generator->generate($avportal_video->get('thumbnail')->entity->getFileUri())->toString()
           ),
           'play_icon' => TRUE,
         ],
@@ -109,8 +105,7 @@ class GalleryParagraphTest extends BrowserTestBase {
           'caption_title' => 'Energy, let\'s save it!',
           'rendered' => sprintf(
             '<img loading="lazy" src="%s" width="480" height="360" alt="" class="img-fluid">',
-            $file_url_generator->generate($video->get('thumbnail')->entity->getFileUri())
-              ->toString()
+            $file_url_generator->generate($video->get('thumbnail')->entity->getFileUri())->toString()
           ),
           'play_icon' => TRUE,
         ],
@@ -118,8 +113,7 @@ class GalleryParagraphTest extends BrowserTestBase {
           'caption_title' => 'Energy, let\'s save it!',
           'rendered' => sprintf(
             '<iframe data-src="/build/media/oembed?url=https%%3A//www.youtube.com/watch%%3Fv%%3D1-g73ty9v04&amp;max_width=0&amp;max_height=0&amp;hash=%s" frameborder="0" allowtransparency width="200" height="150" class="media-oembed-content" title="Energy, let\'s save it!"></iframe>',
-            \Drupal::service('media.oembed.iframe_url_helper')
-              ->getHash('https://www.youtube.com/watch?v=1-g73ty9v04', 0, 0)
+            \Drupal::service('media.oembed.iframe_url_helper')->getHash('https://www.youtube.com/watch?v=1-g73ty9v04', 0, 0)
           ),
         ],
       ],
