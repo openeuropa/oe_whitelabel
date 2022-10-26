@@ -150,7 +150,7 @@ class MediaGalleryFormatter extends EntityReferenceFormatterBase {
       $entity_view_display = reset($entity_view_displays);
       foreach ($entity_view_display->getComponents() as $field_name => $settings) {
         $plugin = $entity_view_display->getRenderer($field_name);
-        $property = $plugin->getThirdPartySetting('oe_whitelabel_helper', 'gallery_formatter');
+        $property = $plugin->getThirdPartySetting('oe_whitelabel_helper', 'pattern_mapping');
 
         // If no value is specified or if the property has been already mapped,
         // skip this entry.

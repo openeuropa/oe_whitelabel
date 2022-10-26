@@ -32,6 +32,6 @@ field.formatter.third_party.oe_whitelabel_helper:
   type: mapping
   label: 'OpenEuropa Whitelabel Helper third party setting'
   mapping:
-    gallery_formatter:
+    pattern_mapping:
       type: string
       label: 'To which gallery item property the field is mapped.'
