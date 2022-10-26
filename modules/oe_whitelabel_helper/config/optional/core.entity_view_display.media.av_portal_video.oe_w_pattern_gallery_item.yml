@@ -21,7 +21,7 @@ content:
       link_to_entity: false
     third_party_settings:
       oe_whitelabel_helper:
-        gallery_formatter: caption_title
+        pattern_mapping: caption_title
     weight: 0
     region: content
   oe_media_avportal_video:
@@ -32,7 +32,7 @@ content:
       max_height: 390
     third_party_settings:
       oe_whitelabel_helper:
-        gallery_formatter: media
+        pattern_mapping: media
     weight: 2
     region: content
   thumbnail:
@@ -45,7 +45,7 @@ content:
         attribute: lazy
     third_party_settings:
       oe_whitelabel_helper:
-        gallery_formatter: thumbnail
+        pattern_mapping: thumbnail
     weight: 1
     region: content
 hidden:

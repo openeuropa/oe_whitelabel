@@ -52,7 +52,7 @@ function oe_whitelabel_helper_field_formatter_third_party_settings_form(Formatte
     return $element;
   }
 
-  $element['gallery_formatter'] = [
+  $element['pattern_mapping'] = [
     '#type' => 'select',
     '#title' => t('Use this field for'),
     '#options' => [
@@ -62,7 +62,7 @@ function oe_whitelabel_helper_field_formatter_third_party_settings_form(Formatte
       'media' => t('Media'),
     ],
     '#empty_value' => '',
-    '#default_value' => $plugin->getThirdPartySetting('oe_whitelabel_helper', 'gallery_formatter', ''),
+    '#default_value' => $plugin->getThirdPartySetting('oe_whitelabel_helper', 'pattern_mapping', ''),
   ];
 
   return $element;
@@ -76,10 +76,10 @@ function oe_whitelabel_helper_field_formatter_settings_summary_alter(array &$sum
     return;
   }
 
-  $mapping = $context['formatter']->getThirdPartySetting('oe_whitelabel_helper', 'gallery_formatter');
+  $mapping = $context['formatter']->getThirdPartySetting('oe_whitelabel_helper', 'pattern_mapping');
   if ($mapping) {
     // @todo We should show labels.
-    $summary[] = t('Gallery formatter: mapped to @field.', [
+    $summary[] = t('Gallery pattern: mapped to @field.', [
       '@field' => $mapping,
     ]);
   }
