@@ -8,6 +8,7 @@ use Behat\Mink\Element\ElementInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\Tests\oe_whitelabel\Functional\WhitelabelBrowserTestBase;
+use Drupal\Tests\oe_whitelabel\Traits\TraversingTrait;
 use Drupal\Tests\search_api\Functional\ExampleContentTrait;
 
 /**
@@ -16,6 +17,7 @@ use Drupal\Tests\search_api\Functional\ExampleContentTrait;
 class ListPagesTest extends WhitelabelBrowserTestBase {
 
   use ExampleContentTrait;
+  use TraversingTrait;
 
   /**
    * {@inheritdoc}
@@ -46,8 +48,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
 
     $this->indexItems('oe_whitelabel_list_page_index_test');
     $list_page = $this->createListPage();
-
-    $this->drupalGet('node/' . $list_page->id());
+    $this->drupalGet($list_page->toUrl());
 
     // Assert the left column.
     $left_column = $assert_session->elementExists('css', 'div.row > .col-lg-3');
@@ -66,6 +67,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     $assert_session->elementsCount('css', 'hr', 2, $right_column);
 
     $this->assertFacetsSummaryTitle(12, $right_column);
+    $this->assertExposedSort($right_column);
     $this->assertActiveFilterBadges([], $right_column);
     $this->assertListing(10, $right_column);
     $this->assertPager(4, $right_column);
@@ -75,6 +77,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     $page->pressButton('Search');
 
     $this->assertFacetsSummaryTitle(1, $right_column);
+    $this->assertExposedSort($right_column);
     $this->assertActiveFilterBadges(['News number 8'], $right_column);
     $this->assertListing(1, $right_column);
     $this->assertPager(0, $right_column);
@@ -102,6 +105,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
       'exposed_filters' => [
         'oe_sc_news_title' => 'oe_sc_news_title',
       ],
+      'exposed_sort' => TRUE,
       'preset_filters' => [],
       'limit' => 10,
       'sort' => [],
@@ -183,6 +187,23 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
       $actual[] = $element->getText();
     }
     $this->assertSame($expected, $actual);
+  }
+
+  /**
+   * Asserts the exposed sort rendering.
+   *
+   * @param \Behat\Mink\Element\ElementInterface $container
+   *   Container with the expected elements.
+   */
+  protected function assertExposedSort(ElementInterface $container): void {
+    $form = $container->find('css', 'form.oe-list-pages-sort-form');
+    $select = $form->find('css', 'select');
+
+    $this->assertEquals([
+      'title__ASC' => 'A-Z',
+      'title__DESC' => 'Z-A',
+    ], $this->getSelectOptions($select));
+    $this->assertEquals('Sort by', $form->find('css', '.form-label')->getText());
   }
 
 }

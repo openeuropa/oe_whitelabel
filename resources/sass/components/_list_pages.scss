@@ -1,0 +1,33 @@
+.oe-list-pages-sort-form {
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+}
+
+.oe-list-pages-sort-form .form-item {
+  margin: 0 0 0 1.5rem;
+}
+.oe-list-pages-sort-form .form-label,
+.oe-list-pages-sort-form .form-select {
+  display: inline-block;
+  width: auto;
+}
+
+.oe-list-pages-sort-form .form-label {
+  margin-right: 1.5rem;
+}
+
+@media (max-width: 576px) {
+  .oe-list-pages-sort-form {
+    display: block;
+  }
+
+  .oe-list-pages-sort-form .form-item {
+    margin: 0;
+  }
+
+  .oe-list-pages-sort-form .form-label,
+  .oe-list-pages-sort-form .form-select {
+    width: 100%;
+  }
+}
