@@ -1,0 +1,7 @@
+.bcl-gallery {
+  .carousel-item {
+    & > .av-portal-photo__oe-media-avportal-photo {
+      height: 100%;
+    }
+  }
+}
