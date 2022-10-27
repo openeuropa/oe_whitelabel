@@ -41,8 +41,6 @@ content:
     settings:
       image_link: ''
       image_style: ''
-      image_loading:
-        attribute: lazy
     third_party_settings:
       oe_whitelabel_helper:
         pattern_mapping: thumbnail
