@@ -56,20 +56,27 @@ class GalleryParagraphTest extends BrowserTestBase {
     $paragraph->save();
 
     $file_url_generator = \Drupal::service('file_url_generator');
+    // The attribute order is different from 9.4.0 onwards.
+    $attribute_pre_940 = version_compare(\Drupal::VERSION, '9.4.0', '<') ? '' : 'loading="lazy" ';
+    $attribute_940 = version_compare(\Drupal::VERSION, '9.4.0', '>=') ? '' : 'loading="lazy" ';
     $expected_items = [
       [
         'thumbnail' => [
           'caption_title' => 'Image title',
           'rendered' => sprintf(
-            '<img loading="lazy" src="%s" width="200" height="89" alt="Alt text" class="img-fluid">',
-            $file_url_generator->generate($image->get('oe_media_image')->entity->getFileUri())->toString()
+            '<img %ssrc="%s" width="200" height="89" alt="Alt text" %sclass="img-fluid">',
+            $attribute_pre_940,
+            $file_url_generator->generate($image->get('oe_media_image')->entity->getFileUri())->toString(),
+            $attribute_940
           ),
         ],
         'media' => [
           'caption_title' => 'Image title',
           'rendered' => sprintf(
-            '<img loading="lazy" data-src="%s" width="200" height="89" alt="Alt text" class="img-fluid">',
-            $file_url_generator->generate($image->get('oe_media_image')->entity->getFileUri())->toString()
+            '<img %sdata-src="%s" width="200" height="89" alt="Alt text" %sclass="img-fluid">',
+            $attribute_pre_940,
+            $file_url_generator->generate($image->get('oe_media_image')->entity->getFileUri())->toString(),
+            $attribute_940
           ),
         ],
       ],
@@ -77,8 +84,10 @@ class GalleryParagraphTest extends BrowserTestBase {
         'thumbnail' => [
           'caption_title' => 'Euro with miniature figurines',
           'rendered' => sprintf(
-            '<img loading="lazy" src="%s" width="639" height="426" alt="Euro with miniature figurines" class="img-fluid">',
-            $file_url_generator->generate($avportal_photo->get('thumbnail')->entity->getFileUri())->toString()
+            '<img %ssrc="%s" width="639" height="426" alt="Euro with miniature figurines" %sclass="img-fluid">',
+            $attribute_pre_940,
+            $file_url_generator->generate($avportal_photo->get('thumbnail')->entity->getFileUri())->toString(),
+            $attribute_940
           ),
         ],
         'media' => [
@@ -90,8 +99,10 @@ class GalleryParagraphTest extends BrowserTestBase {
         'thumbnail' => [
           'caption_title' => 'Economic and Financial Affairs Council - Arrivals',
           'rendered' => sprintf(
-            '<img loading="lazy" src="%s" width="352" height="200" alt="" class="img-fluid">',
-            $file_url_generator->generate($avportal_video->get('thumbnail')->entity->getFileUri())->toString()
+            '<img %ssrc="%s" width="352" height="200" alt="" %sclass="img-fluid">',
+            $attribute_pre_940,
+            $file_url_generator->generate($avportal_video->get('thumbnail')->entity->getFileUri())->toString(),
+            $attribute_940
           ),
           'play_icon' => TRUE,
         ],
@@ -104,8 +115,10 @@ class GalleryParagraphTest extends BrowserTestBase {
         'thumbnail' => [
           'caption_title' => 'Energy, let\'s save it!',
           'rendered' => sprintf(
-            '<img loading="lazy" src="%s" width="480" height="360" alt="" class="img-fluid">',
-            $file_url_generator->generate($video->get('thumbnail')->entity->getFileUri())->toString()
+            '<img %ssrc="%s" width="480" height="360" alt="" %sclass="img-fluid">',
+            $attribute_pre_940,
+            $file_url_generator->generate($video->get('thumbnail')->entity->getFileUri())->toString(),
+            $attribute_940
           ),
           'play_icon' => TRUE,
         ],
