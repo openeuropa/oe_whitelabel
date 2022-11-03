@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.0.0-beta7](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-beta7) (2022-11-03)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-beta6...1.0.0-beta7)
+
+**Merged pull requests:**
+
+- OEL-1414: Theme the OE List Pages exposed sort. [\#187](https://github.com/openeuropa/oe_whitelabel/pull/187) ([drishu](https://github.com/drishu))
+- OEL-2002: Preserve Drupal links. [\#182](https://github.com/openeuropa/oe_whitelabel/pull/182) ([drishu](https://github.com/drishu))
+
 ## [1.0.0-beta6](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-beta6) (2022-09-30)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-beta5...1.0.0-beta6)
 
@@ -14,6 +22,7 @@
 
 **Merged pull requests:**
 
+- Prepare release 1.0.0-beta6. [\#185](https://github.com/openeuropa/oe_whitelabel/pull/185) ([drishu](https://github.com/drishu))
 - OEL-1910: Drop drupal 9.2 support. [\#183](https://github.com/openeuropa/oe_whitelabel/pull/183) ([drishu](https://github.com/drishu))
 - OEL-1913: Theme oe\_carousel paragraph. [\#179](https://github.com/openeuropa/oe_whitelabel/pull/179) ([drishu](https://github.com/drishu))
 - OEL-1919: Fix broken styling for facetapi. [\#176](https://github.com/openeuropa/oe_whitelabel/pull/176) ([drishu](https://github.com/drishu))
