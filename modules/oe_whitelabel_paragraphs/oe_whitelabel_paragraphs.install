@@ -70,6 +70,12 @@ function _oe_whitelabel_paragraphs_install_config(): void {
     'field.field.paragraph.oe_social_media_follow.field_oe_social_media_variant',
   ];
 
+  // Import the gallery paragraph view display override if the related
+  // module is already installed.
+  if (\Drupal::moduleHandler()->moduleExists('oe_paragraphs_gallery')) {
+    $configs[] = 'core.entity_view_display.paragraph.oe_gallery.default';
+  }
+
   ConfigImporter::importMultiple('module', 'oe_whitelabel_paragraphs', '/config/overrides/', $configs);
 }
 
