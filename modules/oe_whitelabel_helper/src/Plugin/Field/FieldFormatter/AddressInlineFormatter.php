@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_whitelabel_helper\Plugin\Field\FieldFormatter;
 
+use CommerceGuys\Addressing\AddressFormat\AddressField;
 use CommerceGuys\Addressing\Locale;
 use Drupal\address\AddressInterface;
 use Drupal\address\Plugin\Field\FieldFormatter\AddressDefaultFormatter;
@@ -32,6 +33,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
   public static function defaultSettings() {
     return [
       'delimiter' => ', ',
+      'fields_display' => [],
     ];
   }
 
@@ -39,13 +41,33 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
-
     $form['delimiter'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Delimiter'),
       '#default_value' => $this->getSetting('delimiter'),
       '#description' => $this->t('Specify delimiter between address items.'),
       '#required' => TRUE,
+    ];
+
+    $form['fields_display'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t('Fields to display'),
+      '#default_value' => $this->getSetting('fields_display'),
+      '#description' => $this->t('Which fields should be displayed. Leave empty for all.'),
+      '#options' => [
+        'country' => $this->t('The country'),
+        AddressField::ADMINISTRATIVE_AREA => $this->t('The top-level administrative subdivision of the country'),
+        AddressField::LOCALITY => $this->t('The locality (i.e. city)'),
+        AddressField::DEPENDENT_LOCALITY => $this->t('The dependent locality (i.e. neighbourhood)'),
+        AddressField::POSTAL_CODE => $this->t('The postal code'),
+        AddressField::SORTING_CODE => $this->t('The sorting code'),
+        AddressField::ADDRESS_LINE1 => $this->t('The first line of the address block'),
+        AddressField::ADDRESS_LINE2 => $this->t('The second line of the address block'),
+        AddressField::ORGANIZATION => $this->t('The organization'),
+        AddressField::GIVEN_NAME => $this->t('The given name'),
+        AddressField::ADDITIONAL_NAME => $this->t('The additional name'),
+        AddressField::FAMILY_NAME => $this->t('The family name'),
+      ],
     ];
 
     return $form;
@@ -58,6 +80,9 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
     return [
       $this->t('Delimiter: @delimiter', [
         '@delimiter' => $this->getSetting('delimiter'),
+      ]),
+      $this->t('Fields to display: @fields', [
+        '@fields' => implode(', ', array_filter($this->getSetting('fields_display'))),
       ]),
     ];
   }
@@ -102,6 +127,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
     else {
       $format_string = $address_format->getFormat() . "\n" . '%country';
     }
+
     /*
      * Remove extra characters from address format since address fields are
      * optional.
