@@ -122,6 +122,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
      * @see \CommerceGuys\Addressing\AddressFormat\AddressFormatRepository::getDefinitions()
      */
     $format_string = str_replace([',', ' - ', '/'], "\n", $format_string);
+    $format_string = $this->alterFormatString($format_string);
 
     $items = $this->extractAddressItems($format_string, $address_elements);
 
@@ -155,6 +156,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
     $string = strtr($string, $replacements);
     // Remove noise caused by empty placeholders.
     $lines = explode("\n", $string);
+
     foreach ($lines as $index => $line) {
       // Remove leading punctuation, excess whitespace.
       $line = trim(preg_replace('/^[-,]+/', '', $line, 1));
@@ -188,6 +190,31 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
       AddressField::ADDITIONAL_NAME => $this->t('The additional name'),
       AddressField::FAMILY_NAME => $this->t('The family name'),
     ];
+  }
+
+  /**
+   * Alters the format string depending on fields options selected.
+   *
+   * @param string $format_string
+   *   The format string.
+   *
+   * @return string
+   *   The altered format string.
+   */
+  protected function alterFormatString(string $format_string): string {
+    $options_selected = array_filter($this->getSetting('fields_display'));
+    if (empty($options_selected)) {
+      return $format_string;
+    }
+    $options_list = array_keys($this->getFieldsDisplayOptions());
+    // Negate the selected options against the list.
+    $fields = array_diff($options_list, $options_selected);
+    // Prepend % to all items.
+    $fields = array_map(function (string $field): string {
+      return '%' . $field;
+    }, $fields);
+    // Alter the format string.
+    return str_replace($fields, '', $format_string);
   }
 
 }
