@@ -25,9 +25,25 @@ use Drupal\media\Plugin\media\Source\OEmbed;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalSourceInterface;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideoSource;
+use Drupal\oe_bootstrap_theme\ConfigImporter;
 use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
 use Drupal\oe_media_iframe\Plugin\media\Source\Iframe;
 use Drupal\paragraphs\Entity\Paragraph;
+
+/**
+ * Implements hook_modules_installed().
+ */
+function oe_whitelabel_paragraphs_modules_installed($modules, $is_syncing) {
+  if ($is_syncing) {
+    return;
+  }
+
+  // Import the gallery paragraph view display override when the related
+  // module is installed.
+  if (in_array('oe_paragraphs_gallery', $modules)) {
+    ConfigImporter::importSingle('module', 'oe_whitelabel_paragraphs', '/config/overrides/', 'core.entity_view_display.paragraph.oe_gallery.default');
+  }
+}
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
@@ -471,6 +487,8 @@ function oe_whitelabel_preprocess_paragraph__oe_carousel(array &$variables): voi
   $variables['items'] = [];
   $entity_repository = \Drupal::service('entity.repository');
   $cacheability = CacheableMetadata::createFromRenderArray($variables);
+  /** @var \Drupal\Core\File\FileUrlGeneratorInterface $file_url_generator */
+  $file_url_generator = \Drupal::service('file_url_generator');
 
   /** @var \Drupal\paragraphs\Entity\Paragraph $sub_paragraph */
   foreach ($paragraph->get('field_oe_carousel_items')->referencedEntities() as $sub_paragraph) {
@@ -516,7 +534,7 @@ function oe_whitelabel_preprocess_paragraph__oe_carousel(array &$variables): voi
       'caption_title' => $sub_paragraph->get('field_oe_title')->value,
       'caption' => !$sub_paragraph->get('field_oe_text')->isEmpty() ? $sub_paragraph->get('field_oe_text')->value : '',
       'image' => [
-        'src' => file_create_url($uri),
+        'src' => $file_url_generator->generateAbsoluteString($uri),
         'alt' => $media->label(),
       ],
     ];
@@ -613,4 +631,15 @@ function _oe_whitelabel_featured_media_set_embedded_media(array &$variables, Med
     $ratio = $media->get('oe_media_iframe_ratio')->value;
     $variables['ratio'] = str_replace('_', 'x', $ratio);
   }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for gallery paragraph.
+ */
+function oe_whitelabel_paragraphs_preprocess_paragraph__oe_gallery(&$variables) {
+  // Since the gallery paragraph has a description field, we cannot use the
+  // title of the gallery pattern. To allow the flexibility of changing the
+  // title tag, we set it up here so that further preprocess hooks can change
+  // it.
+  $variables['title_tag'] = 'h2';
 }

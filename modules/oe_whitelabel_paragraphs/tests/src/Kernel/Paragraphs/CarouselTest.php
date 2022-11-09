@@ -144,6 +144,9 @@ class CarouselTest extends ParagraphsTestBase {
     $paragraph->save();
     $paragraph->addTranslation('bg', $paragraph->toArray())->save();
 
+    /** @var \Drupal\Core\File\FileUrlGeneratorInterface $file_url_generator */
+    $file_url_generator = \Drupal::service('file_url_generator');
+
     // Assert paragraph rendering for English version.
     $html = $this->renderParagraph($paragraph);
     $assert = new CarouselPatternAssert();
@@ -151,10 +154,10 @@ class CarouselTest extends ParagraphsTestBase {
       'items' => [
         [
           'caption_title' => 'Item 1',
-          'image' => [
-            'src' => file_create_url($en_image->getFileUri()),
-            'alt' => 'First image en',
-          ],
+          'image' => sprintf(
+            '<img src="%s" alt="First image en" class="d-block w-100">',
+            $file_url_generator->generateAbsoluteString($en_image->getFileUri())
+          ),
         ],
         [
           'caption_title' => 'Item 2',
@@ -163,17 +166,14 @@ class CarouselTest extends ParagraphsTestBase {
             'label' => 'CTA 2',
             'path' => 'http://www.example.com/',
           ],
-          'image' => [
-            'src' => file_create_url('avportal://P-038924/00-15.jpg'),
-            'alt' => 'Euro with miniature figurines',
-          ],
+          'image' => '<img src="//ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg" alt="Euro with miniature figurines" class="d-block w-100">',
         ],
         [
           'caption_title' => 'Item 3',
-          'image' => [
-            'src' => file_create_url($en_image->getFileUri()),
-            'alt' => 'First image en',
-          ],
+          'image' => sprintf(
+            '<img src="%s" alt="First image en" class="d-block w-100">',
+            $file_url_generator->generateAbsoluteString($en_image->getFileUri())
+          ),
         ],
         [
           'caption_title' => 'Item 4',
@@ -182,10 +182,7 @@ class CarouselTest extends ParagraphsTestBase {
             'label' => 'CTA 4',
             'path' => '/',
           ],
-          'image' => [
-            'src' => file_create_url('avportal://P-038924/00-15.jpg'),
-            'alt' => 'Euro with miniature figurines',
-          ],
+          'image' => '<img src="//ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg" alt="Euro with miniature figurines" class="d-block w-100">',
         ],
       ],
     ];
@@ -204,10 +201,10 @@ class CarouselTest extends ParagraphsTestBase {
       'items' => [
         [
           'caption_title' => 'BG Item 1',
-          'image' => [
-            'src' => file_create_url($bg_image->getFileUri()),
-            'alt' => 'First image bg',
-          ],
+          'image' => sprintf(
+            '<img src="%s" alt="First image bg" class="d-block w-100">',
+            $file_url_generator->generateAbsoluteString($bg_image->getFileUri())
+          ),
         ],
         [
           'caption_title' => 'BG Item 2',
@@ -216,17 +213,14 @@ class CarouselTest extends ParagraphsTestBase {
             'label' => 'BG CTA 2',
             'path' => 'http://www.example.com/',
           ],
-          'image' => [
-            'src' => file_create_url('avportal://P-038924/00-15.jpg'),
-            'alt' => 'AV Portal photo bg',
-          ],
+          'image' => '<img src="//ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg" alt="AV Portal photo bg" class="d-block w-100">',
         ],
         [
           'caption_title' => 'BG Item 3',
-          'image' => [
-            'src' => file_create_url($bg_image->getFileUri()),
-            'alt' => 'First image bg',
-          ],
+          'image' => sprintf(
+            '<img src="%s" alt="First image bg" class="d-block w-100">',
+            $file_url_generator->generateAbsoluteString($bg_image->getFileUri())
+          ),
         ],
         [
           'caption_title' => 'BG Item 4',
@@ -235,10 +229,7 @@ class CarouselTest extends ParagraphsTestBase {
             'label' => 'BG CTA 4',
             'path' => 'http://www.example.com/',
           ],
-          'image' => [
-            'src' => file_create_url('avportal://P-038924/00-15.jpg'),
-            'alt' => 'AV Portal photo bg',
-          ],
+          'image' => '<img src="//ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg" alt="AV Portal photo bg" class="d-block w-100">',
         ],
       ],
     ];
