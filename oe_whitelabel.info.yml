@@ -14,9 +14,6 @@ libraries-override:
       theme:
         css/system.admin.css: false
 
-ckeditor_stylesheets:
-  - assets/css/oe-bcl-default.min.css
-
 regions:
   header_branding: 'Header branding'
   header_top: 'Header top'
