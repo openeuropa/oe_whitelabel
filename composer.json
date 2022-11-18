@@ -46,7 +46,7 @@
         "openeuropa/oe_list_pages": "^0.20",
         "openeuropa/oe_multilingual": "^1.11",
         "openeuropa/oe_paragraphs": "^1.17",
-        "openeuropa/oe_starter_content": "^1.0.0-beta3",
+        "openeuropa/oe_starter_content": "dev-EPIC-OEL-1723-Publication-v1",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta5",
         "phpspec/prophecy-phpunit": "^2",
         "symfony/dom-crawler": "^4.4.12"
