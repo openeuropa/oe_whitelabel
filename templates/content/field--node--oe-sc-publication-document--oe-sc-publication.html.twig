@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Field template for publication documents.
+ *
+ * @see ./core/themes/stable/templates/field/field.html.twig
+ */
+#}
+{% if items is not empty %}
+  <h2 class="mb-4">{{ 'File download'|t }}</h2>
+  <div class="mb-4-5">
+    {% for item in items %}
+      {{ item.content }}
+    {% endfor %}
+  </div>
+{% endif %}
+
+

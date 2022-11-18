@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Theme override to display a node of bundle publication in the teaser view mode.
+ */
+#}
+{% set _title %}
+  <a class="standalone" href="{{ url }}">{{ label }}</a>
+{% endset %}
+{% block content %}
+  {{ pattern('card', {
+    variant: 'search',
+    title: _title,
+    text: content.oe_summary,
+    image: image,
+    meta: [
+      content.oe_publication_date|field_value,
+    ],
+    attributes: attributes,
+  }) }}
+{% endblock %}
