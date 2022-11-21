@@ -100,8 +100,8 @@ abstract class PatternFormatterBase extends FieldGroupFormatterBase implements C
   public function settingsSummary() {
     $summary = [];
 
-    if ($this->getSetting('label')) {
-      $summary[] = $this->t('Label: @label', ['@label' => $this->getSetting('label')]);
+    if ($this->getLabel()) {
+      $summary[] = $this->t('Label: @label', ['@label' => $this->getLabel()]);
     }
 
     if ($this->getSetting('variant')) {
