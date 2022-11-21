@@ -8,6 +8,7 @@
 declare(strict_types = 1);
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Template\AttributeHelper;
 use Drupal\oe_bootstrap_theme_helper\EuropeanUnionLanguages;
 use Drupal\oe_whitelabel\DocumentMediaWrapper;
 
@@ -54,6 +55,21 @@ function oe_whitelabel_preprocess(&$variables) {
   $variables['bcl_header_style'] = theme_get_setting('header_style') ?? 'standard';
   $variables['current_language_id'] = \Drupal::languageManager()->getCurrentLanguage()->getId();
   $variables['bcl_logo_path'] = base_path() . drupal_get_path('theme', 'oe_bootstrap_theme') . '/assets/logos/';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for field template.
+ */
+function oe_whitelabel_preprocess_field(&$variables, $hook, $info) {
+  // Core doesn't merge the title attributes from render elements back into
+  // the variables attributes.
+  // @see template_preprocess()
+  if (isset($info['render element'])) {
+    $key = $info['render element'];
+    if (isset($variables[$key]['#title_attributes'])) {
+      $variables['title_attributes'] = AttributeHelper::mergeCollections($variables['title_attributes'], $variables[$key]['#title_attributes']);
+    }
+  }
 }
 
 /**
