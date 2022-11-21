@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OE Whitelabel theme Publication.
+ * OE Whitelabel Publication module file.
  */
 
 declare(strict_types =  1);

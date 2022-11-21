@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Install and update functions for the OE Whitelabel Publication module.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\field\Entity\FieldConfig;
+
+/**
+ * Implements hook_install().
+ */
+function oe_whitelabel_starter_publication_install($is_syncing) {
+  if ($is_syncing) {
+    return;
+  }
+
+  $labels = [
+    'oe_sc_publication_document' => 'File download',
+    'body' => 'Description',
+  ];
+
+  foreach ($labels as $field_name => $display_label) {
+    $field = FieldConfig::load('node.oe_sc_publication.' . $field_name);
+    $field->setThirdPartySetting('field_display_label', 'display_label', $display_label);
+    $field->save();
+  }
+}

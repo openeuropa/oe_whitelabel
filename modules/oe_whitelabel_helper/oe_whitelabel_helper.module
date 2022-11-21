@@ -7,9 +7,11 @@
 
 declare(strict_types = 1);
 
+use Drupal\Core\Config\Entity\ThirdPartySettingsInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FormatterInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
 
 /**
  * Implements hook_locale_translation_projects_alter().
@@ -82,5 +84,30 @@ function oe_whitelabel_helper_field_formatter_settings_summary_alter(array &$sum
     $summary[] = t('Gallery pattern: mapped to @field.', [
       '@field' => $mapping,
     ]);
+  }
+}
+
+/**
+ * Implements hook_entity_display_build_alter().
+ */
+function oe_whitelabel_helper_entity_display_build_alter(&$build, $context) {
+  $entity = $context['entity'];
+
+  foreach (Element::children($build) as $field_name) {
+    $element = &$build[$field_name];
+
+    if (!isset($element['#theme']) || $element['#theme'] !== 'field' || !isset($element['#field_name'])) {
+      continue;
+    }
+
+    // @todo Is it safe to use the loop key as field name, instead of looking
+    //   inside the field array definition?
+    $field_definition = $entity->getFieldDefinition($element['#field_name']);
+    if ($field_definition instanceof ThirdPartySettingsInterface) {
+      $display_label = $field_definition->getThirdPartySetting('field_display_label', 'display_label');
+      if (isset($display_label) && !empty($display_label)) {
+        $element['#title'] = $display_label;
+      }
+    }
   }
 }
