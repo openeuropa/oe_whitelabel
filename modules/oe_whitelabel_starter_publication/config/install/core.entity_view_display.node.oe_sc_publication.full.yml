@@ -12,8 +12,23 @@ dependencies:
     - field.field.node.oe_sc_publication.oe_summary
     - node.type.oe_sc_publication
   module:
+    - field_group
     - text
     - user
+third_party_settings:
+  field_group:
+    group_inpage_navigation:
+      children:
+        - oe_sc_publication_authors
+        - oe_reference_code
+        - body
+        - oe_sc_publication_document
+      label: 'Page content'
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: oe_whitelabel_helper_inpage_navigation_pattern
+      format_settings: {  }
 id: node.oe_sc_publication.full
 targetEntityType: node
 bundle: oe_sc_publication
