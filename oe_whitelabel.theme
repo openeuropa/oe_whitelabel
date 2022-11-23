@@ -54,8 +54,29 @@ function oe_whitelabel_theme_suggestions_field_alter(array &$suggestions, array 
   $element = $variables['element'];
   $sanitized_view_mode = strtr($element['#view_mode'], '.', '_');
 
-  // Add view mode to field suggestions.
-  $suggestions[] = 'field__' . $element['#entity_type'] . '__' . $element['#bundle'] . '__' . $sanitized_view_mode;
+  // Add a suggestion which takes into account entity type, bundle and view
+  // mode.
+  $view_mode_suggestion = 'field__' . $element['#entity_type'] . '__' . $element['#bundle'] . '__' . $sanitized_view_mode;
+
+  // Search for the suggestion formed by entity type and bundle. Since field
+  // suggestions are ordered by priority, we need to add new ones in the correct
+  // order. The last ones in the list are field specific templates, which should
+  // have a higher priority.
+  $bundle_suggestion = 'field__' . $element['#entity_type'] . '__' . $element['#bundle'];
+  $position = array_search($bundle_suggestion, $suggestions);
+
+  if ($position === FALSE) {
+    // The bundle suggestion comes from system_theme_suggestions_field(), so
+    // it should be there but take into account scenarios where it was removed
+    // by another alter hook.
+    $suggestions[] = $view_mode_suggestion;
+  }
+  else {
+    array_splice($suggestions, $position, 1, [
+      $bundle_suggestion,
+      $view_mode_suggestion,
+    ]);
+  }
 }
 
 /**
