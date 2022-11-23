@@ -48,17 +48,15 @@ class ContentBannerAssert extends BasePatternAssert {
   /**
    * Asserts the content banner description.
    *
-   * @param string|null $text
-   *   The expected description. Null if no description should be present.
+   * @param string $text
+   *   The expected description.
    * @param \Symfony\Component\DomCrawler\Crawler $crawler
    *   The dom crawler.
    */
-  protected function assertDescription(?string $text, Crawler $crawler): void {
-    // The description wrapper is always rendered, even if empty.
-    $element = $crawler->filter('.card-body > div:last-child');
+  protected function assertDescription(string $text, Crawler $crawler): void {
+    $element = $crawler->filter('.card-body');
     self::assertCount(1, $element);
-
-    self::assertEquals($text ?: '', trim($element->text()));
+    self::assertStringContainsString($text, $element->text());
   }
 
   /**

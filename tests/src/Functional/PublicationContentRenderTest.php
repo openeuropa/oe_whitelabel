@@ -50,7 +50,6 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
       'meta' => [
         '01 August 2022',
       ],
-      'description' => NULL,
       'badges' => [],
       'image' => NULL,
     ], $assert_session->elementExists('css', '.bcl-content-banner')->getOuterHtml());
