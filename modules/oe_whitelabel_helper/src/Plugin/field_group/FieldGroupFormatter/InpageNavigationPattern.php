@@ -8,7 +8,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Render\Element;
 
 /**
- * Format a field group using the description list pattern.
+ * Format a field group using the inpage navigation pattern.
  *
  * @FieldGroupFormatter(
  *   id = "oe_whitelabel_helper_inpage_navigation_pattern",
