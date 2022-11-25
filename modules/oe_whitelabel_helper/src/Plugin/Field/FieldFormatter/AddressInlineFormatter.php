@@ -4,9 +4,9 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_whitelabel_helper\Plugin\Field\FieldFormatter;
 
-use CommerceGuys\Addressing\AddressFormat\AddressField;
 use CommerceGuys\Addressing\Locale;
 use Drupal\address\AddressInterface;
+use Drupal\address\LabelHelper;
 use Drupal\address\Plugin\Field\FieldFormatter\AddressDefaultFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -178,18 +178,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
   protected function getFieldsDisplayOptions(): array {
     return [
       'country' => $this->t('The country'),
-      AddressField::ADMINISTRATIVE_AREA => $this->t('The top-level administrative subdivision of the country'),
-      AddressField::LOCALITY => $this->t('The locality (i.e. city)'),
-      AddressField::DEPENDENT_LOCALITY => $this->t('The dependent locality (i.e. neighbourhood)'),
-      AddressField::POSTAL_CODE => $this->t('The postal code'),
-      AddressField::SORTING_CODE => $this->t('The sorting code'),
-      AddressField::ADDRESS_LINE1 => $this->t('The first line of the address block'),
-      AddressField::ADDRESS_LINE2 => $this->t('The second line of the address block'),
-      AddressField::ORGANIZATION => $this->t('The organization'),
-      AddressField::GIVEN_NAME => $this->t('The given name'),
-      AddressField::ADDITIONAL_NAME => $this->t('The additional name'),
-      AddressField::FAMILY_NAME => $this->t('The family name'),
-    ];
+    ] + LabelHelper::getGenericFieldLabels();
   }
 
   /**
