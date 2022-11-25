@@ -5,11 +5,11 @@ field.formatter.settings.oe_whitelabel_helper_address_inline:
     delimiter:
       type: string
       label: 'Delimiter for address items.'
-    fields_display:
+    properties:
       type: sequence
       sequence:
         type: string
-        label: 'Field'
+        label: 'Properties'
 condition.plugin.oe_whitelabel_helper_current_component_library:
   type: condition.plugin
   mapping:

@@ -33,7 +33,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
   public static function defaultSettings() {
     return [
       'delimiter' => ', ',
-      'fields_display' => [],
+      'properties' => [],
     ];
   }
 
@@ -49,12 +49,12 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
       '#required' => TRUE,
     ];
 
-    $form['fields_display'] = [
+    $form['properties'] = [
       '#type' => 'checkboxes',
-      '#title' => $this->t('Fields to display'),
-      '#default_value' => $this->getSetting('fields_display'),
-      '#description' => $this->t('Which fields should be displayed. Leave empty for all.'),
-      '#options' => $this->getFieldsDisplayOptions(),
+      '#title' => $this->t('Properties'),
+      '#default_value' => $this->getSetting('properties'),
+      '#description' => $this->t('Which properties should be displayed. Leave empty for all.'),
+      '#options' => $this->getPropertiesDisplayOptions(),
     ];
 
     return $form;
@@ -68,8 +68,8 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
       $this->t('Delimiter: @delimiter', [
         '@delimiter' => $this->getSetting('delimiter'),
       ]),
-      $this->t('Fields to display: @fields', [
-        '@fields' => implode(', ', array_filter($this->getSetting('fields_display'))),
+      $this->t('Properties: @properties', [
+        '@properties' => implode(', ', array_filter($this->getSetting('properties'))),
       ]),
     ];
   }
@@ -170,12 +170,12 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
   }
 
   /**
-   * Provides the options for the fields display setting.
+   * Provides the options for the properties display setting.
    *
    * @return array
-   *   The fields display options.
+   *   The properties display options.
    */
-  protected function getFieldsDisplayOptions(): array {
+  protected function getPropertiesDisplayOptions(): array {
     return [
       'country' => $this->t('The country'),
     ] + LabelHelper::getGenericFieldLabels();
@@ -191,11 +191,11 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
    *   The altered format string.
    */
   protected function alterFormatString(string $format_string): string {
-    $options_selected = array_filter($this->getSetting('fields_display'));
+    $options_selected = array_filter($this->getSetting('properties'));
     if (empty($options_selected)) {
       return $format_string;
     }
-    $options_list = array_keys($this->getFieldsDisplayOptions());
+    $options_list = array_keys($this->getPropertiesDisplayOptions());
     // Negate the selected options against the list.
     $fields = array_diff($options_list, $options_selected);
     // Prepend % to all items.
