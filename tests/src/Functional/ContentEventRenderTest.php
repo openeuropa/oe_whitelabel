@@ -115,8 +115,12 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $this->drupalGet($node->toUrl());
     $crawler = $client->getCrawler();
 
-    $date = $crawler->filter('dl > dd');
+    $date = $crawler->filter('dl > dd:nth-of-type(1)');
     $this->assertEquals('Monday 7 February 2022, 09.00 (CET) - Tuesday 22 February 2022, 19.00 (CET)', trim($date->text()));
+
+    // Assert address.
+    $address = $crawler->filter('dl > dd:nth-of-type(2)');
+    $this->assertEquals('Charlemagne building, Wetstraat 170, 1040 Brussel, Belgium', trim($address->text()));
 
     // Assert in-page navigation title.
     $this->assertEquals(
@@ -178,8 +182,10 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       trim($image->attr('src'))
     );
 
-    $time = $crawler->filter('div > span.text-muted');
+    $time = $crawler->filter('div > span.text-muted:nth-of-type(1)');
     $this->assertEquals('9 Feb 2022', trim($time->text()));
+    $address = $crawler->filter('div > span.text-muted:nth-of-type(2)');
+    $this->assertEquals('Brussel, Belgium', trim($address->text()));
 
     // Assert event dates starting and ending at different days.
     $node->set('oe_sc_event_dates', [
@@ -194,8 +200,10 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $crawler = new Crawler((string) $render);
     $this->drupalGet($node->toUrl());
 
-    $time = $crawler->filter('div > span.text-muted');
+    $time = $crawler->filter('div > span.text-muted:nth-of-type(1)');
     $this->assertEquals('7 Feb 2022 - 22 Feb 2022', trim($time->text()));
+    $address = $crawler->filter('div > span.text-muted:nth-of-type(2)');
+    $this->assertEquals('Brussel, Belgium', trim($address->text()));
   }
 
   /**
@@ -251,6 +259,12 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
         'oe_sc_event_dates' => [
           'value' => '2022-02-09T20:00:00',
           'end_value' => '2022-02-09T22:00:00',
+        ],
+        'oe_sc_event_location' => [
+          'country_code' => 'BE',
+          'address_line1' => 'Charlemagne building, Wetstraat 170',
+          'postal_code' => '1040',
+          'locality' => 'Brussel',
         ],
         'uid' => 1,
         'status' => 1,
