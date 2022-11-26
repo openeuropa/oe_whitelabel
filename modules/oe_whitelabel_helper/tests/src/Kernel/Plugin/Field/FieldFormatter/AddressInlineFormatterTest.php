@@ -34,6 +34,10 @@ class AddressInlineFormatterTest extends FormatterTestBase {
   public function testInlineFormatterAddress(): void {
     $entity = EntityTest::create([]);
     foreach ($this->addressFieldTestData() as $data) {
+      if (!empty($data['settings'])) {
+        $this->alterDisplaySettings($data['settings']);
+      }
+
       $cloned_entity = clone $entity;
       $cloned_entity->{$this->fieldName} = $data['address'];
       $this->renderEntityFields($cloned_entity, $this->display);
@@ -48,7 +52,7 @@ class AddressInlineFormatterTest extends FormatterTestBase {
    * @return array[]
    *   An array of test data arrays with expected result.
    */
-  public function addressFieldTestData(): array {
+  protected function addressFieldTestData(): array {
     return [
       'Brussels Belgium' => [
         'address' => [
@@ -115,7 +119,51 @@ class AddressInlineFormatterTest extends FormatterTestBase {
         ],
         'expected' => 'Dhaka, 1100, Bangladesh',
       ],
+      'Brussels Belgium with $ delimiter' => [
+        'address' => [
+          'country_code' => 'BE',
+          'locality' => 'Brussels',
+          'postal_code' => '1000',
+          'address_line1' => 'Rue de la Loi',
+          'address_line2' => '56',
+        ],
+        'expected' => 'Rue de la Loi$56$1000 Brussels$Belgium',
+        'settings' => [
+          'delimiter' => '$',
+        ],
+      ],
+      'Brussels Belgium only country and locality' => [
+        'address' => [
+          'country_code' => 'BE',
+          'locality' => 'Brussels',
+          'postal_code' => '1000',
+          'address_line1' => 'Rue de la Loi',
+          'address_line2' => '56',
+        ],
+        'expected' => 'Brussels, Belgium',
+        'settings' => [
+          'delimiter' => ', ',
+          'properties' => [
+            'country' => 'country',
+            'locality' => 'locality',
+          ],
+        ],
+      ],
     ];
+  }
+
+  /**
+   * Alters the display's settings.
+   *
+   * @param array $settings
+   *   The settings.
+   */
+  protected function alterDisplaySettings(array $settings): void {
+    $this->display->setComponent($this->fieldName, [
+      'type' => 'oe_whitelabel_helper_address_inline',
+      'settings' => $settings,
+    ]);
+    $this->display->save();
   }
 
 }
