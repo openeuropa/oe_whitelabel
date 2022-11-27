@@ -196,13 +196,16 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
       return $format_string;
     }
     $options_list = array_keys($this->getPropertiesDisplayOptions());
-    // Negate the selected options against the list.
+    // Negate the selected options against the list. The format can be complex
+    // with spaces, newlines and other artifacts, the best strategy is to get
+    // the properties to remove and then string replace.
     $fields = array_diff($options_list, $options_selected);
-    // Prepend % to all items.
+    // Prepend '%' to all items, this is how the properties are represented in
+    // the format.
     $fields = array_map(function (string $field): string {
       return '%' . $field;
     }, $fields);
-    // Alter the format string.
+
     return str_replace($fields, '', $format_string);
   }
 
