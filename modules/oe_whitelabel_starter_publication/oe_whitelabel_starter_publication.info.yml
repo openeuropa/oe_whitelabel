@@ -4,7 +4,6 @@ description: Companion module to OpenEuropa Starter Content Publication.
 package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^9.3
 dependencies:
-  - field_display_label:field_display_label
   - field_group:field_group
   - oe_whitelabel:oe_whitelabel_helper
   - oe_starter_content:oe_starter_content_publication

@@ -59,14 +59,14 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
       'title' => 'Page content',
       'links' => [
         [
-          'label' => 'File download',
-          'href' => '#file-download',
+          'label' => 'Document',
+          'href' => '#document',
         ],
       ],
     ], $assert_session->elementExists('css', 'nav.bcl-inpage-navigation')->getOuterHtml());
 
     // Assert that the file is rendered together with the field display label.
-    $this->assertEquals('File download', $assert_session->elementExists('css', 'h2#file-download')->getText());
+    $this->assertEquals('Document', $assert_session->elementExists('css', 'h2#document')->getText());
     $expected_document = [
       'file' => [
         'title' => 'Document title',
@@ -79,7 +79,7 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
       'link_label' => 'Download',
     ];
     $assert = new FilePatternAssert();
-    $assert->assertPattern($expected_document, $assert_session->elementExists('css', 'h2#file-download + div.mb-4-5')->getHtml());
+    $assert->assertPattern($expected_document, $assert_session->elementExists('css', 'h2#document + div.mb-4-5')->getHtml());
 
     // Create a publication with all the fields filled in.
     $thumbnail = $this->createImageMedia();
@@ -132,8 +132,8 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
           'href' => '#description',
         ],
         [
-          'label' => 'File download',
-          'href' => '#file-download',
+          'label' => 'Document',
+          'href' => '#document',
         ],
       ],
     ], $assert_session->elementExists('css', 'nav.bcl-inpage-navigation')->getOuterHtml());
@@ -146,7 +146,7 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
     $assert_session->elementTextEquals('css', 'h2#reference-code + div.mb-4-5', $reference_code);
     $this->assertEquals('Description', $assert_session->elementExists('css', 'h2#description')->getText());
     $assert_session->elementTextEquals('css', 'h2#description + div.mb-4-5', $description);
-    $assert->assertPattern($expected_document, $assert_session->elementExists('css', 'h2#file-download + div.mb-4-5')->getHtml());
+    $assert->assertPattern($expected_document, $assert_session->elementExists('css', 'h2#document + div.mb-4-5')->getHtml());
 
     // Test that up to two authors, they are rendered in an unordered list.
     $person_2 = $this->createPerson('Bob', 'Purple');
