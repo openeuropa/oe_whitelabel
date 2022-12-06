@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel\Functional;
 
-use Drupal\node\NodeInterface;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\FilePatternAssert;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\CardAssert;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\ContentBannerAssert;
@@ -86,7 +85,6 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
     $description = $this->getRandomGenerator()->sentences(20);
     $short_description = $this->getRandomGenerator()->sentences(5);
     $reference_code = $this->randomString();
-    $person_1 = $this->createPerson('John', 'Red');
 
     $node = $this->drupalCreateNode([
       'type' => 'oe_sc_publication',
@@ -96,9 +94,6 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
       'oe_featured_media' => $thumbnail->id(),
       'oe_reference_code' => $reference_code,
       'oe_sc_publication_document' => $document->id(),
-      'oe_sc_publication_authors' => [
-        $person_1,
-      ],
       'oe_publication_date' => '2022-08-02',
     ]);
     $this->drupalGet($node->toUrl());
@@ -120,10 +115,6 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
       'title' => 'Page content',
       'links' => [
         [
-          'label' => 'Authors',
-          'href' => '#authors',
-        ],
-        [
           'label' => 'Reference code',
           'href' => '#reference-code',
         ],
@@ -138,42 +129,11 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
       ],
     ], $assert_session->elementExists('css', 'nav.bcl-inpage-navigation')->getOuterHtml());
 
-    $this->assertEquals('Authors', $assert_session->elementExists('css', 'h2#authors')->getText());
-    $author_list = $assert_session->elementExists('css', 'h2#authors + div.mb-4-5 ul');
-    $this->assertCount(1, $author_list->findAll('css', 'li'));
-    $this->assertEquals('John Red', trim($author_list->getText()));
     $this->assertEquals('Reference code', $assert_session->elementExists('css', 'h2#reference-code')->getText());
     $assert_session->elementTextEquals('css', 'h2#reference-code + div.mb-4-5', $reference_code);
     $this->assertEquals('Description', $assert_session->elementExists('css', 'h2#description')->getText());
     $assert_session->elementTextEquals('css', 'h2#description + div.mb-4-5', $description);
     $assert->assertPattern($expected_document, $assert_session->elementExists('css', 'h2#document + div.mb-4-5')->getHtml());
-
-    // Test that up to two authors, they are rendered in an unordered list.
-    $person_2 = $this->createPerson('Bob', 'Purple');
-    $node->set('oe_sc_publication_authors', [
-      $person_1,
-      $person_2,
-    ])->save();
-    $this->drupalGet($node->toUrl());
-
-    $author_list = $assert_session->elementExists('css', 'h2#authors + div.mb-4-5 ul');
-    $list_items = $author_list->findAll('css', 'li');
-    $this->assertCount(2, $list_items);
-    $this->assertEquals('John Red', trim($list_items[0]->getText()));
-    $this->assertEquals('Bob Purple', trim($list_items[1]->getText()));
-
-    // When three authors or more are present, they are rendered separated by a
-    // bullet.
-    $person_3 = $this->createPerson('Mia', 'Green');
-    $node->set('oe_sc_publication_authors', [
-      $person_1,
-      $person_2,
-      $person_3,
-    ])->save();
-    $this->drupalGet($node->toUrl());
-
-    $assert_session->elementNotExists('css', 'h2#authors + div.mb-4-5 ul');
-    $this->assertEquals('John Red • Bob Purple • Mia Green', trim($assert_session->elementExists('css', 'h2#authors + div.mb-4-5 p')->getText()));
   }
 
   /**
@@ -212,29 +172,6 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
       ],
       'badges' => [],
     ], $html);
-  }
-
-  /**
-   * Creates a person node with default values.
-   *
-   * @param string $first_name
-   *   The first name value.
-   * @param string $last_name
-   *   The last name value.
-   *
-   * @return \Drupal\node\NodeInterface
-   *   The person node.
-   */
-  protected function createPerson(string $first_name, string $last_name): NodeInterface {
-    return $this->drupalCreateNode([
-      'type' => 'oe_sc_person',
-      'oe_sc_person_first_name' => $first_name,
-      'oe_sc_person_last_name' => $last_name,
-      'oe_sc_person_country' => 'IT',
-      'oe_sc_person_occupation' => $this->randomString(),
-      'oe_sc_person_position' => $this->randomString(),
-      'status' => 1,
-    ]);
   }
 
 }
