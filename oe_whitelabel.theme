@@ -8,6 +8,7 @@
 declare(strict_types = 1);
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Template\AttributeHelper;
 use Drupal\oe_bootstrap_theme_helper\EuropeanUnionLanguages;
 use Drupal\oe_whitelabel\DocumentMediaWrapper;
 
@@ -47,6 +48,38 @@ function oe_whitelabel_form_system_theme_settings_alter(&$form, FormStateInterfa
 }
 
 /**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function oe_whitelabel_theme_suggestions_field_alter(array &$suggestions, array $variables) {
+  $element = $variables['element'];
+  $sanitized_view_mode = strtr($element['#view_mode'], '.', '_');
+
+  // Add a suggestion which takes into account entity type, bundle and view
+  // mode.
+  $view_mode_suggestion = 'field__' . $element['#entity_type'] . '__' . $element['#bundle'] . '__' . $sanitized_view_mode;
+
+  // Search for the suggestion formed by entity type and bundle. Since field
+  // suggestions are ordered by priority, we need to add new ones in the correct
+  // order. The last ones in the list are field specific templates, which should
+  // have a higher priority.
+  $bundle_suggestion = 'field__' . $element['#entity_type'] . '__' . $element['#bundle'];
+  $position = array_search($bundle_suggestion, $suggestions);
+
+  if ($position === FALSE) {
+    // The bundle suggestion comes from system_theme_suggestions_field(), so
+    // it should be there but take into account scenarios where it was removed
+    // by another alter hook.
+    $suggestions[] = $view_mode_suggestion;
+  }
+  else {
+    array_splice($suggestions, $position, 1, [
+      $bundle_suggestion,
+      $view_mode_suggestion,
+    ]);
+  }
+}
+
+/**
  * Implements hook_preprocess().
  */
 function oe_whitelabel_preprocess(&$variables) {
@@ -54,6 +87,21 @@ function oe_whitelabel_preprocess(&$variables) {
   $variables['bcl_header_style'] = theme_get_setting('header_style') ?? 'standard';
   $variables['current_language_id'] = \Drupal::languageManager()->getCurrentLanguage()->getId();
   $variables['bcl_logo_path'] = base_path() . drupal_get_path('theme', 'oe_bootstrap_theme') . '/assets/logos/';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for field template.
+ */
+function oe_whitelabel_preprocess_field(&$variables, $hook, $info) {
+  // Core doesn't merge the title attributes from render elements back into
+  // the variables attributes.
+  // @see template_preprocess()
+  if (isset($info['render element'])) {
+    $key = $info['render element'];
+    if (isset($variables[$key]['#title_attributes'])) {
+      $variables['title_attributes'] = AttributeHelper::mergeCollections($variables['title_attributes'], $variables[$key]['#title_attributes']);
+    }
+  }
 }
 
 /**
