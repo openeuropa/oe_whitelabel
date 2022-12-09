@@ -188,7 +188,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
    */
   protected function getPropertiesDisplayOptions(): array {
     return [
-      'country' => $this->t('The country'),
+      'country' => $this->t('Country'),
     ] + LabelHelper::getGenericFieldLabels();
   }
 
