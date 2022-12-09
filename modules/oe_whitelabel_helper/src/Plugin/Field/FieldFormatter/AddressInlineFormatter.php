@@ -122,7 +122,6 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
      * @see \CommerceGuys\Addressing\AddressFormat\AddressFormatRepository::getDefinitions()
      */
     $format_string = str_replace([',', ' - ', '/'], "\n", $format_string);
-    $format_string = $this->alterFormatString($format_string);
 
     $items = $this->extractAddressItems($format_string, $address_elements);
 
@@ -192,34 +191,6 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
     return [
       'country' => $this->t('The country'),
     ] + LabelHelper::getGenericFieldLabels();
-  }
-
-  /**
-   * Alters the format string depending on fields options selected.
-   *
-   * @param string $format_string
-   *   The format string.
-   *
-   * @return string
-   *   The altered format string.
-   */
-  protected function alterFormatString(string $format_string): string {
-    $options_selected = array_keys(array_filter($this->getSetting('properties')));
-    if (empty($options_selected)) {
-      return $format_string;
-    }
-    $options_list = array_keys($this->getPropertiesDisplayOptions());
-    // Negate the selected options against the list. The format can be complex
-    // with spaces, newlines and other artifacts, the best strategy is to get
-    // the properties to remove and then string replace.
-    $fields = array_diff($options_list, $options_selected);
-    // Prepend '%' to all items, this is how the properties are represented in
-    // the format.
-    $fields = array_map(function (string $field): string {
-      return '%' . $field;
-    }, $fields);
-
-    return str_replace($fields, '', $format_string);
   }
 
 }
