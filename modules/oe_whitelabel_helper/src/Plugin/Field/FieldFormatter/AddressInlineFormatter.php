@@ -52,7 +52,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
     $form['properties'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Properties'),
-      '#default_value' => array_keys(array_filter($this->getSetting('properties'))),
+      '#default_value' => $this->getActiveProperties(),
       '#description' => $this->t('Which properties should be displayed. Leave empty for all.'),
       '#options' => $this->getPropertiesDisplayOptions(),
     ];
@@ -69,7 +69,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
         '@delimiter' => $this->getSetting('delimiter'),
       ]),
       $this->t('Properties: @properties', [
-        '@properties' => implode(', ', array_keys(array_filter($this->getSetting('properties')))),
+        '@properties' => implode(', ', $this->getActiveProperties()),
       ]),
     ];
   }
@@ -152,7 +152,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
   protected function extractAddressItems(string $string, array $replacements): array {
     $properties = array_map(function (string $property): string {
       return '%' . $property;
-    }, array_keys(array_filter($this->getSetting('properties'))));
+    }, $this->getActiveProperties());
 
     // Make sure the replacements don't have any unneeded newlines.
     $replacements = array_map('trim', $replacements);
@@ -191,6 +191,16 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
     return [
       'country' => $this->t('The country'),
     ] + LabelHelper::getGenericFieldLabels();
+  }
+
+  /**
+   * Gets the active properties.
+   *
+   * @return array
+   *   The properties.
+   */
+  protected function getActiveProperties(): array {
+    return array_keys(array_filter($this->getSetting('properties')));
   }
 
 }
