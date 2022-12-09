@@ -90,6 +90,9 @@
         "patches": {
             "drupal/entity_reference_revisions": {
                 "https://www.drupal.org/project/entity_reference_revisions/issues/2937835": "https://www.drupal.org/files/issues/2021-03-26/entity_reference_revisions-field_formatter_label-2937835-36.patch"
+            },
+            "openeuropa/oe_starter_content": {
+                "1.x": "https://github.com/openeuropa/oe_starter_content/compare/1.0.0-beta3...1.x.diff"
             }
         },
         "drupal-scaffold": {
