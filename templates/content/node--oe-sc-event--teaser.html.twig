@@ -16,7 +16,7 @@
   meta: [
     content.oe_sc_event_dates|field_value,
     content.oe_sc_event_location|field_value
-  ],
+  ]|filter(element => element is not empty),
   attributes: attributes,
 }) }}
 {% endblock %}
