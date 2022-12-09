@@ -8,7 +8,7 @@ field.formatter.settings.oe_whitelabel_helper_address_inline:
     properties:
       type: sequence
       sequence:
-        type: string
+        type: boolean
         label: 'Properties'
 condition.plugin.oe_whitelabel_helper_current_component_library:
   type: condition.plugin

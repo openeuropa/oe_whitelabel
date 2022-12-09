@@ -35,18 +35,8 @@ content:
     settings:
       delimiter: ', '
       properties:
-        country: country
-        locality: locality
-        givenName: '0'
-        additionalName: '0'
-        familyName: '0'
-        organization: '0'
-        addressLine1: '0'
-        addressLine2: '0'
-        postalCode: '0'
-        sortingCode: '0'
-        dependentLocality: '0'
-        administrativeArea: '0'
+        country: true
+        locality: true
     third_party_settings: {  }
     weight: 5
     region: content

@@ -52,7 +52,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
     $form['properties'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Properties'),
-      '#default_value' => $this->getSetting('properties'),
+      '#default_value' => array_keys(array_filter($this->getSetting('properties'))),
       '#description' => $this->t('Which properties should be displayed. Leave empty for all.'),
       '#options' => $this->getPropertiesDisplayOptions(),
     ];
@@ -69,7 +69,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
         '@delimiter' => $this->getSetting('delimiter'),
       ]),
       $this->t('Properties: @properties', [
-        '@properties' => implode(', ', array_filter($this->getSetting('properties'))),
+        '@properties' => implode(', ', array_keys(array_filter($this->getSetting('properties')))),
       ]),
     ];
   }
@@ -151,8 +151,21 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
    *   The exploded lines.
    */
   protected function extractAddressItems(string $string, array $replacements): array {
+    $properties = array_map(function (string $property): string {
+      return '%' . $property;
+    }, array_keys(array_filter($this->getSetting('properties'))));
+
     // Make sure the replacements don't have any unneeded newlines.
     $replacements = array_map('trim', $replacements);
+
+    if (!empty($properties)) {
+      foreach ($replacements as $key => &$value) {
+        if (!in_array($key, $properties)) {
+          $value = '';
+        }
+      }
+    }
+
     $string = strtr($string, $replacements);
     // Remove noise caused by empty placeholders.
     $lines = explode("\n", $string);
@@ -191,7 +204,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
    *   The altered format string.
    */
   protected function alterFormatString(string $format_string): string {
-    $options_selected = array_filter($this->getSetting('properties'));
+    $options_selected = array_keys(array_filter($this->getSetting('properties')));
     if (empty($options_selected)) {
       return $format_string;
     }
