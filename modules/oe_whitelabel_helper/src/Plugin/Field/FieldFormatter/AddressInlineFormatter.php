@@ -154,9 +154,6 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
       return '%' . $property;
     }, $this->getActiveProperties());
 
-    // Make sure the replacements don't have any unneeded newlines.
-    $replacements = array_map('trim', $replacements);
-
     if (!empty($properties)) {
       foreach ($replacements as $key => &$value) {
         if (!in_array($key, $properties)) {
@@ -165,6 +162,8 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
       }
     }
 
+    // Make sure the replacements don't have any unneeded newlines.
+    $replacements = array_map('trim', $replacements);
     $string = strtr($string, $replacements);
     // Remove noise caused by empty placeholders.
     $lines = explode("\n", $string);
