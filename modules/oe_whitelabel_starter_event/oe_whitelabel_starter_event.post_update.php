@@ -49,3 +49,10 @@ function oe_whitelabel_starter_event_post_update_00003(): void {
     TRUE
   );
 }
+
+/**
+ * Add location to Event teaser.
+ */
+function oe_whitelabel_starter_event_post_update_00004(): void {
+  ConfigImporter::importSingle('module', 'oe_whitelabel_starter_event', '/config/post_updates/00004_teaser_location', 'core.entity_view_display.node.oe_sc_event.teaser');
+}

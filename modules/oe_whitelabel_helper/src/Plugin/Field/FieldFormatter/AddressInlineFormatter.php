@@ -6,6 +6,7 @@ namespace Drupal\oe_whitelabel_helper\Plugin\Field\FieldFormatter;
 
 use CommerceGuys\Addressing\Locale;
 use Drupal\address\AddressInterface;
+use Drupal\address\LabelHelper;
 use Drupal\address\Plugin\Field\FieldFormatter\AddressDefaultFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -32,6 +33,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
   public static function defaultSettings() {
     return [
       'delimiter' => ', ',
+      'properties' => [],
     ];
   }
 
@@ -39,13 +41,20 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
-
     $form['delimiter'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Delimiter'),
       '#default_value' => $this->getSetting('delimiter'),
       '#description' => $this->t('Specify delimiter between address items.'),
       '#required' => TRUE,
+    ];
+
+    $form['properties'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t('Properties'),
+      '#default_value' => $this->getActiveProperties(),
+      '#description' => $this->t('Which properties should be displayed. Leave empty for all.'),
+      '#options' => $this->getPropertiesDisplayOptions(),
     ];
 
     return $form;
@@ -58,6 +67,9 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
     return [
       $this->t('Delimiter: @delimiter', [
         '@delimiter' => $this->getSetting('delimiter'),
+      ]),
+      $this->t('Properties: @properties', [
+        '@properties' => implode(', ', $this->getActiveProperties()),
       ]),
     ];
   }
@@ -102,6 +114,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
     else {
       $format_string = $address_format->getFormat() . "\n" . '%country';
     }
+
     /*
      * Remove extra characters from address format since address fields are
      * optional.
@@ -137,11 +150,24 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
    *   The exploded lines.
    */
   protected function extractAddressItems(string $string, array $replacements): array {
+    $properties = array_map(function (string $property): string {
+      return '%' . $property;
+    }, $this->getActiveProperties());
+
+    if (!empty($properties)) {
+      $properties_keys = array_flip($properties);
+
+      foreach (array_diff_key($replacements, $properties_keys) as $key => $value) {
+        $replacements[$key] = '';
+      }
+    }
+
     // Make sure the replacements don't have any unneeded newlines.
     $replacements = array_map('trim', $replacements);
     $string = strtr($string, $replacements);
     // Remove noise caused by empty placeholders.
     $lines = explode("\n", $string);
+
     foreach ($lines as $index => $line) {
       // Remove leading punctuation, excess whitespace.
       $line = trim(preg_replace('/^[-,]+/', '', $line, 1));
@@ -152,6 +178,28 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
     $lines = array_filter($lines);
 
     return $lines;
+  }
+
+  /**
+   * Provides the options for the properties display setting.
+   *
+   * @return array
+   *   The properties display options.
+   */
+  protected function getPropertiesDisplayOptions(): array {
+    return [
+      'country' => $this->t('Country'),
+    ] + LabelHelper::getGenericFieldLabels();
+  }
+
+  /**
+   * Gets the active properties.
+   *
+   * @return array
+   *   The properties.
+   */
+  protected function getActiveProperties(): array {
+    return array_keys(array_filter($this->getSetting('properties')));
   }
 
 }
