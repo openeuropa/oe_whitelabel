@@ -37,6 +37,16 @@ content:
       properties:
         country: true
         locality: true
+        givenName: false
+        additionalName: false
+        familyName: false
+        organization: false
+        addressLine1: false
+        addressLine2: false
+        postalCode: false
+        sortingCode: false
+        dependentLocality: false
+        administrativeArea: false
     third_party_settings: {  }
     weight: 5
     region: content
