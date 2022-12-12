@@ -155,10 +155,10 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
     }, $this->getActiveProperties());
 
     if (!empty($properties)) {
-      foreach ($replacements as $key => &$value) {
-        if (!in_array($key, $properties)) {
-          $value = '';
-        }
+      $properties_keys = array_flip($properties);
+
+      foreach (array_diff_key($replacements, $properties_keys) as $key => $value) {
+        $replacements[$key] = '';
       }
     }
 
