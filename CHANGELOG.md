@@ -1,10 +1,28 @@
 # Change Log
 
+## [1.0.0](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0) (2022-12-13)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-beta7...1.0.0)
+
+**Closed issues:**
+
+- CKEditor stylesheet referenced in info file doesn't exist [\#184](https://github.com/openeuropa/oe_whitelabel/issues/184)
+
+**Merged pull requests:**
+
+- OEL-1723: Publication content type. [\#200](https://github.com/openeuropa/oe_whitelabel/pull/200) ([brummbar](https://github.com/brummbar))
+- OEL-2128: Add Skip to main content target. [\#199](https://github.com/openeuropa/oe_whitelabel/pull/199) ([drishu](https://github.com/drishu))
+- OEL-2144: Support different releases of oe\_corporate\_blocks. [\#196](https://github.com/openeuropa/oe_whitelabel/pull/196) ([brummbar](https://github.com/brummbar))
+- OEL-2119: Bump up oe\_paragraphs version. [\#195](https://github.com/openeuropa/oe_whitelabel/pull/195) ([drishu](https://github.com/drishu))
+- OEL-1676: Add address to Event teaser. [\#194](https://github.com/openeuropa/oe_whitelabel/pull/194) ([drishu](https://github.com/drishu))
+- OEL-1572: Remove ckeditor\_stylesheets. [\#192](https://github.com/openeuropa/oe_whitelabel/pull/192) ([drishu](https://github.com/drishu))
+- OEL-2070: Style the gallery paragraph. [\#188](https://github.com/openeuropa/oe_whitelabel/pull/188) ([brummbar](https://github.com/brummbar))
+
 ## [1.0.0-beta7](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0-beta7) (2022-11-03)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-beta6...1.0.0-beta7)
 
 **Merged pull requests:**
 
+- Prepare release 1.0.0-beta7. [\#191](https://github.com/openeuropa/oe_whitelabel/pull/191) ([drishu](https://github.com/drishu))
 - OEL-1414: Theme the OE List Pages exposed sort. [\#187](https://github.com/openeuropa/oe_whitelabel/pull/187) ([drishu](https://github.com/drishu))
 - OEL-2002: Preserve Drupal links. [\#182](https://github.com/openeuropa/oe_whitelabel/pull/182) ([drishu](https://github.com/drishu))
 
