@@ -79,7 +79,7 @@ function _oe_whitelabel_starter_event_preprocess_links(array &$variables): void 
  * Implements template_preprocess_node() for the Event node type.
  */
 function oe_whitelabel_starter_event_preprocess_node__oe_sc_event__teaser(&$variables) {
-  _oe_whitelabel_starter_event_preprocess_featured_media($variables);
+  _oe_whitelabel_starter_event_preprocess_date($variables);
 }
 
 /**
@@ -168,6 +168,41 @@ function _oe_whitelabel_starter_event_preprocess_inpage_nav(array &$variables): 
     $variables['inpage_navigation_links'][] = [
       'path' => '#' . $unique_id,
       'label' => $node->{$item['#field_name']}->getFieldDefinition()->getLabel(),
+    ];
+  }
+}
+
+/**
+ * Helper function to preprocess the date field.
+ *
+ * @param array $variables
+ *   Render array variables.
+ */
+function _oe_whitelabel_starter_event_preprocess_date(array &$variables): void {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+
+  if ($node->get('oe_sc_event_dates')->isEmpty()) {
+    return;
+  }
+
+  $dates = $node->get('oe_sc_event_dates')->first();
+  /** @var \Drupal\Core\Datetime\DrupalDateTime $start */
+  $start = $dates->get('start_date')->getValue();
+  $variables['date_block'] = [
+    'year' => $start->format('Y'),
+    'month' => $start->format('M'),
+    'day' => $start->format('d'),
+    'date_time' => $start->format('Y-m-d'),
+  ];
+  /** @var \Drupal\Core\Datetime\DrupalDateTime $end */
+  $end = $dates->get('end_date')->getValue();
+
+  if (!empty($end) && $start->format('d-m-y') !== $end->format('d-m-y')) {
+    $variables['date_block'] += [
+      'end_year' => $end->format('Y'),
+      'end_month' => $end->format('M'),
+      'end_day' => $end->format('d'),
     ];
   }
 }
