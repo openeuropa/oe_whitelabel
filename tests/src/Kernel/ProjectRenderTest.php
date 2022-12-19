@@ -6,7 +6,7 @@ namespace Drupal\Tests\oe_whitelabel\Kernel;
 
 use Drupal\media\Entity\Media;
 use Drupal\node\Entity\Node;
-use Drupal\Tests\oe_whitelabel\PatternAssertions\CardAssert;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CardPatternAssert;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 
 /**
@@ -94,7 +94,7 @@ class ProjectRenderTest extends ContentRenderTestBase {
     $build = $this->nodeViewBuilder->view($node, 'teaser');
     $html = $this->renderRoot($build);
 
-    $assert = new CardAssert();
+    $assert = new CardPatternAssert();
 
     $expected_values = [
       'title' => 'Project 1',

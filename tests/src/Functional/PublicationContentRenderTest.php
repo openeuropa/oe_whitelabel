@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel\Functional;
 
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CardPatternAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\FilePatternAssert;
-use Drupal\Tests\oe_whitelabel\PatternAssertions\CardAssert;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\ContentBannerAssert;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\InPageNavigationAssert;
 use Drupal\Tests\oe_whitelabel\Traits\MediaCreationTrait;
@@ -157,7 +157,7 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
     $build = $builder->view($node, 'teaser');
     $html = (string) $this->container->get('renderer')->renderRoot($build);
 
-    $card_assert = new CardAssert();
+    $card_assert = new CardPatternAssert();
     $card_assert->assertVariant('search', $html);
     $card_assert->assertPattern([
       'title' => $title,
