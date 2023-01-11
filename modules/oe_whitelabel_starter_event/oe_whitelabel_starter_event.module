@@ -200,9 +200,12 @@ function _oe_whitelabel_starter_event_preprocess_date(array &$variables): void {
 
   if (!empty($end) && $start->format('d-m-y') !== $end->format('d-m-y')) {
     $variables['date_block'] += [
-      'end_year' => $end->format('Y'),
       'end_month' => $end->format('M'),
       'end_day' => $end->format('d'),
     ];
+
+    if ($start->format('y') !== $end->format('y')) {
+      $variables['date_block']['end_year'] = $end->format('Y');
+    }
   }
 }
