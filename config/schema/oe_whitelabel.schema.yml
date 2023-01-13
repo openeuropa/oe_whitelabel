@@ -1,5 +1,5 @@
 oe_whitelabel.settings:
-  type: theme_settings
+  type: oe_bootstrap_theme.settings
   label: 'OE Whitelabel settings'
   mapping:
     component_library:

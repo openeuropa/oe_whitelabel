@@ -8,8 +8,8 @@ use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 use Drupal\node\NodeInterface;
 use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CardPatternAssert;
 use Drupal\Tests\TestFileCreationTrait;
-use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Tests that the Event content type renders correctly.
@@ -164,28 +164,25 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     // Build node teaser view.
     $builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $build = $builder->view($node, 'teaser');
-    $render = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler((string) $render);
+    $html = (string) $this->container->get('renderer')->renderRoot($build);
 
-    $article = $crawler->filter('article');
-    $this->assertCount(1, $article);
-
-    $this->assertEquals(
-      'Test event node',
-      trim($article->filter('h1.card-title')->text())
-    );
-    $image = $article->filter('img');
-    $this->assertCount(1, $image);
-    $this->assertCount(1, $image->filter('.card-img-top'));
-    $this->assertStringContainsString(
-      'image-test.png',
-      trim($image->attr('src'))
-    );
-
-    $time = $crawler->filter('div > span.text-muted:nth-of-type(1)');
-    $this->assertEquals('9 Feb 2022', trim($time->text()));
-    $address = $crawler->filter('div > span.text-muted:nth-of-type(2)');
-    $this->assertEquals('Brussel, Belgium', trim($address->text()));
+    $expected = [
+      'title' => 'Test event node',
+      'description' => 'https://www.example.org is a web page',
+      'content' => [
+        '9 Feb 2022',
+        'Brussel, Belgium',
+      ],
+      'date' => [
+        'year' => '2022',
+        'month' => 'Feb',
+        'day' => '09',
+        'date_time' => '2022-02-09',
+      ],
+    ];
+    $card_assert = new CardPatternAssert();
+    $card_assert->assertVariant('search', $html);
+    $card_assert->assertPattern($expected, $html);
 
     // Assert event dates starting and ending at different days.
     $node->set('oe_sc_event_dates', [
@@ -194,16 +191,24 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     ]);
     $node->save();
 
-    $builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $build = $builder->view($node, 'teaser');
-    $render = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler((string) $render);
-    $this->drupalGet($node->toUrl());
+    $html = (string) $this->container->get('renderer')->renderRoot($build);
 
-    $time = $crawler->filter('div > span.text-muted:nth-of-type(1)');
-    $this->assertEquals('7 Feb 2022 - 22 Feb 2022', trim($time->text()));
-    $address = $crawler->filter('div > span.text-muted:nth-of-type(2)');
-    $this->assertEquals('Brussel, Belgium', trim($address->text()));
+    $expected['content'] = [
+      '7 Feb 2022 - 22 Feb 2022',
+      'Brussel, Belgium',
+    ];
+    $expected['date'] = [
+      'year' => '2022',
+      'month' => 'Feb',
+      'day' => '07',
+      'end_year' => '2022',
+      'end_month' => 'Feb',
+      'end_day' => '22',
+      'date_time' => '2022-02-07',
+    ];
+    $card_assert->assertVariant('search', $html);
+    $card_assert->assertPattern($expected, $html);
   }
 
   /**
