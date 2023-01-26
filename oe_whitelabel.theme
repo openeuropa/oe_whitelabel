@@ -239,4 +239,6 @@ function oe_whitelabel_library_info_alter(array &$libraries, string $extension):
       ],
     ],
   ];
+  // The slim.select css is already present in the parent theme.
+  unset($libraries['slim.select']['css']);
 }
