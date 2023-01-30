@@ -6,6 +6,7 @@ namespace Drupal\Tests\oe_whitelabel_helper\Functional\Plugin\field_group;
 
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\Tests\oe_whitelabel\PatternAssertions\DescriptionListAssert;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\field_group\Functional\FieldGroupTestTrait;
 
@@ -83,7 +84,7 @@ class PatternFormatterTest extends BrowserTestBase {
    * Test description list pattern formatter.
    */
   public function testDescriptionListPatternFormatter() {
-    $assert_session = $this->assertSession();
+    $page = $this->getSession()->getPage();
 
     $data = [
       'weight' => '1',
@@ -109,11 +110,23 @@ class PatternFormatterTest extends BrowserTestBase {
 
     // Assert that fields are rendered using the field list horizontal pattern.
     $this->drupalGet('node/1');
-    $assert_session->elementsCount('css', 'dl', 1);
-    $assert_session->elementTextContains('css', 'dl div dt', 'Field 1');
-    $assert_session->elementTextContains('css', 'dl dd:nth-child(2)', 'Content test 1');
-    $assert_session->elementTextContains('css', 'dl div:nth-child(3) dt', 'Field 2');
-    $assert_session->elementTextContains('css', 'dl dd:nth-child(4)', 'Content test 2');
+
+    $description_lists = $page->findAll('css', '.bcl-description-list');
+    $this->assertCount(1, $description_lists);
+
+    $description_list_assert = new DescriptionListAssert();
+    $description_list_assert->assertPattern([
+      'items' => [
+        [
+          'term' => 'Field 1',
+          'definition' => 'Content test 1',
+        ],
+        [
+          'term' => 'Field 2',
+          'definition' => 'Content test 2',
+        ],
+      ],
+    ], $description_lists[0]->getOuterHtml());
   }
 
 }

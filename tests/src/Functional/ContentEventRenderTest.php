@@ -100,7 +100,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $this->assertStringContainsString('Register', $link->text());
     $this->assertStringContainsString('calendar-check', $link->html());
 
-    $date = $crawler->filter('dl > dd');
+    $date = $crawler->filter('dl dd');
 
     // Assert event dates starting and ending same day.
     $this->assertEquals('Wednesday 9 February 2022, 21.00-23.00 (CET)', trim($date->text()));
@@ -115,11 +115,11 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $this->drupalGet($node->toUrl());
     $crawler = $client->getCrawler();
 
-    $date = $crawler->filter('dl > dd:nth-of-type(1)');
+    $date = $crawler->filter('dl:nth-of-type(1) dd');
     $this->assertEquals('Monday 7 February 2022, 09.00 (CET) - Tuesday 22 February 2022, 19.00 (CET)', trim($date->text()));
 
     // Assert address.
-    $address = $crawler->filter('dl > dd:nth-of-type(2)');
+    $address = $crawler->filter('dl:nth-of-type(2) dd');
     $this->assertEquals('Charlemagne building, Wetstraat 170, 1040 Brussel, Belgium', trim($address->text()));
 
     // Assert in-page navigation title.

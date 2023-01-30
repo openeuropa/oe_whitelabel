@@ -6,6 +6,7 @@ namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
 use Drupal\filter\Entity\FilterFormat;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Tests\oe_whitelabel\PatternAssertions\DescriptionListAssert;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -69,29 +70,26 @@ class DescriptionListTest extends ParagraphsTestBase {
     $html = $this->renderParagraph($paragraph);
     $crawler = new Crawler($html);
 
-    $this->assertCount(1, $crawler->filter('h2.bcl-heading'));
-    $this->assertCount(1, $crawler->filter('dl.d-md-grid.grid-3-9'));
-    $this->assertCount(2, $crawler->filter('dd'));
-    $this->assertCount(2, $crawler->filter('dt'));
-
     $title = $crawler->filter('h2.bcl-heading');
+    $this->assertCount(1, $title);
     $this->assertEquals('Description list paragraph', $title->text());
 
-    $term_1 = $crawler->filter('dl > div:nth-child(1) > dt');
-    $this->assertEquals('Aliquam ultricies', $term_1->html());
-    $description_1 = $crawler->filter('dl > div:nth-child(1) + dd > div');
-    $this->assertEquals(
-      'Donec et leo ac velit posuere tempor <em>mattis</em> ac mi. Vivamus nec <strong>dictum</strong> lectus. Aliquam ultricies placerat eros, vitae ornare sem.',
-      $description_1->html()
-    );
+    $description_lists = $crawler->filter('.bcl-description-list');
+    $this->assertCount(1, $description_lists);
+    $description_list_assert = new DescriptionListAssert();
 
-    $term_2 = $crawler->filter('dl > div:nth-child(3) > dt');
-    $this->assertEquals('Etiam &lt;em&gt;lacinia&lt;/em&gt;', $term_2->html());
-    $description_2 = $crawler->filter('dl > div:nth-child(3) + dd > div');
-    $this->assertEquals(
-      'Quisque tempor sollicitudin <em>lacinia</em>. Morbi imperdiet nulla et nunc aliquet, vel lobortis nunc cursus. Mauris vitae hendrerit felis.',
-      $description_2->html()
-    );
+    $description_list_assert->assertPattern([
+      'items' => [
+        [
+          'term' => 'Aliquam ultricies',
+          'definition' => 'Donec et leo ac velit posuere tempor mattis ac mi. Vivamus nec dictum lectus. Aliquam ultricies placerat eros, vitae ornare sem.',
+        ],
+        [
+          'term' => 'Etiam <em>lacinia</em>',
+          'definition' => 'Quisque tempor sollicitudin lacinia. Morbi imperdiet nulla et nunc aliquet, vel lobortis nunc cursus. Mauris vitae hendrerit felis.',
+        ],
+      ],
+    ], $description_lists->outerHtml());
 
     // Testing: Description list paragraph with vertical variant.
     $paragraph->get('oe_w_orientation')->setValue('vertical');
@@ -103,21 +101,21 @@ class DescriptionListTest extends ParagraphsTestBase {
     $title = $crawler->filter('h2.bcl-heading');
     $this->assertEquals('Description list paragraph', $title->text());
 
-    $term_1 = $crawler->filter('dl > dt:nth-child(1)');
-    $this->assertEquals('Aliquam ultricies', $term_1->html());
-    $description_1 = $crawler->filter('dl > dt:nth-child(1) + dd');
-    $this->assertEquals(
-      'Donec et leo ac velit posuere tempor <em>mattis</em> ac mi. Vivamus nec <strong>dictum</strong> lectus. Aliquam ultricies placerat eros, vitae ornare sem.',
-      $description_1->html()
-    );
+    $description_lists = $crawler->filter('.bcl-description-list');
+    $this->assertCount(1, $description_lists);
 
-    $term_2 = $crawler->filter('dl > dt:nth-child(3)');
-    $this->assertEquals('Etiam &lt;em&gt;lacinia&lt;/em&gt;', $term_2->html());
-    $description_2 = $crawler->filter('dl > dt:nth-child(3) + dd');
-    $this->assertEquals(
-      'Quisque tempor sollicitudin <em>lacinia</em>. Morbi imperdiet nulla et nunc aliquet, vel lobortis nunc cursus. Mauris vitae hendrerit felis.',
-      $description_2->html()
-    );
+    $description_list_assert->assertPattern([
+      'items' => [
+        [
+          'term' => 'Aliquam ultricies',
+          'definition' => 'Donec et leo ac velit posuere tempor mattis ac mi. Vivamus nec dictum lectus. Aliquam ultricies placerat eros, vitae ornare sem.',
+        ],
+        [
+          'term' => 'Etiam <em>lacinia</em>',
+          'definition' => 'Quisque tempor sollicitudin lacinia. Morbi imperdiet nulla et nunc aliquet, vel lobortis nunc cursus. Mauris vitae hendrerit felis.',
+        ],
+      ],
+    ], $description_lists->outerHtml());
   }
 
 }
