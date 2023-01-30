@@ -184,3 +184,61 @@ function oe_whitelabel_preprocess_media__document__default(&$variables) {
     $variables['translations'][] = $wrapper->toFileValueObject();
   }
 }
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function oe_whitelabel_element_info_alter(array &$info): void {
+  $module_handler = \Drupal::service('module_handler');
+
+  if (isset($info['select']) && $module_handler->moduleExists('slim_select')) {
+    $info['select']['#process'][] = '_oe_whitelabel_process_element_select';
+  }
+}
+
+/**
+ * Process callback for applying slim_select on elements.
+ *
+ * @param array $element
+ *   The element to alter.
+ *
+ * @return array
+ *   The altered element.
+ *
+ * @see oe_whitelabel_element_info_alter
+ */
+function _oe_whitelabel_process_element_select(array &$element): array {
+  if (!$element['#multiple']) {
+    return $element;
+  }
+
+  $element['#attributes']['class'][] = 'multi-select';
+  // Config is empty so that it uses the defaults.
+  $element['#slim_select'] = [];
+
+  return $element;
+}
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function oe_whitelabel_library_info_alter(array &$libraries, string $extension): void {
+  if ('slim_select' !== $extension) {
+    return;
+  }
+
+  $theme_handler = \Drupal::service('theme_handler');
+  $theme_path = $theme_handler->getTheme('oe_bootstrap_theme')->getPath();
+  $path = '/' . $theme_path . '/assets/js/slimselect.min.js';
+
+  $libraries['slim.select']['js'] = [
+    $path => [
+      'minified' => TRUE,
+      'attributes' => [
+        'defer' => TRUE,
+      ],
+    ],
+  ];
+  // The slim.select css is already present in the parent theme.
+  unset($libraries['slim.select']['css']);
+}
