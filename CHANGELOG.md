@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.1.0](https://github.com/openeuropa/oe_whitelabel/tree/1.1.0) (2023-02-06)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0...1.1.0)
+
+**Merged pull requests:**
+
+- OEL-1574: Enable oebt version of slim\_select. [\#205](https://github.com/openeuropa/oe_whitelabel/pull/205) ([drishu](https://github.com/drishu))
+- OEL-1806: Show HR only when pager has items. [\#204](https://github.com/openeuropa/oe_whitelabel/pull/204) ([drishu](https://github.com/drishu))
+- OEL-1915: Add Date to the Event teaser. [\#203](https://github.com/openeuropa/oe_whitelabel/pull/203) ([drishu](https://github.com/drishu))
+- OEL-2166: Upgrade to BCL 1.0.0 [\#186](https://github.com/openeuropa/oe_whitelabel/pull/186) ([brummbar](https://github.com/brummbar))
+
 ## [1.0.0](https://github.com/openeuropa/oe_whitelabel/tree/1.0.0) (2022-12-13)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0-beta7...1.0.0)
 
@@ -9,6 +19,7 @@
 
 **Merged pull requests:**
 
+- Prepare changelog for release 1.0.0. [\#202](https://github.com/openeuropa/oe_whitelabel/pull/202) ([brummbar](https://github.com/brummbar))
 - OEL-1723: Publication content type. [\#200](https://github.com/openeuropa/oe_whitelabel/pull/200) ([brummbar](https://github.com/brummbar))
 - OEL-2128: Add Skip to main content target. [\#199](https://github.com/openeuropa/oe_whitelabel/pull/199) ([drishu](https://github.com/drishu))
 - OEL-2144: Support different releases of oe\_corporate\_blocks. [\#196](https://github.com/openeuropa/oe_whitelabel/pull/196) ([brummbar](https://github.com/brummbar))
