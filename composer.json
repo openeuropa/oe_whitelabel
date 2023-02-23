@@ -30,6 +30,7 @@
         "drupal/search_api_autocomplete": "^1.5",
         "drupal/typed_link": "^2.0",
         "drush/drush": "^11.1",
+        "mikey179/vfsstream": "^1.6.10",
         "openeuropa/code-review": "^2.0",
         "openeuropa/oe_authentication": "^1.8",
         "openeuropa/oe_contact_forms": "~1.5",
@@ -41,7 +42,8 @@
         "openeuropa/oe_paragraphs": "^1.17",
         "openeuropa/oe_starter_content": "^1.0.0",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta6",
-        "phpspec/prophecy-phpunit": "^2"
+        "phpspec/prophecy-phpunit": "^2",
+        "symfony/phpunit-bridge": "^6.0"
     },
     "scripts": {
         "post-install-cmd": "./vendor/bin/run drupal:site-setup",
