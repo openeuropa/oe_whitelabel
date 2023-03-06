@@ -96,7 +96,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
 
     $link = $crawler->filter('.bcl-content-banner a[href="/build/node/' . $node->id() . '"]');
     $this->assertCount(1, $link);
-    $this->assertObjectNotHasAttribute('target', $link);
+    $this->assertFalse(property_exists($link, 'target'));
     $this->assertStringContainsString('Register', $link->text());
     $this->assertStringContainsString('calendar-check', $link->html());
 
