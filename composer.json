@@ -39,7 +39,7 @@
         "nikic/php-parser": "^4.13",
         "openeuropa/code-review": "^2.0",
         "openeuropa/oe_authentication": "^1.8",
-        "openeuropa/oe_contact_forms": "~1.5",
+        "openeuropa/oe_contact_forms": "~1.10",
         "openeuropa/oe_content": "^3.0.0-alpha4",
         "openeuropa/oe_content_extra": "^1.0.0-beta2",
         "openeuropa/oe_corporate_blocks": "^4.8",
