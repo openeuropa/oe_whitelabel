@@ -17,6 +17,8 @@ dependencies:
     - field.field.node.oe_project.oe_project_contact
     - field.field.node.oe_project.oe_project_coordinators
     - field.field.node.oe_project.oe_project_dates
+    - field.field.node.oe_project.oe_project_eu_budget
+    - field.field.node.oe_project.oe_project_eu_contrib
     - field.field.node.oe_project.oe_project_funding_programme
     - field.field.node.oe_project.oe_project_locations
     - field.field.node.oe_project.oe_project_participants
@@ -55,8 +57,8 @@ third_party_settings:
         required_fields: true
     group_budget:
       children:
-        - oe_project_budget
-        - oe_project_budget_eu
+        - oe_project_eu_budget
+        - oe_project_eu_contrib
       label: Budget
       region: content
       parent_name: group_details
@@ -170,20 +172,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  oe_project_budget:
-    type: number
-    weight: 9
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  oe_project_budget_eu:
-    type: number
-    weight: 10
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
   oe_project_coordinators:
     type: inline_entity_form_complex
     weight: 10
@@ -210,6 +198,20 @@ content:
       increment: 15
       date_order: DMY
       time_type: none
+    third_party_settings: {  }
+  oe_project_eu_budget:
+    type: number
+    weight: 0
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  oe_project_eu_contrib:
+    type: number
+    weight: 2
+    region: content
+    settings:
+      placeholder: ''
     third_party_settings: {  }
   oe_project_funding_programme:
     type: skos_concept_entity_reference_autocomplete
@@ -328,6 +330,8 @@ hidden:
   oe_content_navigation_title: true
   oe_content_short_title: true
   oe_departments: true
+  oe_project_budget: true
+  oe_project_budget_eu: true
   oe_project_calls: true
   oe_project_contact: true
   oe_project_locations: true
