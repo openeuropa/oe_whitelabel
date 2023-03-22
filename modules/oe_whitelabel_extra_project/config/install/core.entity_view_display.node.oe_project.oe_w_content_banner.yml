@@ -18,6 +18,8 @@ dependencies:
     - field.field.node.oe_project.oe_project_contact
     - field.field.node.oe_project.oe_project_coordinators
     - field.field.node.oe_project.oe_project_dates
+    - field.field.node.oe_project.oe_project_eu_budget
+    - field.field.node.oe_project.oe_project_eu_contrib
     - field.field.node.oe_project.oe_project_funding_programme
     - field.field.node.oe_project.oe_project_locations
     - field.field.node.oe_project.oe_project_participants
@@ -75,6 +77,8 @@ hidden:
   oe_project_contact: true
   oe_project_coordinators: true
   oe_project_dates: true
+  oe_project_eu_budget: true
+  oe_project_eu_contrib: true
   oe_project_funding_programme: true
   oe_project_locations: true
   oe_project_participants: true
