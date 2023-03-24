@@ -255,8 +255,8 @@ function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$var
  */
 function _oe_whitelabel_extra_project_preprocess_contributions(array &$variables): void {
   $field_bg_classes = [
-    'oe_project_budget' => 'bg-gray-400',
-    'oe_project_budget_eu' => 'bg-primary',
+    'extra_field_oe_whitelabel_extra_project_project_budget' => 'bg-gray-400',
+    'extra_field_oe_whitelabel_extra_project_eu_contrib' => 'bg-primary',
   ];
   $legend_items = [];
   foreach ($field_bg_classes as $field_name => $bg_class) {
@@ -295,8 +295,14 @@ function _oe_whitelabel_extra_project_preprocess_contributions(array &$variables
 
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
-  $overall_budget = $node->get('oe_project_budget')->value;
-  $eu_budget = $node->get('oe_project_budget_eu')->value;
+  $overall_budget = $node->get('oe_project_eu_budget')->value;
+  if (empty($overall_budget)) {
+    $overall_budget = $node->get('oe_project_budget')->value;
+  }
+  $eu_budget = $node->get('oe_project_eu_contrib')->value;
+  if (empty($eu_budget)) {
+    $eu_budget = $node->get('oe_project_budget_eu')->value;
+  }
 
   if ($overall_budget === NULL
     || $eu_budget === NULL
