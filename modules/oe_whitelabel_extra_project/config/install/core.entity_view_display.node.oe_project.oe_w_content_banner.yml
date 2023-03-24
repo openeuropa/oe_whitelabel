@@ -57,6 +57,8 @@ content:
     region: content
 hidden:
   body: true
+  extra_field_oe_whitelabel_extra_project_eu_contrib: true
+  extra_field_oe_whitelabel_extra_project_project_budget: true
   langcode: true
   links: true
   oe_content_content_owner: true
@@ -87,3 +89,4 @@ hidden:
   oe_project_website: true
   oe_reference_code: true
   oe_summary: true
+  search_api_excerpt: true
