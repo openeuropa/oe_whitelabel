@@ -67,13 +67,13 @@ third_party_settings:
       label: Coordinators
       parent_name: group_project_details
       region: content
-      weight: 3
+      weight: 11
       format_type: oe_whitelabel_helper_description_list_pattern
       format_settings: {  }
     group_budget:
       children:
         - extra_field_oe_whitelabel_extra_project_project_budget
-        - oe_project_budget_eu
+        - extra_field_oe_whitelabel_extra_project_eu_contrib
       label: Budget
       parent_name: ''
       region: content
@@ -98,7 +98,7 @@ third_party_settings:
       label: Website
       parent_name: group_project_details
       region: content
-      weight: 2
+      weight: 10
       format_type: oe_whitelabel_helper_description_list_pattern
       format_settings: {  }
 id: node.oe_project.full
@@ -106,10 +106,15 @@ targetEntityType: node
 bundle: oe_project
 mode: full
 content:
+  extra_field_oe_whitelabel_extra_project_eu_contrib:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
   extra_field_oe_whitelabel_extra_project_project_budget:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 5
     region: content
   oe_cx_achievements_and_milestone:
     type: text_default
@@ -140,17 +145,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 4
-    region: content
-  oe_project_budget_eu:
-    type: number_decimal
-    label: hidden
-    settings:
-      thousand_separator: .
-      decimal_separator: ','
-      scale: 2
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 2
     region: content
   oe_project_coordinators:
     type: entity_reference_revisions_label
@@ -205,7 +199,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   oe_summary:
     type: text_default
@@ -227,6 +221,7 @@ hidden:
   oe_documents: true
   oe_featured_media: true
   oe_project_budget: true
+  oe_project_budget_eu: true
   oe_project_calls: true
   oe_project_contact: true
   oe_project_eu_budget: true
