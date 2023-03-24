@@ -72,7 +72,7 @@ third_party_settings:
       format_settings: {  }
     group_budget:
       children:
-        - oe_project_budget
+        - extra_field_oe_whitelabel_extra_project_project_budget
         - oe_project_budget_eu
       label: Budget
       parent_name: ''
@@ -106,6 +106,11 @@ targetEntityType: node
 bundle: oe_project
 mode: full
 content:
+  extra_field_oe_whitelabel_extra_project_project_budget:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
   oe_cx_achievements_and_milestone:
     type: text_default
     label: hidden
@@ -136,17 +141,6 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
-  oe_project_budget:
-    type: number_decimal
-    label: hidden
-    settings:
-      thousand_separator: .
-      decimal_separator: ','
-      scale: 2
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 2
-    region: content
   oe_project_budget_eu:
     type: number_decimal
     label: hidden
@@ -156,7 +150,7 @@ content:
       scale: 2
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
   oe_project_coordinators:
     type: entity_reference_revisions_label
@@ -232,6 +226,7 @@ hidden:
   oe_departments: true
   oe_documents: true
   oe_featured_media: true
+  oe_project_budget: true
   oe_project_calls: true
   oe_project_contact: true
   oe_project_eu_budget: true
@@ -241,3 +236,4 @@ hidden:
   oe_project_results: true
   oe_subject: true
   oe_teaser: true
+  search_api_excerpt: true
