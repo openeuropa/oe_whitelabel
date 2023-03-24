@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * Post update hooks.
+ */
+
+declare(strict_types =  1);
+
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
+use Drupal\oe_bootstrap_theme\ConfigImporter;
+
+/**
+ * Swap deprecated budget and eu contribution for new decimal fields.
+ */
+function oe_whitelabel_extra_project_post_update_00001(): void {
+  $configs = [
+    'core.entity_form_display.node.oe_project.default',
+    'core.entity_view_display.node.oe_project.full',
+  ];
+  ConfigImporter::importMultiple('module', 'oe_whitelabel_extra_project', '/config/post_updates/00001_decimal_budget_fields', $configs, TRUE);
+
+  // Ensure the new budget extra fields are disabled on all other displays.
+  $display_types = [
+    'default',
+    'oe_w_content_banner',
+    'teaser',
+  ];
+  foreach ($display_types as $display_type) {
+    $view_display = EntityViewDisplay::load('node.oe_project.' . $display_type);
+    $properties = $view_display->get('hidden');
+    $properties['extra_field_oe_theme_content_project_budget'] = TRUE;
+    $view_display->set('hidden', $properties);
+    $view_display->save();
+  }
+}
