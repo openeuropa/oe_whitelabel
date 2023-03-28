@@ -277,6 +277,26 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     $this->assertProjectStatusVisible();
     $this->assertProjectStatus('bg-secondary', 'Planned');
     $this->assertProjectProgress(0);
+
+    // Assert budget with new fields.
+    $node->set('oe_project_eu_budget', '300.00');
+    $node->set('oe_project_eu_contrib', '100.00');
+    $node->save();
+    $this->drupalGet($node->toUrl());
+    $description_list = $project_content->find('css', '.bcl-description-list');
+
+    $description_list_assert->assertPattern([
+      'items' => [
+        [
+          'term' => 'Overall budget',
+          'definition' => '€300,00',
+        ],
+        [
+          'term' => 'EU contribution',
+          'definition' => '€100,00',
+        ],
+      ],
+    ], $description_list->getOuterHtml());
   }
 
   /**
