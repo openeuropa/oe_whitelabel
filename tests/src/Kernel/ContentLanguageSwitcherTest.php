@@ -72,7 +72,7 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
     // in places like route enhancers.
     // @see CurrentUserContext::getRuntimeContexts().
     // @see EntityConverter::convert().
-    module_load_include('install', 'user');
+    $this->container->get('module_handler')->loadInclude('oe_multilingual', 'install');
     user_install();
 
     \Drupal::service('kernel')->rebuildContainer();
