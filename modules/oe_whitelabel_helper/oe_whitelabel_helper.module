@@ -92,7 +92,7 @@ function oe_whitelabel_helper_requirements_alter(array &$requirements): void {
   $theme_handler = \Drupal::service('theme_handler');
   $theme_path = $theme_handler->getTheme('oe_bootstrap_theme')->getPath();
   $path = '/' . $theme_path . '/assets/js/slimselect.min.js';
-  if ($path) {
+  if (file_exists($path)) {
     unset($requirements['slim_select_library']);
   }
 }
