@@ -6,6 +6,7 @@ namespace Drupal\Tests\oe_whitelabel\Kernel;
 
 use Drupal\node\Entity\Node;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\user\Entity\User;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -74,6 +75,7 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
     // @see EntityConverter::convert().
     $this->container->get('module_handler')->loadInclude('oe_multilingual', 'install');
     user_install();
+    \Drupal::currentUser()->setAccount(User::load(1));
 
     \Drupal::service('kernel')->rebuildContainer();
   }
