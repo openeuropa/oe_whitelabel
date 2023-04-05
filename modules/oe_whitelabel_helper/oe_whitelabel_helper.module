@@ -89,10 +89,16 @@ function oe_whitelabel_helper_field_formatter_settings_summary_alter(array &$sum
  * Implements hook_requirements_alter().
  */
 function oe_whitelabel_helper_requirements_alter(array &$requirements): void {
-  $theme_handler = \Drupal::service('theme_handler');
-  $theme_path = $theme_handler->getTheme('oe_bootstrap_theme')->getPath();
-  $path = '/' . $theme_path . '/assets/js/slimselect.min.js';
-  if (file_exists($path)) {
-    unset($requirements['slim_select_library']);
+  if (isset($requirements['slim_select_library'])) {
+    $theme_handler = \Drupal::service('theme_handler');
+    $theme_path = $theme_handler->getTheme('oe_bootstrap_theme')->getPath();
+    $path = '/' . $theme_path . '/assets/js/slimselect.min.js';
+    $requirements['slim_select_library'] = [
+      'title' => t('Slim Select library'),
+      'severity' => REQUIREMENT_OK,
+      'value' => t('Library available at :path.', [
+        ':path' => $path,
+      ]),
+    ];
   }
 }
