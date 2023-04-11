@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * OE Whitelabel user profile module.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ */
+function oe_whitelabel_user_profile_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
+  if ($entity_type->id() == 'user') {
+    $oe_fields = [
+      'field_oe_firstname',
+      'field_oe_lastname',
+      'field_oe_department',
+      'field_oe_organisation',
+    ];
+    foreach ($oe_fields as $oe_field) {
+      if (!empty($fields[$oe_field])) {
+        $fields[$oe_field]->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE);
+      }
+    }
+  }
+}
