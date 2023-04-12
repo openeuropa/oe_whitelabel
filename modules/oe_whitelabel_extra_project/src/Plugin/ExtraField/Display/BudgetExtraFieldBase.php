@@ -26,7 +26,7 @@ abstract class BudgetExtraFieldBase extends ExtraFieldDisplayFormattedBase imple
   protected $viewBuilder;
 
   /**
-   * OverallBudgetExtraField constructor.
+   * BudgetExtraFieldBase constructor.
    *
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.
@@ -77,14 +77,8 @@ abstract class BudgetExtraFieldBase extends ExtraFieldDisplayFormattedBase imple
       ],
     ];
 
-    if ($entity->get($field_eu_budget)->isEmpty()) {
-      // Fallback to old field.
-      $build[] = $this->viewBuilder->viewField($entity->get($field_budget), $display_options);
-    }
-    else {
-      // Render new field value.
-      $build[] = $this->viewBuilder->viewField($entity->get($field_eu_budget), $display_options);
-    }
+    $field_name = $entity->get($field_eu_budget)->isEmpty() ? $field_budget : $field_eu_budget;
+    $build[] = $this->viewBuilder->viewField($entity->get($field_name), $display_options);
 
     return $build;
   }
