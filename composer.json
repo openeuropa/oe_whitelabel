@@ -28,7 +28,7 @@
         "drupal/field_group": "^3.2",
         "drupal/search_api": "^1.21",
         "drupal/search_api_autocomplete": "^1.5",
-        "drupal/typed_link": "^2.0",
+        "drupal/typed_link": "^2.0.1",
         "drush/drush": "^11.1",
         "mikey179/vfsstream": "^1.6.10",
         "openeuropa/code-review": "^2.0",
@@ -84,6 +84,13 @@
         "patches": {
             "drupal/entity_reference_revisions": {
                 "https://www.drupal.org/project/entity_reference_revisions/issues/2937835": "https://www.drupal.org/files/issues/2021-03-26/entity_reference_revisions-field_formatter_label-2937835-36.patch"
+            }
+        },
+        "patches-ignore": {
+            "openeuropa/oe_content": {
+                "drupal/typed_link": {
+                    "Outdated": "https://www.drupal.org/files/issues/2022-02-09/typed_link_constraints-3263477-2.patch"
+                }
             }
         },
         "drupal-scaffold": {
