@@ -28,14 +28,14 @@ class OverallBudgetExtraField extends BudgetExtraFieldBase {
   /**
    * {@inheritdoc}
    */
-  protected function getFieldBudget(): string {
+  protected function getLegacyBudgetFieldName(): string {
     return 'oe_project_budget';
   }
 
   /**
    * {@inheritdoc}
    */
-  protected function getFieldEuBudget(): string {
+  protected function getBudgetFieldName(): string {
     return 'oe_project_eu_budget';
   }
 
