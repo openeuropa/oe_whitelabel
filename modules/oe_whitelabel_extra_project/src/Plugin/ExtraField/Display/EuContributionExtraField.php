@@ -28,14 +28,14 @@ class EuContributionExtraField extends BudgetExtraFieldBase {
   /**
    * {@inheritdoc}
    */
-  protected function getFieldBudget(): string {
+  protected function getLegacyBudgetFieldName(): string {
     return 'oe_project_budget_eu';
   }
 
   /**
    * {@inheritdoc}
    */
-  protected function getFieldEuBudget(): string {
+  protected function getBudgetFieldName(): string {
     return 'oe_project_eu_contrib';
   }
 
