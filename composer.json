@@ -20,8 +20,8 @@
         "drupal/composite_reference": "^2.1",
         "drupal/config_devel": "~1.2",
         "drupal/core-composer-scaffold": "^9.4",
+        "drupal/core-dev": "^9.4",
         "drupal/description_list_field": "^1.0@alpha",
-        "drupal/drupal-extension": "^5.0.0alpha1",
         "drupal/entity_reference_revisions": "^1.9",
         "drupal/extra_field": "^2.1",
         "drupal/facets_form": "1.0.0-alpha3",
@@ -42,8 +42,7 @@
         "openeuropa/oe_paragraphs": "^1.17",
         "openeuropa/oe_starter_content": "^1.0.0",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta6",
-        "phpspec/prophecy-phpunit": "^2",
-        "symfony/phpunit-bridge": "^6.0"
+        "phpspec/prophecy-phpunit": "^2"
     },
     "scripts": {
         "post-install-cmd": "./vendor/bin/run drupal:site-setup",
