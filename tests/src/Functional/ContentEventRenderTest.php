@@ -94,9 +94,10 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $this->drupalGet('node/' . $node->id());
     $crawler = $client->getCrawler();
 
+    /** @var \Symfony\Component\DomCrawler\Crawler $link */
     $link = $crawler->filter('.bcl-content-banner a[href="/build/node/' . $node->id() . '"]');
     $this->assertCount(1, $link);
-    $this->assertFalse(property_exists($link, 'target'));
+    $this->assertNull($link->attr('target'));
     $this->assertStringContainsString('Register', $link->text());
     $this->assertStringContainsString('calendar-check', $link->html());
 
