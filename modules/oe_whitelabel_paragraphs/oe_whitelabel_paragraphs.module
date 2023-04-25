@@ -139,6 +139,28 @@ function oe_whitelabel_preprocess_paragraph__oe_text_feature_media(array &$varia
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
 
+  $variant = $paragraph->get('oe_paragraphs_variant')->value ?? 'default';
+  $variables['text_position'] = str_replace([
+    '_featured',
+    '_simple',
+  ], '', $variant);
+
+  if (!empty($paragraph->get('field_oe_link')->first())) {
+    /** @var \Drupal\link\Plugin\Field\FieldType\LinkItem $link_item */
+    $link_item = $paragraph->get('field_oe_link')->first();
+    $variables['link'] = [
+      'path' => $link_item->getUrl(),
+      'label' => $link_item->get('title')->getValue(),
+    ];
+  }
+
+  // Caches are handled by the formatter usually. Since we are not rendering
+  // the original render arrays, we need to propagate our caches to the
+  // paragraph template.
+  $cacheability = CacheableMetadata::createFromRenderArray($variables);
+
+  $cacheability->applyTo($variables);
+
   // Bail out if there is no media present.
   if ($paragraph->get('field_oe_media')->isEmpty()) {
     return;
@@ -155,10 +177,6 @@ function oe_whitelabel_preprocess_paragraph__oe_text_feature_media(array &$varia
   /** @var \Drupal\media\Entity\Media $media */
   $media = \Drupal::service('entity.repository')->getTranslationFromContext($media, $paragraph->language()->getId());
 
-  // Caches are handled by the formatter usually. Since we are not rendering
-  // the original render arrays, we need to propagate our caches to the
-  // paragraph template.
-  $cacheability = CacheableMetadata::createFromRenderArray($variables);
   $cacheability->addCacheableDependency($media);
 
   // Run access checks on the media entity.
@@ -181,12 +199,6 @@ function oe_whitelabel_preprocess_paragraph__oe_text_feature_media(array &$varia
     return;
   }
 
-  $variant = $paragraph->get('oe_paragraphs_variant')->value ?? 'default';
-  $variables['text_position'] = str_replace([
-    '_featured',
-    '_simple',
-  ], '', $variant);
-
   if ($is_image) {
     $thumbnail = $media->get('thumbnail')->first();
     $variables['image'] = ImageValueObject::fromStyledImageItem($thumbnail, 'oe_bootstrap_theme_medium_no_crop');
@@ -197,16 +209,6 @@ function oe_whitelabel_preprocess_paragraph__oe_text_feature_media(array &$varia
 
   $cacheability->applyTo($variables);
 
-  if (empty($paragraph->get('field_oe_link')->first())) {
-    return;
-  }
-
-  /** @var \Drupal\link\Plugin\Field\FieldType\LinkItem $link_item */
-  $link_item = $paragraph->get('field_oe_link')->first();
-  $variables['link'] = [
-    'path' => $link_item->getUrl(),
-    'label' => $link_item->get('title')->getValue(),
-  ];
 }
 
 /**
