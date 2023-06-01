@@ -343,7 +343,7 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
   }
 
   $variables['image'] = ImageValueObject::fromArray([
-    'src' => file_create_url($uri),
+    'src' => \Drupal::service('file_url_generator')->generateAbsoluteString($uri),
     'alt' => $source->getMetadata($media, 'thumbnail_alt_value') ?? $media->label(),
     'name' => $media->getName(),
   ]);

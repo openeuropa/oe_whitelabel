@@ -20,7 +20,7 @@ class ContactFormRenderTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'oe_bootstrap_theme_helper',
     'ui_patterns',
     'ui_patterns_library',

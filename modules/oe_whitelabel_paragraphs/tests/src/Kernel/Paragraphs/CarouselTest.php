@@ -74,12 +74,12 @@ class CarouselTest extends ParagraphsTestBase {
 
     $fixtures_path = \Drupal::service('extension.list.module')->getPath('oe_whitelabel_paragraphs') . '/tests/fixtures/';
     // Create English files.
-    $en_image = file_save_data(file_get_contents($fixtures_path . 'example_1.jpeg'), 'public://example_1_en.jpeg');
+    $en_image = \Drupal::service('file.repository')->writeData(file_get_contents($fixtures_path . 'example_1.jpeg'), 'public://example_1_en.jpeg');
     $en_image->setPermanent();
     $en_image->save();
 
     // Create Bulgarian files.
-    $bg_image = file_save_data(file_get_contents($fixtures_path . 'example_1.jpeg'), 'public://example_1_bg.jpeg');
+    $bg_image = \Drupal::service('file.repository')->writeData(file_get_contents($fixtures_path . 'example_1.jpeg'), 'public://example_1_bg.jpeg');
     $bg_image->setPermanent();
     $bg_image->save();
 

@@ -41,7 +41,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
    * Test 'text with featured media' paragraph rendering.
    */
   public function testFeaturedMedia(): void {
-    $image_file = file_save_data(file_get_contents(drupal_get_path('module', 'oe_whitelabel_paragraphs') . '/tests/fixtures/example_1.jpeg'), 'public://example_1.jpeg');
+    $image_file = \Drupal::service('file.repository')->writeData(file_get_contents(\Drupal::service('extension.list.module')->getPath('oe_whitelabel_paragraphs') . '/tests/fixtures/example_1.jpeg'), 'public://example_1.jpeg');
     $image_file->setPermanent();
     $image_file->save();
 
@@ -293,7 +293,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
    */
   public function testBanner(): void {
     // Create English file.
-    $en_file = file_save_data(file_get_contents(drupal_get_path('module', 'oe_whitelabel_paragraphs') . '/tests/fixtures/example_1.jpeg'), 'public://example_1_en.jpeg');
+    $en_file = \Drupal::service('file.repository')->writeData(file_get_contents(\Drupal::service('extension.list.module')->getPath('oe_whitelabel_paragraphs') . '/tests/fixtures/example_1.jpeg'), 'public://example_1_en.jpeg');
     $en_file->setPermanent();
     $en_file->save();
 
@@ -334,7 +334,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $image_element = $crawler->filter('.bcl-banner__image');
     $this->assertCount(1, $image_element);
     $this->assertStringContainsString(
-      'url(' . file_create_url($en_file->getFileUri()) . ')',
+      'url(' . \Drupal::service('file_url_generator')->generateAbsoluteString($en_file->getFileUri()) . ')',
       $image_element->attr('style')
     );
     $this->assertBannerRendering($crawler);
@@ -352,7 +352,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $image_element = $crawler->filter('.bcl-banner__image');
     $this->assertCount(1, $image_element);
     $this->assertStringContainsString(
-      'url(' . file_create_url($en_file->getFileUri()) . ')',
+      'url(' . \Drupal::service('file_url_generator')->generateAbsoluteString($en_file->getFileUri()) . ')',
       $image_element->attr('style')
     );
     $this->assertBannerRendering($crawler);
@@ -369,7 +369,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $image_element = $crawler->filter('.bcl-banner__image');
     $this->assertCount(1, $image_element);
     $this->assertStringContainsString(
-      'url(' . file_create_url($en_file->getFileUri()) . ')',
+      'url(' . \Drupal::service('file_url_generator')->generateAbsoluteString($en_file->getFileUri()) . ')',
       $image_element->attr('style')
     );
     $this->assertBannerRendering($crawler);
@@ -388,7 +388,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $image_element = $crawler->filter('.bcl-banner__image');
     $this->assertCount(1, $image_element);
     $this->assertStringContainsString(
-      'url(' . file_create_url($en_file->getFileUri()) . ')',
+      'url(' . \Drupal::service('file_url_generator')->generateAbsoluteString($en_file->getFileUri()) . ')',
       $image_element->attr('style')
     );
     $this->assertBannerRendering($crawler);
@@ -405,7 +405,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $image_element = $crawler->filter('.bcl-banner__image');
     $this->assertCount(1, $image_element);
     $this->assertStringContainsString(
-      'url(' . file_create_url($en_file->getFileUri()) . ')',
+      'url(' . \Drupal::service('file_url_generator')->generateAbsoluteString($en_file->getFileUri()) . ')',
       $image_element->attr('style')
     );
     $this->assertBannerRendering($crawler);
@@ -422,7 +422,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $image_element = $crawler->filter('.bcl-banner__image');
     $this->assertCount(1, $image_element);
     $this->assertStringContainsString(
-      'url(' . file_create_url($en_file->getFileUri()) . ')',
+      'url(' . \Drupal::service('file_url_generator')->generateAbsoluteString($en_file->getFileUri()) . ')',
       $image_element->attr('style')
     );
     $this->assertBannerRendering($crawler);
@@ -440,7 +440,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $image_element = $crawler->filter('.bcl-banner__image');
     $this->assertCount(1, $image_element);
     $this->assertStringContainsString(
-      'url(' . file_create_url($en_file->getFileUri()) . ')',
+      'url(' . \Drupal::service('file_url_generator')->generateAbsoluteString($en_file->getFileUri()) . ')',
       $image_element->attr('style')
     );
     $this->assertBannerRendering($crawler);
@@ -458,7 +458,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $image_element = $crawler->filter('.bcl-banner__image');
     $this->assertCount(1, $image_element);
     $this->assertStringContainsString(
-      'url(' . file_create_url($en_file->getFileUri()) . ')',
+      'url(' . \Drupal::service('file_url_generator')->generateAbsoluteString($en_file->getFileUri()) . ')',
       $image_element->attr('style')
     );
     $this->assertBannerRendering($crawler);
@@ -622,7 +622,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $image_element = $crawler->filter('.bcl-banner__image');
     $this->assertCount(1, $image_element);
     $this->assertStringContainsString(
-      'url(' . (file_create_url('avportal://P-038924/00-15.jpg')) . ')',
+      'url(' . (\Drupal::service('file_url_generator')->generateAbsoluteString('avportal://P-038924/00-15.jpg')) . ')',
       $image_element->attr('style')
     );
   }

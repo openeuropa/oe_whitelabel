@@ -86,7 +86,7 @@ function oe_whitelabel_preprocess(&$variables) {
   $variables['bcl_component_library'] = theme_get_setting('component_library') ?? 'neutral';
   $variables['bcl_header_style'] = theme_get_setting('header_style') ?? 'standard';
   $variables['current_language_id'] = \Drupal::languageManager()->getCurrentLanguage()->getId();
-  $variables['bcl_logo_path'] = base_path() . drupal_get_path('theme', 'oe_bootstrap_theme') . '/assets/logos/';
+  $variables['bcl_logo_path'] = base_path() . \Drupal::service('extension.list.theme')->getPath('oe_bootstrap_theme') . '/assets/logos/';
 }
 
 /**
@@ -123,7 +123,7 @@ function oe_whitelabel_preprocess_page(&$variables) {
   else {
     $site_config = \Drupal::config('system.site');
     $variables['site_name'] = $site_config->get('name');
-    $variables['site_logo_url'] = file_url_transform_relative(file_create_url(theme_get_setting('logo.url')));
+    $variables['site_logo_url'] = \Drupal::service('file_url_generator')->generateString(theme_get_setting('logo.url'));
     $variables['logo_aria_label'] = t('Home');
     $variables['site_logo_alt'] = t('Home logo');
     $variables['site_logo_title'] = t('Home');

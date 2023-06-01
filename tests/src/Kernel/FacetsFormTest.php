@@ -15,7 +15,7 @@ class FacetsFormTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'block',
     'entity_test',
     'facets',

@@ -30,7 +30,7 @@ class SiteBrandingBlockTest extends KernelTestBase {
     parent::setUp();
 
     \Drupal::service('theme_installer')->install(['oe_whitelabel']);
-    $url = '/' . drupal_get_path('theme', 'oe_whitelabel') . '/logo.svg';
+    $url = '/' . \Drupal::service('extension.list.theme')->getPath('oe_whitelabel') . '/logo.svg';
 
     \Drupal::configFactory()
       ->getEditable('oe_whitelabel.settings')

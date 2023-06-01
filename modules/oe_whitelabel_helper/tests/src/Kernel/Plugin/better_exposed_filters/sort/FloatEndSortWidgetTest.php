@@ -18,7 +18,7 @@ class FloatEndSortWidgetTest extends BetterExposedFiltersKernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'bef_test',
     'better_exposed_filters',
     'field',

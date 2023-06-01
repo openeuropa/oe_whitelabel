@@ -22,7 +22,7 @@ abstract class WhitelabelBrowserTestBase extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     // Without sparql, some blocks will cause problems.
