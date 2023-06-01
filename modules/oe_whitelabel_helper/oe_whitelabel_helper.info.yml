@@ -2,7 +2,7 @@ name: OpenEuropa Whitelabel Theme Helper
 type: module
 description: OpenEuropa Whitelabel Theme helpers and tools.
 package: OpenEuropa Whitelabel Theme
-core_version_requirement: ^9.3
+core_version_requirement: ^9.4 || ^10
 
 dependencies:
   - drupal:node
