@@ -29,7 +29,6 @@ abstract class ContentRenderTestBase extends AbstractKernelTestBase {
     'address',
     'composite_reference',
     'datetime',
-    'entity_reference',
     'entity_reference_revisions',
     'field',
     'field_group',
