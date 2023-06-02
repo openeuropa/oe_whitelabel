@@ -156,9 +156,9 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
    *   The label of the language.
    */
   protected function assertSelectedLanguage(Crawler $crawler, string $expected): void {
-    // The selected language link will contain a svg, so we target that.
-    $actual = $crawler->filter('div.collapse.mt-3 > div > a > svg')->parents()->first()->text();
-    $this->assertEquals($expected, trim($actual));
+    // The selected language link will contain an SVG, so we target that.
+    $actual = $crawler->filter('div.collapse.mt-3 > div > a > svg')->getNode(0)->parentNode->textContent;
+    $this->assertEquals($expected, $actual);
   }
 
   /**
