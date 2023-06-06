@@ -19,12 +19,12 @@ class FloatEndSortWidgetTest extends BetterExposedFiltersKernelTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
-    'bef_test',
     'better_exposed_filters',
     'field',
     'filter',
     'node',
     'oe_whitelabel_helper',
+    'oewt_views_test',
     'options',
     'system',
     'taxonomy',
@@ -36,24 +36,23 @@ class FloatEndSortWidgetTest extends BetterExposedFiltersKernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $testViews = ['bef_test'];
+  protected function setUp($import_test_views = TRUE): void {
+    parent::setUp($import_test_views);
+
+    // @todo Use bef_test once it's fixed for d10.
+    // @see https://www.drupal.org/project/better_exposed_filters/issues/3365130
+    $this->installConfig(['oewt_views_test']);
+  }
 
   /**
    * Tests the rendering of the FloatEndSortWidget.
    */
   public function testFloatEndSortWidget() {
-    $view = Views::getView('bef_test');
-    $view->storage->getDisplay('default');
-
-    $this->setBetterExposedOptions($view, [
-      // @todo Add combined sort.
-      'sort' => [
-        'plugin_id' => 'oe_whitelabel_float_end_sort',
-      ],
-    ]);
+    $view = Views::getView('oewt');
 
     // Render the exposed form.
     $this->renderExposedForm($view);
+
     $crawler = new Crawler($this->content->__toString());
     $widget = $crawler->filter('form.bef-exposed-form');
 
