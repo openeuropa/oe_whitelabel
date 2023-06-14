@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
-use Drupal\node\Entity\Node;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\node\Entity\Node;
 use Drupal\user\Entity\User;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;

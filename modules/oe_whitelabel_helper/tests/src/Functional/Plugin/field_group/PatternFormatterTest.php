@@ -6,9 +6,9 @@ namespace Drupal\Tests\oe_whitelabel_helper\Functional\Plugin\field_group;
 
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\Tests\oe_whitelabel\PatternAssertions\DescriptionListAssert;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\field_group\Functional\FieldGroupTestTrait;
+use Drupal\Tests\oe_whitelabel\PatternAssertions\DescriptionListAssert;
 
 /**
  * Test the pattern field group formatter.

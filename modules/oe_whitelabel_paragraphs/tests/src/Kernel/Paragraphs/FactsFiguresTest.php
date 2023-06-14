@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
-use Symfony\Component\DomCrawler\Crawler;
 use Drupal\paragraphs\Entity\Paragraph;
+use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Tests the "Facts and Figures" paragraphs.
