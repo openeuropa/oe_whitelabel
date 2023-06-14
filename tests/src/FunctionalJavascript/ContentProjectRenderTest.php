@@ -36,7 +36,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'block',
     'oe_whitelabel_extra_project',
   ];

@@ -25,11 +25,10 @@ abstract class ContentRenderTestBase extends AbstractKernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'address',
     'composite_reference',
     'datetime',
-    'entity_reference',
     'entity_reference_revisions',
     'field',
     'field_group',

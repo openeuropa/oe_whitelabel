@@ -15,7 +15,7 @@ use Drupal\Core\Form\FormStateInterface;
  * Implements hook_locale_translation_projects_alter().
  */
 function oe_whitelabel_helper_locale_translation_projects_alter(&$projects) {
-  $projects['oe_whitelabel_helper']['info']['interface translation server pattern'] = drupal_get_path('module', 'oe_whitelabel_helper') . '/translations/%project-%language.po';
+  $projects['oe_whitelabel_helper']['info']['interface translation server pattern'] = \Drupal::service('extension.list.module')->getPath('oe_whitelabel_helper') . '/translations/%project-%language.po';
 }
 
 /**

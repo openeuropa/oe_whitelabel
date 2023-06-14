@@ -147,7 +147,7 @@ function _oe_whitelabel_paragraphs_install_migrate_field_data(array $field_names
   $query = $paragraphs_storage->getQuery();
   $query->allRevisions();
   $query->condition('type', array_keys($field_names_by_bundle), 'IN');
-  $paragraph_ids = $query->execute();
+  $paragraph_ids = $query->accessCheck(FALSE)->execute();
 
   foreach ($paragraph_ids as $revision_id => $paragraph_id) {
     // Revision can't be NULL.

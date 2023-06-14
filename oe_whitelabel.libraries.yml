@@ -9,4 +9,4 @@ project_status:
   js:
     resources/js/oe_whitelabel.project_status.js: {}
   dependencies:
-    - core/jquery.once
+    - core/once

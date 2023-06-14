@@ -300,11 +300,11 @@ class ParagraphsTest extends BrowserTestBase {
     $assert = $this->assertSession();
     $fixtures_path = \Drupal::service('extension.list.module')->getPath('oe_whitelabel_paragraphs') . '/tests/fixtures/';
 
-    $file_1 = file_save_data(file_get_contents($fixtures_path . 'example_1.jpeg'), 'public://example_1.jpeg');
+    $file_1 = \Drupal::service('file.repository')->writeData(file_get_contents($fixtures_path . 'example_1.jpeg'), 'public://example_1.jpeg');
     $file_1->setPermanent();
     $file_1->save();
 
-    $file_2 = file_save_data(file_get_contents($fixtures_path . 'example_1.jpeg'), 'public://example_2.jpeg');
+    $file_2 = \Drupal::service('file.repository')->writeData(file_get_contents($fixtures_path . 'example_1.jpeg'), 'public://example_2.jpeg');
     $file_2->setPermanent();
     $file_2->save();
 

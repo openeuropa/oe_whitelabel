@@ -30,7 +30,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     // Set an explicit site timezone.

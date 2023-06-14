@@ -2,6 +2,7 @@ name: OE Whitelabel - Legacy Paragraphs Test
 type: module
 description: Provides legacy configuration as in oe_bootstrap_theme_paragraphs.
 package: Testing
+core_version_requirement: ^9.4 || ^10
 hidden: true
 dependencies:
   - drupal:description_list_field

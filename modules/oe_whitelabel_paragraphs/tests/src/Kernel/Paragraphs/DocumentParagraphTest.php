@@ -133,7 +133,7 @@ class DocumentParagraphTest extends ParagraphsTestBase {
       'file' => [
         'title' => 'Local PDF file',
         'language' => 'English',
-        'url' => file_create_url($uri_en),
+        'url' => \Drupal::service('file_url_generator')->generateAbsoluteString($uri_en),
         'meta' => '(2.96 KB - PDF)',
         'icon' => 'file-pdf-fill',
       ],
@@ -167,7 +167,7 @@ class DocumentParagraphTest extends ParagraphsTestBase {
       [
         'title' => 'Italian translation',
         'language' => 'Italian',
-        'url' => file_create_url($uri_it),
+        'url' => \Drupal::service('file_url_generator')->generateAbsoluteString($uri_it),
         'meta' => '(2.96 KB - PDF)',
       ],
     ];

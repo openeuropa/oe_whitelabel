@@ -87,7 +87,7 @@ class ListingAssertion extends Assert {
     $image_element = $crawler->filter('.card-img-top');
     $this->assertCount(6, $image_element);
     $this->assertStringContainsString(
-      file_url_transform_relative(file_create_url($file->getFileUri())),
+      \Drupal::service('file_url_generator')->generateString($file->getFileUri()),
       $image_element->attr('src')
     );
     $this->assertStringContainsString(

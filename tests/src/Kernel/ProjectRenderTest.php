@@ -19,7 +19,7 @@ class ProjectRenderTest extends ContentRenderTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'datetime_range',
     'image',
     'oe_content_featured_media_field',
@@ -54,7 +54,7 @@ class ProjectRenderTest extends ContentRenderTestBase {
    * Test a project being rendered as a teaser.
    */
   public function testProjectTeaser(): void {
-    $file = file_save_data(file_get_contents(drupal_get_path('theme', 'oe_whitelabel') . '/tests/fixtures/example_1.jpeg'), 'public://example_1.jpeg');
+    $file = \Drupal::service('file.repository')->writeData(file_get_contents(\Drupal::service('extension.list.theme')->getPath('oe_whitelabel') . '/tests/fixtures/example_1.jpeg'), 'public://example_1.jpeg');
     $file->setPermanent();
     $file->save();
 

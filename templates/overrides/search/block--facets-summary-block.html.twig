@@ -10,7 +10,7 @@
   {% set results_count = content['#items'][0] %}
 {% endif %}
 {% block content %}
-  {% spaceless %}
+  {% apply spaceless %}
     {{ title_prefix }}
     {% if label %}
       <div class="col-md-6 col-lg-8 align-self-center">
@@ -21,5 +21,5 @@
     <div class="col-md-12 order-md-2 mt-3">
       {{ content }}
     </div>
-  {% endspaceless %}
+  {% endapply %}
 {% endblock %}

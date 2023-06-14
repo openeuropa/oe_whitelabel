@@ -1,0 +1,10 @@
+name: OEWT Test
+type: module
+description: Module for testing oe_whitelabel_helper with Better Exposed Filters
+package: Testing
+core_version_requirement: ^9.4 || ^10
+dependencies:
+  - better_exposed_filters:better_exposed_filters
+  - drupal:node
+  - drupal:user
+  - drupal:views
