@@ -1,10 +1,32 @@
 # Change Log
 
+## [1.2.0](https://github.com/openeuropa/oe_whitelabel/tree/1.2.0) (2023-06-15)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.1.0...1.2.0)
+
+**Fixed bugs:**
+
+- Unprocessed fields for paragraphs "Text with Featured Media" [\#197](https://github.com/openeuropa/oe_whitelabel/issues/197)
+
+**Closed issues:**
+
+- Incorrect slimselect warning on Status report page [\#214](https://github.com/openeuropa/oe_whitelabel/issues/214)
+- Update oe\_whitelabel\_helper readme requirements section [\#208](https://github.com/openeuropa/oe_whitelabel/issues/208)
+
+**Merged pull requests:**
+
+- EWPP-3026: Drupal 10 compatibility. [\#220](https://github.com/openeuropa/oe_whitelabel/pull/220) ([escuriola](https://github.com/escuriola))
+- EWPP-3026: Drupal 10 compatibility. [\#219](https://github.com/openeuropa/oe_whitelabel/pull/219) ([drishu](https://github.com/drishu))
+- OEL-2278: Added check for slim\_select\_library path [\#217](https://github.com/openeuropa/oe_whitelabel/pull/217) ([tibi2303](https://github.com/tibi2303))
+- OEL-2258: Featured-media processing text and link without media images. [\#212](https://github.com/openeuropa/oe_whitelabel/pull/212) ([tibi2303](https://github.com/tibi2303))
+- OEL-2257: Updated readme file for whitelabel helper module. [\#211](https://github.com/openeuropa/oe_whitelabel/pull/211) ([tibi2303](https://github.com/tibi2303))
+- OEL-2115: Update to PHP 8.1 [\#209](https://github.com/openeuropa/oe_whitelabel/pull/209) ([brummbar](https://github.com/brummbar))
+
 ## [1.1.0](https://github.com/openeuropa/oe_whitelabel/tree/1.1.0) (2023-02-06)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.0.0...1.1.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.1.0. [\#207](https://github.com/openeuropa/oe_whitelabel/pull/207) ([drishu](https://github.com/drishu))
 - OEL-1574: Enable oebt version of slim\_select. [\#205](https://github.com/openeuropa/oe_whitelabel/pull/205) ([drishu](https://github.com/drishu))
 - OEL-1806: Show HR only when pager has items. [\#204](https://github.com/openeuropa/oe_whitelabel/pull/204) ([drishu](https://github.com/drishu))
 - OEL-1915: Add Date to the Event teaser. [\#203](https://github.com/openeuropa/oe_whitelabel/pull/203) ([drishu](https://github.com/drishu))
