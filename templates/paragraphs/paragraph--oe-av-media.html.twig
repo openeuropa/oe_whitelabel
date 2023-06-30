@@ -1,0 +1,13 @@
+{#
+/**
+ * @file
+ * Theme override to display the 'Media' type paragraph.
+ *
+ * @see ./modules/contrib/paragraphs/templates/paragraph.html.twig
+ */
+#}
+{{ pattern('featured_media', {
+  'embedded_media': embedded_media,
+  'image': image,
+  'ratio': ratio,
+}) }}
