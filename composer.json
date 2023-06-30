@@ -41,7 +41,7 @@
         "openeuropa/oe_link_lists": "^1.0",
         "openeuropa/oe_list_pages": "^1.0.0",
         "openeuropa/oe_multilingual": "^1.14",
-        "openeuropa/oe_paragraphs": "^1.19",
+        "openeuropa/oe_paragraphs": "^1.20",
         "openeuropa/oe_starter_content": "^1.2.0",
         "openeuropa/oe_subscriptions": "^1.0@alpha",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta6",
