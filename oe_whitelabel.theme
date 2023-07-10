@@ -112,8 +112,8 @@ function oe_whitelabel_preprocess_html(&$variables) {
   /** @var \Drupal\node\Entity\Node $node */
   $node = \Drupal::routeMatch()->getParameter('node');
 
-  if ($node instanceof NodeInterface && $node->hasField('field_color_schema')) {
-    $variables['attributes']['class'][] = $node->get('field_color_schema')->value;
+  if ($node instanceof NodeInterface && $node->hasField('oe_wt_color_schema')) {
+    $variables['attributes']['class'][] = $node->get('oe_wt_color_schema')->value;
   }
 }
 
