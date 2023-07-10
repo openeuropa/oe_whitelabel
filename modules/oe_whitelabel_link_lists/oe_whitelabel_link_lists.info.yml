@@ -1,0 +1,8 @@
+name: OpenEuropa Whitelabel Link Lists
+type: module
+description: Companion module for the OE Link Lists module.
+package: OpenEuropa Whitelabel Theme
+core_version_requirement: ^9.5 || ^10
+
+dependencies:
+  - oe_link_lists:oe_link_lists
