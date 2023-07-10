@@ -276,6 +276,9 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
 function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void {
   /** @var Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
+  if ($paragraph->hasField('field_color_schema')) {
+    $variables['attributes']['class'][] = $paragraph->get('field_color_schema')->value;
+  }
   $variables['title'] = $paragraph->get('field_oe_title')->value;
   $variables['description'] = $paragraph->get('field_oe_text')->value;
   $variables['full_width'] = (bool) $paragraph->get('field_oe_banner_full_width')->value;

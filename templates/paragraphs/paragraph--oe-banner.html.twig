@@ -6,7 +6,9 @@
  * @see ./modules/contrib/paragraphs/templates/paragraph.html.twig
  */
 #}
-{% set attributes = create_attribute() %}
+{% if attributes is not defined %}
+  {% set attributes = create_attribute() %}
+{% endif %}
 {% if url %}
   {% set _call_to_action = {
     'label': label,
