@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * The OE Whitelabel Color Schema module.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\oe_whitelabel_color_schema\Event\ColorSchemaOptionsEvent;
+
+/**
+ * Sets dynamic allowed values for the color schema fields.
+ *
+ * @param \Drupal\Core\Field\FieldStorageDefinitionInterface $definition
+ *   The field definition.
+ * @param \Drupal\Core\Entity\FieldableEntityInterface|null $entity
+ *   The entity being created if applicable.
+ * @param bool $cacheable
+ *   Boolean indicating if the results are cacheable.
+ *
+ * @return array
+ *   An array of possible key and value color schema options.
+ *
+ * @see options_allowed_values()
+ */
+function oe_whitelabel_color_schema_allowed_values(FieldStorageDefinitionInterface $definition, FieldableEntityInterface $entity = NULL, &$cacheable = TRUE) {
+  $event = new ColorSchemaOptionsEvent();
+
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+  $event_dispatcher->dispatch($event, ColorSchemaOptionsEvent::class);
+
+  return $event->getColorSchemaOptions();
+}
