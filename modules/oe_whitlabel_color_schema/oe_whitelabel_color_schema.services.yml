@@ -1,0 +1,5 @@
+services:
+  oe_whitelabel_color_schmea.color_schmea_options_subscriber:
+    class: 'Drupal\oe_whitelabel_color_schema\EventSubscriber\ColorSchemaOptionsSubscriber'
+    tags:
+      - { name: 'event_subscriber' }
