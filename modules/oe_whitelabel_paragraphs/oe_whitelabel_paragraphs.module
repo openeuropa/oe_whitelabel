@@ -283,7 +283,7 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
 
   // The alignment field value contains the information regarding the pattern
   // type and centering.
-  $alignment = $paragraph->get('field_oe_banner_type')->value;
+  $alignment = $paragraph->get('field_oe_banner_alignment')->value;
   [$banner_type, $banner_alignment] = explode('_', $alignment);
   // The beginning of the string determines the pattern.
   $variables['pattern'] = 'banner_' . $banner_type;
