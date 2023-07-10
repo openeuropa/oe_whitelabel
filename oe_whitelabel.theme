@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Template\AttributeHelper;
+use Drupal\node\NodeInterface;
 use Drupal\oe_bootstrap_theme_helper\EuropeanUnionLanguages;
 use Drupal\oe_whitelabel\DocumentMediaWrapper;
 
@@ -101,6 +102,18 @@ function oe_whitelabel_preprocess_field(&$variables, $hook, $info) {
     if (isset($variables[$key]['#title_attributes'])) {
       $variables['title_attributes'] = AttributeHelper::mergeCollections($variables['title_attributes'], $variables[$key]['#title_attributes']);
     }
+  }
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function oe_whitelabel_preprocess_html(&$variables) {
+  /** @var \Drupal\node\Entity\Node $node */
+  $node = \Drupal::routeMatch()->getParameter('node');
+
+  if ($node instanceof NodeInterface && $node->hasField('field_color_schema')) {
+    $variables['attributes']['class'][] = $node->get('field_color_schema')->value;
   }
 }
 
