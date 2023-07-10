@@ -32,7 +32,7 @@ class ColorSchemaOptionsSubscriber implements EventSubscriberInterface {
    * @param \Drupal\oe_whitelabel_color_schema\Event\ColorSchemaOptionsEvent $event
    *   Allowed format event object.
    */
-  public function getIconOptions(ColorSchemaOptionsEvent $event): void {
+  public function getColorSchemaOptions(ColorSchemaOptionsEvent $event): void {
     $event->setColorSchemaOptions([
       'oewt-color-schema-red' => 'Red',
       'oewt-color-schema-blue' => 'Blue',
