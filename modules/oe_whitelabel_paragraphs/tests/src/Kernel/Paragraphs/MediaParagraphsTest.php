@@ -322,7 +322,8 @@ class MediaParagraphsTest extends ParagraphsTestBase {
       'field_oe_media' => [
         'target_id' => $media->id(),
       ],
-      'field_oe_banner_type' => 'hero_center',
+      'field_oe_banner_size' => 'large',
+      'field_oe_banner_alignment' => 'centered',
     ]);
     $paragraph->save();
 
@@ -341,7 +342,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(0, $crawler->filter('.bcl-banner.full-width'));
 
     // Variant - image / Modifier - hero_left / Full width - No.
-    $paragraph->get('field_oe_banner_type')->setValue('hero_left');
+    $paragraph->get('field_oe_banner_alignment')->setValue('left');
     $paragraph->save();
 
     $html = $this->renderParagraph($paragraph);
@@ -359,7 +360,8 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(0, $crawler->filter('.bcl-banner.full-width'));
 
     // Variant - image / Modifier - page_center / Full width - No.
-    $paragraph->get('field_oe_banner_type')->setValue('page_center');
+    $paragraph->get('field_oe_banner_size')->setValue('medium');
+    $paragraph->get('field_oe_banner_alignment')->setValue('centered');
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
     $crawler = new Crawler($html);
@@ -376,7 +378,8 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(0, $crawler->filter('.bcl-banner.full-width'));
 
     // Variant - image / Modifier - page_left / Full width - Yes.
-    $paragraph->get('field_oe_banner_type')->setValue('page_left');
+    $paragraph->get('field_oe_banner_size')->setValue('medium');
+    $paragraph->get('field_oe_banner_alignment')->setValue('left');
     $paragraph->get('field_oe_banner_full_width')->setValue('1');
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
@@ -396,7 +399,8 @@ class MediaParagraphsTest extends ParagraphsTestBase {
 
     // Variant - image-shade / Modifier - hero_center / Full width - Yes.
     $paragraph->get('oe_paragraphs_variant')->setValue('oe_banner_image_shade');
-    $paragraph->get('field_oe_banner_type')->setValue('hero_center');
+    $paragraph->get('field_oe_banner_size')->setValue('large');
+    $paragraph->get('field_oe_banner_alignment')->setValue('centered');
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
     $crawler = new Crawler($html);
@@ -412,7 +416,8 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(1, $crawler->filter('.bcl-banner.full-width'));
 
     // Variant - image-shade / Modifier - hero_left / Full width - Yes.
-    $paragraph->get('field_oe_banner_type')->setValue('hero_left');
+    $paragraph->get('field_oe_banner_size')->setValue('large');
+    $paragraph->get('field_oe_banner_alignment')->setValue('left');
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
     $crawler = new Crawler($html);
@@ -429,7 +434,8 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(1, $crawler->filter('.bcl-banner.full-width'));
 
     // Variant - image-shade / Modifier - page_center / Full width - No.
-    $paragraph->get('field_oe_banner_type')->setValue('page_center');
+    $paragraph->get('field_oe_banner_size')->setValue('medium');
+    $paragraph->get('field_oe_banner_alignment')->setValue('centered');
     $paragraph->get('field_oe_banner_full_width')->setValue('0');
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
@@ -447,7 +453,8 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(0, $crawler->filter('.bcl-banner.full-width'));
 
     // Variant - image-shade / Modifier - page_left / Full width - No.
-    $paragraph->get('field_oe_banner_type')->setValue('page_left');
+    $paragraph->get('field_oe_banner_size')->setValue('medium');
+    $paragraph->get('field_oe_banner_alignment')->setValue('left');
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
     $crawler = new Crawler($html);
@@ -466,7 +473,8 @@ class MediaParagraphsTest extends ParagraphsTestBase {
 
     // Variant - default / Modifier - hero_center / Full width - No.
     $paragraph->get('oe_paragraphs_variant')->setValue('default');
-    $paragraph->get('field_oe_banner_type')->setValue('hero_center');
+    $paragraph->get('field_oe_banner_size')->setValue('large');
+    $paragraph->get('field_oe_banner_alignment')->setValue('centered');
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
     $crawler = new Crawler($html);
@@ -481,7 +489,8 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(0, $crawler->filter('.bcl-banner.full-width'));
 
     // Variant - default / Modifier - hero_left / Full width - Yes.
-    $paragraph->get('field_oe_banner_type')->setValue('hero_left');
+    $paragraph->get('field_oe_banner_size')->setValue('large');
+    $paragraph->get('field_oe_banner_alignment')->setValue('left');
     $paragraph->get('field_oe_banner_full_width')->setValue('1');
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
@@ -498,7 +507,8 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(1, $crawler->filter('.bcl-banner.full-width'));
 
     // Variant - default / Modifier - page_center / Full width - Yes.
-    $paragraph->get('field_oe_banner_type')->setValue('page_center');
+    $paragraph->get('field_oe_banner_size')->setValue('medium');
+    $paragraph->get('field_oe_banner_alignment')->setValue('centered');
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
     $crawler = new Crawler($html);
@@ -514,7 +524,8 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(1, $crawler->filter('.bcl-banner.full-width'));
 
     // Variant - default / Modifier - page_left / Full width - Yes.
-    $paragraph->get('field_oe_banner_type')->setValue('page_left');
+    $paragraph->get('field_oe_banner_size')->setValue('medium');
+    $paragraph->get('field_oe_banner_alignment')->setValue('left');
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
     $crawler = new Crawler($html);
@@ -532,7 +543,8 @@ class MediaParagraphsTest extends ParagraphsTestBase {
 
     // Variant - primary / Modifier - hero_center / Full width - Yes.
     $paragraph->get('oe_paragraphs_variant')->setValue('oe_banner_primary');
-    $paragraph->get('field_oe_banner_type')->setValue('hero_center');
+    $paragraph->get('field_oe_banner_size')->setValue('large');
+    $paragraph->get('field_oe_banner_alignment')->setValue('centered');
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
     $crawler = new Crawler($html);
@@ -547,7 +559,8 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(1, $crawler->filter('.bcl-banner.full-width'));
 
     // Variant - primary / Modifier - hero_left / Full width - Yes.
-    $paragraph->get('field_oe_banner_type')->setValue('hero_left');
+    $paragraph->get('field_oe_banner_size')->setValue('large');
+    $paragraph->get('field_oe_banner_alignment')->setValue('left');
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
     $crawler = new Crawler($html);
@@ -563,7 +576,8 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(1, $crawler->filter('.bcl-banner.full-width'));
 
     // Variant - primary / Modifier - page_center / Full width - Yes.
-    $paragraph->get('field_oe_banner_type')->setValue('page_center');
+    $paragraph->get('field_oe_banner_size')->setValue('medium');
+    $paragraph->get('field_oe_banner_alignment')->setValue('centered');
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
     $crawler = new Crawler($html);
@@ -579,7 +593,8 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(1, $crawler->filter('.bcl-banner.full-width'));
 
     // Variant - primary / Modifier - page_left / Full width - No.
-    $paragraph->get('field_oe_banner_type')->setValue('page_left');
+    $paragraph->get('field_oe_banner_size')->setValue('medium');
+    $paragraph->get('field_oe_banner_alignment')->setValue('left');
     $paragraph->get('field_oe_banner_full_width')->setValue('0');
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
@@ -613,7 +628,8 @@ class MediaParagraphsTest extends ParagraphsTestBase {
       'field_oe_media' => [
         'target_id' => $media->id(),
       ],
-      'field_oe_banner_type' => 'hero_center',
+      'field_oe_banner_size' => 'large',
+      'field_oe_banner_alignment' => 'centered',
     ]);
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
