@@ -278,20 +278,15 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
   $paragraph = $variables['paragraph'];
   $variables['title'] = $paragraph->get('field_oe_title')->value;
   $variables['description'] = $paragraph->get('field_oe_text')->value;
+  $variables['size'] = $paragraph->get('field_oe_banner_size')->value;
+  $variables['alignment'] = $paragraph->get('field_oe_banner_alignment')->value;
   $variables['full_width'] = (bool) $paragraph->get('field_oe_banner_full_width')->value;
   _oe_whitelabel_set_banner_link($paragraph, $variables);
 
-  // The alignment field value contains the information regarding the pattern
-  // type and centering.
-  $alignment = $paragraph->get('field_oe_banner_type')->value;
-  [$banner_type, $banner_alignment] = explode('_', $alignment);
-  // The beginning of the string determines the pattern.
-  $variables['pattern'] = 'banner_' . $banner_type;
-  // The end of the string determines the position.
-  $variables['alignment'] = $banner_alignment;
-
   $variant = $paragraph->get('oe_paragraphs_variant')->value ?? 'default';
   $variables['variant'] = str_replace('oe_banner_', '', $variant);
+
+  $variables['pattern'] = 'banner_' . ($variables['size'] === 'large' ? 'hero' : 'page');
 
   if ($variables['variant'] === 'default' || $variables['variant'] === 'primary') {
     return;
