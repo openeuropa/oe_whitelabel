@@ -6,9 +6,12 @@
  * @see ./core/themes/stable/templates/content/media.html.twig
  */
 #}
-{% if file %}
-  {{ pattern('file', {
-    file: file,
-    translations: translations,
-  }) }}
+
+{% if files %}
+  {% for _file in files %}
+    {{ pattern('file', {
+      file: _file,
+      translations: _file['translations'],
+    }) }}
+  {% endfor %}
 {% endif %}

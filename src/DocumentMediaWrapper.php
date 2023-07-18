@@ -51,6 +51,21 @@ class DocumentMediaWrapper {
   }
 
   /**
+   * Returns the count of files.
+   *
+   * @return int
+   *   The files count contained inside the media.
+   */
+  public function getFilesCount(): ?int {
+    if ($this->isEmpty()) {
+      return 0;
+    }
+
+    $field = $this->getActiveField();
+    return $field->count();
+  }
+
+  /**
    * Returns the type of the media.
    *
    * @return string|null
@@ -66,15 +81,15 @@ class DocumentMediaWrapper {
    * @return \Drupal\oe_bootstrap_theme\ValueObject\FileValueObject|null
    *   A file value object, or NULL if the media is empty.
    */
-  public function toFileValueObject(): ?FileValueObject {
+  public function toFileValueObject($position = 0): ?FileValueObject {
     if ($this->isEmpty()) {
       return NULL;
     }
 
     $field = $this->getActiveField();
     $object = $this->getType() === 'remote'
-      ? FileValueObject::fromFileLink($field->first())
-      : FileValueObject::fromFileEntity($field->first()->entity);
+      ? FileValueObject::fromFileLink($field->get($position))
+      : FileValueObject::fromFileEntity($field->get($position)->entity);
 
     return $object->setTitle($this->media->getName())
       ->setLanguageCode($this->media->language()->getId());

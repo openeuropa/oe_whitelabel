@@ -166,23 +166,29 @@ function oe_whitelabel_preprocess_media__document__default(&$variables) {
   if ($wrapper->isEmpty()) {
     return;
   }
+  // Loop into all files of the media.
+  for($i = 0; $i < $wrapper->getFilesCount(); $i++) {
+    $variables['files'][$i] = $wrapper->toFileValueObject($i);
 
-  $variables['file'] = $wrapper->toFileValueObject();
+    // Generate the file information for all available translations.
+    foreach ($media->getTranslationLanguages() as $langcode => $language) {
+      // We don't want to include the information of the current language again.
+      if ($media->language()->getId() === $langcode) {
+        continue;
+      }
 
-  // Generate the file information for all available translations.
-  foreach ($media->getTranslationLanguages() as $langcode => $language) {
-    // We don't want to include the information of the current language again.
-    if ($media->language()->getId() === $langcode) {
-      continue;
+      $translation = $media->getTranslation($langcode);
+      $wrapper = new DocumentMediaWrapper($translation);
+      if ($wrapper->isEmpty()) {
+        continue;
+      }
+      $variables['files'][$i]['translations'][] = $wrapper->toFileValueObject($i);
     }
-
-    $translation = $media->getTranslation($langcode);
-    $wrapper = new DocumentMediaWrapper($translation);
-    if ($wrapper->isEmpty()) {
-      continue;
-    }
-    $variables['translations'][] = $wrapper->toFileValueObject();
   }
+
+  // Code kept to keep stability with previous versions.
+  $variables['translations'] = $variables['files'][0]['translations'];
+  $variables['file'] = $variables['files'][0];
 }
 
 /**
