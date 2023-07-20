@@ -276,6 +276,9 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
 function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void {
   /** @var Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
+  if ($paragraph->hasField('oe_wt_color_schema')) {
+    $variables['attributes']['class'][] = $paragraph->get('oe_wt_color_schema')->value;
+  }
   $variables['title'] = $paragraph->get('field_oe_title')->value;
   $variables['description'] = $paragraph->get('field_oe_text')->value;
   $variables['full_width'] = (bool) $paragraph->get('field_oe_banner_full_width')->value;
@@ -283,7 +286,7 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
 
   // The alignment field value contains the information regarding the pattern
   // type and centering.
-  $alignment = $paragraph->get('field_oe_banner_type')->value;
+  $alignment = $paragraph->get('field_oe_banner_alignment')->value;
   [$banner_type, $banner_alignment] = explode('_', $alignment);
   // The beginning of the string determines the pattern.
   $variables['pattern'] = 'banner_' . $banner_type;

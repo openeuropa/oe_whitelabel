@@ -5,3 +5,35 @@
     }
   }
 }
+// @todo Move these into BCL.
+:root {
+  --oewt-color-bg-primary: #495057;
+  --oewt-color-bg-secondary: #f8f9fa;
+  --oewt-color-icons: currentColor;
+}
+.bcl-header--neutral .bcl-header__navbar,
+.bcl-header--neutral .bcl-header__project {
+  background-color: var(--oewt-color-bg-primary);
+}
+.bcl-content-banner {
+  background-color: var(--oewt-color-bg-secondary);
+}
+.bcl-footer--neutral {
+  background-color: var(--oewt-color-bg-primary);
+}
+.bcl-banner {
+  background-color: var(--oewt-color-bg-secondary);
+}
+// @todo Move these into oe_showcase.
+.oewt-color-schema-blue {
+  --oewt-color-bg-primary: DarkBlue;
+  --oewt-color-bg-secondary: DeepSkyBlue;
+  --oewt-color-icons: DodgerBlue;
+  --bs-link-color: DodgerBlue;
+}
+.oewt-color-schema-red {
+  --oewt-color-bg-primary: DarkRed;
+  --oewt-color-bg-secondary: LightCoral;
+  --oewt-color-icons: Salmon;
+  --bs-link-color: DarkRed;
+}

@@ -1,0 +1,10 @@
+name: OpenEuropa Whitelabel Color Schema
+type: module
+description: Defines a color schema field.
+package: OpenEuropa Whitelabel Theme
+core_version_requirement: ^9.4 || ^10
+
+config_devel:
+  install:
+    - field.storage.node.oe_wt_color_schema
+    - field.storage.paragraph.oe_wt_color_schema
