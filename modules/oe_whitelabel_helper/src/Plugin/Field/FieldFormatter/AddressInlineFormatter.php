@@ -75,7 +75,7 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
       ]),
       $this->t('Properties: @properties', [
         '@properties' => implode(', ', $this->getActiveProperties()),
-      ])
+      ]),
     ];
 
     if ($this->getSetting('show_country_flag')) {
