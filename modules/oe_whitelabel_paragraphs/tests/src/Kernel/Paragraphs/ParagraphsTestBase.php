@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
 use Drupal\paragraphs\ParagraphInterface;
-use Drupal\Tests\oe_whitelabel_paragraphs\Kernel\AbstractKernelTestBase;
+use Drupal\Tests\oe_bootstrap_theme\Kernel\AbstractKernelTestBase;
 
 /**
  * Base class for paragraphs tests.
@@ -46,7 +46,6 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
     'paragraphs',
     'text',
     'typed_link',
-    'user',
     'views',
   ];
 

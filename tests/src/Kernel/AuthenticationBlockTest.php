@@ -4,13 +4,12 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
-use Drupal\KernelTests\KernelTestBase;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Tests the OE Authentication LoginBlock rendering.
  */
-class AuthenticationBlockTest extends KernelTestBase {
+class AuthenticationBlockTest extends AbstractKernelTestBase {
 
   /**
    * {@inheritdoc}
@@ -20,24 +19,7 @@ class AuthenticationBlockTest extends KernelTestBase {
     'cas',
     'externalauth',
     'oe_authentication',
-    'oe_bootstrap_theme_helper',
-    'system',
-    'ui_patterns',
-    'ui_patterns_library',
-    'user',
   ];
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    \Drupal::service('theme_installer')->install(['oe_whitelabel']);
-    $this->config('system.theme')
-      ->set('default', 'oe_whitelabel')
-      ->save();
-  }
 
   /**
    * Tests the rendering of the authentication block.

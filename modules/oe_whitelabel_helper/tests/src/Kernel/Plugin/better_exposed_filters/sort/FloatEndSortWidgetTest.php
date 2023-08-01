@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel_helper\Kernel\Plugin\better_exposed_filters\sort;
 
+use Drupal\Core\Site\Settings;
 use Drupal\Tests\better_exposed_filters\Kernel\BetterExposedFiltersKernelTestBase;
 use Drupal\views\Views;
 use Symfony\Component\DomCrawler\Crawler;
@@ -38,6 +39,16 @@ class FloatEndSortWidgetTest extends BetterExposedFiltersKernelTestBase {
    */
   protected function setUp($import_test_views = TRUE): void {
     parent::setUp($import_test_views);
+
+    // Replicate 'file_scan_ignore_directories' from settings.php.
+    $settings = Settings::getAll();
+    $settings['file_scan_ignore_directories'] = [
+      'node_modules',
+      'bower_components',
+      'vendor',
+      'build',
+    ];
+    new Settings($settings);
 
     // @todo Use bef_test once it's fixed for d10.
     // @see https://www.drupal.org/project/better_exposed_filters/issues/3365130

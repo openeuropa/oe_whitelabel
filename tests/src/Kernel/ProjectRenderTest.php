@@ -27,9 +27,7 @@ class ProjectRenderTest extends ContentRenderTestBase {
     'oe_content_extra',
     'oe_content_extra_project',
     'oe_whitelabel_extra_project',
-    'system',
     'twig_field_value',
-    'user',
   ];
 
   /**
@@ -46,7 +44,7 @@ class ProjectRenderTest extends ContentRenderTestBase {
       'oe_whitelabel_extra_project',
     ]);
 
-    module_load_include('install', 'oe_whitelabel_extra_project');
+    $this->container->get('module_handler')->loadInclude('oe_whitelabel_extra_project', 'install');
     oe_whitelabel_extra_project_install(FALSE);
   }
 

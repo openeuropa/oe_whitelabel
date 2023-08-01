@@ -4,13 +4,12 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
-use Drupal\KernelTests\KernelTestBase;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Tests the Facets Form rendering.
  */
-class FacetsFormTest extends KernelTestBase {
+class FacetsFormTest extends AbstractKernelTestBase {
 
   /**
    * {@inheritdoc}
@@ -21,7 +20,6 @@ class FacetsFormTest extends KernelTestBase {
     'facets',
     'facets_form',
     'field',
-    'oe_bootstrap_theme_helper',
     'rest',
     'search_api',
     'search_api_db',
@@ -30,12 +28,7 @@ class FacetsFormTest extends KernelTestBase {
     'search_api_test_example_content',
     'search_api_test_views',
     'serialization',
-    'system',
     'text',
-    'ui_patterns',
-    'ui_patterns_library',
-    'ui_patterns_settings',
-    'user',
     'views',
   ];
 
@@ -54,12 +47,6 @@ class FacetsFormTest extends KernelTestBase {
       'search_api_test_db',
     ]);
     $this->installConfig('search_api_test_views');
-
-    \Drupal::service('theme_installer')->install(['oe_whitelabel']);
-
-    $this->config('system.theme')
-      ->set('default', 'oe_whitelabel')
-      ->save();
   }
 
   /**

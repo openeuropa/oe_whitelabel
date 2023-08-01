@@ -4,15 +4,15 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel_search\Kernel;
 
-use Drupal\KernelTests\KernelTestBase;
 use Drupal\search_api_autocomplete\Entity\Search;
+use Drupal\Tests\oe_whitelabel\Kernel\AbstractKernelTestBase;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Tests the Search Block rendering.
  */
-class SearchBlockTest extends KernelTestBase {
+class SearchBlockTest extends AbstractKernelTestBase {
 
   use UserCreationTrait;
 
@@ -23,19 +23,13 @@ class SearchBlockTest extends KernelTestBase {
     'block',
     'entity_test',
     'field',
-    'oe_bootstrap_theme_helper',
     'oe_whitelabel_search',
     'search_api',
     'search_api_autocomplete',
     'search_api_autocomplete_test',
     'search_api_db',
     'search_api_test',
-    'system',
     'text',
-    'ui_patterns',
-    'ui_patterns_library',
-    'ui_patterns_settings',
-    'user',
     'views',
   ];
 
@@ -44,12 +38,6 @@ class SearchBlockTest extends KernelTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-
-    \Drupal::service('theme_installer')->install(['oe_whitelabel']);
-
-    $this->config('system.theme')
-      ->set('default', 'oe_whitelabel')
-      ->save();
 
     $this->installSchema('search_api', ['search_api_item']);
     $this->installEntitySchema('entity_test_mulrev_changed');
