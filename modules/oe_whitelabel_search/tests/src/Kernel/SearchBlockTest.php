@@ -7,6 +7,8 @@ namespace Drupal\Tests\oe_whitelabel_search\Kernel;
 use Drupal\search_api_autocomplete\Entity\Search;
 use Drupal\Tests\oe_whitelabel\Kernel\AbstractKernelTestBase;
 use Drupal\Tests\user\Traits\UserCreationTrait;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -65,8 +67,9 @@ class SearchBlockTest extends AbstractKernelTestBase {
       ],
     ])->save();
 
-    // Add user with permissions for the autocomplete feature.
-    $this->setUpCurrentUser(['uid' => 1]);
+    Role::load(RoleInterface::ANONYMOUS_ID)
+      ->grantPermission('use search_api_autocomplete for search_api_autocomplete_test_view')
+      ->save();
   }
 
   /**
