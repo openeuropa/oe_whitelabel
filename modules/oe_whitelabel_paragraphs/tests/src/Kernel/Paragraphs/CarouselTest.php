@@ -23,7 +23,6 @@ class CarouselTest extends ParagraphsTestBase {
     'language',
     'media_avportal',
     'media_avportal_mock',
-    'node',
     'oe_media_avportal',
     'oe_paragraphs_carousel',
     'oe_whitelabel_paragraphs',
@@ -41,7 +40,6 @@ class CarouselTest extends ParagraphsTestBase {
     $this->installConfig([
       'content_translation',
       'media',
-      'language',
       'media_avportal',
       'oe_media',
       'oe_media_avportal',
