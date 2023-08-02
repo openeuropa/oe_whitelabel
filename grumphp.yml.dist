@@ -29,6 +29,6 @@ parameters:
 
 grumphp:
   git_hook_variables:
-    EXEC_GRUMPHP_COMMAND: 'docker-compose exec -T web'
+    EXEC_GRUMPHP_COMMAND: 'docker-compose exec -T php'
   extensions:
     - OpenEuropa\CodeReview\ExtraTasksExtension
