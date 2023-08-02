@@ -5,7 +5,8 @@ declare(strict_types = 1);
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
 use Drupal\node\Entity\Node;
-use Drupal\user\Entity\User;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -47,14 +48,15 @@ class ContentLanguageSwitcherTest extends AbstractKernelTestBase {
       'language',
       'locale',
       'oe_multilingual',
-      'oe_whitelabel_helper',
-      'system',
     ]);
     $this->container->get('module_handler')->loadInclude('oe_multilingual', 'install');
     oe_multilingual_install(FALSE);
 
-    \Drupal::currentUser()->setAccount(User::load(1));
+    Role::load(RoleInterface::ANONYMOUS_ID)
+      ->grantPermission('access content')
+      ->save();
 
+    // Container rebuild is needed to regenerate routes.
     \Drupal::service('kernel')->rebuildContainer();
   }
 
