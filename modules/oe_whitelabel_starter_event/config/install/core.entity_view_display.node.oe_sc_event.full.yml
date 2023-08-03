@@ -55,6 +55,7 @@ content:
     label: inline
     settings:
       delimiter: ', '
+      properties: {  }
       show_country_flag: true
     third_party_settings: {  }
     weight: 2
