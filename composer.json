@@ -81,8 +81,18 @@
             }
         },
         "patches": {
+            "drupal/core": {
+                "https://www.drupal.org/node/2230909": "https://www.drupal.org/files/issues/2022-11-19/2230909-285-D10.patch"
+            },
             "drupal/entity_reference_revisions": {
                 "https://www.drupal.org/project/entity_reference_revisions/issues/2937835": "https://www.drupal.org/files/issues/2021-03-26/entity_reference_revisions-field_formatter_label-2937835-36.patch"
+            }
+        },
+        "patches-ignore": {
+            "openeuropa/oe_content": {
+                "drupal/core": {
+                    "https://www.drupal.org/project/drupal/issues/2230909": "https://www.drupal.org/files/issues/2022-07-26/2230909-269.patch"
+                }
             }
         },
         "drupal-scaffold": {
