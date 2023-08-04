@@ -6,8 +6,8 @@ namespace Drupal\oe_whitelabel_link_lists\Plugin\LinkDisplay;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Template\Attribute;
 use Drupal\oe_link_lists\LinkCollectionInterface;
 use Drupal\oe_link_lists\LinkDisplayPluginBase;
 
@@ -50,6 +50,22 @@ abstract class ColumnLinkDisplayPluginBase extends LinkDisplayPluginBase impleme
       '#id' => $id,
     ];
 
+    $form['equal_height'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Equal height'),
+      '#default_value' => $this->configuration['equal_height'] ?? TRUE,
+    ];
+
+    $form['background_color'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Background color'),
+      '#options' => [
+        'bg-white' => $this->t('White'),
+        'bg-light' => $this->t('Light'),
+      ],
+      '#default_value' => $this->configuration['background_color'] ?? 'white',
+    ];
+
     return $form;
   }
 
@@ -58,33 +74,59 @@ abstract class ColumnLinkDisplayPluginBase extends LinkDisplayPluginBase impleme
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
     $this->configuration['columns'] = $form_state->getValue('columns');
+    $this->configuration['equal_height'] = $form_state->getValue('equal_height');
+    $this->configuration['background_color'] = $form_state->getValue('background_color');
   }
 
   /**
    * {@inheritdoc}
    */
   public function build(LinkCollectionInterface $links): array {
-    $build = [];
+    $build = parent::build($links);
+
     $items = $this->buildItems($links);
     if (empty($items)) {
       return $build;
     }
+
+    // Set additional attributes.
+    foreach ($items as &$item) {
+      $attributes = new Attribute($item['attributes'] ?? []);
+      // Equal height.
+      if(!empty($this->configuration['equal_height'])) {
+        // Parent wrapper.
+        $attributes->addClass('h-100');
+        // Child have to take the height of the parent.
+        if(!empty($item['content'])) {
+          $content_attributes = new Attribute($item['content']['attributes'] ?? []);
+          $content_attributes->addClass('h-100');
+        }
+      }
+      // Background color.
+      if(!empty($this->configuration['background_color'])) {
+        $content_attributes->addClass($this->configuration['background_color']);
+      }
+
+      // Set values.
+      $item['#attributes'] = $attributes->toArray();
+      if(!empty($item['content'])) {
+        $item['content']['#attributes'] = $content_attributes->toArray();
+      }
+    }
+
+
     // The content.
-    $build[] = [
+    $build['content'] = [
       '#type' => 'pattern',
       '#id' => 'listing',
       '#fields' => [
         'columns' => $this->configuration['columns'],
         'title' => $this->configuration['title'],
         'items' => $items,
+        'attributes' => $attributes,
       ],
     ];
-    // The more link.
-    $more_link = $this->configuration['more'];
-    if ($more_link instanceof Link) {
-      $build['more'] = $more_link->toRenderable();
-      $build['more']['#access'] = $more_link->getUrl()->access();
-    }
+
     return $build;
   }
 

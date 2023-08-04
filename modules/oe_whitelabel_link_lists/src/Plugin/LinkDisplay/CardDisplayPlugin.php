@@ -111,7 +111,9 @@ class CardDisplayPlugin extends ColumnLinkDisplayPluginBase implements Container
         \Drupal::messenger()->addError($message);
         return [];
       }
-      $items[] = ['content' => $this->entityTypeManager->getViewBuilder($entity_type_id)->view($entity, $view_display_id)];
+      $renderable_array = $this->entityTypeManager->getViewBuilder($entity_type_id)->view($entity, $view_display_id);
+
+      $items[] = ['content' => $renderable_array];
     }
     return $items;
   }
