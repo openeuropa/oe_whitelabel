@@ -73,6 +73,7 @@ abstract class ColumnLinkDisplayPluginBase extends LinkDisplayPluginBase impleme
    * {@inheritdoc}
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+    parent::submitConfigurationForm($form, $form_state);
     $this->configuration['columns'] = $form_state->getValue('columns');
     $this->configuration['equal_height'] = $form_state->getValue('equal_height');
     $this->configuration['background_color'] = $form_state->getValue('background_color');
@@ -109,7 +110,7 @@ abstract class ColumnLinkDisplayPluginBase extends LinkDisplayPluginBase impleme
 
       // Set values.
       $item['#attributes'] = $attributes->toArray();
-      if(!empty($item['content'])) {
+      if(!empty($item['content']) && !empty($content_attributes)) {
         $item['content']['#attributes'] = $content_attributes->toArray();
       }
     }

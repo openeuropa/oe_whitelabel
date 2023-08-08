@@ -81,6 +81,8 @@ class TeaserDisplayPlugin extends ColumnLinkDisplayPluginBase implements Contain
    * {@inheritdoc}
    */
   public function buildItems(LinkCollectionInterface $links): array {
+    $items = [];
+
     /** @var \Drupal\oe_link_lists\LinkInterface $link */
     foreach ($links as $link) {
       $entity = $link instanceof EntityAwareLinkInterface ? $link->getEntity() : NULL;
@@ -100,8 +102,9 @@ class TeaserDisplayPlugin extends ColumnLinkDisplayPluginBase implements Contain
       $view_display = $storage->load($entity_type_id . '.' . $bundle . '.' . $view_display_id);
 
       if (!$view_display) {
+        $sub_path = $entity_type_id == 'node' ? 'types' : $entity->getEntityTypeId();
         $link_here = Link::fromTextAndUrl($this->t('here'),
-          Url::fromUri('internal:' . '/admin/structure/types/manage/' . $entity->bundle() . '/display#edit-modes')
+          Url::fromUri('internal:' . '/admin/structure/' . $sub_path . '/manage/' . $bundle . '/display#edit-modes')
         )->toString();
         $message = new FormattableMarkup('The <b>@view_display</b> view mode is not available for <b>@bundle</b>. Please enable it @link_here', [
           '@view_display' => $view_display_id,
@@ -109,7 +112,7 @@ class TeaserDisplayPlugin extends ColumnLinkDisplayPluginBase implements Contain
           '@link_here' => $link_here,
         ]);
         \Drupal::messenger()->addError($message);
-        return [];
+        return $items;
       }
       $items[] = ['content' => $this->entityTypeManager->getViewBuilder($entity_type_id)->view($entity, $view_display_id)];
     }
