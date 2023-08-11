@@ -282,9 +282,15 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
   _oe_whitelabel_set_banner_link($paragraph, $variables);
 
   // The size and alignment fields replaced the "banner type" field.
-  // If the size field is filled in, it means that also the alignment has been
-  // filled in (as they are both mandatory).
-  if (!$paragraph->get('field_oe_banner_size')->isEmpty()) {
+  // Please note that once a paragraph is saved after the new fields have been
+  // created, these fields will always be filled in as they have a default
+  // value.
+  if (
+    $paragraph->hasField('field_oe_banner_size') &&
+    $paragraph->hasField('field_oe_banner_alignment') &&
+    !$paragraph->get('field_oe_banner_size')->isEmpty() &&
+    !$paragraph->get('field_oe_banner_alignment')->isEmpty()
+  ) {
     $variables['centered'] = $paragraph->get('field_oe_banner_alignment')->value === 'centered';
     $variables['pattern'] = 'banner_' . ($paragraph->get('field_oe_banner_size')->value === 'large' ? 'hero' : 'page');
   }
