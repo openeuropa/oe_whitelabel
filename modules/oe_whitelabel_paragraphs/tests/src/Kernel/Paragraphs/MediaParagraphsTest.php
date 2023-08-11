@@ -611,6 +611,24 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertBannerRendering($crawler);
     $this->assertCount(0, $crawler->filter('.bcl-banner.full-width'));
 
+    // Test the rendering when the legacy "banner type" field is filled in.
+    $paragraph->set('field_oe_banner_type', 'hero_center')->save();
+    // Since the new size and alignment fields are filled in, they are used
+    // for the rendering.
+    $html = $this->renderParagraph($paragraph);
+    $crawler = new Crawler($html);
+    $this->assertCount(1, $crawler->filter('.bcl-banner.bg-primary.text-white'));
+    $this->assertCount(0, $crawler->filter('.bcl-banner.hero'));
+    $this->assertCount(0, $crawler->filter('.bcl-banner.text-center'));
+
+    // When the new fields are empty, the old banner type field is used.
+    $paragraph->set('field_oe_banner_size', NULL);
+    $paragraph->set('field_oe_banner_alignment', NULL);
+    $paragraph->save();
+    $html = $this->renderParagraph($paragraph);
+    $crawler = new Crawler($html);
+    $this->assertCount(1, $crawler->filter('.bcl-banner.bg-primary.text-white.hero.text-center'));
+
     // Create a media using AV Portal image and add it to the paragraph.
     $media = $media_storage->create([
       'bundle' => 'av_portal_photo',
@@ -618,7 +636,6 @@ class MediaParagraphsTest extends ParagraphsTestBase {
       'uid' => 0,
       'status' => 1,
     ]);
-
     $media->save();
 
     $paragraph = $paragraph_storage->create([
