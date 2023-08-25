@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.3.0](https://github.com/openeuropa/oe_whitelabel/tree/1.3.0) (2023-08-25)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.2.0...1.3.0)
+
+**Merged pull requests:**
+
+- OEL-2424: Updated node drone version. [\#230](https://github.com/openeuropa/oe_whitelabel/pull/230) ([tibi2303](https://github.com/tibi2303))
+- OEL-2422: Updated node and bcl-builder. [\#228](https://github.com/openeuropa/oe_whitelabel/pull/228) ([tibi2303](https://github.com/tibi2303))
+- OEL-2382: Fixed preprocess of banner. [\#223](https://github.com/openeuropa/oe_whitelabel/pull/223) ([tibi2303](https://github.com/tibi2303))
+
 ## [1.2.0](https://github.com/openeuropa/oe_whitelabel/tree/1.2.0) (2023-06-15)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.1.0...1.2.0)
 
@@ -14,6 +23,7 @@
 
 **Merged pull requests:**
 
+- Prepare release 1.2.0 [\#221](https://github.com/openeuropa/oe_whitelabel/pull/221) ([drishu](https://github.com/drishu))
 - EWPP-3026: Drupal 10 compatibility. [\#220](https://github.com/openeuropa/oe_whitelabel/pull/220) ([escuriola](https://github.com/escuriola))
 - EWPP-3026: Drupal 10 compatibility. [\#219](https://github.com/openeuropa/oe_whitelabel/pull/219) ([drishu](https://github.com/drishu))
 - OEL-2278: Added check for slim\_select\_library path [\#217](https://github.com/openeuropa/oe_whitelabel/pull/217) ([tibi2303](https://github.com/tibi2303))
