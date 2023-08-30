@@ -16,6 +16,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Session\AccountProxy;
 use Drupal\Core\Url;
 use Drupal\media\Entity\Media;
 use Drupal\media\MediaInterface;
@@ -29,6 +30,7 @@ use Drupal\oe_bootstrap_theme\ConfigImporter;
 use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
 use Drupal\oe_media_iframe\Plugin\media\Source\Iframe;
 use Drupal\paragraphs\Entity\Paragraph;
+
 
 /**
  * Implements hook_modules_installed().
@@ -217,6 +219,7 @@ function oe_whitelabel_preprocess_paragraph__oe_text_feature_media(array &$varia
 function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variables): void {
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
+  $user = $variables['user'];
 
   // @todo Use ->isEmpty() as in other preprocess functions.
   //   In the OpenEuropa team it was decided that ->isEmpty() calls should be
@@ -237,8 +240,16 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
   foreach ($variables['paragraph']->get('field_oe_paragraphs') as $card_paragraph_item) {
     /** @var \Drupal\paragraphs\ParagraphInterface $card_paragraph */
     $card_paragraph = $card_paragraph_item->entity;
-    $card_image_item = $card_paragraph->get('field_oe_image')->first();
-    $card_image = $card_image_item ? ImageValueObject::fromImageItem($card_image_item) : NULL;
+    
+    // Retrieve image.
+    if(!$card_paragraph->get('field_oe_image')->isEmpty()) {
+      $card_image_item = $card_paragraph->get('field_oe_image')->first();
+      $card_image = $card_image_item ? ImageValueObject::fromImageItem($card_image_item) : NULL;
+    }
+    if(!$card_paragraph->get('field_oe_media')->isEmpty()) {
+      $card_image_item = $card_paragraph->get('field_oe_media')->entity;
+      $card_image = _oe_whitelabel_get_image_from_media_reference($paragraph, $card_image_item, $user);
+    }
 
     // Prepare the metas if available.
     $card_badges = [];
@@ -644,4 +655,50 @@ function oe_whitelabel_paragraphs_preprocess_paragraph__oe_gallery(&$variables) 
   // title tag, we set it up here so that further preprocess hooks can change
   // it.
   $variables['title_tag'] = 'h2';
+}
+
+/**
+ * Prepares media referenced for field_oe_media into paragraph.
+ *
+ * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
+ *   Paragraph object.
+ * @param \Drupal\media\MediaInterface $media
+ *   Media object.
+ * @param \Drupal\Core\Session\AccountProxy $user
+ *   AccountProxy object.
+ */
+function _oe_whitelabel_get_image_from_media_reference(
+  Paragraph $paragraph,
+  MediaInterface $media,
+  AccountProxy $user
+  ) {
+    /** @var \Drupal\media\Entity\Media $media */
+  if (!$media instanceof MediaInterface) {
+    // The media entity is not available anymore, bail out.
+    return [];
+  }
+
+  // Retrieve the correct media translation.
+  /** @var \Drupal\media\Entity\Media $media */
+  $media = \Drupal::service('entity.repository')->getTranslationFromContext($media, $paragraph->language()->getId());
+
+  // Run access checks on the media entity.
+  $access = $media->access('view', $user, TRUE);
+  if (!$access->isAllowed()) {
+    return [];
+  }
+
+  // Get the media source.
+  $source = $media->getSource();
+
+  $is_image = $source instanceof MediaAvPortalPhotoSource || $source instanceof Image;
+
+  // If it's not an image and not a video, bail out.
+  if (!$is_image) {
+    return [];
+  }
+  
+  $thumbnail = $media->get('thumbnail')->first();
+  $image = ImageValueObject::fromImageItem($thumbnail);
+  return $image;
 }
