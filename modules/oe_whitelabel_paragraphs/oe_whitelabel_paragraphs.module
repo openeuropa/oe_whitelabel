@@ -292,14 +292,29 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
   $variables['full_width'] = (bool) $paragraph->get('field_oe_banner_full_width')->value;
   _oe_whitelabel_set_banner_link($paragraph, $variables);
 
-  // The alignment field value contains the information regarding the pattern
-  // type and centering.
-  $alignment = $paragraph->get('field_oe_banner_type')->value;
-  [$banner_type, $banner_alignment] = explode('_', $alignment);
-  // The beginning of the string determines the pattern.
-  $variables['pattern'] = 'banner_' . $banner_type;
-  // The end of the string determines the position.
-  $variables['alignment'] = $banner_alignment;
+  // The size and alignment fields replaced the "banner type" field.
+  // Please note that once a paragraph is saved after the new fields have been
+  // created, these fields will always be filled in as they have a default
+  // value.
+  if (
+    $paragraph->hasField('field_oe_banner_size') &&
+    $paragraph->hasField('field_oe_banner_alignment') &&
+    !$paragraph->get('field_oe_banner_size')->isEmpty() &&
+    !$paragraph->get('field_oe_banner_alignment')->isEmpty()
+  ) {
+    $variables['centered'] = $paragraph->get('field_oe_banner_alignment')->value === 'centered';
+    $variables['pattern'] = 'banner_' . ($paragraph->get('field_oe_banner_size')->value === 'large' ? 'hero' : 'page');
+  }
+  elseif (!$paragraph->get('field_oe_banner_type')->isEmpty()) {
+    // The alignment field value contains the information regarding the pattern
+    // type and centering.
+    $alignment = $paragraph->get('field_oe_banner_type')->value;
+    [$banner_type, $banner_alignment] = explode('_', $alignment);
+    // The beginning of the string determines the pattern.
+    $variables['pattern'] = 'banner_' . $banner_type;
+    // The end of the string determines the position.
+    $variables['centered'] = $banner_alignment === 'center';
+  }
 
   $variant = $paragraph->get('oe_paragraphs_variant')->value ?? 'default';
   $variables['variant'] = str_replace('oe_banner_', '', $variant);
