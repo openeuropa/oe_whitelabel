@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_whitelabel_link_lists\Plugin\LinkDisplay;
 
-use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Template\Attribute;
@@ -40,14 +39,12 @@ abstract class ColumnLinkDisplayPluginBase extends LinkDisplayPluginBase impleme
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    $id = Html::getUniqueId('columns');
     $form['columns'] = [
       '#type' => 'number',
       '#title' => $this->t('Columns'),
       '#min' => 1,
       '#max' => 3,
       '#default_value' => $this->configuration['columns'] ?? 1,
-      '#id' => $id,
     ];
 
     $form['equal_height'] = [
@@ -94,27 +91,26 @@ abstract class ColumnLinkDisplayPluginBase extends LinkDisplayPluginBase impleme
     foreach ($items as &$item) {
       $attributes = new Attribute($item['attributes'] ?? []);
       // Equal height.
-      if(!empty($this->configuration['equal_height'])) {
+      if (!empty($this->configuration['equal_height'])) {
         // Parent wrapper.
         $attributes->addClass('h-100');
         // Child have to take the height of the parent.
-        if(!empty($item['content'])) {
+        if (!empty($item['content'])) {
           $content_attributes = new Attribute($item['content']['attributes'] ?? []);
           $content_attributes->addClass('h-100');
         }
       }
       // Background color.
-      if(!empty($this->configuration['background_color'])) {
+      if (!empty($this->configuration['background_color'])) {
         $content_attributes->addClass($this->configuration['background_color']);
       }
 
       // Set values.
       $item['#attributes'] = $attributes->toArray();
-      if(!empty($item['content']) && !empty($content_attributes)) {
+      if (!empty($item['content']) && !empty($content_attributes)) {
         $item['content']['#attributes'] = $content_attributes->toArray();
       }
     }
-
 
     // The content.
     $build['content'] = [
