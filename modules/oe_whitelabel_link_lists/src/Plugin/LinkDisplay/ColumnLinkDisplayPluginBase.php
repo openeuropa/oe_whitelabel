@@ -148,12 +148,14 @@ abstract class ColumnLinkDisplayPluginBase extends LinkDisplayPluginBase impleme
     // The content.
     $build['content'] = [
       '#type' => 'pattern',
-      '#id' => 'listing',
-      '#fields' => [
-        'columns' => $this->configuration['columns'],
-        'title' => $this->configuration['title'],
-        'items' => $items,
-        'attributes' => $attributes,
+      '#id' => 'section',
+      '#heading' => $this->configuration['title'],
+      '#content' => [
+        '#type' => 'pattern',
+        '#id' => 'columns',
+        '#columns' => $this->configuration['columns'],
+        '#items' => $items,
+        '#attributes' => $attributes,
       ],
     ];
 
