@@ -17,6 +17,7 @@ abstract class AbstractKernelTestBase extends BootstrapKernelTestBase {
   protected static $modules = [
     'daterange_compact',
     'oe_whitelabel_helper',
+    'oe_corporate_blocks',
   ];
 
   /**

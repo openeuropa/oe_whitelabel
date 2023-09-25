@@ -7,10 +7,11 @@
  *   - address: Address object.
  *   - address_items: Address items.
  *   - address_delimiter: Delimiter between address items.
+ *   - country_flag: The country address flag. Optional.
  *
  * @ingroup themeable
  */
 #}
-<span translate="no">
-  {{ address_items|join(address_delimiter) }}
+<span translate="no" class="d-flex align-items-center">
+  {{ country_flag }} {{ address_items|join(address_delimiter) }}
 </span>

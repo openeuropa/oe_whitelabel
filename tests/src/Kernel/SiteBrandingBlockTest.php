@@ -5,22 +5,18 @@ declare(strict_types = 1);
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
 use Drupal\Core\Url;
-use Drupal\KernelTests\KernelTestBase;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Tests the Site Branding Block rendering.
  */
-class SiteBrandingBlockTest extends KernelTestBase {
+class SiteBrandingBlockTest extends AbstractKernelTestBase {
 
   /**
    * {@inheritdoc}
    */
   protected static $modules = [
     'block',
-    'oe_bootstrap_theme_helper',
-    'system',
-    'user',
   ];
 
   /**
@@ -29,17 +25,11 @@ class SiteBrandingBlockTest extends KernelTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    \Drupal::service('theme_installer')->install(['oe_whitelabel']);
     $url = '/' . \Drupal::service('extension.list.theme')->getPath('oe_whitelabel') . '/logo.svg';
 
     \Drupal::configFactory()
       ->getEditable('oe_whitelabel.settings')
       ->set('logo', ['url' => $url])
-      ->save();
-
-    \Drupal::configFactory()
-      ->getEditable('system.theme')
-      ->set('default', 'oe_whitelabel')
       ->save();
 
     \Drupal::configFactory()

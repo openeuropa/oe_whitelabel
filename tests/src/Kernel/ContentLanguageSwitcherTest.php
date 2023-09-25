@@ -4,16 +4,16 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
-use Drupal\KernelTests\KernelTestBase;
 use Drupal\node\Entity\Node;
-use Drupal\user\Entity\User;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Test content language switcher rendering.
  */
-class ContentLanguageSwitcherTest extends KernelTestBase {
+class ContentLanguageSwitcherTest extends AbstractKernelTestBase {
 
   /**
    * {@inheritdoc}
@@ -21,17 +21,10 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
   protected static $modules = [
     'block',
     'content_translation',
-    'daterange_compact',
     'language',
     'locale',
-    'node',
-    'oe_bootstrap_theme_helper',
-    'oe_corporate_blocks',
     'oe_multilingual',
-    'oe_whitelabel_helper',
     'oe_whitelabel_multilingual',
-    'system',
-    'user',
   ];
 
   /**
@@ -40,10 +33,7 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    $this->installEntitySchema('user');
-    $this->installSchema('system', 'sequences');
     $this->installSchema('user', ['users_data']);
-    $this->installConfig(['user']);
 
     $this->installSchema('locale', [
       'locales_location',
@@ -58,25 +48,15 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
       'language',
       'locale',
       'oe_multilingual',
-      'oe_whitelabel_helper',
-      'system',
     ]);
     $this->container->get('module_handler')->loadInclude('oe_multilingual', 'install');
     oe_multilingual_install(FALSE);
 
-    $this->container->get('theme_installer')->install(['oe_whitelabel']);
-    $this->config('system.theme')->set('default', 'oe_whitelabel')->save();
+    Role::load(RoleInterface::ANONYMOUS_ID)
+      ->grantPermission('access content')
+      ->save();
 
-    // Call the installation hook of the User module which creates the
-    // Anonymous user and User 1. This is needed because the Anonymous user
-    // is loaded to provide the current User context which is needed
-    // in places like route enhancers.
-    // @see CurrentUserContext::getRuntimeContexts().
-    // @see EntityConverter::convert().
-    $this->container->get('module_handler')->loadInclude('oe_multilingual', 'install');
-    user_install();
-    \Drupal::currentUser()->setAccount(User::load(1));
-
+    // Container rebuild is needed to regenerate routes.
     \Drupal::service('kernel')->rebuildContainer();
   }
 

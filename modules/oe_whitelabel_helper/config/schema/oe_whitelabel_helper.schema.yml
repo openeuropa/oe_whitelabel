@@ -10,6 +10,9 @@ field.formatter.settings.oe_whitelabel_helper_address_inline:
       sequence:
         type: boolean
         label: 'Properties'
+    show_country_flag:
+      type: boolean
+      label: 'Show a country flag together with the address.'
 condition.plugin.oe_whitelabel_helper_current_component_library:
   type: condition.plugin
   mapping:

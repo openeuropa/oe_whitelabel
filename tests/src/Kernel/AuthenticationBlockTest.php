@@ -4,13 +4,12 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
-use Drupal\KernelTests\KernelTestBase;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Tests the OE Authentication LoginBlock rendering.
  */
-class AuthenticationBlockTest extends KernelTestBase {
+class AuthenticationBlockTest extends AbstractKernelTestBase {
 
   /**
    * {@inheritdoc}
@@ -20,24 +19,7 @@ class AuthenticationBlockTest extends KernelTestBase {
     'cas',
     'externalauth',
     'oe_authentication',
-    'oe_bootstrap_theme_helper',
-    'system',
-    'ui_patterns',
-    'ui_patterns_library',
-    'user',
   ];
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    \Drupal::service('theme_installer')->install(['oe_whitelabel']);
-    $this->config('system.theme')
-      ->set('default', 'oe_whitelabel')
-      ->save();
-  }
 
   /**
    * Tests the rendering of the authentication block.
@@ -55,7 +37,7 @@ class AuthenticationBlockTest extends KernelTestBase {
     $actual = $crawler->filter('.oe-authentication');
     $this->assertCount(1, $actual);
     $icon = $actual->filter('svg');
-    $this->assertSame('ms-2-5 bi icon--xs', $icon->attr('class'));
+    $this->assertSame('me-2-5 bi icon--xs', $icon->attr('class'));
     $use = $icon->filter('use');
     $expected = '/themes/contrib/oe_bootstrap_theme/assets/icons/bcl-default-icons.svg#person-fill';
     $this->assertSame($expected, $use->attr('xlink:href'));

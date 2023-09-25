@@ -4,27 +4,35 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
-use Drupal\Tests\sparql_entity_storage\Kernel\SparqlKernelTestBase;
+use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Tests the EU and the EC corporate Footer blocks rendering.
  */
-class FooterBlockTest extends SparqlKernelTestBase {
+class FooterBlockTest extends AbstractKernelTestBase {
+
+  use SparqlConnectionTrait;
 
   /**
    * {@inheritdoc}
    */
   protected static $modules = [
     'block',
-    'oe_bootstrap_theme_helper',
     'oe_corporate_blocks',
     'oe_corporate_site_info',
-    'oe_whitelabel_helper',
     'rdf_skos',
-    'system',
-    'user',
+    'sparql_entity_storage',
   ];
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function bootEnvironment(): void {
+    parent::bootEnvironment();
+
+    $this->setUpSparql();
+  }
 
   /**
    * {@inheritdoc}
@@ -35,14 +43,8 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $this->installConfig([
       'oe_corporate_site_info',
       'oe_corporate_blocks',
+      'sparql_entity_storage',
     ]);
-
-    \Drupal::service('theme_installer')->install(['oe_whitelabel']);
-
-    \Drupal::configFactory()
-      ->getEditable('system.theme')
-      ->set('default', 'oe_whitelabel')
-      ->save();
 
     \Drupal::configFactory()
       ->getEditable('system.site')

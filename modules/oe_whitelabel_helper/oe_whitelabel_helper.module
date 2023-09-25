@@ -28,6 +28,13 @@ function oe_whitelabel_helper_theme($existing, $type, $theme, $path) {
         'address' => NULL,
         'address_items' => [],
         'address_delimiter' => NULL,
+        'country_flag' => NULL,
+      ],
+    ],
+    'oe_whitelabel_helper_country_flag' => [
+      'variables' => [
+        'country_code' => NULL,
+        'attributes' => [],
       ],
     ],
     'oe_corporate_blocks_neutral_footer' => [
@@ -101,4 +108,23 @@ function oe_whitelabel_helper_requirements_alter(array &$requirements): void {
       ]),
     ];
   }
+}
+
+/**
+ * Default preprocess function for oe_whitelabel_helper_country_flag.
+ *
+ * @param array $variables
+ *   The variables array.
+ */
+function template_preprocess_oe_whitelabel_helper_country_flag(array &$variables): void {
+  $theme_extension_list = \Drupal::service('extension.list.theme');
+
+  $variables['attributes']['class'][] = 'icon--fluid';
+
+  $image_uri = $theme_extension_list->getPath('oe_whitelabel') . '/assets/icons/world-flags/' . strtolower($variables['country_code']) . '.svg';
+  $variables['image'] = [
+    '#theme' => 'image__country_flag',
+    '#uri' => $image_uri,
+    '#attributes' => $variables['attributes'],
+  ];
 }

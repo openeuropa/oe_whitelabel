@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel_helper\Kernel\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Site\Settings;
 use Drupal\entity_test\Entity\EntityTest;
 use Drupal\Tests\address\Kernel\Formatter\FormatterTestBase;
 
@@ -25,6 +26,16 @@ class AddressInlineFormatterTest extends FormatterTestBase {
   protected function setUp(): void {
     parent::setUp();
 
+    // Replicate 'file_scan_ignore_directories' from settings.php.
+    $settings = Settings::getAll();
+    $settings['file_scan_ignore_directories'] = [
+      'node_modules',
+      'bower_components',
+      'vendor',
+      'build',
+    ];
+    new Settings($settings);
+
     $this->createField('address', 'oe_whitelabel_helper_address_inline');
   }
 
@@ -32,7 +43,7 @@ class AddressInlineFormatterTest extends FormatterTestBase {
    * Tests formatting of address.
    */
   public function testInlineFormatterAddress(): void {
-    $entity = EntityTest::create([]);
+    $entity = EntityTest::create();
     foreach ($this->addressFieldTestData() as $data) {
       if (!empty($data['settings'])) {
         $this->alterDisplaySettings($data['settings']);
@@ -42,7 +53,40 @@ class AddressInlineFormatterTest extends FormatterTestBase {
       $cloned_entity->{$this->fieldName} = $data['address'];
       $this->renderEntityFields($cloned_entity, $this->display);
       $this->assertRaw($data['expected']);
-      unset($cloned_entity);
+      $this->assertNoRaw('<img');
+    }
+
+    // Enable the formatter to show the icon.
+    $base_settings = [
+      'show_country_flag' => TRUE,
+    ];
+    $this->alterDisplaySettings($base_settings);
+
+    $country_flags_folder = $this->container->get('extension.list.theme')->getPath('oe_whitelabel') . '/assets/icons/world-flags/';
+    $file_url_generator = $this->container->get('file_url_generator');
+    $country_repository = $this->container->get('address.country_repository');
+
+    foreach ($this->addressFieldTestData() as $scenario => $data) {
+      try {
+        if (!empty($data['settings'])) {
+          $this->alterDisplaySettings(array_merge($base_settings, $data['settings']));
+        }
+
+        $entity->set($this->fieldName, $data['address']);
+        $this->renderEntityFields($entity, $this->display);
+
+        $country_code = strtolower($data['address']['country_code']);
+        $country_flag_path = $file_url_generator->generateString($country_flags_folder . $country_code . '.svg');
+        $country_flag_html = sprintf(
+          '<img class="me-2 icon--fluid" alt="%s" src="%s" />',
+          $country_repository->get($country_code)->getName(),
+          $country_flag_path
+        );
+        $this->assertRaw($country_flag_html . ' ' . $data['expected']);
+      }
+      catch (\Exception $exception) {
+        throw new \Exception(sprintf('Failure on scenario %s.', $scenario), 0, $exception);
+      }
     }
   }
 

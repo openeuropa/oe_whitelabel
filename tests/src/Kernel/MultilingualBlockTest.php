@@ -4,13 +4,12 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
-use Drupal\KernelTests\KernelTestBase;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Tests the OE Multilingual Block rendering.
  */
-class MultilingualBlockTest extends KernelTestBase {
+class MultilingualBlockTest extends AbstractKernelTestBase {
 
   /**
    * {@inheritdoc}
@@ -21,17 +20,12 @@ class MultilingualBlockTest extends KernelTestBase {
     'ctools',
     'language',
     'locale',
-    'oe_bootstrap_theme_helper',
     'oe_multilingual',
     'oe_whitelabel_multilingual',
     'path',
     'path_alias',
     'pathauto',
-    'system',
     'token',
-    'ui_patterns',
-    'ui_patterns_library',
-    'user',
   ];
 
   /**
@@ -39,14 +33,6 @@ class MultilingualBlockTest extends KernelTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-
-    \Drupal::service('theme_installer')->install(['oe_whitelabel']);
-
-    $this->config('system.theme')
-      ->set('default', 'oe_whitelabel')
-      ->save();
-
-    $this->container->set('theme.registry', NULL);
 
     $this->installSchema('locale', [
       'locales_location',
