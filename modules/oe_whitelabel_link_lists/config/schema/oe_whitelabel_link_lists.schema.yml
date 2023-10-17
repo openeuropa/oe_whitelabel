@@ -1,0 +1,7 @@
+core.entity_view_display.*.*.*.third_party.oe_whitelabel_link_lists:
+  type: mapping
+  label: 'OpenEuropa Whitelabel Link Lists settings'
+  mapping:
+    link_display:
+      type: boolean
+      label: 'Embeddable'

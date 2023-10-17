@@ -1,0 +1,103 @@
+<?php
+
+declare(strict_types = 1);
+
+use Drupal\Core\Entity\ContentEntityTypeInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Alters the entity view display edit form for entities to add an element
+ * that allows to select which view modes can be used for embedding in the
+ * WYSIWYG.
+ */
+function oe_whitelabel_link_lists_form_entity_view_display_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $entity */
+  $entity = $form_state->getFormObject()->getEntity();
+  $entity_type = \Drupal::entityTypeManager()->getDefinition($entity->getTargetEntityTypeId());
+  // We only care about content entities.
+  if (!$entity_type instanceof ContentEntityTypeInterface) {
+    return;
+  }
+
+  // We only add to the Custom Display Settings, if it exists.
+  if (!isset($form['modes'])) {
+    return;
+  }
+
+  // Gather which view displays are currently available.
+  $options = [];
+  $default_value = [];
+  foreach (_oe_whitelabel_link_lists_get_enabled_display_options($entity) as $id => $details) {
+    $options[$id] = $details['label'];
+    $default_value[$id] = $details['enabled'] ? $id : 0;
+  }
+  $form['modes']['oe_whitelabel_link_lists_link_display'] = [
+    '#type' => 'checkboxes',
+    '#title' => t('Link list displays'),
+    '#description' => t('Select which of the view modes will be provided as dedicated link display.'),
+    '#options' => $options,
+    '#default_value' => $default_value,
+  ];
+
+  $form['actions']['submit']['#submit'][] = '_oe_whitelabel_link_lists_save_embeddable_displays';
+}
+
+/**
+ * Custom submit method for entity view display edit forms.
+ *
+ * We store whether an entity view display should be embeddable or not.
+ *
+ * @param array $form
+ *   The form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ */
+function _oe_whitelabel_link_lists_save_embeddable_displays(array &$form, FormStateInterface $form_state): void {
+  if (!$form_state->getValue('oe_whitelabel_link_lists_link_display')) {
+    return;
+  }
+  $display = $form_state->getFormObject()->getEntity();
+  /** @var \Drupal\Core\Entity\EntityStorageInterface $storage */
+  $storage = \Drupal::entityTypeManager()->getStorage($display->getEntityTypeId());
+  foreach ($form_state->getValue('oe_whitelabel_link_lists_link_display') as $mode => $value) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $storage->load($display->getTargetEntityTypeId() . '.' . $display->getTargetBundle() . '.' . $mode);
+    // Only save if the value has changed.
+    if ($view_display->getThirdPartySetting('oe_whitelabel_link_lists', 'link_display') !== $value) {
+      $view_display->setThirdPartySetting('oe_whitelabel_link_lists', 'link_display', $value);
+      $view_display->save();
+    }
+  }
+}
+
+/**
+ * Returns the available entity view displays and if they are embeddable or not.
+ *
+ * @param \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display
+ *   The display being edited.
+ *
+ * @return array
+ *   A list of enabled view displays.
+ */
+function _oe_whitelabel_link_lists_get_enabled_display_options(EntityViewDisplayInterface $display): array {
+  $available_options = [];
+  // Retrieve all available displays for the target entity type.
+  $available_display_modes = \Drupal::service('entity_display.repository')->getViewModeOptions($display->getTargetEntityTypeId());
+
+  $storage = \Drupal::entityTypeManager()->getStorage($display->getEntityTypeId());
+  foreach ($available_display_modes as $mode => $label) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $view_display */
+    $view_display = $storage->load($display->getTargetEntityTypeId() . '.' . $display->getTargetBundle() . '.' . $mode);
+    if ($view_display && $view_display->status()) {
+      $available_options[$mode] = [
+        'label' => $label,
+        'enabled' => $view_display->getThirdPartySetting('oe_whitelabel_link_lists', 'link_display'),
+      ];
+    }
+  }
+
+  return $available_options;
+}
