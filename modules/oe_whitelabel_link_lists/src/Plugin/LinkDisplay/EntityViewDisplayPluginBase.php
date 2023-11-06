@@ -100,6 +100,7 @@ abstract class EntityViewDisplayPluginBase extends ColumnLinkDisplayPluginBase i
         continue;
       }
 
+      // @todo Isn't this handled by oe_link_lists?
       $entity = $this->entityRepository->getTranslationFromContext($entity);
 
       // Check if the entity type has the view display available.
