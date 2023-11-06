@@ -7,7 +7,6 @@ namespace Drupal\oe_whitelabel_link_lists\Plugin\LinkDisplay;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\oe_link_lists\EntityAwareLinkInterface;
 use Drupal\oe_link_lists\LinkCollectionInterface;
@@ -145,7 +144,7 @@ abstract class ColumnLinkDisplayPluginBase extends LinkDisplayPluginBase impleme
       $entity = $link instanceof EntityAwareLinkInterface ? $link->getEntity() : NULL;
 
       if (!$entity) {
-        $items[] = $this->buildLinkWithPattern($link);
+        $items[] = $this->buildLinkWithFallback($link);
         continue;
       }
 
@@ -162,7 +161,7 @@ abstract class ColumnLinkDisplayPluginBase extends LinkDisplayPluginBase impleme
       ]));
 
       if (!$view_display) {
-        $items[] = $this->buildLinkWithPattern($link);
+        $items[] = $this->buildLinkWithFallback($link);
         continue;
       }
 
@@ -174,7 +173,7 @@ abstract class ColumnLinkDisplayPluginBase extends LinkDisplayPluginBase impleme
   }
 
   /**
-   * Builds a link with a pattern.
+   * Builds a link with a fallback rendering mode, e.g. a pattern.
    *
    * @param \Drupal\oe_link_lists\LinkInterface $link
    *   The link list link.
@@ -182,16 +181,6 @@ abstract class ColumnLinkDisplayPluginBase extends LinkDisplayPluginBase impleme
    * @return array
    *   The render array.
    */
-  protected function buildLinkWithPattern(LinkInterface $link): array {
-    return [
-      '#type' => 'pattern',
-      '#id' => 'card',
-      '#variant' => $this->getPluginId() === 'teaser' ? 'search' : 'default',
-      '#fields' => [
-        'title' => Link::fromTextAndUrl($link->getTitle(), $link->getUrl())->toRenderable(),
-        'text' => $link->getTeaser(),
-      ],
-    ];
-  }
+  abstract protected function buildLinkWithFallback(LinkInterface $link): array;
 
 }

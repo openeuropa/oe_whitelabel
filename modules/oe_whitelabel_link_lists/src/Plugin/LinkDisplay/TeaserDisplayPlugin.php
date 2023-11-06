@@ -4,16 +4,34 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_whitelabel_link_lists\Plugin\LinkDisplay;
 
+use Drupal\Core\Link;
+use Drupal\oe_link_lists\LinkInterface;
+
 /**
  * Teaser display for link lists.
  *
  * @LinkDisplay(
  *   id = "teaser",
  *   label = @Translation("Teaser"),
- *   description = @Translation("Display a Link lists using Teaser view display."),
+ *   description = @Translation("Display list link links using Teaser view display."),
  *   bundles = { "dynamic", "manual" }
  * )
  */
 class TeaserDisplayPlugin extends ColumnLinkDisplayPluginBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function buildLinkWithFallback(LinkInterface $link): array {
+    return [
+      '#type' => 'pattern',
+      '#id' => 'card',
+      '#variant' => 'search',
+      '#fields' => [
+        'title' => Link::fromTextAndUrl($link->getTitle(), $link->getUrl())->toRenderable(),
+        'text' => $link->getTeaser(),
+      ],
+    ];
+  }
 
 }
