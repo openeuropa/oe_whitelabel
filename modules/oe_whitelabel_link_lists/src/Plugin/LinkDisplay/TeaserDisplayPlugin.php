@@ -17,7 +17,7 @@ use Drupal\oe_link_lists\LinkInterface;
  *   bundles = { "dynamic", "manual" }
  * )
  */
-class TeaserDisplayPlugin extends ColumnLinkDisplayPluginBase {
+class TeaserDisplayPlugin extends EntityViewDisplayPluginBase {
 
   /**
    * {@inheritdoc}

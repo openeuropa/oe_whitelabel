@@ -17,7 +17,7 @@ use Drupal\oe_link_lists\LinkInterface;
  *   bundles = { "dynamic", "manual" }
  * )
  */
-class CardDisplayPlugin extends ColumnLinkDisplayPluginBase {
+class CardDisplayPlugin extends EntityViewDisplayPluginBase {
 
   /**
    * {@inheritdoc}
