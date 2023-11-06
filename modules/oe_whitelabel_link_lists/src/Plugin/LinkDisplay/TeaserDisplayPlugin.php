@@ -11,13 +11,20 @@ use Drupal\oe_link_lists\LinkInterface;
  * Teaser display for link lists.
  *
  * @LinkDisplay(
- *   id = "teaser",
+ *   id = "oewt_teaser",
  *   label = @Translation("Teaser"),
  *   description = @Translation("Display list link links using Teaser view display."),
  *   bundles = { "dynamic", "manual" }
  * )
  */
 class TeaserDisplayPlugin extends EntityViewDisplayPluginBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getEntityDisplayModeId(): string {
+    return 'teaser';
+  }
 
   /**
    * {@inheritdoc}

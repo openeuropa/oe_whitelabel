@@ -11,13 +11,20 @@ use Drupal\oe_link_lists\LinkInterface;
  * Card display for link lists.
  *
  * @LinkDisplay(
- *   id = "card",
+ *   id = "oewt_card",
  *   label = @Translation("Card"),
  *   description = @Translation("Display link list links using Card view display."),
  *   bundles = { "dynamic", "manual" }
  * )
  */
 class CardDisplayPlugin extends EntityViewDisplayPluginBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getEntityDisplayModeId(): string {
+    return 'card';
+  }
 
   /**
    * {@inheritdoc}
