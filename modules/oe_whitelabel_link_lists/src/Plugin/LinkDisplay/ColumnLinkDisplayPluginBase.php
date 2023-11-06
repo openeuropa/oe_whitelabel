@@ -134,17 +134,18 @@ abstract class ColumnLinkDisplayPluginBase extends LinkDisplayPluginBase impleme
    *   Links to be added in each column.
    *
    * @return array
-   *   The renderable array (using Pattern).
+   *   The renderable array.
    */
   protected function buildItems(LinkCollectionInterface $links): array {
     $items = [];
 
-    /** @var \Drupal\oe_link_lists\LinkInterface $link */
+    $display_storage = $this->entityTypeManager->getStorage('entity_view_display');
     foreach ($links as $link) {
+      /** @var \Drupal\oe_link_lists\LinkInterface $link */
       $entity = $link instanceof EntityAwareLinkInterface ? $link->getEntity() : NULL;
 
       if (!$entity) {
-        // Skip invalid entities.
+        $items[] = $this->buildLinkWithPattern($link);
         continue;
       }
 
@@ -152,29 +153,45 @@ abstract class ColumnLinkDisplayPluginBase extends LinkDisplayPluginBase impleme
 
       // Check if the entity type has the view display available.
       $entity_type_id = $entity->getEntityTypeId();
-      $bundle = $entity->bundle();
-      $view_display_id = $this->pluginId;
-      $storage = $this->entityTypeManager->getStorage('entity_view_display');
-      $view_display = $storage->load($entity_type_id . '.' . $bundle . '.' . $view_display_id);
+      $view_display_id = $this->getPluginId();
+
+      $view_display = $display_storage->load(implode('.', [
+        $entity_type_id,
+        $entity->bundle(),
+        $view_display_id,
+      ]));
 
       if (!$view_display) {
-        $sub_path = $entity_type_id == 'node' ? 'types' : $entity->getEntityTypeId();
-        $link_here = Link::fromTextAndUrl($this->t('here'),
-          Url::fromUri('internal:' . '/admin/structure/' . $sub_path . '/manage/' . $bundle . '/display#edit-modes')
-        )->toString();
-        $message = new FormattableMarkup('The <b>@view_display</b> view mode is not available for <b>@bundle</b>. Please enable it @link_here', [
-          '@view_display' => $view_display_id,
-          '@bundle' => $entity->bundle(),
-          '@link_here' => $link_here,
-        ]);
-        \Drupal::messenger()->addError($message);
-        return $items;
+        $items[] = $this->buildLinkWithPattern($link);
+        continue;
       }
-      $renderable_array = $this->entityTypeManager->getViewBuilder($entity_type_id)->view($entity, $view_display_id);
 
-      $items[] = ['content' => $renderable_array];
+      $items[] = [
+        'entity' => $this->entityTypeManager->getViewBuilder($entity_type_id)->view($entity, $view_display_id),
+      ];
     }
     return $items;
+  }
+
+  /**
+   * Builds a link with a pattern.
+   *
+   * @param \Drupal\oe_link_lists\LinkInterface $link
+   *   The link list link.
+   *
+   * @return array
+   *   The render array.
+   */
+  protected function buildLinkWithPattern(LinkInterface $link): array {
+    return [
+      '#type' => 'pattern',
+      '#id' => 'card',
+      '#variant' => $this->getPluginId() === 'teaser' ? 'search' : 'default',
+      '#fields' => [
+        'title' => Link::fromTextAndUrl($link->getTitle(), $link->getUrl())->toRenderable(),
+        'text' => $link->getTeaser(),
+      ],
+    ];
   }
 
 }
