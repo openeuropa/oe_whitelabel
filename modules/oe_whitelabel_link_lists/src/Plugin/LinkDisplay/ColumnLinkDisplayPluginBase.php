@@ -4,17 +4,16 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_whitelabel_link_lists\Plugin\LinkDisplay;
 
-use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Template\Attribute;
-use Drupal\Core\Url;
 use Drupal\oe_link_lists\EntityAwareLinkInterface;
 use Drupal\oe_link_lists\LinkCollectionInterface;
 use Drupal\oe_link_lists\LinkDisplayPluginBase;
+use Drupal\oe_link_lists\LinkInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Base class for link display plugins that need to be displayed in columns.
@@ -54,6 +53,19 @@ abstract class ColumnLinkDisplayPluginBase extends LinkDisplayPluginBase impleme
 
     $this->entityRepository = $entity_repository;
     $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('entity.repository'),
+      $container->get('entity_type.manager')
+    );
   }
 
   /**
