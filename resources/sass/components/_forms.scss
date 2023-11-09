@@ -1,0 +1,6 @@
+// Prevent double borders on select elements with slim-select enabled.
+.form-select {
+  .ss-multi-selected {
+    border: 0;
+  }
+}
