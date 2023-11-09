@@ -14,7 +14,7 @@ use Drupal\oe_link_lists\LinkInterface;
  *   id = "oewt_teaser",
  *   label = @Translation("Teaser"),
  *   description = @Translation("Display list link links using Teaser view display."),
- *   bundles = { "dynamic", "manual" }
+ *   bundles = { "dynamic" }
  * )
  */
 class TeaserDisplayPlugin extends EntityViewDisplayPluginBase {
