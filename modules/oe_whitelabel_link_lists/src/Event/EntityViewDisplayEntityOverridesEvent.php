@@ -46,6 +46,11 @@ class EntityViewDisplayEntityOverridesEvent extends Event {
   /**
    * Sets the entity.
    *
+   * Please pay attention that the entity set here will be prevented from
+   * being saved via oe_whitelabel_link_lists_entity_presave().
+   * If the entity is being replaced, make sure it's a "clone" of the original
+   * like it's done in EntityViewDisplayPluginBase::buildItems().
+   *
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *   The entity.
    */

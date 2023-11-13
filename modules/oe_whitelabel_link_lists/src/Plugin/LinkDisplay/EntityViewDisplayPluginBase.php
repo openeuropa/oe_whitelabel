@@ -121,14 +121,21 @@ abstract class EntityViewDisplayPluginBase extends ColumnLinkDisplayPluginBase i
       // The create() method sets enforceIsNew() to true, but this prevents
       // generating things like URL of the entity.
       // @see template_preprocess_node()
+      // For the same reason, we cannot use EntityInterface::createDuplicate()
+      // as it will unset the ID, UUID and revision fields.
+      // @see \Drupal\Core\Entity\EntityInterface::createDuplicate
       $overridable_entity->enforceIsNew(FALSE);
+
+      // Mark the entity as override created by this plugin.
+      /** @var \WeakMap $list */
+      $list = drupal_static('oe_whitelabel_link_lists.weak_map', new \WeakMap());
+      $list[$overridable_entity] = $this->getPluginId();
 
       $event = new EntityViewDisplayEntityOverridesEvent($link, $overridable_entity);
       $this->eventDispatcher->dispatch($event);
       $overridable_entity = $event->getEntity();
 
-      /** @var \WeakMap $list */
-      $list = drupal_static('oe_whitelabel_link_lists.weak_map', new \WeakMap());
+      // The entity might have been changed in the event, so we add it again.
       $list[$overridable_entity] = $this->getPluginId();
 
       $items[] = [

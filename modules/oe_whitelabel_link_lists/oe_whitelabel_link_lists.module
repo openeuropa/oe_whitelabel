@@ -27,3 +27,20 @@ function oe_whitelabel_link_lists_entity_build_defaults_alter(array &$build, Ent
     $build['#cache']['keys'][] = $list[$entity];
   }
 }
+
+/**
+ * Implements hook_entity_presave().
+ */
+function oe_whitelabel_link_lists_entity_presave(EntityInterface $entity) {
+  /** @var \WeakMap $list */
+  $list = drupal_static('oe_whitelabel_link_lists.weak_map', new \WeakMap());
+  if (!isset($list[$entity])) {
+    return;
+  }
+
+  // This entity instance has been created only for displaying in plugins that
+  // extend EntityViewDisplayPluginBase. It might contain field overrides, and
+  // since enforceIsNew() has to be set to FALSE to correctly generate elements
+  // like URLs, it cannot be saved or the original data will be lost.
+  throw new \RuntimeException('This instance of entity object has been overridden and should not be saved.');
+}
