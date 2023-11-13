@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * OpenEuropa Whitelabel Link Lists module.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_entity_build_defaults_alter().
+ *
+ * Changes the cache keys for entities being rendered via plugins that extend
+ * EntityViewDisplayPluginBase.
+ */
+function oe_whitelabel_link_lists_entity_build_defaults_alter(array &$build, EntityInterface $entity, $view_mode) {
+  /** @var \WeakMap $list */
+  $list = drupal_static('oe_whitelabel_link_lists.weak_map', new \WeakMap());
+  if (!isset($list[$entity])) {
+    return;
+  }
+
+  if (isset($build['#cache']['keys'])) {
+    $build['#cache']['keys'][] = 'oe_whitelabel_link_lists';
+    $build['#cache']['keys'][] = $list[$entity];
+  }
+}

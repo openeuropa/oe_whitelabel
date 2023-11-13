@@ -127,6 +127,10 @@ abstract class EntityViewDisplayPluginBase extends ColumnLinkDisplayPluginBase i
       $this->eventDispatcher->dispatch($event);
       $overridable_entity = $event->getEntity();
 
+      /** @var \WeakMap $list */
+      $list = drupal_static('oe_whitelabel_link_lists.weak_map', new \WeakMap());
+      $list[$overridable_entity] = $this->getPluginId();
+
       $items[] = [
         'entity' => $this->entityTypeManager->getViewBuilder($entity_type_id)->view($overridable_entity, $view_display_id),
       ];
