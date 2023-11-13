@@ -1,0 +1,5 @@
+services:
+  oe_whitelabel_link_lists.event_subscriber.entity_view_display_subscriber:
+    class: Drupal\oe_whitelabel_link_lists\EventSubscriber\EntityViewDisplaySubscriber
+    tags:
+      - { name: event_subscriber }

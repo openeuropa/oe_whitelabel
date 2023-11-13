@@ -10,7 +10,9 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\oe_link_lists\EntityAwareLinkInterface;
 use Drupal\oe_link_lists\LinkCollectionInterface;
 use Drupal\oe_link_lists\LinkInterface;
+use Drupal\oe_whitelabel_link_lists\Event\EntityViewDisplayEntityOverridesEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Base class for link display plugins that use entity view modes.
@@ -21,20 +23,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 abstract class EntityViewDisplayPluginBase extends ColumnLinkDisplayPluginBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The entity repository.
-   *
-   * @var \Drupal\Core\Entity\EntityRepositoryInterface
-   */
-  protected EntityRepositoryInterface $entityRepository;
-
-  /**
-   * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected EntityTypeManagerInterface $entityTypeManager;
-
-  /**
    * Creates a new instance of this plugin.
    *
    * @param array $configuration
@@ -43,16 +31,22 @@ abstract class EntityViewDisplayPluginBase extends ColumnLinkDisplayPluginBase i
    *   The plugin ID for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository
+   * @param \Drupal\Core\Entity\EntityRepositoryInterface $entityRepository
    *   The entity repository.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
+   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
+   *   The event dispatcher.
    */
-  public function __construct(array $configuration, string $plugin_id, array $plugin_definition, EntityRepositoryInterface $entity_repository, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(
+    array $configuration,
+    string $plugin_id,
+    array $plugin_definition,
+    protected EntityRepositoryInterface $entityRepository,
+    protected EntityTypeManagerInterface $entityTypeManager,
+    protected EventDispatcherInterface $eventDispatcher
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-
-    $this->entityRepository = $entity_repository;
-    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -64,7 +58,8 @@ abstract class EntityViewDisplayPluginBase extends ColumnLinkDisplayPluginBase i
       $plugin_id,
       $plugin_definition,
       $container->get('entity.repository'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('event_dispatcher')
     );
   }
 
@@ -116,8 +111,24 @@ abstract class EntityViewDisplayPluginBase extends ColumnLinkDisplayPluginBase i
         continue;
       }
 
+      // Create a new instance of the entity, so that changes to this entity
+      // won't be applied to the original entity.
+      // E.g. if we change the title of this entity, we don't want the main
+      // object, that is cached in the storage static cache, to be changed.
+      /** @var \Drupal\Core\Entity\ContentEntityInterface $overridable_entity */
+      $overridable_entity = $this->entityTypeManager->getStorage($entity_type_id)
+        ->create($entity->toArray());
+      // The create() method sets enforceIsNew() to true, but this prevents
+      // generating things like URL of the entity.
+      // @see template_preprocess_node()
+      $overridable_entity->enforceIsNew(FALSE);
+
+      $event = new EntityViewDisplayEntityOverridesEvent($link, $overridable_entity);
+      $this->eventDispatcher->dispatch($event);
+      $overridable_entity = $event->getEntity();
+
       $items[] = [
-        'entity' => $this->entityTypeManager->getViewBuilder($entity_type_id)->view($entity, $view_display_id),
+        'entity' => $this->entityTypeManager->getViewBuilder($entity_type_id)->view($overridable_entity, $view_display_id),
       ];
     }
     return $items;
