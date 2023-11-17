@@ -160,4 +160,31 @@ trait MediaCreationTrait {
     return $entity;
   }
 
+  /**
+   * Creates a media of a specific bundle ready to use in tests.
+   *
+   * @param string $bundle
+   *   The bundle of the media.
+   * @param array $values
+   *   (optional) An array of values to set, keyed by property name.
+   *
+   * @return \Drupal\media\MediaInterface
+   *   The media entity.
+   */
+  protected function createMediaByBundle(string $bundle, array $values = []): MediaInterface {
+    $callable = [
+      static::class,
+      'create' . strtr(ucwords($bundle, '_'), ['_' => '']) . 'Media',
+    ];
+
+    if (!is_callable($callable)) {
+      throw new \Exception(sprintf('No methods found to create medias of bundle "%s".', $bundle));
+    }
+
+    /** @var \Drupal\media\MediaInterface $media */
+    $media = call_user_func($callable, $values);
+
+    return $media;
+  }
+
 }
