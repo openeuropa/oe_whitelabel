@@ -22,9 +22,14 @@ function oe_whitelabel_link_lists_entity_build_defaults_alter(array &$build, Ent
     return;
   }
 
+  // Since the same entity can be rendered multiple times with different value
+  // overrides, we cannot cache it. The rendered link list will be cached
+  // anyway.
+  // Adding a random key will cause the cache entry to change constantly, which
+  // would fill the cache tables.
+  // @todo Maybe add a hash using $entity->toArray().
   if (isset($build['#cache']['keys'])) {
-    $build['#cache']['keys'][] = 'oe_whitelabel_link_lists';
-    $build['#cache']['keys'][] = $list[$entity];
+    unset($build['#cache']['keys']);
   }
 }
 
