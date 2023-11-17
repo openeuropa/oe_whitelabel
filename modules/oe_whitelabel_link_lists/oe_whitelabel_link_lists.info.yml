@@ -6,3 +6,4 @@ core_version_requirement: ^9.5 || ^10
 
 dependencies:
   - oe_link_lists:oe_link_lists
+  - oe_whitelabel:oe_whitelabel_helper
