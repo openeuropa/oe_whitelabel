@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_whitelabel_link_lists\Plugin\LinkDisplay;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\oe_link_lists\LinkCollectionInterface;
 use Drupal\oe_link_lists\LinkDisplayPluginBase;
@@ -66,6 +67,9 @@ abstract class ColumnLinkDisplayPluginBase extends LinkDisplayPluginBase {
         '#id' => 'columns',
         '#columns' => $this->configuration['columns'],
         '#items' => $items,
+      ],
+      '#attributes' => [
+        'class' => [Html::getClass('link-list-display--' . $this->getPluginId())],
       ],
     ];
 

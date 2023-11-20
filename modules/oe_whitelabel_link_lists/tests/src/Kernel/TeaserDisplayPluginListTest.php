@@ -127,6 +127,9 @@ class TeaserDisplayPluginListTest extends AbstractKernelTestBase {
       'tag' => 'section',
       'heading_tag' => 'h2',
       'heading' => 'Main title',
+      'attributes' => [
+        'class' => 'link-list-display--oewt-teaser section',
+      ],
     ], $html);
 
     $crawler = new Crawler($html);
