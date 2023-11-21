@@ -70,7 +70,7 @@ class FacetsFormTest extends KernelTestBase {
       ->get('entity_type.manager')
       ->getStorage('block');
     $block = $block_entity_storage->create([
-      'id' => 'whitelabel_facets_form_block',
+      'id' => 'test_facet_form_block',
       'theme' => 'oe_whitelabel',
       'plugin' => 'facets_form:search_api:views_page__search_api_test_view__page_1',
       'settings' => [
@@ -93,7 +93,7 @@ class FacetsFormTest extends KernelTestBase {
     $html = (string) $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($html);
 
-    $offcanvas = $crawler->filter('div#bcl-offcanvas');
+    $offcanvas = $crawler->filter('div#block-test-facet-form-block.bcl-offcanvas');
     $header = $offcanvas->filter('div.offcanvas-header');
     $this->assertCount(1, $header);
     $title = $header->filter('.offcanvas-title');
@@ -109,7 +109,7 @@ class FacetsFormTest extends KernelTestBase {
 
     $button = $crawler->filter('button.btn-light.btn-lg');
     $this->assertSame('button', $button->attr('type'));
-    $this->assertSame('#bcl-offcanvas', $button->attr('data-bs-target'));
+    $this->assertSame('#block-test-facet-form-block', $button->attr('data-bs-target'));
     $this->assertSame('offcanvas', $button->attr('data-bs-toggle'));
     $this->assertStringContainsString('Facets form', $button->text());
 
