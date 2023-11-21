@@ -4,3 +4,11 @@
     border: 0;
   }
 }
+
+// Decrease icon size on search button.
+@media (min-width: 768px) {
+  .bcl-search-form__btn_icon {
+    width: 1rem;
+    height: 1rem;
+  }
+}
