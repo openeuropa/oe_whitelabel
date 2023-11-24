@@ -56,3 +56,10 @@ function oe_whitelabel_extra_project_post_update_00002(): string {
 
   return 'Action bar field group was added to the project content banner view display.';
 }
+
+/**
+ * Show the gallery field in project full view mode.
+ */
+function oe_whitelabel_extra_project_post_update_00003(): void {
+  ConfigImporter::importSingle('module', 'oe_whitelabel_extra_project', '/config/post_updates/00003_gallery_field', 'core.entity_view_display.node.oe_project.full');
+}
