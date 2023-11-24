@@ -21,3 +21,10 @@ function oe_whitelabel_extra_project_post_update_00001(): void {
   ];
   ConfigImporter::importMultiple('module', 'oe_whitelabel_extra_project', '/config/post_updates/00001_decimal_budget_fields', $configs, TRUE);
 }
+
+/**
+ * Show the gallery field in project full view mode.
+ */
+function oe_whitelabel_extra_project_post_update_00002(): void {
+  ConfigImporter::importSingle('module', 'oe_whitelabel_extra_project', '/config/post_updates/00001_decimal_budget_fields', 'core.entity_view_display.node.oe_project.full');
+}
