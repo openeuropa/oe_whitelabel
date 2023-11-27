@@ -59,20 +59,21 @@ class GalleryParagraphTest extends BrowserTestBase {
 
     $file_url_generator = \Drupal::service('file_url_generator');
     $core_10_1_0 = version_compare(\Drupal::VERSION, '10.1.0', '>=');
+    $fn_get_filepath = static fn($entity, $field) => $file_url_generator->generate($entity->get($field)->entity->getFileUri())->toString();
     $expected_items = [
       [
         'thumbnail' => [
           'caption_title' => 'Image title',
           'rendered' => sprintf(
             '<img loading="lazy" src="%s" width="200" height="89" alt="Alt text" class="img-fluid">',
-            $file_url_generator->generate($image->get('oe_media_image')->entity->getFileUri())->toString(),
+            $fn_get_filepath($image, 'oe_media_image')
           ),
         ],
         'media' => [
           'caption_title' => 'Image title',
           'rendered' => sprintf(
             '<img loading="lazy" data-src="%s" width="200" height="89" alt="Alt text" class="img-fluid">',
-            $file_url_generator->generate($image->get('oe_media_image')->entity->getFileUri())->toString(),
+            $fn_get_filepath($image, 'oe_media_image')
           ),
         ],
       ],
@@ -81,7 +82,7 @@ class GalleryParagraphTest extends BrowserTestBase {
           'caption_title' => 'Euro with miniature figurines',
           'rendered' => sprintf(
             '<img loading="lazy" src="%s" width="639" height="426" alt="Euro with miniature figurines" class="img-fluid">',
-            $file_url_generator->generate($avportal_photo->get('thumbnail')->entity->getFileUri())->toString(),
+            $fn_get_filepath($avportal_photo, 'thumbnail')
           ),
         ],
         'media' => [
@@ -94,7 +95,7 @@ class GalleryParagraphTest extends BrowserTestBase {
           'caption_title' => 'Economic and Financial Affairs Council - Arrivals',
           'rendered' => sprintf(
             '<img loading="lazy" src="%s" width="352" height="200" alt="" class="img-fluid">',
-            $file_url_generator->generate($avportal_video->get('thumbnail')->entity->getFileUri())->toString(),
+            $fn_get_filepath($avportal_video, 'thumbnail')
           ),
           'play_icon' => TRUE,
         ],
@@ -108,7 +109,7 @@ class GalleryParagraphTest extends BrowserTestBase {
           'caption_title' => 'Energy, let\'s save it!',
           'rendered' => sprintf(
             '<img loading="lazy" src="%s" width="480" height="360" alt="" class="img-fluid">',
-            $file_url_generator->generate($video->get('thumbnail')->entity->getFileUri())->toString(),
+            $fn_get_filepath($video, 'thumbnail')
           ),
           'play_icon' => TRUE,
         ],
