@@ -6,8 +6,9 @@
  * @see ./modules/contrib/paragraphs/templates/paragraph.html.twig
  */
 #}
-{{ pattern('featured_media', {
+{% include '@oe-bcl/featured-media' with {
   'embedded_media': embedded_media,
   'image': image,
   'ratio': ratio,
-}) }}
+  'attributes': attributes,
+} only %}

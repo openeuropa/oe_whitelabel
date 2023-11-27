@@ -130,7 +130,7 @@ class AvMediaParagraphsTest extends ParagraphsTestBase {
    *   A selector to find the rendered media by inside its container.
    */
   protected function assertMediaAddedWithExpectedSource(Crawler $crawler, string $expected_src, string $media_selector): void {
-    $element = $crawler->filter(".bcl-featured-media $media_selector");
+    $element = $crawler->filter("figure $media_selector");
     self::assertStringContainsString($expected_src, $element->attr('src'));
   }
 
