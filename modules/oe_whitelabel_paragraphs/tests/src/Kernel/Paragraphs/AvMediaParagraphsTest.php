@@ -6,12 +6,22 @@ namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
 use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Url;
+use Drupal\Tests\oe_whitelabel\Traits\MediaCreationTrait;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Test 'AV Media' paragraph.
  */
 class AvMediaParagraphsTest extends ParagraphsTestBase {
+
+  use MediaCreationTrait;
+
+  /**
+   * {@inheritdoc}
+   */
+  protected static $modules = [
+    'oe_paragraphs_av_media',
+  ];
 
   /**
    * {@inheritdoc}
@@ -40,63 +50,16 @@ class AvMediaParagraphsTest extends ParagraphsTestBase {
    * Test 'AV Media' paragraph rendering with allowed media sources.
    */
   public function testAvMediaParagraph(): void {
-    $media_storage = $this->container->get('entity_type.manager')->getStorage('media');
-    $fixtures_path = $this->container->get('extension.list.module')->getPath('oe_whitelabel_paragraphs') . '/tests/fixtures/';
-
-    // Create an "Image" media.
-    $file_1 = $this->container->get('file.repository')->writeData(file_get_contents($fixtures_path . 'example_1.jpeg'), 'public://example_1.jpeg');
-    $file_1->setPermanent();
-    $file_1->save();
-
-    $media_image = $media_storage->create([
-      'bundle' => 'image',
-      'name' => 'Image',
-      'oe_media_image' => [
-        'target_id' => $file_1->id(),
-      ],
-    ]);
-    $media_image->save();
-
-    // Create a "Video iframe" media.
-    $media_iframe = $media_storage->create([
-      'bundle' => 'video_iframe',
-      'name' => 'Video Iframe',
-      'oe_media_iframe' => [
-        'value' => '<iframe src="https://example.com"></iframe>',
-      ],
-    ]);
-    $media_iframe->save();
-
-    // Create a "Remote Video" media.
-    $media_remote = $media_storage->create([
-      'bundle' => 'remote_video',
-      'name' => 'Remote Video',
-      'oe_media_oembed_video' => [
-        'value' => 'https://www.youtube.com/watch?v=tj8ByiJb1vM',
-      ],
-    ]);
-    $media_remote->save();
+    $media_image = $this->createImageMedia();
+    $media_iframe = $this->createVideoIframeMedia();
+    $media_remote = $this->createRemoteVideoMedia();
     $partial_iframe_url = Url::fromRoute('media.oembed_iframe', [], [
       'query' => [
-        'url' => 'https://www.youtube.com/watch?v=tj8ByiJb1vM',
+        'url' => 'https://www.youtube.com/watch?v=1-g73ty9v04',
       ],
     ])->toString();
-
-    // Create an "AV Portal Video" media.
-    $media_av_video = $media_storage->create([
-      'bundle' => 'av_portal_video',
-      'name' => 'AV Portal Video',
-      'oe_media_avportal_video' => 'I-163162',
-    ]);
-    $media_av_video->save();
-
-    // Create an "AV Portal Photo" media.
-    $media_av_photo = $media_storage->create([
-      'bundle' => 'av_portal_photo',
-      'name' => 'AV Portal Photo',
-      'oe_media_avportal_photo' => 'P-038924/00-15',
-    ]);
-    $media_av_photo->save();
+    $media_av_video = $this->createAvPortalVideoMedia();
+    $media_av_photo = $this->createAvPortalPhotoMedia();
     $remote_thumbnail_url_encrypted = Crypt::hashBase64('store2/4/P038924-35966.jpg');
 
     $values = [
