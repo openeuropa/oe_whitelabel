@@ -37,7 +37,6 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
     'oe_media_avportal',
     'oe_media_iframe',
     'oe_paragraphs',
-    'oe_paragraphs_av_media',
     'oe_paragraphs_banner',
     'oe_paragraphs_description_list',
     'oe_paragraphs_iframe_media',
