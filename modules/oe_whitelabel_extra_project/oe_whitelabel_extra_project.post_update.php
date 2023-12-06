@@ -26,5 +26,5 @@ function oe_whitelabel_extra_project_post_update_00001(): void {
  * Show the gallery field in project full view mode.
  */
 function oe_whitelabel_extra_project_post_update_00002(): void {
-  ConfigImporter::importSingle('module', 'oe_whitelabel_extra_project', '/config/post_updates/00001_decimal_budget_fields', 'core.entity_view_display.node.oe_project.full');
+  ConfigImporter::importSingle('module', 'oe_whitelabel_extra_project', '/config/post_updates/00002_gallery_field', 'core.entity_view_display.node.oe_project.full');
 }
