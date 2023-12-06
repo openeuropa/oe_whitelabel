@@ -143,6 +143,7 @@ function _oe_whitelabel_extra_project_preprocess_inpage_nav(array &$variables): 
     'oe_cx_lead_contributors',
     'oe_project_participants',
     'oe_cx_achievements_and_milestone',
+    'oe_cx_gallery',
   ];
   foreach ($variables['content'] as &$item) {
     if (!array_key_exists('#field_name', $item)) {
