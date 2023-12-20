@@ -22,7 +22,7 @@ class TeaserDisplayPlugin extends EntityViewDisplayPluginBase {
   /**
    * {@inheritdoc}
    */
-  protected function getEntityDisplayModeId(): string {
+  protected function getEntityViewDisplayId(): string {
     return 'teaser';
   }
 

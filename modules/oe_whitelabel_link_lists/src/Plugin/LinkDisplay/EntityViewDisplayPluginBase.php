@@ -64,12 +64,12 @@ abstract class EntityViewDisplayPluginBase extends ColumnLinkDisplayPluginBase i
   }
 
   /**
-   * Returns the ID of the entity display mode.
+   * Returns the ID of the entity view display.
    *
    * @return string
-   *   The entity display mode ID.
+   *   The entity view display ID.
    */
-  abstract protected function getEntityDisplayModeId(): string;
+  abstract protected function getEntityViewDisplayId(): string;
 
   /**
    * Builds items.
@@ -84,7 +84,7 @@ abstract class EntityViewDisplayPluginBase extends ColumnLinkDisplayPluginBase i
     $items = [];
 
     $display_storage = $this->entityTypeManager->getStorage('entity_view_display');
-    $view_display_id = $this->getEntityDisplayModeId();
+    $view_display_id = $this->getEntityViewDisplayId();
 
     foreach ($links as $link) {
       /** @var \Drupal\oe_link_lists\LinkInterface $link */
