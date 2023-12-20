@@ -2,4 +2,4 @@ name: OpenEuropa Whitelabel Search
 type: module
 description: Adds additional functionality to the search feature.
 package: OpenEuropa Whitelabel Theme
-core_version_requirement: ^9.4 || ^10
+core_version_requirement: ^10
