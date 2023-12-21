@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Functional;
 
+use Drupal\Core\Url;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\Tests\BrowserTestBase;
@@ -26,6 +27,7 @@ class GalleryParagraphTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'oe_media_oembed_mock',
     'oe_paragraphs_gallery',
     'oe_whitelabel_paragraphs',
   ];
@@ -56,27 +58,21 @@ class GalleryParagraphTest extends BrowserTestBase {
     $paragraph->save();
 
     $file_url_generator = \Drupal::service('file_url_generator');
-    // The attribute order is different from 9.4.0 onwards.
-    $attribute_pre_940 = version_compare(\Drupal::VERSION, '9.4.0', '<') ? '' : 'loading="lazy" ';
-    $attribute_940 = version_compare(\Drupal::VERSION, '9.4.0', '>=') ? '' : 'loading="lazy" ';
+    $core_10_1_0 = version_compare(\Drupal::VERSION, '10.1.0', '>=');
     $expected_items = [
       [
         'thumbnail' => [
           'caption_title' => 'Image title',
           'rendered' => sprintf(
-            '<img %ssrc="%s" width="200" height="89" alt="Alt text" %sclass="img-fluid">',
-            $attribute_pre_940,
+            '<img loading="lazy" src="%s" width="200" height="89" alt="Alt text" class="img-fluid">',
             $file_url_generator->generate($image->get('oe_media_image')->entity->getFileUri())->toString(),
-            $attribute_940
           ),
         ],
         'media' => [
           'caption_title' => 'Image title',
           'rendered' => sprintf(
-            '<img %sdata-src="%s" width="200" height="89" alt="Alt text" %sclass="img-fluid">',
-            $attribute_pre_940,
+            '<img loading="lazy" data-src="%s" width="200" height="89" alt="Alt text" class="img-fluid">',
             $file_url_generator->generate($image->get('oe_media_image')->entity->getFileUri())->toString(),
-            $attribute_940
           ),
         ],
       ],
@@ -84,10 +80,8 @@ class GalleryParagraphTest extends BrowserTestBase {
         'thumbnail' => [
           'caption_title' => 'Euro with miniature figurines',
           'rendered' => sprintf(
-            '<img %ssrc="%s" width="639" height="426" alt="Euro with miniature figurines" %sclass="img-fluid">',
-            $attribute_pre_940,
+            '<img loading="lazy" src="%s" width="639" height="426" alt="Euro with miniature figurines" class="img-fluid">',
             $file_url_generator->generate($avportal_photo->get('thumbnail')->entity->getFileUri())->toString(),
-            $attribute_940
           ),
         ],
         'media' => [
@@ -99,10 +93,8 @@ class GalleryParagraphTest extends BrowserTestBase {
         'thumbnail' => [
           'caption_title' => 'Economic and Financial Affairs Council - Arrivals',
           'rendered' => sprintf(
-            '<img %ssrc="%s" width="352" height="200" alt="" %sclass="img-fluid">',
-            $attribute_pre_940,
+            '<img loading="lazy" src="%s" width="352" height="200" alt="" class="img-fluid">',
             $file_url_generator->generate($avportal_video->get('thumbnail')->entity->getFileUri())->toString(),
-            $attribute_940
           ),
           'play_icon' => TRUE,
         ],
@@ -115,18 +107,18 @@ class GalleryParagraphTest extends BrowserTestBase {
         'thumbnail' => [
           'caption_title' => 'Energy, let\'s save it!',
           'rendered' => sprintf(
-            '<img %ssrc="%s" width="480" height="360" alt="" %sclass="img-fluid">',
-            $attribute_pre_940,
+            '<img loading="lazy" src="%s" width="480" height="360" alt="" class="img-fluid">',
             $file_url_generator->generate($video->get('thumbnail')->entity->getFileUri())->toString(),
-            $attribute_940
           ),
           'play_icon' => TRUE,
         ],
         'media' => [
           'caption_title' => 'Energy, let\'s save it!',
           'rendered' => sprintf(
-            '<iframe data-src="/build/media/oembed?url=https%%3A//www.youtube.com/watch%%3Fv%%3D1-g73ty9v04&amp;max_width=0&amp;max_height=0&amp;hash=%s" frameborder="0" allowtransparency width="200" height="150" class="media-oembed-content" title="Energy, let\'s save it!"></iframe>',
-            \Drupal::service('media.oembed.iframe_url_helper')->getHash('https://www.youtube.com/watch?v=1-g73ty9v04', 0, 0)
+            '<iframe data-src="%s?url=https%%3A//www.youtube.com/watch%%3Fv%%3D1-g73ty9v04&amp;max_width=0&amp;max_height=0&amp;hash=%s" frameborder="0" allowtransparency width="459" height="344" class="media-oembed-content"%s title="Energy, let\'s save it!"></iframe>',
+            Url::fromRoute('media.oembed_iframe')->setAbsolute($core_10_1_0)->toString(),
+            \Drupal::service('media.oembed.iframe_url_helper')->getHash('https://www.youtube.com/watch?v=1-g73ty9v04', 0, 0),
+            $core_10_1_0 ? ' loading="eager"' : ''
           ),
         ],
       ],

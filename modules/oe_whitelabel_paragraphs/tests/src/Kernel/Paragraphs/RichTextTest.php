@@ -19,12 +19,11 @@ class RichTextTest extends ParagraphsTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    $this->filterFormat = FilterFormat::create([
+    FilterFormat::create([
       'format' => 'filtered_html',
       'name' => 'Filtered HTML',
       'weight' => 0,
-    ]);
-    $this->filterFormat->save();
+    ])->save();
   }
 
   /**

@@ -212,7 +212,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
         ],
         [
           'term' => 'Funding programme',
-          'definition' => 'Anti Fraud Information System (AFIS)',
+          'definition' => 'Anti Fraud Information System (AFIS) (2014/2020)',
         ],
         [
           'term' => 'Reference',
