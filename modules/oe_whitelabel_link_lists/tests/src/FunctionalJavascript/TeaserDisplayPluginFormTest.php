@@ -62,7 +62,7 @@ class TeaserDisplayPluginFormTest extends WebDriverTestBase {
     $assert_session->assertWaitOnAjaxRequest();
     $columns_field = $assert_session->fieldExists('Columns');
     $this->assertEquals(1, $columns_field->getValue());
-    $columns_field->setValue(2);
+    $columns_field->setValue('2');
     // The standard display fields are present.
     $assert_session->fieldExists('Number of items');
     $assert_session->selectExists('More link');
@@ -93,13 +93,13 @@ class TeaserDisplayPluginFormTest extends WebDriverTestBase {
     // The columns max value is 3. Since we are running in a real browser,
     // the native browser validation will prevent the page from being
     // submitted.
-    $columns_field->setValue(5);
+    $columns_field->setValue('5');
     $page->pressButton('Save');
     $assert_session->statusMessageNotExists();
-    $columns_field->setValue(4);
+    $columns_field->setValue('4');
     $page->pressButton('Save');
     $assert_session->statusMessageNotExists();
-    $columns_field->setValue(3);
+    $columns_field->setValue('3');
     $page->pressButton('Save');
     $assert_session->statusMessageContains('Saved the Teaser display plugin test Link list.');
   }
