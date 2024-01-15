@@ -22,7 +22,7 @@
         "drupal/core-composer-scaffold": "^10",
         "drupal/core-dev": "^10",
         "drupal/description_list_field": "^1.0@alpha",
-        "drupal/entity_reference_revisions": "^1.10",
+        "drupal/entity_reference_revisions": "^1.11",
         "drupal/extra_field": "^2.3",
         "drupal/facets_form": "^1.0.0-alpha6",
         "drupal/field_group": "^3.4",
@@ -79,11 +79,6 @@
                     "url": "https://github.com/{name}/releases/download/{pretty-version}/{project-name}-{pretty-version}.zip",
                     "type": "zip"
                 }
-            }
-        },
-        "patches": {
-            "drupal/entity_reference_revisions": {
-                "https://www.drupal.org/project/entity_reference_revisions/issues/2937835": "https://www.drupal.org/files/issues/2021-03-26/entity_reference_revisions-field_formatter_label-2937835-36.patch"
             }
         },
         "drupal-scaffold": {
