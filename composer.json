@@ -31,6 +31,7 @@
         "drupal/typed_link": "^2.0.1",
         "drush/drush": "^11.1",
         "mikey179/vfsstream": "^1.6.10",
+        "nikic/php-parser": "^4",
         "openeuropa/code-review": "^2.0.0-alpha6",
         "openeuropa/oe_authentication": "^1.11",
         "openeuropa/oe_contact_forms": "~1.11",
@@ -99,7 +100,10 @@
             "build/themes/contrib/{$name}": [
                 "type:drupal-theme"
             ]
-        }
+        },
+        "_readme": [
+            "Explicit requirement of nikic/php-parser ^4 as later versions are not compatible with grumphp @see https://github.com/phpro/grumphp/issues/1119"
+        ]
     },
     "config": {
         "sort-packages": true,
