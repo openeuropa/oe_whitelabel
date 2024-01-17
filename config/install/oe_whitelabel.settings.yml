@@ -1,2 +1,18 @@
+favicon:
+  use_default: true
+features:
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: true
+  node_user_picture: false
+logo:
+  use_default: true
+bootstrap_tables:
+  enable: true
+  responsive: always
+backward_compatibility:
+  card_search_image_hide_on_mobile: false
+  card_search_use_grid_classes: false
+  fieldset_wrapper_col_sm_10: false
 component_library: neutral
 header_style: standard
