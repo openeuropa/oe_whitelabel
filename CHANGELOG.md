@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.5.0](https://github.com/openeuropa/oe_whitelabel/tree/1.5.0) (2024-01-18)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.4.0...1.5.0)
+
+**Merged pull requests:**
+
+- OEL-0000: Fix d10 upgrade leftovers. [\#249](https://github.com/openeuropa/oe_whitelabel/pull/249) ([brummbar](https://github.com/brummbar))
+
 ## [1.4.0](https://github.com/openeuropa/oe_whitelabel/tree/1.4.0) (2023-12-22)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.3.0...1.4.0)
 
@@ -13,6 +20,7 @@
 
 **Merged pull requests:**
 
+- Prepare changelog for release 1.4.0. [\#244](https://github.com/openeuropa/oe_whitelabel/pull/244) ([brummbar](https://github.com/brummbar))
 - OEL-2782: Fix tests and update supported core and php versions. [\#243](https://github.com/openeuropa/oe_whitelabel/pull/243) ([brummbar](https://github.com/brummbar))
 - OEL-2602: Fix spacing and size for search icon in header search block. [\#240](https://github.com/openeuropa/oe_whitelabel/pull/240) ([brummbar](https://github.com/brummbar))
 - ELA-650: Link list integration and "teaser" view display plugin. [\#239](https://github.com/openeuropa/oe_whitelabel/pull/239) ([brummbar](https://github.com/brummbar))
