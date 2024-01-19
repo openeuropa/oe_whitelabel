@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Template override for for user subscriptions page.
+ * Available variables:
+ * - introduction: The page introduction.
+ * - elements: Other elements that compose the page. Usually it will contain the form.
+ */
+#}
+{{ pattern('content_banner', {
+  'background': 'gray',
+  'title': page_title,
+  'content': introduction,
+}) }}
+{{ elements }}
