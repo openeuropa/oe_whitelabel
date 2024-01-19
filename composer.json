@@ -43,7 +43,7 @@
         "openeuropa/oe_multilingual": "^1.14",
         "openeuropa/oe_paragraphs": "^1.19",
         "openeuropa/oe_starter_content": "^1.2.0",
-        "openeuropa/oe_subscriptions": "1.x-dev",
+        "openeuropa/oe_subscriptions": "dev-OEL-2767",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta6",
         "phpspec/prophecy-phpunit": "^2"
     },
