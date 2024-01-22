@@ -5,6 +5,7 @@ package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^10
 dependencies:
   - extra_field:extra_field
+  - field_group:field_group
   - oe_content_extra:oe_content_extra_project
   - oe_whitelabel_helper:oe_whitelabel_helper
 
