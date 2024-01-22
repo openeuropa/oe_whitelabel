@@ -85,7 +85,7 @@ abstract class ContentRenderTestBase extends AbstractKernelTestBase {
       ->grantPermission('view media')
       ->save();
 
-    module_load_include('install', 'oe_content');
+    $this->container->get('module_handler')->loadInclude('oe_content', 'install');
     oe_content_install(FALSE);
 
     $this->nodeViewBuilder = $this->container->get('entity_type.manager')->getViewBuilder('node');

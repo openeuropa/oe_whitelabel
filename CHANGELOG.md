@@ -1,10 +1,38 @@
 # Change Log
 
+## [1.5.0](https://github.com/openeuropa/oe_whitelabel/tree/1.5.0) (2024-01-18)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.4.0...1.5.0)
+
+**Merged pull requests:**
+
+- OEL-0000: Fix d10 upgrade leftovers. [\#249](https://github.com/openeuropa/oe_whitelabel/pull/249) ([brummbar](https://github.com/brummbar))
+
+## [1.4.0](https://github.com/openeuropa/oe_whitelabel/tree/1.4.0) (2023-12-22)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.3.0...1.4.0)
+
+**Implemented enhancements:**
+
+- Pass block's attributes to offcanvas pattern for block--facets-form.html.twig [\#210](https://github.com/openeuropa/oe_whitelabel/issues/210)
+
+**Closed issues:**
+
+- Don't wipe existing settings in '\#slim\_select'. [\#235](https://github.com/openeuropa/oe_whitelabel/issues/235)
+
+**Merged pull requests:**
+
+- Prepare changelog for release 1.4.0. [\#244](https://github.com/openeuropa/oe_whitelabel/pull/244) ([brummbar](https://github.com/brummbar))
+- OEL-2782: Fix tests and update supported core and php versions. [\#243](https://github.com/openeuropa/oe_whitelabel/pull/243) ([brummbar](https://github.com/brummbar))
+- OEL-2602: Fix spacing and size for search icon in header search block. [\#240](https://github.com/openeuropa/oe_whitelabel/pull/240) ([brummbar](https://github.com/brummbar))
+- ELA-650: Link list integration and "teaser" view display plugin. [\#239](https://github.com/openeuropa/oe_whitelabel/pull/239) ([brummbar](https://github.com/brummbar))
+- OEL-2260: Pass block attributes to offcanvas. [\#237](https://github.com/openeuropa/oe_whitelabel/pull/237) ([brummbar](https://github.com/brummbar))
+- OEL-2255: Improvemens over slim\_select handling. [\#236](https://github.com/openeuropa/oe_whitelabel/pull/236) ([brummbar](https://github.com/brummbar))
+
 ## [1.3.0](https://github.com/openeuropa/oe_whitelabel/tree/1.3.0) (2023-08-25)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.2.0...1.3.0)
 
 **Merged pull requests:**
 
+- Prepare changelog for release 1.3.0. [\#232](https://github.com/openeuropa/oe_whitelabel/pull/232) ([brummbar](https://github.com/brummbar))
 - OEL-2424: Updated node drone version. [\#230](https://github.com/openeuropa/oe_whitelabel/pull/230) ([tibi2303](https://github.com/tibi2303))
 - OEL-2422: Updated node and bcl-builder. [\#228](https://github.com/openeuropa/oe_whitelabel/pull/228) ([tibi2303](https://github.com/tibi2303))
 - OEL-2382: Fixed preprocess of banner. [\#223](https://github.com/openeuropa/oe_whitelabel/pull/223) ([tibi2303](https://github.com/tibi2303))

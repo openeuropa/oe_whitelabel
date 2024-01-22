@@ -6,17 +6,27 @@
  * @see ./core/modules/system/templates/input.html.twig
  */
 #}
-{% if element['#value'] is not empty %}
-  {% set label %}
+{% set label %}
+  {{ pattern('icon', {
+    'name': 'search',
+    'path': bcl_icon_path,
+    'size': 's',
+    'attributes': create_attribute({
+      'class': [
+        'd-inline-block',
+        'me-md-2-5',
+        'bcl-search-form__btn_icon',
+      ]
+    })
+  }) }}
+  {% if element['#value'] is not empty %}
     <span class="d-none d-lg-inline-block">{{ element['#value']|t }}</span>
-  {% endset %}
-{% endif %}
+  {% endif %}
+{% endset %}
 {{ pattern('button', {
   'variant': 'primary',
-  'icon': 'search',
   'label': label,
   'type': 'submit',
-  'icon_position': 'before',
   'attributes': attributes
     .addClass([
       'bcl-search-form__submit',

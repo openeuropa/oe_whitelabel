@@ -6,9 +6,9 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=8.0",
+        "php": ">=8.1",
         "cweagans/composer-patches": "^1.7",
-        "drupal/core": "^9.4 || ^10",
+        "drupal/core": "^10",
         "drupal/daterange_compact": "^2.0.1",
         "drupal/twig_field_value": "^2.0.2",
         "openeuropa/composer-artifacts": "^1.0.0-alpha1",
@@ -19,10 +19,10 @@
         "drupal/better_exposed_filters": "^6.0.3",
         "drupal/composite_reference": "^2.2",
         "drupal/config_devel": "~1.9",
-        "drupal/core-composer-scaffold": "^9.4 || ^10",
-        "drupal/core-dev": "^9.4 || ^10",
+        "drupal/core-composer-scaffold": "^10",
+        "drupal/core-dev": "^10",
         "drupal/description_list_field": "^1.0@alpha",
-        "drupal/entity_reference_revisions": "^1.10",
+        "drupal/entity_reference_revisions": "^1.11",
         "drupal/extra_field": "^2.3",
         "drupal/facets_form": "^1.0.0-alpha6",
         "drupal/field_group": "^3.4",
@@ -31,19 +31,20 @@
         "drupal/typed_link": "^2.0.1",
         "drush/drush": "^11.1",
         "mikey179/vfsstream": "^1.6.10",
+        "nikic/php-parser": "^4",
         "openeuropa/code-review": "^2.0.0-alpha6",
         "openeuropa/oe_authentication": "^1.11",
         "openeuropa/oe_contact_forms": "~1.11",
         "openeuropa/oe_content": "^3.0.0-alpha11",
         "openeuropa/oe_content_extra": "^1.1.0",
         "openeuropa/oe_corporate_blocks": "^4.13",
+        "openeuropa/oe_link_lists": "^1.0",
         "openeuropa/oe_list_pages": "^1.0.0",
         "openeuropa/oe_multilingual": "^1.14",
         "openeuropa/oe_paragraphs": "^1.19",
         "openeuropa/oe_starter_content": "^1.2.0",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta6",
-        "phpspec/prophecy-phpunit": "^2",
-        "symfony/validator": "~v4.4.48 || ~v6.2.5"
+        "phpspec/prophecy-phpunit": "^2"
     },
     "scripts": {
         "post-install-cmd": "./vendor/bin/run drupal:site-setup",
@@ -81,19 +82,11 @@
                 }
             }
         },
-        "patches": {
-            "drupal/entity_reference_revisions": {
-                "https://www.drupal.org/project/entity_reference_revisions/issues/2937835": "https://www.drupal.org/files/issues/2021-03-26/entity_reference_revisions-field_formatter_label-2937835-36.patch"
-            }
-        },
         "drupal-scaffold": {
             "locations": {
                 "web-root": "./build"
             }
         },
-        "_readme": [
-            "Limit symfony/validator to 6.2 see https://www.drupal.org/project/drupal/issues/3363798."
-        ],
         "installer-paths": {
             "build/core": [
                 "type:drupal-core"
@@ -107,7 +100,10 @@
             "build/themes/contrib/{$name}": [
                 "type:drupal-theme"
             ]
-        }
+        },
+        "_readme": [
+            "Explicit requirement of nikic/php-parser ^4 as later versions are not compatible with grumphp @see https://github.com/phpro/grumphp/issues/1119"
+        ]
     },
     "config": {
         "sort-packages": true,
@@ -118,7 +114,8 @@
             "cweagans/composer-patches": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "phpro/grumphp": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "php-http/discovery": false
         }
     }
 }

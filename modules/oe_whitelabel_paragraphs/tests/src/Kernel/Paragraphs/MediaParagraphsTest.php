@@ -15,6 +15,13 @@ class MediaParagraphsTest extends ParagraphsTestBase {
   /**
    * {@inheritdoc}
    */
+  protected static $modules = [
+    'oe_media_oembed_mock',
+  ];
+
+  /**
+   * {@inheritdoc}
+   */
   protected function setUp(): void {
     parent::setUp();
 
@@ -33,7 +40,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
       'oe_media_iframe',
     ]);
     // Call the install hook of the Media module.
-    module_load_include('install', 'media');
+    $this->container->get('module_handler')->loadInclude('media', 'install');
     media_install();
   }
 
