@@ -15,9 +15,6 @@
  */
 #}
 {% apply spaceless %}
-{# Attach the flag CSS library.#}
-{{ attach_library('flag/flag.link') }}
-
 {# Depending on the flag action, set the appropriate action class. #}
 {% if action == 'unflag' %}
     {% set action_class = 'action-unflag' %}
