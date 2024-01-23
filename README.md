@@ -28,6 +28,15 @@ Ideally this project should be managed with [Docker](https://www.docker.com/get-
 
 Check the [composer.json](composer.json) for required PHP version and other dependencies.
 
+#### Drupal 10.1
+
+For Drupal 10.1, the drupal/core patch needs to be overridden.
+If you require this module in Drupal 10.1 you must set the patch in your composer.json.\
+You can do this with the following command:
+```bash
+composer config --merge --json "extra.patches.drupal/core" '{"https://www.drupal.org/project/drupal/issues/2230909": "https://www.drupal.org/files/issues/2022-07-26/2230909-269.patch"}'
+```
+
 ### Add the composer package
 
 Add this manually in composer.json, or combine with existing entries:
