@@ -166,7 +166,7 @@ class CarouselTest extends ParagraphsTestBase {
             'label' => 'CTA 2',
             'path' => 'http://www.example.com/',
           ],
-          'image' => '<img src="//ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg" alt="Euro with miniature figurines" class="d-block w-100">',
+          'image' => '<img src="https://ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg" alt="Euro with miniature figurines" class="d-block w-100">',
         ],
         [
           'caption_title' => 'Item 3',
@@ -182,7 +182,7 @@ class CarouselTest extends ParagraphsTestBase {
             'label' => 'CTA 4',
             'path' => '/',
           ],
-          'image' => '<img src="//ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg" alt="Euro with miniature figurines" class="d-block w-100">',
+          'image' => '<img src="https://ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg" alt="Euro with miniature figurines" class="d-block w-100">',
         ],
       ],
     ];
@@ -213,7 +213,7 @@ class CarouselTest extends ParagraphsTestBase {
             'label' => 'BG CTA 2',
             'path' => 'http://www.example.com/',
           ],
-          'image' => '<img src="//ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg" alt="AV Portal photo bg" class="d-block w-100">',
+          'image' => '<img src="https://ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg" alt="AV Portal photo bg" class="d-block w-100">',
         ],
         [
           'caption_title' => 'BG Item 3',
@@ -229,7 +229,7 @@ class CarouselTest extends ParagraphsTestBase {
             'label' => 'BG CTA 4',
             'path' => 'http://www.example.com/',
           ],
-          'image' => '<img src="//ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg" alt="AV Portal photo bg" class="d-block w-100">',
+          'image' => '<img src="https://ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg" alt="AV Portal photo bg" class="d-block w-100">',
         ],
       ],
     ];
