@@ -29,13 +29,13 @@
         "drupal/search_api": "^1.29",
         "drupal/search_api_autocomplete": "^1.7",
         "drupal/typed_link": "^2.0.1",
-        "drush/drush": "^12.4",
+        "drush/drush": "^12",
         "mikey179/vfsstream": "^1.6.10",
         "nikic/php-parser": "^4",
         "openeuropa/code-review": "^2.0.0-alpha6",
         "openeuropa/oe_authentication": "^1.11",
         "openeuropa/oe_contact_forms": "~1.11",
-        "openeuropa/oe_content": "^3.0.0-alpha11",
+        "openeuropa/oe_content": "^3",
         "openeuropa/oe_content_extra": "^1.1.0",
         "openeuropa/oe_corporate_blocks": "^4.13",
         "openeuropa/oe_link_lists": "^1.0",
@@ -103,19 +103,7 @@
         },
         "_readme": [
             "Explicit requirement of nikic/php-parser ^4 as later versions are not compatible with grumphp @see https://github.com/phpro/grumphp/issues/1119"
-        ],
-        "patches": {
-            "drupal/core": {
-                "https://www.drupal.org/project/drupal/issues/2230909": "https://www.drupal.org/files/issues/2023-12-21/2230909-309.patch"
-            }
-        },
-        "patches-ignore": {
-            "openeuropa/oe_content": {
-                "drupal/core": {
-                    "https://www.drupal.org/project/drupal/issues/2230909": "https://www.drupal.org/files/issues/2022-07-26/2230909-269.patch"
-                }
-            }
-        }
+        ]
     },
     "config": {
         "sort-packages": true,
