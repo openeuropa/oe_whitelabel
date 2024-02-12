@@ -69,7 +69,7 @@ class SearchForm extends FormBase {
       '#default_value' => $this->getRequest()->get($config['input']['name']),
       '#required' => TRUE,
       '#attributes' => [
-        'placeholder' => $config['input']['placeholder'],
+        'placeholder' => t($config['input']['placeholder']),
       ],
     ];
 
