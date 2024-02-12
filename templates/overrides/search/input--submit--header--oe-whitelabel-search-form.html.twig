@@ -14,13 +14,12 @@
     'attributes': create_attribute({
       'class': [
         'd-inline-block',
-        'me-md-2-5',
         'bcl-search-form__btn_icon',
       ]
     })
   }) }}
   {% if element['#value'] is not empty %}
-    <span class="d-none d-lg-inline-block">{{ element['#value']|t }}</span>
+    <span class="d-none d-lg-inline-block ms-md-2-5">{{ element['#value']|t }}</span>
   {% endif %}
 {% endset %}
 {{ pattern('button', {
