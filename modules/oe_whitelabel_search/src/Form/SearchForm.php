@@ -101,7 +101,7 @@ class SearchForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $config = $form_state->get('oe_whitelabel_search_config');
-    $url = Url::fromUri('base:' . $config['form']['action'], [
+    $url = Url::fromUserInput('/' . $config['form']['action'], [
       'language' => $this->languageManager->getCurrentLanguage(),
       'absolute' => TRUE,
       'query' => [
