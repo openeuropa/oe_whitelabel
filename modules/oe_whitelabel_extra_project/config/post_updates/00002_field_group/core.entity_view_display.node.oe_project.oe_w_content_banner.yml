@@ -42,7 +42,7 @@ third_party_settings:
       children: {  }
       label: 'Action bar'
       parent_name: ''
-      region: hidden
+      region: content
       weight: 20
       format_type: html_element
       format_settings:
