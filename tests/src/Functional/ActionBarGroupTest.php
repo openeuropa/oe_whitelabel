@@ -44,6 +44,7 @@ class ActionBarGroupTest extends WhitelabelBrowserTestBase {
 
     // Test to place a hidden field in the group.
     $this->assertHiddenNodeDisplayField('oe_sc_event', 'oe_w_content_banner', 'oe_content_short_title');
+
     $this->doFieldsGroupTest('oe_sc_event', 'oe_w_content_banner', ['oe_content_short_title']);
 
     // Test to place a content field in the group.
@@ -54,9 +55,29 @@ class ActionBarGroupTest extends WhitelabelBrowserTestBase {
       'third_party_settings' => [],
       'region' => 'content',
     ], 'oe_sc_news', 'oe_w_content_banner', 'oe_summary');
+
     $this->doFieldsGroupTest('oe_sc_news', 'oe_w_content_banner', ['oe_summary']);
 
-    // Test to place multiple text fields in the group.
+    // Test to place multiple fields in the group.
+    $this->assertHiddenNodeDisplayField('oe_sc_person', 'oe_w_content_banner', 'oe_sc_person_first_name');
+    $this->assertHiddenNodeDisplayField('oe_sc_person', 'oe_w_content_banner', 'oe_sc_person_last_name');
+    $this->assertSettingsNodeDisplayField([
+      'type' => 'string',
+      'label' => 'hidden',
+      'settings' => [
+        'link_to_entity' => FALSE,
+      ],
+      'third_party_settings' => [],
+      'region' => 'content',
+    ], 'oe_sc_person', 'oe_w_content_banner', 'oe_sc_person_position');
+    $this->assertSettingsNodeDisplayField([
+      'type' => 'text_default',
+      'label' => 'hidden',
+      'settings' => [],
+      'third_party_settings' => [],
+      'region' => 'content',
+    ], 'oe_sc_person', 'oe_w_content_banner', 'oe_summary');
+
     $this->doFieldsGroupTest('oe_sc_person', 'oe_w_content_banner', [
       'oe_sc_person_first_name',
       'oe_sc_person_last_name',
@@ -78,6 +99,7 @@ class ActionBarGroupTest extends WhitelabelBrowserTestBase {
     ])->save();
 
     $this->assertHiddenNodeDisplayField('oe_sc_publication', 'oe_w_content_banner', 'field_test');
+
     $this->doFieldsGroupTest('oe_sc_publication', 'oe_w_content_banner', ['field_test']);
 
     // Test new field and existing.
@@ -86,6 +108,11 @@ class ActionBarGroupTest extends WhitelabelBrowserTestBase {
       'bundle' => 'oe_project',
       'label' => $this->randomMachineName(),
     ])->save();
+
+    $this->assertHiddenNodeDisplayField('oe_project', 'oe_w_content_banner', 'field_test');
+    $this->assertHiddenNodeDisplayField('oe_project', 'oe_w_content_banner', 'oe_cx_achievements_and_milestone');
+    $this->assertHiddenNodeDisplayField('oe_project', 'oe_w_content_banner', 'oe_cx_impacts');
+
     $this->doFieldsGroupTest('oe_project', 'oe_w_content_banner', [
       'field_test',
       'oe_cx_achievements_and_milestone',
