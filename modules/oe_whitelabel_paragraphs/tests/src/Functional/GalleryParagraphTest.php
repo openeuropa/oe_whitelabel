@@ -86,7 +86,7 @@ class GalleryParagraphTest extends BrowserTestBase {
         ],
         'media' => [
           'caption_title' => 'Euro with miniature figurines',
-          'rendered' => '<img class="avportal-photo img-fluid" alt="Euro with miniature figurines" data-src="//ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg">',
+          'rendered' => '<img class="avportal-photo img-fluid" alt="Euro with miniature figurines" data-src="https://ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg">',
         ],
       ],
       [
@@ -100,7 +100,7 @@ class GalleryParagraphTest extends BrowserTestBase {
         ],
         'media' => [
           'caption_title' => 'Economic and Financial Affairs Council - Arrivals',
-          'rendered' => '<iframe id="videoplayerI-163162" data-src="//ec.europa.eu/avservices/play.cfm?ref=I-163162&amp;lg=EN&amp;sublg=none&amp;autoplay=true&amp;tin=10&amp;tout=59" frameborder="0" allowtransparency allowfullscreen webkitallowfullscreen mozallowfullscreen width="640" height="390" class="media-avportal-content"></iframe>',
+          'rendered' => '<iframe id="videoplayerI-163162" data-src="https://ec.europa.eu/avservices/play.cfm?ref=I-163162&amp;lg=EN&amp;sublg=none&amp;autoplay=true&amp;tin=10&amp;tout=59" frameborder="0" allowtransparency allowfullscreen webkitallowfullscreen mozallowfullscreen width="640" height="390" class="media-avportal-content"></iframe>',
         ],
       ],
       [
