@@ -8,6 +8,8 @@ dependencies:
   - extra_field:extra_field
   - oe_list_pages:oe_list_page_content_type
   - oe_list_pages:oe_list_pages
+  - oe_content:oe_content
+  - oe_content:oe_content_featured_media_field
 
 config_devel:
   install:

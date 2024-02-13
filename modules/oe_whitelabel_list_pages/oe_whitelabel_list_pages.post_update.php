@@ -15,3 +15,15 @@ use Drupal\oe_bootstrap_theme\ConfigImporter;
 function oe_whitelabel_list_pages_post_update_00001() {
   ConfigImporter::importSingle('module', 'oe_whitelabel_list_pages', '/config/post_updates/00001_sort', 'core.entity_view_display.node.oe_list_page.default');
 }
+
+/**
+ * Add content banner to list pages.
+ */
+function oe_whitelabel_list_pages_post_update_00002() {
+  ConfigImporter::importMultiple('module', 'oe_whitelabel_list_pages', '/config/post_updates/00002_title', [
+    'core.entity_view_display.node.oe_list_page.default',
+    'core.entity_view_display.node.oe_list_page.full',
+    'field.field.node.oe_list_page.oe_featured_media',
+    'field.field.node.oe_list_page.oe_summary',
+  ]);
+}

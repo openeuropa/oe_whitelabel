@@ -1,5 +1,11 @@
 {% apply spaceless %}
-  {{ content|without('extra_field_oe_list_page_filters:node:oe_list_page', 'extra_field_oe_list_page_results:node:oe_list_page', 'extra_field_oe_list_page_selected_filters:node:oe_list_page', 'extra_field_oe_list_page_total_count:node:oe_list_page', 'extra_field_oe_list_page_sort:node:oe_list_page') }}
+  {{ pattern('content_banner', {
+    title: label,
+    content: content.oe_summary,
+    image: image,
+    {# 'attributes': create_attribute().addClass(['mb-4']) #}
+  }) }}
+  {{ content|without('extra_field_oe_list_page_filters:node:oe_list_page', 'extra_field_oe_list_page_results:node:oe_list_page', 'extra_field_oe_list_page_selected_filters:node:oe_list_page', 'extra_field_oe_list_page_total_count:node:oe_list_page', 'extra_field_oe_list_page_sort:node:oe_list_page', 'oe_summary', 'oe_featured_media') }}
   <div class="row">
     <div class="col-12 bcl-sidebar col-lg-3">
       {% set filters = content['extra_field_oe_list_page_filters:node:oe_list_page']|render %}
@@ -26,7 +32,7 @@
       <div class="row">
         <div class="col-md-6 col-lg-8 align-self-center">
           <h4 class="mb-0">
-            <span class="text-capitalize">{{ label }}</span>
+            <span class="text-capitalize">{{ 'Results'|t }}</span>
             ({{ content['extra_field_oe_list_page_total_count:node:oe_list_page'] }})
           </h4>
         </div>
