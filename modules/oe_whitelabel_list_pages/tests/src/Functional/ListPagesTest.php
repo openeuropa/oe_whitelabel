@@ -53,33 +53,28 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     $this->indexItems('oe_whitelabel_list_page_index_test');
     $list_page = $this->createListPage();
     $this->drupalGet($list_page->toUrl());
-    $client = $this->getSession()->getDriver()->getClient();
-    $crawler = $client->getCrawler();
 
     // Select the content banner element.
-    $content_banner = $crawler->filter('.bcl-content-banner');
-    $this->assertCount(1, $content_banner);
+    $content_banner = $assert_session->elementExists('css', '.bcl-content-banner');
 
     // Assert content banner image.
-    $image = $content_banner->filter('img');
-    $this->assertCount(1, $image);
-    $this->assertCount(1, $image->filter('.card-img-top'));
+    $image = $assert_session->elementExists('css', 'img.card-img-top', $content_banner);
     $this->assertStringContainsString(
       'image-test.png',
-      trim($image->attr('src'))
+      trim($image->getAttribute('src'))
     );
     $this->assertEquals('Starter Image test alt',
-      $image->attr('alt')
+      $image->getAttribute('alt')
     );
 
     // Assert content banner content elements.
     $this->assertEquals(
       'News list page',
-      trim($content_banner->filter('.card-title')->text())
+      trim($assert_session->elementExists('css', '.card-title', $content_banner)->getText())
     );
     $this->assertEquals(
       'https://www.example.org is a web page',
-      trim($content_banner->filter('.oe-list-page__oe-summary')->text())
+      trim($assert_session->elementExists('css', '.oe-list-page__oe-summary', $content_banner)->getText())
     );
 
     // Assert the left column.
