@@ -3,7 +3,7 @@
     title: label,
     content: content.oe_summary,
     image: image,
-    {# 'attributes': create_attribute().addClass(['mb-4']) #}
+    attributes: create_attribute().addClass(['pb-4', 'pb-md-4-75'])
   }) }}
   {{ content|without('extra_field_oe_list_page_filters:node:oe_list_page', 'extra_field_oe_list_page_results:node:oe_list_page', 'extra_field_oe_list_page_selected_filters:node:oe_list_page', 'extra_field_oe_list_page_total_count:node:oe_list_page', 'extra_field_oe_list_page_sort:node:oe_list_page', 'oe_summary', 'oe_featured_media') }}
   <div class="row">
