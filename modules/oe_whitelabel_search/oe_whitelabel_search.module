@@ -5,7 +5,7 @@
  * Module file used for theming the search feature.
  */
 
-declare(strict_types =  1);
+declare(strict_types=1);
 
 use Drupal\Core\Form\FormStateInterface;
 
