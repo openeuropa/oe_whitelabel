@@ -5,7 +5,7 @@
  * Theme functions for paragraphs.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter().

@@ -5,7 +5,7 @@
  * OE Whitelabel theme Person.
  */
 
-declare(strict_types =  1);
+declare(strict_types=1);
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Url;

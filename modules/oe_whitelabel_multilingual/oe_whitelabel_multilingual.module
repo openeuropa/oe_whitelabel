@@ -5,7 +5,7 @@
  * OE Whitelabel theme Multilingual.
  */
 
-declare(strict_types =  1);
+declare(strict_types=1);
 
 use Drupal\Component\Utility\Html;
 use Drupal\oe_bootstrap_theme_helper\EuropeanUnionLanguages;

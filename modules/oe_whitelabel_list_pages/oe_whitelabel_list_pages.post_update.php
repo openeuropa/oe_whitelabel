@@ -5,7 +5,7 @@
  * OpenEuropa Whitelabel List Pages post updates.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\oe_bootstrap_theme\ConfigImporter;
 
