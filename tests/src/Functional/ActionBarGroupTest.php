@@ -1,222 +1,140 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel\Functional;
 
-use Drupal\field\Entity\FieldConfig;
-use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\Tests\field_group\Functional\FieldGroupTestTrait;
-use Drupal\Tests\oe_whitelabel\Traits\NodeFieldDisplayTrait;
+use Drupal\node\NodeInterface;
+use Drupal\Tests\oe_whitelabel\Traits\NodeCreationTrait;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
- * Tests for Action Bar group.
+ * Tests the action bar field group.
  */
 class ActionBarGroupTest extends WhitelabelBrowserTestBase {
 
-  use FieldGroupTestTrait;
-  use NodeFieldDisplayTrait;
+  use NodeCreationTrait;
 
   /**
    * {@inheritdoc}
    */
   protected static $modules = [
     'block',
-    'field_ui',
+    'oe_whitelabel_field_test',
     'oe_whitelabel_starter_event',
     'oe_whitelabel_starter_news',
-    'oe_whitelabel_extra_project',
     'oe_whitelabel_starter_person',
     'oe_whitelabel_starter_publication',
+    'oe_whitelabel_extra_project',
   ];
 
   /**
-   * Test Action Bar group in content types.
+   * {@inheritdoc}
    */
-  public function testActionBarGroups(): void {
-    // Test that groups exists in content types.
-    $this->doEmptyGroupTest('oe_sc_event', 'oe_w_content_banner');
-    $this->doEmptyGroupTest('oe_sc_news', 'oe_w_content_banner');
-    $this->doEmptyGroupTest('oe_sc_person', 'oe_w_content_banner');
-    $this->doEmptyGroupTest('oe_sc_publication', 'oe_w_content_banner');
-    $this->doEmptyGroupTest('oe_project', 'oe_w_content_banner');
+  protected function setUp(): void {
+    parent::setUp();
 
-    // Test to place a hidden field in the group.
-    $this->assertHiddenNodeDisplayField('oe_sc_event', 'oe_w_content_banner', 'oe_content_short_title');
-
-    $this->doFieldsGroupTest('oe_sc_event', 'oe_w_content_banner', ['oe_content_short_title']);
-
-    // Test to place a content field in the group.
-    $this->assertSettingsNodeDisplayField([
-      'type' => 'text_default',
-      'label' => 'hidden',
-      'settings' => [],
-      'third_party_settings' => [],
-      'region' => 'content',
-    ], 'oe_sc_news', 'oe_w_content_banner', 'oe_summary');
-
-    $this->doFieldsGroupTest('oe_sc_news', 'oe_w_content_banner', ['oe_summary']);
-
-    // Test to place multiple fields in the group.
-    $this->assertHiddenNodeDisplayField('oe_sc_person', 'oe_w_content_banner', 'oe_sc_person_first_name');
-    $this->assertHiddenNodeDisplayField('oe_sc_person', 'oe_w_content_banner', 'oe_sc_person_last_name');
-    $this->assertSettingsNodeDisplayField([
-      'type' => 'string',
-      'label' => 'hidden',
-      'settings' => [
-        'link_to_entity' => FALSE,
-      ],
-      'third_party_settings' => [],
-      'region' => 'content',
-    ], 'oe_sc_person', 'oe_w_content_banner', 'oe_sc_person_position');
-    $this->assertSettingsNodeDisplayField([
-      'type' => 'text_default',
-      'label' => 'hidden',
-      'settings' => [],
-      'third_party_settings' => [],
-      'region' => 'content',
-    ], 'oe_sc_person', 'oe_w_content_banner', 'oe_summary');
-
-    $this->doFieldsGroupTest('oe_sc_person', 'oe_w_content_banner', [
-      'oe_sc_person_first_name',
-      'oe_sc_person_last_name',
-      'oe_sc_person_position',
-      'oe_summary',
-    ]);
-
-    // Test place a new field in the group.
-    $field_storage = FieldStorageConfig::create([
-      'field_name' => 'field_test',
-      'entity_type' => 'node',
-      'type' => 'text',
-    ]);
-    $field_storage->save();
-    FieldConfig::create([
-      'field_storage' => $field_storage,
-      'bundle' => 'oe_sc_publication',
-      'label' => $this->randomMachineName(),
-    ])->save();
-
-    $this->assertHiddenNodeDisplayField('oe_sc_publication', 'oe_w_content_banner', 'field_test');
-
-    $this->doFieldsGroupTest('oe_sc_publication', 'oe_w_content_banner', ['field_test']);
-
-    // Test new field and existing.
-    FieldConfig::create([
-      'field_storage' => $field_storage,
-      'bundle' => 'oe_project',
-      'label' => $this->randomMachineName(),
-    ])->save();
-
-    $this->assertHiddenNodeDisplayField('oe_project', 'oe_w_content_banner', 'field_test');
-    $this->assertHiddenNodeDisplayField('oe_project', 'oe_w_content_banner', 'oe_cx_achievements_and_milestone');
-    $this->assertHiddenNodeDisplayField('oe_project', 'oe_w_content_banner', 'oe_cx_impacts');
-
-    $this->doFieldsGroupTest('oe_project', 'oe_w_content_banner', [
-      'field_test',
-      'oe_cx_achievements_and_milestone',
-      'oe_cx_impacts',
-    ]);
+    \Drupal::moduleHandler()->loadInclude('field_group', 'inc', 'includes/field_ui');
+    // The extra fields declared in oe_whitelabel_field_test do not show
+    // up until the cache is cleared.
+    \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
   }
 
   /**
-   * Test that the Action Bar group exists in the display and has no children.
-   *
-   * @param string $bundle
-   *   The node type bundle.
-   * @param string $display
-   *   The display of the node type.
+   * Tests the action bar group in content types.
    */
-  protected function doEmptyGroupTest(string $bundle, string $display): void {
-    $node_type = $this->container->get('entity_type.manager')->getStorage('node_type')->load($bundle);
-    if (empty($node_type)) {
-      throw new \InvalidArgumentException(sprintf('A bundle of type node is expected, %s not found.', $bundle));
+  public function testActionBarGroup(): void {
+    $bundles = [
+      'Event',
+      'News',
+      'Person',
+      'Publication',
+      'Project',
+    ];
+
+    // Improve test speed by looping and catching exceptions instead of
+    // installing multiple times. Each installation takes around 30 seconds,
+    // so with 5 content types we save two minutes already.
+    $errors = [];
+    foreach ($bundles as $bundle_nice_name) {
+      try {
+        $node = call_user_func([$this, "create{$bundle_nice_name}Node"]);
+
+        // Test that the action group is empty by default.
+        $this->assertEmpty($this->renderNode($node)->filter('.action-bar'));
+
+        // Place one field in the group.
+        $this->addExtraFieldToActionBarGroup('oe_wt_field_test_string', $node->bundle());
+        $crawler = $this->renderNode($node);
+        $this->assertEquals('The OpenEuropa Initiative.', $crawler->filter('.action-bar')->text());
+
+        // Add another field.
+        $this->addExtraFieldToActionBarGroup('oe_wt_field_test_html_multiple', $node->bundle());
+        $crawler = $this->renderNode($node);
+        $fields = $crawler->filter('.action-bar > div');
+        $this->assertCount(2, $fields);
+        $this->assertEquals('The OpenEuropa Initiative.', $fields->eq(0)->text());
+        // The second extra field returns 2 items.
+        $items = $fields->eq(1)->children();
+        $this->assertCount(2, $items);
+        $this->assertStringContainsString('<span>First line with <b>markup</b>.</span>', $items->eq(0)->html());
+        $this->assertStringContainsString('<span>Second line with <b>markup</b>.</span>', $items->eq(1)->html());
+      }
+      catch (\Exception $exception) {
+        $errors[$bundle_nice_name] = $exception;
+      }
     }
 
-    // Test that the group exists in content region and has no children.
-    $group = field_group_load_field_group('group_action_bar', 'node', $bundle, 'view', $display);
-    $this->assertEquals('content', $group->region);
-    $this->assertEquals([], $group->children);
-
-    // Test that the group is not rendered given has no children.
-    $node = $this->createNode(['type' => $bundle]);
-    $build = \Drupal::entityTypeManager()->getViewBuilder('node')->view($node, $display);
-    $html = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler($html->__toString());
-    $group_wrapper = $crawler->filter("d-flex.justify-content-end.mt-2.align-items-center");
-    $this->assertCount(0, $group_wrapper);
+    if (!empty($errors)) {
+      $message = '';
+      foreach ($errors as $bundle => $exception) {
+        $message .= sprintf('Failed assertion for %s: %s%s', strtolower($bundle), $exception->getMessage(), PHP_EOL);
+      }
+      $this->fail($message);
+    }
   }
 
   /**
-   * Test that fields can be added to Action Bar group and are displayed.
+   * Renders the content banner view mode for a node.
    *
-   * The function only accepts text fields.
+   * @param \Drupal\node\NodeInterface $node
+   *   The node entity.
    *
-   * @param string $bundle
-   *   The node type bundle.
-   * @param string $display
-   *   The display of the node type.
-   * @param array $fields
-   *   The fields to be checked.
+   * @return \Symfony\Component\DomCrawler\Crawler
+   *   A crawler around the rendered HTML.
    */
-  protected function doFieldsGroupTest(string $bundle, string $display, array $fields): void {
-    $node_type = $this->container->get('entity_type.manager')->getStorage('node_type')->load($bundle);
-    if (empty($node_type)) {
-      throw new \InvalidArgumentException(sprintf('A bundle of type node is expected, %s not found.', $bundle));
-    }
+  protected function renderNode(NodeInterface $node): Crawler {
+    $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
+    $build = $view_builder->view($node, 'oe_w_content_banner');
+    $html = (string) $this->container->get('renderer')->renderRoot($build);
 
-    if (empty($fields)) {
-      throw new \InvalidArgumentException("An array with field names is expected");
-    }
+    return new Crawler($html);
+  }
 
-    $bundle_fields = \Drupal::service('entity_field.manager')->getFieldDefinitions('node', $bundle);
-    if ($diff = array_diff($fields, array_keys($bundle_fields))) {
-      throw new \InvalidArgumentException(sprintf('The %s bundle does not have the expected fields: %s.', $bundle, $diff = implode(', ', $diff)));
-    }
+  /**
+   * Adds an extra field to the action bar group.
+   *
+   * @param string $extra_field_name
+   *   The extra field name.
+   * @param string $bundle
+   *   The node bundle.
+   */
+  protected function addExtraFieldToActionBarGroup(string $extra_field_name, string $bundle): void {
+    $display_storage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display */
+    $display = $display_storage->load("node.$bundle.oe_w_content_banner");
+    $extra_field_name = 'extra_field_' . $extra_field_name;
+    $display->setComponent($extra_field_name, [
+      'region' => 'content',
+    ]);
 
-    // Test that the fields can be added to the group.
-    $node_fields = [];
-    foreach ($fields as $field) {
-      $node_fields[$field] = "$field " . $this->randomMachineName();
-    }
-    $node = $this->createNode(['type' => $bundle] + $node_fields);
-
-    $group = field_group_load_field_group('group_action_bar', 'node', $bundle, 'view', $display);
-    $this->drupalLogin($this->createUser([
-      'administer content types',
-      'administer node display',
-    ]));
-
-    $form_fields = [];
-    foreach ($fields as $field) {
-      $form_fields += [
-        "fields[$field][label]" => 'hidden',
-        "fields[$field][region]" => $group->region,
-        "fields[$field][parent]" => $group->group_name,
-      ];
-    }
-    $this->drupalGet("admin/structure/types/manage/$bundle/display/$display");
-    $this->submitForm($form_fields, 'Save');
-    $this->assertSession()->pageTextContains('Your settings have been saved.');
-    $group = field_group_load_field_group('group_action_bar', 'node', $bundle, 'view', $display);
-    $this->assertEmpty(array_diff($fields, $group->children));
-
-    // Test render of the group together with it's children.
-    $build = \Drupal::entityTypeManager()->getViewBuilder('node')->view($node, $display);
-    $html = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler($html->__toString());
-    $group_wrapper = $crawler->filter(".d-flex.justify-content-end.mt-2.align-items-center");
-    $this->assertCount(1, $group_wrapper);
-    $this->assertCount(count($fields), $group_wrapper->children());
-
-    // Check that the children texts are the same that the node field values.
-    $node_values = array_flip($node_fields);
-    foreach ($group_wrapper->children() as $child) {
-      $field_value = $child->textContent;
-      $this->assertArrayHasKey($field_value, $node_values);
-      unset($node_values[$field_value]);
-    }
+    $groups = field_group_info_groups('node', $bundle, field_group_get_context_from_display($display), 'oe_w_content_banner');
+    $this->assertArrayHasKey('group_action_bar', $groups);
+    $group = $groups['group_action_bar'];
+    $group->children = array_merge($group->children, [
+      $extra_field_name,
+    ]);
+    field_group_group_save($group, $display);
   }
 
 }
