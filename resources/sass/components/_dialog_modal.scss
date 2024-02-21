@@ -1,10 +1,27 @@
 // To be deleted after override of the ui-dialog with bootstrap modal.
 .ui-dialog {
   width: 90% !important; // To have extra paddings left and right.
+  padding: 0;
+  &.ui-widget {
+    font-family: inherit;
+  }
   .ui-dialog-titlebar-close {
+    right: 20px;
     &:empty { // To not conflict with default styles.
       background: transparent url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3E%3C/svg%3E") 50%/1em auto no-repeat;
       border: none;
+    }
+  }
+  .ui-dialog-titlebar {
+    background: transparent;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    padding: 1rem;
+    .ui-dialog-title {
+      font-size: 1.25rem;
+      font-weight: 500;
     }
   }
 }
