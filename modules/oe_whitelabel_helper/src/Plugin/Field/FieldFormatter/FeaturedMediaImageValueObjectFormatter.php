@@ -6,6 +6,7 @@ namespace Drupal\oe_whitelabel_helper\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\media\Plugin\media\Source\Image;
 use Drupal\media\Entity\Media;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
@@ -30,12 +31,12 @@ class FeaturedMediaImageValueObjectFormatter extends FeaturedMediaFormatterBase 
    * {@inheritdoc}
    */
   function viewElements(FieldItemListInterface $items, $langcode = NULL) {
-    $elements = [
-      'src' => '',
-      'alt' => '',
-    ];
-
+    $elements = [];
     $parent_elements = parent::viewElements($items, $langcode);
+    if(empty($parent_elements)) {
+      return $elements;
+    }
+
     foreach ($parent_elements as $delta => $parent_element) {
 
       /** @var FeaturedMediaItem $item */
@@ -76,14 +77,17 @@ class FeaturedMediaImageValueObjectFormatter extends FeaturedMediaFormatterBase 
   }
 
   /**
-   * {@inheritdoc}
-   *
-   * One step back to have both image and file ER plugins extend this, because
-   * EntityReferenceItem::isDisplayed() doesn't exist, except for ImageItem
-   * which is always TRUE anyway for type image and file ER.
+   * Load entities if not unsaved (TRUE in major cases).
    */
   protected function needsEntityLoad(EntityReferenceItem $item) {
-    return FALSE;
+    return !$item->hasNewEntity();
+  }
+
+  /**
+   * No needs to check renderable elements.
+   */
+  public function view(FieldItemListInterface $items, $langcode = NULL) {
+    return $this->viewElements($items, $langcode);
   }
 
 }
