@@ -141,19 +141,6 @@ class EntityReferenceImageValueObjectFormatter extends ImageFormatterBase implem
   }
 
   /**
-   * Overrides to not check renderable elements.
-   */
-  public function view(FieldItemListInterface $items, $langcode = NULL) {
-    // Default the language to the current content language.
-    if (empty($langcode)) {
-      $langcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
-    }
-    $elements = $this->viewElements($items, $langcode);
-
-    return $elements;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
@@ -206,6 +193,15 @@ class EntityReferenceImageValueObjectFormatter extends ImageFormatterBase implem
   /**
    * {@inheritdoc}
    *
+   * Only manage Media.
+   */
+  public static function isApplicable(FieldDefinitionInterface $field_definition) {
+    return ($field_definition->getFieldStorageDefinition()->getSetting('target_type') == 'media');
+  }
+
+  /**
+   * {@inheritdoc}
+   *
    * One step back to have both image and file ER plugins extend this, because
    * EntityReferenceItem::isDisplayed() doesn't exist, except for ImageItem
    * which is always TRUE anyway for type image and file ER.
@@ -215,12 +211,15 @@ class EntityReferenceImageValueObjectFormatter extends ImageFormatterBase implem
   }
 
   /**
-   * {@inheritdoc}
-   *
-   * Only manage Media.
+   * No needs to check renderable elements.
    */
-  public static function isApplicable(FieldDefinitionInterface $field_definition) {
-    return ($field_definition->getFieldStorageDefinition()->getSetting('target_type') == 'media');
+  public function view(FieldItemListInterface $items, $langcode = NULL) {
+    // Default the language to the current content language.
+    if (empty($langcode)) {
+      $langcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
+    }
+
+    return $this->viewElements($items, $langcode);
   }
 
 }
