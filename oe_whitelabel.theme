@@ -254,3 +254,12 @@ function oe_whitelabel_preprocess_oe_subscriptions_user_subscriptions_page(&$var
     \Drupal::service('current_route_match')->getCurrentRouteMatch()->getRouteObject()
   );
 }
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function oe_whitelabel_preprocess_oe_corporate_blocks_neutral_footer(array &$variables): void {
+  if (\Drupal::service('module_handler')->moduleExists('oe_corporate_blocks')) {
+    oe_corporate_blocks_preprocess_set_accessibility_link($variables);
+  }
+}

@@ -70,6 +70,16 @@
 {% set footer_top_left_content %}
   <p class="fw-bold mb-2">{{ site_specific_footer.site_identity }}</p>
   <p> {{ site_owner ? 'This site is managed by the @name'|t({'@name': site_owner}) }} </p>
+
+  {% if accessibility_link %}
+    {% block accessibility_link %}
+      {% set _accessibility_link = pattern('link', {
+        label: 'Accessibility'|t,
+        path: accessibility_link,
+      }) %}
+      <p> {{ _accessibility_link }} </p>
+    {% endblock %}
+  {% endif %}
 {% endset %}
 
 {% set attributes = create_attribute().addClass(['pb-4', 'mt-4']) %}
