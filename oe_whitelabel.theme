@@ -7,9 +7,13 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Template\AttributeHelper;
+use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
 use Drupal\oe_bootstrap_theme_helper\EuropeanUnionLanguages;
+use Drupal\oe_corporate_site_info\SiteInformation;
 use Drupal\oe_whitelabel\DocumentMediaWrapper;
 
 // Include all files from the includes directory.
@@ -241,4 +245,62 @@ function oe_whitelabel_library_info_alter(array &$libraries, string $extension):
   ];
   // The slim.select css is already present in the parent theme.
   unset($libraries['slim.select']['css']);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function oe_whitelabel_preprocess_oe_corporate_blocks_ec_footer(array &$variables): void {
+  _oe_whitelabel_preprocess_accessibility_link($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function oe_whitelabel_preprocess_oe_corporate_blocks_eu_footer(array &$variables): void {
+  _oe_whitelabel_preprocess_accessibility_link($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function oe_whitelabel_preprocess_oe_corporate_blocks_neutral_footer(array &$variables): void {
+  _oe_whitelabel_preprocess_accessibility_link($variables);
+}
+
+/**
+ * Get the Accessibility statement link.
+ */
+function _oe_whitelabel_preprocess_accessibility_link(array &$variables): void {
+  if (!\Drupal::service('module_handler')->moduleExists('oe_corporate_site_info')) {
+    return;
+  }
+  $cacheability = CacheableMetadata::createFromRenderArray($variables);
+  $configuration = \Drupal::configFactory()->get(SiteInformation::CONFIG_NAME);
+  $cacheability->addCacheableDependency($configuration);
+  /** @var \Drupal\oe_corporate_site_info\SiteInformationInterface $site_information */
+  $site_information = \Drupal::service('oe_corporate_site_info.site_information');
+  if (!$site_information->hasAccessibilityLink()) {
+    $cacheability->applyTo($variables);
+    return;
+  }
+  $uri = $site_information->getAccessibilityLink();
+  $uri_parts = parse_url($uri);
+  if ($uri_parts['scheme'] === 'entity') {
+    [$entity_type_id, $entity_id] = explode('/', $uri_parts['path'], 2);
+    $entity = \Drupal::entityTypeManager()->getStorage($entity_type_id)->load($entity_id);
+    if ($entity instanceof NodeInterface) {
+      $cacheability->addCacheableDependency($entity);
+      $access = $entity->access('view', \Drupal::currentUser(), TRUE);
+      $cacheability->addCacheableDependency($access);
+      if (!$access->isAllowed()) {
+        $cacheability->applyTo($variables);
+        // Do not show the link if access to the node is forbidden.
+        return;
+      }
+    }
+  }
+
+  $variables['accessibility_link'] = Url::fromUri($uri);
+  $cacheability->applyTo($variables);
 }
