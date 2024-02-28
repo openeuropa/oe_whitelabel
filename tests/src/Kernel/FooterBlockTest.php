@@ -23,6 +23,8 @@ class FooterBlockTest extends SparqlKernelTestBase {
     'oe_whitelabel_helper',
     'rdf_skos',
     'system',
+    'ui_patterns',
+    'ui_patterns_library',
     'user',
   ];
 
@@ -47,6 +49,11 @@ class FooterBlockTest extends SparqlKernelTestBase {
     \Drupal::configFactory()
       ->getEditable('system.site')
       ->set('name', 'Footer block test website')
+      ->save();
+
+    \Drupal::configFactory()
+      ->getEditable('oe_corporate_site_info.settings')
+      ->set('accessibility', 'https://example.com/accessibility')
       ->save();
   }
 
@@ -81,6 +88,8 @@ class FooterBlockTest extends SparqlKernelTestBase {
     // oe_corporate_blocks, so we cannot assert a specific count.
     $this->assertNotEmpty($columns->eq(1)->filter('.mb-1 a.standalone'));
     $this->assertNotEmpty($columns->eq(2)->filter('.mb-1 a.standalone'));
+    $accessibilityLink = $crawler->filter('a[href="https://example.com/accessibility"]');
+    $this->assertCount(1, $accessibilityLink);
   }
 
   /**
@@ -117,6 +126,8 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $this->assertCount(5, $sectionTitles);
     $sectionLinks = $crawler->filter('div.col-12.col-lg-4:nth-child(2) .mb-1 a.standalone');
     $this->assertCount(5, $sectionLinks);
+    $accessibilityLink = $crawler->filter('a[href="https://example.com/accessibility"]');
+    $this->assertCount(1, $accessibilityLink);
   }
 
   /**
@@ -149,6 +160,8 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $this->assertCount(1, $rows);
     $sectionTitles = $crawler->filter('p.fw-bold.mb-2');
     $this->assertCount(1, $sectionTitles);
+    $accessibilityLink = $crawler->filter('a[href="https://example.com/accessibility"]');
+    $this->assertCount(1, $accessibilityLink);
   }
 
 }
