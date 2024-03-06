@@ -27,6 +27,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'block',
     'oe_whitelabel_list_pages_test',
   ];
 

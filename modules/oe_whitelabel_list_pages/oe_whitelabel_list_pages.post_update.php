@@ -25,5 +25,6 @@ function oe_whitelabel_list_pages_post_update_00002() {
   ConfigImporter::importMultiple('module', 'oe_whitelabel_list_pages', '/config/post_updates/00002_content_banner', [
     'core.entity_view_display.node.oe_list_page.default',
     'core.entity_view_display.node.oe_list_page.full',
+    'core.entity_view_display.node.oe_list_page.oe_w_content_banner',
   ]);
 }

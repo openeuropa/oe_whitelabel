@@ -36,7 +36,7 @@ function oe_whitelabel_list_pages_form_oe_list_pages_facets_form_alter(&$form, F
  * Implements template_preprocess_node() for the List pages node type.
  */
 function oe_whitelabel_list_pages_preprocess_node__oe_list_page(&$variables) {
-  if ($variables['view_mode'] !== 'full') {
+  if ($variables['view_mode'] !== 'oe_w_content_banner') {
     return;
   }
 
@@ -78,7 +78,7 @@ function oe_whitelabel_list_pages_preprocess_node__oe_list_page(&$variables) {
 
   $is_image = $source instanceof MediaAvPortalPhotoSource || $source instanceof Image;
 
-  // If it's not an image and not a video, bail out.
+  // If it's not an image bail out.
   if (!$is_image) {
     $cacheability->applyTo($variables);
     return;
