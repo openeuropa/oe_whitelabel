@@ -7,7 +7,6 @@
     --bs-tooltip-padding-x: 0.5rem;
     --bs-tooltip-margin-bottom: 0.5rem;
     --bs-tooltip-padding-y: 0.25rem;
-    --bs-tooltip-margin: ;
     --bs-tooltip-font-size: 0.875rem;
     --bs-tooltip-color: #fff;
     --bs-tooltip-bg: #000;
@@ -20,7 +19,6 @@
     z-index: var(--bs-tooltip-zindex);
     display: block;
     padding: var(--bs-tooltip-arrow-height);
-    margin: var(--bs-tooltip-margin);
     font-family: var(--bs-font-sans-serif);
     max-width: var(--bs-tooltip-max-width);
     padding: var(--bs-tooltip-padding-y) var(--bs-tooltip-padding-x);
