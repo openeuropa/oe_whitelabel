@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Theme override for the "Action bar" fieldgroup html element.
+ *
+ * @see template_preprocess_field_group_html_element()
+ *
+ * @ingroup themeable
+ */
+#}
+{% set attributes = attributes.addClass(['action-bar', 'd-flex', 'justify-content-end', 'mt-2', 'align-items-center']) %}
+<{{ wrapper_element }} {{ attributes }}>
+  {% if title %}
+  <{{ title_element }}{{ title_attributes }}>{{ title }}</{{ title_element }}>
+  {% endif %}
+  {% if collapsible %}
+  <div class="field-group-wrapper">
+  {% endif %}
+  {{children}}
+  {% if collapsible %}
+  </div>
+  {% endif %}
+</{{ wrapper_element }}>

@@ -43,6 +43,7 @@
         "openeuropa/oe_multilingual": "^1.14",
         "openeuropa/oe_paragraphs": "^1.19",
         "openeuropa/oe_starter_content": "^1.2.0",
+        "openeuropa/oe_subscriptions": "1.x-dev",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta6",
         "phpspec/prophecy-phpunit": "^2"
     },
@@ -50,16 +51,20 @@
         "post-install-cmd": "./vendor/bin/run drupal:site-setup",
         "post-update-cmd": "./vendor/bin/run drupal:site-setup"
     },
-    "repositories": {
-        "drupal":{
+    "repositories": [
+        {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         },
-        "openeuropa/oe_content_extra": {
+        {
             "type": "git",
             "url": "https://github.com/openeuropa/oe_content_extra"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/openeuropa/oe_subscriptions"
         }
-    },
+    ],
     "autoload": {
         "psr-4": {
             "Drupal\\oe_whitelabel\\": "./src/"

@@ -1,0 +1,8 @@
+name: OpenEuropa Whitelabel field test
+type: module
+description: Module that provides additional fields to be used in view modes for testin purposes.
+package: Testing
+core_version_requirement: ^10
+dependencies:
+  - drupal:node
+  - extra_field:extra_field

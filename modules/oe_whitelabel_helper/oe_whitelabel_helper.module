@@ -102,3 +102,40 @@ function oe_whitelabel_helper_requirements_alter(array &$requirements): void {
     ];
   }
 }
+
+/**
+ * Implements hook_field_group_pre_render().
+ */
+function oe_whitelabel_helper_field_group_pre_render(array &$element, $group, $rendering_object) {
+  // Add view mode to the group element information, but only if the value was
+  // not already present.
+  if (empty($element['#mode'])) {
+    $element['#mode'] = $group->mode;
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for field_group_html_element.
+ */
+function oe_whitelabel_helper_theme_suggestions_field_group_html_element_alter(array &$suggestions, array $variables) {
+  // Add suggestions based on view mode, if present.
+  $element = $variables['element'];
+  if (empty($element['#mode'])) {
+    return;
+  }
+
+  $name = !empty($element['#group_name']) ? $element['#group_name'] : NULL;
+  $entity_type = !empty($element['#entity_type']) ? $element['#entity_type'] : NULL;
+  $bundle = !empty($element['#bundle']) ? $element['#bundle'] : NULL;
+  $mode = $element['#mode'];
+  $hook = 'field_group_html_element';
+
+  // Execute the same checks as in field_group_theme_suggestions_alter().
+  if (!empty($entity_type) && !empty($name)) {
+    $suggestions[] = $hook . '__' . $entity_type . '__' . $mode . '__' . $name;
+  }
+
+  if (!empty($entity_type) && !empty($bundle) && !empty($name)) {
+    $suggestions[] = $hook . '__' . $entity_type . '__' . $bundle . '__' . $mode . '__' . $name;
+  }
+}
