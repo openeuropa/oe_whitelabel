@@ -61,6 +61,21 @@ function oe_whitelabel_starter_event_post_update_00004(): void {
  * Update the content banner event view mode to introduce field group.
  */
 function oe_whitelabel_starter_event_post_update_00005(): void {
-  \Drupal::service('module_installer')->install(['field_group']);
-  ConfigImporter::importSingle('module', 'oe_whitelabel_starter_event', '/config/post_updates/00005_field_group', 'core.entity_view_display.node.oe_sc_event.oe_w_content_banner');
+  \Drupal::moduleHandler()->loadInclude('field_group', 'module');
+
+  $field_group = (object) [
+    'group_name' => 'group_action_bar',
+    'entity_type' => 'node',
+    'bundle' => 'oe_sc_event',
+    'mode' => 'oe_w_content_banner',
+    'context' => 'view',
+    'children' => [],
+    'parent_name' => '',
+    'label' => 'Action bar',
+    'format_type' => 'html_element',
+    'format_settings' => [],
+    'region' => 'content',
+  ];
+
+  field_group_group_save($field_group);
 }
