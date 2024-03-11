@@ -62,6 +62,7 @@ function oe_whitelabel_starter_event_post_update_00004(): void {
  */
 function oe_whitelabel_starter_event_post_update_00005(): void {
   \Drupal::moduleHandler()->loadInclude('field_group', 'module');
+  $default_settings = \Drupal::service('plugin.manager.field_group.formatters')->getDefaultSettings('html_element', 'view');
 
   $field_group = (object) [
     'group_name' => 'group_action_bar',
@@ -73,8 +74,9 @@ function oe_whitelabel_starter_event_post_update_00005(): void {
     'parent_name' => '',
     'label' => 'Action bar',
     'format_type' => 'html_element',
-    'format_settings' => [],
+    'format_settings' => $default_settings,
     'region' => 'content',
+    'weight' => 1,
   ];
 
   field_group_group_save($field_group);
