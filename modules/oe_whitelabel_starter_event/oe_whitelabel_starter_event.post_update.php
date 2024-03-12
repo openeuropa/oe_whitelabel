@@ -63,15 +63,9 @@ function oe_whitelabel_starter_event_post_update_00004(): void {
  */
 function oe_whitelabel_starter_event_post_update_00005(): void {
   \Drupal::service('module_installer')->install(['field_group']);
-  \Drupal::moduleHandler()->loadInclude('field_group', 'module');
   $default_settings = \Drupal::service('plugin.manager.field_group.formatters')->getDefaultSettings('html_element', 'view');
 
-  $field_group = (object) [
-    'group_name' => 'group_action_bar',
-    'entity_type' => 'node',
-    'bundle' => 'oe_sc_event',
-    'mode' => 'oe_w_content_banner',
-    'context' => 'view',
+  $field_group = [
     'children' => [],
     'parent_name' => '',
     'label' => 'Action bar',
@@ -81,12 +75,13 @@ function oe_whitelabel_starter_event_post_update_00005(): void {
     'weight' => 1,
   ];
 
-  $display = EntityViewDisplay::load($field_group->entity_type . '.' . $field_group->bundle . '.' . $field_group->mode);
+  $display = EntityViewDisplay::load('node.oe_sc_event.oe_w_content_banner');
 
   // If no display was found, we bail out.
   if (!isset($display)) {
     return;
   }
 
-  field_group_group_save($field_group, $display);
+  $display->setThirdPartySetting('field_group', 'group_action_bar', $field_group);
+  $display->save();
 }
