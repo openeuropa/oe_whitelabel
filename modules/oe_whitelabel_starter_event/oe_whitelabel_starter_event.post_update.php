@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\oe_bootstrap_theme\ConfigImporter;
 
 /**
@@ -61,6 +62,7 @@ function oe_whitelabel_starter_event_post_update_00004(): void {
  * Update the content banner event view mode to introduce field group.
  */
 function oe_whitelabel_starter_event_post_update_00005(): void {
+  \Drupal::service('module_installer')->install(['field_group']);
   \Drupal::moduleHandler()->loadInclude('field_group', 'module');
   $default_settings = \Drupal::service('plugin.manager.field_group.formatters')->getDefaultSettings('html_element', 'view');
 
@@ -79,5 +81,12 @@ function oe_whitelabel_starter_event_post_update_00005(): void {
     'weight' => 1,
   ];
 
-  field_group_group_save($field_group);
+  $display = EntityViewDisplay::load($field_group->entity_type . '.' . $field_group->bundle . '.' . $field_group->mode);
+
+  // If no display was found, we bail out.
+  if (!isset($display)) {
+    return;
+  }
+
+  field_group_group_save($field_group, $display);
 }
