@@ -26,7 +26,7 @@ function oe_whitelabel_extra_project_post_update_00001(): void {
 /**
  * Update the content banner project view mode to introduce field group.
  */
-function oe_whitelabel_extra_project_post_update_00002(): void {
+function oe_whitelabel_extra_project_post_update_00002(): string {
   \Drupal::service('module_installer')->install(['field_group']);
   $default_settings = \Drupal::service('plugin.manager.field_group.formatters')->getDefaultSettings('html_element', 'view');
 
@@ -44,13 +44,15 @@ function oe_whitelabel_extra_project_post_update_00002(): void {
 
   // If no display was found, we bail out.
   if (!isset($display)) {
-    return;
+    return 'Content banner view display not found for project content type.';
   }
   // If there is a group_action_bar, we bail out.
   if ($display->getThirdPartySetting('field_group', 'group_action_bar')) {
-    return;
+    return 'Action bar field group already exists for project content banner view display.';
   }
 
   $display->setThirdPartySetting('field_group', 'group_action_bar', $field_group);
   $display->save();
+
+  return 'Action bar field group was added to the project content banner view display.';
 }

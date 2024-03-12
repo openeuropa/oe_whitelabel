@@ -24,7 +24,7 @@ function oe_whitelabel_starter_news_post_update_00001(): void {
 /**
  * Update the content banner news view mode to introduce field group.
  */
-function oe_whitelabel_starter_news_post_update_00002(): void {
+function oe_whitelabel_starter_news_post_update_00002(): string {
   \Drupal::service('module_installer')->install(['field_group']);
   $default_settings = \Drupal::service('plugin.manager.field_group.formatters')->getDefaultSettings('html_element', 'view');
 
@@ -42,13 +42,15 @@ function oe_whitelabel_starter_news_post_update_00002(): void {
 
   // If no display was found, we bail out.
   if (!isset($display)) {
-    return;
+    return 'Content banner view display not found for news content type.';
   }
   // If there is a group_action_bar, we bail out.
   if ($display->getThirdPartySetting('field_group', 'group_action_bar')) {
-    return;
+    return 'Action bar field group already exists for news content banner view display.';
   }
 
   $display->setThirdPartySetting('field_group', 'group_action_bar', $field_group);
   $display->save();
+
+  return 'Action bar field group was added to the news content banner view display.';
 }

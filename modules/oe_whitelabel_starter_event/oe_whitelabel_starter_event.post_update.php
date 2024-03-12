@@ -61,7 +61,7 @@ function oe_whitelabel_starter_event_post_update_00004(): void {
 /**
  * Update the content banner event view mode to introduce field group.
  */
-function oe_whitelabel_starter_event_post_update_00005(): void {
+function oe_whitelabel_starter_event_post_update_00005(): string {
   \Drupal::service('module_installer')->install(['field_group']);
   $default_settings = \Drupal::service('plugin.manager.field_group.formatters')->getDefaultSettings('html_element', 'view');
 
@@ -79,13 +79,15 @@ function oe_whitelabel_starter_event_post_update_00005(): void {
 
   // If no display was found, we bail out.
   if (!isset($display)) {
-    return;
+    return 'Content banner view display not found for event content type.';
   }
   // If there is a group_action_bar, we bail out.
   if ($display->getThirdPartySetting('field_group', 'group_action_bar')) {
-    return;
+    return 'Action bar field group already exists for event content banner view display.';
   }
 
   $display->setThirdPartySetting('field_group', 'group_action_bar', $field_group);
   $display->save();
+
+  return 'Action bar field group was added to the event content banner view display.';
 }
