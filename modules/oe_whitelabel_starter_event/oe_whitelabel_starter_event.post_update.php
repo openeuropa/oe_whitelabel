@@ -81,6 +81,10 @@ function oe_whitelabel_starter_event_post_update_00005(): void {
   if (!isset($display)) {
     return;
   }
+  // If there is a group_action_bar, we bail out.
+  if ($display->getThirdPartySetting('field_group', 'group_action_bar')) {
+    return;
+  }
 
   $display->setThirdPartySetting('field_group', 'group_action_bar', $field_group);
   $display->save();
