@@ -1,10 +1,22 @@
 # Change Log
 
+## [1.6.0](https://github.com/openeuropa/oe_whitelabel/tree/1.6.0) (2024-03-13)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.5.0...1.6.0)
+
+**Merged pull requests:**
+
+- OEL-2227: Use first alpha release of oe\_subscriptions. [\#263](https://github.com/openeuropa/oe_whitelabel/pull/263) ([brummbar](https://github.com/brummbar))
+- OEL-2847: Create only the new field group in the update path. [\#262](https://github.com/openeuropa/oe_whitelabel/pull/262) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+- OEL-2794: Fix code standards. [\#260](https://github.com/openeuropa/oe_whitelabel/pull/260) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+- OEL-2767: Styles for subscription feature. [\#253](https://github.com/openeuropa/oe_whitelabel/pull/253) ([tibi2303](https://github.com/tibi2303))
+- OEL-2794: Update components to run on Drupal 10.2.x [\#252](https://github.com/openeuropa/oe_whitelabel/pull/252) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+
 ## [1.5.0](https://github.com/openeuropa/oe_whitelabel/tree/1.5.0) (2024-01-18)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.4.0...1.5.0)
 
 **Merged pull requests:**
 
+- Prepare changelog for release 1.5.0. [\#250](https://github.com/openeuropa/oe_whitelabel/pull/250) ([brummbar](https://github.com/brummbar))
 - OEL-0000: Fix d10 upgrade leftovers. [\#249](https://github.com/openeuropa/oe_whitelabel/pull/249) ([brummbar](https://github.com/brummbar))
 
 ## [1.4.0](https://github.com/openeuropa/oe_whitelabel/tree/1.4.0) (2023-12-22)
