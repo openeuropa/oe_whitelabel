@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Install and update functions for the whitelabel Extra Project module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\oe_bootstrap_theme\ConfigImporter;
+
+/**
+ * Implements hook_install().
+ *
+ * Customise fields for list pages.
+ */
+function oe_whitelabel_list_pages_install($is_syncing): void {
+  // If we are installing from config, we bail out.
+  if ($is_syncing) {
+    return;
+  }
+
+  ConfigImporter::importSingle('module', 'oe_whitelabel_list_pages', '/config/overrides/', 'core.entity_view_display.node.oe_list_page.default');
+}

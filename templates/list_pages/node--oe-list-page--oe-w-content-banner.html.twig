@@ -1,0 +1,12 @@
+{#
+/**
+ * @file
+ * News content banner display.
+ */
+#}
+{{ pattern('content_banner', {
+  title: label,
+  content: content.oe_summary,
+  image: image,
+  attributes: create_attribute().addClass(['pb-4', 'pb-md-4-75'])
+}) }}

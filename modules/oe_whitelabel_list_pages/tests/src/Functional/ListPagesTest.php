@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_whitelabel_list_pages\Functional;
 
 use Behat\Mink\Element\ElementInterface;
+use Drupal\file\Entity\File;
+use Drupal\media\Entity\Media;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\Tests\oe_whitelabel\Functional\WhitelabelBrowserTestBase;
 use Drupal\Tests\oe_whitelabel\Traits\TraversingTrait;
 use Drupal\Tests\search_api\Functional\ExampleContentTrait;
+use Drupal\Tests\TestFileCreationTrait;
 
 /**
  * Tests the list pages rendering.
@@ -18,11 +21,13 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
 
   use ExampleContentTrait;
   use TraversingTrait;
+  use TestFileCreationTrait;
 
   /**
    * {@inheritdoc}
    */
   protected static $modules = [
+    'block',
     'oe_whitelabel_list_pages_test',
   ];
 
@@ -49,6 +54,29 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     $this->indexItems('oe_whitelabel_list_page_index_test');
     $list_page = $this->createListPage();
     $this->drupalGet($list_page->toUrl());
+
+    // Select the content banner element.
+    $content_banner = $assert_session->elementExists('css', '.bcl-content-banner');
+
+    // Assert content banner image.
+    $image = $assert_session->elementExists('css', 'img.card-img-top', $content_banner);
+    $this->assertStringContainsString(
+      'image-test.png',
+      trim($image->getAttribute('src'))
+    );
+    $this->assertEquals('Starter Image test alt',
+      $image->getAttribute('alt')
+    );
+
+    // Assert content banner content elements.
+    $this->assertEquals(
+      'News list page',
+      trim($assert_session->elementExists('css', '.card-title', $content_banner)->getText())
+    );
+    $this->assertEquals(
+      'https://www.example.org is a web page',
+      trim($assert_session->elementExists('css', '.oe-list-page__oe-summary', $content_banner)->getText())
+    );
 
     // Assert the left column.
     $left_column = $assert_session->elementExists('css', 'div.row > .col-lg-3');
@@ -90,9 +118,27 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
    *   The list page node created.
    */
   protected function createListPage(): NodeInterface {
+    // Create a sample image media entity to be embedded.
+    File::create([
+      'uri' => $this->getTestFiles('image')[0]->uri,
+    ])->save();
+    $media_image = Media::create([
+      'bundle' => 'image',
+      'name' => 'Starter Image test',
+      'oe_media_image' => [
+        [
+          'target_id' => 1,
+          'alt' => 'Starter Image test alt',
+          'title' => 'Starter Image test title',
+        ],
+      ],
+    ]);
+    $media_image->save();
+
     $list_page = Node::create([
       'type' => 'oe_list_page',
       'title' => 'News list page',
+      'oe_summary' => 'https://www.example.org is a web page',
     ]);
 
     /** @var \Drupal\emr\Entity\EntityMetaInterface $list_page_entity_meta */
@@ -111,6 +157,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
       'sort' => [],
     ]);
     $list_page->get('emr_entity_metas')->attach($list_page_entity_meta);
+    $list_page->set('oe_featured_media', [$media_image]);
     $list_page->save();
 
     return $list_page;

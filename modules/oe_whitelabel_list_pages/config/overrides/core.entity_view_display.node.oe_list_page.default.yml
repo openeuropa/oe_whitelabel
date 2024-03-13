@@ -2,8 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.oe_list_page.oe_featured_media
+    - field.field.node.oe_list_page.oe_summary
     - node.type.oe_list_page
   module:
+    - oe_content_featured_media_field
+    - text
     - user
 id: node.oe_list_page.default
 targetEntityType: node
@@ -13,27 +17,42 @@ content:
   'extra_field_oe_list_page_filters:node:oe_list_page':
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 0
     region: content
   'extra_field_oe_list_page_results:node:oe_list_page':
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
   'extra_field_oe_list_page_selected_filters:node:oe_list_page':
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 2
     region: content
   'extra_field_oe_list_page_sort:node:oe_list_page':
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 3
     region: content
   'extra_field_oe_list_page_total_count:node:oe_list_page':
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 4
+    region: content
+  oe_featured_media:
+    type: oe_featured_media_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  oe_summary:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
     region: content
 hidden:
   'extra_field_oe_list_page_pager_info:node:oe_list_page': true
