@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements template_preprocess_node().
+ */
+function oe_whitelabel_test_theme_preprocess_node(&$variables) {
+  $variables['attributes']['class'][] = $variables['elements']['#oe_color_scheme'];
+}
