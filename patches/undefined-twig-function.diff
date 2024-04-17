@@ -1,0 +1,40 @@
+diff --git a/src/Resources/escaper.php b/src/Resources/escaper.php
+index ea3778035..bc93331a6 100644
+--- a/src/Resources/escaper.php
++++ b/src/Resources/escaper.php
+@@ -11,9 +11,11 @@
+ 
+ use Twig\Environment;
+ use Twig\Extension\EscaperExtension;
++use Twig\Node\Node;
+ 
+ /**
+  * @internal
++ *
+  * @deprecated since Twig 3.9
+  */
+ function twig_raw_filter($string)
+@@ -25,6 +27,7 @@ function twig_raw_filter($string)
+ 
+ /**
+  * @internal
++ *
+  * @deprecated since Twig 3.9
+  */
+ function twig_escape_filter(Environment $env, $string, $strategy = 'html', $charset = null, $autoescape = false)
+@@ -33,3 +36,15 @@ function twig_escape_filter(Environment $env, $string, $strategy = 'html', $char
+ 
+     return EscaperExtension::escape($env, $string, $strategy, $charset, $autoescape);
+ }
++
++/**
++ * @internal
++ *
++ * @deprecated since Twig 3.9
++ */
++function twig_escape_filter_is_safe(Node $filterArgs)
++{
++    trigger_deprecation('twig/twig', '3.9', 'Using the internal "%s" function is deprecated.', __FUNCTION__);
++
++    return EscaperExtension::escapeFilterIsSafe($filterArgs);
++}
