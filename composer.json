@@ -100,7 +100,12 @@
         },
         "_readme": [
             "Explicit requirement of nikic/php-parser ^4 as later versions are not compatible with grumphp @see https://github.com/phpro/grumphp/issues/1119"
-        ]
+        ],
+        "patches": {
+            "drupal/ui_patterns_settings": {
+                "TypeError: array_unshift(): Argument #1 ($array) must be of type array, null given @see https://www.drupal.org/project/ui_patterns_settings/issues/3409221": "https://www.drupal.org/files/issues/2024-03-01/ui_patterns_settings-3409221-26.patch"
+            }
+        }
     },
     "config": {
         "sort-packages": true,
