@@ -8,6 +8,7 @@ use Drupal\contact\Entity\ContactForm;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\DescriptionListAssert;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
+use Drupal\Tests\user\Traits\UserCreationTrait;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -16,6 +17,7 @@ use Symfony\Component\DomCrawler\Crawler;
 class ContactFormRenderTest extends KernelTestBase {
 
   use SparqlConnectionTrait;
+  use UserCreationTrait;
 
   /**
    * {@inheritdoc}
@@ -95,12 +97,16 @@ class ContactFormRenderTest extends KernelTestBase {
     $crawler = new Crawler($this->render($form));
 
     // Assert classes and contact form.
-    $actual = $crawler->filter('hr.mt-5.mb-5');
-    $this->assertCount(1, $actual);
-    $actual = $crawler->filter('div.mb-2');
-    $this->assertCount(6, $actual);
-    $form = $crawler->filter('form.contact-form');
-    $this->assertCount(6, $actual);
+    $this->assertCount(1, $crawler->filter('form'));
+    $this->assertCount(1, $crawler->filter('form.contact-form'));
+    $this->assertCount(6, $crawler->filter('div.form-item.mb-3'));
+    // Test that the privacy policy field is moved inside a fieldset, and that
+    // a horizontal line is added.
+    $this->assertCount(1, $crawler->filter('hr'));
+    $this->assertCount(1, $crawler->filter('fieldset'));
+    $this->assertCount(1, $crawler->filter('hr.mt-5.mb-5 + fieldset.mb-3'));
+    $this->assertCount(1, $crawler->filter('fieldset .form-item-privacy-policy'));
+    $this->assertCount(0, $crawler->filter('fieldset .form-item-copy'));
 
     /** @var \Drupal\Core\Messenger\MessengerInterface $messenger */
     $messenger = $this->container->get('messenger');
@@ -121,11 +127,11 @@ class ContactFormRenderTest extends KernelTestBase {
     $description_list_assert->assertPattern([
       'items' => [
         [
-          'term' => 'The sender\'s name',
+          'term' => "The sender's name",
           'definition' => 'sender_name',
         ],
         [
-          'term' => 'The sender\'s email',
+          'term' => "The sender's email",
           'definition' => 'test@example.com',
         ],
         [
@@ -146,6 +152,17 @@ class ContactFormRenderTest extends KernelTestBase {
         ],
       ],
     ], $description_lists->outerHtml());
+
+    // Test that also the copy field is moved in the fieldset. Since we need to
+    // login for the field to appear, we do as last part of the test.
+    $this->setUpCurrentUser();
+    $form = $this->container->get('entity.form_builder')->getForm($message, 'corporate_default');
+    $crawler = new Crawler($this->render($form));
+    $this->assertCount(1, $crawler->filter('hr'));
+    $this->assertCount(1, $crawler->filter('fieldset'));
+    $this->assertCount(1, $crawler->filter('hr.mt-5.mb-5 + fieldset.mb-3'));
+    $this->assertCount(1, $crawler->filter('fieldset .form-item-privacy-policy'));
+    $this->assertCount(1, $crawler->filter('fieldset .form-item-copy'));
   }
 
 }
