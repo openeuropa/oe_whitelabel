@@ -58,7 +58,6 @@ class GalleryParagraphTest extends BrowserTestBase {
     $paragraph->save();
 
     $file_url_generator = \Drupal::service('file_url_generator');
-    $core_10_1_0 = version_compare(\Drupal::VERSION, '10.1.0', '>=');
     $fn_get_filepath = static fn($entity, $field) => $file_url_generator->generate($entity->get($field)->entity->getFileUri())->toString();
     $expected_items = [
       [
@@ -116,10 +115,9 @@ class GalleryParagraphTest extends BrowserTestBase {
         'media' => [
           'caption_title' => 'Energy, let\'s save it!',
           'rendered' => sprintf(
-            '<iframe data-src="%s?url=https%%3A//www.youtube.com/watch%%3Fv%%3D1-g73ty9v04&amp;max_width=0&amp;max_height=0&amp;hash=%s" frameborder="0" allowtransparency width="459" height="344" class="media-oembed-content"%s title="Energy, let\'s save it!"></iframe>',
-            Url::fromRoute('media.oembed_iframe')->setAbsolute($core_10_1_0)->toString(),
-            \Drupal::service('media.oembed.iframe_url_helper')->getHash('https://www.youtube.com/watch?v=1-g73ty9v04', 0, 0),
-            $core_10_1_0 ? ' loading="eager"' : ''
+            '<iframe data-src="%s?url=https%%3A//www.youtube.com/watch%%3Fv%%3D1-g73ty9v04&amp;max_width=0&amp;max_height=0&amp;hash=%s" frameborder="0" allowtransparency width="459" height="344" class="media-oembed-content" loading="eager" title="Energy, let\'s save it!"></iframe>',
+            Url::fromRoute('media.oembed_iframe')->setAbsolute()->toString(),
+            \Drupal::service('media.oembed.iframe_url_helper')->getHash('https://www.youtube.com/watch?v=1-g73ty9v04', 0, 0)
           ),
         ],
       ],
