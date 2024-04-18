@@ -6,6 +6,7 @@ namespace Drupal\Tests\oe_whitelabel\FunctionalJavascript;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Url;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\node\NodeInterface;
 use Drupal\oe_content_entity\Entity\CorporateEntityInterface;
@@ -39,6 +40,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
    */
   protected static $modules = [
     'block',
+    'oe_media_oembed_mock',
     'oe_whitelabel_extra_project',
   ];
 
@@ -336,7 +338,8 @@ class ContentProjectRenderTest extends WebDriverTestBase {
           'media' => [
             'caption_title' => 'Energy, let\'s save it!',
             'rendered' => sprintf(
-              '<iframe data-src="/build/media/oembed?url=https%%3A//www.youtube.com/watch%%3Fv%%3D1-g73ty9v04&amp;max_width=0&amp;max_height=0&amp;hash=%s" frameborder="0" allowtransparency="" width="200" height="150" class="media-oembed-content" title="Energy, let\'s save it!"></iframe>',
+              '<iframe data-src="%s?url=https%%3A//www.youtube.com/watch%%3Fv%%3D1-g73ty9v04&amp;max_width=0&amp;max_height=0&amp;hash=%s" frameborder="0" allowtransparency="" width="459" height="344" class="media-oembed-content" loading="eager" title="Energy, let\'s save it!"></iframe>',
+              Url::fromRoute('media.oembed_iframe')->setAbsolute()->toString(),
               \Drupal::service('media.oembed.iframe_url_helper')->getHash('https://www.youtube.com/watch?v=1-g73ty9v04', 0, 0)
             ),
           ],
@@ -351,7 +354,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
           ],
           'media' => [
             'caption_title' => 'Euro with miniature figurines',
-            'rendered' => '<img class="avportal-photo img-fluid" alt="Euro with miniature figurines" data-src="//ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg">',
+            'rendered' => '<img class="avportal-photo img-fluid" alt="Euro with miniature figurines" data-src="https://ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg">',
           ],
         ],
         [
@@ -365,7 +368,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
           ],
           'media' => [
             'caption_title' => 'Economic and Financial Affairs Council - Arrivals',
-            'rendered' => '<iframe id="videoplayerI-163162" data-src="//ec.europa.eu/avservices/play.cfm?ref=I-163162&amp;lg=EN&amp;sublg=none&amp;autoplay=true&amp;tin=10&amp;tout=59" frameborder="0" allowtransparency="" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen="" width="640" height="390" class="media-avportal-content"></iframe>',
+            'rendered' => '<iframe id="videoplayerI-163162" data-src="https://ec.europa.eu/avservices/play.cfm?ref=I-163162&amp;lg=EN&amp;sublg=none&amp;autoplay=true&amp;tin=10&amp;tout=59" frameborder="0" allowtransparency="" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen="" width="640" height="390" class="media-avportal-content"></iframe>',
           ],
         ],
       ],
