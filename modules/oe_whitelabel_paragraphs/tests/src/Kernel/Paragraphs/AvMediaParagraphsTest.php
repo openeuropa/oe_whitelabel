@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
@@ -20,6 +20,7 @@ class AvMediaParagraphsTest extends ParagraphsTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'oe_media_oembed_mock',
     'oe_paragraphs_av_media',
   ];
 
@@ -62,37 +63,42 @@ class AvMediaParagraphsTest extends ParagraphsTestBase {
     $media_av_photo = $this->createAvPortalPhotoMedia();
     $remote_thumbnail_url_encrypted = Crypt::hashBase64('store2/4/P038924-35966.jpg');
 
-    $values = [
-      [
+    $scenarios = [
+      'image' => [
         'media' => $media_image->id(),
         'expected_src' => '/styles/oe_bootstrap_theme_medium_no_crop/public/example_1.jpeg',
         'selector' => 'img',
       ],
-      [
+      'iframe' => [
         'media' => $media_iframe->id(),
         'expected_src' => 'https://example.com',
         'selector' => 'iframe',
       ],
-      [
+      'remote_video' => [
         'media' => $media_remote->id(),
         'expected_src' => $partial_iframe_url,
         'selector' => '.ratio-16x9 iframe',
       ],
-      [
+      'avportal_video' => [
         'media' => $media_av_video->id(),
         'expected_src' => '//ec.europa.eu/avservices/play.cfm?ref=I-163162',
         'selector' => '.ratio-16x9 iframe',
       ],
-      [
+      'avportal_photo' => [
         'media' => $media_av_photo->id(),
         'expected_src' => "/styles/oe_bootstrap_theme_medium_no_crop/public/media_avportal_thumbnails/$remote_thumbnail_url_encrypted.jpg",
         'selector' => 'img',
       ],
     ];
 
-    foreach ($values as $value) {
-      $crawler = $this->renderAvMediaParagraph($value['media']);
-      $this->assertMediaAddedWithExpectedSource($crawler, $value['expected_src'], $value['selector']);
+    foreach ($scenarios as $name => $values) {
+      try {
+        $crawler = $this->renderAvMediaParagraph($values['media']);
+        $this->assertMediaAddedWithExpectedSource($crawler, $values['expected_src'], $values['selector']);
+      }
+      catch (\Exception $exception) {
+        throw new \Exception(sprintf('Failed assertion for scenario %s.', $name), 0, $exception);
+      }
     }
   }
 
