@@ -77,12 +77,12 @@ class AvMediaParagraphsTest extends ParagraphsTestBase {
       'remote_video' => [
         'media' => $media_remote->id(),
         'expected_src' => $partial_iframe_url,
-        'selector' => '.ratio-16x9 iframe',
+        'selector' => '.ratio-16x9 > iframe',
       ],
       'avportal_video' => [
         'media' => $media_av_video->id(),
         'expected_src' => '//ec.europa.eu/avservices/play.cfm?ref=I-163162',
-        'selector' => '.ratio-16x9 iframe',
+        'selector' => '.ratio-16x9 > iframe',
       ],
       'avportal_photo' => [
         'media' => $media_av_photo->id(),

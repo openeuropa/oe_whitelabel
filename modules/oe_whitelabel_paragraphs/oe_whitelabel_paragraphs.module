@@ -182,6 +182,10 @@ function oe_whitelabel_preprocess_paragraph__oe_av_media(array &$variables): voi
   if (!empty($variables['image']) && $variables['image'] instanceof ImageValueObjectInterface) {
     $variables['image'] = $variables['image']->toRenderArray();
   }
+  elseif (!empty($variables['embedded_media'])) {
+    // Remove wrapper to allow ratio to apply.
+    $variables['embedded_media']['#theme'] = 'field__bare';
+  }
 }
 
 /**
