@@ -41,7 +41,7 @@
         "openeuropa/oe_link_lists": "^1.0",
         "openeuropa/oe_list_pages": "^1.0.0",
         "openeuropa/oe_multilingual": "^1.14",
-        "openeuropa/oe_paragraphs": "^1.19",
+        "openeuropa/oe_paragraphs": "^1.20",
         "openeuropa/oe_starter_content": "^1.2.0",
         "openeuropa/oe_subscriptions": "^1.0@alpha",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta6",
@@ -100,7 +100,15 @@
         },
         "_readme": [
             "Explicit requirement of nikic/php-parser ^4 as later versions are not compatible with grumphp @see https://github.com/phpro/grumphp/issues/1119"
-        ]
+        ],
+        "patches": {
+            "drupal/ui_patterns_settings": {
+                "TypeError: array_unshift(): Argument #1 ($array) must be of type array, null given @see https://www.drupal.org/project/ui_patterns_settings/issues/3409221": "https://www.drupal.org/files/issues/2024-03-01/ui_patterns_settings-3409221-26.patch"
+            },
+            "openeuropa/oe_paragraphs": {
+                "latest master": "https://github.com/openeuropa/oe_paragraphs/compare/1.23.0...master.diff"
+            }
+        }
     },
     "config": {
         "sort-packages": true,

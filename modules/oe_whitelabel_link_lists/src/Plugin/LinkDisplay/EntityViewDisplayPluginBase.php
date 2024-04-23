@@ -44,7 +44,7 @@ abstract class EntityViewDisplayPluginBase extends ColumnLinkDisplayPluginBase i
     array $plugin_definition,
     protected EntityRepositoryInterface $entityRepository,
     protected EntityTypeManagerInterface $entityTypeManager,
-    protected EventDispatcherInterface $eventDispatcher
+    protected EventDispatcherInterface $eventDispatcher,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }

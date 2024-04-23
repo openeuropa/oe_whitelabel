@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ * Theme override to display the 'AV Media' type paragraph.
+ *
+ * @see ./modules/contrib/paragraphs/templates/paragraph.html.twig
+ */
+#}
+{% include '@oe-bcl/featured-media' with {
+  'embedded_media': embedded_media,
+  'image': image,
+  'ratio': ratio,
+  'attributes': attributes,
+} only %}

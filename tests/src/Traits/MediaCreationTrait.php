@@ -36,6 +36,24 @@ trait MediaCreationTrait {
   }
 
   /**
+   * Create a video iframe media with default values, ready to use in tests.
+   *
+   * @param array $values
+   *   (optional) An array of values to set, keyed by property name.
+   *
+   * @return \Drupal\media\MediaInterface
+   *   The media entity.
+   */
+  protected function createVideoIframeMedia(array $values = []): MediaInterface {
+    $values['bundle'] = 'video_iframe';
+    $values['name'] = NULL;
+
+    return $this->createMedia($values + [
+      'oe_media_iframe' => '<iframe src="https://example.com"></iframe>',
+    ]);
+  }
+
+  /**
    * Create an AV Portal photo media with default values, ready to use in tests.
    *
    * @param array $values

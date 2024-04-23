@@ -27,6 +27,7 @@ use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalSourceInterface;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideoSource;
 use Drupal\oe_bootstrap_theme\ConfigImporter;
 use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
+use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObjectInterface;
 use Drupal\oe_media_iframe\Plugin\media\Source\Iframe;
 use Drupal\paragraphs\Entity\Paragraph;
 
@@ -154,61 +155,37 @@ function oe_whitelabel_preprocess_paragraph__oe_text_feature_media(array &$varia
     ];
   }
 
-  // Caches are handled by the formatter usually. Since we are not rendering
-  // the original render arrays, we need to propagate our caches to the
-  // paragraph template.
-  $cacheability = CacheableMetadata::createFromRenderArray($variables);
+  $variant = $paragraph->get('oe_paragraphs_variant')->value ?? 'default';
+  $variables['text_position'] = str_replace([
+    '_featured',
+    '_simple',
+  ], '', $variant);
 
-  $cacheability->applyTo($variables);
-
-  // Bail out if there is no media present.
-  if ($paragraph->get('field_oe_media')->isEmpty()) {
-    return;
+  if (!empty($paragraph->get('field_oe_link')->first())) {
+    /** @var \Drupal\link\Plugin\Field\FieldType\LinkItem $link_item */
+    $link_item = $paragraph->get('field_oe_link')->first();
+    $variables['link'] = [
+      'path' => $link_item->getUrl(),
+      'label' => $link_item->get('title')->getValue(),
+    ];
   }
 
-  /** @var \Drupal\media\Entity\Media $media */
-  $media = $paragraph->get('field_oe_media')->entity;
-  if (!$media instanceof MediaInterface) {
-    // The media entity is not available anymore, bail out.
-    return;
+  _oe_whitelabel_paragraphs_preprocess_paragraph_media($variables);
+}
+
+/**
+ * Implements hook_preprocess_paragraph() for paragraph--oe-av-media.html.twig.
+ */
+function oe_whitelabel_preprocess_paragraph__oe_av_media(array &$variables): void {
+  _oe_whitelabel_paragraphs_preprocess_paragraph_media($variables);
+
+  if (!empty($variables['image']) && $variables['image'] instanceof ImageValueObjectInterface) {
+    $variables['image'] = $variables['image']->toRenderArray();
   }
-
-  // Retrieve the correct media translation.
-  /** @var \Drupal\media\Entity\Media $media */
-  $media = \Drupal::service('entity.repository')->getTranslationFromContext($media, $paragraph->language()->getId());
-
-  $cacheability->addCacheableDependency($media);
-
-  // Run access checks on the media entity.
-  $access = $media->access('view', $variables['user'], TRUE);
-  $cacheability->addCacheableDependency($access);
-  if (!$access->isAllowed()) {
-    $cacheability->applyTo($variables);
-    return;
+  elseif (!empty($variables['embedded_media'])) {
+    // Remove wrapper to allow ratio to apply.
+    $variables['embedded_media']['#theme'] = 'field__bare';
   }
-
-  // Get the media source.
-  $source = $media->getSource();
-
-  $is_image = $source instanceof MediaAvPortalPhotoSource || $source instanceof Image;
-  $is_video = $source instanceof MediaAvPortalVideoSource || $source instanceof OEmbed || $source instanceof Iframe;
-
-  // If it's not an image and not a video, bail out.
-  if (!$is_image && !$is_video) {
-    $cacheability->applyTo($variables);
-    return;
-  }
-
-  if ($is_image) {
-    $thumbnail = $media->get('thumbnail')->first();
-    $variables['image'] = ImageValueObject::fromStyledImageItem($thumbnail, 'oe_bootstrap_theme_medium_no_crop');
-  }
-  elseif ($is_video) {
-    _oe_whitelabel_featured_media_set_embedded_media($variables, $media, $cacheability, $source);
-  }
-
-  $cacheability->applyTo($variables);
-
 }
 
 /**
@@ -659,4 +636,67 @@ function oe_whitelabel_paragraphs_preprocess_paragraph__oe_gallery(&$variables) 
   // title tag, we set it up here so that further preprocess hooks can change
   // it.
   $variables['title_tag'] = 'h2';
+}
+
+/**
+ * Helper function to preprocess the paragraph's media field.
+ *
+ * @param array $variables
+ *   The variables array.
+ */
+function _oe_whitelabel_paragraphs_preprocess_paragraph_media(array &$variables): void {
+  /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+  $paragraph = $variables['paragraph'];
+
+  // Caches are handled by the formatter usually. Since we are not rendering
+  // the original render arrays, we need to propagate our caches to the
+  // paragraph template.
+  $cacheability = CacheableMetadata::createFromRenderArray($variables);
+
+  // Bail out if there is no media present.
+  if ($paragraph->get('field_oe_media')->isEmpty()) {
+    return;
+  }
+
+  /** @var \Drupal\media\Entity\Media $media */
+  $media = $paragraph->get('field_oe_media')->entity;
+  if (!$media instanceof MediaInterface) {
+    // The media entity is not available anymore, bail out.
+    return;
+  }
+
+  // Retrieve the correct media translation.
+  /** @var \Drupal\media\Entity\Media $media */
+  $media = \Drupal::service('entity.repository')->getTranslationFromContext($media, $paragraph->language()->getId());
+
+  $cacheability->addCacheableDependency($media);
+
+  // Run access checks on the media entity.
+  $access = $media->access('view', $variables['user'], TRUE);
+  $cacheability->addCacheableDependency($access);
+  if (!$access->isAllowed()) {
+    $cacheability->applyTo($variables);
+    return;
+  }
+
+  $source = $media->getSource();
+
+  $is_image = $source instanceof MediaAvPortalPhotoSource || $source instanceof Image;
+  $is_video = $source instanceof MediaAvPortalVideoSource || $source instanceof OEmbed || $source instanceof Iframe;
+
+  // If it's not an image and not a video, bail out.
+  if (!$is_image && !$is_video) {
+    $cacheability->applyTo($variables);
+    return;
+  }
+
+  if ($is_image) {
+    $thumbnail = $media->get('thumbnail')->first();
+    $variables['image'] = ImageValueObject::fromStyledImageItem($thumbnail, 'oe_bootstrap_theme_medium_no_crop');
+  }
+  elseif ($is_video) {
+    _oe_whitelabel_featured_media_set_embedded_media($variables, $media, $cacheability, $source);
+  }
+
+  $cacheability->applyTo($variables);
 }
