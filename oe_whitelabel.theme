@@ -254,3 +254,14 @@ function oe_whitelabel_preprocess_oe_subscriptions_user_subscriptions_page(&$var
     \Drupal::service('current_route_match')->getCurrentRouteMatch()->getRouteObject()
   );
 }
+
+/**
+ * Implements hook_preprocess_HOOK() for paragraphs.
+ */
+function oe_whitelabel_preprocess_paragraph(&$variables) {
+  if (!isset($variables['elements']['#oe_color_scheme'])) {
+    return;
+  }
+
+  $variables['attributes']['class'][] = $variables['elements']['#oe_color_scheme'];
+}
