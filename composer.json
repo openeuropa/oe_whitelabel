@@ -35,6 +35,7 @@
         "mikey179/vfsstream": "^1.6.10",
         "nikic/php-parser": "^4",
         "openeuropa/code-review": "^2.0.0-alpha6",
+        "openeuropa/oe_agenda": "^1.0.0-alpha2",
         "openeuropa/oe_authentication": "^1.11",
         "openeuropa/oe_contact_forms": "~1.11",
         "openeuropa/oe_content": "^3",
@@ -56,12 +57,16 @@
         "post-install-cmd": "./vendor/bin/run drupal:site-setup",
         "post-update-cmd": "./vendor/bin/run drupal:site-setup"
     },
-    "repositories": [
-        {
+    "repositories": {
+        "oe_agenda": {
+            "type": "git",
+            "url": "https://github.com/openeuropa/oe_agenda"
+        },
+        "drupal": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         }
-    ],
+    },
     "autoload": {
         "psr-4": {
             "Drupal\\oe_whitelabel\\": "./src/"
