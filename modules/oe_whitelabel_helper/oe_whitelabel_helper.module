@@ -161,7 +161,8 @@ function oe_whitelabel_helper_preprocess_pattern_card(&$variables) {
  */
 function _oe_whitelabel_helper__set_image_object(&$variables) {
   // @todo Declare each pattern that uses oe_featured_media.
-  if(!empty($variables['image']['oe_featured_media']['src'])) {
-    $variables['image'] = $variables['image']['oe_featured_media'];
+  if(!empty($variables['image']) && is_array($variables['image']) && !isset($variables['image']['src'])) {
+    $image = reset($variables['image']);
+    $variables['image'] = $image ?? [];
   }
 }
