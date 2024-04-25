@@ -5,3 +5,7 @@ package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^10
 dependencies:
   - oe_agenda:oe_agenda
+
+config_devel:
+  install:
+    - core.date_format.oe_whitelabel_agenda_day_date
