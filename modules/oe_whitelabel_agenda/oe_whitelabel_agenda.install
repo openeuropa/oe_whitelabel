@@ -18,6 +18,11 @@ function oe_whitelabel_agenda_install(bool $is_syncing): void {
     return;
   }
 
-  // Import agenda day default view display override.
-  ConfigImporter::importSingle('module', 'oe_whitelabel_agenda', '/config/overrides/', 'core.entity_view_display.oe_agenda_day.oe_default.default');
+  // Import config overrides for default view displays of agenda entities.
+  $configs = [
+    'core.entity_view_display.oe_agenda_day.oe_default.default',
+    'core.entity_view_display.oe_agenda_session.oe_default.default',
+    'core.entity_view_display.oe_agenda_session.oe_break.default',
+  ];
+  ConfigImporter::importMultiple('module', 'oe_whitelabel_agenda', '/config/overrides/', $configs);
 }
