@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Theme override to display an agenda day entity of oe_default type.
+ *
+ * @see ./modules/contrib/oe_agenda/templates/oe-agenda-day.html.twig
+ */
+#}
+{% if not entity.get('title').isEmpty() %}
+  {# Only display the day label as title if the title field is not empty. #}
+  {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
+    title: label,
+    title_tag: 'h3'
+  } only %}
+{% endif %}
+
+{{ content.oe_day_sessions|field_value }}
