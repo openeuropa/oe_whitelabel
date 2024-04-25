@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * OE Whitelabel Agenda module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Render\Element;
+use Drupal\oe_agenda\Entity\DayInterface;
+
+/**
+ * Implements hook_preprocess_oe_agenda() for oe_default agenda.
+ */
+function oe_whitelabel_agenda_preprocess_oe_agenda__oe_default(array &$variables): void {
+  foreach (Element::children($variables['content']['oe_agenda_days']) as $index) {
+    $day = $variables['content']['oe_agenda_days'][$index]['#oe_agenda_day'];
+    assert($day instanceof DayInterface);
+    // Pass agenda days as accordion items to the template.
+    $variables['days'][] = [
+      'title' => $day->get('oe_day_date')->first()->view('default'),
+      'content' => $variables['content']['oe_agenda_days'][$index],
+    ];
+  }
+}
