@@ -29,6 +29,7 @@ use Drupal\oe_bootstrap_theme\ConfigImporter;
 use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
 use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObjectInterface;
 use Drupal\oe_media_iframe\Plugin\media\Source\Iframe;
+use Drupal\oe_whitelabel\ColorSchemePreprocess;
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
@@ -247,8 +248,21 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
  * Implements hook_preprocess_paragraph() for oe_banner paragraph.
  */
 function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void {
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
   /** @var Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
+
+  $variant = $paragraph->get('oe_paragraphs_variant')->value ?? 'default';
+  $variables['variant'] = str_replace('oe_banner_', '', $variant);
+
+  if ($variables['variant'] === 'default') {
+    $color_scheme_preprocess->injectColorScheme($variables, TRUE);
+  }
+  else {
+    $color_scheme_preprocess->injectColorScheme($variables);
+  }
+
   $variables['title'] = $paragraph->get('field_oe_title')->value;
   $variables['description'] = $paragraph->get('field_oe_text')->value;
   $variables['full_width'] = (bool) $paragraph->get('field_oe_banner_full_width')->value;
@@ -277,9 +291,6 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
     // The end of the string determines the position.
     $variables['centered'] = $banner_alignment === 'center';
   }
-
-  $variant = $paragraph->get('oe_paragraphs_variant')->value ?? 'default';
-  $variables['variant'] = str_replace('oe_banner_', '', $variant);
 
   if ($variables['variant'] === 'default' || $variables['variant'] === 'primary') {
     return;
