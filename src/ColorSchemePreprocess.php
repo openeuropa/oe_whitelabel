@@ -14,6 +14,8 @@ class ColorSchemePreprocess {
    *
    * @param array $variables
    *   The render array.
+   * @param bool $background
+   *   Add a background class if TRUE.
    */
   public function injectColorScheme(array &$variables, bool $background = FALSE): void {
     if (!isset($variables['elements']['#oe_color_scheme'])) {
