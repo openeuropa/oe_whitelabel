@@ -421,6 +421,10 @@ function oe_whitelabel_preprocess_paragraph__oe_content_row__variant_inpage_navi
  * Implements hook_preprocess_paragraph() for oe_description-list paragraph.
  */
 function oe_whitelabel_preprocess_paragraph__oe_description_list(array &$variables): void {
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
+  $color_scheme_preprocess->injectColorScheme($variables, TRUE);
+
   /** @var Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
   $variables['title'] = $paragraph->get('field_oe_title')->value ?? '';
