@@ -23,6 +23,7 @@ class ColorSchemePreprocess {
     }
 
     $variables['attributes']['class'][] = $variables['elements']['#oe_color_scheme'];
+    $variables['attributes']['class'][] = 'text-color-default';
 
     if ($background) {
       $variables['attributes']['class'][] = 'bg-default';
