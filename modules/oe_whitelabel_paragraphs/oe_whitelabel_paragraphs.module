@@ -452,6 +452,10 @@ function oe_whitelabel_preprocess_paragraph__oe_description_list(array &$variabl
  * Implements hook_preprocess_paragraph().
  */
 function oe_whitelabel_preprocess_paragraph__oe_facts_figures(array &$variables): void {
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
+  $color_scheme_preprocess->injectColorScheme($variables, TRUE);
+
   /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
   $paragraph = $variables['paragraph'];
   if (!$paragraph->get('field_oe_title')->isEmpty()) {
