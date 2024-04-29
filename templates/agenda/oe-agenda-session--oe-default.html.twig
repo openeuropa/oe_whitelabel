@@ -1,0 +1,70 @@
+{#
+/**
+ * @file
+ * Theme override to display an agenda session entity of oe_default type.
+ *
+ * @see oe_whitelabel_agenda_preprocess_oe_agenda_session__oe_default()
+ * @see ./modules/contrib/oe_agenda/templates/oe-agenda-session.html.twig
+ */
+#}
+<div{{ attributes.addClass(['row', 'mb-4-5']) }}>
+  <div class="col-xxl-2 col-xl-3 col-lg-3 mb-3 mb-lg-0">
+    {% block hours %}
+      {{ pattern('icon', {
+        name: 'clock',
+        path: bcl_icon_path,
+        size: 'xs',
+        attributes: create_attribute({
+          class: ['mb-1', 'me-2'],
+        }),
+      }) }}
+      <span class="text-muted">{{ content.oe_session_hours|field_value }}</span>
+    {% endblock %}
+  </div>
+  <div class="col-xxl-10 col-xl-9 col-lg-9">
+    {% block content %}
+      {% if not entity.get('name').isEmpty() %}
+        {# Display session label only if name field is not empty. #}
+        {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
+          title: label,
+          title_tag: 'h4'
+        } only %}
+      {% endif %}
+
+      {# Intro. #}
+      {% if not entity.oe_session_intro.isEmpty() %}
+        <div class="mb-4-5">
+          {{ content.oe_session_intro|field_value }}
+        </div>
+      {% endif %}
+
+      {# Moderators. #}
+      {% if not entity.oe_session_moderators.isEmpty() %}
+        <div class="mb-4-5">
+          {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
+            title: content.oe_session_moderators|field_label,
+            title_tag: 'h5',
+          } only %}
+          {{ content.oe_session_moderators|field_value }}
+        </div>
+      {% endif %}
+
+      {# Speakers. #}
+      {% if not entity.oe_session_speakers.isEmpty() %}
+        <div class="mb-4-5">
+          {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
+            title: content.oe_session_speakers|field_label,
+            title_tag: 'h5',
+          } only %}
+          {{ content.oe_session_speakers|field_value }}
+        </div>
+      {% endif %}
+
+      {# Venue / Online link as description list. #}
+      {{ session_links }}
+
+      {# Details. #}
+      {{ content.oe_session_details|field_value }}
+    {% endblock %}
+  </div>
+</div>
