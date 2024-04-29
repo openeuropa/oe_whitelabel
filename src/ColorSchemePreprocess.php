@@ -15,12 +15,16 @@ class ColorSchemePreprocess {
    * @param array $variables
    *   The render array.
    */
-  public function injectColorScheme(array &$variables): void {
+  public function injectColorScheme(array &$variables, bool $background = FALSE): void {
     if (!isset($variables['elements']['#oe_color_scheme'])) {
       return;
     }
 
     $variables['attributes']['class'][] = $variables['elements']['#oe_color_scheme'];
+
+    if ($background) {
+      $variables['attributes']['class'][] = 'bg-default';
+    }
   }
 
 }
