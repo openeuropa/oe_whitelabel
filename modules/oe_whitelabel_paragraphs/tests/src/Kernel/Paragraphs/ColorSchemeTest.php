@@ -136,6 +136,17 @@ class ColorSchemeTest extends ParagraphsTestBase {
       ],
       'wrapper_selector' => '.paragraph--type--oe-document',
     ];
+    yield [
+      'values' => [
+        'type' => 'oe_facts_figures',
+        'field_oe_title' => 'Facts and Figures test',
+        'field_oe_link' => [
+          'uri' => 'https://www.readmore.com',
+          'title' => 'Read more',
+        ],
+      ],
+      'wrapper_selector' => '.bcl-fact-figures',
+    ];
   }
 
 }
