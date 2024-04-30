@@ -16,8 +16,9 @@ class ColorSchemeTest extends ParagraphsTestBase {
    */
   protected static $modules = [
     'oe_color_scheme',
-    'oe_paragraphs_carousel',
     'oe_media_oembed_mock',
+    'oe_paragraphs_carousel',
+    'oe_paragraphs_document',
   ];
 
   /**
@@ -31,14 +32,15 @@ class ColorSchemeTest extends ParagraphsTestBase {
     $this->installEntitySchema('media');
     $this->installConfig([
       'media',
-      'oe_media',
-      'oe_paragraphs_media',
       'media_avportal',
+      'oe_media',
       'oe_media_avportal',
-      'oe_paragraphs_banner',
-      'oe_paragraphs_iframe_media',
-      'options',
       'oe_media_iframe',
+      'oe_paragraphs_banner',
+      'oe_paragraphs_document',
+      'oe_paragraphs_iframe_media',
+      'oe_paragraphs_media',
+      'options',
     ]);
     // Call the install hook of the Media module.
     $this->container->get('module_handler')->loadInclude('media', 'install');
@@ -127,6 +129,12 @@ class ColorSchemeTest extends ParagraphsTestBase {
         ],
       ],
       'wrapper_selector' => '.bcl-description-list',
+    ];
+    yield [
+      'values' => [
+        'type' => 'oe_document',
+      ],
+      'wrapper_selector' => '.paragraph--type--oe-document',
     ];
   }
 
