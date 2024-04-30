@@ -17,7 +17,6 @@ class ColorSchemeTest extends ParagraphsTestBase {
   protected static $modules = [
     'oe_color_scheme',
     'oe_content_timeline_field',
-    'oe_media_oembed_mock',
     'oe_paragraphs_carousel',
     'oe_paragraphs_document',
     'oe_paragraphs_timeline',
@@ -31,23 +30,14 @@ class ColorSchemeTest extends ParagraphsTestBase {
 
     $this->container->get('module_handler')->loadInclude('oe_paragraphs_media_field_storage', 'install');
     oe_paragraphs_media_field_storage_install(FALSE);
-    $this->installEntitySchema('media');
     $this->installConfig([
       'media',
-      'media_avportal',
       'oe_media',
-      'oe_media_avportal',
-      'oe_media_iframe',
       'oe_paragraphs_banner',
       'oe_paragraphs_document',
-      'oe_paragraphs_iframe_media',
       'oe_paragraphs_media',
       'oe_paragraphs_timeline',
-      'options',
     ]);
-    // Call the install hook of the Media module.
-    $this->container->get('module_handler')->loadInclude('media', 'install');
-    media_install();
   }
 
   /**
