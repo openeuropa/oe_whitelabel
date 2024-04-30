@@ -105,7 +105,12 @@
         },
         "_readme": [
             "Explicit requirement of nikic/php-parser ^4 as later versions are not compatible with grumphp @see https://github.com/phpro/grumphp/issues/1119"
-        ]
+        ],
+        "patches": {
+            "openeuropa/oe_bootstrap_theme": {
+                "Color scheme development": "https://github.com/openeuropa/oe_bootstrap_theme/compare/1.x...contribution/EPHEH-318.diff"
+            }
+        }
     },
     "config": {
         "sort-packages": true,
