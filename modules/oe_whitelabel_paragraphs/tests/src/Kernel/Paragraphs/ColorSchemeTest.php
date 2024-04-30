@@ -115,6 +115,20 @@ class ColorSchemeTest extends ParagraphsTestBase {
       ],
       'wrapper_selector' => 'figure',
     ];
+    yield [
+      'values' => [
+        'type' => 'oe_description_list',
+        'field_oe_title' => 'Description list paragraph',
+        'oe_w_orientation' => 'horizontal',
+        'field_oe_description_list_items' => [
+          [
+            'term' => 'Term',
+            'description' => 'Description',
+          ],
+        ],
+      ],
+      'wrapper_selector' => '.bcl-description-list',
+    ];
   }
 
   /**
