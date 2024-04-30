@@ -121,7 +121,7 @@ function oe_whitelabel_preprocess_paragraph__oe_social_media_follow(array &$vari
 function oe_whitelabel_preprocess_paragraph__oe_accordion(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
-  $color_scheme_preprocess->injectColorScheme($variables, TRUE);
+  $color_scheme_preprocess->injectColorScheme($variables);
 
   // Massage data to be compliant with OE Bootstrap Theme accordion pattern
   // data structure.
@@ -144,7 +144,7 @@ function oe_whitelabel_preprocess_paragraph__oe_accordion(array &$variables): vo
 function oe_whitelabel_preprocess_paragraph__oe_text_feature_media(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
-  $color_scheme_preprocess->injectColorScheme($variables, TRUE);
+  $color_scheme_preprocess->injectColorScheme($variables);
 
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
@@ -203,7 +203,7 @@ function oe_whitelabel_preprocess_paragraph__oe_av_media(array &$variables): voi
 function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
-  $color_scheme_preprocess->injectColorScheme($variables);
+  $color_scheme_preprocess->injectColorScheme($variables, FALSE);
 
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
@@ -273,10 +273,10 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
   $variables['variant'] = str_replace('oe_banner_', '', $variant);
 
   if ($variables['variant'] === 'default') {
-    $color_scheme_preprocess->injectColorScheme($variables, TRUE);
+    $color_scheme_preprocess->injectColorScheme($variables);
   }
   else {
-    $color_scheme_preprocess->injectColorScheme($variables);
+    $color_scheme_preprocess->injectColorScheme($variables, FALSE);
   }
 
   $variables['title'] = $paragraph->get('field_oe_title')->value;
@@ -371,7 +371,7 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
 function oe_whitelabel_preprocess_paragraph__oe_timeline(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
-  $color_scheme_preprocess->injectColorScheme($variables, TRUE);
+  $color_scheme_preprocess->injectColorScheme($variables);
 
   $paragraph = $variables['paragraph'];
   if (!$paragraph->get('field_oe_title')->isEmpty()) {
@@ -439,7 +439,7 @@ function oe_whitelabel_preprocess_paragraph__oe_content_row__variant_inpage_navi
 function oe_whitelabel_preprocess_paragraph__oe_description_list(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
-  $color_scheme_preprocess->injectColorScheme($variables, TRUE);
+  $color_scheme_preprocess->injectColorScheme($variables);
 
   /** @var Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
@@ -470,7 +470,7 @@ function oe_whitelabel_preprocess_paragraph__oe_description_list(array &$variabl
 function oe_whitelabel_preprocess_paragraph__oe_facts_figures(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
-  $color_scheme_preprocess->injectColorScheme($variables, TRUE);
+  $color_scheme_preprocess->injectColorScheme($variables);
 
   /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
   $paragraph = $variables['paragraph'];
@@ -742,7 +742,7 @@ function _oe_whitelabel_paragraphs_preprocess_paragraph_media(array &$variables)
 function oe_whitelabel_paragraphs_preprocess_paragraph__oe_document(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
-  $color_scheme_preprocess->injectColorScheme($variables);
+  $color_scheme_preprocess->injectColorScheme($variables, FALSE);
 }
 
 /**
@@ -751,5 +751,5 @@ function oe_whitelabel_paragraphs_preprocess_paragraph__oe_document(array &$vari
 function oe_whitelabel_paragraphs_preprocess_paragraph__oe_quote(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
-  $color_scheme_preprocess->injectColorScheme($variables, TRUE);
+  $color_scheme_preprocess->injectColorScheme($variables);
 }
