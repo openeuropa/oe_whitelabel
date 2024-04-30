@@ -2,37 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\oe_whitelabel\Functional;
+namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\paragraphs\ParagraphInterface;
-use Drupal\Tests\BrowserTestBase;
 use Symfony\Component\DomCrawler\Crawler;
 
-/**
- * Tests the color scheme.
- */
-class ColorSchemeTest extends BrowserTestBase {
+class ColorSchemeTest extends ParagraphsTestBase {
 
   /**
    * {@inheritdoc}
    */
   protected static $modules = [
-    'node',
     'oe_color_scheme',
-    'oe_paragraphs_banner',
-    'oe_whitelabel_helper',
     'oe_paragraphs_carousel',
-    'oe_whitelabel_paragraphs',
+    'oe_media_oembed_mock',
   ];
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'oe_whitelabel_test_theme';
 
   /**
    * {@inheritdoc}
@@ -40,49 +27,23 @@ class ColorSchemeTest extends BrowserTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    $this->drupalCreateContentType([
-      'type' => 'test_ct',
-      'name' => 'Test content type',
+    $this->container->get('module_handler')->loadInclude('oe_paragraphs_media_field_storage', 'install');
+    oe_paragraphs_media_field_storage_install(FALSE);
+    $this->installEntitySchema('media');
+    $this->installConfig([
+      'media',
+      'oe_media',
+      'oe_paragraphs_media',
+      'media_avportal',
+      'oe_media_avportal',
+      'oe_paragraphs_banner',
+      'oe_paragraphs_iframe_media',
+      'options',
+      'oe_media_iframe',
     ]);
-
-    FieldStorageConfig::create([
-      'field_name' => 'oe_w_colorscheme',
-      'entity_type' => 'node',
-      'type' => 'oe_color_scheme',
-    ])->save();
-
-    FieldConfig::create([
-      'label' => 'ColorScheme field',
-      'field_name' => 'oe_w_colorscheme',
-      'entity_type' => 'node',
-      'bundle' => 'test_ct',
-    ])->save();
-
-    $form_display = \Drupal::service('entity_display.repository')->getFormDisplay('node', 'test_ct');
-    $form_display = $form_display->setComponent('oe_w_colorscheme', [
-      'region' => 'content',
-      'type' => 'oe_color_scheme_widget',
-    ]);
-    $form_display->save();
-  }
-
-  /**
-   * Tests that the color scheme is injected into node and paragraphs.
-   */
-  public function testColorScheme(): void {
-    $node = Node::create([
-      'type' => 'test_ct',
-      'title' => 'Test',
-      'oe_w_colorscheme' => [
-        'name' => 'foo_bar',
-      ],
-    ]);
-    $node->save();
-
-    $this->drupalGet($node->toUrl());
-    $assert_session = $this->assertSession();
-
-    $assert_session->elementExists('css', '.foo_bar');
+    // Call the install hook of the Media module.
+    $this->container->get('module_handler')->loadInclude('media', 'install');
+    media_install();
   }
 
   /**
@@ -104,10 +65,10 @@ class ColorSchemeTest extends BrowserTestBase {
       ])->save();
 
       $paragraph = Paragraph::create($data['values'] + [
-        'oe_w_colorscheme' => [
-          'name' => 'foo_bar',
-        ],
-      ]);
+          'oe_w_colorscheme' => [
+            'name' => 'foo_bar',
+          ],
+        ]);
       $paragraph->save();
 
       $html = $this->renderParagraph($paragraph);
@@ -164,7 +125,7 @@ class ColorSchemeTest extends BrowserTestBase {
    *
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
    *   Paragraph entity.
-   * @param string|null $langcode
+   * @param string $langcode
    *   Rendering language code, defaults to 'en'.
    *
    * @return string
@@ -177,7 +138,7 @@ class ColorSchemeTest extends BrowserTestBase {
       ->getViewBuilder('paragraph')
       ->view($paragraph, 'default', $langcode);
 
-    return (string) $this->container->get('renderer')->renderRoot($render);
+    return $this->renderRoot($render);
   }
 
 }
