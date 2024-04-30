@@ -736,3 +736,12 @@ function oe_whitelabel_paragraphs_preprocess_paragraph__oe_document(array &$vari
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
   $color_scheme_preprocess->injectColorScheme($variables);
 }
+
+/**
+ * Implements hook_preprocess_paragraph() for oe_quote paragraph.
+ */
+function oe_whitelabel_paragraphs_preprocess_paragraph__oe_quote(array &$variables): void {
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
+  $color_scheme_preprocess->injectColorScheme($variables, TRUE);
+}
