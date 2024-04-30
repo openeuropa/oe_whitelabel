@@ -78,8 +78,10 @@ class ColorSchemeTest extends ParagraphsTestBase {
       $html = $this->renderParagraph($paragraph);
       $crawler = new Crawler($html);
 
-      $element = $crawler->filter($data['wrapper_selector'] . '.foo_bar');
-      $this->assertCount(1, $element);
+      $element = $crawler->filter($data['wrapper_selector'] . '.foo_bar.text-color-default');
+      $this->assertCount(1, $element, sprintf('Element "%s" has color scheme applied.', $data['wrapper_selector']));
+      $has_background = (bool) $crawler->filter('.bg-default')->count();
+      $this->assertTrue($data['has_background'] === $has_background, sprintf('Element "%s" does not have ".bg-default" class.', $data['wrapper_selector']));
     }
   }
 
@@ -101,6 +103,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
         ]),
       ],
       'wrapper_selector' => '.accordion',
+      'has_background' => TRUE,
     ];
     yield [
       'values' => [
@@ -110,6 +113,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
         'field_oe_text' => 'Description',
       ],
       'wrapper_selector' => '.bcl-banner',
+      'has_background' => TRUE,
     ];
     yield [
       'values' => [
@@ -118,6 +122,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
         'field_oe_plain_text_long' => 'Quote text',
       ],
       'wrapper_selector' => 'figure',
+      'has_background' => TRUE,
     ];
     yield [
       'values' => [
@@ -132,12 +137,14 @@ class ColorSchemeTest extends ParagraphsTestBase {
         ],
       ],
       'wrapper_selector' => '.bcl-description-list',
+      'has_background' => TRUE,
     ];
     yield [
       'values' => [
         'type' => 'oe_document',
       ],
       'wrapper_selector' => '.paragraph--type--oe-document',
+      'has_background' => FALSE,
     ];
     yield [
       'values' => [
@@ -149,6 +156,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
         ],
       ],
       'wrapper_selector' => '.bcl-fact-figures',
+      'has_background' => TRUE,
     ];
     yield [
       'values' => [
@@ -158,6 +166,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
         'field_oe_title' => 'Listing item block title',
       ],
       'wrapper_selector' => '.bcl-listing',
+      'has_background' => FALSE,
     ];
     yield [
       'values' => [
@@ -166,6 +175,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
         'field_oe_plain_text_long' => 'Text',
       ],
       'wrapper_selector' => '.bcl-featured-media',
+      'has_background' => TRUE,
     ];
     yield [
       'values' => [
@@ -180,6 +190,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
         ],
       ],
       'wrapper_selector' => '.bcl-timeline',
+      'has_background' => TRUE,
     ];
   }
 
