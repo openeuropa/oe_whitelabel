@@ -71,7 +71,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
       $html = $this->renderParagraph($paragraph);
       $crawler = new Crawler($html);
 
-      $element = $crawler->filter($data['wrapper_selector'] . '.foo_bar.text-color-default');
+      $element = $crawler->filter($data['wrapper_selector'] . '.foo-bar.text-color-default');
       $this->assertCount(1, $element, sprintf('Element "%s" has color scheme applied.', $data['wrapper_selector']));
       $has_background = (bool) $crawler->filter('.bg-default')->count();
       $this->assertTrue($data['has_background'] === $has_background, sprintf('Element "%s" does not have ".bg-default" class.', $data['wrapper_selector']));

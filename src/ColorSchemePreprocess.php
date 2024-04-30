@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\oe_whitelabel;
 
+use Drupal\Component\Utility\Html;
+
 /**
  * Class containing color scheme preprocesses.
  */
@@ -22,7 +24,7 @@ class ColorSchemePreprocess {
       return;
     }
 
-    $variables['attributes']['class'][] = $variables['elements']['#oe_color_scheme'];
+    $variables['attributes']['class'][] = Html::getClass($variables['elements']['#oe_color_scheme']);
     $variables['attributes']['class'][] = 'text-color-default';
 
     if ($background) {
