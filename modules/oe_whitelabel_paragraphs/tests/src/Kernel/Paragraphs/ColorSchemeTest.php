@@ -9,6 +9,9 @@ use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\paragraphs\Entity\Paragraph;
 use Symfony\Component\DomCrawler\Crawler;
 
+/**
+ * Test the color scheme are present in the paragraphs.
+ */
 class ColorSchemeTest extends ParagraphsTestBase {
 
   /**
@@ -41,7 +44,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
   }
 
   /**
-   * Tests that the color scheme is injected into the paragraphs.
+   * Tests that the color scheme is present in the paragraphs.
    */
   public function testColorSchemeInParagraphs(): void {
     FieldStorageConfig::create([
