@@ -61,7 +61,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
         'label' => 'ColorScheme field',
         'field_name' => 'oe_w_colorscheme',
         'entity_type' => 'paragraph',
-        'bundle' => $data['bundle'],
+        'bundle' => $data['values']['type'],
       ])->save();
 
       $paragraph = Paragraph::create($data['values'] + [
@@ -87,7 +87,6 @@ class ColorSchemeTest extends ParagraphsTestBase {
    */
   protected function paragraphSettingsProvider(): \Generator {
     yield [
-      'bundle' => 'oe_accordion',
       'values' => [
         'type' => 'oe_accordion',
         'field_oe_paragraphs' => Paragraph::create([
@@ -100,7 +99,6 @@ class ColorSchemeTest extends ParagraphsTestBase {
       'wrapper_selector' => '.accordion',
     ];
     yield [
-      'bundle' => 'oe_banner',
       'values' => [
         'type' => 'oe_banner',
         'oe_paragraphs_variant' => 'default',
@@ -110,7 +108,6 @@ class ColorSchemeTest extends ParagraphsTestBase {
       'wrapper_selector' => '.bcl-banner',
     ];
     yield [
-      'bundle' => 'oe_quote',
       'values' => [
         'type' => 'oe_quote',
         'field_oe_text' => 'This is a test quote',
