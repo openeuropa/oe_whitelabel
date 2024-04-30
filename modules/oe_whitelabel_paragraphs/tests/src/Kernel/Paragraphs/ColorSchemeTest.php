@@ -147,6 +147,15 @@ class ColorSchemeTest extends ParagraphsTestBase {
       ],
       'wrapper_selector' => '.bcl-fact-figures',
     ];
+    yield [
+      'values' => [
+        'type' => 'oe_list_item_block',
+        'oe_paragraphs_variant' => 'default',
+        'field_oe_list_item_block_layout' => 'one_column',
+        'field_oe_title' => 'Listing item block title',
+      ],
+      'wrapper_selector' => '.bcl-listing',
+    ];
   }
 
 }
