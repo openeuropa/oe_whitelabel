@@ -369,6 +369,10 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
  * Implements hook_preprocess_paragraph() for timeline paragraph.
  */
 function oe_whitelabel_preprocess_paragraph__oe_timeline(array &$variables): void {
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
+  $color_scheme_preprocess->injectColorScheme($variables, TRUE);
+
   $paragraph = $variables['paragraph'];
   if (!$paragraph->get('field_oe_title')->isEmpty()) {
     $variables['heading'] = $paragraph->get('field_oe_title')->value;
