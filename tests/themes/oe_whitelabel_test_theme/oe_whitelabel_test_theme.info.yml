@@ -1,8 +1,0 @@
-name: OpenEuropa Whitelabel Test Theme
-type: theme
-base theme: oe_whitelabel
-core_version_requirement: ^10
-
-color_scheme:
-  - scheme_1
-  - scheme_2
