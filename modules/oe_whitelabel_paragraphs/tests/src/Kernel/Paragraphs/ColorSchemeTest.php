@@ -16,9 +16,11 @@ class ColorSchemeTest extends ParagraphsTestBase {
    */
   protected static $modules = [
     'oe_color_scheme',
+    'oe_content_timeline_field',
     'oe_media_oembed_mock',
     'oe_paragraphs_carousel',
     'oe_paragraphs_document',
+    'oe_paragraphs_timeline',
   ];
 
   /**
@@ -40,6 +42,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
       'oe_paragraphs_document',
       'oe_paragraphs_iframe_media',
       'oe_paragraphs_media',
+      'oe_paragraphs_timeline',
       'options',
     ]);
     // Call the install hook of the Media module.
@@ -163,6 +166,20 @@ class ColorSchemeTest extends ParagraphsTestBase {
         'field_oe_plain_text_long' => 'Text',
       ],
       'wrapper_selector' => '.bcl-featured-media',
+    ];
+    yield [
+      'values' => [
+        'type' => 'oe_timeline',
+        'field_oe_timeline_expand' => '3',
+        'field_oe_timeline' => [
+          [
+            'label' => 'Label 1',
+            'title' => 'Title 1',
+            'body' => 'Description 1',
+          ],
+        ],
+      ],
+      'wrapper_selector' => '.bcl-timeline',
     ];
   }
 
