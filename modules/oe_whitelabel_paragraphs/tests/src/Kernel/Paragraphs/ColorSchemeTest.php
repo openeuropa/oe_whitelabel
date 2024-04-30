@@ -156,6 +156,14 @@ class ColorSchemeTest extends ParagraphsTestBase {
       ],
       'wrapper_selector' => '.bcl-listing',
     ];
+    yield [
+      'values' => [
+        'type' => 'oe_text_feature_media',
+        'field_oe_title' => 'Title',
+        'field_oe_plain_text_long' => 'Text',
+      ],
+      'wrapper_selector' => '.bcl-featured-media',
+    ];
   }
 
 }
