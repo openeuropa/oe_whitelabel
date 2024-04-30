@@ -7,7 +7,6 @@ namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\paragraphs\ParagraphInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
 class ColorSchemeTest extends ParagraphsTestBase {
@@ -129,27 +128,6 @@ class ColorSchemeTest extends ParagraphsTestBase {
       ],
       'wrapper_selector' => '.bcl-description-list',
     ];
-  }
-
-  /**
-   * Render a paragraph.
-   *
-   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
-   *   Paragraph entity.
-   * @param string $langcode
-   *   Rendering language code, defaults to 'en'.
-   *
-   * @return string
-   *   Rendered output.
-   *
-   * @throws \Exception
-   */
-  protected function renderParagraph(ParagraphInterface $paragraph, string $langcode = NULL): string {
-    $render = \Drupal::entityTypeManager()
-      ->getViewBuilder('paragraph')
-      ->view($paragraph, 'default', $langcode);
-
-    return $this->renderRoot($render);
   }
 
 }
