@@ -53,12 +53,16 @@ class ColorSchemeTest extends ParagraphsTestBase {
     ])->save();
 
     foreach ($this->paragraphSettingsProvider() as $data) {
-      FieldConfig::create([
-        'label' => 'ColorScheme field',
-        'field_name' => 'oe_w_colorscheme',
-        'entity_type' => 'paragraph',
-        'bundle' => $data['values']['type'],
-      ])->save();
+      $field_instance = FieldConfig::loadByName('paragraph', $data['values']['type'], 'oe_w_colorscheme');
+
+      if (!$field_instance) {
+        FieldConfig::create([
+          'label' => 'ColorScheme field',
+          'field_name' => 'oe_w_colorscheme',
+          'entity_type' => 'paragraph',
+          'bundle' => $data['values']['type'],
+        ])->save();
+      }
 
       $paragraph = Paragraph::create($data['values'] + [
           'oe_w_colorscheme' => [
@@ -102,10 +106,36 @@ class ColorSchemeTest extends ParagraphsTestBase {
         'type' => 'oe_banner',
         'oe_paragraphs_variant' => 'default',
         'field_oe_title' => 'Banner',
-        'field_oe_text' => 'Description',
       ],
       'wrapper_selector' => '.bcl-banner',
       'has_background' => TRUE,
+    ];
+    yield [
+      'values' => [
+        'type' => 'oe_banner',
+        'oe_paragraphs_variant' => 'oe_banner_image',
+        'field_oe_title' => 'Banner',
+      ],
+      'wrapper_selector' => '.bcl-banner',
+      'has_background' => FALSE,
+    ];
+    yield [
+      'values' => [
+        'type' => 'oe_banner',
+        'oe_paragraphs_variant' => 'oe_banner_image_shade',
+        'field_oe_title' => 'Banner',
+      ],
+      'wrapper_selector' => '.bcl-banner',
+      'has_background' => FALSE,
+    ];
+    yield [
+      'values' => [
+        'type' => 'oe_banner',
+        'oe_paragraphs_variant' => 'oe_banner_primary',
+        'field_oe_title' => 'Banner',
+      ],
+      'wrapper_selector' => '.bcl-banner',
+      'has_background' => FALSE,
     ];
     yield [
       'values' => [
