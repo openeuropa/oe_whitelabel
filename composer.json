@@ -34,7 +34,7 @@
         "nikic/php-parser": "^4",
         "openeuropa/code-review": "^2.0.0-alpha6",
         "openeuropa/oe_authentication": "^1.11",
-        "openeuropa/oe_color_scheme": "1.x-dev",
+        "openeuropa/oe_color_scheme": "dev-contribution/EPHEH-318",
         "openeuropa/oe_contact_forms": "~1.11",
         "openeuropa/oe_content": "^3",
         "openeuropa/oe_content_extra": "^1.1.0",
