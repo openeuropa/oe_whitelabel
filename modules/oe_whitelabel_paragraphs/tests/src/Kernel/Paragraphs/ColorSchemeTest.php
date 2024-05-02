@@ -20,7 +20,6 @@ class ColorSchemeTest extends ParagraphsTestBase {
   protected static $modules = [
     'oe_color_scheme',
     'oe_content_timeline_field',
-    'oe_paragraphs_carousel',
     'oe_paragraphs_document',
     'oe_paragraphs_timeline',
   ];
