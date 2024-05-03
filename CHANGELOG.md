@@ -1,10 +1,20 @@
 # Change Log
 
+## [1.7.0](https://github.com/openeuropa/oe_whitelabel/tree/1.7.0) (2024-05-03)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.6.0...1.7.0)
+
+**Merged pull requests:**
+
+- OEL-2940: Table overflow in subscriptions page [\#269](https://github.com/openeuropa/oe_whitelabel/pull/269) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+- OEL-2921: Fix tests failing on 1.x. [\#266](https://github.com/openeuropa/oe_whitelabel/pull/266) ([brummbar](https://github.com/brummbar))
+- EPHEH-48: Add support for AV Media paragraphs [\#222](https://github.com/openeuropa/oe_whitelabel/pull/222) ([drishu](https://github.com/drishu))
+
 ## [1.6.0](https://github.com/openeuropa/oe_whitelabel/tree/1.6.0) (2024-03-13)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.5.0...1.6.0)
 
 **Merged pull requests:**
 
+- Prepare changelog for release 1.6.0. [\#264](https://github.com/openeuropa/oe_whitelabel/pull/264) ([brummbar](https://github.com/brummbar))
 - OEL-2227: Use first alpha release of oe\_subscriptions. [\#263](https://github.com/openeuropa/oe_whitelabel/pull/263) ([brummbar](https://github.com/brummbar))
 - OEL-2847: Create only the new field group in the update path. [\#262](https://github.com/openeuropa/oe_whitelabel/pull/262) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
 - OEL-2794: Fix code standards. [\#260](https://github.com/openeuropa/oe_whitelabel/pull/260) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
