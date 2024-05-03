@@ -1,10 +1,18 @@
 # Change Log
 
+## [1.7.1](https://github.com/openeuropa/oe_whitelabel/tree/1.7.1) (2024-05-03)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.7.0...1.7.1)
+
+**Merged pull requests:**
+
+- OEL-0000: Remove patches. [\#271](https://github.com/openeuropa/oe_whitelabel/pull/271) ([brummbar](https://github.com/brummbar))
+
 ## [1.7.0](https://github.com/openeuropa/oe_whitelabel/tree/1.7.0) (2024-05-03)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.6.0...1.7.0)
 
 **Merged pull requests:**
 
+- Prepare changelog for release 1.7.0. [\#270](https://github.com/openeuropa/oe_whitelabel/pull/270) ([brummbar](https://github.com/brummbar))
 - OEL-2940: Table overflow in subscriptions page [\#269](https://github.com/openeuropa/oe_whitelabel/pull/269) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
 - OEL-2921: Fix tests failing on 1.x. [\#266](https://github.com/openeuropa/oe_whitelabel/pull/266) ([brummbar](https://github.com/brummbar))
 - EPHEH-48: Add support for AV Media paragraphs [\#222](https://github.com/openeuropa/oe_whitelabel/pull/222) ([drishu](https://github.com/drishu))
