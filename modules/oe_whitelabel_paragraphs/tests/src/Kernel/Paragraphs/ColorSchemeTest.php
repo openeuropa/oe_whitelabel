@@ -65,10 +65,10 @@ class ColorSchemeTest extends ParagraphsTestBase {
       }
 
       $paragraph = Paragraph::create($data['values'] + [
-          'oe_w_colorscheme' => [
-            'name' => 'foo_bar',
-          ],
-        ]);
+        'oe_w_colorscheme' => [
+          'name' => 'foo_bar',
+        ],
+      ]);
       $paragraph->save();
 
       $html = $this->renderParagraph($paragraph);
