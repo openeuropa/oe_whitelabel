@@ -23,6 +23,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
     'oe_content_timeline_field',
     'oe_paragraphs_carousel',
     'oe_paragraphs_document',
+    'oe_paragraphs_gallery',
     'oe_paragraphs_timeline',
   ];
 
@@ -40,6 +41,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
       'oe_paragraphs_banner',
       'oe_paragraphs_carousel',
       'oe_paragraphs_document',
+      'oe_paragraphs_gallery',
       'oe_paragraphs_media',
       'oe_paragraphs_timeline',
     ]);
@@ -109,6 +111,13 @@ class ColorSchemeTest extends ParagraphsTestBase {
         'type' => 'oe_carousel',
       ],
       'wrapper_selector' => '.carousel',
+      'has_background' => FALSE,
+    ];
+    yield [
+      'values' => [
+        'type' => 'oe_gallery',
+      ],
+      'wrapper_selector' => '.paragraph--type--oe-gallery',
       'has_background' => FALSE,
     ];
     yield [
