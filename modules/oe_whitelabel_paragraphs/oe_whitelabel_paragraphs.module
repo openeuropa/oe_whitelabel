@@ -507,6 +507,10 @@ function oe_whitelabel_preprocess_paragraph__oe_facts_figures(array &$variables)
  * Implements hook_preprocess_paragraph() for oe_carousel paragraph.
  */
 function oe_whitelabel_preprocess_paragraph__oe_carousel(array &$variables): void {
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
+  $color_scheme_preprocess->injectColorScheme($variables, FALSE);
+
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
   $variables['items'] = [];
