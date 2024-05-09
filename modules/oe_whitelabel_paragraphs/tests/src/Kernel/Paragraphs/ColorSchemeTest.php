@@ -103,6 +103,13 @@ class ColorSchemeTest extends ParagraphsTestBase {
     ];
     yield [
       'values' => [
+        'type' => 'oe_carousel',
+      ],
+      'wrapper_selector' => '.carousel',
+      'has_background' => FALSE,
+    ];
+    yield [
+      'values' => [
         'type' => 'oe_banner',
         'oe_paragraphs_variant' => 'default',
         'field_oe_title' => 'Banner',
