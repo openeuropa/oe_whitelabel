@@ -671,6 +671,10 @@ function oe_whitelabel_paragraphs_preprocess_paragraph__oe_gallery(&$variables) 
   // title tag, we set it up here so that further preprocess hooks can change
   // it.
   $variables['title_tag'] = 'h2';
+
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
+  $color_scheme_preprocess->injectColorScheme($variables, FALSE);
 }
 
 /**
