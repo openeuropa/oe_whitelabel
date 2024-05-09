@@ -18,8 +18,10 @@ class ColorSchemeTest extends ParagraphsTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'composite_reference',
     'oe_color_scheme',
     'oe_content_timeline_field',
+    'oe_paragraphs_carousel',
     'oe_paragraphs_document',
     'oe_paragraphs_timeline',
   ];
@@ -36,6 +38,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
       'media',
       'oe_media',
       'oe_paragraphs_banner',
+      'oe_paragraphs_carousel',
       'oe_paragraphs_document',
       'oe_paragraphs_media',
       'oe_paragraphs_timeline',
