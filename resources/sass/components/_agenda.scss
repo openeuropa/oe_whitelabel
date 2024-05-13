@@ -10,4 +10,8 @@
   .bcl-description-list {
     font-size: 0.875rem;
   }
+
+  .session-details > *:last-child {
+    margin-bottom: 0 !important;
+  }
 }

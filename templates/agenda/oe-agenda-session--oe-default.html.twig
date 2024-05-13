@@ -64,7 +64,9 @@
       {{ session_links }}
 
       {# Details. #}
-      {{ content.oe_session_details|field_value }}
+      <div class="session-details">
+        {{ content.oe_session_details|field_value }}
+      </div>
     {% endblock %}
   </div>
 </div>
