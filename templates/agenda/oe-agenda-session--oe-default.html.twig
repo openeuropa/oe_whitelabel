@@ -27,7 +27,8 @@
         {# Display session label only if name field is not empty. #}
         {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
           title: label,
-          title_tag: 'h4'
+          title_tag: 'h4',
+          attributes: create_attribute().addClass('h5'),
         } only %}
       {% endif %}
 
