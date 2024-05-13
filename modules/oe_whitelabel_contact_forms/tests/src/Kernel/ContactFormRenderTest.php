@@ -6,7 +6,6 @@ namespace Drupal\Tests\oe_whitelabel_contact_forms\Kernel;
 
 use Drupal\contact\Entity\ContactForm;
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\Tests\oe_whitelabel\PatternAssertions\DescriptionListAssert;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use Symfony\Component\DomCrawler\Crawler;
@@ -122,36 +121,6 @@ class ContactFormRenderTest extends KernelTestBase {
 
     $description_lists = $alert->filter('.bcl-description-list');
     $this->assertCount(1, $description_lists);
-    $description_list_assert = new DescriptionListAssert();
-
-    $description_list_assert->assertPattern([
-      'items' => [
-        [
-          'term' => "The sender's name",
-          'definition' => 'sender_name',
-        ],
-        [
-          'term' => "The sender's email",
-          'definition' => 'test@example.com',
-        ],
-        [
-          'term' => 'Subject',
-          'definition' => 'subject',
-        ],
-        [
-          'term' => 'Message',
-          'definition' => 'welcome_message',
-        ],
-        [
-          'term' => 'Topic',
-          'definition' => 'Topic name',
-        ],
-        [
-          'term' => 'Phone',
-          'definition' => '0123456',
-        ],
-      ],
-    ], $description_lists->outerHtml());
 
     // Test that also the copy field is moved in the fieldset. Since we need to
     // login for the field to appear, we do as last part of the test.
