@@ -65,6 +65,9 @@ function oe_whitelabel_agenda_preprocess_oe_agenda_session__oe_default(array &$v
         'name' => 'box-arrow-up-right',
         'size' => 'xs',
       ];
+      $link['#fields']['attributes'] = [
+        'target' => '_blank',
+      ];
     }
     $definition[] = $link;
 
