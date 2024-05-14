@@ -6,15 +6,16 @@ namespace Drupal\Tests\oe_whitelabel\FunctionalJavascript;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\file\Entity\File;
+use Drupal\Core\Url;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
-use Drupal\media\Entity\Media;
 use Drupal\node\NodeInterface;
 use Drupal\oe_content_entity\Entity\CorporateEntityInterface;
 use Drupal\oe_content_entity_organisation\Entity\OrganisationInterface;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\GalleryPatternAssert;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\ContentBannerAssert;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\DescriptionListAssert;
 use Drupal\Tests\oe_whitelabel\PatternAssertions\InPageNavigationAssert;
+use Drupal\Tests\oe_whitelabel\Traits\MediaCreationTrait;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 use Drupal\Tests\TestFileCreationTrait;
 use Drupal\user\Entity\Role;
@@ -25,6 +26,7 @@ use Drupal\user\RoleInterface;
  */
 class ContentProjectRenderTest extends WebDriverTestBase {
 
+  use MediaCreationTrait;
   use SparqlConnectionTrait;
   use TestFileCreationTrait;
 
@@ -38,6 +40,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
    */
   protected static $modules = [
     'block',
+    'oe_media_oembed_mock',
     'oe_whitelabel_extra_project',
   ];
 
@@ -64,29 +67,22 @@ class ContentProjectRenderTest extends WebDriverTestBase {
    */
   public function testProjectRendering(): void {
     $assert_session = $this->assertSession();
-
-    // Create a media entity.
-    // Create file and media.
-    $file = File::create([
-      'uri' => $this->getTestFiles('image')[0]->uri,
-    ]);
-    $file->save();
-    $media = Media::create([
-      'bundle' => 'image',
-      'name' => 'Image test',
+    $image = $this->createImageMedia([
       'oe_media_image' => [
-        [
-          'target_id' => $file->id(),
-          'alt' => 'Image test alt',
-          'title' => 'Image test title',
-        ],
+        'alt' => 'Image test alt',
+        'title' => 'Image test title',
       ],
     ]);
-    $media->save();
     // Create organisations for Coordinators and Participants fields.
     // Unpublished entity should not be shown.
     $coordinator_organisation = $this->createStakeholderOrganisationEntity('coordinator', CorporateEntityInterface::PUBLISHED, 'oe_stakeholder');
     $participant_organisation = $this->createStakeholderOrganisationEntity('participant', CorporateEntityInterface::PUBLISHED, 'oe_cx_project_stakeholder');
+
+    // Create medias for gallery.
+    $gallery_image = $this->createImageMedia();
+    $gallery_video = $this->createRemoteVideoMedia();
+    $gallery_av_photo = $this->createAvPortalPhotoMedia();
+    $gallery_av_video = $this->createAvPortalVideoMedia();
 
     // Create a Project node.
     /** @var \Drupal\node\Entity\Node $node */
@@ -96,7 +92,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
       'oe_teaser' => 'Test project node',
       'oe_summary' => 'Summary',
       'oe_featured_media' => [
-        'target_id' => (int) $media->id(),
+        'target_id' => $image->id(),
         'caption' => 'Caption project_featured_media',
       ],
       'oe_project_dates' => [
@@ -119,6 +115,12 @@ class ContentProjectRenderTest extends WebDriverTestBase {
       'oe_cx_objective' => 'Objective',
       'oe_cx_impacts' => 'Impacts',
       'oe_cx_achievements_and_milestone' => 'Achievements and milestone',
+      'oe_cx_gallery' => [
+        $gallery_image->id(),
+        $gallery_video->id(),
+        $gallery_av_photo->id(),
+        $gallery_av_video->id(),
+      ],
       'uid' => 0,
       'status' => 1,
     ]);
@@ -131,7 +133,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     $assert->assertPattern([
       'image' => [
         'alt' => 'Image test alt',
-        'src' => 'image-test.png',
+        'src' => 'example_1.jpeg',
       ],
       'badges' => ['wood industry'],
       'title' => 'Test project node',
@@ -167,6 +169,10 @@ class ContentProjectRenderTest extends WebDriverTestBase {
         [
           'label' => 'Achievements and milestones',
           'href' => '#oe-project-oe-cx-achievements-and-milestone',
+        ],
+        [
+          'label' => 'Gallery',
+          'href' => '#oe-project-oe-cx-gallery',
         ],
       ],
     ], $inpage_nav->getOuterHtml());
@@ -297,6 +303,76 @@ class ContentProjectRenderTest extends WebDriverTestBase {
         ],
       ],
     ], $description_list->getOuterHtml());
+
+    $file_url_generator = \Drupal::service('file_url_generator');
+    $gallery_container = $assert_session->elementExists('css', '#oe-project-oe-cx-gallery + .bcl-gallery');
+    $fn_get_filepath = static fn($entity, $field) => $file_url_generator->generate($entity->get($field)->entity->getFileUri())->toString();
+    (new GalleryPatternAssert())->assertPattern([
+      'title' => NULL,
+      'items' => [
+        [
+          'thumbnail' => [
+            'caption_title' => 'Image title',
+            'rendered' => sprintf(
+              '<img loading="lazy" src="%s" width="200" height="89" alt="Alt text" class="img-fluid">',
+              $fn_get_filepath($gallery_image, 'oe_media_image')
+            ),
+          ],
+          'media' => [
+            'caption_title' => 'Image title',
+            'rendered' => sprintf(
+              '<img loading="lazy" data-src="%s" width="200" height="89" alt="Alt text" class="img-fluid">',
+              $fn_get_filepath($gallery_image, 'oe_media_image')
+            ),
+          ],
+        ],
+        [
+          'thumbnail' => [
+            'caption_title' => 'Energy, let\'s save it!',
+            'rendered' => sprintf(
+              '<img loading="lazy" src="%s" width="480" height="360" alt="" class="img-fluid">',
+              $fn_get_filepath($gallery_video, 'thumbnail')
+            ),
+            'play_icon' => TRUE,
+          ],
+          'media' => [
+            'caption_title' => 'Energy, let\'s save it!',
+            'rendered' => sprintf(
+              '<iframe data-src="%s?url=https%%3A//www.youtube.com/watch%%3Fv%%3D1-g73ty9v04&amp;max_width=0&amp;max_height=0&amp;hash=%s" frameborder="0" allowtransparency="" width="459" height="344" class="media-oembed-content" loading="eager" title="Energy, let\'s save it!"></iframe>',
+              Url::fromRoute('media.oembed_iframe')->setAbsolute()->toString(),
+              \Drupal::service('media.oembed.iframe_url_helper')->getHash('https://www.youtube.com/watch?v=1-g73ty9v04', 0, 0)
+            ),
+          ],
+        ],
+        [
+          'thumbnail' => [
+            'caption_title' => 'Euro with miniature figurines',
+            'rendered' => sprintf(
+              '<img loading="lazy" src="%s" width="639" height="426" alt="Euro with miniature figurines" class="img-fluid">',
+              $fn_get_filepath($gallery_av_photo, 'thumbnail')
+            ),
+          ],
+          'media' => [
+            'caption_title' => 'Euro with miniature figurines',
+            'rendered' => '<img class="avportal-photo img-fluid" alt="Euro with miniature figurines" data-src="https://ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg">',
+          ],
+        ],
+        [
+          'thumbnail' => [
+            'caption_title' => 'Economic and Financial Affairs Council - Arrivals',
+            'rendered' => sprintf(
+              '<img loading="lazy" src="%s" width="352" height="200" alt="" class="img-fluid">',
+              $fn_get_filepath($gallery_av_video, 'thumbnail')
+            ),
+            'play_icon' => TRUE,
+          ],
+          'media' => [
+            'caption_title' => 'Economic and Financial Affairs Council - Arrivals',
+            'rendered' => '<iframe id="videoplayerI-163162" data-src="https://ec.europa.eu/avservices/play.cfm?ref=I-163162&amp;lg=EN&amp;sublg=none&amp;autoplay=true&amp;tin=10&amp;tout=59" frameborder="0" allowtransparency="" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen="" width="640" height="390" class="media-avportal-content"></iframe>',
+          ],
+        ],
+      ],
+    ], $gallery_container->getOuterHtml());
   }
 
   /**
