@@ -65,9 +65,11 @@
       {{ session_links }}
 
       {# Details. #}
-      <div class="session-details">
-        {{ content.oe_session_details|field_value }}
-      </div>
+      {% if not entity.oe_session_details.isEmpty() %}
+        <div class="session-details">
+          {{ content.oe_session_details|field_value }}
+        </div>
+      {% endif %}
     {% endblock %}
   </div>
 </div>

@@ -16,5 +16,10 @@
     attributes: create_attribute().addClass('text-muted'),
   } only %}
 
-  {{ content.oe_session_details|field_value }}
+  {# Details. #}
+  {% if not entity.oe_session_details.isEmpty() %}
+    <div class="session-details">
+      {{ content.oe_session_details|field_value }}
+    </div>
+  {% endif %}
 {% endblock %}
