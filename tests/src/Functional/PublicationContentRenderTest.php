@@ -6,6 +6,8 @@ namespace Drupal\Tests\oe_whitelabel\Functional;
 
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CardPatternAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\FilePatternAssert;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertions\ContentBannerAssert;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertions\InPageNavigationAssert;
 use Drupal\Tests\oe_whitelabel\Traits\MediaCreationTrait;
 
 /**
@@ -41,6 +43,26 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
     $this->drupalGet($node->toUrl());
 
     $assert_session = $this->assertSession();
+    $content_banner_assert = new ContentBannerAssert();
+    $content_banner_assert->assertPattern([
+      'title' => 'Test publication',
+      'meta' => [
+        '01 August 2022',
+      ],
+      'badges' => [],
+      'image' => NULL,
+    ], $assert_session->elementExists('css', '.bcl-content-banner')->getOuterHtml());
+
+    $inpage_nav_assert = new InPageNavigationAssert();
+    $inpage_nav_assert->assertPattern([
+      'title' => 'Page content',
+      'links' => [
+        [
+          'label' => 'Document',
+          'href' => '#document',
+        ],
+      ],
+    ], $assert_session->elementExists('css', 'nav.bcl-inpage-navigation')->getOuterHtml());
 
     // Assert that the file is rendered together with the field display label.
     $this->assertEquals('Document', $assert_session->elementExists('css', 'h2#document')->getText());
@@ -75,6 +97,19 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
       'oe_publication_date' => '2022-08-02',
     ]);
     $this->drupalGet($node->toUrl());
+
+    $content_banner_assert->assertPattern([
+      'title' => 'Test publication 2',
+      'meta' => [
+        '02 August 2022',
+      ],
+      'description' => $short_description,
+      'badges' => [],
+      'image' => [
+        'alt' => 'Alt text',
+        'src' => 'example_1.jpeg',
+      ],
+    ], $assert_session->elementExists('css', '.bcl-content-banner')->getOuterHtml());
 
     $inpage_nav_assert->assertPattern([
       'title' => 'Page content',

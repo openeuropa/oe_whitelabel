@@ -11,6 +11,9 @@ use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\node\NodeInterface;
 use Drupal\oe_content_entity\Entity\CorporateEntityInterface;
 use Drupal\oe_content_entity_organisation\Entity\OrganisationInterface;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertions\ContentBannerAssert;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertions\DescriptionListAssert;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertions\InPageNavigationAssert;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 use Drupal\Tests\TestFileCreationTrait;
 use Drupal\user\Entity\Role;
@@ -124,9 +127,49 @@ class ContentProjectRenderTest extends WebDriverTestBase {
 
     // Assert content banner.
     $content_banner = $assert_session->elementExists('css', '.bcl-content-banner');
+    $assert = new ContentBannerAssert();
+    $assert->assertPattern([
+      'image' => [
+        'alt' => 'Image test alt',
+        'src' => 'image-test.png',
+      ],
+      'badges' => ['wood industry'],
+      'title' => 'Test project node',
+      'description' => 'Test project node',
+    ], $content_banner->getOuterHtml());
 
     // Assert in-page navigation.
     $inpage_nav = $this->assertSession()->elementExists('css', 'nav.bcl-inpage-navigation');
+    $inpage_nav_assert = new InPageNavigationAssert();
+    $inpage_nav_assert->assertPattern([
+      'title' => 'Page content',
+      'links' => [
+        [
+          'label' => 'Project details',
+          'href' => '#project-details',
+        ],
+        [
+          'label' => 'Summary',
+          'href' => '#oe-project-oe-summary',
+        ],
+        [
+          'label' => 'Objective',
+          'href' => '#oe-project-oe-cx-objective',
+        ],
+        [
+          'label' => 'Impacts',
+          'href' => '#oe-project-oe-cx-impacts',
+        ],
+        [
+          'label' => 'Participants',
+          'href' => '#oe-project-oe-project-participants',
+        ],
+        [
+          'label' => 'Achievements and milestones',
+          'href' => '#oe-project-oe-cx-achievements-and-milestone',
+        ],
+      ],
+    ], $inpage_nav->getOuterHtml());
 
     // Select the content column next to the in-page navigation.
     $project_content = $assert_session->elementExists('css', '.col-md-9');
@@ -143,6 +186,68 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     // Select the description blocks inside the Project details.
     $description_lists = $project_content->findAll('css', '.bcl-description-list');
     $this->assertCount(4, $description_lists);
+
+    $description_list_assert = new DescriptionListAssert();
+
+    // Assert budget list group.
+    $description_list_assert->assertPattern([
+      'items' => [
+        [
+          'term' => 'Overall budget',
+          'definition' => '€200,00',
+        ],
+        [
+          'term' => 'EU contribution',
+          'definition' => '€70,00',
+        ],
+      ],
+    ], $description_lists[0]->getOuterHtml());
+
+    // Assert details list group.
+    $description_list_assert->assertPattern([
+      'items' => [
+        [
+          'term' => 'Website',
+          'definition' => 'Example website',
+        ],
+        [
+          'term' => 'Funding programme',
+          'definition' => 'Anti Fraud Information System (AFIS) (2014/2020)',
+        ],
+        [
+          'term' => 'Reference',
+          'definition' => 'Project reference',
+        ],
+      ],
+    ], $description_lists[1]->getOuterHtml());
+
+    // Assert coordinators list group.
+    $description_list_assert->assertPattern([
+      'items' => [
+        [
+          'term' => 'Coordinators',
+          'definition' => 'coordinator',
+        ],
+      ],
+    ], $description_lists[2]->getOuterHtml());
+
+    // Assert participants list group.
+    $description_list_assert->assertPattern([
+      'items' => [
+        [
+          'term' => 'Name',
+          'definition' => 'participant',
+        ],
+        [
+          'term' => 'Address',
+          'definition' => 'Belgium',
+        ],
+        [
+          'term' => 'Contribution to the budget',
+          'definition' => '€22,30',
+        ],
+      ],
+    ], $description_lists[3]->getOuterHtml());
 
     // Set a project period that is fully in the past.
     $this->setProjectDateRange($node, '2019-03-07', '2019-03-21');

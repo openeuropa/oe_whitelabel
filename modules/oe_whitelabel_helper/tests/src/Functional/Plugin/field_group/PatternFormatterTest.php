@@ -8,6 +8,7 @@ use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\field_group\Functional\FieldGroupTestTrait;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertions\DescriptionListAssert;
 
 /**
  * Test the pattern field group formatter.
@@ -112,6 +113,20 @@ class PatternFormatterTest extends BrowserTestBase {
 
     $description_lists = $page->findAll('css', '.bcl-description-list');
     $this->assertCount(1, $description_lists);
+
+    $description_list_assert = new DescriptionListAssert();
+    $description_list_assert->assertPattern([
+      'items' => [
+        [
+          'term' => 'Field 1',
+          'definition' => 'Content test 1',
+        ],
+        [
+          'term' => 'Field 2',
+          'definition' => 'Content test 2',
+        ],
+      ],
+    ], $description_lists[0]->getOuterHtml());
   }
 
 }
