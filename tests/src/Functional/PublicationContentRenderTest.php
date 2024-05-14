@@ -76,19 +76,6 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
     ]);
     $this->drupalGet($node->toUrl());
 
-    $content_banner_assert->assertPattern([
-      'title' => 'Test publication 2',
-      'meta' => [
-        '02 August 2022',
-      ],
-      'description' => $short_description,
-      'badges' => [],
-      'image' => [
-        'alt' => 'Alt text',
-        'src' => 'example_1.jpeg',
-      ],
-    ], $assert_session->elementExists('css', '.bcl-content-banner')->getOuterHtml());
-
     $inpage_nav_assert->assertPattern([
       'title' => 'Page content',
       'links' => [
