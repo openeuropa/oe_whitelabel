@@ -40,7 +40,7 @@
       {% endif %}
 
       {# Moderators. #}
-      {% if not entity.oe_session_moderators.isEmpty() %}
+      {% if content.oe_session_moderators|field_value is not empty %}
         <div class="mb-4-5">
           {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
             title: content.oe_session_moderators|field_label,
@@ -51,7 +51,7 @@
       {% endif %}
 
       {# Speakers. #}
-      {% if not entity.oe_session_speakers.isEmpty() %}
+      {% if content.oe_session_speakers|field_value is not empty %}
         <div class="mb-4-5">
           {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
             title: content.oe_session_speakers|field_label,
