@@ -21,7 +21,7 @@
       <span class="text-muted">{{ content.oe_session_hours|field_value }}</span>
     {% endblock %}
   </div>
-  <div class="col-xxl-10 col-xl-9 col-lg-9">
+  <div class="session-content col-xxl-10 col-xl-9 col-lg-9">
     {% block content %}
       {% if not entity.get('name').isEmpty() %}
         {# Display session label only if name field is not empty. #}
@@ -62,7 +62,11 @@
       {% endif %}
 
       {# Venue / Online link as description list. #}
-      {{ session_links }}
+      {% if session_links %}
+        <div class="mb-4-5">
+          {{ session_links }}
+        </div>
+      {% endif %}
 
       {# Details. #}
       {% if not entity.oe_session_details.isEmpty() %}
