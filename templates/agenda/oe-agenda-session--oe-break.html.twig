@@ -9,14 +9,7 @@
 {% extends "@oe_whitelabel/agenda/oe-agenda-session--oe-default.html.twig" %}
 
 {% block hours %}
-  {{ pattern('icon', {
-    name: 'clock',
-    path: bcl_icon_path,
-    size: 'xs',
-    attributes: create_attribute({
-      class: ['mb-1', 'me-2'],
-    }),
-  }) }}
+  {{ _self.icon() }}
   <span class="text-muted">{{ content.oe_session_hours|field_value }}</span>
 {% endblock %}
 
