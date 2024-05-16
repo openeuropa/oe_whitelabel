@@ -8,7 +8,7 @@
   }
 
   .session-content {
-    & > div:last-child,
+    & > *:last-child,
     .session-details > *:last-child {
       margin-bottom: 0 !important;
     }
