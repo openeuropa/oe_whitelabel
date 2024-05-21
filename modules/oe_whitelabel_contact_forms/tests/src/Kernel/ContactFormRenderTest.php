@@ -6,7 +6,7 @@ namespace Drupal\Tests\oe_whitelabel_contact_forms\Kernel;
 
 use Drupal\contact\Entity\ContactForm;
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\Tests\oe_bootstrap_theme\PatternAssertions\DescriptionListAssert;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\DescriptionListAssert;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use Symfony\Component\DomCrawler\Crawler;
