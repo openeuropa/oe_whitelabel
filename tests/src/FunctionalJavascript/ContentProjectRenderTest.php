@@ -11,9 +11,11 @@ use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\node\NodeInterface;
 use Drupal\oe_content_entity\Entity\CorporateEntityInterface;
 use Drupal\oe_content_entity_organisation\Entity\OrganisationInterface;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\GalleryPatternAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertions\ContentBannerAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertions\DescriptionListAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertions\InPageNavigationAssert;
+use Drupal\Tests\oe_whitelabel\Traits\MediaCreationTrait;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 use Drupal\Tests\TestFileCreationTrait;
 use Drupal\user\Entity\Role;
@@ -131,7 +133,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     $assert->assertPattern([
       'image' => [
         'alt' => 'Image test alt',
-        'src' => 'image-test.png',
+        'src' => 'example_1.jpeg',
       ],
       'badges' => ['wood industry'],
       'title' => 'Test project node',
@@ -167,6 +169,10 @@ class ContentProjectRenderTest extends WebDriverTestBase {
         [
           'label' => 'Achievements and milestones',
           'href' => '#oe-project-oe-cx-achievements-and-milestone',
+        ],
+        [
+          'label' => 'Gallery',
+          'href' => '#oe-project-oe-cx-gallery',
         ],
       ],
     ], $inpage_nav->getOuterHtml());
