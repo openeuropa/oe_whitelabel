@@ -137,7 +137,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
       ],
       'badges' => ['wood industry'],
       'title' => 'Test project node',
-      'description' => 'Test project node',
+      'content' => 'Test project node',
     ], $content_banner->getOuterHtml());
 
     // Assert in-page navigation.

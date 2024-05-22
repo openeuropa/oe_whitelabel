@@ -103,7 +103,7 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
       'meta' => [
         '02 August 2022',
       ],
-      'description' => $short_description,
+      'content' => $short_description,
       'badges' => [],
       'image' => [
         'alt' => 'Alt text',
