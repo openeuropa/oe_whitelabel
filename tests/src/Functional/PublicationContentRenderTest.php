@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_whitelabel\Functional;
 
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CardPatternAssert;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\ContentBannerAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\FilePatternAssert;
-use Drupal\Tests\oe_bootstrap_theme\PatternAssertions\ContentBannerAssert;
-use Drupal\Tests\oe_bootstrap_theme\PatternAssertions\InPageNavigationAssert;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\InPageNavigationAssert;
 use Drupal\Tests\oe_whitelabel\Traits\MediaCreationTrait;
 
 /**
