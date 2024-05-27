@@ -7,19 +7,19 @@
  * @see ./modules/contrib/oe_agenda/templates/oe-agenda-session.html.twig
  */
 #}
-{% macro icon(name = 'clock', size = 'xs', attributes) %}
+{% macro icon(name, size, attributes) %}
   {{ pattern('icon', {
     name: name,
     path: bcl_icon_path,
     size: size,
-    attributes: attributes|default(create_attribute().addClass(['mb-1', 'me-2']))
+    attributes: attributes,
   }) }}
 {% endmacro %}
 
 <div{{ attributes.addClass('row') }}>
   <div class="col-xxl-2 col-xl-3 col-lg-3 mb-3 mb-lg-0">
     {% block hours %}
-      {{ _self.icon() }}
+      {{ _self.icon('clock', 'xs', create_attribute().addClass(['mb-1', 'me-2'])) }}
       <span>{{ content.oe_session_hours|field_value }}</span>
     {% endblock %}
   </div>
