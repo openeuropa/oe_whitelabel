@@ -8,6 +8,7 @@ use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 use Drupal\node\NodeInterface;
 use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\FilePatternAssert;
 use Drupal\Tests\TestFileCreationTrait;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -144,12 +145,23 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
     $document_group_title = $content->filter('h3.fs-4');
     $this->assertEquals('Curriculum Vitae', $document_group_title->text());
     $files = $content->filter('.bcl-file');
-    $this->assertEquals(
-      'Person document test',
-      $files->filter('p')->text()
-    );
-
+    $expected_document = [
+      'file' => [
+        'title' => 'Person document test',
+        'language' => 'English',
+        'url' => $document->get('oe_media_file')->entity->createFileUrl(FALSE),
+        'meta' => '(2.96 KB - PDF)',
+        'icon' => 'file-pdf-fill',
+      ],
+      'translations' => NULL,
+      'link_label' => 'Download',
+    ];
     $this->assertCount(3, $files);
+
+    $assert = new FilePatternAssert();
+    foreach ($files as $file) {
+      $assert->assertPattern($expected_document, $file->getHtml());
+    }
   }
 
   /**
