@@ -73,7 +73,7 @@
         "enable-patching": true,
         "patches": {
             "openeuropa/oe_bootstrap_theme": {
-                "new pattern assert": "https://github.com/openeuropa/oe_bootstrap_theme/compare/1.10.0...OEL-1771.diff"
+                "new pattern assert": "https://github.com/openeuropa/oe_bootstrap_theme/compare/1.10.0...1.x.diff"
             }
         },
         "artifacts": {
