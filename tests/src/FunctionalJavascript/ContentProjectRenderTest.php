@@ -11,10 +11,10 @@ use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\node\NodeInterface;
 use Drupal\oe_content_entity\Entity\CorporateEntityInterface;
 use Drupal\oe_content_entity_organisation\Entity\OrganisationInterface;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\ContentBannerAssert;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\DescriptionListAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\GalleryPatternAssert;
-use Drupal\Tests\oe_whitelabel\PatternAssertions\ContentBannerAssert;
-use Drupal\Tests\oe_whitelabel\PatternAssertions\DescriptionListAssert;
-use Drupal\Tests\oe_whitelabel\PatternAssertions\InPageNavigationAssert;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\InPageNavigationAssert;
 use Drupal\Tests\oe_whitelabel\Traits\MediaCreationTrait;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 use Drupal\Tests\TestFileCreationTrait;
@@ -137,7 +137,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
       ],
       'badges' => ['wood industry'],
       'title' => 'Test project node',
-      'description' => 'Test project node',
+      'content' => 'Test project node',
     ], $content_banner->getOuterHtml());
 
     // Assert in-page navigation.

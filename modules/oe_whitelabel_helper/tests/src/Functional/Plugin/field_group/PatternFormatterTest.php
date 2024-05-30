@@ -8,7 +8,7 @@ use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\field_group\Functional\FieldGroupTestTrait;
-use Drupal\Tests\oe_whitelabel\PatternAssertions\DescriptionListAssert;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\DescriptionListAssert;
 
 /**
  * Test the pattern field group formatter.

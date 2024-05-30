@@ -6,7 +6,7 @@ namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
 use Drupal\filter\Entity\FilterFormat;
 use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\Tests\oe_whitelabel\PatternAssertions\DescriptionListAssert;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\DescriptionListAssert;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
