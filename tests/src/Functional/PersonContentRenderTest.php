@@ -144,22 +144,32 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
 
     $document_group_title = $content->filter('h3.fs-4');
     $this->assertEquals('Curriculum Vitae', $document_group_title->text());
-    $files = $content->filter('.bcl-file');
+    $files = $content->filter('.bcl-file-container');
+
+    $document_file = File::create([
+      'uri' => $this->getTestFiles('text')[0]->uri,
+    ]);
+    $document_file->save();
+
+    $file = File::load($document_file->id());
+    $absolute_file_url = $file->createFileUrl(FALSE);
+
     $expected_document = [
       'file' => [
         'title' => 'Person document test',
         'language' => 'English',
         'meta' => '(1 KB - TXT)',
         'icon' => 'file-text-fill',
+        'url' => $absolute_file_url,
       ],
       'translations' => NULL,
       'link_label' => 'Download',
     ];
     $this->assertCount(3, $files);
-
     $assert = new FilePatternAssert();
     foreach ($files as $file) {
-      $assert->assertPattern($expected_document, $file->getHtml());
+      $file_html = $file->ownerDocument->saveHTML($file);
+      $assert->assertPattern($expected_document, $file_html);
     }
   }
 
