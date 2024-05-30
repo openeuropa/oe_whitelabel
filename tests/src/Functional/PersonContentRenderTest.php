@@ -149,9 +149,8 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
       'file' => [
         'title' => 'Person document test',
         'language' => 'English',
-        'url' => $document->get('oe_media_file')->entity->createFileUrl(FALSE),
-        'meta' => '(2.96 KB - PDF)',
-        'icon' => 'file-pdf-fill',
+        'meta' => '(1 KB - TXT)',
+        'icon' => 'file-text-fill',
       ],
       'translations' => NULL,
       'link_label' => 'Download',
