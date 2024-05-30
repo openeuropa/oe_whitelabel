@@ -150,10 +150,7 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
       'uri' => $this->getTestFiles('text')[0]->uri,
     ]);
     $document_file->save();
-
-    $file = File::load($document_file->id());
-    $absolute_file_url = $file->createFileUrl(FALSE);
-
+    $absolute_file_url = $document_file->createFileUrl(FALSE);
     $expected_document = [
       'file' => [
         'title' => 'Person document test',
