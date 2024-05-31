@@ -23,6 +23,12 @@
   margin-right: 1.5rem;
 }
 
+.oe-list-pages-sort-form .form-select {
+  @media (min-width: 576px) {
+    max-width: calc(100% - 75px);
+  }
+}
+
 @media (max-width: 576px) {
   .oe-list-pages-sort-form {
     display: block;
