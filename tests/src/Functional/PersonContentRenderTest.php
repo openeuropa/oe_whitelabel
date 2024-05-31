@@ -150,23 +150,22 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
       'uri' => $this->getTestFiles('text')[0]->uri,
     ]);
     $document_file->save();
-    $absolute_file_url = $document_file->createFileUrl(FALSE);
     $expected_document = [
       'file' => [
         'title' => 'Person document test',
         'language' => 'English',
         'meta' => '(1 KB - TXT)',
         'icon' => 'file-text-fill',
-        'url' => $absolute_file_url,
+        'url' => $document_file->createFileUrl(FALSE),
       ],
       'translations' => NULL,
       'link_label' => 'Download',
     ];
     $this->assertCount(3, $files);
     $assert = new FilePatternAssert();
-    foreach ($files as $file) {
-      $file_html = $file->ownerDocument->saveHTML($file);
-      $assert->assertPattern($expected_document, $file_html);
+    foreach ($files as $index => $file) {
+      $file = $files->eq($index);
+      $assert->assertPattern($expected_document, $file->outerHtml());
     }
   }
 
