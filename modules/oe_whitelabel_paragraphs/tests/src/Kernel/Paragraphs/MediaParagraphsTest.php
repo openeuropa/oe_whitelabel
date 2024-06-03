@@ -172,7 +172,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(0, $crawler->filter('h2'));
     $this->assertCount(0, $crawler->filter('div.col-12.col-md-6.order-md-1'));
     $this->assertCount(0, $crawler->filter('div.col-12.col-md-6.order-md-2'));
-    $this->assertCount(1, $crawler->filter('div.ratio.ratio-16x9'));
+    $this->assertCount(1, $crawler->filter('div.ratio.ratio-16x9 > iframe'));
     $figure = $crawler->filter('figure');
     $this->assertCount(1, $figure);
     $this->assertCount(0, $figure->filter('img.img-fluid'));
@@ -199,7 +199,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(1, $crawler->filter('h2'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-6.order-md-1'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-6.order-md-2'));
-    $this->assertCount(1, $crawler->filter('div.ratio.ratio-16x9'));
+    $this->assertCount(1, $crawler->filter('div.ratio.ratio-16x9 > iframe'));
     $figure = $crawler->filter('figure');
     $this->assertCount(1, $figure);
     $this->assertCount(0, $figure->filter('img.img-fluid'));
@@ -228,7 +228,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(1, $crawler->filter('h2'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-6.order-md-1'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-6.order-md-2'));
-    $this->assertCount(1, $crawler->filter('div.ratio.ratio-16x9'));
+    $this->assertCount(1, $crawler->filter('div.ratio.ratio-16x9 > iframe'));
     $figure = $crawler->filter('figure');
     $this->assertCount(1, $figure);
     $this->assertCount(0, $figure->filter('img.img-fluid'));
@@ -262,7 +262,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(1, $crawler->filter('h2'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-6.order-md-1'));
     $this->assertCount(1, $crawler->filter('div.col-12.col-md-6.order-md-2'));
-    $this->assertCount(1, $crawler->filter('div.ratio.ratio-16x9'));
+    $this->assertCount(1, $crawler->filter('div.ratio.ratio-16x9 > iframe'));
     $figure = $crawler->filter('figure');
     $this->assertCount(1, $figure);
     $this->assertCount(0, $figure->filter('img.img-fluid'));
