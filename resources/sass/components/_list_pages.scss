@@ -4,42 +4,25 @@
   line-height: var(--bs-body-line-height);
 }
 
-.oe-list-pages-sort-form {
-  display: flex;
-  justify-content: flex-end;
-  align-content: center;
-}
-
 .oe-list-pages-sort-form .form-item {
   margin: 0 0 0 1.5rem;
-}
-.oe-list-pages-sort-form .form-label,
-.oe-list-pages-sort-form .form-select {
-  display: inline-block;
-  width: auto;
-}
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 
-.oe-list-pages-sort-form .form-label {
-  margin-right: 1.5rem;
-}
-
-.oe-list-pages-sort-form .form-select {
-  @media (min-width: 576px) {
-    max-width: calc(100% - 75px);
+  .form-label {
+    width: auto;
+    margin: 0 1.5rem 0 0;
+    min-width: 51px;
+    word-break: break-all;
   }
-}
 
-@media (max-width: 576px) {
-  .oe-list-pages-sort-form {
+  @media (max-width: 576px) {
     display: block;
-  }
-
-  .oe-list-pages-sort-form .form-item {
     margin: 0;
-  }
 
-  .oe-list-pages-sort-form .form-label,
-  .oe-list-pages-sort-form .form-select {
-    width: 100%;
+    .form-label {
+      margin: 0 0 .5rem 0;
+    }
   }
 }
