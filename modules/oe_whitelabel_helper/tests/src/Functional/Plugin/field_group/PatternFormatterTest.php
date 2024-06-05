@@ -127,8 +127,16 @@ class PatternFormatterTest extends WhitelabelBrowserTestBase {
 
   /**
    * Tests the section pattern formatter.
+   *
+   * @param string $formatter_id
+   *   Field group formatter id.
+   *   This will be one of the section and sub-section field group formatters.
+   * @param array $pattern_assert_data
+   *   Additional data for SectionPatternAssert.
+   *
+   * @dataProvider providerTestSectionPatternFormatter
    */
-  public function testSectionPatternFormatter(): void {
+  public function testSectionPatternFormatter(string $formatter_id, array $pattern_assert_data): void {
     $page = $this->getSession()->getPage();
 
     $data = [
@@ -137,7 +145,7 @@ class PatternFormatterTest extends WhitelabelBrowserTestBase {
         0 => 'field_test_1',
       ],
       'label' => 'First section',
-      'format_type' => 'oe_whitelabel_section_pattern',
+      'format_type' => $formatter_id,
     ];
     $group = $this->createGroup('node', 'test', 'view', 'default', $data);
     field_group_group_save($group);
@@ -149,7 +157,7 @@ class PatternFormatterTest extends WhitelabelBrowserTestBase {
         0 => 'field_test_2',
       ],
       'label' => 'Empty section',
-      'format_type' => 'oe_whitelabel_section_pattern',
+      'format_type' => $formatter_id,
     ];
     $group = $this->createGroup('node', 'test', 'view', 'default', $data);
     field_group_group_save($group);
@@ -172,17 +180,46 @@ class PatternFormatterTest extends WhitelabelBrowserTestBase {
     // Only the first field group is shown.
     $this->assertCount(1, $sections);
 
-    (new SectionPatternAssert())->assertPattern([
+    $pattern_assert_data += [
       'heading' => 'First section',
       'content' => '<div class="test___"> <div class="field__label fw-bold"> Field 1 </div> <div class="field__item"><p>Content test 1</p> </div> </div>',
       'tag' => 'section',
-      'heading_tag' => 'h2',
-      'attributes' => [
-        'class' => 'mb-5 section',
-      ],
       'heading_attributes' => [],
       'wrapper_attributes' => [],
-    ], $sections[0]->getOuterHtml());
+    ];
+    (new SectionPatternAssert())->assertPattern(
+      $pattern_assert_data,
+      $sections[0]->getOuterHtml(),
+    );
+  }
+
+  /**
+   * Data provider.
+   *
+   * @return list<array{string, array}>
+   *   Records matching the parameters of the test method.
+   */
+  protected function providerTestSectionPatternFormatter(): array {
+    return [
+      [
+        'oe_whitelabel_section_pattern',
+        [
+          'heading_tag' => 'h2',
+          'attributes' => [
+            'class' => 'mb-5 section',
+          ],
+        ],
+      ],
+      [
+        'oe_whitelabel_sub_section_pattern',
+        [
+          'heading_tag' => 'h3',
+          'attributes' => [
+            'class' => 'mb-4 section',
+          ],
+        ],
+      ],
+    ];
   }
 
 }

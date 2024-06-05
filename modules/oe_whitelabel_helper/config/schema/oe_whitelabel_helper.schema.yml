@@ -37,6 +37,10 @@ field_group.field_group_formatter_plugin.oe_whitelabel_section_pattern:
   type: field_group.field_group_formatter_plugin.base
   label: 'Mapping for the section pattern formatter settings'
 
+field_group.field_group_formatter_plugin.oe_whitelabel_sub_section_pattern:
+  type: field_group.field_group_formatter_plugin.base
+  label: 'Mapping for the section pattern formatter settings'
+
 field.formatter.settings.oe_whitelabel_helper_gallery:
   type: mapping
   label: 'Gallery formatter settings'

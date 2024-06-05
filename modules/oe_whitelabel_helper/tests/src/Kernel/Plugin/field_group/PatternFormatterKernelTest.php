@@ -56,6 +56,7 @@ class PatternFormatterKernelTest extends AbstractKernelTestBase {
     $fields = [
       'field_test_1' => 'Field 1',
       'field_test_2' => 'Field 2',
+      'field_test_3' => 'Field 3',
     ];
     foreach ($fields as $field_name => $field_label) {
       $field_storage = FieldStorageConfig::create([
@@ -151,12 +152,25 @@ class PatternFormatterKernelTest extends AbstractKernelTestBase {
     $group = $this->createGroup('node', 'article', 'view', 'default', $group_data);
     field_group_group_save($group);
 
+    // Create a sub-section field group.
+    $group_data = [
+      'weight' => '2',
+      'children' => [
+        'field_test_3',
+      ],
+      'label' => 'First sub-section',
+      'format_type' => 'oe_whitelabel_sub_section_pattern',
+    ];
+    $group = $this->createGroup('node', 'article', 'view', 'default', $group_data);
+    field_group_group_save($group);
+
     // Create a test entity.
     $node = Node::create([
       'type' => 'article',
       'title' => 'Example article',
       'field_test_1' => 'Content test 1',
       'field_test_2' => 'Content test 2',
+      'field_test_3' => 'Content test 3',
     ]);
     $node->save();
 
@@ -170,7 +184,7 @@ class PatternFormatterKernelTest extends AbstractKernelTestBase {
 
     $sections = $crawler->filter('section.section');
 
-    $this->assertCount(1, $sections);
+    $this->assertCount(2, $sections);
 
     (new SectionPatternAssert())->assertPattern([
       'heading' => 'First section',
@@ -185,12 +199,25 @@ class PatternFormatterKernelTest extends AbstractKernelTestBase {
       'wrapper_attributes' => [],
     ], $sections->eq(0)->outerHtml());
 
+    (new SectionPatternAssert())->assertPattern([
+      'heading' => 'First sub-section',
+      'content' => '<div class="article__field-test-3"> <div class="field__label fw-bold"> Field 3 </div> <div class="field__item">Content test 3</div> </div>',
+      'tag' => 'section',
+      'heading_tag' => 'h3',
+      'attributes' => [
+        'class' => 'mb-4 section',
+      ],
+      'heading_attributes' => [],
+      'wrapper_attributes' => [],
+    ], $sections->eq(1)->outerHtml());
+
     // Now test with empty field values.
     $node = Node::create([
       'type' => 'article',
       'title' => 'Empty article',
       'field_test_1' => '',
       'field_test_2' => '',
+      'field_test_3' => '',
     ]);
     $node->save();
 
@@ -204,7 +231,7 @@ class PatternFormatterKernelTest extends AbstractKernelTestBase {
 
     $sections = $crawler->filter('section.section');
 
-    // The field group is not printed.
+    // The field groups are not printed.
     $this->assertCount(0, $sections);
   }
 
