@@ -16,21 +16,24 @@ namespace Drupal\oe_whitelabel_helper\Plugin\field_group\FieldGroupFormatter;
  *   }
  * )
  */
-class SectionPattern extends PreRenderingFieldGroupFormatterBase {
+class SectionPattern extends PreRenderingPatternFormatterBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getPatternId(): string {
+    return 'section';
+  }
 
   /**
    * {@inheritdoc}
    */
   public function buildContent(array $child_elements, array $properties): array {
-    $element = [
-      '#type' => 'pattern',
-      '#id' => 'section',
-      '#fields' => [
-        'heading' => $this->getLabel(),
-        'content' => $child_elements,
-      ],
-      '#attributes' => $properties['#attributes'] ?? [],
-    ];
+    $element = $this->buildPatternElement([
+      'heading' => $this->getLabel(),
+      'content' => $child_elements,
+    ]);
+    $element['#attributes'] = $properties['#attributes'] ?? [];
     $element['#attributes']['class'][] = 'mb-5';
     return $element;
   }

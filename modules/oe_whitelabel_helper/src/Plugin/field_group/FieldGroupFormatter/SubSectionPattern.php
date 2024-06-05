@@ -16,24 +16,17 @@ namespace Drupal\oe_whitelabel_helper\Plugin\field_group\FieldGroupFormatter;
  *   }
  * )
  */
-class SubSectionPattern extends PreRenderingFieldGroupFormatterBase {
+class SubSectionPattern extends SectionPattern {
 
   /**
    * {@inheritdoc}
    */
   public function buildContent(array $child_elements, array $properties): array {
-    $element = [
-      '#type' => 'pattern',
-      '#id' => 'section',
-      '#fields' => [
-        'heading' => $this->getLabel(),
-        'content' => $child_elements,
-      ],
-      '#settings' => [
-        'heading_tag' => 'h3',
-      ],
-      '#attributes' => $properties['#attributes'] ?? [],
-    ];
+    $element = parent::buildContent($child_elements, $properties);
+    $element['#settings']['heading_tag'] = 'h3';
+    // Completely replace attributes, to remove any class added by the parent
+    // method.
+    $element['#attributes'] = $properties['#attributes'] ?? [];
     $element['#attributes']['class'][] = 'mb-4';
     return $element;
   }
