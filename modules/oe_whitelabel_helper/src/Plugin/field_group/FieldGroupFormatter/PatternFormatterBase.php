@@ -24,13 +24,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 abstract class PatternFormatterBase extends FieldGroupFormatterBase implements ContainerFactoryPluginInterface {
 
   /**
-   * UI Patterns manager.
-   *
-   * @var \Drupal\ui_patterns\UiPatternsManager
-   */
-  protected $patternsManager;
-
-  /**
    * PatternFormatterBase constructor.
    *
    * @param array $configuration
@@ -39,12 +32,16 @@ abstract class PatternFormatterBase extends FieldGroupFormatterBase implements C
    *   The plugin_id for the plugin instance.
    * @param array $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\ui_patterns\UiPatternsManager $patterns_manager
+   * @param \Drupal\ui_patterns\UiPatternsManager $patternsManager
    *   UI Patterns manager.
    */
-  public function __construct(array $configuration, string $plugin_id, array $plugin_definition, UiPatternsManager $patterns_manager) {
+  public function __construct(
+    array $configuration,
+    string $plugin_id,
+    array $plugin_definition,
+    protected UiPatternsManager $patternsManager,
+  ) {
     parent::__construct($plugin_id, $plugin_definition, $configuration['group'], $configuration['settings'], $configuration['label']);
-    $this->patternsManager = $patterns_manager;
   }
 
   /**
