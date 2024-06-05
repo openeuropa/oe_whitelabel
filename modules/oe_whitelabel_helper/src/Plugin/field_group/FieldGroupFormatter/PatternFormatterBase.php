@@ -44,7 +44,6 @@ abstract class PatternFormatterBase extends FieldGroupFormatterBase implements C
    */
   public function __construct(array $configuration, string $plugin_id, array $plugin_definition, UiPatternsManager $patterns_manager) {
     parent::__construct($plugin_id, $plugin_definition, $configuration['group'], $configuration['settings'], $configuration['label']);
-    $this->configuration = $configuration;
     $this->patternsManager = $patterns_manager;
   }
 
