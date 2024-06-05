@@ -8,6 +8,7 @@ use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Tests\field_group\Functional\FieldGroupTestTrait;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\DescriptionListAssert;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\SectionPatternAssert;
 use Drupal\Tests\oe_whitelabel\Functional\WhitelabelBrowserTestBase;
 
 /**
@@ -122,6 +123,66 @@ class PatternFormatterTest extends WhitelabelBrowserTestBase {
         ],
       ],
     ], $description_lists[0]->getOuterHtml());
+  }
+
+  /**
+   * Tests the section pattern formatter.
+   */
+  public function testSectionPatternFormatter(): void {
+    $page = $this->getSession()->getPage();
+
+    $data = [
+      'weight' => '1',
+      'children' => [
+        0 => 'field_test_1',
+      ],
+      'label' => 'First section',
+      'format_type' => 'oe_whitelabel_section_pattern',
+    ];
+    $group = $this->createGroup('node', 'test', 'view', 'default', $data);
+    field_group_group_save($group);
+
+    // Create another section which will have empty content.
+    $data = [
+      'weight' => '2',
+      'children' => [
+        0 => 'field_test_2',
+      ],
+      'label' => 'Empty section',
+      'format_type' => 'oe_whitelabel_section_pattern',
+    ];
+    $group = $this->createGroup('node', 'test', 'view', 'default', $data);
+    field_group_group_save($group);
+
+    $this->drupalCreateNode([
+      'type' => 'test',
+      'field_test_1' => [
+        ['value' => 'Content test 1'],
+      ],
+      // Leave the second field empty.
+      'field_test_2' => [
+        ['value' => ''],
+      ],
+    ]);
+
+    // Assert that fields are rendered using the field list horizontal pattern.
+    $this->drupalGet('node/1');
+
+    $sections = $page->findAll('css', 'section.section');
+    // Only the first field group is shown.
+    $this->assertCount(1, $sections);
+
+    (new SectionPatternAssert())->assertPattern([
+      'heading' => 'First section',
+      'content' => '<div class="test___"> <div class="field__label fw-bold"> Field 1 </div> <div class="field__item"><p>Content test 1</p> </div> </div>',
+      'tag' => 'section',
+      'heading_tag' => 'h2',
+      'attributes' => [
+        'class' => 'mb-5 section',
+      ],
+      'heading_attributes' => [],
+      'wrapper_attributes' => [],
+    ], $sections[0]->getOuterHtml());
   }
 
 }

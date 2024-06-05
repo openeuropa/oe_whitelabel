@@ -9,6 +9,7 @@ use Drupal\node\Entity\NodeType;
 use Drupal\Tests\field_group\Functional\FieldGroupTestTrait;
 use Drupal\Tests\oe_bootstrap_theme\Kernel\Traits\RenderTrait;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\DescriptionListAssert;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\SectionPatternAssert;
 use Drupal\Tests\oe_whitelabel\Kernel\AbstractKernelTestBase;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -131,6 +132,80 @@ class PatternFormatterKernelTest extends AbstractKernelTestBase {
         ],
       ],
     ], $description_lists->eq(0)->outerHtml());
+  }
+
+  /**
+   * Tests the section and sub-section pattern formatters.
+   */
+  public function testSectionPatternFormatter(): void {
+    // Create a section field group.
+    $group_data = [
+      'weight' => '1',
+      'children' => [
+        'field_test_1',
+        'field_test_2',
+      ],
+      'label' => 'First section',
+      'format_type' => 'oe_whitelabel_section_pattern',
+    ];
+    $group = $this->createGroup('node', 'article', 'view', 'default', $group_data);
+    field_group_group_save($group);
+
+    // Create a test entity.
+    $node = Node::create([
+      'type' => 'article',
+      'title' => 'Example article',
+      'field_test_1' => 'Content test 1',
+      'field_test_2' => 'Content test 2',
+    ]);
+    $node->save();
+
+    $element = \Drupal::entityTypeManager()
+      ->getViewBuilder('node')
+      ->view($node, 'default');
+
+    $html = $this->renderRoot($element);
+
+    $crawler = new Crawler($html);
+
+    $sections = $crawler->filter('section.section');
+
+    $this->assertCount(1, $sections);
+
+    (new SectionPatternAssert())->assertPattern([
+      'heading' => 'First section',
+      // The field markup is overly specific, but that's ok.
+      'content' => '<div class="article__field-test-1"> <div class="field__label fw-bold"> Field 1 </div> <div class="field__item">Content test 1</div> </div> <div class="article__field-test-2"> <div class="field__label fw-bold"> Field 2 </div> <div class="field__item">Content test 2</div> </div>',
+      'tag' => 'section',
+      'heading_tag' => 'h2',
+      'attributes' => [
+        'class' => 'mb-5 section',
+      ],
+      'heading_attributes' => [],
+      'wrapper_attributes' => [],
+    ], $sections->eq(0)->outerHtml());
+
+    // Now test with empty field values.
+    $node = Node::create([
+      'type' => 'article',
+      'title' => 'Empty article',
+      'field_test_1' => '',
+      'field_test_2' => '',
+    ]);
+    $node->save();
+
+    $element = \Drupal::entityTypeManager()
+      ->getViewBuilder('node')
+      ->view($node, 'default');
+
+    $html = $this->renderRoot($element);
+
+    $crawler = new Crawler($html);
+
+    $sections = $crawler->filter('section.section');
+
+    // The field group is not printed.
+    $this->assertCount(0, $sections);
   }
 
 }
