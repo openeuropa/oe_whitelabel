@@ -125,7 +125,7 @@ function oe_whitelabel_preprocess_paragraph__oe_social_media_follow(array &$vari
 function oe_whitelabel_preprocess_paragraph__oe_accordion(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
-  $color_scheme_preprocess->injectColorScheme($variables);
+  $color_scheme_preprocess->injectColorScheme($variables, FALSE);
 
   // Massage data to be compliant with OE Bootstrap Theme accordion pattern
   // data structure.
@@ -371,7 +371,7 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
 function oe_whitelabel_preprocess_paragraph__oe_timeline(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
-  $color_scheme_preprocess->injectColorScheme($variables);
+  $color_scheme_preprocess->injectColorScheme($variables, FALSE);
 
   $paragraph = $variables['paragraph'];
   if (!$paragraph->get('field_oe_title')->isEmpty()) {
@@ -470,7 +470,7 @@ function oe_whitelabel_preprocess_paragraph__oe_description_list(array &$variabl
 function oe_whitelabel_preprocess_paragraph__oe_facts_figures(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
-  $color_scheme_preprocess->injectColorScheme($variables);
+  $color_scheme_preprocess->injectColorScheme($variables, FALSE);
 
   /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
   $paragraph = $variables['paragraph'];
