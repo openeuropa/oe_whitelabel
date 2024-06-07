@@ -17,8 +17,21 @@ class ColorSchemePreprocess {
    *
    * @param array $variables
    *   The render array.
-   * @param bool $background
-   *   Add a background class if TRUE.
+   * @param array $options
+   *   An associative array of options to control the behavior of the function.
+   *   Possible keys are:
+   *   - 'text_colored': (bool) If set to TRUE, adds a class to override the
+   *     text color.
+   *   - 'background': (bool) If set to TRUE, adds a class to override the
+   *     background color.
+   *   - 'primary_background': (bool) If set to TRUE, adds a class to override
+   *     the background and text color to primary.
+   *   - 'secondary_background': (bool) If set to TRUE, adds a class to override
+   *     the background and text color to secondary.
+   *   - 'danger_background': (bool) If set to TRUE, adds a class to override
+   *     the background and text color to danger.
+   *   - 'success_background': (bool) If set to TRUE, adds a class to override
+   *     the background and text color to success.
    */
   public function injectColorScheme(array &$variables, array $options = []): void {
     if (!isset($variables['elements']['#oe_color_scheme'])) {
@@ -36,9 +49,25 @@ class ColorSchemePreprocess {
       $variables['attributes']->addClass('bg-default');
     }
 
+    // The text-bg- classes already set the text and background color,
+    //  so we remove the others.
     if ($options['primary_background']) {
       $variables['attributes']->addClass('text-bg-primary');
-      // The text-bg- class already sets the text and background color.
+      $variables['attributes']->removeClass(['bg-default', 'text-color-default']);
+    }
+
+    if ($options['secondary_background']) {
+      $variables['attributes']->addClass('text-bg-secondary');
+      $variables['attributes']->removeClass(['bg-default', 'text-color-default']);
+    }
+
+    if ($options['danger_background']) {
+      $variables['attributes']->addClass('text-bg-danger');
+      $variables['attributes']->removeClass(['bg-default', 'text-color-default']);
+    }
+
+    if ($options['success_background']) {
+      $variables['attributes']->addClass('text-bg-success');
       $variables['attributes']->removeClass(['bg-default', 'text-color-default']);
     }
   }
