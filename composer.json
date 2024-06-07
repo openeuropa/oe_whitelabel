@@ -12,7 +12,7 @@
         "drupal/daterange_compact": "^2.0.1",
         "drupal/twig_field_value": "^2.0.2",
         "openeuropa/composer-artifacts": "^1.0.0-alpha1",
-        "openeuropa/oe_bootstrap_theme": "^1.10.0"
+        "openeuropa/oe_bootstrap_theme": "0.318.202406072027"
     },
     "require-dev": {
         "composer/installers": "^1.11",
@@ -78,7 +78,7 @@
         "enable-patching": true,
         "patches": {
             "openeuropa/oe_bootstrap_theme": {
-                "development": "https://github.com/openeuropa/oe_bootstrap_theme/compare/1.10.0...1.x.diff"
+                "development": "https://github.com/openeuropa/oe_bootstrap_theme/compare/0.318.202406072027...1.x.diff"
             }
         },
         "artifacts": {
@@ -110,12 +110,7 @@
         },
         "_readme": [
             "Explicit requirement of nikic/php-parser ^4 as later versions are not compatible with grumphp @see https://github.com/phpro/grumphp/issues/1119"
-        ],
-        "patches": {
-            "openeuropa/oe_bootstrap_theme": {
-                "Color scheme development": "https://github.com/openeuropa/oe_bootstrap_theme/compare/1.x...contribution/EPHEH-318.diff"
-            }
-        }
+        ]
     },
     "config": {
         "sort-packages": true,
