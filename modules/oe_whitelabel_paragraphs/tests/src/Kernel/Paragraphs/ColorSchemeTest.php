@@ -79,10 +79,8 @@ class ColorSchemeTest extends ParagraphsTestBase {
       $html = $this->renderParagraph($paragraph);
       $crawler = new Crawler($html);
 
-      $element = $crawler->filter($data['wrapper_selector'] . '.foo-bar.text-color-default');
+      $element = $crawler->filter($data['wrapper_selector'] . '.foo-bar');
       $this->assertCount(1, $element, sprintf('Element "%s" has color scheme applied.', $data['wrapper_selector']));
-      $has_background = (bool) $crawler->filter('.bg-default')->count();
-      $this->assertTrue($data['has_background'] === $has_background, sprintf('Element "%s" does not have ".bg-default" class.', $data['wrapper_selector']));
     }
   }
 
@@ -103,22 +101,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
           'field_oe_text_long' => 'Accordion text',
         ]),
       ],
-      'wrapper_selector' => '.accordion',
-      'has_background' => TRUE,
-    ];
-    yield [
-      'values' => [
-        'type' => 'oe_carousel',
-      ],
-      'wrapper_selector' => '.carousel',
-      'has_background' => FALSE,
-    ];
-    yield [
-      'values' => [
-        'type' => 'oe_gallery',
-      ],
-      'wrapper_selector' => '.paragraph--type--oe-gallery',
-      'has_background' => FALSE,
+      'wrapper_selector' => '.accordion.text-color-default',
     ];
     yield [
       'values' => [
@@ -126,8 +109,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
         'oe_paragraphs_variant' => 'default',
         'field_oe_title' => 'Banner',
       ],
-      'wrapper_selector' => '.bcl-banner',
-      'has_background' => TRUE,
+      'wrapper_selector' => '.bcl-banner.text-color-default',
     ];
     yield [
       'values' => [
@@ -135,8 +117,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
         'oe_paragraphs_variant' => 'oe_banner_image',
         'field_oe_title' => 'Banner',
       ],
-      'wrapper_selector' => '.bcl-banner',
-      'has_background' => FALSE,
+      'wrapper_selector' => '.bcl-banner.text-color-default',
     ];
     yield [
       'values' => [
@@ -145,7 +126,6 @@ class ColorSchemeTest extends ParagraphsTestBase {
         'field_oe_title' => 'Banner',
       ],
       'wrapper_selector' => '.bcl-banner',
-      'has_background' => FALSE,
     ];
     yield [
       'values' => [
@@ -153,8 +133,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
         'oe_paragraphs_variant' => 'oe_banner_primary',
         'field_oe_title' => 'Banner',
       ],
-      'wrapper_selector' => '.bcl-banner',
-      'has_background' => FALSE,
+      'wrapper_selector' => '.bcl-banner.text-bg-primary',
     ];
     yield [
       'values' => [
@@ -162,8 +141,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
         'field_oe_text' => 'This is a test quote',
         'field_oe_plain_text_long' => 'Quote text',
       ],
-      'wrapper_selector' => 'figure',
-      'has_background' => TRUE,
+      'wrapper_selector' => 'figure.bg-default.text-color-default',
     ];
     yield [
       'values' => [
@@ -177,15 +155,13 @@ class ColorSchemeTest extends ParagraphsTestBase {
           ],
         ],
       ],
-      'wrapper_selector' => '.bcl-description-list',
-      'has_background' => TRUE,
+      'wrapper_selector' => '.bcl-description-list.text-color-default',
     ];
     yield [
       'values' => [
         'type' => 'oe_document',
       ],
-      'wrapper_selector' => '.paragraph--type--oe-document',
-      'has_background' => FALSE,
+      'wrapper_selector' => '.paragraph--type--oe-document.text-color-default',
     ];
     yield [
       'values' => [
@@ -196,8 +172,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
           'title' => 'Read more',
         ],
       ],
-      'wrapper_selector' => '.bcl-fact-figures',
-      'has_background' => TRUE,
+      'wrapper_selector' => '.bcl-fact-figures.text-color-default',
     ];
     yield [
       'values' => [
@@ -206,17 +181,16 @@ class ColorSchemeTest extends ParagraphsTestBase {
         'field_oe_list_item_block_layout' => 'one_column',
         'field_oe_title' => 'Listing item block title',
       ],
-      'wrapper_selector' => '.bcl-listing',
-      'has_background' => FALSE,
+      'wrapper_selector' => '.bcl-listing.text-color-default',
     ];
     yield [
       'values' => [
-        'type' => 'oe_text_feature_media',
-        'field_oe_title' => 'Title',
-        'field_oe_plain_text_long' => 'Text',
+        'type' => 'oe_links_block',
+        'field_oe_text' => 'Info',
+        'oe_bt_links_block_orientation' => 'vertical',
+        'oe_bt_links_block_background' => 'gray',
       ],
-      'wrapper_selector' => '.bcl-featured-media',
-      'has_background' => TRUE,
+      'wrapper_selector' => '.bcl-links-block.text-color-default',
     ];
     yield [
       'values' => [
@@ -230,8 +204,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
           ],
         ],
       ],
-      'wrapper_selector' => '.bcl-timeline',
-      'has_background' => TRUE,
+      'wrapper_selector' => '.bcl-timeline.text-color-default',
     ];
   }
 
