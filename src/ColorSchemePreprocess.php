@@ -50,7 +50,7 @@ class ColorSchemePreprocess {
     }
 
     // The text-bg- classes already set the text and background color,
-    //  so we remove the others.
+    // so we remove the others.
     if ($options['primary_background']) {
       $variables['attributes']->addClass('text-bg-primary');
       $variables['attributes']->removeClass(['bg-default', 'text-color-default']);
