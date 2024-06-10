@@ -41,32 +41,32 @@ class ColorSchemePreprocess {
     $variables['attributes'] = new Attribute($variables['attributes'] ?? []);
     $variables['attributes']->addClass(Html::getClass($variables['elements']['#oe_color_scheme']));
 
-    if ($options['text_colored']) {
+    if (!empty($options['text_colored'])) {
       $variables['attributes']->addClass('text-color-default');
     }
 
-    if ($options['background']) {
+    if (!empty($options['background'])) {
       $variables['attributes']->addClass('bg-default');
     }
 
     // The text-bg- classes already set the text and background color,
     // so we remove the others.
-    if ($options['primary_background']) {
+    if (!empty($options['primary_background'])) {
       $variables['attributes']->addClass('text-bg-primary');
       $variables['attributes']->removeClass(['bg-default', 'text-color-default']);
     }
 
-    if ($options['secondary_background']) {
+    if (!empty($options['secondary_background'])) {
       $variables['attributes']->addClass('text-bg-secondary');
       $variables['attributes']->removeClass(['bg-default', 'text-color-default']);
     }
 
-    if ($options['danger_background']) {
+    if (!empty($options['danger_background'])) {
       $variables['attributes']->addClass('text-bg-danger');
       $variables['attributes']->removeClass(['bg-default', 'text-color-default']);
     }
 
-    if ($options['success_background']) {
+    if (!empty($options['success_background'])) {
       $variables['attributes']->addClass('text-bg-success');
       $variables['attributes']->removeClass(['bg-default', 'text-color-default']);
     }
