@@ -518,10 +518,6 @@ function oe_whitelabel_preprocess_paragraph__oe_facts_figures(array &$variables)
  * Implements hook_preprocess_paragraph() for oe_carousel paragraph.
  */
 function oe_whitelabel_preprocess_paragraph__oe_carousel(array &$variables): void {
-  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
-  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
-  $color_scheme_preprocess->injectColorScheme($variables);
-
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
   $variables['items'] = [];
@@ -682,10 +678,6 @@ function oe_whitelabel_paragraphs_preprocess_paragraph__oe_gallery(&$variables) 
   // title tag, we set it up here so that further preprocess hooks can change
   // it.
   $variables['title_tag'] = 'h2';
-
-  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
-  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
-  $color_scheme_preprocess->injectColorScheme($variables);
 }
 
 /**
