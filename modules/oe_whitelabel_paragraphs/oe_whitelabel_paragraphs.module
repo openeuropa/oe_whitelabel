@@ -446,9 +446,7 @@ function oe_whitelabel_preprocess_paragraph__oe_content_row__variant_inpage_navi
 function oe_whitelabel_preprocess_paragraph__oe_description_list(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
-  $color_scheme_preprocess->injectColorScheme($variables, [
-    'background' => TRUE,
-  ]);
+  $color_scheme_preprocess->injectColorScheme($variables);
 
   /** @var Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
