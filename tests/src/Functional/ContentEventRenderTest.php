@@ -36,7 +36,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     // Set an explicit site timezone.
     $this->config('system.date')
       ->set('timezone.user.configurable', 0)
-      ->set('timezone.default', 'CET')
+      ->set('timezone.default', 'UTC')
       ->save();
   }
 
@@ -208,6 +208,87 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       'end_day' => '22',
       'date_time' => '2022-02-07',
     ];
+    $card_assert->assertVariant('search', $html);
+    $card_assert->assertPattern($expected, $html);
+
+    // Test site timezone on event teaser.
+    // Values stored are UTC.
+    $node->set('oe_sc_event_dates', [
+      'value' => '2024-06-07T00:00:00',
+      'end_value' => '2024-06-07T23:59:59',
+    ]);
+    $node->save();
+
+    // The site timezone is UTC so the event time be on the same day.
+    $expected['content'] = [
+      '7 Jun 2024',
+      'Brussel, Belgium',
+    ];
+    $expected['date'] = [
+      'year' => '2024',
+      'month' => 'Jun',
+      'day' => '07',
+      'end_year' => '2024',
+      'date_time' => '2024-06-07',
+    ];
+
+    $build = $builder->view($node, 'teaser');
+    $html = (string) $this->container->get('renderer')->renderRoot($build);
+
+    $card_assert->assertVariant('search', $html);
+    $card_assert->assertPattern($expected, $html);
+
+    // Set an explicit site timezone: UTC +2.
+    $this->config('system.date')
+      ->set('timezone.default', 'Europe/Madrid')
+      ->save();
+
+    // The site timezone is +2 so the event time be two hours later and will
+    // last until the next day.
+    $expected['content'] = [
+      '7 Jun 2024 - 8 Jun 2024',
+      'Brussel, Belgium',
+    ];
+    $expected['date'] = [
+      'year' => '2024',
+      'month' => 'Jun',
+      'day' => '07',
+      'end_day' => '08',
+      'end_month' => 'Jun',
+      'end_year' => '2024',
+      'date_time' => '2024-06-07',
+    ];
+
+    $build = $builder->view($node, 'teaser');
+    $html = (string) $this->container->get('renderer')->renderRoot($build);
+
+    $card_assert->assertVariant('search', $html);
+    $card_assert->assertPattern($expected, $html);
+
+    // Set an explicit site timezone: UTC -5.
+    $this->config('system.date')
+      ->set('timezone.default', 'America/New_York')
+      ->save();
+
+    // The site timezone is -5 so the event time be five hours earlier and will
+    // start the next before.
+    $expected['content'] = [
+      '6 Jun 2024 - 7 Jun 2024',
+      'Brussel, Belgium',
+    ];
+    $expected['date'] = [
+      'year' => '2024',
+      'month' => 'Jun',
+      'day' => '06',
+      'end_day' => '07',
+      'end_month' => 'Jun',
+      'end_year' => '2024',
+      'date_time' => '2024-06-06',
+    ];
+
+    $build = $builder->view($node, 'teaser');
+    $html = (string) $this->container->get('renderer')->renderRoot($build);
+
     $card_assert->assertVariant('search', $html);
     $card_assert->assertPattern($expected, $html);
   }
