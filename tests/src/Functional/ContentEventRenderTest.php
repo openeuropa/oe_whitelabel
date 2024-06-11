@@ -36,7 +36,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     // Set an explicit site timezone.
     $this->config('system.date')
       ->set('timezone.user.configurable', 1)
-      ->set('timezone.default', 'UTC')
+      ->set('timezone.default', 'CET')
       ->save();
   }
 
@@ -212,6 +212,9 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $card_assert->assertPattern($expected, $html);
 
     // Test timezone on event teaser.
+    // Set an explicit site timezone: UTC.
+    $this->config('system.date')->set('timezone.default', 'UTC')->save();
+
     // Values stored are UTC.
     $node->set('oe_sc_event_dates', [
       'value' => '2024-06-07T00:00:00',
@@ -268,9 +271,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
 
     // Check date rendering based on site timezone.
     // Set an explicit site timezone: UTC +2.
-    $this->config('system.date')
-      ->set('timezone.default', 'Europe/Madrid')
-      ->save();
+    $this->config('system.date')->set('timezone.default', 'Europe/Madrid')->save();
 
     // The site timezone is +2 so the event time be two hours later and will
     // last until the next day.
