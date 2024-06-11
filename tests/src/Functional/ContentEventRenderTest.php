@@ -35,7 +35,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
 
     // Set an explicit site timezone.
     $this->config('system.date')
-      ->set('timezone.user.configurable', 0)
+      ->set('timezone.user.configurable', 1)
       ->set('timezone.default', 'UTC')
       ->save();
   }
@@ -237,6 +237,34 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
 
     $card_assert->assertVariant('search', $html);
     $card_assert->assertPattern($expected, $html);
+
+    // Set an explicit user timezone: UTC -5.
+    $test_user = $this->createUser([], NULL, FALSE, ['timezone' => 'America/New_York']);
+    $this->drupalLogin($test_user);
+
+    // The site timezone is -5 so the event time be five hours earlier and will
+    // start the next before.
+    $expected['content'] = [
+      '6 Jun 2024 - 7 Jun 2024',
+      'Brussel, Belgium',
+    ];
+    $expected['date'] = [
+      'year' => '2024',
+      'month' => 'Jun',
+      'day' => '06',
+      'end_day' => '07',
+      'end_month' => 'Jun',
+      'end_year' => '2024',
+      'date_time' => '2024-06-06',
+    ];
+
+    $build = $builder->view($node, 'teaser');
+    $html = (string) $this->container->get('renderer')->renderRoot($build);
+
+    $card_assert->assertVariant('search', $html);
+    $card_assert->assertPattern($expected, $html);
+
+    $this->drupalLogout();
 
     // Set an explicit site timezone: UTC +2.
     $this->config('system.date')
