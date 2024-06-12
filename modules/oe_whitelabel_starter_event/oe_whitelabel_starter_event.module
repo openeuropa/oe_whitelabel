@@ -186,6 +186,11 @@ function _oe_whitelabel_starter_event_preprocess_date(array &$variables): void {
     return;
   }
 
+  // Displayed date depends on the timezone.
+  $cache = CacheableMetadata::createFromRenderArray($variables);
+  $cache->addCacheContexts(['timezone']);
+  $cache->applyTo($variables);
+
   $dates = $node->get('oe_sc_event_dates')->first();
   $start = $dates->get('start_date')->getValue()->getTimestamp();
   /** @var \Drupal\Core\Datetime\DateFormatterInterface $date_formatter */

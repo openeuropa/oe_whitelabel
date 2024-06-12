@@ -184,6 +184,9 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     $card_assert = new CardPatternAssert();
     $card_assert->assertVariant('search', $html);
     $card_assert->assertPattern($expected, $html);
+    // Make sure the timezone context is present. We do the check after render
+    // array has been proccessed.
+    $this->assertTrue(in_array('timezone', $build['#cache']['contexts']));
 
     // Assert event dates starting and ending at different days.
     $node->set('oe_sc_event_dates', [
@@ -290,6 +293,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     ];
 
     $build = $builder->view($node, 'teaser');
+
     $html = (string) $this->container->get('renderer')->renderRoot($build);
 
     $card_assert->assertVariant('search', $html);
