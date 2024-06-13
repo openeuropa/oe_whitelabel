@@ -246,8 +246,8 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
 
     // Check date rendering based on user timezone.
     // Set an explicit user timezone: UTC -5.
-    $test_user = $this->createUser([], NULL, FALSE, ['timezone' => 'America/New_York']);
-    $this->drupalLogin($test_user);
+    $user = $this->createUser([], NULL, FALSE, ['timezone' => 'America/New_York']);
+    $this->drupalLogin($user);
 
     // The user timezone is -5 so the event time be five hours earlier and will
     // start the day before.
@@ -293,7 +293,59 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     ];
 
     $build = $builder->view($node, 'teaser');
+    $html = (string) $this->container->get('renderer')->renderRoot($build);
 
+    $card_assert->assertVariant('search', $html);
+    $card_assert->assertPattern($expected, $html);
+
+    // Authenticated user timezone overrides site timezone.
+    $this->drupalLogin($user);
+    $this->assertEquals('America/New_York', $user->get('timezone')->value);
+
+    // The user timezone is -5 so the event time be five hours earlier and will
+    // start the day before.
+    $expected['content'] = [
+      '6 Jun 2024 - 7 Jun 2024',
+      'Brussel, Belgium',
+    ];
+    $expected['date'] = [
+      'year' => '2024',
+      'month' => 'Jun',
+      'day' => '06',
+      'end_day' => '07',
+      'end_month' => 'Jun',
+      'end_year' => '2024',
+      'date_time' => '2024-06-06',
+    ];
+
+    $build = $builder->view($node, 'teaser');
+    $html = (string) $this->container->get('renderer')->renderRoot($build);
+
+    $card_assert->assertVariant('search', $html);
+    $card_assert->assertPattern($expected, $html);
+
+    // Disable users timezone, the teaser should use site timezone for
+    // authenticated users.
+    $this->config('system.date')->set('timezone.user.configurable', 0)->save();
+    $this->assertEquals('Europe/Madrid', $this->config('system.date')->get('timezone.default'));
+
+    // The site timezone is +2 so the event time be two hours later and will
+    // last until the next day.
+    $expected['content'] = [
+      '7 Jun 2024 - 8 Jun 2024',
+      'Brussel, Belgium',
+    ];
+    $expected['date'] = [
+      'year' => '2024',
+      'month' => 'Jun',
+      'day' => '07',
+      'end_day' => '08',
+      'end_month' => 'Jun',
+      'end_year' => '2024',
+      'date_time' => '2024-06-07',
+    ];
+
+    $build = $builder->view($node, 'teaser');
     $html = (string) $this->container->get('renderer')->renderRoot($build);
 
     $card_assert->assertVariant('search', $html);
