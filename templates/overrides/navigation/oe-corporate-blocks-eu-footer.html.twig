@@ -63,14 +63,6 @@
           'type': 'links',
           'links': bcl_footer_links(corporate_footer.social_media),
         },
-        {
-          'type': 'content',
-          'content':  _self.bcl_title(corporate_footer.legal_links_title, 'fw-bold border-bottom pb-2 pt-3 mb-2'),
-        },
-        {
-          'type': 'links',
-          'links': bcl_footer_links(corporate_footer.legal_links),
-        },
         ],
       },
       {
@@ -78,7 +70,15 @@
         'items': [
         {
           'type': 'content',
-          'content':  _self.bcl_title(corporate_footer.institution_links_title, 'fw-bold border-bottom pb-2 mb-2'),
+          'content':  _self.bcl_title(corporate_footer.legal_links_title, 'fw-bold border-bottom pb-2 pt-3 pt-lg-0 mb-2'),
+        },
+        {
+          'type': 'links',
+          'links': bcl_footer_links(corporate_footer.legal_links),
+        },
+        {
+          'type': 'content',
+          'content':  _self.bcl_title(corporate_footer.institution_links_title, 'fw-bold border-bottom pb-2 pt-3 mb-2'),
         },
         {
           'type': 'links',
