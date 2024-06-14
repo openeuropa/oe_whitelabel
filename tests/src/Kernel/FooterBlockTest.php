@@ -116,7 +116,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $sectionTitles = $crawler->filter('p.fw-bold.mb-2');
     $this->assertCount(5, $sectionTitles);
     $sectionLinks = $crawler->filter('div.col-12.col-lg-4:nth-child(2) .mb-1 a.standalone');
-    $this->assertCount(10, $sectionLinks);
+    $this->assertCount(5, $sectionLinks);
   }
 
   /**
