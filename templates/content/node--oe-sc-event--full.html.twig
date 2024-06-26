@@ -49,7 +49,7 @@
     {{ inpage_navigation_fields }}
   {% else %}
     {{ pattern('inpage_navigation', {
-      title: 'Page content',
+      title: 'Page content'|t,
       links: inpage_navigation_links,
       content: inpage_navigation_fields,
       full_layout: true,
