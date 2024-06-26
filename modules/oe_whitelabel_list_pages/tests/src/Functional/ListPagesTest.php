@@ -125,7 +125,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
    *   Container with the expected elements.
    */
   protected function assertFacetsSummaryTitle(int $expected_count, ElementInterface $container): void {
-    $title = $container->find('css', 'div.col-md-6.col-lg-8 h4');
+    $title = $container->find('css', 'div.col-md-6.col-xl-8 h4');
     $text = $title->find('css', 'span.text-capitalize');
 
     $this->assertSame(
