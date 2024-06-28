@@ -10,6 +10,7 @@ dependencies:
   - drupal:daterange_compact
   - oe_bootstrap_theme:oe_bootstrap_theme_helper
   - openeuropa:oe_corporate_blocks
+  - ui_patterns:ui_patterns_field_group
 
 'interface translation project': oe_whitelabel_helper
 
@@ -18,6 +19,15 @@ config_devel:
     - core.entity_view_mode.node.oe_w_content_banner
     - daterange_compact.format.oe_whitelabel_date_only_short_month
     - daterange_compact.format.oe_whitelabel_date_time_long
+    # POC.
+    - core.entity_view_display.node.page.default
+    - core.entity_form_display.node.page.default
+    - field.field.node.page.body
+    - field.field.node.page.field_multi
+    - field.field.node.page.field_one
+    - field.storage.node.field_one
+    - field.storage.node.field_multi
+    - node.type.page
   optional:
     - core.entity_view_mode.media.oe_w_pattern_gallery_item
     - core.entity_view_display.media.av_portal_photo.oe_w_pattern_gallery_item

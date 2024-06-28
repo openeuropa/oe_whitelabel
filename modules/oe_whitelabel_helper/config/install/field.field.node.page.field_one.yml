@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_one
+    - node.type.page
+id: node.page.field_one
+field_name: field_one
+entity_type: node
+bundle: page
+label: 'Field one'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

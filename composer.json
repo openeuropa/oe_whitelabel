@@ -8,8 +8,10 @@
     "require": {
         "php": ">=8.1",
         "cweagans/composer-patches": "^1.7",
-        "drupal/core": "^10",
+        "drupal/core": "~10.2.0",
+        "drupal/core-composer-scaffold": "~10.2.0",
         "drupal/daterange_compact": "^2.0.1",
+        "drupal/field_group_markup": "^1.0",
         "drupal/twig_field_value": "^2.0.2",
         "openeuropa/composer-artifacts": "^1.0.0-alpha1",
         "openeuropa/oe_bootstrap_theme": "^1.10.0"
@@ -19,7 +21,6 @@
         "drupal/better_exposed_filters": "^6.0.3",
         "drupal/composite_reference": "^2.2",
         "drupal/config_devel": "~1.9",
-        "drupal/core-composer-scaffold": "^10",
         "drupal/core-dev": "^10",
         "drupal/description_list_field": "^1.0@alpha",
         "drupal/entity_reference_revisions": "^1.11",
@@ -74,6 +75,9 @@
         "patches": {
             "openeuropa/oe_bootstrap_theme": {
                 "development": "https://github.com/openeuropa/oe_bootstrap_theme/compare/1.10.0...1.x.diff"
+            },
+            "drupal/ui_patterns": {
+                "Field group nesting": "https://git.drupalcode.org/project/ui_patterns/-/merge_requests/14.diff"
             }
         },
         "artifacts": {

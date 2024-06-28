@@ -1,0 +1,110 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.page.body
+    - field.field.node.page.field_multi
+    - field.field.node.page.field_one
+    - node.type.page
+  module:
+    - field_group
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_section:
+      children:
+        - extra_field_oe_whitelabel_extra_section_title
+        - field_one
+        - field_multi
+      label: Section
+      parent_name: ''
+      region: content
+      weight: 2
+      format_type: pattern_formatter
+      format_settings:
+        pattern: section
+        variants:
+          alert: primary
+          banner: default
+          button: primary
+          card: default
+          card_layout: group
+          listing: default
+          navigation: default
+          offcanvas: default
+          pagination: default
+        pattern_mapping:
+          'extra_fields:extra_field_oe_whitelabel_extra_section_title':
+            destination: heading
+            weight: 0
+            plugin: extra_fields
+            source: extra_field_oe_whitelabel_extra_section_title
+          'fields:field_multi':
+            destination: content
+            weight: 1
+            plugin: fields
+            source: field_multi
+          'fields:field_one':
+            destination: content
+            weight: 2
+            plugin: fields
+            source: field_one
+        pattern_settings:
+          section:
+            heading_attributes: 'class="custom-title"'
+            heading_attributes_token: ''
+            wrapper_attributes: ''
+            wrapper_attributes_token: ''
+            attributes: ''
+            attributes_token: ''
+            heading_tag: h5
+            heading_tag_token: ''
+            tag: aside
+            tag_token: ''
+        show_empty_fields: 0
+id: node.page.default
+targetEntityType: node
+bundle: page
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  extra_field_oe_whitelabel_extra_section_title:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_multi:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_one:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  oe_content_content_owner: true
+  oe_content_legacy_link: true
+  oe_content_navigation_title: true
+  oe_content_short_title: true
+  search_api_excerpt: true
