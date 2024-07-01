@@ -186,26 +186,33 @@ function _oe_whitelabel_starter_event_preprocess_date(array &$variables): void {
     return;
   }
 
-  $dates = $node->get('oe_sc_event_dates')->first();
-  /** @var \Drupal\Core\Datetime\DrupalDateTime $start */
-  $start = $dates->get('start_date')->getValue();
-  $variables['date_block'] = [
-    'year' => $start->format('Y'),
-    'month' => $start->format('M'),
-    'day' => $start->format('d'),
-    'date_time' => $start->format('Y-m-d'),
-  ];
-  /** @var \Drupal\Core\Datetime\DrupalDateTime $end */
-  $end = $dates->get('end_date')->getValue();
+  // Displayed date depends on the timezone.
+  $cache = CacheableMetadata::createFromRenderArray($variables);
+  $cache->addCacheContexts(['timezone']);
+  $cache->applyTo($variables);
 
-  if (!empty($end) && $start->format('d-m-y') !== $end->format('d-m-y')) {
+  $dates = $node->get('oe_sc_event_dates')->first();
+  $start = $dates->get('start_date')->getValue()->getTimestamp();
+  /** @var \Drupal\Core\Datetime\DateFormatterInterface $date_formatter */
+  $date_formatter = \Drupal::service('date.formatter');
+
+  $variables['date_block'] = [
+    'year' => $date_formatter->format($start, '', 'Y'),
+    'month' => $date_formatter->format($start, '', 'M'),
+    'day' => $date_formatter->format($start, '', 'd'),
+    'date_time' => $date_formatter->format($start, '', 'Y-m-d'),
+  ];
+
+  $end = $dates->get('end_date')->getValue()->getTimestamp();
+
+  if (!empty($end) && $variables['date_block']['date_time'] !== $date_formatter->format($end, '', 'Y-m-d')) {
     $variables['date_block'] += [
-      'end_month' => $end->format('M'),
-      'end_day' => $end->format('d'),
+      'end_month' => $date_formatter->format($end, '', 'M'),
+      'end_day' => $date_formatter->format($end, '', 'd'),
     ];
 
-    if ($start->format('y') !== $end->format('y')) {
-      $variables['date_block']['end_year'] = $end->format('Y');
+    if ($date_formatter->format($start, '', 'Y') !== $date_formatter->format($end, '', 'Y')) {
+      $variables['date_block']['end_year'] = $date_formatter->format($end, '', 'Y');
     }
   }
 }
