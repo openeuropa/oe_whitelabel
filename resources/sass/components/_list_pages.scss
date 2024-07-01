@@ -1,3 +1,9 @@
+.selected-filters-block .badge {
+  text-align: left;
+  white-space: normal;
+  line-height: var(--bs-body-line-height);
+}
+
 .oe-list-pages-sort-form {
   display: flex;
   justify-content: flex-end;
