@@ -37,15 +37,7 @@ services:
       - NODE_MAX_SESSION=5
 
 pipeline:
-  npm-build:
-    group: prepare
-    image: git.fpfis.tech.ec.europa.eu/fpfis/dependency_proxy/containers/node:18
-    commands:
-      - npm install --unsafe-perm
-      - NODE_ENV=production npm run production
-
   composer-change-patch:
-    group: warmup
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     volumes:
       - /cache:/cache
@@ -59,7 +51,6 @@ pipeline:
         CORE_VERSION: "10.1.0"
 
   composer-remove-patch:
-    group: warmup
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     volumes:
       - /cache:/cache
@@ -75,6 +66,13 @@ pipeline:
     commands:
       - composer self-update --2
       - composer require drupal/core:~${CORE_VERSION} drupal/core-composer-scaffold:~${CORE_VERSION} drupal/core-dev:~${CORE_VERSION} --update-with-all-dependencies --ansi --no-progress --no-interaction
+
+  npm-build:
+    group: prepare
+    image: git.fpfis.tech.ec.europa.eu/fpfis/dependency_proxy/containers/node:18
+    commands:
+      - npm install --unsafe-perm
+      - NODE_ENV=production npm run production
 
   site-install:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
