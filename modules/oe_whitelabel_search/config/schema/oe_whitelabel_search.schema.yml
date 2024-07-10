@@ -9,35 +9,29 @@ block.settings.whitelabel_search_block:
         action:
           type: string
           label: 'Action'
-          translatable: true
         region:
           type: string
           label: 'Region'
-          translatable: true
     input:
       type: mapping
       label: 'Input'
       mapping:
         name:
-          type: string
+          type: label
           label: 'Name'
-          translatable: true
         label:
-          type: string
+          type: label
           label: 'Label'
-          translatable: true
         placeholder:
-          type: string
+          type: label
           label: 'Placeholder'
-          translatable: true
     button:
       type: mapping
       label: 'Button'
       mapping:
         label:
-          type: string
+          type: label
           label: 'Button label'
-          translatable: true
     view_options:
       type: mapping
       label: 'View Options'
