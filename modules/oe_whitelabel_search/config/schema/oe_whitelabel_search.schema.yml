@@ -1,47 +1,47 @@
 block.settings.whitelabel_search_block:
   type: block_settings
-  label: OE Whitelabel search block
+  label: 'OE Whitelabel search block'
   mapping:
     form:
       type: mapping
-      label: Form
+      label: 'Form'
       mapping:
         action:
           type: string
-          label: Action
+          label: 'Action'
         region:
           type: string
-          label: Region
+          label: 'Region'
     input:
       type: mapping
-      label: Input
+      label: 'Input'
       mapping:
         name:
-          type: string
-          label: Name
+          type: label
+          label: 'Name'
         label:
-          type: string
-          label: Label
+          type: label
+          label: 'Label'
         placeholder:
-          type: string
-          label: Placeholder
+          type: label
+          label: 'Placeholder'
     button:
       type: mapping
-      label: Button
+      label: 'Button'
       mapping:
         label:
-          type: string
-          label: Button label
+          type: label
+          label: 'Button label'
     view_options:
       type: mapping
-      label: View Options
+      label: 'View Options'
       mapping:
         enable_autocomplete:
           type: boolean
-          label: Enable autocomplete
+          label: 'Enable autocomplete'
         id:
           type: string
-          label: View id
+          label: 'View id'
         display:
           type: string
-          label: View display
+          label: 'View display'

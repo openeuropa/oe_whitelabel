@@ -6,13 +6,13 @@
       {% if filters %}
         {{ pattern('offcanvas', {
           'variant': 'search',
-          'title': 'Filter options',
+          'title': 'Filter options'|t,
           'body': filters,
           'placement': 'start',
           'body_scroll': false,
           'backdrop': true,
           'toggle': {
-            'label': 'Filters',
+            'label': 'Filters'|t,
             'variant': 'light',
             'size': 'lg',
             'icon': 'filter',

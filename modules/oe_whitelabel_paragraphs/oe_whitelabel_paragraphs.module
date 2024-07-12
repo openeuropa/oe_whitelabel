@@ -207,9 +207,9 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
   $variables['columns'] = ['two_columns' => '2', 'three_columns' => '3'][$layout_name] ?? '1';
 
   $variables['items'] = [];
-  foreach ($variables['paragraph']->get('field_oe_paragraphs') as $card_paragraph_item) {
+  foreach ($variables['paragraph']->get('field_oe_paragraphs')->referencedEntities() as $paragraph_item) {
     /** @var \Drupal\paragraphs\ParagraphInterface $card_paragraph */
-    $card_paragraph = $card_paragraph_item->entity;
+    $card_paragraph = \Drupal::service('entity.repository')->getTranslationFromContext($paragraph_item);
     $card_image_item = $card_paragraph->get('field_oe_image')->first();
     $card_image = $card_image_item ? ImageValueObject::fromImageItem($card_image_item) : NULL;
 
