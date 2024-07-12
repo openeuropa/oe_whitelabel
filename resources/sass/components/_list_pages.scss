@@ -37,3 +37,9 @@
     width: 100%;
   }
 }
+
+@media (min-width: 576px) {
+  .oe-list-pages-sort-form .form-select {
+    max-width: 160px;
+  }
+}
