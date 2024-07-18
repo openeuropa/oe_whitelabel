@@ -1,10 +1,34 @@
 # Change Log
 
-## [1.7.1](https://github.com/openeuropa/oe_whitelabel/tree/1.7.1) (2024-05-03)
+## [1.8.0](https://github.com/openeuropa/oe_whitelabel/tree/1.8.0) (2024-07-17)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.7.1...1.8.0)
+
+**Closed issues:**
+
+- Create a SectionPattern field group formatter [\#281](https://github.com/openeuropa/oe_whitelabel/issues/281)
+- \_oe\_whitelabel\_starter\_event\_preprocess\_date disregards site timezone [\#234](https://github.com/openeuropa/oe_whitelabel/issues/234)
+
+**Merged pull requests:**
+
+- OEL-3055: Update steps to create releases. [\#293](https://github.com/openeuropa/oe_whitelabel/pull/293) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+- OEL-3055: Update to Drupal 10.3 [\#292](https://github.com/openeuropa/oe_whitelabel/pull/292) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+- OEL-2728: Added translatability fix. [\#291](https://github.com/openeuropa/oe_whitelabel/pull/291) ([tibi2303](https://github.com/tibi2303))
+- OEL-2727: \_oe\_whitelabel\_starter\_event\_preprocess\_date disregards site timezone [\#286](https://github.com/openeuropa/oe_whitelabel/pull/286) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+- OEL-2527: Fixed long filter badges in list pages. [\#283](https://github.com/openeuropa/oe_whitelabel/pull/283) ([tibi2303](https://github.com/tibi2303))
+- OEL-2605: Fixed spacing in projects description lists. [\#282](https://github.com/openeuropa/oe_whitelabel/pull/282) ([tibi2303](https://github.com/tibi2303))
+- OEL-2739: AV Portal Video is not sized correctly in featured media pattern [\#279](https://github.com/openeuropa/oe_whitelabel/pull/279) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+- OEL-2604: Change alignment of the sorting options [\#278](https://github.com/openeuropa/oe_whitelabel/pull/278) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+- OEL-1771: Update patch for pattern assert. [\#276](https://github.com/openeuropa/oe_whitelabel/pull/276) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+- OEL-1863: Added file assert for PersonContentRenderTest. [\#275](https://github.com/openeuropa/oe_whitelabel/pull/275) ([tibi2303](https://github.com/tibi2303))
+- OEL-1771: Moved patterns tests from oe\_whitelabel.  [\#273](https://github.com/openeuropa/oe_whitelabel/pull/273) ([tibi2303](https://github.com/tibi2303))
+- OEL-2633: Show gallery field in project detail page. [\#241](https://github.com/openeuropa/oe_whitelabel/pull/241) ([brummbar](https://github.com/brummbar))
+
+## [1.7.1](https://github.com/openeuropa/oe_whitelabel/tree/1.7.1) (2024-05-06)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.7.0...1.7.1)
 
 **Merged pull requests:**
 
+- Prepare changelog for release 1.7.1. [\#272](https://github.com/openeuropa/oe_whitelabel/pull/272) ([brummbar](https://github.com/brummbar))
 - OEL-0000: Remove patches. [\#271](https://github.com/openeuropa/oe_whitelabel/pull/271) ([brummbar](https://github.com/brummbar))
 
 ## [1.7.0](https://github.com/openeuropa/oe_whitelabel/tree/1.7.0) (2024-05-03)

@@ -71,11 +71,6 @@
     "extra": {
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
-        "patches": {
-            "openeuropa/oe_bootstrap_theme": {
-                "development": "https://github.com/openeuropa/oe_bootstrap_theme/compare/1.10.0...1.x.diff"
-            }
-        },
         "artifacts": {
             "openeuropa/oe_bootstrap_theme": {
                 "dist": {
