@@ -66,6 +66,7 @@ function oe_whitelabel_extra_project_preprocess_node__oe_project__oe_w_content_b
  */
 function oe_whitelabel_extra_project_preprocess_node__oe_project__teaser(array &$variables): void {
   _oe_whitelabel_extra_project_preprocess_featured_media($variables);
+  _oe_whitelabel_extra_project_preprocess_status($variables);
 }
 
 /**
@@ -168,7 +169,7 @@ function _oe_whitelabel_extra_project_preprocess_inpage_nav(array &$variables): 
  * @param array $variables
  *   Variables from hook_preprocess_node().
  */
-function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$variables): void {
+function _oe_whitelabel_extra_project_preprocess_status(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
   /** @var \Drupal\datetime_range\Plugin\Field\FieldType\DateRangeItem|null $date_range_item */
@@ -203,6 +204,34 @@ function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$var
     return;
   }
 
+  $status_labels = [t('Planned'), t('Ongoing'), t('Closed')];
+
+  $variables['project_status_badge_args'] = [
+    'label' => '&hellip;',
+    'outline' => FALSE,
+    'attributes' => new Attribute([
+      'data-start-timestamp' => $t_start,
+      'data-end-timestamp' => $t_end,
+      'data-status-labels' => implode('|', $status_labels),
+      'class' => [
+        // Hide for non-js users, to avoid showing wrong/outdated information.
+        'd-none',
+        // Add a class to be able to target it with the JS library.
+        'oe-wt-project__status',
+      ],
+    ]),
+  ];
+}
+
+/**
+ * Adds variables for the project status and progress component.
+ *
+ * @param array $variables
+ *   Variables from hook_preprocess_node().
+ */
+function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$variables): void {
+  _oe_whitelabel_extra_project_preprocess_status($variables);
+
   // Use the formatted field values for start / end date.
   $element = $variables['elements']['oe_project_dates'][0] ?? [];
   if ($element['#theme'] ?? NULL === 'time') {
@@ -220,11 +249,7 @@ function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$var
     return;
   }
 
-  $status_labels = [t('Planned'), t('Ongoing'), t('Closed')];
-
   // Values for the 'bcl-project-status' component.
-  // Some values contain placeholders that will be updated with javascript.
-  // This makes sure that tests will fail if js does not run.
   $variables['project_status_args'] = [
     // Placeholder value.
     'status' => 'planned',
@@ -233,18 +258,10 @@ function _oe_whitelabel_extra_project_preprocess_status_and_progress(array &$var
     'end_date' => $end_date_element,
     'end_label' => t('End'),
     'label' => t('Status'),
-    // Placeholder value.
-    'badge' => '&ellipsis;',
+    'badge' => '&hellip;',
     // Placeholder value, identical to 'planned'.
     'progress' => 0,
-    'attributes' => new Attribute([
-      'data-start-timestamp' => $t_start,
-      'data-end-timestamp' => $t_end,
-      'data-status-labels' => implode('|', $status_labels),
-      // Hide for non-js users, to avoid showing wrong/outdated information.
-      'class' => ['d-none'],
-    ]),
-  ];
+  ] + $variables['project_status_badge_args'];
 }
 
 /**
