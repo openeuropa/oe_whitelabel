@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel\FunctionalJavascript;
 
+use Behat\Mink\Element\NodeElement;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Url;
@@ -15,7 +16,7 @@ use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\ContentBannerAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\DescriptionListAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\GalleryPatternAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\InPageNavigationAssert;
-use Drupal\Tests\oe_whitelabel\Traits\MediaCreationTrait;
+use Drupal\Tests\oe_whitelabel\Traits\NodeCreationTrait;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 use Drupal\Tests\TestFileCreationTrait;
 use Drupal\user\Entity\Role;
@@ -26,7 +27,7 @@ use Drupal\user\RoleInterface;
  */
 class ContentProjectRenderTest extends WebDriverTestBase {
 
-  use MediaCreationTrait;
+  use NodeCreationTrait;
   use SparqlConnectionTrait;
   use TestFileCreationTrait;
 
@@ -378,6 +379,48 @@ class ContentProjectRenderTest extends WebDriverTestBase {
   }
 
   /**
+   * Tests the status badge rendering for the teaser view mode.
+   */
+  public function testTeaserStatusBadge(): void {
+    // Create a project with dates set in the past.
+    $this->createProjectNode([
+      'oe_project_dates' => [
+        'value' => '2000-05-10',
+        'end_value' => '2010-05-15',
+      ],
+    ]);
+
+    // In order to render a teaser, we use the default node list view.
+    $this->drupalGet('/node');
+
+    $teasers = $this->getSession()->getPage()->findAll('css', 'article.listing-item');
+    $this->assertCount(1, $teasers);
+    $this->assertTeaserStatusBadge($teasers[0], 'Closed', 'bg-dark');
+
+    // Create an ongoing project.
+    $this->createProjectNode([
+      'oe_project_dates' => [
+        'value' => '2010-05-10',
+        'end_value' => '2100-05-15',
+      ],
+    ]);
+    // And a planned project.
+    $this->createProjectNode([
+      'oe_project_dates' => [
+        'value' => '2100-05-10',
+        'end_value' => '2200-05-15',
+      ],
+    ]);
+
+    $this->drupalGet('/node');
+    $teasers = $this->getSession()->getPage()->findAll('css', 'article.listing-item');
+    $this->assertCount(3, $teasers);
+    $this->assertTeaserStatusBadge($teasers[0], 'Planned', 'bg-secondary');
+    $this->assertTeaserStatusBadge($teasers[1], 'Ongoing', 'bg-info');
+    $this->assertTeaserStatusBadge($teasers[2], 'Closed', 'bg-dark');
+  }
+
+  /**
    * Creates a stakeholder organisation entity.
    *
    * @param string $name
@@ -430,10 +473,12 @@ class ContentProjectRenderTest extends WebDriverTestBase {
    *   End date string.
    */
   protected function setProjectDateRange(NodeInterface $node, string $begin, string $end): void {
-    $node->oe_project_dates = [
-      'value' => (new DrupalDateTime($begin, 'Europe/Brussels'))->format('Y-m-d'),
-      'end_value' => (new DrupalDateTime($end, 'Europe/Brussels'))->format('Y-m-d'),
-    ];
+    $node->set('oe_project_dates', [
+      [
+        'value' => (new DrupalDateTime($begin, 'Europe/Brussels'))->format('Y-m-d'),
+        'end_value' => (new DrupalDateTime($end, 'Europe/Brussels'))->format('Y-m-d'),
+      ],
+    ]);
   }
 
   /**
@@ -529,6 +574,23 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     $this->assertEquals($expected_start_date, trim($start_element->getText()));
     $end_element = $this->assertSession()->elementExists('xpath', '//p[contains(text(), "End")]//time', $wrapper);
     $this->assertEquals($expected_end_date, trim($end_element->getText()));
+  }
+
+  /**
+   * Asserts the teaser status badge.
+   *
+   * @param \Behat\Mink\Element\NodeElement $wrapper
+   *   The teaser wrapper element.
+   * @param string $status_label
+   *   The expected status label.
+   * @param string $status_class
+   *   The expected status class.
+   */
+  protected function assertTeaserStatusBadge(NodeElement $wrapper, string $status_label, string $status_class): void {
+    $badges = $wrapper->findAll('css', '.badge');
+    $this->assertCount(2, $badges);
+    $this->assertEquals($status_label, $badges[0]->getText());
+    $this->assertTrue($badges[0]->hasClass($status_class));
   }
 
 }

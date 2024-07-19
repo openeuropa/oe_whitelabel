@@ -100,7 +100,11 @@ class ProjectRenderTest extends ContentRenderTestBase {
       'title' => 'Project 1',
       'url' => '/node/1',
       'description' => 'The teaser text',
-      'badges' => ['EU financing'],
+      'badges' => [
+        // The project status is only calculated when JavaScript is executed.
+        '&hellip;',
+        'EU financing',
+      ],
       'image' => [
         'src' => 'example_1.jpeg',
         'alt' => 'Alternative text',
