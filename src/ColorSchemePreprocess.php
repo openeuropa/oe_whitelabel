@@ -36,7 +36,7 @@ class ColorSchemePreprocess {
    * @SuppressWarnings(PHPMD.NPathComplexity)
    */
   public function injectColorScheme(array &$variables, array $options = []): void {
-    if (!isset($variables['elements']['#oe_color_scheme'])) {
+    if (!isset($variables['elements']['#color_scheme_field'])) {
       return;
     }
 
@@ -56,7 +56,7 @@ class ColorSchemePreprocess {
     $options = $options + $default_options;
 
     $variables['attributes'] = new Attribute($variables['attributes'] ?? []);
-    $variables['attributes']->addClass(Html::getClass($variables['elements']['#oe_color_scheme']));
+    $variables['attributes']->addClass(Html::getClass($variables['elements']['#color_scheme_field']));
 
     if ($options['text_colored'] === TRUE) {
       $variables['attributes']->addClass('text-color-default');

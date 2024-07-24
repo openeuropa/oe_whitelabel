@@ -17,6 +17,7 @@
     "require-dev": {
         "composer/installers": "^1.11",
         "drupal/better_exposed_filters": "^6.0.3",
+        "drupal/color_scheme_field": "1.x-dev",
         "drupal/composite_reference": "^2.2",
         "drupal/config_devel": "~1.9",
         "drupal/core-composer-scaffold": "^10",
@@ -34,7 +35,6 @@
         "nikic/php-parser": "^4",
         "openeuropa/code-review": "^2.0.0-alpha6",
         "openeuropa/oe_authentication": "^1.11",
-        "openeuropa/oe_color_scheme": "dev-contribution/EPHEH-318",
         "openeuropa/oe_contact_forms": "~1.11",
         "openeuropa/oe_content": "^3",
         "openeuropa/oe_content_extra": "^1.1.0",
@@ -56,10 +56,6 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/openeuropa/oe_color_scheme"
         }
     ],
     "autoload": {
