@@ -19,7 +19,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
    */
   protected static $modules = [
     'composite_reference',
-    'oe_color_scheme',
+    'color_scheme_field',
     'oe_content_timeline_field',
     'oe_paragraphs_carousel',
     'oe_paragraphs_document',
@@ -54,7 +54,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
     FieldStorageConfig::create([
       'field_name' => 'oe_w_colorscheme',
       'entity_type' => 'paragraph',
-      'type' => 'oe_color_scheme',
+      'type' => 'color_scheme_field',
     ])->save();
 
     foreach ($this->paragraphSettingsProvider() as $data) {
