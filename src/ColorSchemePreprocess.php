@@ -22,16 +22,8 @@ class ColorSchemePreprocess {
    *   Possible keys are:
    *   - 'text_colored': (bool) If set to TRUE, adds a class to override the
    *     text color.
-   *   - 'background': (bool) If set to TRUE, adds a class to override the
-   *     background color.
-   *   - 'primary_background': (bool) If set to TRUE, adds a class to override
-   *     the background and text color to primary.
-   *   - 'secondary_background': (bool) If set to TRUE, adds a class to override
-   *     the background and text color to secondary.
-   *   - 'danger_background': (bool) If set to TRUE, adds a class to override
-   *     the background and text color to danger.
-   *   - 'success_background': (bool) If set to TRUE, adds a class to override
-   *     the background and text color to success.
+   *   - 'background': (string) The name of the background variant, ex: default,
+   *   primary, secondary, danger, etc.
    *
    * @SuppressWarnings(PHPMD.NPathComplexity)
    */
@@ -42,11 +34,7 @@ class ColorSchemePreprocess {
 
     $default_options = [
       'text_colored' => FALSE,
-      'background' => FALSE,
-      'primary_background' => FALSE,
-      'secondary_background' => FALSE,
-      'danger_background' => FALSE,
-      'success_background' => FALSE,
+      'background' => '',
     ];
 
     if (array_diff_key($options, $default_options)) {
@@ -62,31 +50,14 @@ class ColorSchemePreprocess {
       $variables['attributes']->addClass('text-color-default');
     }
 
-    if ($options['background'] === TRUE) {
-      $variables['attributes']->addClass('bg-default');
-    }
-
-    // The text-bg- classes already set the text and background color,
-    // so we remove the others.
-    if ($options['primary_background'] === TRUE) {
-      $variables['attributes']->addClass('text-bg-primary');
-      $variables['attributes']->removeClass(['bg-default', 'text-color-default']);
-    }
-
-    if ($options['secondary_background'] === TRUE) {
-      $variables['attributes']->addClass('text-bg-secondary');
-      $variables['attributes']->removeClass(['bg-default', 'text-color-default']);
-    }
-
-    if ($options['danger_background'] === TRUE) {
-      $variables['attributes']->addClass('text-bg-danger');
-      $variables['attributes']->removeClass(['bg-default', 'text-color-default']);
-    }
-
-    if ($options['success_background'] === TRUE) {
-      $variables['attributes']->addClass('text-bg-success');
-      $variables['attributes']->removeClass(['bg-default', 'text-color-default']);
-    }
+    match ($options['background']) {
+      'default' => $variables['attributes']->addClass('bg-default'),
+      'primary' => $variables['attributes']->addClass('text-bg-primary'),
+      'secondary' => $variables['attributes']->addClass('text-bg-secondary'),
+      'danger' => $variables['attributes']->addClass('text-bg-danger'),
+      'success' => $variables['attributes']->addClass('text-bg-success'),
+      default => FALSE,
+    };
   }
 
 }
