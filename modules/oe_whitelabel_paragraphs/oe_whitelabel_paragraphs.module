@@ -280,10 +280,10 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
     ]),
     'image_shade' => $color_scheme_preprocess->injectColorScheme($variables),
     'primary' => $color_scheme_preprocess->injectColorScheme($variables, [
-      'primary_background' => TRUE,
+      'background' => 'primary',
     ]),
     default => $color_scheme_preprocess->injectColorScheme($variables, [
-      'background' => TRUE,
+      'background' => 'default',
       'text_colored' => TRUE,
     ]),
   };
@@ -769,7 +769,7 @@ function oe_whitelabel_paragraphs_preprocess_paragraph__oe_quote(array &$variabl
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
   $color_scheme_preprocess->injectColorScheme($variables, [
-    'background' => TRUE,
+    'background' => 'default',
     'text_colored' => TRUE,
   ]);
 }
