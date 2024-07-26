@@ -37,10 +37,6 @@ class ColorSchemePreprocess {
       'background' => '',
     ];
 
-    if (array_diff_key($options, $default_options)) {
-      throw new \InvalidArgumentException('Invalid options provided.');
-    }
-
     $options = $options + $default_options;
 
     $variables['attributes'] = new Attribute($variables['attributes'] ?? []);
