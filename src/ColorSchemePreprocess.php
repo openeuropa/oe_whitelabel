@@ -24,8 +24,6 @@ class ColorSchemePreprocess {
    *     text color.
    *   - 'background': (string) The name of the background variant, ex: default,
    *   primary, secondary, danger, etc.
-   *
-   * @SuppressWarnings(PHPMD.NPathComplexity)
    */
   public function injectColorScheme(array &$variables, array $options = []): void {
     if (!isset($variables['elements']['#color_scheme_field'])) {
