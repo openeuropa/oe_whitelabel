@@ -193,6 +193,8 @@ function _oe_whitelabel_starter_event_preprocess_date(array &$variables): void {
 
   $dates = $node->get('oe_sc_event_dates')->first();
   $start = $dates->get('start_date')->getValue()->getTimestamp();
+  $timezone = \Drupal::config('system.date')->get('timezone.default');
+  $start->setTimezone(new DateTimeZone($timezone));
   /** @var \Drupal\Core\Datetime\DateFormatterInterface $date_formatter */
   $date_formatter = \Drupal::service('date.formatter');
 
@@ -204,6 +206,7 @@ function _oe_whitelabel_starter_event_preprocess_date(array &$variables): void {
   ];
 
   $end = $dates->get('end_date')->getValue()->getTimestamp();
+  $end->setTimezone(new DateTimeZone($timezone));
 
   if (!empty($end) && $variables['date_block']['date_time'] !== $date_formatter->format($end, '', 'Y-m-d')) {
     $variables['date_block'] += [
