@@ -44,14 +44,17 @@ class ColorSchemePreprocess {
       $variables['attributes']->addClass('text-color-default');
     }
 
-    match ($options['background']) {
-      'default' => $variables['attributes']->addClass('bg-default'),
-      'primary' => $variables['attributes']->addClass('text-bg-primary'),
-      'secondary' => $variables['attributes']->addClass('text-bg-secondary'),
-      'danger' => $variables['attributes']->addClass('text-bg-danger'),
-      'success' => $variables['attributes']->addClass('text-bg-success'),
+    $class = match ($options['background']) {
+      'default' => 'bg-default',
+      'primary' => 'text-bg-primary',
+      'secondary' => 'text-bg-secondary',
+      'danger' => 'text-bg-danger',
+      'success' => 'text-bg-success',
       default => FALSE,
     };
+    if ($class !== FALSE) {
+      $variables['attributes']->addClass($class);
+    }
   }
 
 }
