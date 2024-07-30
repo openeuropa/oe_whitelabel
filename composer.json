@@ -12,7 +12,7 @@
         "drupal/daterange_compact": "^2.0.1",
         "drupal/twig_field_value": "^2.0.2",
         "openeuropa/composer-artifacts": "^1.0.0-alpha1",
-        "openeuropa/oe_bootstrap_theme": "0.318.202406121551"
+        "openeuropa/oe_bootstrap_theme": "0.1.202408051724"
     },
     "require-dev": {
         "composer/installers": "^1.11",
