@@ -2,8 +2,13 @@
  * @file
  * Attaches behaviors for the project status element.
  */
-(function (bootstrap, Drupal, once) {
+(function (Drupal, once) {
 
+  /**
+   * List of background classes.
+   *
+   * @type {string[]}
+   */
   const colorClasses = [
     'bg-secondary',
     'bg-info',
@@ -20,43 +25,64 @@
    */
   Drupal.behaviors.projectStatus = {
     attach: function (context) {
-      const bclProjectStatus = once('bcl-project-status', '.bcl-project-status', context);
+      const statusComponents = once('oe-wt-project-status', '.bcl-project-status', context);
+      const statusBadges = once('oe-wt-project-status', '.badge.oe-wt-project__status', context);
 
-      bclProjectStatus.forEach(function (element) {
-        var msBegin = element.dataset.startTimestamp * 1000;
-        var msEnd = element.dataset.endTimestamp * 1000;
-        var statusLabels = element.dataset.statusLabels.split('|');
-        var msNow = Date.now();
-        // Calculate a status id: planned = 0, ongoing = 1, closed = 2.
-        var status = (msNow >= msBegin) + (msNow > msEnd);
-        // Calculate a progress: planned = 0, ongoing = 0..1, closed = 1.
-        var progress01 = Math.max(0, Math.min(1, (msNow - msBegin) / (msEnd - msBegin)));
-        // Convert to percent: planned = 0%, ongoing = 0%..100%, closed = 100%.
-        // Round to 1%, to avoid overwhelming float digits in aria attributes.
-        var percent = Math.round(progress01 * 100);
+      statusComponents.forEach(function (wrapper) {
+        const badges = wrapper.getElementsByClassName('badge');
+        const progressBars = wrapper.getElementsByClassName('progress-bar');
 
-        // Process the status label.
-        var badges = element.getElementsByClassName('badge');
-        Array.from(badges).forEach(function(badge) {
-          badge.classList.remove(...colorClasses);
-          badge.classList.add(colorClasses[status]);
-          badge.innerHTML = statusLabels[status];
-        });
+        calculateProjectStatusAndProgress(wrapper, badges, progressBars);
+      });
 
-        // Process the progress bar.
-        var progressBars = element.getElementsByClassName('progress-bar');
-        Array.from(progressBars).forEach(function(progressBar) {
-          progressBar.classList.remove(...colorClasses);
-          progressBar.classList.add(colorClasses[status]);
-          progressBar.style.width = percent + '%';
-          progressBar.setAttribute('aria-valuenow', percent);
-          progressBar.setAttribute('aria-label', percent);
-        });
-
-        // Reveal the entire section.
-        element.classList.remove('d-none');
+      statusBadges.forEach(function (wrapper) {
+        // Status badges don't have the progress element.
+        calculateProjectStatusAndProgress(wrapper, [wrapper], []);
       });
     }
   };
 
-})(bootstrap, Drupal, once);
+  /**
+   * Calculates the values for the project status and progress elements.
+   *
+   * @param {Element} wrapper
+   *   The element that holds the project data.
+   * @param {array.<Element>} badges
+   *   A list of badges to process.
+   * @param {array.<Element>} progressBars
+   *   A list of progress bars to process.
+   */
+  function calculateProjectStatusAndProgress(wrapper, badges, progressBars) {
+    const msBegin = wrapper.dataset.startTimestamp * 1000;
+    const msEnd = wrapper.dataset.endTimestamp * 1000;
+    const statusLabels = wrapper.dataset.statusLabels.split('|');
+    const msNow = Date.now();
+    // Calculate a status id: planned = 0, ongoing = 1, closed = 2.
+    const status = (msNow >= msBegin) + (msNow > msEnd);
+    // Calculate a progress: planned = 0, ongoing = 0..1, closed = 1.
+    const progress01 = Math.max(0, Math.min(1, (msNow - msBegin) / (msEnd - msBegin)));
+    // Convert to percent: planned = 0%, ongoing = 0%..100%, closed = 100%.
+    // Round to 1%, to avoid overwhelming float digits in aria attributes.
+    const percent = Math.round(progress01 * 100);
+
+    // Process the status label.
+    Array.from(badges).forEach(function (badge) {
+      badge.classList.remove(...colorClasses);
+      badge.classList.add(colorClasses[status]);
+      badge.innerHTML = statusLabels[status];
+    });
+
+    // Process the progress bar.
+    Array.from(progressBars).forEach(function (progressBar) {
+      progressBar.classList.remove(...colorClasses);
+      progressBar.classList.add(colorClasses[status]);
+      progressBar.style.width = percent + '%';
+      progressBar.setAttribute('aria-valuenow', percent);
+      progressBar.setAttribute('aria-label', percent);
+    });
+
+    // Reveal the wrapper element.
+    wrapper.classList.remove('d-none');
+  }
+
+})(Drupal, once);
