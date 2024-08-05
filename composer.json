@@ -72,6 +72,13 @@
     "extra": {
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
+        "patches-ignore": {
+            "openeuropa/oe_content": {
+                "drupal/field_group": {
+                    "https://www.drupal.org/project/field_group/issues/2787179": "https://www.drupal.org/files/issues/2023-04-07/2787179-highlight-html5-validation-85.patch"
+                }
+            }
+        },
         "artifacts": {
             "openeuropa/oe_bootstrap_theme": {
                 "dist": {
