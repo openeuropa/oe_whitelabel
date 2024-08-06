@@ -29,6 +29,7 @@ use Drupal\oe_bootstrap_theme\ConfigImporter;
 use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
 use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObjectInterface;
 use Drupal\oe_media_iframe\Plugin\media\Source\Iframe;
+use Drupal\oe_whitelabel\ColorSchemePreprocess;
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
@@ -67,6 +68,12 @@ function oe_whitelabel_paragraphs_theme_suggestions_field_alter(array &$suggesti
  * Implements hook_preprocess_paragraph().
  */
 function oe_whitelabel_preprocess_paragraph__oe_links_block(array &$variables): void {
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
+  $color_scheme_preprocess->injectColorScheme($variables, [
+    'text_colored' => TRUE,
+  ]);
+
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
   $variables['orientation'] = $paragraph->get('oe_w_links_block_orientation')->value;
@@ -118,6 +125,12 @@ function oe_whitelabel_preprocess_paragraph__oe_social_media_follow(array &$vari
  * Implements hook_preprocess_paragraph__oe_accordion().
  */
 function oe_whitelabel_preprocess_paragraph__oe_accordion(array &$variables): void {
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
+  $color_scheme_preprocess->injectColorScheme($variables, [
+    'text_colored' => TRUE,
+  ]);
+
   // Massage data to be compliant with OE Bootstrap Theme accordion pattern
   // data structure.
   $builder = \Drupal::entityTypeManager()->getViewBuilder('paragraph');
@@ -188,6 +201,12 @@ function oe_whitelabel_preprocess_paragraph__oe_av_media(array &$variables): voi
  * Implements hook_preprocess_paragraph() for paragraph--oe-list-item-block.html.twig.
  */
 function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variables): void {
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
+  $color_scheme_preprocess->injectColorScheme($variables, [
+    'text_colored' => TRUE,
+  ]);
+
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
 
@@ -247,8 +266,28 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
  * Implements hook_preprocess_paragraph() for oe_banner paragraph.
  */
 function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void {
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
   /** @var Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
+
+  $variant = $paragraph->get('oe_paragraphs_variant')->value ?? 'default';
+  $variables['variant'] = str_replace('oe_banner_', '', $variant);
+
+  match($variables['variant']) {
+    'image' => $color_scheme_preprocess->injectColorScheme($variables, [
+      'text_colored' => TRUE,
+    ]),
+    'image_shade' => $color_scheme_preprocess->injectColorScheme($variables),
+    'primary' => $color_scheme_preprocess->injectColorScheme($variables, [
+      'background' => 'primary',
+    ]),
+    default => $color_scheme_preprocess->injectColorScheme($variables, [
+      'background' => 'default',
+      'text_colored' => TRUE,
+    ]),
+  };
+
   $variables['title'] = $paragraph->get('field_oe_title')->value;
   $variables['description'] = $paragraph->get('field_oe_text')->value;
   $variables['full_width'] = (bool) $paragraph->get('field_oe_banner_full_width')->value;
@@ -277,9 +316,6 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
     // The end of the string determines the position.
     $variables['centered'] = $banner_alignment === 'center';
   }
-
-  $variant = $paragraph->get('oe_paragraphs_variant')->value ?? 'default';
-  $variables['variant'] = str_replace('oe_banner_', '', $variant);
 
   if ($variables['variant'] === 'default' || $variables['variant'] === 'primary') {
     return;
@@ -342,6 +378,12 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
  * Implements hook_preprocess_paragraph() for timeline paragraph.
  */
 function oe_whitelabel_preprocess_paragraph__oe_timeline(array &$variables): void {
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
+  $color_scheme_preprocess->injectColorScheme($variables, [
+    'text_colored' => TRUE,
+  ]);
+
   $paragraph = $variables['paragraph'];
   if (!$paragraph->get('field_oe_title')->isEmpty()) {
     $variables['heading'] = $paragraph->get('field_oe_title')->value;
@@ -406,6 +448,12 @@ function oe_whitelabel_preprocess_paragraph__oe_content_row__variant_inpage_navi
  * Implements hook_preprocess_paragraph() for oe_description-list paragraph.
  */
 function oe_whitelabel_preprocess_paragraph__oe_description_list(array &$variables): void {
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
+  $color_scheme_preprocess->injectColorScheme($variables, [
+    'text_colored' => TRUE,
+  ]);
+
   /** @var Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
   $variables['title'] = $paragraph->get('field_oe_title')->value ?? '';
@@ -433,6 +481,12 @@ function oe_whitelabel_preprocess_paragraph__oe_description_list(array &$variabl
  * Implements hook_preprocess_paragraph().
  */
 function oe_whitelabel_preprocess_paragraph__oe_facts_figures(array &$variables): void {
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
+  $color_scheme_preprocess->injectColorScheme($variables, [
+    'text_colored' => TRUE,
+  ]);
+
   /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
   $paragraph = $variables['paragraph'];
   if (!$paragraph->get('field_oe_title')->isEmpty()) {
@@ -695,4 +749,27 @@ function _oe_whitelabel_paragraphs_preprocess_paragraph_media(array &$variables)
   }
 
   $cacheability->applyTo($variables);
+}
+
+/**
+ * Implements hook_preprocess_paragraph() for oe_document paragraph.
+ */
+function oe_whitelabel_paragraphs_preprocess_paragraph__oe_document(array &$variables): void {
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
+  $color_scheme_preprocess->injectColorScheme($variables, [
+    'text_colored' => TRUE,
+  ]);
+}
+
+/**
+ * Implements hook_preprocess_paragraph() for oe_quote paragraph.
+ */
+function oe_whitelabel_paragraphs_preprocess_paragraph__oe_quote(array &$variables): void {
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
+  $color_scheme_preprocess->injectColorScheme($variables, [
+    'background' => 'default',
+    'text_colored' => TRUE,
+  ]);
 }
