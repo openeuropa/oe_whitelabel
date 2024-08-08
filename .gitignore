@@ -17,3 +17,4 @@ yarn.lock
 config.codekit
 /.editorconfig
 .phpunit.result.cache
+/libraries
