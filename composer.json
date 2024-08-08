@@ -27,6 +27,7 @@
         "drupal/extra_field": "^2.3",
         "drupal/facets_form": "^1.0.0-alpha6",
         "drupal/field_group": "^3.4",
+        "drupal/paragraphs": "~1.17.0",
         "drupal/search_api": "^1.29",
         "drupal/search_api_autocomplete": "^1.7",
         "drupal/typed_link": "^2.0.1",
@@ -107,7 +108,8 @@
             ]
         },
         "_readme": [
-            "Explicit requirement of nikic/php-parser ^4 as later versions are not compatible with grumphp @see https://github.com/phpro/grumphp/issues/1119"
+            "Explicit requirement of nikic/php-parser ^4 as later versions are not compatible with grumphp @see https://github.com/phpro/grumphp/issues/1119",
+            "Lock drupal/paragraphs to ~1.17.0 for https://www.drupal.org/files/issues/2021-12-23/respect-display-on-validation-2890086-55.patch. Remove with openeuropa/oe_paragraphs new patch release."
         ]
     },
     "config": {

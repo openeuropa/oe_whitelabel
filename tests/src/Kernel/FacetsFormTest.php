@@ -102,7 +102,7 @@ class FacetsFormTest extends KernelTestBase {
     $this->assertSame('offcanvas', $button->attr('data-bs-dismiss'));
     $this->assertSame('button', $button->attr('type'));
 
-    $body = $offcanvas->filter('div.offcanvas-body.bcl-offcanvas');
+    $body = $offcanvas->filter('div.offcanvas-body');
     $this->assertCount(1, $body);
     $form = $body->filter('form.facets-form');
     $this->assertCount(1, $form);
