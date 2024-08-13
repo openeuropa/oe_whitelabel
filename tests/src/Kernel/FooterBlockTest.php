@@ -90,6 +90,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $this->assertNotEmpty($columns->eq(2)->filter('.mb-1 a.standalone'));
     $accessibilityLink = $crawler->filter('a[href="https://example.com/accessibility"]');
     $this->assertCount(1, $accessibilityLink);
+    $this->assertEquals('Accessibility', $accessibilityLink->text());
   }
 
   /**
@@ -128,6 +129,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $this->assertCount(5, $sectionLinks);
     $accessibilityLink = $crawler->filter('a[href="https://example.com/accessibility"]');
     $this->assertCount(1, $accessibilityLink);
+    $this->assertEquals('Accessibility statement', $accessibilityLink->text());
   }
 
   /**
@@ -162,6 +164,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $this->assertCount(1, $sectionTitles);
     $accessibilityLink = $crawler->filter('a[href="https://example.com/accessibility"]');
     $this->assertCount(1, $accessibilityLink);
+    $this->assertEquals('Accessibility', $accessibilityLink->text());
   }
 
 }
