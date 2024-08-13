@@ -76,6 +76,7 @@
       {% set _accessibility_link = pattern('link', {
         label: 'Accessibility'|t,
         path: accessibility_link,
+        standalone: true,
       }) %}
       <p> {{ _accessibility_link }} </p>
     {% endblock %}
