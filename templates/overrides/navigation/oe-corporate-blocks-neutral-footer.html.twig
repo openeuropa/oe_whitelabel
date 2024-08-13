@@ -72,12 +72,12 @@
   <p> {{ site_owner ? 'This site is managed by the @name'|t({'@name': site_owner}) }} </p>
 
   {% if accessibility_link %}
+    {% set _accessibility_link = pattern('link', {
+      label: 'Accessibility'|t,
+      path: accessibility_link,
+      standalone: true,
+    }) %}
     {% block accessibility_link %}
-      {% set _accessibility_link = pattern('link', {
-        label: 'Accessibility'|t,
-        path: accessibility_link,
-        standalone: true,
-      }) %}
       <p> {{ _accessibility_link }} </p>
     {% endblock %}
   {% endif %}
