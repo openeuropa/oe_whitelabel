@@ -187,8 +187,10 @@ class ColorSchemeTest extends ParagraphsTestBase {
       'values' => [
         'type' => 'oe_links_block',
         'field_oe_text' => 'Info',
-        'oe_bt_links_block_orientation' => 'vertical',
-        'oe_bt_links_block_background' => 'gray',
+        'field_oe_links' => [
+          'title' => 'Link',
+          'uri' => '#',
+        ],
       ],
       'wrapper_selector' => '.bcl-links-block.text-color-default',
     ];
