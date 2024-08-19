@@ -1,6 +1,26 @@
 # Change Log
 
-## [1.8.0](https://github.com/openeuropa/oe_whitelabel/tree/1.8.0) (2024-07-17)
+## [1.9.0](https://github.com/openeuropa/oe_whitelabel/tree/1.9.0) (2024-08-19)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.8.0...1.9.0)
+
+**Fixed bugs:**
+
+- Reposition eu-footer items with openeuropa/oe\_corporate\_blocks version 4.19.0 and above [\#289](https://github.com/openeuropa/oe_whitelabel/issues/289)
+
+**Closed issues:**
+
+- Release 1.8 overrides project configs [\#299](https://github.com/openeuropa/oe_whitelabel/issues/299)
+
+**Merged pull requests:**
+
+- OEL-3247: Fix color scheme test after BCL changes. [\#305](https://github.com/openeuropa/oe_whitelabel/pull/305) ([drishu](https://github.com/drishu))
+- OEL-1811: Added libraries folder to git ignore. [\#301](https://github.com/openeuropa/oe_whitelabel/pull/301) ([tibi2303](https://github.com/tibi2303))
+- OEL-1686: Updated tests regarding bcl-offcanvas duplicate class. [\#300](https://github.com/openeuropa/oe_whitelabel/pull/300) ([tibi2303](https://github.com/tibi2303))
+- OEL-2632: Show project status badge in teaser view mode. [\#296](https://github.com/openeuropa/oe_whitelabel/pull/296) ([brummbar](https://github.com/brummbar))
+- UCPKN-3181: Move the Legal section to the top right position in the EU footer [\#290](https://github.com/openeuropa/oe_whitelabel/pull/290) ([peterserfozo](https://github.com/peterserfozo))
+- EPHEH-318: Add Color Scheme [\#267](https://github.com/openeuropa/oe_whitelabel/pull/267) ([drishu](https://github.com/drishu))
+
+## [1.8.0](https://github.com/openeuropa/oe_whitelabel/tree/1.8.0) (2024-07-18)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.7.1...1.8.0)
 
 **Closed issues:**
@@ -10,6 +30,7 @@
 
 **Merged pull requests:**
 
+- Prepare release 1.8.0. [\#295](https://github.com/openeuropa/oe_whitelabel/pull/295) ([drishu](https://github.com/drishu))
 - OEL-3055: Update steps to create releases. [\#293](https://github.com/openeuropa/oe_whitelabel/pull/293) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
 - OEL-3055: Update to Drupal 10.3 [\#292](https://github.com/openeuropa/oe_whitelabel/pull/292) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
 - OEL-2728: Added translatability fix. [\#291](https://github.com/openeuropa/oe_whitelabel/pull/291) ([tibi2303](https://github.com/tibi2303))
