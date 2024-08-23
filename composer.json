@@ -39,7 +39,7 @@
         "openeuropa/oe_contact_forms": "~1.11",
         "openeuropa/oe_content": "^3",
         "openeuropa/oe_content_extra": "^1.1.0",
-        "openeuropa/oe_corporate_blocks": "^4.19",
+        "openeuropa/oe_corporate_blocks": "4.x-dev",
         "openeuropa/oe_link_lists": "^1.0",
         "openeuropa/oe_list_pages": "^1.0.0",
         "openeuropa/oe_multilingual": "^1.14",
