@@ -348,7 +348,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertBannerRendering($crawler);
     $this->assertCount(0, $crawler->filter('.bcl-banner.full-width'));
 
-    // Variant - image / Modifier - hero_left / Full width - No / Title - Empty.
+    // Variant - image / Modifier - hero_left / Full width - No / Title - ''.
     $paragraph->get('field_oe_banner_alignment')->setValue('left');
     $paragraph->get('field_oe_title')->setValue('');
     $paragraph->save();
@@ -367,10 +367,11 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertBannerRendering($crawler, ['title' => '']);
     $this->assertCount(0, $crawler->filter('.bcl-banner.full-width'));
 
-    // Variant - image / Modifier - page_center / Full width - No.
+    // Variant - image / Modifier - page_center / Full width - No. / Link - [].
     $paragraph->get('field_oe_banner_size')->setValue('medium');
     $paragraph->get('field_oe_banner_alignment')->setValue('centered');
     $paragraph->get('field_oe_title')->setValue('Banner');
+    $paragraph->get('field_oe_link')->setValue([]);
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
     $crawler = new Crawler($html);
@@ -383,13 +384,17 @@ class MediaParagraphsTest extends ParagraphsTestBase {
       'url(' . \Drupal::service('file_url_generator')->generateAbsoluteString($en_file->getFileUri()) . ')',
       $image_element->attr('style')
     );
-    $this->assertBannerRendering($crawler);
+    $this->assertBannerRendering($crawler, ['link_label' => '']);
     $this->assertCount(0, $crawler->filter('.bcl-banner.full-width'));
 
     // Variant - image / Modifier - page_left / Full width - Yes.
     $paragraph->get('field_oe_banner_size')->setValue('medium');
     $paragraph->get('field_oe_banner_alignment')->setValue('left');
     $paragraph->get('field_oe_banner_full_width')->setValue('1');
+    $paragraph->get('field_oe_link')->setValue([
+      'uri' => 'http://www.example.com/',
+      'title' => 'Example',
+    ]);
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
     $crawler = new Crawler($html);
@@ -681,7 +686,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $values = array_merge([
       'title' => 'Banner',
       'description' => 'Description',
-      'button' => 'Example',
+      'link_label' => 'Example',
     ], $expected_values);
     // Check optional title.
     if (!empty($values['title'])) {
@@ -693,9 +698,9 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     // Check description text.
     $this->assertEquals($values['description'], trim($crawler->filter('.bcl-banner__content p')->text()));
     // Check optional button.
-    if (!empty($values['button'])) {
+    if (!empty($values['link_label'])) {
       $this->assertCount(1, $crawler->filter('svg.bi.icon--fluid'));
-      $this->assertStringContainsString($values['button'], trim($crawler->filter('a.btn')->text()));
+      $this->assertStringContainsString($values['link_label'], trim($crawler->filter('a.btn')->text()));
       $this->assertStringContainsString('#chevron-right', trim($crawler->filter('a.btn')->html()));
     }
     else {
