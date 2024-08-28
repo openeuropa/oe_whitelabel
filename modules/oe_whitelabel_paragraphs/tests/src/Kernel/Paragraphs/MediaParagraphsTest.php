@@ -348,9 +348,9 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertBannerRendering($crawler);
     $this->assertCount(0, $crawler->filter('.bcl-banner.full-width'));
 
-    // Variant - image / Modifier - hero_left / Full width - No / Title - ''.
+    // Variant - image / Modifier - hero_left / Full width - No / Title - NULL.
     $paragraph->get('field_oe_banner_alignment')->setValue('left');
-    $paragraph->get('field_oe_title')->setValue('');
+    $paragraph->get('field_oe_title')->setValue(NULL);
     $paragraph->save();
 
     $html = $this->renderParagraph($paragraph);
@@ -364,7 +364,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
       'url(' . \Drupal::service('file_url_generator')->generateAbsoluteString($en_file->getFileUri()) . ')',
       $image_element->attr('style')
     );
-    $this->assertBannerRendering($crawler, ['title' => '']);
+    $this->assertBannerRendering($crawler, ['title' => NULL]);
     $this->assertCount(0, $crawler->filter('.bcl-banner.full-width'));
 
     // Variant - image / Modifier - page_center / Full width - No. / Link - [].
