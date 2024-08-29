@@ -367,11 +367,11 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertBannerRendering($crawler, ['title' => NULL]);
     $this->assertCount(0, $crawler->filter('.bcl-banner.full-width'));
 
-    // Variant - image / Modifier - page_center / Full width - No. / Link - [].
+    // Variant - image / Modifier - page_center / Full width - No / Link - NULL.
     $paragraph->get('field_oe_banner_size')->setValue('medium');
     $paragraph->get('field_oe_banner_alignment')->setValue('centered');
     $paragraph->get('field_oe_title')->setValue('Banner');
-    $paragraph->get('field_oe_link')->setValue([]);
+    $paragraph->get('field_oe_link')->setValue(NULL);
     $paragraph->save();
     $html = $this->renderParagraph($paragraph);
     $crawler = new Crawler($html);
@@ -384,7 +384,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
       'url(' . \Drupal::service('file_url_generator')->generateAbsoluteString($en_file->getFileUri()) . ')',
       $image_element->attr('style')
     );
-    $this->assertBannerRendering($crawler, ['link_label' => '']);
+    $this->assertBannerRendering($crawler, ['link_label' => NULL]);
     $this->assertCount(0, $crawler->filter('.bcl-banner.full-width'));
 
     // Variant - image / Modifier - page_left / Full width - Yes.
@@ -689,7 +689,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
       'link_label' => 'Example',
     ], $expected_values);
     // Check optional title.
-    if (!empty($values['title'])) {
+    if ($values['title'] !== NULL) {
       $this->assertEquals($values['title'], trim($crawler->filter('.bcl-banner__content div')->text()));
     }
     else {
@@ -698,7 +698,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     // Check description text.
     $this->assertEquals($values['description'], trim($crawler->filter('.bcl-banner__content p')->text()));
     // Check optional button.
-    if (!empty($values['link_label'])) {
+    if ($values['link_label'] !== NULL) {
       $this->assertCount(1, $crawler->filter('svg.bi.icon--fluid'));
       $this->assertStringContainsString($values['link_label'], trim($crawler->filter('a.btn')->text()));
       $this->assertStringContainsString('#chevron-right', trim($crawler->filter('a.btn')->html()));
