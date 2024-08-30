@@ -23,7 +23,7 @@
   margin-right: 1.5rem;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .oe-list-pages-sort-form {
     display: block;
   }
@@ -38,7 +38,7 @@
   }
 }
 
-@media (min-width: 576px) {
+@media (min-width: 768px) {
   .oe-list-pages-sort-form .form-select {
     max-width: 160px;
   }
