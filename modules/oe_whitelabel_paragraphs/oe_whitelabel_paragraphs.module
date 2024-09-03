@@ -288,7 +288,9 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
     ]),
   };
 
-  $variables['title'] = $paragraph->get('field_oe_title')->value;
+  if (!$paragraph->get('field_oe_title')->isEmpty()) {
+    $variables['title'] = $paragraph->get('field_oe_title')->value;
+  }
   $variables['description'] = $paragraph->get('field_oe_text')->value;
   $variables['full_width'] = (bool) $paragraph->get('field_oe_banner_full_width')->value;
   _oe_whitelabel_set_banner_link($paragraph, $variables);

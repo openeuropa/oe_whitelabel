@@ -27,8 +27,8 @@
 {% set _shade = 'shade' in variant %}
 {{ pattern('banner', {
   'variant': variant,
-  'title': content.field_oe_title,
-  'description':  content.field_oe_text,
+  'title': title,
+  'description': description,
   'call_to_action': _call_to_action,
   'image': image.src,
   'hero': _hero,
