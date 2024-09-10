@@ -195,11 +195,11 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
     );
     $this->assertEquals(
       'DG Test',
-      $article->filter('.card-body > div.my-3 > span:nth-child(1)')->text()
+      $article->filter('.card-body > div.mt-3 > span:nth-child(1)')->text()
     );
     $this->assertEquals(
       'Director',
-      $article->filter('.card-body > div.my-3 > span:nth-child(2)')->text()
+      $article->filter('.card-body > div.mt-3 > span:nth-child(2)')->text()
     );
   }
 

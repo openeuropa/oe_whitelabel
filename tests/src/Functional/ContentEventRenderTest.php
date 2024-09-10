@@ -130,7 +130,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
     );
 
     // Assert in-page navigation links.
-    $inpage_links = $crawler->filter('nav.bcl-inpage-navigation > ul');
+    $inpage_links = $crawler->filter('nav.bcl-inpage-navigation .dropdown-menu > ul');
     $this->assertCount(2, $inpage_links->filter('li'));
     $this->assertEquals(
       'Content',
