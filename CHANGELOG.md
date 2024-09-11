@@ -1,5 +1,19 @@
 # Change Log
 
+## [1.10.0](https://github.com/openeuropa/oe_whitelabel/tree/1.10.0) (2024-09-11)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.9.0...1.10.0)
+
+**Fixed bugs:**
+
+- Empty div with margin in Banner when paragraph has no title [\#302](https://github.com/openeuropa/oe_whitelabel/issues/302)
+
+**Merged pull requests:**
+
+- OEL-3338: Fix tests after oebt upgrade. [\#310](https://github.com/openeuropa/oe_whitelabel/pull/310) ([drishu](https://github.com/drishu))
+- OEL-3074: Fixed sort size on large mobile. [\#308](https://github.com/openeuropa/oe_whitelabel/pull/308) ([tibi2303](https://github.com/tibi2303))
+- OEL-3315: Remove empty title wrapper. [\#307](https://github.com/openeuropa/oe_whitelabel/pull/307) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+- UCPKN-2600: Accessibility statement link in the footer. [\#261](https://github.com/openeuropa/oe_whitelabel/pull/261) ([peterserfozo](https://github.com/peterserfozo))
+
 ## [1.9.0](https://github.com/openeuropa/oe_whitelabel/tree/1.9.0) (2024-08-19)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.8.0...1.9.0)
 
@@ -14,6 +28,7 @@
 **Merged pull requests:**
 
 - OEL-3247: Fix color scheme test after BCL changes. [\#305](https://github.com/openeuropa/oe_whitelabel/pull/305) ([drishu](https://github.com/drishu))
+- Prepare release 1.9.0 [\#304](https://github.com/openeuropa/oe_whitelabel/pull/304) ([drishu](https://github.com/drishu))
 - OEL-1811: Added libraries folder to git ignore. [\#301](https://github.com/openeuropa/oe_whitelabel/pull/301) ([tibi2303](https://github.com/tibi2303))
 - OEL-1686: Updated tests regarding bcl-offcanvas duplicate class. [\#300](https://github.com/openeuropa/oe_whitelabel/pull/300) ([tibi2303](https://github.com/tibi2303))
 - OEL-2632: Show project status badge in teaser view mode. [\#296](https://github.com/openeuropa/oe_whitelabel/pull/296) ([brummbar](https://github.com/brummbar))
