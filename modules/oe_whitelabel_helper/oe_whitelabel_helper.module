@@ -11,6 +11,8 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FormatterInterface;
 use Drupal\Core\Form\FormStateInterface;
 
+use Drupal\Core\Template\Attribute;
+
 /**
  * Implements hook_locale_translation_projects_alter().
  */
@@ -138,4 +140,61 @@ function oe_whitelabel_helper_theme_suggestions_field_group_html_element_alter(a
   if (!empty($entity_type) && !empty($bundle) && !empty($name)) {
     $suggestions[] = $hook . '__' . $entity_type . '__' . $bundle . '__' . $mode . '__' . $name;
   }
+}
+
+/**
+ * Theme preprocess function for grid_field_formatter.
+ *
+ * This function essentially extends the core field module theming methods, in
+ * particular template_preprocess_field. It also introduces new field template
+ * suggestions such as:
+ *   - field--two-column.tpl.php
+ *   - field--two-column--[FIELD_TYPE].tpl.php
+ *   - field--two-column--[FIELD_NAME].tpl.php
+ *   - field--two-column--[FIELD_NAME]--[BUNDLE].tpl.php.
+ *
+ * @see field--two-column.tpl.php
+ */
+function oe_whitelabel_helper_field_formatter(&$variables, $hook) {
+  // Extend the core field module theming functions.
+  template_preprocess_field($variables, $hook);
+
+  // Add colummns number.
+  $number_of_columns = $variables['element']['#columns'];
+  $variables['columns'] = $number_of_columns;
+
+  // Build row attributes.
+  $variables['row_attributes'] = new Attribute([
+    'class' => ['row'],
+  ]);
+
+  // Build column layout number.
+  $variables['column_layout'] = floor(12 / $number_of_columns);
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function oe_whitelabel_helper_theme_suggestions_field__two_column(array $variables) {
+  $suggestions = [];
+  $element = $variables['element'];
+
+  $suggestions[] = 'field__two_column' . $element['#field_type'];
+  $suggestions[] = 'field__two_column' . $element['#field_name'];
+  $suggestions[] = 'field__two_column' . $element['#entity_type'] . '__' . $element['#bundle'];
+  $suggestions[] = 'field__two_column' . $element['#entity_type'] . '__' . $element['#field_name'];
+  $suggestions[] = 'field__two_column' . $element['#entity_type'] . '__' . $element['#field_name'] . '__' . $element['#bundle'];
+
+  return $suggestions;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function oe_whitelabel_helper_theme() {
+  return [
+    'field_oe_whitelabel_double_column_formatter' => [
+      'render element' => 'element',
+    ],
+  ];
 }

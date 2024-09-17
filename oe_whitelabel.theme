@@ -293,3 +293,54 @@ function oe_whitelabel_preprocess_oe_corporate_blocks_ec_footer(&$variables): vo
     }
   }
 }
+
+/**
+ * Implements hook_preprocess().
+ */
+function oe_whitelabel_preprocess_pattern_card(array &$variables): void {
+  if ($variables['variant'] !== 'user_profile') {
+    return;
+  }
+
+  $variables['horizontal'] = TRUE;
+
+  // Multiple fields can be added to the same area,
+  // we need to print them inline.
+  $cards_fields = [
+    'title',
+    'subtitle',
+    'content',
+    'image',
+  ];
+
+  foreach ($cards_fields as $card_field) {
+    if (array_key_exists('#sources', $variables[$card_field])) {
+      for ($i = 0; $i < count($variables[$card_field]['#sources']); $i++) {
+        $variables[$card_field]['#sources'][$i]['#attributes']['class'][] = 'd-inline';
+        // Add margin left for the subsequent elements after the first.
+        if ($i > 0) {
+          $variables[$card_field]['#sources'][$i]['#attributes']['class'][] = 'ms-2';
+        }
+      }
+    }
+  }
+
+  $variables['title'] = [
+    'content' => $variables['title'],
+    'tag' => "h2",
+    'classes' => "fw-bold",
+  ];
+
+  $variables['subtitle'] = [
+    'content' => $variables['subtitle'],
+    'tag' => "div",
+    'classes' => "mb-4 mt-4 text-muted",
+  ];
+
+  $variables['image'] = [
+    'path' => $variables['image'][0]['#markup'] ?? '',
+    'alt' => "alt img",
+    'position' => "top",
+    'classes' => "card-img-top",
+  ];
+}
