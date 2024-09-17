@@ -1,0 +1,5 @@
+name: OpenEuropa Whitelabel User Profile
+type: module
+description: OpenEuropa Whitelabel Theme User Profile.
+package: OpenEuropa Whitelabel Theme
+core_version_requirement: ^8.9 || ^9.1
