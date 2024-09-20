@@ -48,7 +48,11 @@
             title: content.oe_session_moderators|field_label,
             title_tag: 'h5',
           } only %}
-          {{ content.oe_session_moderators|field_value }}
+          {% for _moderator in content.oe_session_moderators|field_value %}
+            <div{{ not loop.last ? create_attribute({class: ['mb-2']}) }}>
+              {{ _moderator }}
+            </div>
+          {% endfor %}
         </div>
       {% endif %}
 
@@ -59,7 +63,11 @@
             title: content.oe_session_speakers|field_label,
             title_tag: 'h5',
           } only %}
-          {{ content.oe_session_speakers|field_value }}
+          {% for _speaker in content.oe_session_speakers|field_value %}
+            <div{{ not loop.last ? create_attribute({class: ['mb-3']}) }}>
+              {{ _speaker }}
+            </div>
+          {% endfor %}
         </div>
       {% endif %}
 
