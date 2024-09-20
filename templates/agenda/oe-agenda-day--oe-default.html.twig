@@ -15,7 +15,7 @@
 {% endif %}
 
 {% for _session in content.oe_day_sessions|field_value %}
-  <div{{ not loop.last ? create_attribute().addClass('mb-4-5') }}>
+  <div{{ not loop.last ? create_attribute({class: ['mb-4-5']}) }}>
     {{ _session }}
   </div>
 {% endfor %}

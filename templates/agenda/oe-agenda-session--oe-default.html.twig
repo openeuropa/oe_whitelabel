@@ -19,7 +19,7 @@
 <div{{ attributes.addClass('row') }}>
   <div class="col-xxl-2 col-xl-3 col-lg-3 mb-3 mb-lg-0">
     {% block hours %}
-      {{ _self.icon('clock', 'xs', create_attribute().addClass(['mb-1', 'me-2'])) }}
+      {{ _self.icon('clock', 'xs', create_attribute({class: ['mb-1', 'me-2']})) }}
       <span>{{ content.oe_session_hours|field_value }}</span>
     {% endblock %}
   </div>
@@ -30,7 +30,7 @@
         {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
           title: label,
           title_tag: 'h4',
-          attributes: create_attribute().addClass(['h5', 'mb-4-5']),
+          attributes: create_attribute({class: ['h5', 'mb-4-5']}),
         } only %}
       {% endif %}
 
