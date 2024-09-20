@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.11.0](https://github.com/openeuropa/oe_whitelabel/tree/1.11.0) (2024-09-20)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.10.0...1.11.0)
+
+**Merged pull requests:**
+
+- OEL-2289: Added border-left on the search input in header. [\#311](https://github.com/openeuropa/oe_whitelabel/pull/311) ([tibi2303](https://github.com/tibi2303))
+
 ## [1.10.0](https://github.com/openeuropa/oe_whitelabel/tree/1.10.0) (2024-09-11)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.9.0...1.10.0)
 
@@ -10,6 +17,7 @@
 **Merged pull requests:**
 
 - OEL-3338: Fix tests after oebt upgrade. [\#310](https://github.com/openeuropa/oe_whitelabel/pull/310) ([drishu](https://github.com/drishu))
+- Prepare release 1.10.0. [\#309](https://github.com/openeuropa/oe_whitelabel/pull/309) ([drishu](https://github.com/drishu))
 - OEL-3074: Fixed sort size on large mobile. [\#308](https://github.com/openeuropa/oe_whitelabel/pull/308) ([tibi2303](https://github.com/tibi2303))
 - OEL-3315: Remove empty title wrapper. [\#307](https://github.com/openeuropa/oe_whitelabel/pull/307) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
 - UCPKN-2600: Accessibility statement link in the footer. [\#261](https://github.com/openeuropa/oe_whitelabel/pull/261) ([peterserfozo](https://github.com/peterserfozo))
