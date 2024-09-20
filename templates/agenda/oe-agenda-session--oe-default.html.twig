@@ -25,65 +25,71 @@
   </div>
   <div class="session-content col-xxl-10 col-xl-9 col-lg-9">
     {% block content %}
-      {% if not entity.get('name').isEmpty() %}
-        {# Display session label only if name field is not empty. #}
-        {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
-          title: label,
-          title_tag: 'h4',
-          attributes: create_attribute({class: ['h5', 'mb-4-5']}),
-        } only %}
-      {% endif %}
-
-      {# Intro. #}
-      {% if not entity.oe_session_intro.isEmpty() %}
-        <div class="mb-4-5">
-          {{ content.oe_session_intro|field_value }}
-        </div>
-      {% endif %}
-
-      {# Moderators. #}
-      {% if content.oe_session_moderators|field_value is not empty %}
-        <div class="mb-4-5">
+      {% block title %}
+        {% if not entity.get('name').isEmpty() %}
           {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
-            title: content.oe_session_moderators|field_label,
-            title_tag: 'h5',
+            title: label,
+            title_tag: 'h4',
+            attributes: create_attribute({class: ['h5', 'mb-4-5']}),
           } only %}
-          {% for _moderator in content.oe_session_moderators|field_value %}
-            <div{{ not loop.last ? create_attribute({class: ['mb-2']}) }}>
-              {{ _moderator }}
-            </div>
-          {% endfor %}
-        </div>
-      {% endif %}
+        {% endif %}
+      {% endblock %}
 
-      {# Speakers. #}
-      {% if content.oe_session_speakers|field_value is not empty %}
-        <div class="mb-4-5">
-          {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
-            title: content.oe_session_speakers|field_label,
-            title_tag: 'h5',
-          } only %}
-          {% for _speaker in content.oe_session_speakers|field_value %}
-            <div{{ not loop.last ? create_attribute({class: ['mb-3']}) }}>
-              {{ _speaker }}
-            </div>
-          {% endfor %}
-        </div>
-      {% endif %}
+      {% block intro %}
+        {% if not entity.oe_session_intro.isEmpty() %}
+          <div class="mb-4-5">
+            {{ content.oe_session_intro|field_value }}
+          </div>
+        {% endif %}
+      {% endblock %}
 
-      {# Venue / Online link as description list. #}
-      {% if session_links %}
-        <div class="mb-4-5">
-          {{ session_links }}
-        </div>
-      {% endif %}
+      {% block moderators %}
+        {% if content.oe_session_moderators|field_value is not empty %}
+          <div class="mb-4-5">
+            {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
+              title: content.oe_session_moderators|field_label,
+              title_tag: 'h5',
+            } only %}
+            {% for _moderator in content.oe_session_moderators|field_value %}
+              <div{{ not loop.last ? create_attribute({class: ['mb-2']}) }}>
+                {{ _moderator }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endblock %}
 
-      {# Details. #}
-      {% if not entity.oe_session_details.isEmpty() %}
-        <div class="session-details">
-          {{ content.oe_session_details|field_value }}
-        </div>
-      {% endif %}
+      {% block speakers %}
+        {% if content.oe_session_speakers|field_value is not empty %}
+          <div class="mb-4-5">
+            {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
+              title: content.oe_session_speakers|field_label,
+              title_tag: 'h5',
+            } only %}
+            {% for _speaker in content.oe_session_speakers|field_value %}
+              <div{{ not loop.last ? create_attribute({class: ['mb-3']}) }}>
+                {{ _speaker }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endblock %}
+
+      {% block links %}
+        {% if session_links %}
+          <div class="mb-4-5">
+            {{ session_links }}
+          </div>
+        {% endif %}
+      {% endblock %}
+
+      {% block details %}
+        {% if not entity.oe_session_details.isEmpty() %}
+          <div class="session-details">
+            {{ content.oe_session_details|field_value }}
+          </div>
+        {% endif %}
+      {% endblock %}
     {% endblock %}
   </div>
 </div>

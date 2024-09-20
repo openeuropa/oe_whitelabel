@@ -14,17 +14,20 @@
 {% endblock %}
 
 {% block content %}
-  {% set _title = entity.get('name').isEmpty() ? 'Break'|t : label %}
-  {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
-    title: _title,
-    title_tag: 'h4',
-    attributes: create_attribute({class: ['h5', 'mb-4', 'text-muted']}),
-  } only %}
+  {% block title %}
+    {% set _title = entity.get('name').isEmpty() ? 'Break'|t : label %}
+    {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
+      title: _title,
+      title_tag: 'h4',
+      attributes: create_attribute({class: ['h5', 'mb-4', 'text-muted']}),
+    } only %}
+  {% endblock %}
 
-  {# Details. #}
-  {% if not entity.oe_session_details.isEmpty() %}
-    <div class="session-details">
-      {{ content.oe_session_details|field_value }}
-    </div>
-  {% endif %}
+  {% block details %}
+    {% if not entity.oe_session_details.isEmpty() %}
+      <div class="session-details">
+        {{ content.oe_session_details|field_value }}
+      </div>
+    {% endif %}
+  {% endblock %}
 {% endblock %}
