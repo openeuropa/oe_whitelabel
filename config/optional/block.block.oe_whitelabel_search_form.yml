@@ -24,7 +24,7 @@ settings:
     label: Search
     placeholder: Search
   button:
-    label: ''
+    label: Search
   view_options:
     enable_autocomplete: false
     id: null

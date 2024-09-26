@@ -19,3 +19,16 @@ function oe_whitelabel_search_post_update_00001(&$sandbox) {
   $block->set('settings', $settings);
   $block->save();
 }
+
+/**
+ * Set default button label in search block if it's not already set.
+ */
+function oe_whitelabel_search_post_update_00031(&$sandbox) {
+  $block = Block::load('oe_whitelabel_search_form');
+  $settings = $block->get('settings');
+  if (empty($settings['button']['label'])) {
+    $settings['button']['label'] = 'Search';
+  }
+  $block->set('settings', $settings);
+  $block->save();
+}
