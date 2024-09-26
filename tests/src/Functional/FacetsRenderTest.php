@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel\Functional;
 
-use Drupal\facets\Entity\Facet;
-use Drupal\facets_summary\Entity\FacetsSummary;
 use Drupal\Tests\facets\Functional\BlockTestTrait;
 use Drupal\Tests\facets\Functional\ExampleContentTrait;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
+use Drupal\facets\Entity\Facet;
+use Drupal\facets_summary\Entity\FacetsSummary;
 
 /**
  * Tests the Facets rendering.

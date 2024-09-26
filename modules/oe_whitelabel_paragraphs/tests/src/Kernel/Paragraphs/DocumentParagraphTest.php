@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
 use Drupal\Core\Site\Settings;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\FilePatternAssert;
+use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\file\Entity\File;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\media\Entity\Media;
 use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\FilePatternAssert;
-use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\user\Entity\User;
 use Symfony\Component\DomCrawler\Crawler;
 

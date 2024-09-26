@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
-use Drupal\paragraphs\ParagraphInterface;
 use Drupal\Tests\oe_whitelabel_paragraphs\Kernel\AbstractKernelTestBase;
+use Drupal\paragraphs\ParagraphInterface;
 
 /**
  * Base class for paragraphs tests.
@@ -88,7 +88,7 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
    *
    * @throws \Exception
    */
-  protected function renderParagraph(ParagraphInterface $paragraph, string $langcode = NULL): string {
+  protected function renderParagraph(ParagraphInterface $paragraph, ?string $langcode = NULL): string {
     $render = \Drupal::entityTypeManager()
       ->getViewBuilder('paragraph')
       ->view($paragraph, 'default', $langcode);

@@ -9,16 +9,16 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Url;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
-use Drupal\node\NodeInterface;
-use Drupal\oe_content_entity\Entity\CorporateEntityInterface;
-use Drupal\oe_content_entity_organisation\Entity\OrganisationInterface;
+use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\ContentBannerAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\DescriptionListAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\GalleryPatternAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\InPageNavigationAssert;
 use Drupal\Tests\oe_whitelabel\Traits\NodeCreationTrait;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
-use Drupal\Tests\TestFileCreationTrait;
+use Drupal\node\NodeInterface;
+use Drupal\oe_content_entity\Entity\CorporateEntityInterface;
+use Drupal\oe_content_entity_organisation\Entity\OrganisationInterface;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 
@@ -547,7 +547,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
    * @param int|null $max
    *   Maximum progress in percent.
    */
-  protected function assertProjectProgress(int $min, int $max = NULL): void {
+  protected function assertProjectProgress(int $min, ?int $max = NULL): void {
     $progress_bar = $this->assertSession()->elementExists('css', '.bcl-project-status .progress-bar');
     $progress_string = $progress_bar->getAttribute('aria-valuenow');
     $this->assertStringContainsString("width: $progress_string%", $progress_bar->getAttribute('style'));
