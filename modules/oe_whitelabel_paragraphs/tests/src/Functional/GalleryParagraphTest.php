@@ -199,7 +199,7 @@ class GalleryParagraphTest extends BrowserTestBase {
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
    *   Paragraph entity.
    * @param string|null $langcode
-   *   Rendering language code, defaults to 'en'.
+   *   Rendering language code.
    *
    * @return string
    *   Rendered output.

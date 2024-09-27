@@ -80,8 +80,8 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
    *
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
    *   Paragraph entity.
-   * @param string $langcode
-   *   Rendering language code, defaults to 'en'.
+   * @param string|null $langcode
+   *   Rendering language code.
    *
    * @return string
    *   Rendered output.
