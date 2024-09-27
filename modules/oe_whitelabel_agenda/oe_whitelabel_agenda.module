@@ -1,0 +1,109 @@
+<?php
+
+/**
+ * @file
+ * OE Whitelabel Agenda module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Render\RendererInterface;
+use Drupal\link_description\Plugin\Field\FieldType\LinkDescriptionItem;
+use Drupal\oe_agenda\Entity\DayInterface;
+use Drupal\oe_agenda\Entity\SessionInterface;
+
+/**
+ * Implements hook_preprocess_oe_agenda() for oe_default agenda.
+ */
+function oe_whitelabel_agenda_preprocess_oe_agenda__oe_default(array &$variables): void {
+  foreach (Element::children($variables['content']['oe_agenda_days']) as $index) {
+    $day = $variables['content']['oe_agenda_days'][$index]['#oe_agenda_day'];
+    assert($day instanceof DayInterface);
+    // Pass agenda days as accordion items to the template.
+    $variables['days'][] = [
+      'title' => $day->get('oe_day_date')->first()->view('default'),
+      'content' => $variables['content']['oe_agenda_days'][$index],
+    ];
+  }
+}
+
+/**
+ * Implements hook_preprocess_oe_agenda_session() for oe_default session.
+ */
+function oe_whitelabel_agenda_preprocess_oe_agenda_session__oe_default(array &$variables): void {
+  $session = $variables['entity'];
+  assert($session instanceof SessionInterface);
+  $renderer = \Drupal::service('renderer');
+  assert($renderer instanceof RendererInterface);
+  $cacheability = CacheableMetadata::createFromRenderArray($variables);
+
+  // Build items for description list pattern displaying session links.
+  $items = [];
+  foreach (['oe_session_venue', 'oe_session_online_link'] as $index => $field_name) {
+    $field = $session->get($field_name);
+    assert($field instanceof FieldItemListInterface);
+    if ($field->isEmpty()) {
+      // Skip if field is empty.
+      continue;
+    }
+    $access = $field->access('view', $variables['user'], TRUE);
+    $cacheability->addCacheableDependency($access);
+    if (!$access->isAllowed()) {
+      // Skip if user doesn't have access to the field.
+      $cacheability->applyTo($variables);
+      continue;
+    }
+    $items[$index]['term'] = $field->getFieldDefinition()->getLabel() . ':';
+    $definition = [];
+    $link_description_item = $field->first();
+    assert($link_description_item instanceof LinkDescriptionItem);
+
+    // Add link to definition.
+    $link = [
+      '#type' => 'pattern',
+      '#id' => 'link',
+      '#fields' => [
+        'label' => $link_description_item->getTitle(),
+        'path' => $link_description_item->getUrl(),
+      ],
+    ];
+    if ($link_description_item->isExternal()) {
+      $link['#fields']['icon'] = [
+        'name' => 'box-arrow-up-right',
+        'size' => 'xs',
+      ];
+      $link['#fields']['attributes'] = [
+        'target' => '_blank',
+      ];
+    }
+    $definition[] = $link;
+
+    // Add link description to definition.
+    if (!empty($link_description_item->description)) {
+      $definition[] = [
+        '#type' => 'processed_text',
+        '#text' => $link_description_item->description,
+        '#format' => 'plain_text',
+      ];
+    }
+
+    $items[$index]['definition'] = $renderer->render($definition);
+  }
+
+  // Build description list with session links.
+  if ($items) {
+    $variables['session_links'] = [
+      '#type' => 'pattern',
+      '#id' => 'description_list',
+      '#orientation' => 'horizontal',
+      '#fields' => [
+        'items' => $items,
+      ],
+    ];
+  }
+
+  $cacheability->applyTo($variables);
+}
