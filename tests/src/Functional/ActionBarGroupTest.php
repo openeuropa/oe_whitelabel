@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel\Functional;
 
-use Drupal\node\NodeInterface;
 use Drupal\Tests\oe_whitelabel\Traits\NodeCreationTrait;
+use Drupal\node\NodeInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**

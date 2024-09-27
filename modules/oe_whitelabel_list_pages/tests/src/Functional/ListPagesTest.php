@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_whitelabel_list_pages\Functional;
 
 use Behat\Mink\Element\ElementInterface;
-use Drupal\node\Entity\Node;
-use Drupal\node\NodeInterface;
 use Drupal\Tests\oe_whitelabel\Functional\WhitelabelBrowserTestBase;
 use Drupal\Tests\oe_whitelabel\Traits\TraversingTrait;
 use Drupal\Tests\search_api\Functional\ExampleContentTrait;
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 
 /**
  * Tests the list pages rendering.

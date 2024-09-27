@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
-use Drupal\file\Entity\File;
-use Drupal\node\Entity\Node;
-use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\Tests\oe_whitelabel_paragraphs\Kernel\PatternAssertions\ListingAssertion;
-use Drupal\Tests\TestFileCreationTrait;
+use Drupal\file\Entity\File;
+use Drupal\node\Entity\Node;
+use Drupal\paragraphs\Entity\Paragraph;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**

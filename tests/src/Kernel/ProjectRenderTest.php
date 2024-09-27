@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
-use Drupal\media\Entity\Media;
-use Drupal\node\Entity\Node;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CardPatternAssert;
 use Drupal\Tests\user\Traits\UserCreationTrait;
+use Drupal\media\Entity\Media;
+use Drupal\node\Entity\Node;
 
 /**
  * Tests the rendering of the teaser view mode of Project content type.
