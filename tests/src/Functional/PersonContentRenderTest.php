@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel\Functional;
 
+use Drupal\Tests\TestFileCreationTrait;
+use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\FilePatternAssert;
 use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 use Drupal\node\NodeInterface;
-use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
-use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\FilePatternAssert;
-use Drupal\Tests\TestFileCreationTrait;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**

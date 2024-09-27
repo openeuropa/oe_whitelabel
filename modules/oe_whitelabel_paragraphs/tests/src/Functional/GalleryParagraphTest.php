@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Functional;
 
 use Drupal\Core\Url;
-use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\paragraphs\ParagraphInterface;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\GalleryPatternAssert;
 use Drupal\Tests\oe_whitelabel\Traits\MediaCreationTrait;
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\paragraphs\ParagraphInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -199,14 +199,14 @@ class GalleryParagraphTest extends BrowserTestBase {
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
    *   Paragraph entity.
    * @param string|null $langcode
-   *   Rendering language code, defaults to 'en'.
+   *   Rendering language code.
    *
    * @return string
    *   Rendered output.
    *
    * @throws \Exception
    */
-  protected function renderParagraph(ParagraphInterface $paragraph, string $langcode = NULL): string {
+  protected function renderParagraph(ParagraphInterface $paragraph, ?string $langcode = NULL): string {
     $render = \Drupal::entityTypeManager()
       ->getViewBuilder('paragraph')
       ->view($paragraph, 'default', $langcode);

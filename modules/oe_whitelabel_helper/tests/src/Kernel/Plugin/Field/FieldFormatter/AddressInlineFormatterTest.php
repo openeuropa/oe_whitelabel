@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel_helper\Kernel\Plugin\Field\FieldFormatter;
 
-use Drupal\entity_test\Entity\EntityTest;
 use Drupal\Tests\address\Kernel\Formatter\FormatterTestBase;
+use Drupal\entity_test\Entity\EntityTest;
 
 /**
  * Test AddressInlineFormatter plugin.

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel_link_lists\Functional;
 
-use Drupal\oe_link_lists\Entity\LinkList;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CardPatternAssert;
 use Drupal\Tests\oe_whitelabel\Functional\WhitelabelBrowserTestBase;
 use Drupal\Tests\oe_whitelabel\Traits\NodeCreationTrait as WhitelabelNodeCreationTrait;
+use Drupal\oe_link_lists\Entity\LinkList;
 
 /**
  * Tests the teaser display plugin with the manual list bundle.

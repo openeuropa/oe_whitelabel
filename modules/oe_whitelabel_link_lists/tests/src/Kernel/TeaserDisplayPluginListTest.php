@@ -8,15 +8,15 @@ use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Entity\Entity\EntityViewMode;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Url;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CardPatternAssert;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\ColumnsPatternAssert;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\SectionPatternAssert;
+use Drupal\Tests\oe_whitelabel\Kernel\AbstractKernelTestBase;
 use Drupal\entity_test\Entity\EntityTest;
 use Drupal\entity_test\Entity\EntityTestNoBundleWithLabel;
 use Drupal\oe_link_lists\DefaultEntityLink;
 use Drupal\oe_link_lists\DefaultLink;
 use Drupal\oe_link_lists\LinkCollection;
-use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CardPatternAssert;
-use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\ColumnsPatternAssert;
-use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\SectionPatternAssert;
-use Drupal\Tests\oe_whitelabel\Kernel\AbstractKernelTestBase;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**

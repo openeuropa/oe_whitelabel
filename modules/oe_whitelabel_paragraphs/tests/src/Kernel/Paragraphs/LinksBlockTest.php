@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
-use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Tests\oe_whitelabel_paragraphs\Kernel\PatternAssertions\LinksBlockAssertion;
+use Drupal\paragraphs\Entity\Paragraph;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**

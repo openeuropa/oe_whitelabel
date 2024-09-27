@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CarouselPatternAssert;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CarouselPatternAssert;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
