@@ -23,12 +23,19 @@ function oe_whitelabel_search_post_update_00001(&$sandbox) {
 /**
  * Set default button label in search block if it's not already set.
  */
-function oe_whitelabel_search_post_update_00031(&$sandbox) {
-  $block = Block::load('oe_whitelabel_search_form');
-  $settings = $block->get('settings');
-  if (empty($settings['button']['label'])) {
-    $settings['button']['label'] = 'Search';
+function oe_whitelabel_search_post_update_00002(&$sandbox) {
+  $theme_manager = \Drupal::service('theme.manager');
+  $current_theme = $theme_manager->getActiveTheme()->getName();
+
+  $block_storage = \Drupal::entityTypeManager()->getStorage('block');
+  $blocks = $block_storage->loadByProperties(['theme' => $current_theme, 'plugin' => 'whitelabel_search_block']);
+
+  foreach ($blocks as $block) {
+    $settings = $block->get('settings');
+    if (empty($settings['button']['label'])) {
+      $settings['button']['label'] = 'Search';
+      $block->set('settings', $settings);
+      $block->save();
+    }
   }
-  $block->set('settings', $settings);
-  $block->save();
 }
