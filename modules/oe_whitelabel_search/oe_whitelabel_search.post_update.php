@@ -30,14 +30,18 @@ function oe_whitelabel_search_post_update_00002(&$sandbox) {
   $block_storage = \Drupal::entityTypeManager()->getStorage('block');
   $blocks = $block_storage->loadByProperties(['theme' => $current_theme, 'plugin' => 'whitelabel_search_block']);
 
+  $updated_blocks = [];
   foreach ($blocks as $block) {
     $settings = $block->get('settings');
     if (empty($settings['button']['label'])) {
       $settings['button']['label'] = t('Search');
       $block->set('settings', $settings);
       $block->save();
-      return 'The search block configuration has been updated for block: ' . $block->id();
+      $updated_blocks[] = $block->id();
     }
+  }
+  if (!empty($updated_blocks)) {
+    return 'The following search blocks have been updated: ' . implode(', ', $updated_blocks);
   }
   return 'No search block needed to be updated.';
 }
