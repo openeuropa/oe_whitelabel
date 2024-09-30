@@ -33,7 +33,7 @@ function oe_whitelabel_search_post_update_00002(&$sandbox) {
   foreach ($blocks as $block) {
     $settings = $block->get('settings');
     if (empty($settings['button']['label'])) {
-      $settings['button']['label'] = 'Search';
+      $settings['button']['label'] = t('Search');
       $block->set('settings', $settings);
       $block->save();
     }
