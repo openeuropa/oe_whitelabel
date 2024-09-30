@@ -36,6 +36,8 @@ function oe_whitelabel_search_post_update_00002(&$sandbox) {
       $settings['button']['label'] = t('Search');
       $block->set('settings', $settings);
       $block->save();
+      return 'The search block configuration has been updated for block: ' . $block->id();
     }
   }
+  return 'No search block needed to be updated.';
 }
