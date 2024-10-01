@@ -169,7 +169,7 @@ function oe_whitelabel_preprocess_html(array &$variables) {
     ],
   ];
 
-  array_unshift($variables['page_top'], $cck_container);
+  $variables['page_top']['cck_container'] = $cck_container;
 }
 
 /**
