@@ -10,7 +10,6 @@ declare(strict_types=1);
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Template\AttributeHelper;
 use Drupal\oe_bootstrap_theme_helper\EuropeanUnionLanguages;
-use Drupal\oe_webtools_cookie_consent\Event\ConfigBannerPopupEvent;
 use Drupal\oe_whitelabel\DocumentMediaWrapper;
 
 // Include all files from the includes directory.
@@ -154,14 +153,23 @@ function oe_whitelabel_preprocess_page(&$variables) {
     $site_logo_href .= '/index_' . EuropeanUnionLanguages::getInternalLanguageCode($variables['current_language_id']);
   }
   $variables['site_logo_href'] = $site_logo_href;
+}
 
-  // Show CCK banner wrapper if banner is enabled.
-  $variables['cck_enabled'] = FALSE;
-  $event = new ConfigBannerPopupEvent();
-  \Drupal::service('event_dispatcher')->dispatch(ConfigBannerPopupEvent::NAME, $event);
-  if ($event->isBannerPopup()) {
-    $variables['cck_enabled'] = TRUE;
-  }
+/**
+ * Implements hook_preprocess_html().
+ */
+function oe_whitelabel_preprocess_html(array &$variables) {
+  $cck_container = [
+    '#type' => 'html_tag',
+    '#tag' => 'div',
+    '#attributes' => [
+      'id' => 'cck_here',
+      'role' => 'alertdialog',
+      'aria-live' => 'assertive',
+    ],
+  ];
+
+  array_unshift($variables['page_top'], $cck_container);
 }
 
 /**
