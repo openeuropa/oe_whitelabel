@@ -101,7 +101,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
         'placeholder' => $this->t('Search'),
       ],
       'button' => [
-        'label' => '',
+        'label' => $this->t('Search'),
       ],
       'view_options' => [
         'enable_autocomplete' => FALSE,

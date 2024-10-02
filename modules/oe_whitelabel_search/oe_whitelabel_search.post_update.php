@@ -19,3 +19,29 @@ function oe_whitelabel_search_post_update_00001(&$sandbox) {
   $block->set('settings', $settings);
   $block->save();
 }
+
+/**
+ * Set default button label in search block if it's not already set.
+ */
+function oe_whitelabel_search_post_update_00002(&$sandbox) {
+  $theme_manager = \Drupal::service('theme.manager');
+  $current_theme = $theme_manager->getActiveTheme()->getName();
+
+  $block_storage = \Drupal::entityTypeManager()->getStorage('block');
+  $blocks = $block_storage->loadByProperties(['theme' => $current_theme, 'plugin' => 'whitelabel_search_block']);
+
+  $updated_blocks = [];
+  foreach ($blocks as $block) {
+    $settings = $block->get('settings');
+    if (empty($settings['button']['label'])) {
+      $settings['button']['label'] = t('Search');
+      $block->set('settings', $settings);
+      $block->save();
+      $updated_blocks[] = $block->id();
+    }
+  }
+  if (!empty($updated_blocks)) {
+    return 'The following search blocks have been updated: ' . implode(', ', $updated_blocks);
+  }
+  return 'No search block needed to be updated.';
+}
