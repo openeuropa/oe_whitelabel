@@ -164,8 +164,7 @@ function oe_whitelabel_preprocess_html(array &$variables) {
     '#tag' => 'div',
     '#attributes' => [
       'id' => 'cck_here',
-      'role' => 'alertdialog',
-      'aria-live' => 'assertive',
+      'role' => 'alert',
     ],
   ];
 

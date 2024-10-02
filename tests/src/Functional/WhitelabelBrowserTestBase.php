@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_whitelabel\Functional;
 
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\oe_whitelabel\Traits\CckContainerTrait;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 
 /**
@@ -13,6 +14,7 @@ use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 abstract class WhitelabelBrowserTestBase extends BrowserTestBase {
 
   use SparqlConnectionTrait;
+  use CckContainerTrait;
 
   /**
    * {@inheritdoc}
@@ -24,6 +26,9 @@ abstract class WhitelabelBrowserTestBase extends BrowserTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
+
+    // Assert the cck container exists on all functional tests pages.
+    $this->assertCckContainer();
 
     // Without sparql, some blocks will cause problems.
     $this->setUpSparql();
