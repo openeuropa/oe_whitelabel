@@ -13,7 +13,7 @@ trait CckContainerTrait {
    * Asserts the HTML of the "cck_here" container.
    */
   protected function assertCckContainer(): void {
-    $cck_container = $this->cssSelect('#cck_here')[0];
+    $cck_container = $this->cssSelect('body :nth-child(2)')[0];
     $this->assertNotNull($cck_container);
 
     $expected_html = '<div id="cck_here" role="alert"></div>';
