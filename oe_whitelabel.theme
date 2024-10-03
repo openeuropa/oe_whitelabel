@@ -156,6 +156,22 @@ function oe_whitelabel_preprocess_page(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_html().
+ */
+function oe_whitelabel_preprocess_html(array &$variables) {
+  $cck_container = [
+    '#type' => 'html_tag',
+    '#tag' => 'div',
+    '#attributes' => [
+      'id' => 'cck_here',
+      'role' => 'alert',
+    ],
+  ];
+
+  $variables['page_top']['cck_container'] = $cck_container;
+}
+
+/**
  * Implements hook_preprocess_HOOK() for document media bundle.
  */
 function oe_whitelabel_preprocess_media__document__default(&$variables) {
