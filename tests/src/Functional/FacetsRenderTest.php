@@ -70,7 +70,7 @@ class FacetsRenderTest extends WhitelabelBrowserTestBase {
     $this->drupalGet('search-api-test-fulltext');
 
     $assert = $this->assertSession();
-    $assert->elementTextContains('css', 'main h4', $block->label());
+    $assert->elementTextContains('css', 'main h2', $block->label());
     $assert->elementTextContains('css', 'span.source-summary-count', '(5)');
   }
 
