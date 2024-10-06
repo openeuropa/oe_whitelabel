@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\oe_whitelabel_helper\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\media\Plugin\media\Source\Image;
 use Drupal\media\Entity\Media;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
@@ -69,6 +70,17 @@ class FeaturedMediaImageFormatter extends FeaturedMediaFormatterBase {
     }
 
     return $elements;
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * One step back to have both image and file ER plugins extend this, because
+   * EntityReferenceItem::isDisplayed() doesn't exist, except for ImageItem
+   * which is always TRUE anyway for type image and file ER.
+   */
+  protected function needsEntityLoad(EntityReferenceItem $item) {
+    return !$item->hasNewEntity();
   }
 
 }
