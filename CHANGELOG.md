@@ -1,10 +1,28 @@
 # Change Log
 
+## [1.12.0](https://github.com/openeuropa/oe_whitelabel/tree/1.12.0) (2024-10-07)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.11.0...1.12.0)
+
+**Fixed bugs:**
+
+- Improve translatability [\#231](https://github.com/openeuropa/oe_whitelabel/issues/231)
+
+**Closed issues:**
+
+- Fix spacing for search icon in header search block [\#246](https://github.com/openeuropa/oe_whitelabel/issues/246)
+
+**Merged pull requests:**
+
+- OEL-3412: Added cck before page\_top. [\#316](https://github.com/openeuropa/oe_whitelabel/pull/316) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Fix drupal/coder issues. [\#315](https://github.com/openeuropa/oe_whitelabel/pull/315) ([tibi2303](https://github.com/tibi2303))
+- OEL-3411: Set default button label in search block header, if not already set. [\#314](https://github.com/openeuropa/oe_whitelabel/pull/314) ([tibi2303](https://github.com/tibi2303))
+
 ## [1.11.0](https://github.com/openeuropa/oe_whitelabel/tree/1.11.0) (2024-09-20)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.10.0...1.11.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.11.0. [\#312](https://github.com/openeuropa/oe_whitelabel/pull/312) ([drishu](https://github.com/drishu))
 - OEL-2289: Added border-left on the search input in header. [\#311](https://github.com/openeuropa/oe_whitelabel/pull/311) ([tibi2303](https://github.com/tibi2303))
 
 ## [1.10.0](https://github.com/openeuropa/oe_whitelabel/tree/1.10.0) (2024-09-11)
