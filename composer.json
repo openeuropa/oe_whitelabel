@@ -76,6 +76,11 @@
     "extra": {
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
+        "patches": {
+            "openeuropa/oe_bootstrap_theme": {
+                "OEL-2742": "https://github.com/openeuropa/oe_bootstrap_theme/compare/1.x...OEL-2742.diff"
+            }
+        },
         "patches-ignore": {
             "openeuropa/oe_content": {
                 "drupal/field_group": {
