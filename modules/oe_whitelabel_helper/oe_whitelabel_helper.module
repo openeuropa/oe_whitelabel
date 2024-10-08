@@ -139,3 +139,30 @@ function oe_whitelabel_helper_theme_suggestions_field_group_html_element_alter(a
     $suggestions[] = $hook . '__' . $entity_type . '__' . $bundle . '__' . $mode . '__' . $name;
   }
 }
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function oe_whitelabel_helper_preprocess_pattern_content_banner(&$variables) {
+  // Set the image at the root, as waited in pattern template.
+  _oe_whitelabel_helper__set_image_object($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function oe_whitelabel_helper_preprocess_pattern_card(&$variables) {
+  // Set the image at the root, as waited in pattern template.
+  _oe_whitelabel_helper__set_image_object($variables);
+}
+
+/**
+ * Implements hook_aggregator_fetcher_info_alter().
+ */
+function _oe_whitelabel_helper__set_image_object(&$variables) {
+  // @todo Declare each pattern that uses oe_featured_media.
+  if(!empty($variables['image']) && is_array($variables['image']) && !isset($variables['image']['src'])) {
+    $image = reset($variables['image']);
+    $variables['image'] = $image ?? [];
+  }
+}
