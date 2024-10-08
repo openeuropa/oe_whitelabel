@@ -6,7 +6,9 @@
  * @see ./modules/contrib/paragraphs/templates/paragraph.html.twig
  */
 #}
-{% include '@oe-bcl/bcl-heading/heading.html.twig' with {
-  title: content.field_oe_title,
-} only %}
+{% if content.field_oe_title is not empty %}
+  {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
+    title: content.field_oe_title,
+  } only %}
+{% endif %}
 {{ content|without('field_oe_title') }}
