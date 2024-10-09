@@ -79,6 +79,14 @@ class SiteBrandingBlockTest extends KernelTestBase {
     $expected = '/themes/custom/oe_whitelabel/logo.svg';
     $this->assertSame($expected, $logo->attr('src'));
 
+    $navbar = $crawler->filter('nav.bcl-header__navbar');
+    $this->assertCount(1, $navbar);
+    $this->assertSame('Menu', $navbar->attr('role'));
+
+    $site_nav = $crawler->filter('nav.w-100.shadow-sm');
+    $this->assertCount(1, $site_nav);
+    $this->assertSame('Site settings navigation', $site_nav->attr('role'));
+
     \Drupal::configFactory()->getEditable('oe_whitelabel.settings')
       ->set('component_library', 'eu')
       ->set('header_style', 'light')
