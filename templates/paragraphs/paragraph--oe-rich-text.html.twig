@@ -6,7 +6,7 @@
  * @see ./modules/contrib/paragraphs/templates/paragraph.html.twig
  */
 #}
-{% if content.field_oe_title is not empty %}
+{% if content.field_oe_title|field_value is not empty %}
   {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
     title: content.field_oe_title,
   } only %}
