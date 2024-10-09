@@ -56,6 +56,9 @@ class CorporateHeaderLogosTest extends WhitelabelBrowserTestBase {
 
     $this->drupalGet('<front>');
 
+    $assert_session->elementAttributeContains('css', 'nav.w-100.shadow-sm', 'role', 'Site settings navigation');
+    $assert_session->elementAttributeContains('css', 'nav.bcl-header__navbar', 'role', 'Menu');
+
     $assert_session->elementExists('css', 'header.bcl-header.bcl-header--eu');
     $assert_session->elementExists('css', 'header > nav > div > a[href="https://european-union.europa.eu/index_en"]');
     $assert_session->elementExists('css', 'picture > source[srcset="/build/themes/contrib/oe_bootstrap_theme/assets/logos/eu/mobile/logo-eu--en.svg"]');

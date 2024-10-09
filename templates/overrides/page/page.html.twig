@@ -79,7 +79,10 @@
           right: page.header_top,
           color_scheme: 'light',
           background: false,
-          attributes: create_attribute().addClass(['w-100', 'shadow-sm']),
+          attributes: create_attribute({
+            'class': ['w-100', 'shadow-sm'],
+            'role': 'Site settings navigation'|t
+          })
         }) }}
       {% endblock %}
 
@@ -93,7 +96,10 @@
           color_scheme: 'dark',
           background: false,
           expanded_breakpoint: 'lg',
-          attributes: create_attribute().addClass(['bcl-header__navbar']),
+          attributes: create_attribute({
+            'class': ['bcl-header__navbar'],
+            'role': 'Menu'|t
+          })
         }) }}
       {% endblock %}
       {# Breadcrumbs. #}
