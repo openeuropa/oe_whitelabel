@@ -16,6 +16,13 @@ class RichTextTest extends ParagraphsTestBase {
   /**
    * {@inheritdoc}
    */
+  protected static $modules = [
+    'twig_field_value',
+  ];
+
+  /**
+   * {@inheritdoc}
+   */
   protected function setUp(): void {
     parent::setUp();
 
