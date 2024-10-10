@@ -46,6 +46,7 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
     'paragraphs',
     'text',
     'typed_link',
+    'twig_field_value',
     'user',
     'views',
   ];
