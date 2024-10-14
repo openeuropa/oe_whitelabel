@@ -9,31 +9,26 @@
     - modal
 #}
 
-{% set _language = {
-  link: {
-    label: language.link.name|default(''),
-    href: language.link.href|default('#'),
-    target: language.link.target|default(language.modal.id|default('')),
-  },
-  modal: language.modal,
+{% set _language_link = {
+  label: language.link.name|default(''),
+  href: language.link.href|default('#'),
+  target: language.link.target|default(language.modal.id|default(''))
 } %}
-{% set extra_attributes = create_attribute() %}
-{% set extra_attributes = extra_attributes.setAttribute('data-bs-toggle', 'modal') %}
-{% set extra_attributes = extra_attributes.setAttribute('data-bs-target', '#' ~ _language.link.target) %}
-{% set extra_attributes = extra_attributes.addClass(
-  [
-    'text-center'
-  ]
-) %}
-  {% set title = _language.link.label %}
-  {% set link_title %}
-    <span class="d-block d-lg-inline-block">{{ title }}</span>
-  {% endset %}
+{% set extra_attributes = create_attribute({
+  'class': ['text-center'],
+  'data-bs-toggle': 'modal',
+  'data-bs-target': '#' ~ _language_link.target,
+  'aria-label': ('Change language. Current language is '|t) ~ _language_link.label ~ '.',
+}) %}
 
-  <div class="language-switcher">
+{% set _link_title %}
+  <span class="d-block d-lg-inline-block">{{ _language_link.label }}</span>
+{% endset %}
+
+<div class="language-switcher">
   {{ pattern('link', {
-    label: link_title,
-    path: _language.link.href,
+    label: _link_title,
+    path: _language_link.href,
     icon: {
       name: 'chat-left-dots-fill',
       size: 'xs',
@@ -44,6 +39,6 @@
   }) }}
 </div>
 
-{% include '@oe_whitelabel/patterns/modal/modal-language.html.twig' with _language.modal only %}
+{% include '@oe_whitelabel/patterns/modal/modal-language.html.twig' with language.modal only %}
 
 {% endapply %}
