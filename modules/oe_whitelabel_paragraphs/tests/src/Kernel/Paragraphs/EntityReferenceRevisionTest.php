@@ -17,6 +17,13 @@ use Symfony\Component\DomCrawler\Crawler;
  */
 class EntityReferenceRevisionTest extends ParagraphsTestBase {
 
+  /**
+   * {@inheritdoc}
+   */
+  protected static $modules = [
+    'twig_field_value',
+  ];
+
   use ContentTypeCreationTrait;
   use UserCreationTrait;
 
