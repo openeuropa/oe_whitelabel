@@ -13,6 +13,13 @@ use Symfony\Component\DomCrawler\Crawler;
 class ContentRowTest extends ParagraphsTestBase {
 
   /**
+   * {@inheritdoc}
+   */
+  protected static $modules = [
+    'twig_field_value',
+  ];
+
+  /**
    * Tests the rendering of the paragraph type.
    */
   public function testWithInpageNavigationRendering(): void {
