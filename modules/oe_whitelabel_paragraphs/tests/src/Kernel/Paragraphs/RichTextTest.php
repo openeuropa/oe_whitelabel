@@ -16,6 +16,13 @@ class RichTextTest extends ParagraphsTestBase {
   /**
    * {@inheritdoc}
    */
+  protected static $modules = [
+    'twig_field_value',
+  ];
+
+  /**
+   * {@inheritdoc}
+   */
   protected function setUp(): void {
     parent::setUp();
 
@@ -108,11 +115,40 @@ class RichTextTest extends ParagraphsTestBase {
       'second option',
       $text->html()
     );
-    // Blcokquote.
+    // Blockquote.
     $text = $crawler->filter('blockquote p');
     $this->assertCount(1, $text);
     $this->assertStringContainsString(
       'I am a block quote',
+      $text->html()
+    );
+  }
+
+  /**
+   * Tests the rendering when 'field_oe_title' is empty.
+   */
+  public function testRenderingWithoutTitle(): void {
+    $text_original = '<p id="paragraph-1">Lorem ipsum dolor sit amet</p>';
+    $paragraph = Paragraph::create([
+      'type' => 'oe_rich_text',
+      'field_oe_text_long' => [
+        'value' => $text_original,
+        'format' => 'filtered_html',
+      ],
+    ]);
+    $paragraph->save();
+
+    $html = $this->renderParagraph($paragraph);
+    $crawler = new Crawler($html);
+
+    $title = $crawler->filter('h2');
+    $this->assertCount(0, $title);
+
+    // Ensure the body content is still rendered correctly.
+    $text = $crawler->filter('p#paragraph-1');
+    $this->assertCount(1, $text);
+    $this->assertStringContainsString(
+      'Lorem ipsum dolor sit amet',
       $text->html()
     );
   }
