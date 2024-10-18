@@ -18,7 +18,7 @@
   'class': ['text-center'],
   'data-bs-toggle': 'modal',
   'data-bs-target': '#' ~ _language_link.target,
-  'aria-label': ('Change language. Current language is '|t) ~ _language_link.label ~ '.',
+  'aria-label': 'Change language. Current language is @language.'|t({'@language': _language_link.label}),
 }) %}
 
 {% set _link_title %}
