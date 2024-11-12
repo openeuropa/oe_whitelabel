@@ -81,7 +81,8 @@
           background: false,
           attributes: create_attribute({
             'class': ['w-100', 'shadow-sm'],
-            'role': 'Site settings navigation'|t
+            'role': 'navigation',
+            'aria-label': 'Site settings navigation'|t
           })
         }) }}
       {% endblock %}
@@ -98,7 +99,8 @@
           expanded_breakpoint: 'lg',
           attributes: create_attribute({
             'class': ['bcl-header__navbar'],
-            'role': 'Menu'|t
+            'role': 'navigation',
+            'aria-label': 'Menu'|t
           })
         }) }}
       {% endblock %}
