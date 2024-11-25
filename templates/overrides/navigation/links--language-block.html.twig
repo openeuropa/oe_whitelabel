@@ -21,24 +21,26 @@
   'aria-label': 'Change language. Current language is @language.'|t({'@language': _language_link.label}),
 }) %}
 
-{% set _link_title %}
-  <span class="d-block d-lg-inline-block">{{ _language_link.label }}</span>
-{% endset %}
+{% if _language_link.label %}
+  {% set _link_title %}
+    <span class="d-block d-lg-inline-block">{{ _language_link.label }}</span>
+  {% endset %}
+  
+  <div class="language-switcher">
+    {{ pattern('link', {
+      label: _link_title,
+      path: _language_link.href,
+      icon: {
+        name: 'chat-left-dots-fill',
+        size: 'xs',
+      },
+      icon_position: 'before',
+      standalone: true,
+      attributes: extra_attributes
+    }) }}
+  </div>
 
-<div class="language-switcher">
-  {{ pattern('link', {
-    label: _link_title,
-    path: _language_link.href,
-    icon: {
-      name: 'chat-left-dots-fill',
-      size: 'xs',
-    },
-    icon_position: 'before',
-    standalone: true,
-    attributes: extra_attributes
-  }) }}
-</div>
-
-{% include '@oe_whitelabel/patterns/modal/modal-language.html.twig' with language.modal only %}
+  {% include '@oe_whitelabel/patterns/modal/modal-language.html.twig' with language.modal only %}
+{% endif %}
 
 {% endapply %}
