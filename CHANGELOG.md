@@ -1,10 +1,19 @@
 # Change Log
 
+## [1.14.0](https://github.com/openeuropa/oe_whitelabel/tree/1.14.0) (2024-12-16)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.13.0...1.14.0)
+
+**Merged pull requests:**
+
+- OEL-2118: Fix AddressInlineFormatter php notices [\#328](https://github.com/openeuropa/oe_whitelabel/pull/328) ([drishu](https://github.com/drishu))
+- UCPKN-3056: Agenda theming. [\#268](https://github.com/openeuropa/oe_whitelabel/pull/268) ([kp77](https://github.com/kp77))
+
 ## [1.13.0](https://github.com/openeuropa/oe_whitelabel/tree/1.13.0) (2024-11-06)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.12.0...1.13.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.13.0 [\#327](https://github.com/openeuropa/oe_whitelabel/pull/327) ([tibi2303](https://github.com/tibi2303))
 - OEL-3417: Prerelease bcl. [\#326](https://github.com/openeuropa/oe_whitelabel/pull/326) ([tibi2303](https://github.com/tibi2303))
 - OEL-3422: Added aria-label on language switcher link. [\#324](https://github.com/openeuropa/oe_whitelabel/pull/324) ([tibi2303](https://github.com/tibi2303))
 - OEL-3419: Added roles on nav items in header. [\#321](https://github.com/openeuropa/oe_whitelabel/pull/321) ([tibi2303](https://github.com/tibi2303))
