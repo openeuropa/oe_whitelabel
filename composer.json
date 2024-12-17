@@ -35,7 +35,7 @@
         "mikey179/vfsstream": "^1.6.10",
         "nikic/php-parser": "^4",
         "openeuropa/code-review": "^2.0.0-alpha6",
-        "openeuropa/oe_agenda": "1.x-dev",
+        "openeuropa/oe_agenda": "^1.0.0-alpha3",
         "openeuropa/oe_authentication": "^1.11",
         "openeuropa/oe_contact_forms": "~1.11",
         "openeuropa/oe_content": "^3",
