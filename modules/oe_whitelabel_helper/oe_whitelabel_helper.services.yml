@@ -4,3 +4,5 @@ services:
     arguments: ['@plugin.manager.block']
     tags:
       - { name: twig.extension }
+  oe_whitelabel_helper.slim_select:
+    class: Drupal\oe_whitelabel_helper\SlimSelectHelper
