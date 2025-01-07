@@ -246,7 +246,7 @@ function oe_whitelabel_library_info_alter(array &$libraries, string $extension):
   $theme_handler = \Drupal::service('theme_handler');
   $theme_path = $theme_handler->getTheme('oe_bootstrap_theme')->getPath();
   $version = \Drupal::config('slim_select.settings')->get('version');
-  if (str_starts_with($version, '2.')) {
+  if (str_starts_with($version, 'v2.')) {
     $path = '/' . $theme_path . '/assets/js/slim-select-2/slimselect.min.js';
   }
   else {
