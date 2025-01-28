@@ -10,7 +10,7 @@ declare(strict_types=1);
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FormatterInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\oe_whitelabel_helper\SlimSelectHelper;
+use Drupal\oe_whitelabel\SlimSelectHelper;
 
 /**
  * Implements hook_locale_translation_projects_alter().
@@ -90,7 +90,7 @@ function oe_whitelabel_helper_field_formatter_settings_summary_alter(array &$sum
  * Implements hook_requirements_alter().
  */
 function oe_whitelabel_helper_requirements_alter(array &$requirements): void {
-  \Drupal::service('oe_whitelabel_helper.slim_select')->alterRequirements($requirements);
+  \Drupal::classResolver(SlimSelectHelper::class)->alterRequirements($requirements);
 }
 
 /**
