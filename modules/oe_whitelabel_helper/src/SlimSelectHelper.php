@@ -17,14 +17,13 @@ class SlimSelectHelper {
    * @param array $requirements
    *   The list of requirements.
    */
-  public function alterRequirements(array &$requirements) {
+  public function alterRequirements(array &$requirements): void {
     if (isset($requirements['slim_select_library'])) {
-      $path = \Drupal::service('oe_whitelabel_helper.slim_select')->getJsFilePath();
       $requirements['slim_select_library'] = [
         'title' => t('Slim Select library'),
         'severity' => REQUIREMENT_OK,
         'value' => t('Library available at :path.', [
-          ':path' => $path,
+          ':path' => $this->getJsFilePath(),
         ]),
       ];
     }
@@ -38,13 +37,12 @@ class SlimSelectHelper {
    * @param string $extension
    *   The extension.
    */
-  public function libraryInfoAlter(array &$libraries, string $extension) {
+  public function libraryInfoAlter(array &$libraries, string $extension): void {
     if ('slim_select' !== $extension) {
       return;
     }
-    $path = \Drupal::service('oe_whitelabel_helper.slim_select')->getJsFilePath();
     $libraries['slim.select']['js'] = [
-      $path => [
+      $this->getJsFilePath() => [
         'minified' => TRUE,
         'attributes' => [
           'defer' => TRUE,
@@ -61,7 +59,7 @@ class SlimSelectHelper {
    * @return string
    *   The Slim Select JS path.
    */
-  private function getJsFilePath() {
+  private function getJsFilePath(): string {
     $theme_handler = \Drupal::service('theme_handler');
     $theme_path = $theme_handler->getTheme('oe_bootstrap_theme')->getPath();
     $version = \Drupal::config('slim_select.settings')->get('version');
