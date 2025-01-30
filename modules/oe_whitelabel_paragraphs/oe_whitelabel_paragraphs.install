@@ -141,6 +141,7 @@ function _oe_whitelabel_paragraphs_install_get_legacy_fields_map(): array {
  *   Legacy field names, indexed by paragraph type and destination field name.
  */
 function _oe_whitelabel_paragraphs_install_migrate_field_data(array $field_names_by_bundle): void {
+  /** @var \Drupal\Core\Entity\RevisionableStorageInterface $paragraphs_storage */
   $paragraphs_storage = \Drupal::entityTypeManager()->getStorage('paragraph');
 
   // Load all the paragraph ids.
