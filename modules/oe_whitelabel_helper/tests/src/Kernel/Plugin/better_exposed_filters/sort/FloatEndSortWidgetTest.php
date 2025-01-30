@@ -53,7 +53,7 @@ class FloatEndSortWidgetTest extends BetterExposedFiltersKernelTestBase {
     // Render the exposed form.
     $this->renderExposedForm($view);
 
-    $crawler = new Crawler($this->content->__toString());
+    $crawler = new Crawler((string) $this->content);
     $widget = $crawler->filter('form.bef-exposed-form');
 
     $this->assertCount(1, $widget);
