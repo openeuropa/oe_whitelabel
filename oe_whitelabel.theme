@@ -11,6 +11,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Template\AttributeHelper;
 use Drupal\oe_bootstrap_theme_helper\EuropeanUnionLanguages;
 use Drupal\oe_whitelabel\DocumentMediaWrapper;
+use Drupal\oe_whitelabel\SlimSelectHelper;
 
 // Include all files from the includes directory.
 $includes_path = __DIR__ . '/includes/*.inc';
@@ -240,7 +241,7 @@ function _oe_whitelabel_process_element_select(array &$element): array {
  * Implements hook_library_info_alter().
  */
 function oe_whitelabel_library_info_alter(array &$libraries, string $extension): void {
-  \Drupal::service('oe_whitelabel_helper.slim_select')->libraryInfoAlter($libraries, $extension);
+  \Drupal::classResolver(SlimSelectHelper::class)->libraryInfoAlter($libraries, $extension);
 }
 
 /**
