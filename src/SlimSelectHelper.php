@@ -17,20 +17,12 @@ class SlimSelectHelper implements ContainerInjectionInterface {
   use StringTranslationTrait;
 
   /**
-   * The theme handler.
-   *
-   * @var \Drupal\Core\Extension\ThemeHandlerInterface
-   */
-  protected $themeHandler;
-
-  /**
    * Constructs a SlimSelectHelper object.
    *
    * @param \Drupal\Core\Extension\ThemeHandlerInterface $themeHandler
    *   The theme handler.
    */
-  public function __construct(ThemeHandlerInterface $themeHandler) {
-    $this->themeHandler = $themeHandler;
+  public function __construct(protected ThemeHandlerInterface $themeHandler) {
   }
 
   /**
