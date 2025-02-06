@@ -108,6 +108,7 @@ function oe_whitelabel_preprocess_field(&$variables, $hook, $info) {
  * Implements hook_preprocess_page().
  */
 function oe_whitelabel_preprocess_page(&$variables) {
+  $site_logo_href = '';
   if ($variables['bcl_component_library'] === 'ec') {
     $variables['logo_aria_label'] = t('Home') . ' - ' . t('European Commission');
     $variables['site_logo_alt'] = t('European Commission logo');
