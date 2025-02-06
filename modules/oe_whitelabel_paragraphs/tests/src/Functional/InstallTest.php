@@ -187,6 +187,7 @@ class InstallTest extends BrowserTestBase {
       ],
     ];
 
+    /** @var \Drupal\Core\Entity\RevisionableStorageInterface $storage */
     $storage = \Drupal::entityTypeManager()->getStorage('paragraph');
 
     // Produce reports instead of many individual assertions. This is less
