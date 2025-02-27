@@ -46,6 +46,18 @@ function oe_whitelabel_form_system_theme_settings_alter(&$form, FormStateInterfa
     '#default_value' => theme_get_setting('header_style'),
     '#description' => t('Choose the header color'),
   ];
+  $form['slim_select'] = [
+    '#type' => 'details',
+    '#title' => t('Slim Select'),
+    '#open' => TRUE,
+    '#tree' => TRUE,
+  ];
+  $form['slim_select']['all_select_elements'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Enable for all select elements'),
+    '#description' => t('By default Slim Select is applied only to <code>&lt;select&gt;</code> elements with the <code>multiple="true"</code> attribute. Enabling this option will apply Slim Select to all <code>&lt;select&gt;</code> elements, regardless of this attribute.'),
+    '#default_value' => theme_get_setting('slim_select.all_select_elements'),
+  ];
 }
 
 /**
@@ -226,11 +238,13 @@ function oe_whitelabel_element_info_alter(array &$info): void {
  * @see oe_whitelabel_element_info_alter
  */
 function _oe_whitelabel_process_element_select(array &$element): array {
-  if (!$element['#multiple']) {
+  $all_select_elements = theme_get_setting('slim_select.all_select_elements');
+  if (!$all_select_elements && !$element['#multiple']) {
     return $element;
   }
-
-  $element['#attributes']['class'][] = 'multi-select';
+  if ($element['#multiple']) {
+    $element['#attributes']['class'][] = 'multi-select';
+  }
   // Config is empty so that it uses the defaults.
   $element += ['#slim_select' => []];
 
