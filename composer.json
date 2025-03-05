@@ -85,6 +85,11 @@
     "extra": {
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
+        "patches": {
+            "openeuropa/oe_bootstrap_theme": {
+                "featured media image on top": "https://github.com/openeuropa/oe_bootstrap_theme/compare/0.1.202503041625...1.x.diff"
+            }
+        },
         "patches-ignore": {
             "openeuropa/oe_content": {
                 "drupal/field_group": {
