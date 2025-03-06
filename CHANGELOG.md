@@ -1,10 +1,21 @@
 # Change Log
 
-## [1.14.0](https://github.com/openeuropa/oe_whitelabel/tree/1.14.0) (2024-12-16)
+## [1.15.0](https://github.com/openeuropa/oe_whitelabel/tree/1.15.0) (2025-03-06)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.14.0...1.15.0)
+
+**Merged pull requests:**
+
+- OEL-3354: Featured media image on top [\#337](https://github.com/openeuropa/oe_whitelabel/pull/337) ([drishu](https://github.com/drishu))
+- EWPP-4991: Update to php8.3. [\#334](https://github.com/openeuropa/oe_whitelabel/pull/334) ([drishu](https://github.com/drishu))
+- OEL-3503: Support slim select V2 [\#331](https://github.com/openeuropa/oe_whitelabel/pull/331) ([piotrsmykaj](https://github.com/piotrsmykaj))
+- OEL-3368: Navigation elements in header roles and aria-labels. [\#329](https://github.com/openeuropa/oe_whitelabel/pull/329) ([tibi2303](https://github.com/tibi2303))
+
+## [1.14.0](https://github.com/openeuropa/oe_whitelabel/tree/1.14.0) (2024-12-17)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.13.0...1.14.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.14.0. [\#333](https://github.com/openeuropa/oe_whitelabel/pull/333) ([drishu](https://github.com/drishu))
 - OEL-2118: Fix AddressInlineFormatter php notices [\#328](https://github.com/openeuropa/oe_whitelabel/pull/328) ([drishu](https://github.com/drishu))
 - UCPKN-3056: Agenda theming. [\#268](https://github.com/openeuropa/oe_whitelabel/pull/268) ([kp77](https://github.com/kp77))
 
