@@ -12,7 +12,7 @@
         "drupal/daterange_compact": "^2.0.1",
         "drupal/twig_field_value": "^2.0.2",
         "openeuropa/composer-artifacts": "^1.0.0-alpha1",
-        "openeuropa/oe_bootstrap_theme": "0.1.202503041625"
+        "openeuropa/oe_bootstrap_theme": "^1.19"
     },
     "require-dev": {
         "composer/installers": "^1.11",
@@ -85,11 +85,6 @@
     "extra": {
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
-        "patches": {
-            "openeuropa/oe_bootstrap_theme": {
-                "featured media image on top": "https://github.com/openeuropa/oe_bootstrap_theme/compare/0.1.202503041625...1.x.diff"
-            }
-        },
         "patches-ignore": {
             "openeuropa/oe_content": {
                 "drupal/field_group": {
