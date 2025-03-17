@@ -96,7 +96,7 @@ class AgendaRenderTest extends AbstractKernelTestBase {
     $crawler = new Crawler($html);
 
     // Assert agenda wrapper.
-    $agenda = $crawler->filter('.oe-agenda.accordion');
+    $agenda = $crawler->filter('.oe-agenda.accordion .accordion-items-wrapper');
     $this->assertCount(1, $agenda);
 
     // Assert number of agenda days.
