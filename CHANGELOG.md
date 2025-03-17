@@ -1,10 +1,19 @@
 # Change Log
 
+## [1.16.0](https://github.com/openeuropa/oe_whitelabel/tree/1.16.0) (2025-03-17)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.15.0...1.16.0)
+
+**Merged pull requests:**
+
+- OEL-3547: Add expand/collapse button labels [\#339](https://github.com/openeuropa/oe_whitelabel/pull/339) ([piotrsmykaj](https://github.com/piotrsmykaj))
+
 ## [1.15.0](https://github.com/openeuropa/oe_whitelabel/tree/1.15.0) (2025-03-06)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.14.0...1.15.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.15.0. [\#338](https://github.com/openeuropa/oe_whitelabel/pull/338) ([drishu](https://github.com/drishu))
 - OEL-3354: Featured media image on top [\#337](https://github.com/openeuropa/oe_whitelabel/pull/337) ([drishu](https://github.com/drishu))
 - EWPP-4991: Update to php8.3. [\#334](https://github.com/openeuropa/oe_whitelabel/pull/334) ([drishu](https://github.com/drishu))
 - OEL-3503: Support slim select V2 [\#331](https://github.com/openeuropa/oe_whitelabel/pull/331) ([piotrsmykaj](https://github.com/piotrsmykaj))
