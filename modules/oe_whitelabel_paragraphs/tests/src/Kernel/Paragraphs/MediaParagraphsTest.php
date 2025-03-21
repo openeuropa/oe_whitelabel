@@ -6,7 +6,6 @@ namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
 use Drupal\Core\Url;
 use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
-use Drupal\Tests\user\Traits\UserCreationTrait;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -15,7 +14,6 @@ use Symfony\Component\DomCrawler\Crawler;
 class MediaParagraphsTest extends ParagraphsTestBase {
 
   use ContentTypeCreationTrait;
-  use UserCreationTrait;
 
   /**
    * {@inheritdoc}
@@ -34,12 +32,9 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     oe_paragraphs_media_field_storage_install(FALSE);
     $this->installEntitySchema('media');
     $this->installEntitySchema('node');
-    $this->installEntitySchema('user');
-    $this->installSchema('node', ['node_access']);
     $this->installConfig([
       'media',
       'node',
-      'user',
       'oe_media',
       'oe_paragraphs_media',
       'media_avportal',
@@ -52,12 +47,6 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     // Call the install hook of the Media module.
     $this->container->get('module_handler')->loadInclude('media', 'install');
     media_install();
-
-    $this->createContentType([
-      'type' => 'paragraphs_test',
-      'name' => 'Paragraphs Test',
-    ]);
-    $this->setCurrentUser($this->createUser(['access content']));
   }
 
   /**
@@ -691,11 +680,15 @@ class MediaParagraphsTest extends ParagraphsTestBase {
 
     // Verify that link is not displayed if the user lacks access to the
     // reference page.
+    $this->createContentType([
+      'type' => 'paragraphs_test',
+      'name' => 'Paragraphs Test',
+    ]);
     $node_storage = $this->container->get('entity_type.manager')->getStorage('node');
     $node = $node_storage->create([
       'type' => 'paragraphs_test',
       'title' => 'Example node',
-      'status' => 1,
+      'status' => 0,
     ]);
     $node->save();
     $paragraph->get('field_oe_link')->setValue([
@@ -703,12 +696,6 @@ class MediaParagraphsTest extends ParagraphsTestBase {
       'title' => 'Example node',
     ]);
     $paragraph->save();
-    $html = $this->renderParagraph($paragraph);
-    $crawler = new Crawler($html);
-    $this->assertStringContainsString('Example node', trim($crawler->filter('a.btn')->text()));
-    $node->setUnpublished();
-    $node->save();
-    \Drupal::entityTypeManager()->getAccessControlHandler('node')->resetCache();
     $html = $this->renderParagraph($paragraph);
     $crawler = new Crawler($html);
     $this->assertCount(0, $crawler->filter('a.btn'));

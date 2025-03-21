@@ -622,7 +622,7 @@ function _oe_whitelabel_set_banner_link(Paragraph $paragraph, array &$variables)
 
   // Run access checks on the URL.
   $url = $link->getUrl();
-  $access = $url->access($variables['user'], TRUE);
+  $access = $url->access(return_as_object: TRUE);
   $cacheability->addCacheableDependency($access);
   if (!$access->isAllowed()) {
     $cacheability->applyTo($variables);
