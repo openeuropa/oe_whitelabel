@@ -87,7 +87,7 @@ class SlimSelectHelper implements ContainerInjectionInterface {
     if ($this->themeHandler->themeExists($theme_name)) {
       $theme_path = $this->themeHandler->getTheme($theme_name)->getPath();
       $version = \Drupal::config('slim_select.settings')->get('version');
-      if (str_starts_with($version, 'v2.')) {
+      if ($version && str_starts_with($version, 'v2.')) {
         return '/' . $theme_path . '/assets/js/slim-select-2/slimselect.min.js';
       }
       return '/' . $theme_path . '/assets/js/slimselect.min.js';
