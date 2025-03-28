@@ -1,11 +1,21 @@
 # Change Log
 
+## [1.17.0](https://github.com/openeuropa/oe_whitelabel/tree/1.17.0) (2025-03-27)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.16.0...1.17.0)
+
+**Merged pull requests:**
+
+- OEL-3692: Check for null in slim\_select version. [\#344](https://github.com/openeuropa/oe_whitelabel/pull/344) ([drishu](https://github.com/drishu))
+
 ## [1.16.0](https://github.com/openeuropa/oe_whitelabel/tree/1.16.0) (2025-03-17)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.15.0...1.16.0)
 
 **Merged pull requests:**
 
+- OEL-0000: Update accordion test with new version of oe\_bt. [\#342](https://github.com/openeuropa/oe_whitelabel/pull/342) ([tibi2303](https://github.com/tibi2303))
+- Prepare release 1.16.0 [\#341](https://github.com/openeuropa/oe_whitelabel/pull/341) ([tibi2303](https://github.com/tibi2303))
 - OEL-3547: Add expand/collapse button labels [\#339](https://github.com/openeuropa/oe_whitelabel/pull/339) ([piotrsmykaj](https://github.com/piotrsmykaj))
 
 ## [1.15.0](https://github.com/openeuropa/oe_whitelabel/tree/1.15.0) (2025-03-06)
