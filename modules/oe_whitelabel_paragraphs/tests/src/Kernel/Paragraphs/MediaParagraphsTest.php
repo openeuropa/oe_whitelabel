@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
 use Drupal\Core\Url;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Tests the rendering of paragraph types with media fields.
  */
 class MediaParagraphsTest extends ParagraphsTestBase {
+
+  use ContentTypeCreationTrait;
 
   /**
    * {@inheritdoc}
@@ -28,8 +31,10 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->container->get('module_handler')->loadInclude('oe_paragraphs_media_field_storage', 'install');
     oe_paragraphs_media_field_storage_install(FALSE);
     $this->installEntitySchema('media');
+    $this->installEntitySchema('node');
     $this->installConfig([
       'media',
+      'node',
       'oe_media',
       'oe_paragraphs_media',
       'media_avportal',
@@ -672,6 +677,28 @@ class MediaParagraphsTest extends ParagraphsTestBase {
       'url(' . (\Drupal::service('file_url_generator')->generateAbsoluteString('avportal://P-038924/00-15.jpg')) . ')',
       $image_element->attr('style')
     );
+
+    // Verify that link is not displayed if the user lacks access to the
+    // reference page.
+    $this->createContentType([
+      'type' => 'paragraphs_test',
+      'name' => 'Paragraphs Test',
+    ]);
+    $node_storage = $this->container->get('entity_type.manager')->getStorage('node');
+    $node = $node_storage->create([
+      'type' => 'paragraphs_test',
+      'title' => 'Example node',
+      'status' => 0,
+    ]);
+    $node->save();
+    $paragraph->get('field_oe_link')->setValue([
+      'uri' => 'entity:node/' . $node->id(),
+      'title' => 'Example node',
+    ]);
+    $paragraph->save();
+    $html = $this->renderParagraph($paragraph);
+    $crawler = new Crawler($html);
+    $this->assertCount(0, $crawler->filter('a.btn'));
   }
 
   /**
