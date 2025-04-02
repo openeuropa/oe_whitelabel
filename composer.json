@@ -85,6 +85,11 @@
     "extra": {
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
+        "patches": {
+            "drupal/slim_select": {
+                "Allow override all available settings": "https://www.drupal.org/files/issues/2025-04-02/slim_select-3516978.patch"
+            }
+        },
         "patches-ignore": {
             "openeuropa/oe_content": {
                 "drupal/field_group": {

@@ -231,8 +231,11 @@ function _oe_whitelabel_process_element_select(array &$element): array {
   }
 
   $element['#attributes']['class'][] = 'multi-select';
-  // Config is empty so that it uses the defaults.
-  $element += ['#slim_select' => []];
+  $element += [
+    '#slim_select' => [
+      'contentPosition' => 'fixed',
+    ],
+  ];
 
   return $element;
 }
