@@ -2,7 +2,7 @@ name: OpenEuropa Whitelabel Agenda
 type: module
 description: Companion module to add support for OE Agenda.
 package: OpenEuropa Whitelabel Theme
-core_version_requirement: ^10
+core_version_requirement: ^10 || ^11
 dependencies:
   - oe_agenda:oe_agenda
 
