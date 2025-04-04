@@ -32,7 +32,6 @@
         "drupal/search_api_autocomplete": "^1.7",
         "drupal/typed_link": "^2.0.1",
         "drush/drush": "^12",
-        "mikey179/vfsstream": "^1.6.10",
         "openeuropa/code-review-drupal": "^1.0.0-alpha",
         "openeuropa/oe_agenda": "^1.0.0-alpha3",
         "openeuropa/oe_authentication": "^1.11",
@@ -46,8 +45,7 @@
         "openeuropa/oe_paragraphs": "^1.20",
         "openeuropa/oe_starter_content": "^1.2.0",
         "openeuropa/oe_subscriptions": "^1.0@alpha",
-        "openeuropa/task-runner-drupal-project-symlink": "^1.0",
-        "phpspec/prophecy-phpunit": "^2"
+        "openeuropa/task-runner-drupal-project-symlink": "^1.0"
     },
     "conflict": {
         "openeuropa/oe_corporate_blocks": "<4.19"
