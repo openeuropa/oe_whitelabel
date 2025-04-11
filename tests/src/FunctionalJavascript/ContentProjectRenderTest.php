@@ -100,8 +100,8 @@ class ContentProjectRenderTest extends WebDriverTestBase {
         'value' => '2020-05-10',
         'end_value' => '2025-05-15',
       ],
-      'oe_project_budget' => '200',
-      'oe_project_budget_eu' => '70',
+      'oe_project_eu_budget' => '200',
+      'oe_project_eu_contrib' => '70',
       'oe_project_website' => [
         [
           'uri' => 'http://example.com',
