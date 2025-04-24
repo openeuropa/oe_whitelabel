@@ -100,7 +100,7 @@ class GalleryParagraphTest extends BrowserTestBase {
         ],
         'media' => [
           'caption_title' => 'Economic and Financial Affairs Council - Arrivals',
-          'rendered' => '<iframe id="videoplayerI-163162" data-src="https://ec.europa.eu/avservices/play.cfm?ref=I-163162&amp;lg=EN&amp;sublg=none&amp;autoplay=true&amp;tin=10&amp;tout=59" frameborder="0" allowtransparency allowfullscreen webkitallowfullscreen mozallowfullscreen width="640" height="390" class="media-avportal-content" title=" Economic and Financial Affairs Council - Arrivals"></iframe>',
+          'rendered' => '<iframe id="videoplayerI-163162" data-src="https://ec.europa.eu/avservices/play.cfm?ref=I-163162&amp;lg=EN&amp;sublg=none&amp;autoplay=true&amp;tin=10&amp;tout=59" title=" Economic and Financial Affairs Council - Arrivals" frameborder="0" allowtransparency allowfullscreen webkitallowfullscreen mozallowfullscreen width="640" height="390" class="media-avportal-content"></iframe>',
         ],
       ],
       [
