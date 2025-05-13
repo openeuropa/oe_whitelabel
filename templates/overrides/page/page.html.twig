@@ -72,7 +72,7 @@
 
 <div class="page">
   {% block header %}
-    <header class="bcl-header bcl-header--{{ bcl_component_library }}">
+    <header class="bcl-header bcl-header--{{ bcl_component_library }}" aria-label="{{ "Main header"|t }}">
       {% block head %}
         {{ pattern('navbar', {
           navigation: corporate_logos,
@@ -115,7 +115,7 @@
       {% endif %}
     </header>
   {% endblock %}
-  <main>
+  <main aria-label="{{ "Main content"|t }}">
     <a id="main-content" tabindex="-1"></a>
     {{ page.hero }}
     <div class="container mt-md-4-75 mt-4">
