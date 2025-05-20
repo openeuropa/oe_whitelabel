@@ -6,6 +6,9 @@ namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
 use Drupal\Tests\oe_whitelabel_paragraphs\Kernel\AbstractKernelTestBase;
 use Drupal\paragraphs\ParagraphInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
 
 /**
  * Base class for paragraphs tests.
@@ -94,6 +97,49 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
       ->view($paragraph, 'default', $langcode);
 
     return $this->renderRoot($render);
+  }
+
+  /**
+   * Test the 'allowed_formats' setting for text fields.
+   */
+  public function testAllowedFormats(): void {
+    $field_ids = [
+      'paragraph.oe_list_item.field_oe_text_long',
+      'paragraph.oe_illustration_item_flag.field_oe_text_long',
+      'paragraph.oe_illustration_item_icon.field_oe_text_long',
+      'paragraph.oe_illustration_item_image.field_oe_text_long',
+      'paragraph.oe_text_feature_media.field_oe_text_long',
+      'paragraph.oe_timeline.field_oe_text_long',
+    ];
+
+    foreach ($field_ids as $field_id) {
+      $field_config = FieldConfig::load($field_id);
+      $this->assertNotNull($field_config, "Field config for $field_id should exist.");
+      $settings = $field_config->get('settings');
+      $this->assertArrayHasKey('allowed_formats', $settings, "Field $field_id should have 'allowed_formats' setting.");
+      $this->assertEquals(['basic_html'], $settings['allowed_formats'], "Field $field_id should have 'basic_html' as the allowed format.");
+    }
+  }
+
+  /**
+   * Test the entity form and view displays.
+   */
+  public function testEntityDisplays(): void {
+    $display_ids = [
+      'paragraph.oe_list_item.default',
+      'paragraph.oe_illustration_item_flag.default',
+      'paragraph.oe_illustration_item_icon.default',
+      'paragraph.oe_illustration_item_image.default',
+      'paragraph.oe_text_feature_media.default',
+      'paragraph.oe_timeline.default',
+    ];
+
+    foreach ($display_ids as $display_id) {
+      $form_display = EntityFormDisplay::load($display_id);
+      $this->assertNotNull($form_display, "Entity form display $display_id should exist.");
+      $view_display = EntityViewDisplay::load($display_id);
+      $this->assertNotNull($view_display, "Entity view display $display_id should exist.");
+    }
   }
 
 }
