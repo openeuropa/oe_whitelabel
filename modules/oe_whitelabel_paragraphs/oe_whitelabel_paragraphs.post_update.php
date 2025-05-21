@@ -17,11 +17,6 @@ function oe_whitelabel_paragraphs_post_update_00001(array &$sandbox): void {
   // 1. Fields that used allowed_formats.
   $field_ids = [
     'paragraph.oe_list_item.field_oe_text_long',
-    'paragraph.oe_illustration_item_flag.field_oe_text_long',
-    'paragraph.oe_illustration_item_icon.field_oe_text_long',
-    'paragraph.oe_illustration_item_image.field_oe_text_long',
-    'paragraph.oe_text_feature_media.field_oe_text_long',
-    'paragraph.oe_timeline.field_oe_text_long',
   ];
 
   foreach ($field_ids as $id) {
@@ -45,11 +40,6 @@ function oe_whitelabel_paragraphs_post_update_00001(array &$sandbox): void {
   //    Keyed by display ID => component (field) name.
   $form_displays = [
     'paragraph.oe_list_item.default' => 'field_oe_text_long',
-    'paragraph.oe_illustration_item_flag.default' => 'field_oe_text_long',
-    'paragraph.oe_illustration_item_icon.default' => 'field_oe_text_long',
-    'paragraph.oe_illustration_item_image.default' => 'field_oe_text_long',
-    'paragraph.oe_text_feature_media.default' => 'field_oe_text_long',
-    'paragraph.oe_timeline.default' => 'field_oe_text_long',
   ];
 
   foreach ($form_displays as $display_id => $component_name) {

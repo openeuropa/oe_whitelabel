@@ -104,11 +104,6 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
   public function testAllowedFormats(): void {
     $field_ids = [
       'paragraph.oe_list_item.field_oe_text_long',
-      'paragraph.oe_illustration_item_flag.field_oe_text_long',
-      'paragraph.oe_illustration_item_icon.field_oe_text_long',
-      'paragraph.oe_illustration_item_image.field_oe_text_long',
-      'paragraph.oe_text_feature_media.field_oe_text_long',
-      'paragraph.oe_timeline.field_oe_text_long',
     ];
 
     foreach ($field_ids as $field_id) {
@@ -126,11 +121,6 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
   public function testEntityDisplays(): void {
     $display_ids = [
       'paragraph.oe_list_item.default',
-      'paragraph.oe_illustration_item_flag.default',
-      'paragraph.oe_illustration_item_icon.default',
-      'paragraph.oe_illustration_item_image.default',
-      'paragraph.oe_text_feature_media.default',
-      'paragraph.oe_timeline.default',
     ];
 
     foreach ($display_ids as $display_id) {
