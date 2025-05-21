@@ -2,20 +2,19 @@
 
 /**
  * @file
- * Post update functions for the OE Whitelabel Paragraphs module.
+ * Post-update functions for the OE Whitelabel Paragraphs module.
  */
 
 declare(strict_types=1);
 
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
-use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\field\Entity\FieldConfig;
 
 /**
- * Set the 'allowed_formats' for text fields and update entity displays.
+ * Migrate allowed_formats from contrib (third-party) to core settings.
  */
 function oe_whitelabel_paragraphs_post_update_00001(array &$sandbox): void {
-  // Define the fields that need their 'allowed_formats' set.
+  // 1. Fields that used allowed_formats.
   $field_ids = [
     'paragraph.oe_list_item.field_oe_text_long',
     'paragraph.oe_illustration_item_flag.field_oe_text_long',
@@ -25,38 +24,42 @@ function oe_whitelabel_paragraphs_post_update_00001(array &$sandbox): void {
     'paragraph.oe_timeline.field_oe_text_long',
   ];
 
-  foreach ($field_ids as $field_id) {
-    $field_config = FieldConfig::load($field_id);
-    if ($field_config) {
-      // Set the 'allowed_formats' directly in the field settings.
-      $settings = $field_config->get('settings');
-      $settings['allowed_formats'] = ['basic_html'];
-      $field_config->set('settings', $settings);
-      $field_config->save();
+  foreach ($field_ids as $id) {
+    if (($field = FieldConfig::load($id))) {
+      // Pull the old value, if any, from the third-party setting.
+      $old_formats = $field->getThirdPartySetting('allowed_formats', 'allowed_formats', []);
+      if (!empty($old_formats)) {
+        // Write it to the new core location.
+        $settings = $field->get('settings');
+        $settings['allowed_formats'] = $old_formats;
+        $field->set('settings', $settings);
+
+        // Remove obsolete key.
+        $field->unsetThirdPartySetting('allowed_formats', 'allowed_formats');
+        $field->save();
+      }
     }
   }
 
-  // Define the form and view displays to be updated.
-  $displays = [
-    'paragraph.oe_list_item.default',
-    'paragraph.oe_illustration_item_flag.default',
-    'paragraph.oe_illustration_item_icon.default',
-    'paragraph.oe_illustration_item_image.default',
-    'paragraph.oe_text_feature_media.default',
-    'paragraph.oe_timeline.default',
+  // 2. Clean up entity-form-displays so they no longer reference the key.
+  //    Keyed by display ID => component (field) name.
+  $form_displays = [
+    'paragraph.oe_list_item.default' => 'field_oe_text_long',
+    'paragraph.oe_illustration_item_flag.default' => 'field_oe_text_long',
+    'paragraph.oe_illustration_item_icon.default' => 'field_oe_text_long',
+    'paragraph.oe_illustration_item_image.default' => 'field_oe_text_long',
+    'paragraph.oe_text_feature_media.default' => 'field_oe_text_long',
+    'paragraph.oe_timeline.default' => 'field_oe_text_long',
   ];
 
-  foreach ($displays as $display_id) {
-    // Load and update the entity form display.
-    $form_display = EntityFormDisplay::load($display_id);
-    if ($form_display) {
-      $form_display->save();
-    }
-
-    // Load and update the entity view display.
-    $view_display = EntityViewDisplay::load($display_id);
-    if ($view_display) {
-      $view_display->save();
+  foreach ($form_displays as $display_id => $component_name) {
+    if (($display = EntityFormDisplay::load($display_id))) {
+      if ($component = $display->getComponent($component_name)) {
+        unset($component['third_party_settings']['allowed_formats']);
+        $display->setComponent($component_name, $component);
+        $display->save();
+      }
     }
   }
+
 }

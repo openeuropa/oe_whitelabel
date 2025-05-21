@@ -19,7 +19,6 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
-    'allowed_formats',
     'datetime',
     'description_list_field',
     'entity_browser',
