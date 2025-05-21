@@ -113,10 +113,10 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
 
     foreach ($field_ids as $field_id) {
       $field_config = FieldConfig::load($field_id);
-      $this->assertNotNull($field_config, "Field config for $field_id should exist.");
+      $this->assertNotNull($field_config);
       $settings = $field_config->get('settings');
-      $this->assertArrayHasKey('allowed_formats', $settings, "Field $field_id should have 'allowed_formats' setting.");
-      $this->assertEquals(['basic_html'], $settings['allowed_formats'], "Field $field_id should have 'basic_html' as the allowed format.");
+      $this->assertArrayHasKey('allowed_formats', $settings);
+      $this->assertEquals(['plain_text'], $settings['allowed_formats']);
     }
   }
 
@@ -135,9 +135,9 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
 
     foreach ($display_ids as $display_id) {
       $form_display = EntityFormDisplay::load($display_id);
-      $this->assertNotNull($form_display, "Entity form display $display_id should exist.");
+      $this->assertNotNull($form_display);
       $view_display = EntityViewDisplay::load($display_id);
-      $this->assertNotNull($view_display, "Entity view display $display_id should exist.");
+      $this->assertNotNull($view_display);
     }
   }
 

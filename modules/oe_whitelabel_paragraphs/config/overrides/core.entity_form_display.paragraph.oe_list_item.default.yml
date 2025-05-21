@@ -50,7 +50,6 @@ content:
     settings:
       rows: 3
       placeholder: ''
-      allowed_formats: {  }
     third_party_settings: {  }
   field_oe_title:
     type: string_textfield
