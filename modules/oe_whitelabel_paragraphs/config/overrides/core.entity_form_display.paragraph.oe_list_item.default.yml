@@ -50,8 +50,9 @@ content:
     settings:
       rows: 3
       placeholder: ''
-      hide_help: '1'
-      hide_guidelines: '1'
+      allowed_formats:
+        hide_help: '1'
+        hide_guidelines: '1'
     third_party_settings: {  }
   field_oe_title:
     type: string_textfield
