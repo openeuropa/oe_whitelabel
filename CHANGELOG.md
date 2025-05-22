@@ -1,11 +1,36 @@
 # Change Log
 
-## [1.17.0](https://github.com/openeuropa/oe_whitelabel/tree/1.17.0) (2025-03-27)
+## [1.18.0](https://github.com/openeuropa/oe_whitelabel/tree/1.18.0) (2025-05-22)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.17.0...1.18.0)
+
+**Implemented enhancements:**
+
+- Make slim\_select work for single-value select elements [\#265](https://github.com/openeuropa/oe_whitelabel/issues/265)
+
+**Closed issues:**
+
+- Slim select is broken with drupal/slim\_select 1.0.0-alpha4 [\#343](https://github.com/openeuropa/oe_whitelabel/issues/343)
+
+**Merged pull requests:**
+
+- OEL-3837: Cleanup allowed\_formats schema. [\#356](https://github.com/openeuropa/oe_whitelabel/pull/356) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Update oe\_bt. [\#353](https://github.com/openeuropa/oe_whitelabel/pull/353) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Update oe\_bootstrap\_theme. [\#352](https://github.com/openeuropa/oe_whitelabel/pull/352) ([tibi2303](https://github.com/tibi2303))
+- OEL-3081: Allow to use Slimselect for single value selects [\#348](https://github.com/openeuropa/oe_whitelabel/pull/348) ([piotrsmykaj](https://github.com/piotrsmykaj))
+- OEL-3699: Change the contentPosition setting [\#347](https://github.com/openeuropa/oe_whitelabel/pull/347) ([piotrsmykaj](https://github.com/piotrsmykaj))
+- OEL-3341: Handle link access in banner paragraph button [\#340](https://github.com/openeuropa/oe_whitelabel/pull/340) ([piotrsmykaj](https://github.com/piotrsmykaj))
+- OEL-3081: Add the theme option to apply Slim select to all elements [\#336](https://github.com/openeuropa/oe_whitelabel/pull/336) ([piotrsmykaj](https://github.com/piotrsmykaj))
+- OEL-2824: Search form submit redirect to current language. [\#335](https://github.com/openeuropa/oe_whitelabel/pull/335) ([drishu](https://github.com/drishu))
+
+## [1.17.0](https://github.com/openeuropa/oe_whitelabel/tree/1.17.0) (2025-03-28)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.16.0...1.17.0)
 
 **Merged pull requests:**
 
+- OEL-0000: Updated tests. [\#346](https://github.com/openeuropa/oe_whitelabel/pull/346) ([tibi2303](https://github.com/tibi2303))
+- Prepare release 1.17.0. [\#345](https://github.com/openeuropa/oe_whitelabel/pull/345) ([tibi2303](https://github.com/tibi2303))
 - OEL-3692: Check for null in slim\_select version. [\#344](https://github.com/openeuropa/oe_whitelabel/pull/344) ([drishu](https://github.com/drishu))
 
 ## [1.16.0](https://github.com/openeuropa/oe_whitelabel/tree/1.16.0) (2025-03-17)
