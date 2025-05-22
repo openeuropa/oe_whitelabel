@@ -6,6 +6,9 @@ namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
 use Drupal\Tests\oe_whitelabel_paragraphs\Kernel\AbstractKernelTestBase;
 use Drupal\paragraphs\ParagraphInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
 
 /**
  * Base class for paragraphs tests.
@@ -16,7 +19,6 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
-    'allowed_formats',
     'datetime',
     'description_list_field',
     'entity_browser',
@@ -94,6 +96,39 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
       ->view($paragraph, 'default', $langcode);
 
     return $this->renderRoot($render);
+  }
+
+  /**
+   * Test the 'allowed_formats' setting for text fields.
+   */
+  public function testAllowedFormats(): void {
+    $field_ids = [
+      'paragraph.oe_list_item.field_oe_text_long',
+    ];
+
+    foreach ($field_ids as $field_id) {
+      $field_config = FieldConfig::load($field_id);
+      $this->assertNotNull($field_config);
+      $settings = $field_config->get('settings');
+      $this->assertArrayHasKey('allowed_formats', $settings);
+      $this->assertEquals(['plain_text'], $settings['allowed_formats']);
+    }
+  }
+
+  /**
+   * Test the entity form and view displays.
+   */
+  public function testEntityDisplays(): void {
+    $display_ids = [
+      'paragraph.oe_list_item.default',
+    ];
+
+    foreach ($display_ids as $display_id) {
+      $form_display = EntityFormDisplay::load($display_id);
+      $this->assertNotNull($form_display);
+      $view_display = EntityViewDisplay::load($display_id);
+      $this->assertNotNull($view_display);
+    }
   }
 
 }
