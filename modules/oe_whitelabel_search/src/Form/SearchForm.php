@@ -104,10 +104,14 @@ class SearchForm extends FormBase {
     $url = Url::fromUserInput('/' . $config['form']['action'], [
       'language' => $this->languageManager->getCurrentLanguage(),
       'absolute' => TRUE,
+      'query' => $this->requestStack->getCurrentRequest()->query->all(),
+    ]);
+    $url->mergeOptions([
       'query' => [
         $config['input']['name'] => $form_state->getValue('search_input'),
       ],
     ]);
+
     $form_state->setRedirectUrl($url);
   }
 
