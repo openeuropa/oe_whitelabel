@@ -7,12 +7,12 @@ namespace Drupal\oe_whitelabel_search\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\oe_whitelabel_search\Form\SearchForm;
-use Drupal\views\Entity\View;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -27,6 +27,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * The form builder service.
    *
    * @var \Drupal\Core\Form\FormBuilderInterface
@@ -34,18 +41,18 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
   protected $formBuilder;
 
   /**
-   * The config factory.
-   *
-   * @var \Drupal\Core\Language\LanguageManagerInterface
-   */
-  protected $configFactory;
-
-  /**
    * The module handler.
    *
    * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
   protected $moduleHandler;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
 
   /**
    * Construct SearchBlock object.
@@ -62,12 +69,15 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
    *   The form builder service.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, FormBuilderInterface $form_builder, ModuleHandlerInterface $module_handler) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, FormBuilderInterface $form_builder, ModuleHandlerInterface $module_handler, EntityTypeManagerInterface $entity_type_manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->configFactory = $config_factory;
     $this->formBuilder = $form_builder;
     $this->moduleHandler = $module_handler;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -80,7 +90,8 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       $plugin_definition,
       $container->get('config.factory'),
       $container->get('form_builder'),
-      $container->get('module_handler')
+      $container->get('module_handler'),
+      $container->get('entity_type.manager')
     );
   }
 
@@ -248,15 +259,22 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
   public function blockValidate($form, FormStateInterface $form_state): void {
     $values = $form_state->getValues();
 
-    if (!$this->moduleHandler->moduleExists('views') || !$this->moduleHandler->moduleExists('search_api_autocomplete')) {
+    if (parse_url($values['form_action'], PHP_URL_SCHEME)) {
+      $form_state->setErrorByName('form_action', $this->t('The form action only supports relative path, no absolute URL allowed.'));
+    }
+
+    if ((!$this->moduleHandler->moduleExists('search_api_autocomplete') || !$this->moduleHandler->moduleExists('views')) && $values['enable_autocomplete']) {
+      $form_state->setErrorByName('enable_autocomplete', $this->t('You must enable search_api_autocomplete and views modules to use the autocomplete feature.'));
       return;
     }
 
+    // Following validations are not needed,
+    // if autocomplete is disabled.
     if (empty($values['enable_autocomplete'])) {
       return;
     }
 
-    $view = View::load($values['view_id']);
+    $view = $this->entityTypeManager->getStorage('view')->load($values['view_id']);
 
     if (!$view) {
       $form_state->setErrorByName('view_id', $this->t('View id was not found.'));
