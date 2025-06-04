@@ -1,5 +1,17 @@
 # Change Log
 
+## [1.19.0](https://github.com/openeuropa/oe_whitelabel/tree/1.19.0) (2025-06-04)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.18.0...1.19.0)
+
+**Implemented enhancements:**
+
+- OEL-3731: Make sure landmarks are unique. [\#355](https://github.com/openeuropa/oe_whitelabel/pull/355) ([vengador](https://github.com/vengador))
+
+**Fixed bugs:**
+
+- Translation issue in videos added to Gallery and Media paragraphs [\#322](https://github.com/openeuropa/oe_whitelabel/issues/322)
+
 ## [1.18.0](https://github.com/openeuropa/oe_whitelabel/tree/1.18.0) (2025-05-22)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.17.0...1.18.0)
@@ -14,6 +26,7 @@
 
 **Merged pull requests:**
 
+- Prepare release 1.18.0 [\#357](https://github.com/openeuropa/oe_whitelabel/pull/357) ([tibi2303](https://github.com/tibi2303))
 - OEL-3837: Cleanup allowed\_formats schema. [\#356](https://github.com/openeuropa/oe_whitelabel/pull/356) ([tibi2303](https://github.com/tibi2303))
 - OEL-0000: Update oe\_bt. [\#353](https://github.com/openeuropa/oe_whitelabel/pull/353) ([tibi2303](https://github.com/tibi2303))
 - OEL-0000: Update oe\_bootstrap\_theme. [\#352](https://github.com/openeuropa/oe_whitelabel/pull/352) ([tibi2303](https://github.com/tibi2303))
