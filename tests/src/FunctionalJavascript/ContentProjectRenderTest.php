@@ -100,8 +100,8 @@ class ContentProjectRenderTest extends WebDriverTestBase {
         'value' => '2020-05-10',
         'end_value' => '2025-05-15',
       ],
-      'oe_project_budget' => '200',
-      'oe_project_budget_eu' => '70',
+      'oe_project_eu_budget' => '200',
+      'oe_project_eu_contrib' => '70',
       'oe_project_website' => [
         [
           'uri' => 'http://example.com',
@@ -339,11 +339,9 @@ class ContentProjectRenderTest extends WebDriverTestBase {
           'media' => [
             'caption_title' => 'Energy, let\'s save it!',
             'rendered' => sprintf(
-              '<iframe data-src="%s?url=https%%3A//www.youtube.com/watch%%3Fv%%3D1-g73ty9v04&amp;max_width=0&amp;max_height=0&amp;hash=%s"%s width="459" height="344" class="media-oembed-content" loading="eager" title="Energy, let\'s save it!"></iframe>',
+              '<iframe data-src="%s?url=https%%3A//www.youtube.com/watch%%3Fv%%3D1-g73ty9v04&amp;max_width=0&amp;max_height=0&amp;hash=%s" width="459" height="344" class="media-oembed-content" loading="eager" title="Energy, let\'s save it!"></iframe>',
               Url::fromRoute('media.oembed_iframe')->setAbsolute()->toString(),
-              \Drupal::service('media.oembed.iframe_url_helper')->getHash('https://www.youtube.com/watch?v=1-g73ty9v04', 0, 0),
-              // @todo Remove when support for 10.2.x is dropped.
-              version_compare(\Drupal::VERSION, '10.3', '<') ? ' frameborder="0" allowtransparency=""' : '',
+              \Drupal::service('media.oembed.iframe_url_helper')->getHash('https://www.youtube.com/watch?v=1-g73ty9v04', 0, 0)
             ),
           ],
         ],
