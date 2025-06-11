@@ -100,7 +100,7 @@ class GalleryParagraphTest extends BrowserTestBase {
         ],
         'media' => [
           'caption_title' => 'Economic and Financial Affairs Council - Arrivals',
-          'rendered' => '<iframe id="videoplayerI-163162" data-src="https://ec.europa.eu/avservices/play.cfm?ref=I-163162&amp;lg=EN&amp;sublg=none&amp;autoplay=true&amp;tin=10&amp;tout=59" title=" Economic and Financial Affairs Council - Arrivals" frameborder="0" allowtransparency allowfullscreen webkitallowfullscreen mozallowfullscreen width="640" height="390" class="media-avportal-content"></iframe>',
+          'rendered' => '<iframe id="videoplayerI-163162" data-src="https://ec.europa.eu/avservices/play.cfm?ref=I-163162&amp;lg=EN&amp;sublg=none&amp;autoplay=true&amp;tin=10&amp;tout=59" frameborder="0" allowtransparency allowfullscreen webkitallowfullscreen mozallowfullscreen width="640" height="390" class="media-avportal-content" title=" Economic and Financial Affairs Council - Arrivals"></iframe>',
         ],
       ],
       [
@@ -115,11 +115,9 @@ class GalleryParagraphTest extends BrowserTestBase {
         'media' => [
           'caption_title' => 'Energy, let\'s save it!',
           'rendered' => sprintf(
-            '<iframe data-src="%s?url=https%%3A//www.youtube.com/watch%%3Fv%%3D1-g73ty9v04&amp;max_width=0&amp;max_height=0&amp;hash=%s"%s width="459" height="344" class="media-oembed-content" loading="eager" title="Energy, let\'s save it!"></iframe>',
+            '<iframe data-src="%s?url=https%%3A//www.youtube.com/watch%%3Fv%%3D1-g73ty9v04&amp;max_width=0&amp;max_height=0&amp;hash=%s" width="459" height="344" class="media-oembed-content" loading="eager" title="Energy, let\'s save it!"></iframe>',
             Url::fromRoute('media.oembed_iframe')->setAbsolute()->toString(),
-            \Drupal::service('media.oembed.iframe_url_helper')->getHash('https://www.youtube.com/watch?v=1-g73ty9v04', 0, 0),
-            // @todo Remove when support for 10.2.x is dropped.
-            version_compare(\Drupal::VERSION, '10.3', '<') ? ' frameborder="0" allowtransparency' : '',
+            \Drupal::service('media.oembed.iframe_url_helper')->getHash('https://www.youtube.com/watch?v=1-g73ty9v04', 0, 0)
           ),
         ],
       ],
