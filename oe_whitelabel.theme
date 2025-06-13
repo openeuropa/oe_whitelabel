@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Template\AttributeHelper;
 use Drupal\oe_bootstrap_theme_helper\EuropeanUnionLanguages;
@@ -244,6 +245,22 @@ function _oe_whitelabel_process_element_select(array &$element): array {
   }
   if ($element['#multiple']) {
     $element['#attributes']['class'][] = 'multi-select';
+
+    $has_aria_label = isset($element['#attributes']['aria-label']);
+    $has_aria_labelledby = isset($element['#attributes']['aria-labelledby']);
+    $has_title = isset($element['#title']) && is_string($element['#title']);
+
+    if (!$has_aria_label && !$has_aria_labelledby && $has_title) {
+      // Build an ID for the label if not already set.
+      $id = $element['#id'] ?? Html::getUniqueId('select-' . $element['#name']);
+      $label_id = $id . '-label';
+
+      // Add ID to the label attributes, assuming the label will be rendered.
+      $element['#label_attributes']['id'] = $label_id;
+
+      // Link the select to the label using aria-labelledby.
+      $element['#attributes']['aria-labelledby'] = $label_id;
+    }
   }
   $element += [
     '#slim_select' => [
