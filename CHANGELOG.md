@@ -1,7 +1,19 @@
 # Change Log
 
-## [1.19.0](https://github.com/openeuropa/oe_whitelabel/tree/1.19.0) (2025-06-04)
+## [1.20.0](https://github.com/openeuropa/oe_whitelabel/tree/1.20.0) (2025-06-12)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.19.0...1.20.0)
 
+**Fixed bugs:**
+
+- Update better\_exposed\_filters module [\#294](https://github.com/openeuropa/oe_whitelabel/issues/294)
+
+**Merged pull requests:**
+
+- OEL-3858: Updated images. [\#359](https://github.com/openeuropa/oe_whitelabel/pull/359) ([tibi2303](https://github.com/tibi2303))
+- EWPP-4656: Update to Drupal 11. [\#349](https://github.com/openeuropa/oe_whitelabel/pull/349) ([kp77](https://github.com/kp77))
+- ERATRANS-ERATRANS-996: compatibility with better\_exposed\_filter ^7 [\#325](https://github.com/openeuropa/oe_whitelabel/pull/325) ([libetho](https://github.com/libetho))
+
+## [1.19.0](https://github.com/openeuropa/oe_whitelabel/tree/1.19.0) (2025-06-04)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.18.0...1.19.0)
 
 **Implemented enhancements:**
@@ -11,6 +23,10 @@
 **Fixed bugs:**
 
 - Translation issue in videos added to Gallery and Media paragraphs [\#322](https://github.com/openeuropa/oe_whitelabel/issues/322)
+
+**Merged pull requests:**
+
+- Prepare release 1.19.0. [\#362](https://github.com/openeuropa/oe_whitelabel/pull/362) ([piotrsmykaj](https://github.com/piotrsmykaj))
 
 ## [1.18.0](https://github.com/openeuropa/oe_whitelabel/tree/1.18.0) (2025-05-22)
 
