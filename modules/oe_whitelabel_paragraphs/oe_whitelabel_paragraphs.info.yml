@@ -4,7 +4,7 @@ description: Companion module to add support and customisations for oe_paragraph
 package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^10 || ^11
 dependencies:
-  - drupal:description_list_field
+  - description_list_field:description_list_field
   - oe_content:oe_content_timeline_field
   - oe_paragraphs:oe_paragraphs
   - oe_paragraphs:oe_paragraphs_description_list
