@@ -38,7 +38,7 @@
         "openeuropa/oe_contact_forms": "~1.11",
         "openeuropa/oe_content": "^4.8",
         "openeuropa/oe_content_extra": "^1.4",
-        "openeuropa/oe_corporate_blocks": "^5.0.0-beta3",
+        "openeuropa/oe_corporate_blocks": "^5.0.0-beta5",
         "openeuropa/oe_link_lists": "^1.0",
         "openeuropa/oe_list_pages": "^1.0",
         "openeuropa/oe_multilingual": "^1.14",
