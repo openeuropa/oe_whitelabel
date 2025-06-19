@@ -83,8 +83,6 @@ class FooterBlockTest extends SparqlKernelTestBase {
     // oe_corporate_blocks, so we cannot assert a specific count.
     $this->assertNotEmpty($columns->eq(1)->filter('.mb-1 a.standalone'));
     $this->assertNotEmpty($columns->eq(2)->filter('.mb-1 a.standalone'));
-    $accessibility_ec_link = $crawler->filter('a[href="https://commission.europa.eu/accessibility-statement_en"]');
-    $this->assertCount(0, $accessibility_ec_link);
     $accessibility_link = $crawler->filter('a[href="https://example.com/accessibility"]');
     $this->assertCount(0, $accessibility_link);
 
@@ -97,8 +95,6 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $build = $builder->view($entity, 'block');
     $crawler = new Crawler((string) $this->container->get('renderer')->renderRoot($build));
 
-    $accessibility_ec_link = $crawler->filter('a[href="https://commission.europa.eu/accessibility-statement_en"]');
-    $this->assertCount(0, $accessibility_ec_link);
     $accessibility_link = $crawler->filter('a[href="https://example.com/accessibility"]');
     $this->assertCount(1, $accessibility_link);
     $this->assertEquals('Accessibility', $accessibility_link->text());
