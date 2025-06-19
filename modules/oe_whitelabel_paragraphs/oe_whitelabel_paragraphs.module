@@ -139,9 +139,13 @@ function oe_whitelabel_preprocess_paragraph__oe_accordion(array &$variables): vo
   /** @var \Drupal\entity_reference_revisions\Plugin\Field\FieldType\EntityReferenceRevisionsItem $field_item */
   foreach ($variables['paragraph']->get('field_oe_paragraphs') as $field_item) {
     $paragraph = \Drupal::service('entity.repository')->getTranslationFromContext($field_item->entity);
+    // Use viewField with display settings from the configured view mode.
+    $display = \Drupal::service('entity_display.repository')->getViewDisplay('paragraph', $paragraph->bundle(), $variables['view_mode'] ?? 'default');
+    $title_settings = $display->getComponent('field_oe_text') ?: [];
+    $content_settings = $display->getComponent('field_oe_text_long') ?: [];
     $variables['items'][] = [
-      'title' => $builder->viewField($paragraph->get('field_oe_text')),
-      'content' => $builder->viewField($paragraph->get('field_oe_text_long')),
+      'title' => $builder->viewField($paragraph->get('field_oe_text'), $title_settings),
+      'content' => $builder->viewField($paragraph->get('field_oe_text_long'), $content_settings),
     ];
   }
 }
