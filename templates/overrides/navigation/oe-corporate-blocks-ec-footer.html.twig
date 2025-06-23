@@ -39,6 +39,17 @@
         },
       ],
       },
+      {% if corporate_footer.service_navigation is not empty %}
+        {
+          'classes': 'col-12 col-lg-4',
+          'items': [
+            {
+              'type': 'links',
+              'links': bcl_footer_links(corporate_footer.service_navigation),
+            }
+          ],
+        },
+      {% endif %}
       {
         'classes': 'col-12 col-lg-4',
         'items': [
