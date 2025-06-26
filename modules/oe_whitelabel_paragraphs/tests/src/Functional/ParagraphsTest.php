@@ -124,6 +124,21 @@ class ParagraphsTest extends BrowserTestBase {
    * Test Accordion paragraphs form.
    */
   public function testAccordionParagraph(): void {
+    // Test label display settings first.
+    $display = \Drupal::service('entity_display.repository')->getViewDisplay('paragraph', 'oe_accordion_item', 'default');
+
+    // Configure title field to show label above.
+    $title_component = $display->getComponent('field_oe_text') ?: [];
+    $title_component['label'] = 'above';
+    $display->setComponent('field_oe_text', $title_component);
+
+    // Configure content field to hide label.
+    $content_component = $display->getComponent('field_oe_text_long') ?: [];
+    $content_component['label'] = 'hidden';
+    $display->setComponent('field_oe_text_long', $content_component);
+
+    $display->save();
+
     $this->drupalGet('/node/add/paragraphs_test');
     $page = $this->getSession()->getPage();
     $page->pressButton('Add Accordion');
@@ -145,6 +160,25 @@ class ParagraphsTest extends BrowserTestBase {
     // Assert paragraph values are displayed correctly.
     $this->assertSession()->pageTextContains('Title item 1');
     $this->assertSession()->pageTextContains('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+
+    // Test that field display settings are respected.
+    // The title field should show its label since we set it to 'above'.
+    $field_definition = \Drupal::service('entity_field.manager')->getFieldDefinitions('paragraph', 'oe_accordion_item')['field_oe_text'];
+    $field_label = $field_definition->getLabel();
+    $this->assertSession()->pageTextContains($field_label);
+
+    // Test with hidden label setting.
+    $title_component['label'] = 'hidden';
+    $display->setComponent('field_oe_text', $title_component);
+    $display->save();
+
+    // Clear render cache and reload page.
+    \Drupal::service('cache.render')->invalidateAll();
+    $this->drupalGet('/node/1');
+
+    // Content should still be there but label should be hidden.
+    $this->assertSession()->pageTextContains('Title item 1');
+    $this->assertSession()->pageTextNotContains($field_label);
   }
 
   /**
