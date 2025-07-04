@@ -1,14 +1,35 @@
 # Change Log
 
-## [1.20.0](https://github.com/openeuropa/oe_whitelabel/tree/1.20.0) (2025-06-12)
+## [1.21.0](https://github.com/openeuropa/oe_whitelabel/tree/1.21.0) (2025-07-04)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.20.0...1.21.0)
+
+**Fixed bugs:**
+
+- Preserve the query parameters when submitting the SearchForm  [\#242](https://github.com/openeuropa/oe_whitelabel/issues/242)
+
+**Merged pull requests:**
+
+- OEL-3909: \[oe\_whitelabel\] Error on phpunit tests [\#366](https://github.com/openeuropa/oe_whitelabel/pull/366) ([enriquelacoma](https://github.com/enriquelacoma))
+- OEL-3818: Fix wrong module names in dependencies. [\#365](https://github.com/openeuropa/oe_whitelabel/pull/365) ([vengador](https://github.com/vengador))
+- OEL-3817: Preserve the query parameters when submitting the SearchForm. [\#358](https://github.com/openeuropa/oe_whitelabel/pull/358) ([enriquelacoma](https://github.com/enriquelacoma))
+
+## [1.20.0](https://github.com/openeuropa/oe_whitelabel/tree/1.20.0) (2025-06-13)
+
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.19.0...1.20.0)
+
+**Implemented enhancements:**
+
+- Duplicated and malfunctioning URL for search page [\#40](https://github.com/openeuropa/oe_whitelabel/issues/40)
 
 **Fixed bugs:**
 
 - Update better\_exposed\_filters module [\#294](https://github.com/openeuropa/oe_whitelabel/issues/294)
+- Fix dependencies of the modules [\#190](https://github.com/openeuropa/oe_whitelabel/issues/190)
 
 **Merged pull requests:**
 
+- Prepare release 1.20.0. [\#363](https://github.com/openeuropa/oe_whitelabel/pull/363) ([drishu](https://github.com/drishu))
 - OEL-3858: Updated images. [\#359](https://github.com/openeuropa/oe_whitelabel/pull/359) ([tibi2303](https://github.com/tibi2303))
 - EWPP-4656: Update to Drupal 11. [\#349](https://github.com/openeuropa/oe_whitelabel/pull/349) ([kp77](https://github.com/kp77))
 - ERATRANS-ERATRANS-996: compatibility with better\_exposed\_filter ^7 [\#325](https://github.com/openeuropa/oe_whitelabel/pull/325) ([libetho](https://github.com/libetho))
