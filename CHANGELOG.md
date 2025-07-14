@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.22.0](https://github.com/openeuropa/oe_whitelabel/tree/1.22.0) (2025-07-10)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.21.0...1.22.0)
+
+**Merged pull requests:**
+
+- OEL-0000: Update oe\_bootstrap\_theme. [\#371](https://github.com/openeuropa/oe_whitelabel/pull/371) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Update oe\_bt. [\#370](https://github.com/openeuropa/oe_whitelabel/pull/370) ([tibi2303](https://github.com/tibi2303))
+
 ## [1.21.0](https://github.com/openeuropa/oe_whitelabel/tree/1.21.0) (2025-07-04)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.20.0...1.21.0)
@@ -10,6 +19,7 @@
 
 **Merged pull requests:**
 
+- Release 1.21.0. [\#368](https://github.com/openeuropa/oe_whitelabel/pull/368) ([tibi2303](https://github.com/tibi2303))
 - OEL-3909: \[oe\_whitelabel\] Error on phpunit tests [\#366](https://github.com/openeuropa/oe_whitelabel/pull/366) ([enriquelacoma](https://github.com/enriquelacoma))
 - OEL-3818: Fix wrong module names in dependencies. [\#365](https://github.com/openeuropa/oe_whitelabel/pull/365) ([vengador](https://github.com/vengador))
 - OEL-3817: Preserve the query parameters when submitting the SearchForm. [\#358](https://github.com/openeuropa/oe_whitelabel/pull/358) ([enriquelacoma](https://github.com/enriquelacoma))
