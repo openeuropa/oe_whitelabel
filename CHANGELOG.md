@@ -1,11 +1,21 @@
 # Change Log
 
+
+## [1.23.0](https://github.com/openeuropa/oe_whitelabel/tree/1.23.0) (2025-07-29)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.22.0...1.23.0)
+
+**Merged pull requests:**
+
+- OEL-3416: Added aria-labelledby on multiselect elements. [\#364](https://github.com/openeuropa/oe_whitelabel/pull/364) ([tibi2303](https://github.com/tibi2303))
+
 ## [1.22.0](https://github.com/openeuropa/oe_whitelabel/tree/1.22.0) (2025-07-10)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.21.0...1.22.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.22.0. [\#372](https://github.com/openeuropa/oe_whitelabel/pull/372) ([tibi2303](https://github.com/tibi2303))
 - OEL-0000: Update oe\_bootstrap\_theme. [\#371](https://github.com/openeuropa/oe_whitelabel/pull/371) ([tibi2303](https://github.com/tibi2303))
 - OEL-0000: Update oe\_bt. [\#370](https://github.com/openeuropa/oe_whitelabel/pull/370) ([tibi2303](https://github.com/tibi2303))
 
