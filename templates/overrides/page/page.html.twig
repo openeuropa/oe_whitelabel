@@ -70,9 +70,22 @@
     {% endif %}</a>
 {% endset %}
 
+{% set navbar_id = 'main-navbar' %}
+
 {% set header_top %}
   <div class="nav position-relative flex-grow-1 justify-content-end">
     {{ page.header_top }}
+    <button {{ create_attribute({
+      "class": "navbar-toggler xyz",
+      "type": "button",
+      "data-bs-toggle": "collapse",
+      "data-bs-target": "#" ~ navbar_id,
+      "aria-controls": navbar_id,
+      "aria-expanded": "false",
+      "aria-label": "Toggle navigation",
+    }) }}>
+      <span class="navbar-toggler-icon"></span>
+    </button>
   </div>
 {% endset %}
 
@@ -100,11 +113,13 @@
         {{ pattern('navbar', {
           navigation: page.navigation_left,
           right: page.navigation_right,
+          disable_collapse: true,
           color_scheme: 'dark',
           background: false,
-          expanded_breakpoint: 'lg',
+          expanded_breakpoint: false,
           attributes: create_attribute({
-            'class': ['bcl-header__navbar'],
+            'class': ['bcl-header__navbar', 'collapse', 'navbar-collapse'],
+            'id': navbar_id,
             'role': 'navigation',
             'aria-label': 'Menu'|t
           })
