@@ -70,13 +70,19 @@
     {% endif %}</a>
 {% endset %}
 
+{% set header_top %}
+  <div class="nav position-relative flex-grow-1 justify-content-end">
+    {{ page.header_top }}
+  </div>
+{% endset %}
+
 <div class="page">
   {% block header %}
     <header class="bcl-header bcl-header--{{ bcl_component_library }}" aria-label="{{ "Main header"|t }}">
       {% block head %}
         {{ pattern('navbar', {
           navigation: corporate_logos,
-          right: page.header_top,
+          right: header_top,
           color_scheme: 'light',
           background: false,
           attributes: create_attribute({
