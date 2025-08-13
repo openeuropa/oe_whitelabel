@@ -45,6 +45,12 @@ class AvMediaParagraphsTest extends ParagraphsTestBase {
 
     $this->container->get('module_handler')->loadInclude('media', 'install');
     media_install();
+
+    \Drupal::state()->delete('media.oembed_providers');
+    $this->config('media.settings')
+      ->set('oembed_providers_url', 'https://oembed.com/providers.json')
+      ->save();
+    $this->container->get('media.oembed.provider_repository')->refreshProviders();
   }
 
   /**
