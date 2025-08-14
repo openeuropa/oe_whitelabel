@@ -38,24 +38,6 @@ class GalleryParagraphTest extends BrowserTestBase {
   protected $defaultTheme = 'oe_whitelabel';
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    // Ensure oEmbed providers are (re)loaded via the mock HTTP client.
-    \Drupal::state()->delete('media.oembed_providers');
-
-    // Use an HTTP URL so oe_media_oembed_mock can intercept it.
-    $this->config('media.settings')
-      ->set('oembed_providers_url', 'https://oembed.com/providers.json')
-      ->save();
-
-    // Trigger the fetch (mock returns its responses/providers.json).
-    $this->container->get('media.oembed.provider_repository')->refreshProviders();
-  }
-
-  /**
    * Tests the paragraph rendering.
    */
   public function testRendering(): void {

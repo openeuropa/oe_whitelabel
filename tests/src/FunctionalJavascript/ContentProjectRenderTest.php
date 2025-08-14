@@ -61,14 +61,6 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     $this->config('system.date')
       ->set('timezone.default', 'Europe/Brussels')
       ->save();
-
-    \Drupal::state()->delete('media.oembed_providers');
-
-    $this->config('media.settings')
-      ->set('oembed_providers_url', 'https://oembed.com/providers.json')
-      ->save();
-
-    $this->container->get('media.oembed.provider_repository')->refreshProviders();
   }
 
   /**
