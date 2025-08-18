@@ -54,9 +54,9 @@ class AvMediaParagraphsTest extends ParagraphsTestBase {
     $media_image = $this->createImageMedia();
     $media_iframe = $this->createVideoIframeMedia();
     $media_remote = $this->createRemoteVideoMedia();
-    // Use mock youtube url from oe_media_oembed_mock module.
     $partial_iframe_url = Url::fromRoute('media.oembed_iframe', [], [
       'query' => [
+        // Use mock youtube url from oe_media_oembed_mock module.
         'url' => 'https://www.youtube.com/watch?v=1-g73ty9v04',
       ],
     ])->toString();

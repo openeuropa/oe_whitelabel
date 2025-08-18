@@ -30,8 +30,8 @@ trait MediaCreationTrait {
     // Title is fetched automatically from remote, so it must stay empty.
     $values['name'] = NULL;
 
-    // Use mock youtube url from oe_media_oembed_mock module.
     return $this->createMedia($values + [
+      // Use mock youtube url from oe_media_oembed_mock module.
       'oe_media_oembed_video' => 'https://www.youtube.com/watch?v=1-g73ty9v04',
     ]);
   }
