@@ -80,7 +80,7 @@
           color_scheme: 'light',
           background: false,
           attributes: create_attribute({
-            'class': ['w-100', 'shadow-sm'],
+            'class': ['w-100', 'shadow-sm', 'bcl-top-navigation'],
             'role': 'navigation',
             'aria-label': 'Site settings navigation'|t
           })
@@ -115,8 +115,7 @@
       {% endif %}
     </header>
   {% endblock %}
-  <main aria-label="{{ "Main content"|t }}">
-    <a id="main-content" tabindex="-1"></a>
+  <main aria-label="{{ "Main content"|t }}" id="main-content" tabindex="-1">
     {{ page.hero }}
     <div class="container mt-md-4-75 mt-4">
       <div class="row">
