@@ -112,6 +112,7 @@ class GalleryParagraphTest extends BrowserTestBase {
           ),
           'play_icon' => TRUE,
         ],
+        // Use mock youtube url from oe_media_oembed_mock module.
         'media' => [
           'caption_title' => 'Energy, let\'s save it!',
           'rendered' => sprintf(

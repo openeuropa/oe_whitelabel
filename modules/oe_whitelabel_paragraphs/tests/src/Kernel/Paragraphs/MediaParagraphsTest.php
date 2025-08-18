@@ -147,6 +147,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertEquals('Media Caption', trim($figure->filter('figcaption.bg-light.p-3')->text()));
 
     // Create a remote video and add it to the paragraph.
+    // Use mock youtube url from oe_media_oembed_mock module.
     $media = $media_storage->create([
       'bundle' => 'remote_video',
       'oe_media_oembed_video' => [
@@ -183,6 +184,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(0, $figure->filter('img.img-fluid'));
     $this->assertCount(1, $figure->filter('iframe'));
     // Assert remote video is rendered properly.
+    // Use mock youtube url from oe_media_oembed_mock module.
     $video_iframe = $crawler->filter('iframe');
     $partial_iframe_url = Url::fromRoute('media.oembed_iframe', [], [
       'query' => [
@@ -210,6 +212,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(0, $figure->filter('img.img-fluid'));
     $this->assertCount(1, $figure->filter('iframe'));
     // Assert remote video is rendered properly.
+    // Use mock youtube url from oe_media_oembed_mock module.
     $video_iframe = $crawler->filter('iframe');
     $partial_iframe_url = Url::fromRoute('media.oembed_iframe', [], [
       'query' => [
@@ -239,6 +242,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(0, $figure->filter('img.img-fluid'));
     $this->assertCount(1, $figure->filter('iframe'));
     // Assert remote video is rendered properly.
+    // Use mock youtube url from oe_media_oembed_mock module.
     $video_iframe = $crawler->filter('iframe');
     $partial_iframe_url = Url::fromRoute('media.oembed_iframe', [], [
       'query' => [
