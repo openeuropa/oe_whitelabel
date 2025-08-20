@@ -89,6 +89,13 @@ class SearchBlockTest extends KernelTestBase {
       ->get('entity_type.manager')
       ->getStorage('block');
     $entity = $block_entity_storage->load('oe_whitelabel_search_form');
+
+    // Set the block region to 'navigation_right'.
+    $settings = $entity->get('settings');
+    $settings['form']['region'] = 'navigation_right';
+    $entity->set('settings', $settings);
+    $entity->save();
+
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);
@@ -125,13 +132,6 @@ class SearchBlockTest extends KernelTestBase {
       ->get('entity_type.manager')
       ->getStorage('block');
     $entity = $block_entity_storage->load('oe_whitelabel_search_form');
-
-    // Set the block region to 'header_top'.
-    $settings = $entity->get('settings');
-    $settings['form']['region'] = 'header_top';
-    $entity->set('settings', $settings);
-    $entity->save();
-
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);

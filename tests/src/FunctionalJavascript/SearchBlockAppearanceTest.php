@@ -40,12 +40,6 @@ class SearchBlockAppearanceTest extends WebDriverTestBase {
    */
   protected function doTestSearchBlockInHeaderTop(): void {
     $assert_session = $this->assertSession();
-
-    // Move the block to the 'header_top' theme region.
-    $this->config('block.block.oe_whitelabel_search_form')
-      ->set('region', 'header_top')
-      ->set('settings.form.region', 'header_top')
-      ->save();
     $this->drupalGet('');
 
     // Assert that the search block and all its elements appear exactly once.
