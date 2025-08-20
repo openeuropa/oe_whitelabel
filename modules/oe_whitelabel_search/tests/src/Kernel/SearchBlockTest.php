@@ -118,6 +118,72 @@ class SearchBlockTest extends KernelTestBase {
   }
 
   /**
+   * Tests the rendering of the search block in the header_top region.
+   */
+  public function testHeaderTopSearchBlockRendering(): void {
+    $block_entity_storage = $this->container
+      ->get('entity_type.manager')
+      ->getStorage('block');
+    $entity = $block_entity_storage->load('oe_whitelabel_search_form');
+
+    // Set the block region to 'header_top'.
+    $settings = $entity->get('settings');
+    $settings['form']['region'] = 'header_top';
+    $entity->set('settings', $settings);
+    $entity->save();
+
+    $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
+    $build = $builder->view($entity, 'block');
+    $render = $this->container->get('renderer')->renderRoot($build);
+    $crawler = new Crawler($render->__toString());
+
+    // Search wrapper div.
+    $wrapper = $crawler->filter('div.search-dropdown.dropdown');
+    $this->assertCount(1, $wrapper);
+    // Toggle button.
+    $toggle = $wrapper->filter('button.dropdown-toggle');
+    $this->assertCount(1, $toggle);
+    $this->assertSame('dropdown-toggle px-2 btn btn-ghost btn-md', $toggle->attr('class'));
+
+    // Icon inside toggle.
+    $icon = $toggle->filter('svg.bi.icon--fluid');
+    $this->assertCount(1, $icon);
+
+    // Dropdown menu container.
+    $dropdown = $wrapper->filter('div.dropdown-menu');
+    $this->assertCount(1, $dropdown);
+    $this->assertSame('dropdown-menu', $dropdown->attr('class'));
+
+    // The form.
+    $form = $dropdown->filter('form');
+    $this->assertCount(1, $form);
+    $this->assertSame('oe-whitelabel-search-form', $form->attr('id'));
+    $this->assertSame('d-flex', $form->attr('class'));
+
+    // Text input field.
+    $input = $form->filter('input[name="search_input"]');
+    $this->assertCount(1, $input);
+    $this->assertSame('required form-control rounded-0 rounded-start', $input->attr('class'));
+    $this->assertSame('Search', $input->attr('placeholder'));
+
+    // Submit button.
+    $button = $form->filter('button#edit-submit');
+    $this->assertCount(1, $button);
+    $this->assertSame('Search', trim($button->text()));
+    $this->assertSame('Search', $button->attr('value'));
+    $this->assertStringContainsString('button js-form-submit form-submit border-start-0 rounded-0 rounded-end px-3 btn btn-light btn-md', $button->attr('class'));
+
+    // Icon inside submit button.
+    $submit_icon = $button->filter('svg.bi.icon--fluid');
+    $this->assertCount(1, $submit_icon);
+
+    // Hidden form_id input.
+    $form_id_input = $form->filter('input[name="form_id"]');
+    $this->assertCount(1, $form_id_input);
+    $this->assertSame('oe_whitelabel_search_form', $form_id_input->attr('value'));
+  }
+
+  /**
    * Tests the rendering of the whitelabel search block header region.
    */
   public function testHeaderSearchBlockRendering(): void {
