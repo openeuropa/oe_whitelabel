@@ -115,6 +115,7 @@ class GalleryParagraphTest extends BrowserTestBase {
         'media' => [
           'caption_title' => 'Energy, let\'s save it!',
           'rendered' => sprintf(
+            // Use mock youtube url from oe_media_oembed_mock module.
             '<iframe data-src="%s?url=https%%3A//www.youtube.com/watch%%3Fv%%3D1-g73ty9v04&amp;max_width=0&amp;max_height=0&amp;hash=%s" width="459" height="344" class="media-oembed-content" loading="eager" title="Energy, let\'s save it!"></iframe>',
             Url::fromRoute('media.oembed_iframe')->setAbsolute()->toString(),
             \Drupal::service('media.oembed.iframe_url_helper')->getHash('https://www.youtube.com/watch?v=1-g73ty9v04', 0, 0)

@@ -150,6 +150,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $media = $media_storage->create([
       'bundle' => 'remote_video',
       'oe_media_oembed_video' => [
+        // Use mock youtube url from oe_media_oembed_mock module.
         'value' => 'https://www.youtube.com/watch?v=1-g73ty9v04',
       ],
     ]);
@@ -186,6 +187,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $video_iframe = $crawler->filter('iframe');
     $partial_iframe_url = Url::fromRoute('media.oembed_iframe', [], [
       'query' => [
+        // Use mock youtube url from oe_media_oembed_mock module.
         'url' => 'https://www.youtube.com/watch?v=1-g73ty9v04',
       ],
     ])->toString();
@@ -213,6 +215,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $video_iframe = $crawler->filter('iframe');
     $partial_iframe_url = Url::fromRoute('media.oembed_iframe', [], [
       'query' => [
+        // Use mock youtube url from oe_media_oembed_mock module.
         'url' => 'https://www.youtube.com/watch?v=1-g73ty9v04',
       ],
     ])->toString();
@@ -242,6 +245,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $video_iframe = $crawler->filter('iframe');
     $partial_iframe_url = Url::fromRoute('media.oembed_iframe', [], [
       'query' => [
+        // Use mock youtube url from oe_media_oembed_mock module.
         'url' => 'https://www.youtube.com/watch?v=1-g73ty9v04',
       ],
     ])->toString();
