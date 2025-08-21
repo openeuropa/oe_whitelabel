@@ -6,17 +6,21 @@
  * @see \Drupal\oe_authentication\Plugin\Block\LoginBlock
  */
 #}
-{% set extra_attributes = create_attribute() %}
-{% set extra_attributes = extra_attributes.addClass([
-  'text-center'
+
+{% set extra_attributes = create_attribute().addClass([
+  'text-center',
+  'nav-link',
+  'text-dark',
+  'h-100',
+  'gap-2-5',
 ]) %}
 
 {% set title = content['#title']|render %}
 {% set link_title %}
-  <span class="d-block d-lg-inline-block">{{ title }}</span>
+  <span class="d-none d-xl-inline-block">{{ title }}</span>
 {% endset %}
 
-<div class="oe-authentication nav-link">
+<div class="oe-authentication">
   {{ pattern('link', {
     label: link_title,
     path: content['#url']|render,
@@ -26,6 +30,7 @@
     },
     icon_position: 'before',
     standalone: true,
+    remove_icon_spacers: true,
     attributes: extra_attributes
   }) }}
 </div>

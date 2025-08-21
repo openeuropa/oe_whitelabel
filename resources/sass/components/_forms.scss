@@ -66,3 +66,38 @@
   }
 }
 
+
+.search-dropdown {
+  display: flex;
+  position: static;
+  .dropdown-toggle {
+    // Hide the up/down arrow.
+    &:after {
+      display: none;
+    }
+  }
+  .dropdown-menu {
+    left: auto;
+    right: 0;
+    margin-left: -100vw;
+    max-width: calc(100vw - var(--bs-gutter-x));
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .search-dropdown {
+    margin-left: 1.5rem;
+    .dropdown-toggle {
+      display: none;
+    }
+    .dropdown-menu {
+      display: block;
+      position: static;
+      border: none;
+      margin: 0;
+      padding: 0;
+      top: 0;
+    }
+  }
+}
