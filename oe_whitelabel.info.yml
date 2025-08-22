@@ -45,4 +45,5 @@ config_devel:
     - block.block.oe_whitelabel_main_page_content
     - block.block.oe_whitelabel_messages
     - block.block.oe_whitelabel_neutral_footer
+    - block.block.oe_whitelabel_oelmegamenu
     - block.block.oe_whitelabel_search_form
