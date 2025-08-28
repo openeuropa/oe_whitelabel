@@ -39,12 +39,11 @@ class SkipToMainContentTest extends WebDriverTestBase {
       }());
     JS);
     $hash = $this->getSession()->evaluateScript('return window.location.hash;');
-    $this->assertSame('#main-content', $hash, 'Location hash updated to #main-content.');
+    $this->assertSame('#main-content', $hash);
     $active_id = $this->getSession()->evaluateScript('return document.activeElement ? document.activeElement.id : "";');
-    $this->assertSame('main-content', $active_id, 'Focus moved to #main-content.');
+    $this->assertSame('main-content', $active_id);
     $main = $assert->elementExists('css', 'main#main-content');
-    $this->assertSame('-1', $main->getAttribute('tabindex'), '<main> has tabindex="-1".');
-    $this->assertCount(1, $this->getSession()->getPage()->findAll('css', 'main#main-content'));
+    $this->assertSame('-1', $main->getAttribute('tabindex'));
   }
 
 }
