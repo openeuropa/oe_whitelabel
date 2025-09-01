@@ -1,5 +1,16 @@
 # Change Log
 
+## [1.24.0](https://github.com/openeuropa/oe_whitelabel/tree/1.24.0) (2025-09-01)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.23.0...1.24.0)
+
+**Merged pull requests:**
+
+- OEL-0000: Update oe\_bt. [\#379](https://github.com/openeuropa/oe_whitelabel/pull/379) ([piotrsmykaj](https://github.com/piotrsmykaj))
+- OEL-4038: Make sure assets directory always exists. [\#378](https://github.com/openeuropa/oe_whitelabel/pull/378) ([donquixote](https://github.com/donquixote))
+- OEL-4022: Add comment about youtube video test url. [\#376](https://github.com/openeuropa/oe_whitelabel/pull/376) ([tibi2303](https://github.com/tibi2303))
+- OEL-4024: Fallback to empty string if Node\_env is not defined. [\#375](https://github.com/openeuropa/oe_whitelabel/pull/375) ([tibi2303](https://github.com/tibi2303))
+- OEL-4014: Moved search to header top. [\#373](https://github.com/openeuropa/oe_whitelabel/pull/373) ([tibi2303](https://github.com/tibi2303))
 
 ## [1.23.0](https://github.com/openeuropa/oe_whitelabel/tree/1.23.0) (2025-07-29)
 
@@ -7,6 +18,7 @@
 
 **Merged pull requests:**
 
+- Prepare release 1.23.0. [\#374](https://github.com/openeuropa/oe_whitelabel/pull/374) ([tibi2303](https://github.com/tibi2303))
 - OEL-3416: Added aria-labelledby on multiselect elements. [\#364](https://github.com/openeuropa/oe_whitelabel/pull/364) ([tibi2303](https://github.com/tibi2303))
 
 ## [1.22.0](https://github.com/openeuropa/oe_whitelabel/tree/1.22.0) (2025-07-10)
