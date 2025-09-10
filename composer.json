@@ -23,6 +23,7 @@
         "drupal/core-composer-scaffold": "^10 || ^11",
         "drupal/core-dev": "^10 || ^11",
         "drupal/description_list_field": "^1.0@alpha",
+        "drupal/entity_browser": "~2.13.0",
         "drupal/entity_reference_revisions": "^1.11",
         "drupal/extra_field": "^2.3 || ^3.0@beta",
         "drupal/facets_form": "^1.0.0-alpha6",
