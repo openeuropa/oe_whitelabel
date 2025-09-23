@@ -70,6 +70,7 @@
 .search-dropdown {
   display: flex;
   position: static;
+  z-index: 1050; // Make sure the dropdown is above menu.
   .dropdown-toggle {
     // Hide the up/down arrow.
     &:after {
