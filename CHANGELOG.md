@@ -1,11 +1,23 @@
 # Change Log
 
+## [1.25.0](https://github.com/openeuropa/oe_whitelabel/tree/1.25.0) (2025-09-29)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.24.0...1.25.0)
+
+**Merged pull requests:**
+
+- OEL-0000: Rollback entity\_browser and update oe\_bt. [\#384](https://github.com/openeuropa/oe_whitelabel/pull/384) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Constrain entity\_browser version to avoid patch failure. [\#382](https://github.com/openeuropa/oe_whitelabel/pull/382) ([donquixote](https://github.com/donquixote))
+- OEL-4016: Mega menu [\#381](https://github.com/openeuropa/oe_whitelabel/pull/381) ([donquixote](https://github.com/donquixote))
+- OEL-3730: Changed id to main and removed anchor plus test. [\#377](https://github.com/openeuropa/oe_whitelabel/pull/377) ([tibi2303](https://github.com/tibi2303))
+
 ## [1.24.0](https://github.com/openeuropa/oe_whitelabel/tree/1.24.0) (2025-09-01)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.23.0...1.24.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.24.0. [\#380](https://github.com/openeuropa/oe_whitelabel/pull/380) ([piotrsmykaj](https://github.com/piotrsmykaj))
 - OEL-0000: Update oe\_bt. [\#379](https://github.com/openeuropa/oe_whitelabel/pull/379) ([piotrsmykaj](https://github.com/piotrsmykaj))
 - OEL-4038: Make sure assets directory always exists. [\#378](https://github.com/openeuropa/oe_whitelabel/pull/378) ([donquixote](https://github.com/donquixote))
 - OEL-4022: Add comment about youtube video test url. [\#376](https://github.com/openeuropa/oe_whitelabel/pull/376) ([tibi2303](https://github.com/tibi2303))
