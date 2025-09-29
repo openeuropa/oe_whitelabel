@@ -46,7 +46,7 @@ function oe_whitelabel_helper_post_update_00003(): void {
 /**
  * Place the OEL mega menu block.
  */
-function oe_whitelabel_helper_post_update_00004(): void {
+function oe_whitelabel_helper_post_update_00004(): string {
   if (!\Drupal::moduleHandler()->moduleExists('block')) {
     return 'No blocks can be placed, because the block module is not installed.';
   }
