@@ -47,7 +47,23 @@ function oe_whitelabel_helper_post_update_00003(): void {
  * Place the OEL mega menu block.
  */
 function oe_whitelabel_helper_post_update_00004(): void {
+  if (!\Drupal::moduleHandler()->moduleExists('block')) {
+    return 'No blocks can be placed, because the block module is not installed.';
+  }
+
   ConfigImporter::importSingle('module', 'oe_whitelabel_helper', '/config/post_updates/00004_megamenu', 'block.block.oe_whitelabel_oelmegamenu');
 
-  Block::load('oe_whitelabel_main_navigation')->setStatus(FALSE)->save();
+  $report = 'The new mega menu block was placed in the navigation region for oe_whitelabel.';
+
+  $old_navigation_block = Block::load('oe_whitelabel_main_navigation');
+  if (!$old_navigation_block || $old_navigation_block->getTheme() !== 'oe_whitelabel') {
+    return $report . "\nThe old navigation block was not found.";
+  }
+  if (!$old_navigation_block->status()) {
+    return $report . "\nThe old navigation block was already disabled.";
+  }
+
+  $old_navigation_block->setStatus(FALSE)->save();
+
+  return $report . "\nThe old navigation block was disabled.";
 }
