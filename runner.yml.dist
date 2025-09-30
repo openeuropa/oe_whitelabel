@@ -15,21 +15,25 @@ drupal:
     port: "8890"
   post_install:
     # Prepare the instance.
-    - { task: "exec", command: "./vendor/bin/drush en config_devel -y" }
-    - { task: "exec", command: "./vendor/bin/drush en field_ui -y" }
-    - { task: "exec", command: "./vendor/bin/drush en oe_authentication -y" }
-    - { task: "exec", command: "./vendor/bin/drush en oe_whitelabel_multilingual -y" }
-    - { task: "exec", command: "./vendor/bin/drush en oe_whitelabel_contact_forms -y" }
-    - { task: "exec", command: "./vendor/bin/drush en oe_whitelabel_extra_project -y" }
-    - { task: "exec", command: "./vendor/bin/drush en oe_whitelabel_helper -y" }
-    - { task: "exec", command: "./vendor/bin/drush en oe_whitelabel_search -y" }
-    - { task: "exec", command: "./vendor/bin/drush en oe_whitelabel_list_pages -y" }
-    - { task: "exec", command: "./vendor/bin/drush en oe_whitelabel_starter_event -y" }
-    - { task: "exec", command: "./vendor/bin/drush en oe_whitelabel_starter_news -y" }
-    - { task: "exec", command: "./vendor/bin/drush en oe_whitelabel_starter_person -y" }
-    - { task: "exec", command: "./vendor/bin/drush en oe_whitelabel_starter_publication -y" }
-    - { task: "exec", command: "./vendor/bin/drush en oe_whitelabel_paragraphs -y" }
-    - { task: "exec", command: "./vendor/bin/drush en toolbar -y" }
+    -
+      task: "exec"
+      command: |
+        ./vendor/bin/drush en -vy \
+          config_devel \
+          field_ui \
+          oe_authentication \
+          oe_whitelabel_multilingual \
+          oe_whitelabel_contact_forms \
+          oe_whitelabel_extra_project \
+          oe_whitelabel_helper \
+          oe_whitelabel_search \
+          oe_whitelabel_list_pages \
+          oe_whitelabel_starter_event \
+          oe_whitelabel_starter_news \
+          oe_whitelabel_starter_person \
+          oe_whitelabel_starter_publication \
+          oe_whitelabel_paragraphs \
+          toolbar
     - { task: "exec", command: "./vendor/bin/drush theme:enable oe_whitelabel -y" }
     - { task: "exec", command: "./vendor/bin/drush theme:enable claro -y" }
     - { task: "exec", command: "./vendor/bin/drush config-set system.theme default oe_whitelabel -y" }
