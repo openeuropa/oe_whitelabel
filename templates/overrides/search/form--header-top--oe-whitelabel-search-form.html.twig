@@ -5,19 +5,13 @@
  */
 #}
 <div class="search-dropdown dropdown">
-  {{ pattern('button', {
-    'variant': 'ghost',
-    'icon': 'search',
-    'attributes': create_attribute({
-      'data-bs-toggle': 'dropdown',
-      'aria-haspopup': 'true',
-      'aria-expanded': 'false',
-      'class': [
-        'dropdown-toggle',
-        'px-2',
-      ],
-    })
-  }) }}
+  <button type="button" class="btn btn-ghost p-2 dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="visually-hidden">{{ 'Toggle search form'|t }}</span>
+    {{ pattern('icon', {
+      'name': 'search',
+      'size': 'mobile-m-desktop-xs',
+    }) }}
+  </button>
   <div class="dropdown-menu">
     {% include "form.html.twig" with {
       attributes: attributes.addClass('d-flex'),
