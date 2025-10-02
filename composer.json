@@ -12,6 +12,7 @@
         "drupal/daterange_compact": "^2.0.1",
         "drupal/twig_field_value": "^2.0.2",
         "openeuropa/composer-artifacts": "^1.0.0-alpha1",
+        "ec-europa/toolkit": "^10.23",
         "openeuropa/oe_bootstrap_theme": "0.4068.202510062345 as 1.27.0"
     },
     "require-dev": {
@@ -44,8 +45,7 @@
         "openeuropa/oe_multilingual": "^1.14",
         "openeuropa/oe_paragraphs": "^1.28",
         "openeuropa/oe_starter_content": "^1.5",
-        "openeuropa/oe_subscriptions": "^1.0.0-beta3",
-        "openeuropa/task-runner-drupal-project-symlink": "^1.0"
+        "openeuropa/oe_subscriptions": "^1.0.0-beta3"
     },
     "conflict": {
         "openeuropa/oe_corporate_blocks": "<4.19"
@@ -110,6 +110,7 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "drupal/core-composer-scaffold": true,
             "openeuropa/composer-artifacts": true,
+            "ec-europa/toolkit-composer-plugin": true,
             "php-http/discovery": false,
             "phpro/grumphp-shim": true,
             "phpstan/extension-installer": true,
