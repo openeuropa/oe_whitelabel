@@ -9,16 +9,25 @@
     - modal
 #}
 
+{% set original_label = language.link.name|default('') %}
+{% set language_code = language.link.id|default('')|replace({'link_': ''}) %}
+{% set display_label = language_code ? language_code|upper : original_label %}
 {% set _language_link = {
-  label: language.link.name|default(''),
+  label: display_label,
   href: language.link.href|default('#'),
   target: language.link.target|default(language.modal.id|default(''))
 } %}
 {% set extra_attributes = create_attribute({
-  'class': ['text-center', 'nav-link', 'text-dark', 'h-100', 'gap-2-5'],
+  'class': [
+    'd-inline-flex',
+    'align-items-center',
+    'text-dark',
+    'gap-2-5',
+    'p-2',
+  ],
   'data-bs-toggle': 'modal',
   'data-bs-target': '#' ~ _language_link.target,
-  'aria-label': 'Change language. Current language is @language.'|t({'@language': _language_link.label}),
+  'aria-label': 'Change language. Current language is @language.'|t({'@language': original_label}),
 }) %}
 
 {% set _link_title %}
@@ -29,8 +38,8 @@
   label: _link_title,
   path: _language_link.href,
   icon: {
-    name: 'chat-left-dots-fill',
-    size: 'xs',
+    name: 'globe2',
+    size: 'mobile-m-desktop-xs',
   },
   icon_position: 'before',
   standalone: true,

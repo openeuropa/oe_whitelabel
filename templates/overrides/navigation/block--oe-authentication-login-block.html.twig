@@ -8,14 +8,15 @@
 #}
 
 {% set extra_attributes = create_attribute().addClass([
-  'text-center',
-  'nav-link',
+  'd-inline-flex',
+  'align-items-center',
   'text-dark',
-  'h-100',
   'gap-2-5',
+  'p-2',
 ]) %}
 
 {% set title = content['#title']|render %}
+{% set icon_name = logged_in ? 'person-check' : 'person' %}
 {% set link_title %}
   <span class="d-none d-xl-inline-block">{{ title }}</span>
 {% endset %}
@@ -25,8 +26,8 @@
     label: link_title,
     path: content['#url']|render,
     icon: {
-      name: 'person-fill',
-      size: 'xs',
+      name: icon_name,
+      size: 'mobile-m-desktop-xs',
     },
     icon_position: 'before',
     standalone: true,
