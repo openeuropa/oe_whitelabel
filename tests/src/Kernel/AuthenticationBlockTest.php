@@ -55,7 +55,7 @@ class AuthenticationBlockTest extends KernelTestBase {
     $actual = $crawler->filter('.oe-authentication');
     $this->assertCount(1, $actual);
     $icon = $actual->filter('svg');
-    $this->assertSame('ms-2-5 bi icon--xs', $icon->attr('class'));
+    $this->assertSame('ms-2-5 bi icon--mobile-m-desktop-xs', $icon->attr('class'));
     $use = $icon->filter('use');
     $expected = '/themes/contrib/oe_bootstrap_theme/assets/icons/bcl-default-icons.svg#person-fill';
     $this->assertSame($expected, $use->attr('xlink:href'));

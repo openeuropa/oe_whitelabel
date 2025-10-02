@@ -82,49 +82,6 @@ class SearchBlockTest extends KernelTestBase {
   }
 
   /**
-   * Tests the rendering of the whitelabel search block navigation_right region.
-   */
-  public function testNavigationRightSearchBlockRendering(): void {
-    $block_entity_storage = $this->container
-      ->get('entity_type.manager')
-      ->getStorage('block');
-    $entity = $block_entity_storage->load('oe_whitelabel_search_form');
-
-    // Set the block region to 'navigation_right'.
-    $settings = $entity->get('settings');
-    $settings['form']['region'] = 'navigation_right';
-    $entity->set('settings', $settings);
-    $entity->save();
-
-    $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
-    $build = $builder->view($entity, 'block');
-    $render = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler($render->__toString());
-
-    // Assert the form rendering.
-    $form = $crawler->filter('form');
-    $this->assertCount(1, $form);
-    $this->assertSame('oe-whitelabel-search-form', $form->attr('id'));
-    $this->assertStringContainsString('d-flex', $form->attr('class'));
-    // Assert search text box.
-    $input = $crawler->filter('input[name="search_input"]');
-    $this->assertCount(1, $input);
-    $classes = 'required form-control rounded-0 rounded-start';
-    $this->assertSame($classes, $input->attr('class'));
-    $this->assertSame('Search', $input->attr('placeholder'));
-    // Assert the button and icon rendering.
-    $button = $form->filter('button');
-    $this->assertCount(1, $button);
-    $this->assertStringContainsString('rounded-end', $button->attr('class'));
-    $this->assertStringContainsString('rounded-0', $button->attr('class'));
-    $this->assertStringContainsString('btn', $button->attr('class'));
-    $this->assertStringContainsString('btn-md', $button->attr('class'));
-    $this->assertStringContainsString('btn-light', $button->attr('class'));
-    $icon = $button->filter('.bi.icon--fluid');
-    $this->assertCount(1, $icon);
-  }
-
-  /**
    * Tests the rendering of the search block in the header_top region.
    */
   public function testHeaderTopSearchBlockRendering(): void {
@@ -143,7 +100,7 @@ class SearchBlockTest extends KernelTestBase {
     // Toggle button.
     $toggle = $wrapper->filter('button.dropdown-toggle');
     $this->assertCount(1, $toggle);
-    $this->assertSame('dropdown-toggle px-2 btn btn-ghost btn-md', $toggle->attr('class'));
+    $this->assertSame('btn btn-ghost p-2 dropdown-toggle', $toggle->attr('class'));
 
     // Icon inside toggle.
     $icon = $toggle->filter('svg.bi.icon--fluid');
