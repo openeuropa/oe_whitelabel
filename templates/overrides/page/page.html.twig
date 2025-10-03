@@ -106,19 +106,17 @@
 
 <div class="page">
   {% block header %}
-    <header class="bcl-header bcl-header--{{ bcl_component_library }}" aria-labelledby="site-name-heading">
+    <header class="bcl-header bcl-header--{{ bcl_component_library }} shadow-sm" aria-labelledby="site-name-heading">
       {% block head %}
-      <div class="shadow-sm w-100">
-        <nav class="navbar navbar-expand-lg navbar-light py-3-5" aria-label="{{ "Site settings navigation"|t }}">
-          <div class="container">
-            {{ corporate_logos }}
-            <div class="nav position-relative gap-1 align-items-center">
-              {{ page.header_top }}
-              {{ navbar_toggle_button }}
-            </div>
+      <nav class="navbar navbar-expand-lg navbar-light py-3-5" aria-label="{{ "Site settings navigation"|t }}">
+        <div class="container">
+          {{ corporate_logos }}
+          <div class="nav position-relative gap-1 align-items-center">
+            {{ page.header_top }}
+            {{ navbar_toggle_button }}
           </div>
-        </nav>
-      </div>
+        </div>
+      </nav>
       <div class="bcl-header__site-name">
         {{ page.header_branding }}
       </div>

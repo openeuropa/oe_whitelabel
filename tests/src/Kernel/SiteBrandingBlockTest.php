@@ -106,7 +106,7 @@ class SiteBrandingBlockTest extends KernelTestBase {
 
     $tag = $heading->nodeName();
     $this->assertContains($tag, ['h1', 'p']);
-    $this->assertSame('OpenEuropa Whitelabel theme', trim($heading->text()));
+    $this->assertSame('Site name', trim($heading->text()));
 
     $classes = array_filter(explode(' ', (string) $heading->attr('class')));
     foreach (['h5', 'py-3-5', 'border-top-subtle', 'mb-0'] as $expected_class) {

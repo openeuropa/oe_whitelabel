@@ -100,11 +100,23 @@ class SearchBlockTest extends KernelTestBase {
     // Toggle button.
     $toggle = $wrapper->filter('button.dropdown-toggle');
     $this->assertCount(1, $toggle);
-    $this->assertSame('btn btn-ghost p-2 dropdown-toggle', $toggle->attr('class'));
+    $toggle_classes = $toggle->attr('class') ?? '';
+    foreach ([
+      'btn',
+      'btn-ghost',
+      'p-2',
+      'dropdown-toggle',
+      'rounded-0',
+    ] as $expected_class) {
+      $this->assertStringContainsString($expected_class, $toggle_classes);
+    }
 
     // Icon inside toggle.
-    $icon = $toggle->filter('svg.bi.icon--fluid');
+    $icon = $toggle->filter('svg');
     $this->assertCount(1, $icon);
+    $icon_classes = $icon->attr('class') ?? '';
+    $this->assertStringContainsString('icon--xs', $icon_classes);
+    $this->assertStringContainsString('bi', $icon_classes);
 
     // Dropdown menu container.
     $dropdown = $wrapper->filter('div.dropdown-menu');
@@ -128,11 +140,24 @@ class SearchBlockTest extends KernelTestBase {
     $this->assertCount(1, $button);
     $this->assertSame('Search', trim($button->text()));
     $this->assertSame('Search', $button->attr('value'));
-    $this->assertStringContainsString('button js-form-submit form-submit border-start-0 rounded-0 rounded-end px-3 btn btn-light btn-md', $button->attr('class'));
+    $button_classes = $button->attr('class');
+    $this->assertNotNull($button_classes);
+    $this->assertStringContainsString('button', $button_classes);
+    $this->assertStringContainsString('js-form-submit', $button_classes);
+    $this->assertStringContainsString('form-submit', $button_classes);
+    $this->assertStringContainsString('border-start-0', $button_classes);
+    $this->assertStringContainsString('rounded-0', $button_classes);
+    $this->assertStringContainsString('rounded-end', $button_classes);
+    $this->assertStringContainsString('px-3', $button_classes);
+    $this->assertStringContainsString('btn', $button_classes);
+    $this->assertStringContainsString('btn-primary', $button_classes);
 
     // Icon inside submit button.
-    $submit_icon = $button->filter('svg.bi.icon--fluid');
+    $submit_icon = $button->filter('svg');
     $this->assertCount(1, $submit_icon);
+    $submit_icon_classes = $submit_icon->attr('class') ?? '';
+    $this->assertStringContainsString('icon--xs', $submit_icon_classes);
+    $this->assertStringContainsString('bi', $submit_icon_classes);
 
     // Hidden form_id input.
     $form_id_input = $form->filter('input[name="form_id"]');

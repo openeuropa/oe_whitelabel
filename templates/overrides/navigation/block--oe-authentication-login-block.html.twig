@@ -12,7 +12,9 @@
   'align-items-center',
   'text-dark',
   'gap-2-5',
-  'p-2',
+  'py-1-5',
+  'px-2-5',
+  'rounded-1',
 ]) %}
 
 {% set title = content['#title']|render %}
@@ -27,7 +29,7 @@
     path: content['#url']|render,
     icon: {
       name: icon_name,
-      size: 'mobile-m-desktop-xs',
+      size: 'xs',
     },
     icon_position: 'before',
     standalone: true,
