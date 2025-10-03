@@ -36,16 +36,6 @@ services:
       - '4444'
     shm_size: 2g
 
-  node:
-    image: node:18.12.0
-    user: "node"
-    working_dir: /home/node/app
-    environment:
-      - NODE_ENV=${NODE_ENV-''}
-      - SHELL=bash
-    volumes:
-      - ./:/home/node/app
-    command: "sleep infinity"
   sparql:
     image: openeuropa/triple-store-dev
     environment:
