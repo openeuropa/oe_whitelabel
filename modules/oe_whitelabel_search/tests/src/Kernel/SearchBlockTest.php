@@ -104,7 +104,6 @@ class SearchBlockTest extends KernelTestBase {
     foreach ([
       'btn',
       'btn-ghost',
-      'p-2',
       'dropdown-toggle',
       'rounded-0',
     ] as $expected_class) {

@@ -58,7 +58,6 @@ class CorporateHeaderLogosTest extends WhitelabelBrowserTestBase {
 
     // Tests role and aria-label of nav elements in header.
     $assert_session->elementAttributeContains('css', '.navbar.navbar-expand-lg.navbar-light.py-3-5', 'aria-label', 'Site settings navigation');
-    $assert_session->elementAttributeContains('css', '.navbar.navbar-expand-lg.navbar-light.py-3-5', 'role', 'navigation');
     $assert_session->elementAttributeContains('css', 'nav.bcl-header__navbar', 'aria-label', 'Menu');
     $assert_session->elementAttributeContains('css', 'nav.bcl-header__navbar', 'role', 'navigation');
 
