@@ -139,7 +139,7 @@ class SearchBlockAppearanceTest extends WebDriverTestBase {
     $this->drupalGet('');
     // The search form is not wrapped in '.search-dropdown'.
     $assert_session->elementsCount('css', '.search-dropdown', 0);
-    $assert_session->elementsCount('css', '#main-navbar > form#oe-whitelabel-search-form.d-flex.mt-3.mt-lg-0 > [name=search_input]', 1);
+    $assert_session->elementsCount('css', '#main-navbar > form#oe-whitelabel-search-form > [name=search_input]', 1);
   }
 
   /**

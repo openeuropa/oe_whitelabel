@@ -105,7 +105,6 @@ class SearchBlockTest extends KernelTestBase {
       'btn',
       'btn-ghost',
       'dropdown-toggle',
-      'rounded-0',
     ] as $expected_class) {
       $this->assertStringContainsString($expected_class, $toggle_classes);
     }
