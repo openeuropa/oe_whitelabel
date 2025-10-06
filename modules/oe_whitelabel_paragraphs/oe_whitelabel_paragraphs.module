@@ -134,14 +134,19 @@ function oe_whitelabel_preprocess_paragraph__oe_accordion(array &$variables): vo
   // Massage data to be compliant with OE Bootstrap Theme accordion pattern
   // data structure.
   $builder = \Drupal::entityTypeManager()->getViewBuilder('paragraph');
+  $renderer = \Drupal::service('renderer');
   $variables['items'] = [];
 
   /** @var \Drupal\entity_reference_revisions\Plugin\Field\FieldType\EntityReferenceRevisionsItem $field_item */
   foreach ($variables['paragraph']->get('field_oe_paragraphs') as $field_item) {
     $paragraph = \Drupal::service('entity.repository')->getTranslationFromContext($field_item->entity);
+
+    $title_render_array = $builder->viewField($paragraph->get('field_oe_text'));
+    $content_render_array = $builder->viewField($paragraph->get('field_oe_text_long'));
+
     $variables['items'][] = [
-      'title' => $builder->viewField($paragraph->get('field_oe_text')),
-      'content' => $builder->viewField($paragraph->get('field_oe_text_long')),
+      'title' => $renderer->renderRoot($title_render_array),
+      'content' => $renderer->renderRoot($content_render_array),
     ];
   }
 }
