@@ -7,15 +7,12 @@
  */
 #}
 
-{% set extra_attributes = create_attribute().addClass([
-  'd-inline-flex',
-  'align-items-center',
-  'text-dark',
-  'gap-2-5',
-  'py-1-5',
-  'px-2-5',
-  'rounded-1',
-]) %}
+{% set link_classes = ['top-navigation-link'] %}
+{% if logged_in %}
+  {% set link_classes = link_classes|merge(['active']) %}
+{% endif %}
+
+{% set extra_attributes = create_attribute().addClass(link_classes) %}
 
 {% set title = content['#title']|render %}
 {% set icon_name = logged_in ? 'person-check' : 'person' %}
@@ -29,10 +26,9 @@
     path: content['#url']|render,
     icon: {
       name: icon_name,
-      size: 'xs',
+      size: 'fluid',
     },
     icon_position: 'before',
-    standalone: true,
     remove_icon_spacers: true,
     attributes: extra_attributes
   }) }}

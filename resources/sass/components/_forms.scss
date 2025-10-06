@@ -72,9 +72,14 @@
   position: static;
   z-index: 1050; // Make sure the dropdown is above menu.
   .dropdown-toggle {
-    // Hide the up/down arrow.
+    color: var(--bs-link-color);
+    border: none;
     &:after {
       display: none;
+    }
+    &.show {
+      background: var(--bs-primary);
+      color: #fff;
     }
   }
   .dropdown-menu {
@@ -85,7 +90,7 @@
     padding: 1rem;
   }
   input[name="search_input"] {
-    box-shadow: inset 0 0 4px #d2d2d2;
+    border-color: var(--bs-dark-bg-subtle);
   }
 }
 

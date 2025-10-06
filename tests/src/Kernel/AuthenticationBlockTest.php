@@ -49,7 +49,7 @@ class AuthenticationBlockTest extends KernelTestBase {
     $this->assertAuthenticationIcon($crawler, 'person');
     $link = $crawler->filter('a');
     $this->assertSame('Log in', $link->text());
-    $this->assertAuthenticationLinkClasses($link);
+    $this->assertAuthenticationLinkClasses($link, FALSE);
   }
 
   /**
@@ -64,7 +64,7 @@ class AuthenticationBlockTest extends KernelTestBase {
     $this->assertAuthenticationIcon($crawler, 'person-check');
     $link = $crawler->filter('a');
     $this->assertSame('Log out', $link->text());
-    $this->assertAuthenticationLinkClasses($link);
+    $this->assertAuthenticationLinkClasses($link, TRUE);
 
     $current_user->setAccount($original_account);
   }
@@ -93,7 +93,7 @@ class AuthenticationBlockTest extends KernelTestBase {
     $icon = $actual->filter('svg');
     $this->assertCount(1, $icon);
     $icon_class = $icon->attr('class') ?? '';
-    $this->assertStringContainsString('icon--xs', $icon_class);
+    $this->assertStringContainsString('icon--fluid', $icon_class);
     $use = $icon->filter('use');
     $this->assertCount(1, $use);
     $href = $use->attr('xlink:href') ?? $use->attr('href');
@@ -104,18 +104,14 @@ class AuthenticationBlockTest extends KernelTestBase {
   /**
    * Asserts the authentication link classes.
    */
-  protected function assertAuthenticationLinkClasses(Crawler $link): void {
+  protected function assertAuthenticationLinkClasses(Crawler $link, bool $logged_in): void {
     $classes = $link->attr('class') ?? '';
-    foreach ([
-      'd-inline-flex',
-      'align-items-center',
-      'text-dark',
-      'gap-2-5',
-      'py-1-5',
-      'px-2-5',
-      'rounded-1',
-    ] as $expected_class) {
-      $this->assertStringContainsString($expected_class, $classes);
+    $this->assertStringContainsString('top-navigation-link', $classes);
+    if ($logged_in) {
+      $this->assertStringContainsString('active', $classes);
+    }
+    else {
+      $this->assertStringNotContainsString('active', $classes);
     }
   }
 

@@ -156,7 +156,7 @@ class SearchBlockTest extends KernelTestBase {
     $submit_icon = $button->filter('svg');
     $this->assertCount(1, $submit_icon);
     $submit_icon_classes = $submit_icon->attr('class') ?? '';
-    $this->assertStringContainsString('icon--xs', $submit_icon_classes);
+    $this->assertStringContainsString('icon--fluid', $submit_icon_classes);
     $this->assertStringContainsString('bi', $submit_icon_classes);
 
     // Hidden form_id input.

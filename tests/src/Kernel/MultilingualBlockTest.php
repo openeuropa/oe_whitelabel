@@ -80,21 +80,11 @@ class MultilingualBlockTest extends KernelTestBase {
     $this->assertSame('EN', trim($link->text()));
     $this->assertSame('#', $link->attr('href'));
     $link_classes = $link->attr('class') ?? '';
-    foreach ([
-      'd-inline-flex',
-      'align-items-center',
-      'text-dark',
-      'gap-2-5',
-      'py-1-5',
-      'px-2-5',
-      'rounded-1',
-    ] as $expected_class) {
-      $this->assertStringContainsString($expected_class, $link_classes);
-    }
+    $this->assertStringContainsString('top-navigation-link', $link_classes);
     $icon = $link->filter('svg');
     $this->assertCount(1, $icon);
     $icon_classes = $icon->attr('class') ?? '';
-    $this->assertStringContainsString('icon--xs', $icon_classes);
+    $this->assertStringContainsString('icon--fluid', $icon_classes);
     $this->assertStringContainsString('bi', $icon_classes);
     $title = $crawler->filter('div#languageModal .modal-title');
     $this->assertSame('Select your language', $title->text());

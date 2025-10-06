@@ -19,13 +19,7 @@
 } %}
 {% set extra_attributes = create_attribute({
   'class': [
-    'd-inline-flex',
-    'align-items-center',
-    'text-dark',
-    'gap-2-5',
-    'py-1-5',
-    'px-2-5',
-    'rounded-1',
+    'top-navigation-link',
   ],
   'data-bs-toggle': 'modal',
   'data-bs-target': '#' ~ _language_link.target,
@@ -41,10 +35,9 @@
   path: _language_link.href,
   icon: {
     name: 'globe2',
-    size: 'xs',
+    size: 'fluid',
   },
   icon_position: 'before',
-  standalone: true,
   remove_icon_spacers: true,
   attributes: extra_attributes
 }) }}
