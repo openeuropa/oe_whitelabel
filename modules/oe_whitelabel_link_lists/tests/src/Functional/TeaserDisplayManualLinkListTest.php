@@ -33,6 +33,13 @@ class TeaserDisplayManualLinkListTest extends WhitelabelBrowserTestBase {
   ];
 
   /**
+   * Tests that a failing test leads to a failing pipeline.
+   */
+  public function testCanary(): void {
+    $this->fail();
+  }
+
+  /**
    * Tests the manual link rendering for supported bundles.
    */
   public function testManualLinkList(): void {
