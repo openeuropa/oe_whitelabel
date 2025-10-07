@@ -94,12 +94,8 @@ commands:
   toolkit:code-review:
     - { task: "exec", command: "./vendor/bin/grumphp run --verbose" }
 
-  # The `toolkit:test-phpunit` command is called in the gitlab CI pipeline.
-  # It needs to be overridden to work properly with PhpUnit 9, where the
-  # `--log-junit` option needs an absolute path.
-  # For local development, simply ignore this command and run phpunit directly.
   toolkit:test-phpunit:
-    - { task: "exec", command: "./vendor/bin/phpunit --log-junit $(pwd)/junit-export/junit-phpunit.xml" }
+    - { task: "run", command: "toolkit:test-phpunit-batches" }
 
 release:
   tasks:
@@ -121,7 +117,9 @@ toolkit:
       options_yaml: 'no-error-on-unmatched-pattern'
       options_js: 'no-error-on-unmatched-pattern'
   test:
-    phpunit: {}
+    phpunit:
+      batch_groups:
+        - batch1
   ci:
     PHP:
       - 8.3

@@ -67,6 +67,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "Drupal\\oe_whitelabel_commands\\": "./toolkit/src/",
             "Drupal\\Tests\\oe_whitelabel\\": "./tests/src/",
             "Drupal\\Tests\\oe_bootstrap_theme\\": "./build/themes/contrib/oe_bootstrap_theme/tests/src/"
         }

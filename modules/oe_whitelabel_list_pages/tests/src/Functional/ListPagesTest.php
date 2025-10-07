@@ -13,6 +13,8 @@ use Drupal\node\NodeInterface;
 
 /**
  * Tests the list pages rendering.
+ *
+ * @group batch1
  */
 class ListPagesTest extends WhitelabelBrowserTestBase {
 
