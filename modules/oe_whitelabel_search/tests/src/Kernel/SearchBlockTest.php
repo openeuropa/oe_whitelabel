@@ -113,7 +113,7 @@ class SearchBlockTest extends KernelTestBase {
     $icon = $toggle->filter('svg');
     $this->assertCount(1, $icon);
     $icon_classes = $icon->attr('class') ?? '';
-    $this->assertStringContainsString('icon--xs', $icon_classes);
+    $this->assertStringContainsString('icon--fluid', $icon_classes);
     $this->assertStringContainsString('bi', $icon_classes);
 
     // Dropdown menu container.
