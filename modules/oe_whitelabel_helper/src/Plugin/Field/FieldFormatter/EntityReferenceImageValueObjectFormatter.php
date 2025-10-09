@@ -148,45 +148,69 @@ class EntityReferenceImageValueObjectFormatter extends ImageFormatterBase implem
       'src' => '',
       'alt' => '',
     ];
-    /** @var \Drupal\media\Entity\Media[] $medias */
-    $medias = $this->getEntitiesToView($items, $langcode);
-    if (empty($medias)) {
+
+    /** @var \Drupal\media\Entity\Media[] $media_entities */
+    $media_entities = $this->getEntitiesToView($items, $langcode);
+    if (empty($media_entities)) {
       return $elements;
     }
 
     $image_style_setting = $this->getSetting('image_style');
-    // Collect cache tags to be added for each item in the field.
+    $image_style = NULL;
     $cache_tags = [];
+
     if (!empty($image_style_setting)) {
       $image_style = $this->entityTypeManager->getStorage('image_style')->load($image_style_setting);
       if (!empty($image_style)) {
         $cache_tags = $image_style->getCacheTags();
       }
     }
+
     $elements['#cache'] = array_merge($elements['#cache'] ?? [], $cache_tags);
-    foreach ($medias as $media) {
-      if (!$media->hasField('oe_media_image')) {
-        continue;
-      }
-      /*For the moment it's only work with oe_media_image field. @todo */
-      $array_files = $media->get('oe_media_image')->getValue();
-      foreach ($array_files as $array_file) {
-        if (!empty($array_file['target_id'])) {
-          /** @var \Drupal\file\Entity\File $file */
-          $file_entity = $this->entityTypeManager->getStorage('file')->load($array_file['target_id']);
-          $image_uri = $file_entity->getFileUri();
-          $elements['alt'] = $array_file['alt'];
-          if (!empty($image_style)) {
-            $elements['src'] = $this->fileUrlGenerator->transformRelative($image_style->buildUrl($image_uri));
-            // Add cacheability metadata from the image and image style.
-            CacheableMetadata::createFromObject($file_entity)->addCacheableDependency(CacheableMetadata::createFromObject([$image_style_setting]));
-          }
-          else {
-            $elements['src'] = $this->fileUrlGenerator->generateString($image_uri);
-          }
+
+    foreach ($media_entities as $media) {
+      // Dynamically find a file or image field in the media entity.
+      $field_name = NULL;
+      foreach ($media->getFieldDefinitions() as $field_definition) {
+        if (in_array($field_definition->getType(), ['file', 'image'], TRUE)) {
+          $field_name = $field_definition->getName();
+          break;
         }
       }
+
+      if (!$field_name || !$media->hasField($field_name)) {
+        continue;
+      }
+
+      $file_items = $media->get($field_name)->getValue();
+      foreach ($file_items as $file_item) {
+        if (empty($file_item['target_id'])) {
+          continue;
+        }
+
+        /** @var \Drupal\file\Entity\File $file_entity */
+        $file_entity = $this->entityTypeManager->getStorage('file')->load($file_item['target_id']);
+        if (!$file_entity) {
+          continue;
+        }
+
+        $file_uri = $file_entity->getFileUri();
+        $alt_text = $file_item['alt'] ?? '';
+
+        if (!empty($image_style)) {
+          $elements['src'] = $this->fileUrlGenerator->transformRelative($image_style->buildUrl($file_uri));
+        }
+        else {
+          $elements['src'] = $this->fileUrlGenerator->generateString($file_uri);
+        }
+
+        $elements['alt'] = $alt_text;
+
+        // Add file cacheability.
+        CacheableMetadata::createFromObject($file_entity)->addCacheableDependency($elements);
+      }
     }
+
     return $elements;
   }
 
