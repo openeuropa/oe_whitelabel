@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\oe_whitelabel_helper\Plugin\Field\FieldFormatter;
 
@@ -37,8 +37,8 @@ abstract class FeaturedMediaFormatterBase extends ImageFormatter {
    */
   public static function defaultSettings() {
     return [
-        'display_caption' => FALSE,
-      ] + parent::defaultSettings();
+      'display_caption' => FALSE,
+    ] + parent::defaultSettings();
   }
 
   /**

@@ -1,17 +1,16 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\oe_whitelabel_helper\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
-use Drupal\Core\Language\LanguageInterface;
-use Drupal\media\Plugin\media\Source\Image;
+use Drupal\file\FileInterface;
 use Drupal\media\Entity\Media;
+use Drupal\media\Plugin\media\Source\Image;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
-use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
-use Drupal\oe_content_featured_media_field\Plugin\Field\FieldType\FeaturedMediaItem;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'Featured media as label' formatter.
@@ -28,47 +27,96 @@ use Drupal\oe_content_featured_media_field\Plugin\Field\FieldType\FeaturedMediaI
 class FeaturedMediaImageValueObjectFormatter extends FeaturedMediaFormatterBase {
 
   /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * {@inheritdoc}
    */
-  function viewElements(FieldItemListInterface $items, $langcode = NULL) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->entityTypeManager = $container->get('entity_type.manager');
+    return $instance;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function viewElements(FieldItemListInterface $items, $langcode = NULL) {
     $elements = [];
+
     $parent_elements = parent::viewElements($items, $langcode);
-    if(empty($parent_elements)) {
+    if (empty($parent_elements)) {
       return $elements;
     }
 
     foreach ($parent_elements as $delta => $parent_element) {
-
-      /** @var FeaturedMediaItem $item */
+      /** @var \Drupal\oe_content_featured_media_field\Plugin\Field\FieldType\FeaturedMediaItem $item */
       $item = $items[$delta];
 
-      /** @var \Drupal\media\Entity\Media $media */
-      $media = Media::load($item->get('target_id')->getValue());
-      // Retrieve the correct media translation.
-      /** @var \Drupal\media\Entity\Media $media */
+      $target_id = $item->get('target_id')->getValue();
+      if (empty($target_id)) {
+        continue;
+      }
+
+      /** @var \Drupal\media\Entity\Media|null $media */
+      $media = Media::load($target_id);
+      if (!$media) {
+        continue;
+      }
+
+      // Get the proper translation.
       $media = $this->entityRepository->getTranslationFromContext($media, $langcode);
 
-      // Get the media source.
+      // Check if the media source is image-based.
       $source = $media->getSource();
-      $is_image = $source instanceof MediaAvPortalPhotoSource || $source instanceof Image;
-      // If it's not an image bail out.
-      if (!$is_image) {
+      if (!($source instanceof MediaAvPortalPhotoSource || $source instanceof Image)) {
+        continue;
+      }
+
+      // Ensure thumbnail field exists and is not empty.
+      if (!$media->hasField('thumbnail') || $media->get('thumbnail')->isEmpty()) {
         continue;
       }
 
       $thumbnail = $media->get('thumbnail')->first();
-      if($parent_element['#image_style']) {
-        $element = ImageValueObject::fromStyledImageItem($thumbnail, $parent_element['#image_style']);
+      if (!$thumbnail) {
+        continue;
+      }
+
+      /** @var \Drupal\file\FileInterface|null $file_entity */
+      $file_entity = $thumbnail->entity ?? NULL;
+      if (!$file_entity instanceof FileInterface) {
+        continue;
+      }
+
+      $mime_type = $file_entity->getMimeType();
+      $is_svg = $mime_type === 'image/svg+xml';
+
+      // Try to load the image style (if provided).
+      $image_style = NULL;
+      if (!empty($parent_element['#image_style'])) {
+        $image_style = $this->entityTypeManager->getStorage('image_style')->load($parent_element['#image_style']);
+      }
+
+      // Generate image src URL.
+      if ($image_style && !$is_svg) {
+        $src = $this->fileUrlGenerator->transformRelative($image_style->buildUrl($file_entity->getFileUri()));
       }
       else {
-        $element = ImageValueObject::fromImageItem($thumbnail);
+        $src = $this->fileUrlGenerator->generateString($file_entity->getFileUri());
       }
+
       $elements = [
-        'src' => $element->getSource(),
-        'alt' => $element->getAlt()
+        'src' => $src,
+        'alt' => $thumbnail->get('alt')->getValue() ?? '',
       ];
+
+      // Only return the first valid image.
       if (!empty($elements['src'])) {
-        // Waited output is 1 dimensional array, so we will return only the first element.
         return $elements;
       }
     }
@@ -77,14 +125,14 @@ class FeaturedMediaImageValueObjectFormatter extends FeaturedMediaFormatterBase 
   }
 
   /**
-   * Load entities if not unsaved (TRUE in major cases).
+   * Avoid loading unsaved entities.
    */
   protected function needsEntityLoad(EntityReferenceItem $item) {
     return !$item->hasNewEntity();
   }
 
   /**
-   * No needs to check renderable elements.
+   * No need to check renderable elements.
    */
   public function view(FieldItemListInterface $items, $langcode = NULL) {
     return $this->viewElements($items, $langcode);

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\oe_whitelabel_helper\Plugin\Field\FieldFormatter;
 
@@ -53,7 +53,7 @@ class EntityReferenceImageValueObjectFormatter extends ImageFormatterBase implem
   protected $languageManager;
 
   /**
-   * Constructs an ImageFormatter object.
+   * Constructs an EntityReferenceImageValueObjectFormatter object.
    *
    * @param array $parent_params
    *   Array of parent parameters (PHPMD is blocking when 10 parameters).
@@ -64,7 +64,7 @@ class EntityReferenceImageValueObjectFormatter extends ImageFormatterBase implem
    * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
    *   The language manager service.
    */
-  public function __construct(array $parent_params, FileUrlGeneratorInterface $file_url_generator = NULL, EntityTypeManagerInterface $entity_type_manager, LanguageManagerInterface $language_manager) {
+  public function __construct(array $parent_params, ?FileUrlGeneratorInterface $file_url_generator = NULL, EntityTypeManagerInterface $entity_type_manager, LanguageManagerInterface $language_manager) {
     parent::__construct($parent_params['plugin_id'], $parent_params['plugin_definition'], $parent_params['field_definition'], $parent_params['settings'], $parent_params['label'], $parent_params['view_mode'], $parent_params['third_party_settings']);
 
     $this->fileUrlGenerator = $file_url_generator;
@@ -197,7 +197,7 @@ class EntityReferenceImageValueObjectFormatter extends ImageFormatterBase implem
         $file_uri = $file_entity->getFileUri();
         $alt_text = $file_item['alt'] ?? '';
 
-        if (!empty($image_style)) {
+        if (!empty($image_style) && $file_entity->getMimeType() !== 'image/svg+xml') {
           $elements['src'] = $this->fileUrlGenerator->transformRelative($image_style->buildUrl($file_uri));
         }
         else {

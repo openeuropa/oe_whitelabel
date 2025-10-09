@@ -1,16 +1,16 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\oe_whitelabel_helper\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
+use Drupal\file\FileInterface;
 use Drupal\media\Plugin\media\Source\Image;
 use Drupal\media\Entity\Media;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
 use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
-use Drupal\oe_content_featured_media_field\Plugin\Field\FieldType\FeaturedMediaItem;
 
 /**
  * Plugin implementation of the 'Featured media as label' formatter.
@@ -33,35 +33,59 @@ class FeaturedMediaImageFormatter extends FeaturedMediaFormatterBase {
     $elements = [];
 
     $parent_elements = parent::viewElements($items, $langcode);
+    $display_caption_setting = $this->getSetting('display_caption');
 
     foreach ($parent_elements as $delta => $parent_element) {
 
-      /** @var FeaturedMediaItem $item */
+      /** @var \Drupal\oe_content_featured_media_field\Plugin\Field\FieldType\FeaturedMediaItem $item */
       $item = $items[$delta];
 
-      /** @var \Drupal\media\Entity\Media $media */
+      /** @var \Drupal\media\Entity\Media|null $media */
       $media = Media::load($item->get('target_id')->getValue());
+      if (!$media) {
+        continue;
+      }
+
       // Retrieve the correct media translation.
-      /** @var \Drupal\media\Entity\Media $media */
       $media = $this->entityRepository->getTranslationFromContext($media, $langcode);
 
       // Get the media source.
       $source = $media->getSource();
       $is_image = $source instanceof MediaAvPortalPhotoSource || $source instanceof Image;
-      // If it's not an image bail out.
       if (!$is_image) {
         continue;
       }
 
-      if($parent_element['#image_style']) {
-        $thumbnail = $media->get('thumbnail')->first();
-        $elements[$delta]['featured_media'] = ['content' => ImageValueObject::fromStyledImageItem($thumbnail, $parent_element['#image_style'])->toRenderArray()];
+      // Ensure thumbnail exists.
+      if (!$media->hasField('thumbnail') || $media->get('thumbnail')->isEmpty()) {
+        continue;
+      }
+
+      $thumbnail = $media->get('thumbnail')->first();
+      if (!$thumbnail) {
+        continue;
+      }
+
+      // Load the file entity.
+      /** @var \Drupal\file\FileInterface|null $file_entity */
+      $file_entity = $thumbnail->entity ?? NULL;
+      if (!$file_entity instanceof FileInterface) {
+        continue;
+      }
+
+      // Build render array using image style or not.
+      if (!empty($parent_element['#image_style']) && $file_entity->getMimeType() !== 'image/svg+xml') {
+        $image_object = ImageValueObject::fromStyledImageItem($thumbnail, $parent_element['#image_style']);
       }
       else {
-        $thumbnail = $media->get('thumbnail')->first();
-        $elements[$delta]['featured_media'] = ['content' => ImageValueObject::fromImageItem($thumbnail)->toRenderArray()];
+        $image_object = ImageValueObject::fromImageItem($thumbnail);
       }
-      // Add the caption as the next element after the media link.
+
+      $elements[$delta]['featured_media'] = [
+        'content' => $image_object->toRenderArray(),
+      ];
+
+      // Add caption if enabled.
       if (!empty($display_caption_setting)) {
         $elements[$delta]['featured_media']['caption'] = [
           '#plain_text' => $item->caption,
@@ -74,10 +98,6 @@ class FeaturedMediaImageFormatter extends FeaturedMediaFormatterBase {
 
   /**
    * {@inheritdoc}
-   *
-   * One step back to have both image and file ER plugins extend this, because
-   * EntityReferenceItem::isDisplayed() doesn't exist, except for ImageItem
-   * which is always TRUE anyway for type image and file ER.
    */
   protected function needsEntityLoad(EntityReferenceItem $item) {
     return !$item->hasNewEntity();
