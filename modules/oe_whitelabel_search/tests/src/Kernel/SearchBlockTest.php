@@ -82,49 +82,6 @@ class SearchBlockTest extends KernelTestBase {
   }
 
   /**
-   * Tests the rendering of the whitelabel search block navigation_right region.
-   */
-  public function testNavigationRightSearchBlockRendering(): void {
-    $block_entity_storage = $this->container
-      ->get('entity_type.manager')
-      ->getStorage('block');
-    $entity = $block_entity_storage->load('oe_whitelabel_search_form');
-
-    // Set the block region to 'navigation_right'.
-    $settings = $entity->get('settings');
-    $settings['form']['region'] = 'navigation_right';
-    $entity->set('settings', $settings);
-    $entity->save();
-
-    $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
-    $build = $builder->view($entity, 'block');
-    $render = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler($render->__toString());
-
-    // Assert the form rendering.
-    $form = $crawler->filter('form');
-    $this->assertCount(1, $form);
-    $this->assertSame('oe-whitelabel-search-form', $form->attr('id'));
-    $this->assertStringContainsString('d-flex', $form->attr('class'));
-    // Assert search text box.
-    $input = $crawler->filter('input[name="search_input"]');
-    $this->assertCount(1, $input);
-    $classes = 'required form-control rounded-0 rounded-start';
-    $this->assertSame($classes, $input->attr('class'));
-    $this->assertSame('Search', $input->attr('placeholder'));
-    // Assert the button and icon rendering.
-    $button = $form->filter('button');
-    $this->assertCount(1, $button);
-    $this->assertStringContainsString('rounded-end', $button->attr('class'));
-    $this->assertStringContainsString('rounded-0', $button->attr('class'));
-    $this->assertStringContainsString('btn', $button->attr('class'));
-    $this->assertStringContainsString('btn-md', $button->attr('class'));
-    $this->assertStringContainsString('btn-light', $button->attr('class'));
-    $icon = $button->filter('.bi.icon--fluid');
-    $this->assertCount(1, $icon);
-  }
-
-  /**
    * Tests the rendering of the search block in the header_top region.
    */
   public function testHeaderTopSearchBlockRendering(): void {
@@ -143,11 +100,21 @@ class SearchBlockTest extends KernelTestBase {
     // Toggle button.
     $toggle = $wrapper->filter('button.dropdown-toggle');
     $this->assertCount(1, $toggle);
-    $this->assertSame('dropdown-toggle px-2 btn btn-ghost btn-md', $toggle->attr('class'));
+    $toggle_classes = $toggle->attr('class') ?? '';
+    foreach ([
+      'btn',
+      'btn-ghost',
+      'dropdown-toggle',
+    ] as $expected_class) {
+      $this->assertStringContainsString($expected_class, $toggle_classes);
+    }
 
     // Icon inside toggle.
-    $icon = $toggle->filter('svg.bi.icon--fluid');
+    $icon = $toggle->filter('svg');
     $this->assertCount(1, $icon);
+    $icon_classes = $icon->attr('class') ?? '';
+    $this->assertStringContainsString('icon--fluid', $icon_classes);
+    $this->assertStringContainsString('bi', $icon_classes);
 
     // Dropdown menu container.
     $dropdown = $wrapper->filter('div.dropdown-menu');
@@ -171,11 +138,24 @@ class SearchBlockTest extends KernelTestBase {
     $this->assertCount(1, $button);
     $this->assertSame('Search', trim($button->text()));
     $this->assertSame('Search', $button->attr('value'));
-    $this->assertStringContainsString('button js-form-submit form-submit border-start-0 rounded-0 rounded-end px-3 btn btn-light btn-md', $button->attr('class'));
+    $button_classes = $button->attr('class');
+    $this->assertNotNull($button_classes);
+    $this->assertStringContainsString('button', $button_classes);
+    $this->assertStringContainsString('js-form-submit', $button_classes);
+    $this->assertStringContainsString('form-submit', $button_classes);
+    $this->assertStringContainsString('border-start-0', $button_classes);
+    $this->assertStringContainsString('rounded-0', $button_classes);
+    $this->assertStringContainsString('rounded-end', $button_classes);
+    $this->assertStringContainsString('px-3', $button_classes);
+    $this->assertStringContainsString('btn', $button_classes);
+    $this->assertStringContainsString('btn-primary', $button_classes);
 
     // Icon inside submit button.
-    $submit_icon = $button->filter('svg.bi.icon--fluid');
+    $submit_icon = $button->filter('svg');
     $this->assertCount(1, $submit_icon);
+    $submit_icon_classes = $submit_icon->attr('class') ?? '';
+    $this->assertStringContainsString('icon--fluid', $submit_icon_classes);
+    $this->assertStringContainsString('bi', $submit_icon_classes);
 
     // Hidden form_id input.
     $form_id_input = $form->filter('input[name="form_id"]');

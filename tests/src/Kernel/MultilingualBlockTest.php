@@ -77,8 +77,15 @@ class MultilingualBlockTest extends KernelTestBase {
     $this->assertCount(1, $block);
     $link = $crawler->filter('div.language-switcher-block > a');
     $this->assertEquals('Change language. Current language is English.', $link->attr('aria-label'));
-    $this->assertSame('English', trim($link->text()));
+    $this->assertSame('EN', trim($link->text()));
     $this->assertSame('#', $link->attr('href'));
+    $link_classes = $link->attr('class') ?? '';
+    $this->assertStringContainsString('top-navigation-link', $link_classes);
+    $icon = $link->filter('svg');
+    $this->assertCount(1, $icon);
+    $icon_classes = $icon->attr('class') ?? '';
+    $this->assertStringContainsString('icon--fluid', $icon_classes);
+    $this->assertStringContainsString('bi', $icon_classes);
     $title = $crawler->filter('div#languageModal .modal-title');
     $this->assertSame('Select your language', $title->text());
     $button_header = $crawler->filter('button.btn-close');

@@ -7,15 +7,15 @@
  */
 #}
 
-{% set extra_attributes = create_attribute().addClass([
-  'text-center',
-  'nav-link',
-  'text-dark',
-  'h-100',
-  'gap-2-5',
-]) %}
+{% set link_classes = ['top-navigation-link'] %}
+{% if logged_in %}
+  {% set link_classes = link_classes|merge(['active']) %}
+{% endif %}
+
+{% set extra_attributes = create_attribute().addClass(link_classes) %}
 
 {% set title = content['#title']|render %}
+{% set icon_name = logged_in ? 'person-check' : 'person' %}
 {% set link_title %}
   <span class="d-none d-xl-inline-block">{{ title }}</span>
 {% endset %}
@@ -25,11 +25,10 @@
     label: link_title,
     path: content['#url']|render,
     icon: {
-      name: 'person-fill',
-      size: 'xs',
+      name: icon_name,
+      size: 'fluid',
     },
     icon_position: 'before',
-    standalone: true,
     remove_icon_spacers: true,
     attributes: extra_attributes
   }) }}
