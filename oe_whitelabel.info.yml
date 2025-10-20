@@ -13,6 +13,10 @@ libraries-override:
     css:
       theme:
         css/system.admin.css: false
+  modal_page/modal-page:
+    css:
+      theme:
+        css/modal-page.css: false
 
 regions:
   header_branding: 'Header branding'
