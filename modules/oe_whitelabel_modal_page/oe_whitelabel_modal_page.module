@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * OE Whitelabel Modal module.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function oe_whitelabel_modal_page_page_attachments_alter(array &$attachments): void {
+  $active_theme = \Drupal::theme()->getActiveTheme();
+  if ($active_theme->getName() !== 'oe_whitelabel') {
+    $base_themes = [];
+    foreach ($active_theme->getBaseThemeExtensions() as $base_theme) {
+      $base_themes[] = $base_theme->getName();
+    }
+    if (!in_array('oe_whitelabel', $base_themes, TRUE)) {
+      // Do nothing if the active theme or one of the base themes of the active
+      // theme is not oe_whitelabel.
+      return;
+    }
+  }
+
+  $libraries = $attachments['#attached']['library'] ?? NULL;
+  if ($libraries) {
+    foreach ($libraries as $delta => $library) {
+      if (str_starts_with($library, 'modal_page/modal-page-bootstrap')) {
+        // Make sure that modal_page doesn't load any CDN Bootstrap libraries.
+        unset($attachments['#attached']['library'][$delta]);
+      }
+    }
+  }
+}
