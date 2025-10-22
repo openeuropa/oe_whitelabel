@@ -12,7 +12,6 @@
         "drupal/daterange_compact": "^2.0.1",
         "drupal/twig_field_value": "^2.0.2",
         "openeuropa/composer-artifacts": "^1.0.0-alpha1",
-        "ec-europa/toolkit": "^10.23",
         "openeuropa/oe_bootstrap_theme": "0.4068.202510062345 as 1.27.0"
     },
     "require-dev": {
@@ -33,6 +32,7 @@
         "drupal/search_api_autocomplete": "^1.7",
         "drupal/typed_link": "^2.0.1",
         "drush/drush": "^12 || ^13",
+        "ec-europa/toolkit": "^10.24",
         "openeuropa/code-review-drupal": "^1.0.0-alpha",
         "openeuropa/oe_agenda": "^1.0.0-alpha4",
         "openeuropa/oe_authentication": "^1.11",
