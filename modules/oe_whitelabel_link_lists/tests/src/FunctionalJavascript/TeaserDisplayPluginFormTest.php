@@ -8,6 +8,8 @@ use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 
 /**
  * Tests the configuration form of the teaser display plugin.
+ *
+ * @group batch1
  */
 class TeaserDisplayPluginFormTest extends WebDriverTestBase {
 

@@ -24,6 +24,8 @@ use Drupal\user\RoleInterface;
 
 /**
  * Tests that our Project content type renders correctly.
+ *
+ * @group batch1
  */
 class ContentProjectRenderTest extends WebDriverTestBase {
 

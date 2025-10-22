@@ -11,6 +11,8 @@ use Drupal\oe_link_lists\Entity\LinkList;
 
 /**
  * Tests the teaser display plugin with the manual list bundle.
+ *
+ * @group batch1
  */
 class TeaserDisplayManualLinkListTest extends WhitelabelBrowserTestBase {
 

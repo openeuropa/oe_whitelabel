@@ -11,6 +11,8 @@ use Drupal\field\Entity\FieldStorageConfig;
 
 /**
  * Tests paragraphs forms.
+ *
+ * @group batch1
  */
 class ParagraphsTest extends BrowserTestBase {
 
