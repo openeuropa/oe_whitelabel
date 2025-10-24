@@ -68,6 +68,7 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
     ]);
     $this->installConfig([
       'oe_paragraphs',
+      'oe_paragraphs_media_field_storage',
       'oe_paragraphs_description_list',
       'oe_whitelabel_paragraphs',
       'filter',

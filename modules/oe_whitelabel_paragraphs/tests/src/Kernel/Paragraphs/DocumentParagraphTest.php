@@ -48,8 +48,6 @@ class DocumentParagraphTest extends ParagraphsTestBase {
       'oe_media',
     ]);
 
-    $this->container->get('module_handler')->loadInclude('oe_paragraphs_media_field_storage', 'install');
-    oe_paragraphs_media_field_storage_install(FALSE);
     $this->installConfig(['oe_paragraphs_document']);
 
     ConfigurableLanguage::createFromLangcode('it')->save();
