@@ -43,6 +43,7 @@ class CarouselTest extends ParagraphsTestBase {
       'media_avportal',
       'oe_media',
       'oe_media_avportal',
+      'oe_paragraphs_media_field_storage',
       'oe_paragraphs_carousel',
       'oe_paragraphs_media',
     ]);

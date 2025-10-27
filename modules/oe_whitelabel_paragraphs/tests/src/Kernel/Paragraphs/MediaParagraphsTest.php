@@ -37,6 +37,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
       'oe_paragraphs_media',
       'media_avportal',
       'oe_media_avportal',
+      'oe_paragraphs_media_field_storage',
       'oe_paragraphs_banner',
       'oe_paragraphs_iframe_media',
       'options',
