@@ -1,11 +1,22 @@
 # Change Log
 
+## [1.26.0](https://github.com/openeuropa/oe_whitelabel/tree/1.26.0) (2025-10-30)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.25.0...1.26.0)
+
+**Merged pull requests:**
+
+- OEL-0000: Update oe\_bootstrap\_theme. [\#391](https://github.com/openeuropa/oe_whitelabel/pull/391) ([tibi2303](https://github.com/tibi2303))
+- OEL-4096: Replace drone, use gitlab CI and github actions [\#388](https://github.com/openeuropa/oe_whitelabel/pull/388) ([donquixote](https://github.com/donquixote))
+- OEL-4068: Updated header icons and accessibility improvements. [\#387](https://github.com/openeuropa/oe_whitelabel/pull/387) ([tibi2303](https://github.com/tibi2303))
+
 ## [1.25.0](https://github.com/openeuropa/oe_whitelabel/tree/1.25.0) (2025-09-29)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.24.0...1.25.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.25.0. [\#385](https://github.com/openeuropa/oe_whitelabel/pull/385) ([tibi2303](https://github.com/tibi2303))
 - OEL-0000: Rollback entity\_browser and update oe\_bt. [\#384](https://github.com/openeuropa/oe_whitelabel/pull/384) ([tibi2303](https://github.com/tibi2303))
 - OEL-0000: Constrain entity\_browser version to avoid patch failure. [\#382](https://github.com/openeuropa/oe_whitelabel/pull/382) ([donquixote](https://github.com/donquixote))
 - OEL-4016: Mega menu [\#381](https://github.com/openeuropa/oe_whitelabel/pull/381) ([donquixote](https://github.com/donquixote))
