@@ -1,0 +1,5 @@
+includes:
+  - ./vendor/openeuropa/code-review-drupal/dist/phpstan.drupal.neon
+parameters:
+  # The level 1 was applied by grumphp, when there was no phpstan.neon.
+  level: 1
