@@ -79,6 +79,9 @@
                 "RouteNotFoundException thrown during module install: https://www.drupal.org/project/modal_page/issues/3543767": "https://git.drupalcode.org/project/modal_page/-/merge_requests/55.diff",
                 "Support for less-intrusive dialogs via Bootstrap Toasts: https://www.drupal.org/project/modal_page/issues/3535144": "https://git.drupalcode.org/project/modal_page/-/merge_requests/53.diff",
                 "Improve cache invalidation process: https://www.drupal.org/project/modal_page/issues/3555830": "https://www.drupal.org/files/issues/2025-11-04/3555830-fix_only-6.patch"
+            },
+            "openeuropa/oe_bootstrap_theme": {
+                "Rename BCL toasts directory until fixed in OEL-4298": "./resources/patches/oe_bootstrap_theme_rename_bcl_toasts_dir.patch"
             }
         },
         "composer-exit-on-patch-failure": true,
