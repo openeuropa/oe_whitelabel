@@ -1,0 +1,4 @@
+diff --git a/assets/bcl/bcl-toast/bcl-toasts.html.twig b/assets/bcl/bcl-toasts/bcl-toasts.html.twig
+similarity index 100%
+rename from assets/bcl/bcl-toast/bcl-toasts.html.twig
+rename to assets/bcl/bcl-toasts/bcl-toasts.html.twig
