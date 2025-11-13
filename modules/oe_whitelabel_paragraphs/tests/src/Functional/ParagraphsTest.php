@@ -6,6 +6,7 @@ namespace Drupal\Tests\oe_whitelabel_paragraphs\Functional;
 
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CarouselPatternAssert;
+use Drupal\Tests\oe_bootstrap_theme\Traits\GetSelectOptionsTrait;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 
@@ -15,6 +16,8 @@ use Drupal\field\Entity\FieldStorageConfig;
  * @group batch1
  */
 class ParagraphsTest extends BrowserTestBase {
+
+  use GetSelectOptionsTrait;
 
   /**
    * {@inheritdoc}
@@ -232,7 +235,7 @@ class ParagraphsTest extends BrowserTestBase {
     $this->assertEquals([
       'horizontal' => 'Horizontal',
       'vertical' => 'Vertical',
-    ], $this->getOptions('oe_w_paragraphs[0][subform][oe_w_orientation]'));
+    ], $this->getSelectOptions('oe_w_paragraphs[0][subform][oe_w_orientation]'));
     $assert_session->fieldExists('oe_w_paragraphs[0][subform][field_oe_description_list_items][0][term]');
     $assert_session->fieldExists('oe_w_paragraphs[0][subform][field_oe_description_list_items][0][description][value]');
 

@@ -5,5 +5,7 @@ grumphp:
     phpparser:
       ignore_patterns:
         - vendor/
+    phpstan:
+      configuration: phpstan.neon
   git_hook_variables:
     EXEC_GRUMPHP_COMMAND: 'docker-compose exec -T web'

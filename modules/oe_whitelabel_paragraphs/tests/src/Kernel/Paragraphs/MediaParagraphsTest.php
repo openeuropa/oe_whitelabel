@@ -28,8 +28,6 @@ class MediaParagraphsTest extends ParagraphsTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    $this->container->get('module_handler')->loadInclude('oe_paragraphs_media_field_storage', 'install');
-    oe_paragraphs_media_field_storage_install(FALSE);
     $this->installEntitySchema('media');
     $this->installEntitySchema('node');
     $this->installConfig([
@@ -39,6 +37,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
       'oe_paragraphs_media',
       'media_avportal',
       'oe_media_avportal',
+      'oe_paragraphs_media_field_storage',
       'oe_paragraphs_banner',
       'oe_paragraphs_iframe_media',
       'options',
