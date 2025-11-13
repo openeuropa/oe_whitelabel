@@ -104,10 +104,10 @@
         },
          "patches": {
             "openeuropa/oe_paragraphs": {
-                "Support for Drupal 11.2. https://github.com/openeuropa/oe_paragraphs/pull/267:": "./patches/oe_paragraphs-PR_267-05112025.patch"
+                "Support for Drupal 11.2. https://github.com/openeuropa/oe_paragraphs/pull/267:": "https://raw.githubusercontent.com/openeuropa/oe_whitelabel/refs/tags/1.27.0/patches/oe_paragraphs-PR_267-05112025.patch"
             },
             "openeuropa/oe_content": {
-               "Support for Drupal 11.2. https://github.com/openeuropa/oe_content/pull/673:": "./patches/oe_content-PR_673-05112025.patch"
+                "Support for Drupal 11.2. https://github.com/openeuropa/oe_content/pull/673:": "https://raw.githubusercontent.com/openeuropa/oe_whitelabel/refs/tags/1.27.0/patches/oe_content-PR_673-05112025.patch"
             }
         }
     },
