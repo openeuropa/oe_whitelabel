@@ -1,5 +1,21 @@
 # Change Log
 
+## [1.27.1](https://github.com/openeuropa/oe_whitelabel/tree/1.27.1) (2025-11-14)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.27.0...1.27.1)
+
+**Merged pull requests:**
+
+- OEL-4180 ff: Use remote patch urls. [\#393](https://github.com/openeuropa/oe_whitelabel/pull/393) ([donquixote](https://github.com/donquixote))
+
+## [1.27.0](https://github.com/openeuropa/oe_whitelabel/tree/1.27.0) (2025-11-13)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.26.0...1.27.0)
+
+**Merged pull requests:**
+
+- OEL-4180: Test with drupal/core:~11.2.0. [\#386](https://github.com/openeuropa/oe_whitelabel/pull/386) ([donquixote](https://github.com/donquixote))
+
 ## [1.26.0](https://github.com/openeuropa/oe_whitelabel/tree/1.26.0) (2025-10-30)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.25.0...1.26.0)
