@@ -37,13 +37,13 @@
         "openeuropa/oe_agenda": "^1.0.0-alpha4",
         "openeuropa/oe_authentication": "^1.11",
         "openeuropa/oe_contact_forms": "~1.11",
-        "openeuropa/oe_content": "4.10.0",
+        "openeuropa/oe_content": "^4.11",
         "openeuropa/oe_content_extra": "^1.4",
         "openeuropa/oe_corporate_blocks": "^5.0.0-beta5",
         "openeuropa/oe_link_lists": "^1.0",
         "openeuropa/oe_list_pages": "^1.0",
         "openeuropa/oe_multilingual": "^1.14",
-        "openeuropa/oe_paragraphs": "1.31.0",
+        "openeuropa/oe_paragraphs": "^1.32",
         "openeuropa/oe_starter_content": "^1.5",
         "openeuropa/oe_subscriptions": "^1.0.0-beta3"
     },
@@ -101,14 +101,6 @@
             "build/themes/contrib/{$name}": [
                 "type:drupal-theme"
             ]
-        },
-         "patches": {
-            "openeuropa/oe_paragraphs": {
-                "Support for Drupal 11.2. https://github.com/openeuropa/oe_paragraphs/pull/267:": "https://raw.githubusercontent.com/openeuropa/oe_whitelabel/refs/tags/1.27.0/patches/oe_paragraphs-PR_267-05112025.patch"
-            },
-            "openeuropa/oe_content": {
-                "Support for Drupal 11.2. https://github.com/openeuropa/oe_content/pull/673:": "https://raw.githubusercontent.com/openeuropa/oe_whitelabel/refs/tags/1.27.0/patches/oe_content-PR_673-05112025.patch"
-            }
         }
     },
     "config": {
