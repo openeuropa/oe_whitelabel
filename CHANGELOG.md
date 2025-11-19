@@ -1,4 +1,12 @@
-# Change Log
+# Changelog
+
+## [1.27.2](https://github.com/openeuropa/oe_whitelabel/tree/1.27.2)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.27.1...1.27.2)
+
+**Merged pull requests:**
+
+- Remove patches for 11.2.x. [\#395](https://github.com/openeuropa/oe_whitelabel/pull/395) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
 
 ## [1.27.1](https://github.com/openeuropa/oe_whitelabel/tree/1.27.1) (2025-11-14)
 
@@ -6,6 +14,7 @@
 
 **Merged pull requests:**
 
+- Prepare release 1.27.1. [\#394](https://github.com/openeuropa/oe_whitelabel/pull/394) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
 - OEL-4180 ff: Use remote patch urls. [\#393](https://github.com/openeuropa/oe_whitelabel/pull/393) ([donquixote](https://github.com/donquixote))
 
 ## [1.27.0](https://github.com/openeuropa/oe_whitelabel/tree/1.27.0) (2025-11-13)
