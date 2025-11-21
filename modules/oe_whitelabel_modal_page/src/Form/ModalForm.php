@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\modal_page\Form\ModalForm as OriginalModalForm;
 
 /**
- * Override of modal_page configuration form.
+ * Override of modal configuration form.
  *
  * @see \Drupal\modal_page\Form\ModalForm
  */
