@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\oe_whitelabel_modal_page\Functional;
+namespace Drupal\Tests\oe_whitelabel\Functional;
 
 use Drupal\Tests\BrowserTestBase;
 
