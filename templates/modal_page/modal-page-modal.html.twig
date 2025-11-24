@@ -14,97 +14,91 @@
 
 {% if enable_modal_header %}
   {% set _header %}
-    {% apply spaceless %}
-      {% if display_title  %}
-        <h5 class="mb-0">{{ title }}</h5>
-      {% endif %}
-      {% if _is_toast is empty and display_button_x_close %}
-        {% include '@oe-bcl/button' with {
-          clean_class: TRUE,
-          attributes:  create_attribute({
-            'class': ['btn-close', 'js-modal-page-ok-button'],
-            'data-bs-dismiss': 'modal',
-            'aria-label': 'Close'
-          })
-        } only %}
-      {% endif %}
-    {% endapply %}
+    {% if display_title  %}
+      <h5 class="mb-0">{{ title }}</h5>
+    {% endif %}
+    {% if _is_toast is empty and display_button_x_close %}
+      {% include '@oe-bcl/button' with {
+        clean_class: TRUE,
+        attributes:  create_attribute({
+          'class': ['btn-close', 'js-modal-page-ok-button'],
+          'data-bs-dismiss': 'modal',
+          'aria-label': 'Close'
+        })
+      } only %}
+    {% endif %}
   {% endset %}
 {% endif %}
 
 {% set _body %}
-  {% apply spaceless %}
-    {{ text }}
+  {{ text }}
 
-    {% if modal_video_link %}
-      <figure class="rounded overflow-hidden">
-        <div class="ratio ratio-16x9">
-          <iframe
-              class="media-oembed-content"
-              src="{{ modal_video_link|raw }}"
-              title="{{ 'Youtube video player'|t }}"
-              loading="lazy"
-              allowfullscreen
-          ></iframe>
-        </div>
-      </figure>
-    {% endif %}
-
-    {% if enable_do_not_show_again %}
-      <div>
-        <label class="modal-dont-show-again-label"><input type="checkbox" class="modal-page-please-do-not-show-again" value="{{ id }}"> {{ do_not_show_again_label }}</label>
-        <input type="hidden" id="cookie_expiration" name="cookie_expiration" value="{{ cookie_expiration_time }}" />
+  {% if modal_video_link %}
+    <figure class="rounded overflow-hidden">
+      <div class="ratio ratio-16x9">
+        <iframe
+            class="media-oembed-content"
+            src="{{ modal_video_link|raw }}"
+            title="{{ 'Youtube video player'|t }}"
+            loading="lazy"
+            allowfullscreen
+        ></iframe>
       </div>
-    {% endif %}
+    </figure>
+  {% endif %}
 
-    <input type="hidden" id="modal_id" name="modal_id" value="{{ id }}">
-    <input type="hidden" id="delay_display" name="delay_display" value="{{ delay_display|raw }}" />
-    <input type="hidden" id="show_once" name="show_once" value="{{ modal_page_show_once|raw }}" />
-    <input type="hidden" id="auto_hide" name="auto_hide" value="{{ modal_page_auto_hide|raw }}" />
-    <input type="hidden" id="auto_hide_delay" name="auto_hide_delay" value="{{ modal_page_auto_hide_delay|raw }}" />
-    {% if enable_show_on_height %}
-      <input type="hidden" id="height_offset" name="height_offset" value="{{ height_offset|raw }}" offset-type="{{ height_offset_touch|raw }}" />
-    {% endif %}
-  {% endapply %}
+  {% if enable_do_not_show_again %}
+    <div>
+      <label class="modal-dont-show-again-label"><input type="checkbox" class="modal-page-please-do-not-show-again" value="{{ id }}"> {{ do_not_show_again_label }}</label>
+      <input type="hidden" id="cookie_expiration" name="cookie_expiration" value="{{ cookie_expiration_time }}" />
+    </div>
+  {% endif %}
+
+  <input type="hidden" id="modal_id" name="modal_id" value="{{ id }}">
+  <input type="hidden" id="delay_display" name="delay_display" value="{{ delay_display|raw }}" />
+  <input type="hidden" id="show_once" name="show_once" value="{{ modal_page_show_once|raw }}" />
+  <input type="hidden" id="auto_hide" name="auto_hide" value="{{ modal_page_auto_hide|raw }}" />
+  <input type="hidden" id="auto_hide_delay" name="auto_hide_delay" value="{{ modal_page_auto_hide_delay|raw }}" />
+  {% if enable_show_on_height %}
+    <input type="hidden" id="height_offset" name="height_offset" value="{{ height_offset|raw }}" offset-type="{{ height_offset_touch|raw }}" />
+  {% endif %}
 {% endset %}
 
 {% if enable_modal_footer %}
   {% set _footer %}
-    {% apply spaceless %}
-      {% if _is_toast %}
-        {# Footer wrapper for toast. #}
-        <div{{ create_attribute({class: ['toast-footer']|merge(modal_footer_classes|trim|split(' '))}) }}>
-      {% endif %}
+    {% if _is_toast %}
+      {# Footer wrapper for toast. #}
+      <div{{ create_attribute({class: ['toast-footer']|merge(modal_footer_classes|trim|split(' '))}) }}>
+    {% endif %}
 
-      {% set _button_attributes = create_attribute({
-        'class': ['js-modal-page-ok-button'],
-        'data-bs-dismiss': _is_toast ? 'toast' : 'modal'
-      }) %}
+    {% set _button_attributes = create_attribute({
+      'class': ['js-modal-page-ok-button'],
+      'data-bs-dismiss': _is_toast ? 'toast' : 'modal'
+    }) %}
 
-      {% if enable_left_button %}
-        {{ pattern('button', {
-          'variant': 'default',
-          'label': left_label_button,
-          'attributes': _button_attributes
-        }) }}
-      {% endif %}
+    {% if enable_left_button %}
+      {{ pattern('button', {
+        'variant': 'default',
+        'label': left_label_button,
+        'attributes': _button_attributes
+      }) }}
+    {% endif %}
 
-      {% if enable_right_button %}
-        {% if enable_redirect_link %}
-          {% set _button_attributes = _button_attributes.setAttribute('data-redirect', redirect_link) %}
-        {% endif %}
-        {{ pattern('button', {
-          'variant': 'primary',
-          'label': button,
-          'attributes': _button_attributes
-        }) }}
+    {% if enable_right_button %}
+      {% if enable_redirect_link %}
+        {% set _button_attributes = _button_attributes.setAttribute('data-redirect', redirect_link) %}
       {% endif %}
+      {{ pattern('button', {
+        'variant': 'primary',
+        'label': button,
+        'attributes': _button_attributes
+      }) }}
+    {% endif %}
 
-      {% if _is_toast %}
-        {# Close footer wrapper for toast. #}
-        </div>
-      {% endif %}
-    {% endapply %}
+    {% if _is_toast %}
+      {# Close footer wrapper for toast. #}
+      </div>
+    {% endif %}
   {% endset %}
 {% endif %}
 
