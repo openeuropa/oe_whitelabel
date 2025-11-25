@@ -71,18 +71,6 @@ class ModalPageTemplateOverrideTest extends BrowserTestBase {
   }
 
   /**
-   * {@inheritdoc}
-   */
-  protected function tearDown(): void {
-    /** @var \Drupal\modal_page\Entity\ModalInterface $modal */
-    $modal = \Drupal::entityTypeManager()->getStorage('modal')->load('test_modal');
-    if ($modal) {
-      $modal->delete();
-    }
-    parent::tearDown();
-  }
-
-  /**
    * Tests modal rendering with standard configuration.
    */
   public function testModalRendering(): void {
