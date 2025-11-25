@@ -33,6 +33,7 @@ drupal:
           oe_whitelabel_starter_person \
           oe_whitelabel_starter_publication \
           oe_whitelabel_paragraphs \
+          oe_whitelabel_modal_page \
           toolbar
     - { task: "exec", command: "./vendor/bin/drush theme:enable oe_whitelabel -y" }
     - { task: "exec", command: "./vendor/bin/drush theme:enable claro -y" }
