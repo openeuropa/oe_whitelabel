@@ -56,65 +56,52 @@ class ModalPageBootstrapLibraryTest extends BrowserTestBase {
   }
 
   /**
-   * Tests Bootstrap library removal when oe_whitelabel is active theme.
+   * Tests Bootstrap library loading across theme variants in one run.
    */
-  public function testBootstrapLibraryRemoval(): void {
-    // Visit the user page.
+  public function testBootstrapLibraryLoadingVariants(): void {
+    $assert_session = $this->assertSession();
+
+    // Active oe_whitelabel theme should block Bootstrap.
     $this->drupalGet('user');
-    $this->assertSession()->statusCodeEquals(200);
+    $assert_session->statusCodeEquals(200);
     $html = $this->getSession()->getPage()->getContent();
-
-    // Check if modal class exists (modal is active on the page).
     $this->assertStringContainsString('js-modal-page-show', $html);
+    $this->assertBootstrapLoaded($html, FALSE);
 
-    // Assert that Bootstrap libraries are NOT loaded.
-    $this->assertStringNotContainsString('bootstrap.min.js', $html);
-    $this->assertStringNotContainsString('bootstrap.min.css', $html);
-  }
-
-  /**
-   * Tests Bootstrap library removal when oe_whitelabel is base theme.
-   */
-  public function testBootstrapLibraryRemovalSubTheme(): void {
-    // Install and set the test sub-theme as default.
+    // Sub-theme of oe_whitelabel should also block Bootstrap.
     \Drupal::service('theme_installer')->install(['oe_whitelabel_test_subtheme']);
     $this->config('system.theme')
       ->set('default', 'oe_whitelabel_test_subtheme')
       ->save();
-
-    // Clear caches to ensure theme change takes effect.
     drupal_flush_all_caches();
-
-    // Visit the user page.
     $this->drupalGet('user');
-    $this->assertSession()->statusCodeEquals(200);
+    $assert_session->statusCodeEquals(200);
     $html = $this->getSession()->getPage()->getContent();
+    $this->assertBootstrapLoaded($html, FALSE);
 
-    // Assert that Bootstrap libraries are NOT loaded even with a sub-theme.
-    $this->assertStringNotContainsString('bootstrap.min.js', $html);
-    $this->assertStringNotContainsString('bootstrap.min.css', $html);
-  }
-
-  /**
-   * Tests that Bootstrap libraries are loaded when using a different theme.
-   */
-  public function testDefaultBootstrapLibraryLoad(): void {
-    // Change to a different theme that is not oe_whitelabel.
+    // Non oe_whitelabel theme should allow Bootstrap.
     $this->config('system.theme')
       ->set('default', 'stark')
       ->save();
-
-    // Clear caches to ensure theme change takes effect.
     drupal_flush_all_caches();
-
-    // Visit the user page.
     $this->drupalGet('user');
-    $this->assertSession()->statusCodeEquals(200);
+    $assert_session->statusCodeEquals(200);
     $html = $this->getSession()->getPage()->getContent();
+    $this->assertBootstrapLoaded($html, TRUE);
+  }
 
-    // Assert that Bootstrap libraries ARE loaded when not using oe_whitelabel.
-    $this->assertStringContainsString('bootstrap.min.js', $html);
-    $this->assertStringContainsString('bootstrap.min.css', $html);
+  /**
+   * Asserts whether Bootstrap assets should be present.
+   */
+  protected function assertBootstrapLoaded(string $html, bool $should_load): void {
+    if ($should_load) {
+      $this->assertStringContainsString('bootstrap.min.js', $html);
+      $this->assertStringContainsString('bootstrap.min.css', $html);
+      return;
+    }
+
+    $this->assertStringNotContainsString('bootstrap.min.js', $html);
+    $this->assertStringNotContainsString('bootstrap.min.css', $html);
   }
 
 }
