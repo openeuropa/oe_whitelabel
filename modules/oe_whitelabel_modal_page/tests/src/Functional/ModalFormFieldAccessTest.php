@@ -28,13 +28,39 @@ class ModalFormFieldAccessTest extends BrowserTestBase {
    * Tests that advanced fields are hidden without permission.
    */
   public function testAdvancedFieldsHiddenWithoutPermission(): void {
-    // Create a user with only basic modal administration permission.
-    $user = $this->drupalCreateUser([
+    $this->loginWithAdvancedPermission(FALSE);
+    $this->assertAdvancedFieldsVisibility(FALSE);
+  }
+
+  /**
+   * Tests that advanced fields are visible with permission.
+   */
+  public function testAdvancedFieldsVisibleWithPermission(): void {
+    $this->loginWithAdvancedPermission(TRUE);
+    $this->assertAdvancedFieldsVisibility(TRUE);
+  }
+
+  /**
+   * Logs in a modal user with or without the advanced permission.
+   */
+  protected function loginWithAdvancedPermission(bool $has_permission): void {
+    $permissions = [
       'administer modal page',
       'access administration pages',
-    ]);
-    $this->drupalLogin($user);
+    ];
 
+    if ($has_permission) {
+      $permissions[] = 'administer advanced modal page configuration';
+    }
+
+    $user = $this->drupalCreateUser($permissions);
+    $this->drupalLogin($user);
+  }
+
+  /**
+   * Asserts visibility of advanced fields based on the given flag.
+   */
+  protected function assertAdvancedFieldsVisibility(bool $should_exist): void {
     $this->drupalGet('/admin/structure/modal/add');
     $assert_session = $this->assertSession();
     $assert_session->statusCodeEquals(200);
@@ -43,20 +69,23 @@ class ModalFormFieldAccessTest extends BrowserTestBase {
     $assert_session->fieldExists('Title');
     $assert_session->fieldExists('Pages');
 
-    // Assert that advanced fields are NOT accessible.
-    $assert_session->fieldNotExists('Open this modal clicking on this element');
-    $assert_session->fieldNotExists('Auto Open');
-    $assert_session->fieldNotExists('Prevent Default');
-    $assert_session->fieldNotExists('Class(es)', $assert_session->elementExists('xpath', '//details[./summary[.="MODAL HEADER"]]'));
-    $assert_session->fieldNotExists('Class(es)', $assert_session->elementExists('xpath', '//details[./summary[.="MODAL FOOTER"]]'));
-    $assert_session->elementNotExists('xpath', '//details[./summary[.="Cookies"]]');
-    $assert_session->fieldNotExists('Label', $assert_session->elementExists('xpath', '//details[./summary[.="Button X close"]]'));
-    $assert_session->fieldNotExists('ok_button_class');
-    $assert_session->fieldNotExists('left_button_class');
-    $assert_session->elementNotExists('xpath', '//details[./summary[.="Maximize Button"]]');
-    $assert_session->elementNotExists('xpath', '//details[./summary[.="MODAL CLASS"]]');
-    $assert_session->fieldNotExists('Parameters');
-    $assert_session->fieldNotExists('Modal By');
+    $field_assert = $should_exist ? 'fieldExists' : 'fieldNotExists';
+    $element_assert = $should_exist ? 'elementExists' : 'elementNotExists';
+
+    // Assert visibility of advanced fields.
+    $assert_session->{$field_assert}('Open this modal clicking on this element');
+    $assert_session->{$field_assert}('Auto Open');
+    $assert_session->{$field_assert}('Prevent Default');
+    $assert_session->{$field_assert}('Class(es)', $assert_session->elementExists('xpath', '//details[./summary[.="MODAL HEADER"]]'));
+    $assert_session->{$field_assert}('Class(es)', $assert_session->elementExists('xpath', '//details[./summary[.="MODAL FOOTER"]]'));
+    $assert_session->{$element_assert}('xpath', '//details[./summary[.="Cookies"]]');
+    $assert_session->{$field_assert}('Label', $assert_session->elementExists('xpath', '//details[./summary[.="Button X close"]]'));
+    $assert_session->{$field_assert}('ok_button_class');
+    $assert_session->{$field_assert}('left_button_class');
+    $assert_session->{$element_assert}('xpath', '//details[./summary[.="Maximize Button"]]');
+    $assert_session->{$element_assert}('xpath', '//details[./summary[.="MODAL CLASS"]]');
+    $assert_session->{$field_assert}('Parameters');
+    $assert_session->{$field_assert}('Modal By');
   }
 
 }
