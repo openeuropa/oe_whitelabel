@@ -276,6 +276,11 @@ function _oe_whitelabel_process_element_select(array &$element): array {
  */
 function oe_whitelabel_library_info_alter(array &$libraries, string $extension): void {
   \Drupal::classResolver(SlimSelectHelper::class)->libraryInfoAlter($libraries, $extension);
+
+  if ($extension === 'modal_page') {
+    // Remove modal_page Bootstrap CDN libraries.
+    unset($libraries['modal-page-bootstrap-5'], $libraries['modal-page-bootstrap-3']);
+  }
 }
 
 /**
@@ -312,22 +317,5 @@ function oe_whitelabel_preprocess_oe_corporate_blocks_eu_footer(&$variables): vo
         break;
       }
     }
-  }
-}
-
-/**
- * Implements hook_page_attachments_alter().
- *
- * Removes the bootstrap library from modal_page module.
- */
-function oe_whitelabel_page_attachments_alter(array &$attachments): void {
-  $libraries = $attachments['#attached']['library'] ?? NULL;
-  if ($libraries) {
-    // Remove any modal_page Bootstrap libraries.
-    $attachments['#attached']['library'] = preg_grep(
-      '/^modal_page\/modal-page-bootstrap/',
-      $libraries,
-      PREG_GREP_INVERT
-    );
   }
 }
