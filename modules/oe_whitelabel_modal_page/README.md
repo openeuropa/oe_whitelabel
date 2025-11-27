@@ -4,9 +4,9 @@ This module provides integration with the [Modal Page](https://www.drupal.org/pr
 
 ## Features
 
-- **Bootstrap Component Library integration**: Template overrides that render modals and toasts using BCL components
+- **Bootstrap Component Library integration**: Template overrides that render modals and toasts using BCL components (implemented in the theme, outside of this module, see **Template overrides** section below)
 - **Permission-based form simplification**: Hides advanced modal configuration fields from users without the "administer advanced modal page configuration" permission
-- **Library conflict prevention**: Automatically prevents modal_page from loading its own Bootstrap libraries to avoid conflicts with BCL
+- **Library conflict prevention**: Prevents modal_page from loading its own Bootstrap libraries to avoid conflicts with BCL (implemented in the theme, outside of this module)
 
 ## Requirements
 
@@ -18,7 +18,7 @@ composer require drupal/modal_page:^6.0@beta
 
 ## Template overrides
 
-This module provides the following template overrides for the oe_whitelabel theme:
+This feature provides the following template overrides for the oe_whitelabel theme:
 
 - `modal-page-modal.html.twig`: Renders modal dialogs using the BCL modal component
 - `modal-page-toast.html.twig`: Renders toast notifications using the BCL toasts component
