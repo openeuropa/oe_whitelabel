@@ -15,8 +15,8 @@ class ModalPageBootstrapLibraryTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'modal_page',
     'oe_whitelabel_helper',
-    'oe_whitelabel_modal_page',
   ];
 
   /**
