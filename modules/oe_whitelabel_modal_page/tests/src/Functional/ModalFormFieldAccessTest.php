@@ -42,6 +42,9 @@ class ModalFormFieldAccessTest extends BrowserTestBase {
 
   /**
    * Logs in a modal user with or without the advanced permission.
+   *
+   * @param bool $has_permission
+   *   Whether the user should have the advanced permission.
    */
   protected function loginWithAdvancedPermission(bool $has_permission): void {
     $permissions = [
@@ -59,6 +62,9 @@ class ModalFormFieldAccessTest extends BrowserTestBase {
 
   /**
    * Asserts visibility of advanced fields based on the given flag.
+   *
+   * @param bool $should_exist
+   *   Whether the advanced fields should exist on the form.
    */
   protected function assertAdvancedFieldsVisibility(bool $should_exist): void {
     $this->drupalGet('/admin/structure/modal/add');
