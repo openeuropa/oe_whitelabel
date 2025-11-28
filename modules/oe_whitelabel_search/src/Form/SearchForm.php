@@ -66,7 +66,7 @@ class SearchForm extends FormBase {
       '#title' => $config['input']['label'],
       '#title_display' => 'invisible',
       '#size' => 20,
-      '#default_value' => $this->getRequest()->get($config['input']['name']),
+      '#default_value' => $this->getRequest()->query->get($config['input']['name']),
       '#required' => TRUE,
       '#attributes' => [
         'placeholder' => $config['input']['placeholder'],
