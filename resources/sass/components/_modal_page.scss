@@ -16,6 +16,8 @@
     margin-left: auto;
   }
 
+  // Use similar styling for custom toast footer as modal footer.
+  // See: https://github.com/twbs/bootstrap/blob/v5.3.8/scss/_modal.scss#L160
   .toast-footer {
     display: flex;
     flex-wrap: wrap;
@@ -27,5 +29,12 @@
     border-bottom-right-radius: calc(var(--bs-toast-border-radius) - var(--bs-toast-border-width));
     border-top: var(--bs-toast-border-width) solid var(--bs-toast-header-border-color);
     padding: var(--bs-toast-padding-y) var(--bs-toast-padding-x);
+
+    // Place margin between footer elements, similar to modal.
+    // If --bs-modal-footer-gap is not available, use default .5rem.
+    // See: https://github.com/twbs/bootstrap/blob/v5.3.8/scss/_modal.scss#L175
+    > * {
+      margin: calc(var(--bs-modal-footer-gap, .5rem) * .5);
+    }
   }
 }

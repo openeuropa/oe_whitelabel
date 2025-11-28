@@ -23,7 +23,7 @@
         attributes:  create_attribute({
           'class': ['btn-close', 'js-modal-page-ok-button'],
           'data-bs-dismiss': 'modal',
-          'aria-label': 'Close'
+          'aria-label': 'Close'|t
         })
       } only %}
     {% endif %}
@@ -71,25 +71,25 @@
       <div{{ create_attribute({class: ['toast-footer']|merge(modal_footer_classes|trim|split(' '))}) }}>
     {% endif %}
 
-    {% set _button_attributes = create_attribute({
+    {% set _default_button_attributes = {
       'class': ['js-modal-page-ok-button'],
       'data-bs-dismiss': _is_toast ? 'toast' : 'modal'
-    }) %}
+    } %}
 
     {% if enable_left_button %}
       {{ pattern('button', {
-        'variant': 'default',
+        'variant': 'secondary',
         'label': left_label_button,
-        'attributes': _button_attributes
+        'attributes': create_attribute(_default_button_attributes)
       }) }}
     {% endif %}
 
     {% if enable_right_button %}
+      {% set _button_attributes = create_attribute(_default_button_attributes) %}
       {% if enable_redirect_link %}
         {% set _button_attributes = _button_attributes.setAttribute('data-redirect', redirect_link) %}
       {% endif %}
       {{ pattern('button', {
-        'variant': 'primary',
         'label': button,
         'attributes': _button_attributes
       }) }}
