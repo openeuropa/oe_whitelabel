@@ -80,9 +80,6 @@
                 "Support for less-intrusive dialogs via Bootstrap Toasts: https://www.drupal.org/project/modal_page/issues/3535144": "https://www.drupal.org/files/issues/2025-11-25/3535144-21.patch",
                 "Improve cache invalidation process: https://www.drupal.org/project/modal_page/issues/3555830": "https://www.drupal.org/files/issues/2025-11-25/3555830-12.patch",
                 "Allow modal entity management without granting access to global module config: https://www.drupal.org/project/modal_page/issues/3559425": "https://www.drupal.org/files/issues/2025-11-25/3559425-5.patch"
-            },
-            "openeuropa/oe_bootstrap_theme": {
-                "Rename BCL toasts directory until fixed in OEL-4298": "./resources/patches/oe_bootstrap_theme_rename_bcl_toasts_dir.patch"
             }
         },
         "composer-exit-on-patch-failure": true,
