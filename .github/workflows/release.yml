@@ -54,7 +54,7 @@ jobs:
       - name: Use -ci web container
         run: |
           # Set the php version, and replace -dev with -ci.
-          sed -i 's/httpd-php:8\.3-\(dev\|ci\)/httpd-php:${{ matrix.php_version}}-ci/g' docker-compose.yml
+          sed -i 's/httpd-php-\(dev\|ci\):8\.3/httpd-php-ci:${{ matrix.php_version}}/g' docker-compose.yml
           # Report the difference.
           git diff
 
