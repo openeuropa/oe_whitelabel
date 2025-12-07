@@ -113,7 +113,7 @@
             "openeuropa/composer-artifacts": true,
             "ec-europa/toolkit-composer-plugin": true,
             "php-http/discovery": false,
-            "phpro/grumphp-shim": true,
+            "phpro/grumphp-shim": false,
             "phpstan/extension-installer": true,
             "tbachert/spi": false
         }
