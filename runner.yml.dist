@@ -108,6 +108,11 @@ release:
     - oe_whitelabel.info.yml
   tasks:
     - { task: "copy", from: "assets", to: "_release_/assets" }
+    - { task: "exec", command: "ls -lA" }
+    - { task: "exec", command: "ls -lA assets" }
+    - { task: "exec", command: "ls -lA assets/css" }
+    - { task: "exec", command: "ls -lA _release_/assets" }
+    - { task: "exec", command: "ls -lA _release_/assets/css" }
 
 toolkit:
   build:

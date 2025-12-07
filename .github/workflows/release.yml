@@ -82,6 +82,14 @@ jobs:
       - name: npm run production
         run: docker compose exec -T -e NODE_ENV=production web npm run production
 
+      - name: Report about assets
+        run: |
+          exec 2>&1  # avoid unsynced stderr vs stdout
+          set -x
+          docker compose exec -T web ls -lA
+          docker compose exec -T web ls -lA assets
+          docker compose exec -T web ls -lA assets/css
+
       - name: release:create-archive
         # There are different ways to get the current tag.
         # We use only one, but report both.
