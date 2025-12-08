@@ -54,7 +54,7 @@ jobs:
       - name: Use -ci web container
         run: |
           # Set the php version, and replace -dev with -ci.
-          sed -i 's/httpd-php:8\.3-\(dev\|ci\)/httpd-php:${{ matrix.php_version}}-ci/g' docker-compose.yml
+          sed -i 's/httpd-php-\(dev\|ci\):8\.3/httpd-php-ci:${{ matrix.php_version}}/g' docker-compose.yml
           # Report the difference.
           git diff
 
@@ -73,8 +73,8 @@ jobs:
       - name: composer install
         run: docker compose exec -T web composer require drupal/core:~${{ matrix.core_version }} drupal/core-composer-scaffold:~${{ matrix.core_version }} --update-with-all-dependencies --ansi --no-progress --no-interaction
 
-      - name: grumphp
-        run: docker compose exec -T web ./vendor/bin/grumphp run
+      - name: Code review
+        run: docker compose exec -T web ./vendor/bin/run toolkit:code-review
 
       - name: npm install
         run: docker compose exec -T web npm install --unsafe-perm
