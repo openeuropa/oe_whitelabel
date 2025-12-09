@@ -3,5 +3,15 @@ type: module
 description: Integrates the Modal Page module with OpenEuropa Whitelabel theme.
 package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^10 || ^11
+
+# The module implements hook_entity_type_alter().
+# In combination with oe_multilingual, there can be a scenario during module
+# install, where this hook is invoked while the *.module file has not been
+# loaded yet. See https://www.drupal.org/project/drupal/issues/3562080.
+# In this specific case this only happens during site-install.
+# The 'container_rebuild_required' setting is a workaround to avoid the
+# problem.
+container_rebuild_required: true
+
 dependencies:
   - modal_page:modal_page
