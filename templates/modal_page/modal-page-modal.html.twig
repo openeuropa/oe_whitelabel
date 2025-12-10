@@ -1,0 +1,118 @@
+{#
+/**
+ * @file
+ * Theme override to display a modal_page modal.
+ *
+ * @ingroup templates
+ * @see modal_page_preprocess_html()
+ */
+#}
+{% set _attributes = create_attribute({
+  'class': ['js-modal-page-show']|merge(modal_class|split(' ')),
+  'data-modal-options': modal_options
+}) %}
+
+{% if enable_modal_header %}
+  {% set _header %}
+    {% if display_title  %}
+      <h5 class="mb-0">{{ title }}</h5>
+    {% endif %}
+    {% if _is_toast is empty and display_button_x_close %}
+      {% include '@oe-bcl/button' with {
+        clean_class: TRUE,
+        attributes:  create_attribute({
+          'class': ['btn-close', 'js-modal-page-ok-button'],
+          'data-bs-dismiss': 'modal',
+          'aria-label': 'Close'|t
+        })
+      } only %}
+    {% endif %}
+  {% endset %}
+{% endif %}
+
+{% set _body %}
+  {{ text }}
+
+  {% if modal_video_link %}
+    <figure class="rounded overflow-hidden">
+      <div class="ratio ratio-16x9">
+        <iframe
+            class="media-oembed-content"
+            src="{{ modal_video_link|raw }}"
+            title="{{ 'Youtube video player'|t }}"
+            loading="lazy"
+            allowfullscreen
+        ></iframe>
+      </div>
+    </figure>
+  {% endif %}
+
+  {% if enable_do_not_show_again %}
+    <div>
+      <label class="modal-dont-show-again-label"><input type="checkbox" class="modal-page-please-do-not-show-again" value="{{ id }}"> {{ do_not_show_again_label }}</label>
+      <input type="hidden" id="cookie_expiration" name="cookie_expiration" value="{{ cookie_expiration_time }}" />
+    </div>
+  {% endif %}
+
+  <input type="hidden" id="modal_id" name="modal_id" value="{{ id }}">
+  <input type="hidden" id="delay_display" name="delay_display" value="{{ delay_display|raw }}" />
+  <input type="hidden" id="show_once" name="show_once" value="{{ modal_page_show_once|raw }}" />
+  <input type="hidden" id="auto_hide" name="auto_hide" value="{{ modal_page_auto_hide|raw }}" />
+  <input type="hidden" id="auto_hide_delay" name="auto_hide_delay" value="{{ modal_page_auto_hide_delay|raw }}" />
+  {% if enable_show_on_height %}
+    <input type="hidden" id="height_offset" name="height_offset" value="{{ height_offset|raw }}" offset-type="{{ height_offset_touch|raw }}" />
+  {% endif %}
+{% endset %}
+
+{% if enable_modal_footer %}
+  {% set _footer %}
+    {% if _is_toast %}
+      {# Footer wrapper for toast. #}
+      <div{{ create_attribute({class: ['toast-footer']|merge(modal_footer_classes|trim|split(' '))}) }}>
+    {% endif %}
+
+    {% set _default_button_attributes = {
+      'class': ['js-modal-page-ok-button'],
+      'data-bs-dismiss': _is_toast ? 'toast' : 'modal'
+    } %}
+
+    {% if enable_left_button %}
+      {{ pattern('button', {
+        'variant': 'secondary',
+        'label': left_label_button,
+        'attributes': create_attribute(_default_button_attributes)
+      }) }}
+    {% endif %}
+
+    {% if enable_right_button %}
+      {% set _button_attributes = create_attribute(_default_button_attributes) %}
+      {% if enable_redirect_link %}
+        {% set _button_attributes = _button_attributes.setAttribute('data-redirect', redirect_link) %}
+      {% endif %}
+      {{ pattern('button', {
+        'label': button,
+        'attributes': _button_attributes
+      }) }}
+    {% endif %}
+
+    {% if _is_toast %}
+      {# Close footer wrapper for toast. #}
+      </div>
+    {% endif %}
+  {% endset %}
+{% endif %}
+
+{% block main %}
+  {% set _attributes = _attributes.setAttribute('data-bs-keyboard', close_modal_esc_key) %}
+
+  {% include '@oe-bcl/modal' with {
+    'size': modal_size|replace({'modal-': ''}),
+    'attributes': _attributes,
+    'static_backdrop': close_modal_clicking_outside == 'static',
+    'header': _header,
+    'header_attributes': create_attribute({class: modal_header_classes|trim|split(' ')}),
+    'footer_attributes': create_attribute({class: modal_footer_classes|trim|split(' ')}),
+    'body': _body,
+    'footer': _footer
+  } only %}
+{% endblock %}

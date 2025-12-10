@@ -27,6 +27,7 @@
         "drupal/extra_field": "^2.3 || ^3.0@beta",
         "drupal/facets_form": "^1.0.0-alpha6",
         "drupal/field_group": "^3.4",
+        "drupal/modal_page": "^6.0@beta",
         "drupal/paragraphs": "^1.17",
         "drupal/search_api": "^1.29",
         "drupal/search_api_autocomplete": "^1.7",
@@ -73,6 +74,14 @@
         }
     },
     "extra": {
+        "patches": {
+            "drupal/modal_page": {
+                "RouteNotFoundException thrown during module install: https://www.drupal.org/project/modal_page/issues/3543767": "https://www.drupal.org/files/issues/2025-11-25/3543767-7.patch",
+                "Support for less-intrusive dialogs via Bootstrap Toasts: https://www.drupal.org/project/modal_page/issues/3535144": "https://www.drupal.org/files/issues/2025-11-25/3535144-21.patch",
+                "Improve cache invalidation process: https://www.drupal.org/project/modal_page/issues/3555830": "https://www.drupal.org/files/issues/2025-11-25/3555830-12.patch",
+                "Allow modal entity management without granting access to global module config: https://www.drupal.org/project/modal_page/issues/3559425": "https://www.drupal.org/files/issues/2025-11-25/3559425-5.patch"
+            }
+        },
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
         "artifacts": {

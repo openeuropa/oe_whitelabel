@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * Theme override to display a modal_page toast.
+ *
+ * @ingroup templates
+ * @see modal_page_preprocess_html()
+ */
+#}
+{% embed "@oe_whitelabel/modal_page/modal-page-modal.html.twig" %}
+  {% set _is_toast = true %}
+
+  {% block main %}
+    {% set _attributes = _attributes.setAttribute('data-is-toast', 'true') %}
+    {% if modal_page_auto_hide %}
+      {% set _attributes = _attributes.setAttribute('data-bs-delay', modal_page_auto_hide_delay|number_format * 1000) %}
+    {% endif %}
+
+    {% include '@oe-bcl/toasts' with {
+      'toasts': [{
+        'attributes': _attributes,
+        'with_close': display_button_x_close and enable_modal_header,
+        'button_attributes': create_attribute({class: ['js-modal-page-ok-button']}),
+        'header': _header,
+        'header_attributes': create_attribute({class: modal_header_classes|trim|split(' ')}),
+        'body': _body,
+        'custom_content': _footer,
+        'autohide': modal_page_auto_hide,
+        'role': 'alert',
+        'aria_live': 'assertive',
+      }]
+    } only %}
+  {% endblock %}
+{% endembed %}

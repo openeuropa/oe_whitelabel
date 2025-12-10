@@ -276,6 +276,11 @@ function _oe_whitelabel_process_element_select(array &$element): array {
  */
 function oe_whitelabel_library_info_alter(array &$libraries, string $extension): void {
   \Drupal::classResolver(SlimSelectHelper::class)->libraryInfoAlter($libraries, $extension);
+
+  if ($extension === 'modal_page') {
+    // Remove modal_page Bootstrap CDN libraries.
+    unset($libraries['modal-page-bootstrap-5'], $libraries['modal-page-bootstrap-3']);
+  }
 }
 
 /**

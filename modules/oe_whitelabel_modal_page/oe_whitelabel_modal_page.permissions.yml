@@ -1,0 +1,3 @@
+administer advanced modal page configuration:
+  title: 'Administer advanced modal configuration'
+  restrict access: true

@@ -1,0 +1,6 @@
+name: 'OE Whitelabel Test Sub-theme'
+type: theme
+description: 'Test sub-theme of oe_whitelabel.'
+core_version_requirement: ^10 || ^11
+base theme: oe_whitelabel
+hidden: true

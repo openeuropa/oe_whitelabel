@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * OE Whitelabel Modal module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Config\Entity\ConfigEntityType;
+use Drupal\oe_whitelabel_modal_page\Form\ModalForm;
+
+/**
+ * Implements hook_entity_type_alter().
+ *
+ * Sets custom form classes for 'modal' entity type.
+ */
+function oe_whitelabel_modal_page_entity_type_alter(array &$entity_types): void {
+  $modal_entity_type = $entity_types['modal'] ?? NULL;
+  if ($modal_entity_type instanceof ConfigEntityType) {
+    // Override modal_page module's form for editing modals.
+    $modal_entity_type->setFormClass('add', ModalForm::class);
+    $modal_entity_type->setFormClass('edit', ModalForm::class);
+  }
+}
