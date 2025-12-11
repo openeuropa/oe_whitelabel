@@ -157,12 +157,19 @@ function oe_whitelabel_helper_preprocess_pattern_card(&$variables) {
 }
 
 /**
- * Implements hook_aggregator_fetcher_info_alter().
+ * Set image object from formatter result to root level.
+ *
+ * When using field formatters that return nested arrays (like featured media),
+ * this extracts the actual image data to the root 'image' variable.
  */
 function _oe_whitelabel_helper__set_image_object(&$variables) {
-  // @todo Declare each pattern that uses oe_featured_media.
-  if(!empty($variables['image']) && is_array($variables['image']) && !isset($variables['image']['src'])) {
-    $image = reset($variables['image']);
-    $variables['image'] = $image ?? [];
+  // Skip if image is not set or already has 'src' (already formatted).
+  if (empty($variables['image']) || !is_array($variables['image']) || isset($variables['image']['src'])) {
+    return;
+  }
+
+  $image = reset($variables['image']);
+  if (is_array($image) && isset($image['src'])) {
+    $variables['image'] = $image;
   }
 }
