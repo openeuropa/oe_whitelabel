@@ -1,11 +1,24 @@
 # Changelog
 
-## [1.27.2](https://github.com/openeuropa/oe_whitelabel/tree/1.27.2)
+## [1.28.0](https://github.com/openeuropa/oe_whitelabel/tree/1.28.0) (2025-12-11)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.27.2...1.28.0)
+
+**Merged pull requests:**
+
+- OEL-3926: Moved breadcrumbs location. [\#402](https://github.com/openeuropa/oe_whitelabel/pull/402) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Use docker hub web image, fix grumphp in pipeline [\#401](https://github.com/openeuropa/oe_whitelabel/pull/401) ([donquixote](https://github.com/donquixote))
+- OEL-000: Suppress grumphp box requirement checker. [\#400](https://github.com/openeuropa/oe_whitelabel/pull/400) ([donquixote](https://github.com/donquixote))
+- OEL-4368: Replace deprecated $request-\>get\(\). [\#398](https://github.com/openeuropa/oe_whitelabel/pull/398) ([donquixote](https://github.com/donquixote))
+- UCPKN-3850: Add oe\_whitelabel\_modal\_page submodule. [\#390](https://github.com/openeuropa/oe_whitelabel/pull/390) ([kp77](https://github.com/kp77))
+
+## [1.27.2](https://github.com/openeuropa/oe_whitelabel/tree/1.27.2) (2025-11-19)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.27.1...1.27.2)
 
 **Merged pull requests:**
 
+- Prepare release 1.27.2. [\#396](https://github.com/openeuropa/oe_whitelabel/pull/396) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
 - Remove patches for 11.2.x. [\#395](https://github.com/openeuropa/oe_whitelabel/pull/395) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
 
 ## [1.27.1](https://github.com/openeuropa/oe_whitelabel/tree/1.27.1) (2025-11-14)
