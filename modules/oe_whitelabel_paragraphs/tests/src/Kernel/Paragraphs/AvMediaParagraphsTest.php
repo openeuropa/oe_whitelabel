@@ -80,7 +80,7 @@ class AvMediaParagraphsTest extends ParagraphsTestBase {
       ],
       'avportal_video' => [
         'media' => $media_av_video->id(),
-        'expected_src' => '//ec.europa.eu/avservices/play.cfm?ref=I-163162',
+        'expected_src' => 'audiovisual.ec.europa.eu/corporateplayer/index.html?ref=I-163162',
         'selector' => '.ratio-16x9 > iframe',
       ],
       'avportal_photo' => [
