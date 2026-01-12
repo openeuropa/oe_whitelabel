@@ -34,7 +34,7 @@ class FacetsFormTest extends KernelTestBase {
     'text',
     'ui_patterns',
     'ui_patterns_library',
-    'ui_patterns_settings',
+    'ui_patterns_legacy',
     'user',
     'views',
   ];

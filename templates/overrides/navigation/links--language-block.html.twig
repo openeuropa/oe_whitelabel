@@ -30,18 +30,18 @@
   <span class="d-none d-xl-inline-block">{{ _language_link.label }}</span>
 {% endset %}
 
-{{ pattern('link', {
-  label: _link_title,
-  path: _language_link.href,
-  icon: {
-    name: 'globe2',
-    size: 'fluid',
-  },
-  icon_position: 'before',
-  remove_icon_spacers: true,
-  attributes: extra_attributes
-}) }}
+{#{{ pattern('link', {#}
+{#  label: _link_title,#}
+{#  path: _language_link.href,#}
+{#  icon: {#}
+{#    name: 'globe2',#}
+{#    size: 'fluid',#}
+{#  },#}
+{#  icon_position: 'before',#}
+{#  remove_icon_spacers: true,#}
+{#  attributes: extra_attributes#}
+{#}) }}#}
 
-{% include '@oe_whitelabel/patterns/modal/modal-language.html.twig' with language.modal only %}
+{% include '@oe-bcl/bcl-language-list/language-list.html.twig' with language.modal.language_list  %}
 
 {% endapply %}

@@ -81,26 +81,26 @@
     "aria-expanded": "false",
     "aria-label": "Toggle navigation",
   }) }}>
-    {{ pattern('icon', {
-      'name': 'list',
-      'path': bcl_icon_path,
-      'size': 'fluid',
-      'attributes': create_attribute({
-        'class': [
-          'default-icon',
-        ]
-      })
-    }) }}
-    {{ pattern('icon', {
-      'name': 'x',
-      'path': bcl_icon_path,
-      'size': 'fluid',
-      'attributes': create_attribute({
-        'class': [
-          'active-icon',
-        ]
-      })
-    }) }}
+{#    {{ pattern('icon', {#}
+{#      'name': 'list',#}
+{#      'path': bcl_icon_path,#}
+{#      'size': 'fluid',#}
+{#      'attributes': create_attribute({#}
+{#        'class': [#}
+{#          'default-icon',#}
+{#        ]#}
+{#      })#}
+{#    }) }}#}
+{#    {{ pattern('icon', {#}
+{#      'name': 'x',#}
+{#      'path': bcl_icon_path,#}
+{#      'size': 'fluid',#}
+{#      'attributes': create_attribute({#}
+{#        'class': [#}
+{#          'active-icon',#}
+{#        ]#}
+{#      })#}
+{#    }) }}#}
   </button>
 {% endset %}
 
@@ -151,12 +151,14 @@
       <div class="row">
         {% block noscript %}
           <noscript>
-            {{ pattern('alert', {
+            {{ include('oe_bootstrap_theme:alert', {
               variant: 'warning',
               message: 'Please enable JavaScript and reload the page.'|t,
               dismissible: false,
               icon: 'exclamation-triangle-fill',
-            }) }}
+            },
+              with_context = false
+            ) }}
           </noscript>
         {% endblock %}
         {% if page.highlighted %}

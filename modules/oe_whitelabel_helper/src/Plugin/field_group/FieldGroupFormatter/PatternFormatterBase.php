@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\oe_whitelabel_helper\Plugin\field_group\FieldGroupFormatter;
 
+use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Element;
 use Drupal\field_group\FieldGroupFormatterBase;
-use Drupal\ui_patterns\UiPatternsManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -26,7 +26,7 @@ abstract class PatternFormatterBase extends FieldGroupFormatterBase implements C
   /**
    * UI Patterns manager.
    *
-   * @var \Drupal\ui_patterns\UiPatternsManager
+   * @var \Drupal\Component\Plugin\PluginManagerInterface
    */
   protected $patternsManager;
 
@@ -39,10 +39,10 @@ abstract class PatternFormatterBase extends FieldGroupFormatterBase implements C
    *   The plugin_id for the plugin instance.
    * @param array $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\ui_patterns\UiPatternsManager $patterns_manager
+   * @param \Drupal\Component\Plugin\PluginManagerInterface $patterns_manager
    *   UI Patterns manager.
    */
-  public function __construct(array $configuration, string $plugin_id, array $plugin_definition, UiPatternsManager $patterns_manager) {
+  public function __construct(array $configuration, string $plugin_id, array $plugin_definition, PluginManagerInterface $patterns_manager) {
     parent::__construct($plugin_id, $plugin_definition, $configuration['group'], $configuration['settings'], $configuration['label']);
     $this->configuration = $configuration;
     $this->patternsManager = $patterns_manager;

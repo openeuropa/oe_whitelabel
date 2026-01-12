@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\oe_whitelabel_helper\Plugin\field_group\FieldGroupFormatter;
 
+use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\RendererInterface;
-use Drupal\ui_patterns\UiPatternsManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -50,10 +50,10 @@ class DescriptionListPattern extends PatternFormatterBase {
    *   The entity type manager.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer.
-   * @param \Drupal\ui_patterns\UiPatternsManager $patterns_manager
+   * @param \Drupal\Component\Plugin\PluginManagerInterface $patterns_manager
    *   The pattern manager.
    */
-  public function __construct(array $configuration, string $plugin_id, array $plugin_definition, EntityTypeManagerInterface $entity_type_manager, RendererInterface $renderer, UiPatternsManager $patterns_manager) {
+  public function __construct(array $configuration, string $plugin_id, array $plugin_definition, EntityTypeManagerInterface $entity_type_manager, RendererInterface $renderer, PluginManagerInterface $patterns_manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $patterns_manager);
     $this->entityTypeManager = $entity_type_manager;
     $this->renderer = $renderer;
