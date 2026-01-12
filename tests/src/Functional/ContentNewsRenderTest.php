@@ -134,7 +134,7 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
 
     $this->assertEquals(
       'Test news node',
-      trim($article->filter('h1.card-title')->text())
+      trim($article->filter('div.card-title')->text())
     );
     $image = $article->filter('img');
     $this->assertCount(1, $image);
