@@ -185,7 +185,7 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
 
     $this->assertEquals(
       'Stefan Mayer',
-      $article->filter('h1.card-title')->text()
+      $article->filter('div.card-title')->text()
     );
     $image = $article->filter('img.card-img-top');
     $this->assertCount(1, $image);
