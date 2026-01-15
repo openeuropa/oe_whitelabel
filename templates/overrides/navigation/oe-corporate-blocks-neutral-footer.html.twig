@@ -69,7 +69,10 @@
 
 {% set footer_top_left_content %}
   <p class="fw-bold mb-2">{{ site_specific_footer.site_identity }}</p>
-  <p> {{ site_owner ? 'This site is managed by the @name'|t({'@name': site_owner}) }} </p>
+
+  {% if site_owners %}
+    <p>{{ 'This site is managed by the @name'|t({'@name': site_owners|join(', ')}) }}</p>
+  {% endif %}
 
   {% if accessibility_link %}
     {% set _accessibility_link = pattern('link', {
