@@ -1,11 +1,22 @@
 # Changelog
 
+## [1.29.0](https://github.com/openeuropa/oe_whitelabel/tree/1.29.0) (2026-01-20)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.28.0...1.29.0)
+
+**Merged pull requests:**
+
+- OEL-0000: Update triple store path. [\#409](https://github.com/openeuropa/oe_whitelabel/pull/409) ([tibi2303](https://github.com/tibi2303))
+- OEL-3732: Update oe\_bt. [\#405](https://github.com/openeuropa/oe_whitelabel/pull/405) ([tibi2303](https://github.com/tibi2303))
+- OEL-4426: Removed obsolete drupal versions. [\#404](https://github.com/openeuropa/oe_whitelabel/pull/404) ([tibi2303](https://github.com/tibi2303))
+
 ## [1.28.0](https://github.com/openeuropa/oe_whitelabel/tree/1.28.0) (2025-12-11)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.27.2...1.28.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.28.0. [\#403](https://github.com/openeuropa/oe_whitelabel/pull/403) ([tibi2303](https://github.com/tibi2303))
 - OEL-3926: Moved breadcrumbs location. [\#402](https://github.com/openeuropa/oe_whitelabel/pull/402) ([tibi2303](https://github.com/tibi2303))
 - OEL-0000: Use docker hub web image, fix grumphp in pipeline [\#401](https://github.com/openeuropa/oe_whitelabel/pull/401) ([donquixote](https://github.com/donquixote))
 - OEL-000: Suppress grumphp box requirement checker. [\#400](https://github.com/openeuropa/oe_whitelabel/pull/400) ([donquixote](https://github.com/donquixote))
@@ -44,6 +55,7 @@
 
 **Merged pull requests:**
 
+- Prepare release 1.26.0. [\#392](https://github.com/openeuropa/oe_whitelabel/pull/392) ([tibi2303](https://github.com/tibi2303))
 - OEL-0000: Update oe\_bootstrap\_theme. [\#391](https://github.com/openeuropa/oe_whitelabel/pull/391) ([tibi2303](https://github.com/tibi2303))
 - OEL-4096: Replace drone, use gitlab CI and github actions [\#388](https://github.com/openeuropa/oe_whitelabel/pull/388) ([donquixote](https://github.com/donquixote))
 - OEL-4068: Updated header icons and accessibility improvements. [\#387](https://github.com/openeuropa/oe_whitelabel/pull/387) ([tibi2303](https://github.com/tibi2303))
