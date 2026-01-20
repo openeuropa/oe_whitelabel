@@ -262,6 +262,11 @@ function _oe_whitelabel_process_element_select(array &$element): array {
       $element['#attributes']['aria-labelledby'] = $label_id;
     }
   }
+
+  if (!empty($element['#attributes']['placeholder'])) {
+    $element['#slim_select']['placeholderText'] = $element['#attributes']['placeholder'];
+  }
+
   $element += [
     '#slim_select' => [
       'contentPosition' => 'fixed',
