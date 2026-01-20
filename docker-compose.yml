@@ -43,7 +43,7 @@ services:
     shm_size: 2g
 
   sparql:
-    image: openeuropa/triple-store-dev
+    image: registry.fpfis.eu/digit/devsecops/triplestore
     environment:
       - SPARQL_UPDATE=true
       - DBA_PASSWORD=dba
