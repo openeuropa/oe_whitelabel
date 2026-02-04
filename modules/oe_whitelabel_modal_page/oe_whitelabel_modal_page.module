@@ -7,16 +7,19 @@
 
 declare(strict_types=1);
 
-use Drupal\Core\Hook\Attribute\LegacyHook;
-use Drupal\oe_whitelabel_modal_page\Hook\ModalEntityTypeFormClass;
+use Drupal\Core\Config\Entity\ConfigEntityType;
+use Drupal\oe_whitelabel_modal_page\Form\ModalForm;
 
 /**
  * Implements hook_entity_type_alter().
  *
- * @todo Remove once we drop support for Drupal < 11.1.0.
+ * Sets custom form classes for 'modal' entity type.
  */
-#[LegacyHook]
 function oe_whitelabel_modal_page_entity_type_alter(array &$entity_types): void {
-  \Drupal::service(ModalEntityTypeFormClass::class)
-    ->entityTypeAlter($entity_types);
+  $modal_entity_type = $entity_types['modal'] ?? NULL;
+  if ($modal_entity_type instanceof ConfigEntityType) {
+    // Override modal_page module's form for editing modals.
+    $modal_entity_type->setFormClass('add', ModalForm::class);
+    $modal_entity_type->setFormClass('edit', ModalForm::class);
+  }
 }

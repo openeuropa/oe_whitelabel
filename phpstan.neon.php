@@ -21,14 +21,5 @@ if (version_compare(\Drupal::VERSION, '11.2', '>=')) {
     'path' => __DIR__ . '/modules/oe_whitelabel_link_lists/tests/src/Kernel/TeaserDisplayPluginListTest.php',
   ];
 }
-else {
-  $config['parameters']['ignoreErrors'][] = [
-    'message' => '#^Attribute class Drupal\\\\Core\\\\Hook\\\\Attribute\\\\Hook does not exist\\.$#',
-    'identifier' => 'attribute.notFound',
-    'count' => 1,
-    // In a .neon.php file, paths must be absolute.
-    'path' => __DIR__ . '/modules/oe_whitelabel_modal_page/src/Hook/ModalEntityTypeFormClass.php',
-  ];
-}
 
 return $config;
