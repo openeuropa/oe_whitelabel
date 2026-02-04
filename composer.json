@@ -76,7 +76,7 @@
     "extra": {
         "patches": {
             "drupal/modal_page": {
-                "Support for less-intrusive dialogs via Bootstrap Toasts: https://www.drupal.org/project/modal_page/issues/3535144": "https://www.drupal.org/files/issues/2025-11-25/3535144-21.patch",
+                "Support for less-intrusive dialogs via Bootstrap Toasts: https://www.drupal.org/project/modal_page/issues/3535144": "https://www.drupal.org/files/issues/2026-02-04/modal_page-3535144-26.patch",
                 "Improve cache invalidation process: https://www.drupal.org/project/modal_page/issues/3555830": "https://www.drupal.org/files/issues/2026-01-09/3555830-14.patch",
                 "Allow modal entity management without granting access to global module config: https://www.drupal.org/project/modal_page/issues/3559425": "https://www.drupal.org/files/issues/2025-11-25/3559425-5.patch"
             }
