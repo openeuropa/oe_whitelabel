@@ -27,7 +27,7 @@
         "drupal/extra_field": "^2.3 || ^3.0@beta",
         "drupal/facets_form": "^1.0.0-alpha6",
         "drupal/field_group": "^3.4",
-        "drupal/modal_page": "^6.0-beta10",
+        "drupal/modal_page": "^6.0-beta11",
         "drupal/paragraphs": "^1.17",
         "drupal/search_api": "^1.29",
         "drupal/search_api_autocomplete": "^1.7",
