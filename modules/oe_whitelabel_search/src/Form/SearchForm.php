@@ -67,7 +67,7 @@ class SearchForm extends FormBase {
       '#title_display' => 'invisible',
       '#size' => 20,
       '#default_value' => $this->getRequest()->query->get($config['input']['name']),
-      '#required' => TRUE,
+      '#required' => $config['input']['required'],
       '#attributes' => [
         'placeholder' => $config['input']['placeholder'],
       ],
@@ -106,11 +106,18 @@ class SearchForm extends FormBase {
       'absolute' => TRUE,
       'query' => $this->requestStack->getCurrentRequest()->query->all(),
     ]);
-    $url->mergeOptions([
-      'query' => [
-        $config['input']['name'] => $form_state->getValue('search_input'),
-      ],
-    ]);
+    if ($form_state->getValue('search_input') !== "") {
+      $url->mergeOptions([
+        'query' => [
+          $config['input']['name'] => $form_state->getValue('search_input'),
+        ],
+      ]);
+    }
+    else {
+      $query = $url->getOption('query');
+      unset($query[$config['input']['name']]);
+      $url->setOption('query', $query);
+    }
 
     $form_state->setRedirectUrl($url);
   }
