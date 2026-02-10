@@ -97,6 +97,26 @@ Enable the theme and set as default:
 ./vendor/bin/drush config-set system.theme default oe_whitelabel
 ```
 
+### Media copyright overlays
+
+The theme ships recipes that add a reusable copyright field to media types and expose it in view modes.
+
+1) Apply the recipes (they are not auto-applied):
+
+```bash
+# Run in your Drupal root where the theme is installed.
+./vendor/bin/drush recipe "/var/www/html/build/themes/contrib/oe_whitelabel/recipes/media_image_copyright"
+./vendor/bin/drush recipe "/var/www/html/build/themes/contrib/oe_whitelabel/recipes/media_remote_video_copyright"
+./vendor/bin/drush recipe "/var/www/html/build/themes/contrib/oe_whitelabel/recipes/media_av_portal_photo_copyright"
+./vendor/bin/drush recipe "/var/www/html/build/themes/contrib/oe_whitelabel/recipes/media_av_portal_video_copyright"
+```
+
+2) Fill `field_media_copyright` on your media items (or set a default/backfill).
+
+3) For gallery/carousel usage, ensure your view mode maps `field_media_copyright` to the `copyright` field (like `oe_w_pattern_gallery_item` does).
+
+Once the field has values, the overlay appears automatically in banner, carousel, gallery, featured media, and media templates that use `media_container`.
+
 ## Development setup
 
 ### Using LAMP stack or similar
