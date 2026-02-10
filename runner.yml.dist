@@ -41,6 +41,7 @@ drupal:
     - { task: "exec", command: "./vendor/bin/drush config-set system.theme admin claro -y" }
     - { task: "exec", command: "./vendor/bin/drush config-set node.settings use_admin_theme 1 -y" }
     - { task: "exec", command: "./vendor/bin/drush config-set cas.settings forced_login.enabled 0 -y" }
+    - { task: "exec", command: "./vendor/bin/drush config-set system.logging error_level verbose -y" }
     - { task: "exec", command: "./vendor/bin/drush cr" }
   additional_settings: |
     $settings['file_scan_ignore_directories'] = [
@@ -70,15 +71,6 @@ commands:
     - { task: "run", command: "drupal:drush-setup" }
     - { task: "run", command: "drupal:settings-setup" }
     - { task: "run", command: "setup:phpunit" }
-    - { task: "run", command: "setup:settings-local" }
-
-  setup:settings-local:
-    - task: "append"
-      file: "build/sites/default/settings.override.php"
-      text: |
-        <?php
-
-        $config['system.logging']['error_level'] = 'verbose';
 
   setup:phpunit:
     - { task: "process", source: "phpunit.xml.dist", destination: "phpunit.xml" }

@@ -1,0 +1,4 @@
+services:
+  # Register a hook class as a service, to make it available in Drupal 10.
+  # @todo Remove when we drop support for Drupal < 11.1.0.
+  Drupal\oe_whitelabel_modal_page\Hook\ModalEntityTypeFormClass: {}
