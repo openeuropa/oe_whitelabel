@@ -181,7 +181,7 @@ docker-compose exec web ./vendor/bin/run toolkit:code-review
 
 #### Run phpunit tests
 
-To run the phpunit tests:
+To run all phpunit tests:
 
 ```bash
 docker-compose exec web ./vendor/bin/phpunit
@@ -189,6 +189,18 @@ docker-compose exec web ./vendor/bin/phpunit
 or, using the toolkit command as in the pipeline:
 ```bash
 docker-compose exec web ./vendor/bin/run toolkit:test-phpunit --junit
+```
+
+To run a specific test class:
+
+```bash
+docker-compose exec web ./vendor/bin/phpunit --testdox modules/oe_whitelabel_paragraphs/tests/src/Functional/ParagraphsTest.php
+```
+
+To run a single test method, use `--filter`:
+
+```bash
+docker-compose exec web ./vendor/bin/phpunit --testdox modules/oe_whitelabel_paragraphs/tests/src/Functional/ParagraphsTest.php --filter=testAccordionParagraph
 ```
 
 ## Rebuild assets during development
