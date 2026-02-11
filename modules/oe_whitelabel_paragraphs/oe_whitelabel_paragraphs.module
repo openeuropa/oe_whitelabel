@@ -758,6 +758,10 @@ function _oe_whitelabel_paragraphs_preprocess_paragraph_media(array &$variables)
 
   $source = $media->getSource();
 
+  if ($media->hasField('field_media_copyright') && !$media->get('field_media_copyright')->isEmpty()) {
+    $variables['copyright'] = $media->get('field_media_copyright')->value;
+  }
+
   $is_image = $source instanceof MediaAvPortalPhotoSource || $source instanceof Image;
   $is_video = $source instanceof MediaAvPortalVideoSource || $source instanceof OEmbed || $source instanceof Iframe;
 
