@@ -25,6 +25,7 @@ class AuthenticationBlockTest extends KernelTestBase {
     'system',
     'ui_patterns',
     'ui_patterns_library',
+    'ui_patterns_settings',
     'user',
   ];
 
