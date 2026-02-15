@@ -80,13 +80,13 @@ class GalleryParagraphTest extends BrowserTestBase {
         'thumbnail' => [
           'caption_title' => 'Euro with miniature figurines',
           'rendered' => sprintf(
-            '<img loading="lazy" src="%s" width="639" height="426" alt="Euro with miniature figurines" class="img-fluid">',
+            '<img loading="lazy" src="%s" width="800" height="533" alt="Euro with miniature figurines" class="img-fluid">',
             $fn_get_filepath($avportal_photo, 'thumbnail')
           ),
         ],
         'media' => [
           'caption_title' => 'Euro with miniature figurines',
-          'rendered' => '<img class="avportal-photo img-fluid" alt="Euro with miniature figurines" data-src="https://ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg">',
+          'rendered' => '<img class="avportal-photo img-fluid" alt="Euro with miniature figurines" data-src="https://ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store//03/89/24/P-038924_00-15_02-HIGH-625541.jpg">',
         ],
       ],
       [
