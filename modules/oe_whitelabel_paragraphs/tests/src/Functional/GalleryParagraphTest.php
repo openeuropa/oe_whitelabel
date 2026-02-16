@@ -57,22 +57,38 @@ class GalleryParagraphTest extends BrowserTestBase {
     ]);
     $paragraph->save();
 
+    $media_storage = \Drupal::entityTypeManager()->getStorage('media');
+    $image = $media_storage->load($image->id());
+    $avportal_photo = $media_storage->load($avportal_photo->id());
+    $avportal_video = $media_storage->load($avportal_video->id());
+    $video = $media_storage->load($video->id());
+
     $file_url_generator = \Drupal::service('file_url_generator');
     $fn_get_filepath = static fn($entity, $field) => $file_url_generator->generate($entity->get($field)->entity->getFileUri())->toString();
+    [$image_width, $image_height] = $this->getImageDimensions($image, 'oe_media_image');
+    [$avportal_photo_width, $avportal_photo_height] = $this->getImageDimensions($avportal_photo, 'thumbnail');
+    [$avportal_video_width, $avportal_video_height] = $this->getImageDimensions($avportal_video, 'thumbnail');
+    [$video_thumb_width, $video_thumb_height] = $this->getImageDimensions($video, 'thumbnail');
+    $avportal_photo_url = \Drupal::config('media_avportal.settings')->get('photos_base_uri')
+      . $avportal_photo->getSource()->getMetadata($avportal_photo, 'photo_uri');
     $expected_items = [
       [
         'thumbnail' => [
           'caption_title' => 'Image title',
           'rendered' => sprintf(
-            '<img loading="lazy" src="%s" width="200" height="89" alt="Alt text" class="img-fluid">',
-            $fn_get_filepath($image, 'oe_media_image')
+            '<img loading="lazy" src="%s" width="%d" height="%d" alt="Alt text" class="img-fluid">',
+            $fn_get_filepath($image, 'oe_media_image'),
+            $image_width,
+            $image_height
           ),
         ],
         'media' => [
           'caption_title' => 'Image title',
           'rendered' => sprintf(
-            '<img loading="lazy" data-src="%s" width="200" height="89" alt="Alt text" class="img-fluid">',
-            $fn_get_filepath($image, 'oe_media_image')
+            '<img loading="lazy" data-src="%s" width="%d" height="%d" alt="Alt text" class="img-fluid">',
+            $fn_get_filepath($image, 'oe_media_image'),
+            $image_width,
+            $image_height
           ),
         ],
       ],
@@ -80,21 +96,28 @@ class GalleryParagraphTest extends BrowserTestBase {
         'thumbnail' => [
           'caption_title' => 'Euro with miniature figurines',
           'rendered' => sprintf(
-            '<img loading="lazy" src="%s" width="639" height="426" alt="Euro with miniature figurines" class="img-fluid">',
-            $fn_get_filepath($avportal_photo, 'thumbnail')
+            '<img loading="lazy" src="%s" width="%d" height="%d" alt="Euro with miniature figurines" class="img-fluid">',
+            $fn_get_filepath($avportal_photo, 'thumbnail'),
+            $avportal_photo_width,
+            $avportal_photo_height
           ),
         ],
         'media' => [
           'caption_title' => 'Euro with miniature figurines',
-          'rendered' => '<img class="avportal-photo img-fluid" alt="Euro with miniature figurines" data-src="https://ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg">',
+          'rendered' => sprintf(
+            '<img class="avportal-photo img-fluid" alt="Euro with miniature figurines" data-src="%s">',
+            $avportal_photo_url
+          ),
         ],
       ],
       [
         'thumbnail' => [
           'caption_title' => 'Economic and Financial Affairs Council - Arrivals',
           'rendered' => sprintf(
-            '<img loading="lazy" src="%s" width="352" height="200" alt="" class="img-fluid">',
-            $fn_get_filepath($avportal_video, 'thumbnail')
+            '<img loading="lazy" src="%s" width="%d" height="%d" alt="" class="img-fluid">',
+            $fn_get_filepath($avportal_video, 'thumbnail'),
+            $avportal_video_width,
+            $avportal_video_height
           ),
           'play_icon' => TRUE,
         ],
@@ -107,8 +130,10 @@ class GalleryParagraphTest extends BrowserTestBase {
         'thumbnail' => [
           'caption_title' => 'Energy, let\'s save it!',
           'rendered' => sprintf(
-            '<img loading="lazy" src="%s" width="480" height="360" alt="" class="img-fluid">',
-            $fn_get_filepath($video, 'thumbnail')
+            '<img loading="lazy" src="%s" width="%d" height="%d" alt="" class="img-fluid">',
+            $fn_get_filepath($video, 'thumbnail'),
+            $video_thumb_width,
+            $video_thumb_height
           ),
           'play_icon' => TRUE,
         ],
@@ -211,6 +236,33 @@ class GalleryParagraphTest extends BrowserTestBase {
       ->view($paragraph, 'default', $langcode);
 
     return (string) $this->container->get('renderer')->renderRoot($render);
+  }
+
+  /**
+   * Gets image dimensions for a media field, falling back to the file itself.
+   */
+  private function getImageDimensions($entity, string $field): array {
+    $item = $entity->get($field)->first();
+    if (!$item) {
+      return [0, 0];
+    }
+
+    $values = $item->getValue();
+    $width = (int) ($values['width'] ?? 0);
+    $height = (int) ($values['height'] ?? 0);
+    if ($width > 0 && $height > 0) {
+      return [$width, $height];
+    }
+
+    $uri = $item->entity?->getFileUri();
+    if ($uri) {
+      $image = \Drupal::service('image.factory')->get($uri);
+      if ($image->isValid()) {
+        return [$image->getWidth(), $image->getHeight()];
+      }
+    }
+
+    return [$width, $height];
   }
 
 }
