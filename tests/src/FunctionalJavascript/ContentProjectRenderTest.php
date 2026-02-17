@@ -316,7 +316,15 @@ class ContentProjectRenderTest extends WebDriverTestBase {
 
     $file_url_generator = \Drupal::service('file_url_generator');
     $gallery_container = $assert_session->elementExists('css', '#oe-project-oe-cx-gallery + .bcl-gallery');
-    $fn_get_filepath = static fn($entity, $field) => $file_url_generator->generate($entity->get($field)->entity->getFileUri())->toString();
+    $fn_get_file_url = static fn($entity, $field) => $file_url_generator->generate($entity->get($field)->entity->getFileUri())->toString();
+    $gallery_image_src = $fn_get_file_url($gallery_image, 'oe_media_image');
+    $gallery_video_thumb_src = $fn_get_file_url($gallery_video, 'thumbnail');
+    $gallery_av_photo_thumb_src = $fn_get_file_url($gallery_av_photo, 'thumbnail');
+    $gallery_av_video_thumb_src = $fn_get_file_url($gallery_av_video, 'thumbnail');
+    foreach ([$gallery_image_src, $gallery_video_thumb_src, $gallery_av_photo_thumb_src, $gallery_av_video_thumb_src] as $src) {
+      $this->assertNotSame('', $src);
+      $this->assertNotFalse(parse_url($src));
+    }
     [$gallery_image_width, $gallery_image_height] = $this->getImageDimensions($gallery_image, 'oe_media_image');
     [$gallery_video_width, $gallery_video_height] = $this->getImageDimensions($gallery_video, 'thumbnail');
     [$gallery_av_photo_width, $gallery_av_photo_height] = $this->getImageDimensions($gallery_av_photo, 'thumbnail');
@@ -332,7 +340,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
             'caption_title' => 'Image title',
             'rendered' => sprintf(
               '<img loading="lazy" src="%s" width="%d" height="%d" alt="Alt text" class="img-fluid">',
-              $fn_get_filepath($gallery_image, 'oe_media_image'),
+              $gallery_image_src,
               $gallery_image_width,
               $gallery_image_height
             ),
@@ -341,7 +349,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
             'caption_title' => 'Image title',
             'rendered' => sprintf(
               '<img loading="lazy" data-src="%s" width="%d" height="%d" alt="Alt text" class="img-fluid">',
-              $fn_get_filepath($gallery_image, 'oe_media_image'),
+              $gallery_image_src,
               $gallery_image_width,
               $gallery_image_height
             ),
@@ -352,7 +360,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
             'caption_title' => 'Energy, let\'s save it!',
             'rendered' => sprintf(
               '<img loading="lazy" src="%s" width="%d" height="%d" alt="" class="img-fluid">',
-              $fn_get_filepath($gallery_video, 'thumbnail'),
+              $gallery_video_thumb_src,
               $gallery_video_width,
               $gallery_video_height
             ),
@@ -373,7 +381,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
             'caption_title' => 'Euro with miniature figurines',
             'rendered' => sprintf(
               '<img loading="lazy" src="%s" width="%d" height="%d" alt="Euro with miniature figurines" class="img-fluid">',
-              $fn_get_filepath($gallery_av_photo, 'thumbnail'),
+              $gallery_av_photo_thumb_src,
               $gallery_av_photo_width,
               $gallery_av_photo_height
             ),
@@ -391,7 +399,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
             'caption_title' => 'Economic and Financial Affairs Council - Arrivals',
             'rendered' => sprintf(
               '<img loading="lazy" src="%s" width="%d" height="%d" alt="" class="img-fluid">',
-              $fn_get_filepath($gallery_av_video, 'thumbnail'),
+              $gallery_av_video_thumb_src,
               $gallery_av_video_width,
               $gallery_av_video_height
             ),
@@ -622,33 +630,6 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     $this->assertCount(2, $badges);
     $this->assertEquals($status_label, $badges[0]->getText());
     $this->assertTrue($badges[0]->hasClass($status_class));
-  }
-
-  /**
-   * Gets image dimensions for a media field, falling back to the file itself.
-   */
-  private function getImageDimensions($entity, string $field): array {
-    $item = $entity->get($field)->first();
-    if (!$item) {
-      return [0, 0];
-    }
-
-    $values = $item->getValue();
-    $width = (int) ($values['width'] ?? 0);
-    $height = (int) ($values['height'] ?? 0);
-    if ($width > 0 && $height > 0) {
-      return [$width, $height];
-    }
-
-    $uri = $item->entity?->getFileUri();
-    if ($uri) {
-      $image = \Drupal::service('image.factory')->get($uri);
-      if ($image->isValid()) {
-        return [$image->getWidth(), $image->getHeight()];
-      }
-    }
-
-    return [$width, $height];
   }
 
 }
