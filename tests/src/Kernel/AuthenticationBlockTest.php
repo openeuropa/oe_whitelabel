@@ -25,6 +25,7 @@ class AuthenticationBlockTest extends KernelTestBase {
     'system',
     'ui_patterns',
     'ui_patterns_library',
+    'ui_patterns_settings',
     'user',
   ];
 
@@ -107,6 +108,8 @@ class AuthenticationBlockTest extends KernelTestBase {
   protected function assertAuthenticationLinkClasses(Crawler $link, bool $logged_in): void {
     $classes = $link->attr('class') ?? '';
     $this->assertStringContainsString('top-navigation-link', $classes);
+    $this->assertStringContainsString('d-inline-flex', $classes);
+    $this->assertStringContainsString('gap-2-5', $classes);
     if ($logged_in) {
       $this->assertStringContainsString('active', $classes);
     }

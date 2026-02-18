@@ -24,12 +24,12 @@
   {{ pattern('link', {
     label: link_title,
     path: content['#url']|render,
+    icon_display: 'inline-flex',
     icon: {
       name: icon_name,
       size: 'fluid',
     },
     icon_position: 'before',
-    remove_icon_spacers: true,
     attributes: extra_attributes
   }) }}
 </div>
