@@ -135,7 +135,7 @@ class ParagraphsTest extends BrowserTestBase {
 
     $values = [
       'title[0][value]' => 'Test Accordion',
-      'oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_text][0][value]' => 'Title item 1',
+      'oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_text][0][value]' => 'Accordion heading 1',
       'oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_text_long][0][value]' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     ];
 
@@ -143,8 +143,21 @@ class ParagraphsTest extends BrowserTestBase {
     $this->drupalGet('/node/1');
 
     // Assert paragraph values are displayed correctly.
-    $this->assertSession()->pageTextContains('Title item 1');
+    $this->assertSession()->pageTextContains('Accordion heading 1');
     $this->assertSession()->pageTextContains('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+
+    // Test that field display settings are respected: removing a field from
+    // the display should hide it, and the render cache should be invalidated
+    // automatically without manual cache clearing.
+    $display = \Drupal::service('entity_display.repository')->getViewDisplay('paragraph', 'oe_accordion_item', 'default');
+    $display->removeComponent('field_oe_text_long');
+    $display->save();
+
+    $this->drupalGet('/node/1');
+
+    // Title should still be visible, but the content field should be hidden.
+    $this->assertSession()->pageTextContains('Accordion heading 1');
+    $this->assertSession()->pageTextNotContains('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
   }
 
   /**
