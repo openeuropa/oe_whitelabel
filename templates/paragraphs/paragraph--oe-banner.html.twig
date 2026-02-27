@@ -25,13 +25,6 @@
 {% endif %}
 {% set _hero = 'hero' in pattern %}
 {% set _shade = 'shade' in variant %}
-{% set copyright_value = '' %}
-{% if not paragraph.get('field_oe_media').isEmpty() %}
-  {% set media_entity = paragraph.get('field_oe_media').entity %}
-  {% if media_entity and media_entity.hasField('field_media_copyright') %}
-    {% set copyright_value = media_entity.field_media_copyright.value %}
-  {% endif %}
-{% endif %}
 {{ pattern('banner', {
   'variant': variant,
   'title': title,
@@ -43,6 +36,5 @@
   'full_width': full_width,
   'centered': centered,
   'attributes': attributes,
-  'copyright': copyright_value,
+  'copyright': copyright|default(''),
 }) }}
-

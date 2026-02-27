@@ -360,6 +360,10 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
     return;
   }
 
+  if ($media->hasField('field_media_copyright') && !$media->get('field_media_copyright')->isEmpty()) {
+    $variables['copyright'] = $media->get('field_media_copyright')->value;
+  }
+
   $source = $media->getSource();
   // We only support images and AV Portal photos for now.
   if (!$source instanceof MediaAvPortalSourceInterface && !$source instanceof Image) {
