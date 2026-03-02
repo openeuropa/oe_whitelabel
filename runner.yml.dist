@@ -35,8 +35,8 @@ drupal:
           oe_whitelabel_paragraphs \
           oe_whitelabel_modal_page \
           toolbar
-    - { task: "exec", command: "./vendor/bin/drush recipe \"./recipes/media_image_copyright\"" }
-    - { task: "exec", command: "./vendor/bin/drush recipe \"./recipes/media_av_portal_photo_copyright\"" }
+    - { task: "exec", command: "./vendor/bin/drush recipe \"../recipes/media_image_copyright\"" }
+    - { task: "exec", command: "./vendor/bin/drush recipe \"../recipes/media_av_portal_photo_copyright\"" }
     - { task: "exec", command: "./vendor/bin/drush theme:enable oe_whitelabel -y" }
     - { task: "exec", command: "./vendor/bin/drush theme:enable claro -y" }
     - { task: "exec", command: "./vendor/bin/drush config-set system.theme default oe_whitelabel -y" }
