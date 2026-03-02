@@ -110,12 +110,12 @@ Apply the recipes (they are not auto-applied):
 ./vendor/bin/drush recipe "/var/www/html/build/themes/contrib/oe_whitelabel/recipes/media_av_portal_photo_copyright"
 ```
 
+In this repository's default `runner.yml.dist` setup, these recipes are applied
+automatically during site provisioning.
+
 Then:
 
 1. Fill `field_media_copyright` on your media items (or set a default/backfill).
-2. For gallery/carousel usage, ensure your view mode maps
-   `field_media_copyright` to the `copyright` field (like
-   `oe_w_pattern_gallery_item` does).
 
 Once the field has values, the copyright text appears automatically in banner,
 carousel, gallery, and featured media patterns.

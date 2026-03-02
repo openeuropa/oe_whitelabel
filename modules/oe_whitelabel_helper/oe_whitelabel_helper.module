@@ -59,6 +59,7 @@ function oe_whitelabel_helper_field_formatter_third_party_settings_form(Formatte
     '#options' => [
       'caption_title' => t('Caption title'),
       'caption' => t('Caption'),
+      'copyright' => t('Copyright'),
       'thumbnail' => t('Thumbnail'),
       'media' => t('Media'),
     ],

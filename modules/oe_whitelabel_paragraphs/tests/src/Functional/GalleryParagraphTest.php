@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Functional;
 
 use Drupal\Core\Url;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\GalleryPatternAssert;
 use Drupal\Tests\oe_whitelabel\Traits\MediaCreationTrait;
@@ -38,11 +40,23 @@ class GalleryParagraphTest extends BrowserTestBase {
   protected $defaultTheme = 'oe_whitelabel';
 
   /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+    $this->installMediaCopyrightField(['image', 'av_portal_photo']);
+  }
+
+  /**
    * Tests the paragraph rendering.
    */
   public function testRendering(): void {
-    $image = $this->createImageMedia();
-    $avportal_photo = $this->createAvPortalPhotoMedia();
+    $image = $this->createImageMedia([
+      'field_media_copyright' => 'Image copyright',
+    ]);
+    $avportal_photo = $this->createAvPortalPhotoMedia([
+      'field_media_copyright' => 'AV Portal photo copyright',
+    ]);
     $avportal_video = $this->createAvPortalVideoMedia();
     $video = $this->createRemoteVideoMedia();
 
@@ -158,6 +172,10 @@ class GalleryParagraphTest extends BrowserTestBase {
     ];
     $this->assertParagraphRendering([
       'items' => $expected_items,
+      'copyrights' => [
+        'Image copyright',
+        'AV Portal photo copyright',
+      ],
     ], $paragraph);
 
     // Add a title.
@@ -165,6 +183,10 @@ class GalleryParagraphTest extends BrowserTestBase {
     $this->assertParagraphRendering([
       'title' => 'Gallery paragraph title',
       'items' => $expected_items,
+      'copyrights' => [
+        'Image copyright',
+        'AV Portal photo copyright',
+      ],
     ], $paragraph);
 
     // Set also a description.
@@ -174,6 +196,10 @@ class GalleryParagraphTest extends BrowserTestBase {
       'title' => 'Gallery paragraph title',
       'description' => $description,
       'items' => $expected_items,
+      'copyrights' => [
+        'Image copyright',
+        'AV Portal photo copyright',
+      ],
     ], $paragraph);
   }
 
@@ -185,6 +211,7 @@ class GalleryParagraphTest extends BrowserTestBase {
    *   - title: the gallery title.
    *   - description: the gallery description.
    *   - items: the gallery items in a format suitable for GalleryPatternAssert.
+   *   - copyrights: expected copyright values in gallery slides.
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
    *   The paragraph being rendered.
    */
@@ -193,6 +220,7 @@ class GalleryParagraphTest extends BrowserTestBase {
       'title' => NULL,
       'description' => NULL,
       'items' => [],
+      'copyrights' => [],
     ];
 
     $html = $this->renderParagraph($paragraph);
@@ -223,6 +251,12 @@ class GalleryParagraphTest extends BrowserTestBase {
       'title' => NULL,
       'items' => $expected['items'],
     ], $gallery_element->outerHtml());
+
+    $copyright_elements = $gallery_element->filter('.bcl-copyright--overlay');
+    $this->assertCount(count($expected['copyrights']), $copyright_elements);
+    foreach ($expected['copyrights'] as $index => $copyright) {
+      $this->assertEquals($copyright, trim($copyright_elements->eq($index)->text()));
+    }
   }
 
   /**
@@ -244,6 +278,33 @@ class GalleryParagraphTest extends BrowserTestBase {
       ->view($paragraph, 'default', $langcode);
 
     return (string) $this->container->get('renderer')->renderRoot($render);
+  }
+
+  /**
+   * Creates the media copyright field and attaches it to media bundles.
+   *
+   * @param string[] $bundles
+   *   The media bundles.
+   */
+  protected function installMediaCopyrightField(array $bundles): void {
+    if (!FieldStorageConfig::loadByName('media', 'field_media_copyright')) {
+      FieldStorageConfig::create([
+        'field_name' => 'field_media_copyright',
+        'entity_type' => 'media',
+        'type' => 'string',
+      ])->save();
+    }
+
+    foreach ($bundles as $bundle) {
+      if (!FieldConfig::loadByName('media', $bundle, 'field_media_copyright')) {
+        FieldConfig::create([
+          'field_name' => 'field_media_copyright',
+          'entity_type' => 'media',
+          'bundle' => $bundle,
+          'label' => 'Copyright',
+        ])->save();
+      }
+    }
   }
 
 }

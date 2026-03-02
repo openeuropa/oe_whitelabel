@@ -597,6 +597,10 @@ function oe_whitelabel_preprocess_paragraph__oe_carousel(array &$variables): voi
       ],
     ];
 
+    if ($media->hasField('field_media_copyright') && !$media->get('field_media_copyright')->isEmpty()) {
+      $slide['copyright'] = $media->get('field_media_copyright')->value;
+    }
+
     if (!$sub_paragraph->get('field_oe_link')->isEmpty()) {
       /** @var \Drupal\link\Plugin\Field\FieldType\LinkItem $link_item */
       $link_item = $sub_paragraph->get('field_oe_link')->first();
