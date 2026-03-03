@@ -211,6 +211,8 @@ trait NodeCreationTrait {
           'value' => '2020-05-10',
           'end_value' => '2025-05-15',
         ],
+        // The /node route lists promoted content.
+        'promote' => 1,
         'uid' => 1,
         'status' => 1,
       ]);

@@ -26,6 +26,7 @@ class MultilingualBlockTest extends KernelTestBase {
     'ui_patterns',
     'ui_patterns_library',
     'ui_patterns_settings',
+    'user',
   ];
 
   /**
@@ -33,6 +34,13 @@ class MultilingualBlockTest extends KernelTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
+
+    $this->installEntitySchema('user');
+    $this->installSchema('system', ['sequences']);
+    $this->installConfig(['user']);
+
+    $this->container->get('module_handler')->loadInclude('user', 'install');
+    user_install();
 
     \Drupal::service('theme_installer')->install(['oe_whitelabel']);
 
