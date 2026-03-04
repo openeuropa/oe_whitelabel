@@ -198,7 +198,7 @@ class CarouselTest extends ParagraphsTestBase {
     // by the carousel pattern.
     $crawler = new Crawler($html);
     $slides = $crawler->filter('.carousel .carousel-inner .carousel-item');
-    $copyright_selector = '.bcl-copyright--overlay, .bcl-copyright';
+    $copyright_selector = '.bcl-copyright';
     $this->assertEquals('Item description 2', $slides->eq(1)->filter('.carousel-caption p')->html());
     $this->assertEquals('Item description 4', $slides->eq(3)->filter('.carousel-caption p')->html());
     $this->assertEquals('Image copyright EN', trim($slides->eq(0)->filter($copyright_selector)->text()));

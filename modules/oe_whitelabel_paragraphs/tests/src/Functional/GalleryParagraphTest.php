@@ -253,7 +253,7 @@ class GalleryParagraphTest extends BrowserTestBase {
       'items' => $expected['items'],
     ], $gallery_element->outerHtml());
 
-    $copyright_elements = $gallery_element->filter('.bcl-copyright--overlay, .bcl-copyright');
+    $copyright_elements = $gallery_element->filter('.bcl-copyright');
     $this->assertCount(count($expected['copyrights']), $copyright_elements);
     foreach ($expected['copyrights'] as $index => $copyright) {
       $this->assertEquals($copyright, trim($copyright_elements->eq($index)->text()));
