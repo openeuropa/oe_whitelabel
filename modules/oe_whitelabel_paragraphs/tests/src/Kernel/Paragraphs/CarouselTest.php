@@ -198,12 +198,13 @@ class CarouselTest extends ParagraphsTestBase {
     // by the carousel pattern.
     $crawler = new Crawler($html);
     $slides = $crawler->filter('.carousel .carousel-inner .carousel-item');
+    $copyright_selector = '.bcl-copyright--overlay, .bcl-copyright';
     $this->assertEquals('Item description 2', $slides->eq(1)->filter('.carousel-caption p')->html());
     $this->assertEquals('Item description 4', $slides->eq(3)->filter('.carousel-caption p')->html());
-    $this->assertEquals('Image copyright EN', trim($slides->eq(0)->filter('.bcl-copyright--overlay')->text()));
-    $this->assertEquals('AV photo copyright EN', trim($slides->eq(1)->filter('.bcl-copyright--overlay')->text()));
-    $this->assertEquals('Image copyright EN', trim($slides->eq(2)->filter('.bcl-copyright--overlay')->text()));
-    $this->assertEquals('AV photo copyright EN', trim($slides->eq(3)->filter('.bcl-copyright--overlay')->text()));
+    $this->assertEquals('Image copyright EN', trim($slides->eq(0)->filter($copyright_selector)->text()));
+    $this->assertEquals('AV photo copyright EN', trim($slides->eq(1)->filter($copyright_selector)->text()));
+    $this->assertEquals('Image copyright EN', trim($slides->eq(2)->filter($copyright_selector)->text()));
+    $this->assertEquals('AV photo copyright EN', trim($slides->eq(3)->filter($copyright_selector)->text()));
 
     // Assert paragraph rendering for Bulgarian version.
     $html = $this->renderParagraph($paragraph, 'bg');
@@ -248,10 +249,10 @@ class CarouselTest extends ParagraphsTestBase {
 
     $crawler = new Crawler($html);
     $slides = $crawler->filter('.carousel .carousel-inner .carousel-item');
-    $this->assertEquals('Image copyright BG', trim($slides->eq(0)->filter('.bcl-copyright--overlay')->text()));
-    $this->assertEquals('AV photo copyright BG', trim($slides->eq(1)->filter('.bcl-copyright--overlay')->text()));
-    $this->assertEquals('Image copyright BG', trim($slides->eq(2)->filter('.bcl-copyright--overlay')->text()));
-    $this->assertEquals('AV photo copyright BG', trim($slides->eq(3)->filter('.bcl-copyright--overlay')->text()));
+    $this->assertEquals('Image copyright BG', trim($slides->eq(0)->filter($copyright_selector)->text()));
+    $this->assertEquals('AV photo copyright BG', trim($slides->eq(1)->filter($copyright_selector)->text()));
+    $this->assertEquals('Image copyright BG', trim($slides->eq(2)->filter($copyright_selector)->text()));
+    $this->assertEquals('AV photo copyright BG', trim($slides->eq(3)->filter($copyright_selector)->text()));
   }
 
   /**
