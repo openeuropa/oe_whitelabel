@@ -17,8 +17,8 @@ config:
           weight: 1
           region: content
         hidden.field_media_copyright: false
-    '?core.entity_view_display.media.image.oe_w_pattern_gallery_item':
-      simpleConfigUpdate:
+    core.entity_view_display.media.image.oe_w_pattern_gallery_item:
+      simpleConfigUpdateIfExists:
         content.field_media_copyright:
           type: string
           label: visually_hidden
