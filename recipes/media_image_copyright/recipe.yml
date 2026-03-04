@@ -21,7 +21,7 @@ config:
       simpleConfigUpdateIfExists:
         content.field_media_copyright:
           type: string
-          label: visually_hidden
+          label: hidden
           settings:
             link_to_entity: false
           third_party_settings:

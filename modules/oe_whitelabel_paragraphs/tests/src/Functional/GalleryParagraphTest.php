@@ -310,7 +310,7 @@ class GalleryParagraphTest extends BrowserTestBase {
       if ($gallery_display) {
         $gallery_display->setComponent('field_media_copyright', [
           'type' => 'string',
-          'label' => 'visually_hidden',
+          'label' => 'hidden',
           'settings' => [
             'link_to_entity' => FALSE,
           ],
