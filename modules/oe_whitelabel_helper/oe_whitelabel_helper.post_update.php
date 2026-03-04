@@ -67,3 +67,55 @@ function oe_whitelabel_helper_post_update_00004(): string {
 
   return $report . "\nThe old navigation block was disabled.";
 }
+
+/**
+ * Maps media copyright field to gallery copyright where available.
+ */
+function oe_whitelabel_helper_post_update_00005(): string {
+  $field_name = 'field_media_copyright';
+  $field_manager = \Drupal::service('entity_field.manager');
+  $display_storage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+
+  $updated = [];
+  foreach (['image', 'av_portal_photo'] as $bundle) {
+    $field_definitions = $field_manager->getFieldDefinitions('media', $bundle);
+    if (!isset($field_definitions[$field_name])) {
+      continue;
+    }
+
+    $display_id = "media.$bundle.oe_w_pattern_gallery_item";
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface|null $display */
+    $display = $display_storage->load($display_id);
+    if (!$display) {
+      continue;
+    }
+
+    $component = $display->getComponent($field_name) ?: [
+      'type' => 'string',
+      'label' => 'visually_hidden',
+      'settings' => ['link_to_entity' => FALSE],
+      'third_party_settings' => [],
+      'weight' => 3,
+      'region' => 'content',
+    ];
+
+    $third_party_settings = is_array($component['third_party_settings'] ?? NULL)
+      ? $component['third_party_settings']
+      : [];
+    $current_mapping = $third_party_settings['oe_whitelabel_helper']['pattern_mapping'] ?? NULL;
+    if ($current_mapping === 'copyright') {
+      continue;
+    }
+    $third_party_settings['oe_whitelabel_helper']['pattern_mapping'] = 'copyright';
+    $component['third_party_settings'] = $third_party_settings;
+
+    $display->setComponent($field_name, $component)->save();
+    $updated[] = $display_id;
+  }
+
+  if (empty($updated)) {
+    return 'No gallery display was updated for media copyright mapping.';
+  }
+
+  return sprintf('Updated gallery copyright mapping on: %s.', implode(', ', $updated));
+}

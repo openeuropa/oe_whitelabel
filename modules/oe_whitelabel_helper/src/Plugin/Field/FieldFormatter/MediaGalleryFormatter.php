@@ -99,16 +99,6 @@ class MediaGalleryFormatter extends EntityReferenceFormatterBase {
       foreach ($this->getFieldMappings($entity->bundle()) as $pattern_field => $entity_field) {
         $gallery_items[$delta][$pattern_field] = $view_builder->viewField($entity->get($entity_field), 'oe_w_pattern_gallery_item');
       }
-
-      // Keep gallery copyright support simple: if the standard media copyright
-      // field is present and not explicitly mapped already, expose it.
-      if (
-        !isset($gallery_items[$delta]['copyright']) &&
-        $entity->hasField('field_media_copyright') &&
-        !$entity->get('field_media_copyright')->isEmpty()
-      ) {
-        $gallery_items[$delta]['copyright'] = $entity->get('field_media_copyright')->value;
-      }
     }
 
     $cacheable_metadata->applyTo($elements);

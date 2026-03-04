@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Functional;
 
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Url;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -302,6 +303,24 @@ class GalleryParagraphTest extends BrowserTestBase {
           'entity_type' => 'media',
           'bundle' => $bundle,
           'label' => 'Copyright',
+        ])->save();
+      }
+
+      $gallery_display = EntityViewDisplay::load("media.$bundle.oe_w_pattern_gallery_item");
+      if ($gallery_display) {
+        $gallery_display->setComponent('field_media_copyright', [
+          'type' => 'string',
+          'label' => 'visually_hidden',
+          'settings' => [
+            'link_to_entity' => FALSE,
+          ],
+          'third_party_settings' => [
+            'oe_whitelabel_helper' => [
+              'pattern_mapping' => 'copyright',
+            ],
+          ],
+          'weight' => 3,
+          'region' => 'content',
         ])->save();
       }
     }
