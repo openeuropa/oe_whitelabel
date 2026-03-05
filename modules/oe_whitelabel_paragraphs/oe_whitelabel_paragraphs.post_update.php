@@ -58,7 +58,7 @@ function oe_whitelabel_paragraphs_post_update_00001(array &$sandbox): void {
 /**
  * Creates dedicated listing image copyright field and updates form display.
  */
-function oe_whitelabel_paragraphs_post_update_00003(array &$sandbox): void {
+function oe_whitelabel_paragraphs_post_update_00002(array &$sandbox): void {
   if (!FieldStorageConfig::loadByName('paragraph', 'field_oe_image_copyright')) {
     FieldStorageConfig::create([
       'field_name' => 'field_oe_image_copyright',
