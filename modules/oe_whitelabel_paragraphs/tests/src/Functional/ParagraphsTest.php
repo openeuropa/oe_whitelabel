@@ -285,6 +285,7 @@ class ParagraphsTest extends BrowserTestBase {
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_title][0][value]');
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_text_long][0][value]');
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_meta][0][value]');
+    $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_image_copyright][0][value]');
     $this->assertSession()->fieldExists('files[oe_w_paragraphs_0_subform_field_oe_paragraphs_0_subform_field_oe_image_0]');
 
     $this->submitForm([], 'Add another item');
@@ -297,6 +298,7 @@ class ParagraphsTest extends BrowserTestBase {
       'oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_link][0][uri]'  => 'https://www.example.com',
       'oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_title][0][value]'  => 'Card title',
       'oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_text_long][0][value]'  => 'Lorem Ipsum dolor sit amet.',
+      'oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_image_copyright][0][value]'  => '(c) Functional copyright',
       'oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_meta][0][value]'  => 'label1',
     ];
 

@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.paragraph.oe_list_item.field_oe_date
     - field.field.paragraph.oe_list_item.field_oe_image
+    - field.field.paragraph.oe_list_item.field_oe_image_copyright
     - field.field.paragraph.oe_list_item.field_oe_link
     - field.field.paragraph.oe_list_item.field_oe_meta
     - field.field.paragraph.oe_list_item.field_oe_text_long
@@ -27,6 +28,14 @@ content:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
+  field_oe_image_copyright:
+    type: string_textfield
+    weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_oe_link:
     type: link_default
     weight: 0
@@ -37,7 +46,7 @@ content:
     third_party_settings: {  }
   field_oe_meta:
     type: string_textfield
-    weight: 4
+    weight: 5
     region: content
     settings:
       size: 60

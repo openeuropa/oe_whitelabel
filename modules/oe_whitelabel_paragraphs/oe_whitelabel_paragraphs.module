@@ -248,13 +248,20 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
 
     /** @var \Drupal\link\LinkItemInterface|null $card_link_item */
     $card_link_item = $card_paragraph->get('field_oe_link')->first();
-    $variables['items'][] = [
+    $item = [
       'title' => $card_paragraph->get('field_oe_title')->value,
       'url' => $card_link_item ? $card_link_item->getUrl() : '',
       'text' => $card_paragraph->get('field_oe_text_long')->value,
       'image' => $card_image,
       'badges' => $card_badges,
     ];
+    if (
+      $card_paragraph->hasField('field_oe_image_copyright') &&
+      !$card_paragraph->get('field_oe_image_copyright')->isEmpty()
+    ) {
+      $item['image_copyright'] = $card_paragraph->get('field_oe_image_copyright')->value;
+    }
+    $variables['items'][] = $item;
   }
 
   // Prepare the button variables if a link has been specified.

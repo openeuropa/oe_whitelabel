@@ -120,6 +120,9 @@ Then:
 Once the field has values, the copyright text appears automatically in banner,
 carousel, gallery, and featured media patterns.
 
+For the `Listing item` paragraph, image copyright is configured with the
+dedicated `field_oe_image_copyright` field on the paragraph, not from media.
+
 ## Development setup
 
 ### Using LAMP stack or similar

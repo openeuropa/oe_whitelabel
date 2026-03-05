@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 
 /**
  * Migrate allowed_formats from contrib (third-party) to core settings.
@@ -52,4 +53,56 @@ function oe_whitelabel_paragraphs_post_update_00001(array &$sandbox): void {
     }
   }
 
+}
+
+/**
+ * Creates dedicated listing image copyright field and updates form display.
+ */
+function oe_whitelabel_paragraphs_post_update_00003(array &$sandbox): void {
+  if (!FieldStorageConfig::loadByName('paragraph', 'field_oe_image_copyright')) {
+    FieldStorageConfig::create([
+      'field_name' => 'field_oe_image_copyright',
+      'entity_type' => 'paragraph',
+      'type' => 'string',
+      'settings' => [
+        'max_length' => 255,
+        'is_ascii' => FALSE,
+        'case_sensitive' => FALSE,
+      ],
+      'cardinality' => 1,
+      'translatable' => TRUE,
+    ])->save();
+  }
+
+  if (!FieldConfig::loadByName('paragraph', 'oe_list_item', 'field_oe_image_copyright')) {
+    FieldConfig::create([
+      'field_name' => 'field_oe_image_copyright',
+      'entity_type' => 'paragraph',
+      'bundle' => 'oe_list_item',
+      'label' => 'Copyright',
+      'description' => 'Copyright text displayed with the image.',
+      'required' => FALSE,
+      'translatable' => TRUE,
+    ])->save();
+  }
+
+  $form_display = EntityFormDisplay::load('paragraph.oe_list_item.default');
+  if ($form_display !== NULL) {
+    $form_display->setComponent('field_oe_image_copyright', [
+      'type' => 'string_textfield',
+      'weight' => 4,
+      'region' => 'content',
+      'settings' => [
+        'size' => 60,
+        'placeholder' => '',
+      ],
+      'third_party_settings' => [],
+    ]);
+    $field_oe_meta = $form_display->getComponent('field_oe_meta');
+    if (!empty($field_oe_meta)) {
+      $field_oe_meta['weight'] = 5;
+      $form_display->setComponent('field_oe_meta', $field_oe_meta);
+    }
+    $form_display->save();
+  }
 }

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
 use Drupal\Tests\oe_whitelabel_paragraphs\Kernel\AbstractKernelTestBase;
-use Drupal\paragraphs\ParagraphInterface;
-use Drupal\field\Entity\FieldConfig;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\paragraphs\ParagraphInterface;
 
 /**
  * Base class for paragraphs tests.
@@ -114,6 +114,15 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
       $this->assertArrayHasKey('allowed_formats', $settings);
       $this->assertEquals(['plain_text'], $settings['allowed_formats']);
     }
+  }
+
+  /**
+   * Tests the listing image field settings.
+   */
+  public function testListingImageFieldSettings(): void {
+    $copyright_field = FieldConfig::load('paragraph.oe_list_item.field_oe_image_copyright');
+    $this->assertNotNull($copyright_field);
+    $this->assertEquals('Copyright', $copyright_field->label());
   }
 
   /**
