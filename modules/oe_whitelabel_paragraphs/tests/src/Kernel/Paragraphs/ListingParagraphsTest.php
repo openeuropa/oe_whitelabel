@@ -74,6 +74,9 @@ class ListingParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(1, $crawler->filter('div.bcl-listing--default-1-col'));
     $this->assertCount(1, $crawler->filter('div.row.row-cols-1'));
     $this->assertCount(6, $crawler->filter('div.card-body'));
+    $copyright = $crawler->filter('article.listing-item .bcl-card__image-footer .bcl-copyright');
+    $this->assertCount(1, $copyright);
+    $this->assertEquals('(c) 2026 Listing test copyright', trim($copyright->text()));
 
     // Testing Default 2 col.
     $paragraph->get('field_oe_list_item_block_layout')->setValue('two_columns');
@@ -168,6 +171,7 @@ class ListingParagraphsTest extends ParagraphsTestBase {
           'alt' => 'Alt for image ' . $i,
           'target_id' => $image_file->id(),
         ],
+        'field_oe_image_copyright' => $i === 1 ? '(c) 2026 Listing test copyright' : '',
         'field_oe_meta' => [
           0 => [
             'value' => 'Label 1 - ' . $i,

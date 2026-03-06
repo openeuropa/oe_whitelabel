@@ -248,13 +248,20 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
 
     /** @var \Drupal\link\LinkItemInterface|null $card_link_item */
     $card_link_item = $card_paragraph->get('field_oe_link')->first();
-    $variables['items'][] = [
+    $item = [
       'title' => $card_paragraph->get('field_oe_title')->value,
       'url' => $card_link_item ? $card_link_item->getUrl() : '',
       'text' => $card_paragraph->get('field_oe_text_long')->value,
       'image' => $card_image,
       'badges' => $card_badges,
     ];
+    if (
+      $card_paragraph->hasField('field_oe_image_copyright') &&
+      !$card_paragraph->get('field_oe_image_copyright')->isEmpty()
+    ) {
+      $item['image_copyright'] = $card_paragraph->get('field_oe_image_copyright')->value;
+    }
+    $variables['items'][] = $item;
   }
 
   // Prepare the button variables if a link has been specified.
@@ -358,6 +365,10 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
   if (!$access->isAllowed()) {
     $cacheability->applyTo($variables);
     return;
+  }
+
+  if ($media->hasField('field_media_copyright') && !$media->get('field_media_copyright')->isEmpty()) {
+    $variables['copyright'] = $media->get('field_media_copyright')->value;
   }
 
   $source = $media->getSource();
@@ -593,6 +604,10 @@ function oe_whitelabel_preprocess_paragraph__oe_carousel(array &$variables): voi
       ],
     ];
 
+    if ($media->hasField('field_media_copyright') && !$media->get('field_media_copyright')->isEmpty()) {
+      $slide['copyright'] = $media->get('field_media_copyright')->value;
+    }
+
     if (!$sub_paragraph->get('field_oe_link')->isEmpty()) {
       /** @var \Drupal\link\Plugin\Field\FieldType\LinkItem $link_item */
       $link_item = $sub_paragraph->get('field_oe_link')->first();
@@ -757,6 +772,10 @@ function _oe_whitelabel_paragraphs_preprocess_paragraph_media(array &$variables)
   }
 
   $source = $media->getSource();
+
+  if ($media->hasField('field_media_copyright') && !$media->get('field_media_copyright')->isEmpty()) {
+    $variables['copyright'] = $media->get('field_media_copyright')->value;
+  }
 
   $is_image = $source instanceof MediaAvPortalPhotoSource || $source instanceof Image;
   $is_video = $source instanceof MediaAvPortalVideoSource || $source instanceof OEmbed || $source instanceof Iframe;

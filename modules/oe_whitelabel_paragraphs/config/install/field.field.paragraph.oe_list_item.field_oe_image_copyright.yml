@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_oe_image_copyright
+    - paragraphs.paragraphs_type.oe_list_item
+id: paragraph.oe_list_item.field_oe_image_copyright
+field_name: field_oe_image_copyright
+entity_type: paragraph
+bundle: oe_list_item
+label: Copyright
+description: 'Copyright text displayed with the image.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
