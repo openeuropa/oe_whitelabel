@@ -1,11 +1,33 @@
 # Changelog
 
-## [1.29.0](https://github.com/openeuropa/oe_whitelabel/tree/1.29.0) (2026-01-20)
+## [1.30.0](https://github.com/openeuropa/oe_whitelabel/tree/1.30.0) (2026-02-25)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.29.1...1.30.0)
+
+**Merged pull requests:**
+
+- OEL-0000: Fixed oe\_bt vers. [\#425](https://github.com/openeuropa/oe_whitelabel/pull/425) ([tibi2303](https://github.com/tibi2303))
+- OEL-4335: Cover empty-filters sidebar rendering. [\#424](https://github.com/openeuropa/oe_whitelabel/pull/424) ([tibi2303](https://github.com/tibi2303))
+- OEL-3916 \(Trigger pipeline\) [\#419](https://github.com/openeuropa/oe_whitelabel/pull/419) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+- OEL-4032: Use 'gap' for icon spacing in button and link [\#414](https://github.com/openeuropa/oe_whitelabel/pull/414) ([tibi2303](https://github.com/tibi2303))
+- OEL-3916: Paragraph oe\_accordion was ignoring field display settings. [\#367](https://github.com/openeuropa/oe_whitelabel/pull/367) ([julien-](https://github.com/julien-))
+- OEL-4522: Stabilize media sizes for AV Portal media tests. [\#423](https://github.com/openeuropa/oe_whitelabel/pull/423) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Use drush cset for error level, don't write to settings.override.php. [\#417](https://github.com/openeuropa/oe_whitelabel/pull/417) ([donquixote](https://github.com/donquixote))
+- OEL-4455: Require \(dev\) drupal/modal\_page:^6.0-beta11 [\#416](https://github.com/openeuropa/oe_whitelabel/pull/416) ([donquixote](https://github.com/donquixote))
+- OEL-4455: Use new patch for modal\_page. [\#413](https://github.com/openeuropa/oe_whitelabel/pull/413) ([donquixote](https://github.com/donquixote))
+- OEL-4455: Use \#\[LegacyHook\] pattern in oe\_whitelabel\_modal\_page [\#408](https://github.com/openeuropa/oe_whitelabel/pull/408) ([donquixote](https://github.com/donquixote))
+
+## [1.29.1](https://github.com/openeuropa/oe_whitelabel/tree/1.29.1) (2026-02-18)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.30.0...1.29.1)
+
+## [1.29.0](https://github.com/openeuropa/oe_whitelabel/tree/1.29.0) (2026-01-21)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.28.0...1.29.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.29.0. [\#410](https://github.com/openeuropa/oe_whitelabel/pull/410) ([tibi2303](https://github.com/tibi2303))
 - OEL-0000: Update triple store path. [\#409](https://github.com/openeuropa/oe_whitelabel/pull/409) ([tibi2303](https://github.com/tibi2303))
 - OEL-3732: Update oe\_bt. [\#405](https://github.com/openeuropa/oe_whitelabel/pull/405) ([tibi2303](https://github.com/tibi2303))
 - OEL-4426: Removed obsolete drupal versions. [\#404](https://github.com/openeuropa/oe_whitelabel/pull/404) ([tibi2303](https://github.com/tibi2303))

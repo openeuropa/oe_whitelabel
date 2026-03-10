@@ -97,6 +97,32 @@ Enable the theme and set as default:
 ./vendor/bin/drush config-set system.theme default oe_whitelabel
 ```
 
+### Media copyright text
+
+The theme ships recipes and view modes that add a reusable copyright field to
+media types (images and AV Portal photos).
+
+Apply the recipes (they are not auto-applied):
+
+```bash
+# Run in your Drupal root where the theme is installed.
+./vendor/bin/drush recipe "/var/www/html/build/themes/contrib/oe_whitelabel/recipes/media_image_copyright"
+./vendor/bin/drush recipe "/var/www/html/build/themes/contrib/oe_whitelabel/recipes/media_av_portal_photo_copyright"
+```
+
+In this repository's default `runner.yml.dist` setup, these recipes are applied
+automatically during site provisioning.
+
+Then:
+
+1. Fill `field_media_copyright` on your media items (or set a default/backfill).
+
+Once the field has values, the copyright text appears automatically in banner,
+carousel, gallery, and featured media patterns.
+
+For the `Listing item` paragraph, image copyright is configured with the
+dedicated `field_oe_image_copyright` field on the paragraph, not from media.
+
 ## Development setup
 
 ### Using LAMP stack or similar
@@ -181,7 +207,7 @@ docker-compose exec web ./vendor/bin/run toolkit:code-review
 
 #### Run phpunit tests
 
-To run the phpunit tests:
+To run all phpunit tests:
 
 ```bash
 docker-compose exec web ./vendor/bin/phpunit
@@ -189,6 +215,18 @@ docker-compose exec web ./vendor/bin/phpunit
 or, using the toolkit command as in the pipeline:
 ```bash
 docker-compose exec web ./vendor/bin/run toolkit:test-phpunit --junit
+```
+
+To run a specific test class:
+
+```bash
+docker-compose exec web ./vendor/bin/phpunit --testdox modules/oe_whitelabel_paragraphs/tests/src/Functional/ParagraphsTest.php
+```
+
+To run a single test method, use `--filter`:
+
+```bash
+docker-compose exec web ./vendor/bin/phpunit --testdox modules/oe_whitelabel_paragraphs/tests/src/Functional/ParagraphsTest.php --filter=testAccordionParagraph
 ```
 
 ## Rebuild assets during development

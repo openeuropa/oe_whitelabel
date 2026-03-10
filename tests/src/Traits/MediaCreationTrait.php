@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_whitelabel\Traits;
 
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\file\Entity\File;
 use Drupal\media\MediaInterface;
 
@@ -204,6 +205,53 @@ trait MediaCreationTrait {
     $media = call_user_func($callable, $values);
 
     return $media;
+  }
+
+  /**
+   * Gets image dimensions for an image field item.
+   *
+   * Uses stored dimensions when available, otherwise falls back to the image
+   * file to keep test expectations stable.
+   *
+   * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
+   *   The entity containing the image field.
+   * @param string $field
+   *   The image field machine name.
+   *
+   * @return int[]
+   *   The image width and height.
+   */
+  protected function getImageDimensions(FieldableEntityInterface $entity, string $field): array {
+    if (!$entity->hasField($field)) {
+      $this->fail(sprintf('Field "%s" is missing on entity type "%s".', $field, $entity->getEntityTypeId()));
+    }
+
+    // Fail fast when the field item is empty.
+    $item = $entity->get($field)->first();
+    if (!$item) {
+      $this->fail(sprintf('Field "%s" on entity type "%s" has no items.', $field, $entity->getEntityTypeId()));
+    }
+
+    $values = $item->getValue();
+    $width = (int) ($values['width'] ?? 0);
+    $height = (int) ($values['height'] ?? 0);
+    // Use stored dimensions when available.
+    if ($width > 0 && $height > 0) {
+      return [$width, $height];
+    }
+
+    // Fall back to the file to determine dimensions.
+    $uri = $item->entity?->getFileUri();
+    if (!$uri) {
+      $this->fail(sprintf('Field "%s" on entity type "%s" has no file to read dimensions from.', $field, $entity->getEntityTypeId()));
+    }
+
+    $image = \Drupal::service('image.factory')->get($uri);
+    if (!$image->isValid()) {
+      $this->fail(sprintf('Failed to read image dimensions from "%s".', $uri));
+    }
+
+    return [$image->getWidth(), $image->getHeight()];
   }
 
 }

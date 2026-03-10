@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CarouselPatternAssert;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\paragraphs\Entity\Paragraph;
@@ -50,6 +52,7 @@ class CarouselTest extends ParagraphsTestBase {
     // Call the install hook of the Media module.
     $this->container->get('module_handler')->loadInclude('media', 'install');
     media_install();
+    $this->installMediaCopyrightField(['image', 'av_portal_photo']);
 
     ConfigurableLanguage::createFromLangcode('bg')->save();
   }
@@ -87,6 +90,7 @@ class CarouselTest extends ParagraphsTestBase {
     $image_media = $media_storage->create([
       'bundle' => 'image',
       'name' => 'First image en',
+      'field_media_copyright' => 'Image copyright EN',
       'oe_media_image' => [
         'target_id' => $en_image->id(),
       ],
@@ -94,6 +98,7 @@ class CarouselTest extends ParagraphsTestBase {
     $image_media->save();
     $bg_image_translation = $image_media->addTranslation('bg', [
       'name' => 'First image bg',
+      'field_media_copyright' => 'Image copyright BG',
       'oe_media_image' => [
         'target_id' => $bg_image->id(),
       ],
@@ -102,11 +107,13 @@ class CarouselTest extends ParagraphsTestBase {
 
     $av_photo_media = $media_storage->create([
       'bundle' => 'av_portal_photo',
+      'field_media_copyright' => 'AV photo copyright EN',
       'oe_media_avportal_photo' => 'P-038924/00-15',
     ]);
     $av_photo_media->save();
     $bg_av_photo_translation = $av_photo_media->addTranslation('bg', [
       'name' => 'AV Portal photo bg',
+      'field_media_copyright' => 'AV photo copyright BG',
     ] + $av_photo_media->toArray());
     $bg_av_photo_translation->save();
 
@@ -191,8 +198,13 @@ class CarouselTest extends ParagraphsTestBase {
     // by the carousel pattern.
     $crawler = new Crawler($html);
     $slides = $crawler->filter('.carousel .carousel-inner .carousel-item');
+    $copyright_selector = '.bcl-copyright';
     $this->assertEquals('Item description 2', $slides->eq(1)->filter('.carousel-caption p')->html());
     $this->assertEquals('Item description 4', $slides->eq(3)->filter('.carousel-caption p')->html());
+    $this->assertEquals('Image copyright EN', trim($slides->eq(0)->filter($copyright_selector)->text()));
+    $this->assertEquals('AV photo copyright EN', trim($slides->eq(1)->filter($copyright_selector)->text()));
+    $this->assertEquals('Image copyright EN', trim($slides->eq(2)->filter($copyright_selector)->text()));
+    $this->assertEquals('AV photo copyright EN', trim($slides->eq(3)->filter($copyright_selector)->text()));
 
     // Assert paragraph rendering for Bulgarian version.
     $html = $this->renderParagraph($paragraph, 'bg');
@@ -234,6 +246,40 @@ class CarouselTest extends ParagraphsTestBase {
     ];
 
     $assert->assertPattern($expected_values, $html);
+
+    $crawler = new Crawler($html);
+    $slides = $crawler->filter('.carousel .carousel-inner .carousel-item');
+    $this->assertEquals('Image copyright BG', trim($slides->eq(0)->filter($copyright_selector)->text()));
+    $this->assertEquals('AV photo copyright BG', trim($slides->eq(1)->filter($copyright_selector)->text()));
+    $this->assertEquals('Image copyright BG', trim($slides->eq(2)->filter($copyright_selector)->text()));
+    $this->assertEquals('AV photo copyright BG', trim($slides->eq(3)->filter($copyright_selector)->text()));
+  }
+
+  /**
+   * Creates the media copyright field and attaches it to media bundles.
+   *
+   * @param string[] $bundles
+   *   The media bundles.
+   */
+  protected function installMediaCopyrightField(array $bundles): void {
+    if (!FieldStorageConfig::loadByName('media', 'field_media_copyright')) {
+      FieldStorageConfig::create([
+        'field_name' => 'field_media_copyright',
+        'entity_type' => 'media',
+        'type' => 'string',
+      ])->save();
+    }
+
+    foreach ($bundles as $bundle) {
+      if (!FieldConfig::loadByName('media', $bundle, 'field_media_copyright')) {
+        FieldConfig::create([
+          'field_name' => 'field_media_copyright',
+          'entity_type' => 'media',
+          'bundle' => $bundle,
+          'label' => 'Copyright',
+        ])->save();
+      }
+    }
   }
 
 }

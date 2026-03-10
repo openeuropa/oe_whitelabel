@@ -35,18 +35,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     $page = $this->getSession()->getPage();
     $assert_session = $this->assertSession();
 
-    // Create some test nodes.
-    for ($i = 0; $i < 12; $i++) {
-      $values = [
-        'title' => 'News number ' . $i,
-        'type' => 'oe_sc_news',
-        'body' => 'This is content number ' . $i,
-        'status' => NodeInterface::PUBLISHED,
-        'created' => '2020-10-20',
-      ];
-      $node = Node::create($values);
-      $node->save();
-    }
+    $this->createNewsItems(12);
 
     $this->indexItems('oe_whitelabel_list_page_index_test');
     $list_page = $this->createListPage();
@@ -86,12 +75,60 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
   }
 
   /**
+   * Tests list page rendering without filters in the sidebar.
+   */
+  public function testListPageRenderingWithoutFilters(): void {
+    $assert_session = $this->assertSession();
+
+    $this->createNewsItems(12);
+
+    $this->indexItems('oe_whitelabel_list_page_index_test');
+    $list_page = $this->createListPage([
+      'exposed_filters' => [],
+    ]);
+    $this->drupalGet($list_page->toUrl());
+
+    $assert_session->elementsCount('css', 'div.row > .bcl-sidebar.col-lg-3', 0);
+    $assert_session->elementsCount('css', 'div.bcl-offcanvas', 0);
+
+    $right_column = $assert_session->elementExists('css', 'div.row > .col-lg-9');
+    $this->assertFacetsSummaryTitle(12, $right_column);
+    $this->assertExposedSort($right_column);
+    $this->assertActiveFilterBadges([], $right_column);
+    $this->assertListing(10, $right_column);
+    $this->assertPager(4, $right_column);
+  }
+
+  /**
+   * Create some news items for the list page.
+   *
+   * @param int $count
+   *   Number of items to create.
+   */
+  protected function createNewsItems(int $count): void {
+    for ($i = 0; $i < $count; $i++) {
+      $values = [
+        'title' => 'News number ' . $i,
+        'type' => 'oe_sc_news',
+        'body' => 'This is content number ' . $i,
+        'status' => NodeInterface::PUBLISHED,
+        'created' => '2020-10-20',
+      ];
+      $node = Node::create($values);
+      $node->save();
+    }
+  }
+
+  /**
    * Create a list page node with filters configured.
+   *
+   * @param array $configuration
+   *   Configuration overrides for the list page.
    *
    * @return \Drupal\node\NodeInterface
    *   The list page node created.
    */
-  protected function createListPage(): NodeInterface {
+  protected function createListPage(array $configuration = []): NodeInterface {
     $list_page = Node::create([
       'type' => 'oe_list_page',
       'title' => 'News list page',
@@ -102,7 +139,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
     /** @var \Drupal\oe_list_pages\ListPageWrapper $list_page_entity_meta_wrapper */
     $list_page_entity_meta_wrapper = $list_page_entity_meta->getWrapper();
     $list_page_entity_meta_wrapper->setSource('node', 'oe_sc_news');
-    $list_page_entity_meta_wrapper->setConfiguration([
+    $list_page_entity_meta_wrapper->setConfiguration(array_merge([
       'override_exposed_filters' => 1,
       'exposed_filters' => [
         'oe_sc_news_title' => 'oe_sc_news_title',
@@ -111,7 +148,7 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
       'preset_filters' => [],
       'limit' => 10,
       'sort' => [],
-    ]);
+    ], $configuration));
     $list_page->get('emr_entity_metas')->attach($list_page_entity_meta);
     $list_page->save();
 

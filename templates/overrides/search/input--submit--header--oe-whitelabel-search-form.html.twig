@@ -7,18 +7,6 @@
  */
 #}
 {% set label %}
-  {{ pattern('icon', {
-    'name': 'search',
-    'path': bcl_icon_path,
-    'size': 's',
-    'attributes': create_attribute({
-      'class': [
-        'd-inline-block',
-        'me-md-2-5',
-        'bcl-search-form__btn_icon',
-      ]
-    })
-  }) }}
   {% if element['#value'] is not empty %}
     <span class="d-none d-lg-inline-block">{{ element['#value']|t }}</span>
   {% endif %}
@@ -26,6 +14,12 @@
 {{ pattern('button', {
   'variant': 'primary',
   'label': label,
+  'icon': {
+    'name': 'search',
+    'path': bcl_icon_path,
+    'attributes': create_attribute().addClass(['bcl-search-form__btn_icon']),
+  },
+  'icon_position': 'before',
   'type': 'submit',
   'attributes': attributes
     .addClass([

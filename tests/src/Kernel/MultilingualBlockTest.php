@@ -25,6 +25,7 @@ class MultilingualBlockTest extends KernelTestBase {
     'system',
     'ui_patterns',
     'ui_patterns_library',
+    'ui_patterns_settings',
   ];
 
   /**
@@ -81,6 +82,8 @@ class MultilingualBlockTest extends KernelTestBase {
     $this->assertSame('#', $link->attr('href'));
     $link_classes = $link->attr('class') ?? '';
     $this->assertStringContainsString('top-navigation-link', $link_classes);
+    $this->assertStringContainsString('d-inline-flex', $link_classes);
+    $this->assertStringContainsString('gap-2-5', $link_classes);
     $icon = $link->filter('svg');
     $this->assertCount(1, $icon);
     $icon_classes = $icon->attr('class') ?? '';

@@ -12,7 +12,7 @@
         "drupal/daterange_compact": "^2.0.1",
         "drupal/twig_field_value": "^2.0.2",
         "openeuropa/composer-artifacts": "^1.0.0-alpha1",
-        "openeuropa/oe_bootstrap_theme": "^1.32"
+        "openeuropa/oe_bootstrap_theme": "0.1.202603061400 as 1.32.0"
     },
     "require-dev": {
         "composer/installers": "^1.11 || ^2.3",
@@ -27,7 +27,7 @@
         "drupal/extra_field": "^2.3 || ^3.0@beta",
         "drupal/facets_form": "^1.0.0-alpha6",
         "drupal/field_group": "^3.4",
-        "drupal/modal_page": "^6.0-beta10",
+        "drupal/modal_page": "^6.0-beta11",
         "drupal/paragraphs": "^1.17",
         "drupal/search_api": "^1.29",
         "drupal/search_api_autocomplete": "^1.7",
@@ -76,7 +76,6 @@
     "extra": {
         "patches": {
             "drupal/modal_page": {
-                "Support for less-intrusive dialogs via Bootstrap Toasts: https://www.drupal.org/project/modal_page/issues/3535144": "https://www.drupal.org/files/issues/2026-02-04/modal_page-3535144-26.patch",
                 "Improve cache invalidation process: https://www.drupal.org/project/modal_page/issues/3555830": "https://www.drupal.org/files/issues/2026-01-09/3555830-14.patch",
                 "Allow modal entity management without granting access to global module config: https://www.drupal.org/project/modal_page/issues/3559425": "https://www.drupal.org/files/issues/2025-11-25/3559425-5.patch"
             }
