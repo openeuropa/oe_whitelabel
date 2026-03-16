@@ -6,7 +6,6 @@ core_version_requirement: ^10 || ^11
 
 dependencies:
   - drupal:node
-  - drupal:node_storage_body_field
   - twig_field_value:twig_field_value
   - daterange_compact:daterange_compact
   - oe_bootstrap_theme:oe_bootstrap_theme_helper
