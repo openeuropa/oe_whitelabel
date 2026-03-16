@@ -54,7 +54,19 @@ class FooterBlockTest extends SparqlKernelTestBase {
       ->set('name', 'Footer block test website')
       ->save();
 
+    $base_url = $_ENV['SIMPLETEST_BASE_URL'];
+    $this->import($base_url, $this->sparql, 'phpunit');
     $this->enableGraph('fruit');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function tearDown(): void {
+    $base_url = $_ENV['SIMPLETEST_BASE_URL'];
+    $this->clear($base_url, $this->sparql, 'phpunit');
+
+    parent::tearDown();
   }
 
   /**
@@ -259,6 +271,24 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
 
     return new Crawler($render->__toString());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getTestGraphInfo(string $base_url, string $test): array {
+    $module_path = \Drupal::service('extension.list.module')->getPath('rdf_skos');
+
+    return [
+      'fruit' => [
+        'uri' => "http://example.com/fruit/$test",
+        'data' => "$base_url/$module_path/tests/test_rdf/fruit.rdf",
+      ],
+      'vegetables' => [
+        'uri' => "http://example.com/vegetables/$test",
+        'data' => "$base_url/$module_path/tests/test_rdf/vegetables.rdf",
+      ],
+    ];
   }
 
 }
