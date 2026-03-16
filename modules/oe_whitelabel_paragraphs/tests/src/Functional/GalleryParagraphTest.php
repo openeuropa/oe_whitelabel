@@ -31,9 +31,6 @@ class GalleryParagraphTest extends BrowserTestBase {
    */
   protected static $modules = [
     'oe_media_oembed_mock',
-    'oe_content',
-    'oe_content_timeline_field',
-    'oe_paragraphs_timeline',
     'oe_paragraphs_gallery',
     'oe_whitelabel_paragraphs',
   ];

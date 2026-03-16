@@ -22,6 +22,7 @@ class ProjectRenderTest extends ContentRenderTestBase {
   protected static $modules = [
     'datetime_range',
     'image',
+    'node_storage_body_field',
     'oe_content_featured_media_field',
     'oe_content_project',
     'oe_content_extra',

@@ -19,10 +19,11 @@ class TimelineParagraphTest extends ParagraphsTestBase {
   protected static $modules = [
     'maxlength',
     'oe_content',
-    'oe_paragraphs_timeline',
     'oe_content_timeline_field',
     'node',
+    'oe_paragraphs_timeline',
     'rdf_skos',
+    'sparql_entity_storage',
   ];
 
   /**

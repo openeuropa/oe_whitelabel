@@ -138,6 +138,8 @@ class InstallTest extends BrowserTestBase {
 
     /** @var \Drupal\Core\Extension\ModuleInstallerInterface $installer */
     $installer = \Drupal::service('module_installer');
+    // timeline_widget extends a base widget class provided by oe_content.
+    $installer->install(['oe_content']);
     $installer->install(['oe_whitelabel_paragraphs']);
 
     $this->assertTrue(

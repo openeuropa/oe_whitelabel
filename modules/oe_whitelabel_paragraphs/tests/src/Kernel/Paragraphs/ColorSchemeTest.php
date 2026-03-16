@@ -29,6 +29,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
     'oe_paragraphs_gallery',
     'oe_paragraphs_timeline',
     'rdf_skos',
+    'sparql_entity_storage',
   ];
 
   /**
