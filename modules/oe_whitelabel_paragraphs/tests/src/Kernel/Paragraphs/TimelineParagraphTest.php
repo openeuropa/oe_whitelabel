@@ -17,9 +17,12 @@ class TimelineParagraphTest extends ParagraphsTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'maxlength',
+    'oe_content',
     'oe_paragraphs_timeline',
     'oe_content_timeline_field',
     'node',
+    'rdf_skos',
   ];
 
   /**
@@ -29,8 +32,8 @@ class TimelineParagraphTest extends ParagraphsTestBase {
     parent::setUp();
 
     $this->installConfig([
-      'oe_paragraphs_timeline',
       'oe_content_timeline_field',
+      'oe_paragraphs_timeline',
       'node',
     ]);
 

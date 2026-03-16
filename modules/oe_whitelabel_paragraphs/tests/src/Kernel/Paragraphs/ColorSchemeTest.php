@@ -20,12 +20,15 @@ class ColorSchemeTest extends ParagraphsTestBase {
   protected static $modules = [
     'composite_reference',
     'color_scheme_field',
+    'maxlength',
+    'oe_content',
     'oe_content_timeline_field',
     'oe_paragraphs_media_field_storage',
     'oe_paragraphs_carousel',
     'oe_paragraphs_document',
     'oe_paragraphs_gallery',
     'oe_paragraphs_timeline',
+    'rdf_skos',
   ];
 
   /**
@@ -37,6 +40,7 @@ class ColorSchemeTest extends ParagraphsTestBase {
     $this->installConfig([
       'media',
       'oe_media',
+      'oe_content_timeline_field',
       'oe_paragraphs_media_field_storage',
       'oe_paragraphs_banner',
       'oe_paragraphs_carousel',

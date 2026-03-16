@@ -25,6 +25,9 @@ class ParagraphsTest extends BrowserTestBase {
   protected static $modules = [
     'node',
     'composite_reference',
+    'oe_content',
+    'oe_content_timeline_field',
+    'oe_paragraphs_timeline',
     'oe_paragraphs_carousel',
     'oe_whitelabel_paragraphs',
   ];
