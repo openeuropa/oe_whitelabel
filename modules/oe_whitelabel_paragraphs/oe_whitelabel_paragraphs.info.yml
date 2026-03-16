@@ -5,6 +5,7 @@ package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^10 || ^11
 dependencies:
   - description_list_field:description_list_field
+  - drupal:node_storage_body_field
   - oe_content:oe_content_timeline_field
   - oe_paragraphs:oe_paragraphs
   - oe_paragraphs:oe_paragraphs_description_list

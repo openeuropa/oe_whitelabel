@@ -39,7 +39,6 @@ class ProjectRenderTest extends ContentRenderTestBase {
     parent::setUp();
 
     $this->installConfig([
-      'node_storage_body_field',
       'oe_content_documents_field',
       'oe_content_featured_media_field',
       'oe_content_project',
