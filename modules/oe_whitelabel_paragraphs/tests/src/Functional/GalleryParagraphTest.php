@@ -26,10 +26,18 @@ use Symfony\Component\DomCrawler\Crawler;
 class GalleryParagraphTest extends BrowserTestBase {
 
   use MediaCreationTrait;
+
   /**
    * {@inheritdoc}
    */
   protected static $modules = [
+    // The 'timeline_widget' widget needed in this test is defined in the
+    // 'oe_content_timeline_field' widget, but uses a base class from
+    // 'oe_content'. However, 'oe_content_timeline_field' does not declare a
+    // dependency to 'oe_content'. Therefore 'oe_content' needs to be enabled
+    // separately.
+    // @todo Review this when newer versions of oe_content are released.
+    'oe_content',
     'oe_media_oembed_mock',
     'oe_paragraphs_gallery',
     'oe_whitelabel_paragraphs',
