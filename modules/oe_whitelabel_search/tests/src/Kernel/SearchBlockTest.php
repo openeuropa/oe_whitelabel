@@ -186,6 +186,7 @@ class SearchBlockTest extends KernelTestBase {
           'name' => 'search_api_fulltext',
           'label' => 'Search',
           'placeholder' => 'Search',
+          'required' => TRUE,
         ],
         'button' => [
           'label' => 'Search',
@@ -236,6 +237,60 @@ class SearchBlockTest extends KernelTestBase {
     $label = $button->filter('span.d-none.d-lg-inline-block');
     $this->assertCount(1, $label);
     $this->assertEquals('Search', $label->text());
+  }
+
+  /**
+   * Tests the header search block input is not required when configured so.
+   */
+  public function testHeaderSearchBlockInputNotRequired(): void {
+    $block_entity_storage = $this->container
+      ->get('entity_type.manager')
+      ->getStorage('block');
+
+    $entity = $block_entity_storage->create([
+      'id' => 'whitelabel_search_block_not_required',
+      'theme' => 'oe_whitelabel',
+      'plugin' => 'whitelabel_search_block',
+      'settings' => [
+        'id' => 'whitelabel_search_block_not_required',
+        'label' => 'Header Search block (not required)',
+        'provider' => 'oe_whitelabel_search',
+        'form' => [
+          'action' => 'search',
+          'region' => 'header',
+        ],
+        'input' => [
+          'name' => 'search_api_fulltext',
+          'label' => 'Search',
+          'placeholder' => 'Search',
+          'required' => FALSE,
+        ],
+        'button' => [
+          'label' => 'Search',
+        ],
+        'view_options' => [
+          'enable_autocomplete' => TRUE,
+          'id' => 'search_api_autocomplete_test_view',
+          'display' => 'default',
+        ],
+      ],
+    ]);
+    $entity->save();
+
+    $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
+    $build = $builder->view($entity, 'block');
+    $render = $this->container->get('renderer')->renderRoot($build);
+    $crawler = new Crawler($render->__toString());
+
+    $input = $crawler->filter('input[name="search_input"]');
+    $this->assertCount(1, $input);
+
+    // When not required, no "required" HTML attribute should be present.
+    $this->assertNull($input->attr('required'));
+
+    // And the "required" CSS class should not be present.
+    $classes = $input->attr('class') ?? '';
+    $this->assertStringNotContainsString('required', $classes);
   }
 
 }
