@@ -1,11 +1,23 @@
 # Changelog
 
+## [1.31.0](https://github.com/openeuropa/oe_whitelabel/tree/1.31.0) (2026-03-25)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.30.0...1.31.0)
+
+**Merged pull requests:**
+
+- OEL-0000: Update oe\_bt and modal\_page. [\#430](https://github.com/openeuropa/oe_whitelabel/pull/430) ([tibi2303](https://github.com/tibi2303))
+- UCPKN-928: Add option to configure required state of search block input. [\#418](https://github.com/openeuropa/oe_whitelabel/pull/418) ([peterserfozo](https://github.com/peterserfozo))
+- OEL-3347: Update banner template for copyright. [\#412](https://github.com/openeuropa/oe_whitelabel/pull/412) ([tibi2303](https://github.com/tibi2303))
+- OEL-3899: Add placeholder to slim select elements [\#411](https://github.com/openeuropa/oe_whitelabel/pull/411) ([piotrsmykaj](https://github.com/piotrsmykaj))
+
 ## [1.30.0](https://github.com/openeuropa/oe_whitelabel/tree/1.30.0) (2026-02-25)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.29.1...1.30.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.30.0. [\#426](https://github.com/openeuropa/oe_whitelabel/pull/426) ([tibi2303](https://github.com/tibi2303))
 - OEL-0000: Fixed oe\_bt vers. [\#425](https://github.com/openeuropa/oe_whitelabel/pull/425) ([tibi2303](https://github.com/tibi2303))
 - OEL-4335: Cover empty-filters sidebar rendering. [\#424](https://github.com/openeuropa/oe_whitelabel/pull/424) ([tibi2303](https://github.com/tibi2303))
 - OEL-3916 \(Trigger pipeline\) [\#419](https://github.com/openeuropa/oe_whitelabel/pull/419) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
