@@ -214,8 +214,6 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
   $color_scheme_preprocess->injectColorScheme($variables, [
     'text_colored' => TRUE,
   ]);
-  $builder = \Drupal::entityTypeManager()->getViewBuilder('paragraph');
-  $cacheability = CacheableMetadata::createFromRenderArray($variables);
 
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
@@ -239,8 +237,6 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
   foreach ($variables['paragraph']->get('field_oe_paragraphs')->referencedEntities() as $paragraph_item) {
     /** @var \Drupal\paragraphs\ParagraphInterface $card_paragraph */
     $card_paragraph = \Drupal::service('entity.repository')->getTranslationFromContext($paragraph_item);
-    $display = \Drupal::service('entity_display.repository')->getViewDisplay('paragraph', $card_paragraph->bundle(), $variables['view_mode'] ?? 'default');
-    $cacheability->addCacheableDependency($display);
     $card_image_item = $card_paragraph->get('field_oe_image')->first();
     $card_image = $card_image_item ? ImageValueObject::fromImageItem($card_image_item) : NULL;
 
@@ -252,13 +248,15 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
 
     /** @var \Drupal\link\LinkItemInterface|null $card_link_item */
     $card_link_item = $card_paragraph->get('field_oe_link')->first();
-    $content_settings = $display->getComponent('field_oe_text_long');
     $card_text = NULL;
-    if (
-      $content_settings &&
-      !$card_paragraph->get('field_oe_text_long')->isEmpty()
-    ) {
-      $card_text = $builder->viewField($card_paragraph->get('field_oe_text_long'), $content_settings);
+    if (!$card_paragraph->get('field_oe_text_long')->isEmpty()) {
+      $text_item = $card_paragraph->get('field_oe_text_long')->first();
+      $card_text = [
+        '#type' => 'processed_text',
+        '#text' => $text_item->value,
+        '#format' => $text_item->format,
+        '#langcode' => $text_item->getLangcode(),
+      ];
     }
     $item = [
       'title' => $card_paragraph->get('field_oe_title')->value,
@@ -287,8 +285,6 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
       'name' => 'chevron-right',
     ],
   ] : NULL;
-
-  $cacheability->applyTo($variables);
 }
 
 /**

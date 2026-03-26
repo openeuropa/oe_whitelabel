@@ -238,7 +238,7 @@ class ListingParagraphsTest extends ParagraphsTestBase {
   }
 
   /**
-   * Asserts formatted listing text renders through the field formatter.
+   * Asserts formatted listing text renders through processed text filtering.
    */
   protected function assertRichTextRendering(Crawler $crawler, string $selectorPrefix): void {
     $this->assertCount(1, $crawler->filter($selectorPrefix . ' p#listing-rich-text'));
