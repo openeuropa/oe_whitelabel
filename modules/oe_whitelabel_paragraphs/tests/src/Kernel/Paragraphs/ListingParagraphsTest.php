@@ -157,6 +157,14 @@ class ListingParagraphsTest extends ParagraphsTestBase {
       'format' => 'filtered_html',
       'name' => 'Filtered HTML',
       'weight' => 0,
+      'filters' => [
+        'filter_html' => [
+          'status' => 1,
+          'settings' => [
+            'allowed_html' => '<p> <strong> <em> <a href>',
+          ],
+        ],
+      ],
     ])->save();
 
     $field_config = FieldConfig::load('paragraph.oe_list_item.field_oe_text_long');
@@ -169,7 +177,7 @@ class ListingParagraphsTest extends ParagraphsTestBase {
       'type' => 'oe_list_item',
       'field_oe_title' => 'Item title 1',
       'field_oe_text_long' => [
-        'value' => '<p id="listing-rich-text">I add a text with <strong>bolds</strong>, <em>italic</em> and <a href="https://www.google.es">loopy link</a></p>',
+        'value' => '<p>I add a text with <strong>bolds</strong>, <em>italic</em>, <span class="stripped">wrapped text</span>, <code>inline code</code>, <mark>highlighted text</mark> and <a href="https://www.google.es" target="_blank" class="extra-class">loopy link</a>.</p>',
         'format' => 'filtered_html',
       ],
     ]);
@@ -241,13 +249,11 @@ class ListingParagraphsTest extends ParagraphsTestBase {
    * Asserts formatted listing text renders through processed text filtering.
    */
   protected function assertRichTextRendering(Crawler $crawler, string $selectorPrefix): void {
-    $this->assertCount(1, $crawler->filter($selectorPrefix . ' p#listing-rich-text'));
-    $this->assertCount(1, $crawler->filter($selectorPrefix . ' strong'));
-    $this->assertCount(1, $crawler->filter($selectorPrefix . ' em'));
-    $this->assertCount(1, $crawler->filter($selectorPrefix . ' a[href="https://www.google.es"]'));
-    $this->assertSame('bolds', trim($crawler->filter($selectorPrefix . ' strong')->html()));
-    $this->assertSame('italic', trim($crawler->filter($selectorPrefix . ' em')->html()));
-    $this->assertSame('loopy link', trim($crawler->filter($selectorPrefix . ' a[href="https://www.google.es"]')->html()));
+    $this->assertCount(1, $crawler->filter($selectorPrefix));
+    $this->assertSame(
+      '<p>I add a text with <strong>bolds</strong>, <em>italic</em>, wrapped text, inline code, highlighted text and <a href="https://www.google.es">loopy link</a>.</p>',
+      trim($crawler->filter($selectorPrefix)->html())
+    );
   }
 
 }
