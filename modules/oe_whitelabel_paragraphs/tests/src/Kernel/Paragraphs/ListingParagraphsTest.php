@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
 use Drupal\Tests\TestFileCreationTrait;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\filter\Entity\FilterFormat;
 use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\Tests\oe_whitelabel_paragraphs\Kernel\PatternAssertions\ListingAssertion;
@@ -148,6 +150,53 @@ class ListingParagraphsTest extends ParagraphsTestBase {
   }
 
   /**
+   * Tests list item block rendering with formatted text.
+   */
+  public function testListingRichText(): void {
+    FilterFormat::create([
+      'format' => 'filtered_html',
+      'name' => 'Filtered HTML',
+      'weight' => 0,
+    ])->save();
+
+    $field_config = FieldConfig::load('paragraph.oe_list_item.field_oe_text_long');
+    $this->assertNotNull($field_config);
+    $settings = $field_config->get('settings');
+    $settings['allowed_formats'] = ['plain_text', 'filtered_html'];
+    $field_config->set('settings', $settings)->save();
+
+    $list_item = Paragraph::create([
+      'type' => 'oe_list_item',
+      'field_oe_title' => 'Item title 1',
+      'field_oe_text_long' => [
+        'value' => '<p id="listing-rich-text">I add a text with <strong>bolds</strong>, <em>italic</em> and <a href="https://www.google.es">loopy link</a></p>',
+        'format' => 'filtered_html',
+      ],
+    ]);
+    $list_item->save();
+
+    $paragraph = Paragraph::create([
+      'type' => 'oe_list_item_block',
+      'oe_paragraphs_variant' => 'default',
+      'field_oe_list_item_block_layout' => 'one_column',
+      'field_oe_title' => 'Listing item block title',
+      'field_oe_paragraphs' => [$list_item],
+    ]);
+    $paragraph->save();
+
+    $html = $this->renderParagraph($paragraph);
+    $crawler = new Crawler($html);
+    $this->assertRichTextRendering($crawler, 'article.listing-item .card-text');
+
+    $paragraph->get('oe_paragraphs_variant')->setValue('highlight');
+    $paragraph->save();
+
+    $html = $this->renderParagraph($paragraph);
+    $crawler = new Crawler($html);
+    $this->assertRichTextRendering($crawler, 'article.listing-item--highlight .card-text');
+  }
+
+  /**
    * Assert default variant of Listing is rendering correctly.
    *
    * @param \Drupal\file\Entity\File $image_file
@@ -186,6 +235,19 @@ class ListingParagraphsTest extends ParagraphsTestBase {
     }
 
     return $items;
+  }
+
+  /**
+   * Asserts formatted listing text renders through the field formatter.
+   */
+  protected function assertRichTextRendering(Crawler $crawler, string $selectorPrefix): void {
+    $this->assertCount(1, $crawler->filter($selectorPrefix . ' p#listing-rich-text'));
+    $this->assertCount(1, $crawler->filter($selectorPrefix . ' strong'));
+    $this->assertCount(1, $crawler->filter($selectorPrefix . ' em'));
+    $this->assertCount(1, $crawler->filter($selectorPrefix . ' a[href="https://www.google.es"]'));
+    $this->assertSame('bolds', trim($crawler->filter($selectorPrefix . ' strong')->html()));
+    $this->assertSame('italic', trim($crawler->filter($selectorPrefix . ' em')->html()));
+    $this->assertSame('loopy link', trim($crawler->filter($selectorPrefix . ' a[href="https://www.google.es"]')->html()));
   }
 
 }
