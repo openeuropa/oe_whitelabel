@@ -248,10 +248,20 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
 
     /** @var \Drupal\link\LinkItemInterface|null $card_link_item */
     $card_link_item = $card_paragraph->get('field_oe_link')->first();
+    $card_text = NULL;
+    if (!$card_paragraph->get('field_oe_text_long')->isEmpty()) {
+      $text_item = $card_paragraph->get('field_oe_text_long')->first();
+      $card_text = [
+        '#type' => 'processed_text',
+        '#text' => $text_item->value,
+        '#format' => $text_item->format,
+        '#langcode' => $text_item->getLangcode(),
+      ];
+    }
     $item = [
       'title' => $card_paragraph->get('field_oe_title')->value,
       'url' => $card_link_item ? $card_link_item->getUrl() : '',
-      'text' => $card_paragraph->get('field_oe_text_long')->value,
+      'text' => $card_text,
       'image' => $card_image,
       'badges' => $card_badges,
     ];
