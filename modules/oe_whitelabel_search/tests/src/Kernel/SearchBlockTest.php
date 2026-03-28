@@ -231,8 +231,7 @@ class SearchBlockTest extends KernelTestBase {
     $this->assertStringContainsString('btn', $button->attr('class'));
     $this->assertStringContainsString('btn-primary', $button->attr('class'));
     $this->assertStringContainsString('btn-md', $button->attr('class'));
-    $this->assertStringContainsString('gap-2-5', $button->attr('class'));
-    $icon = $button->filter('.bi.icon--fluid.bcl-search-form__btn_icon');
+    $icon = $button->filter('.bi.icon--s.me-md-2-5.bcl-search-form__btn_icon');
     $this->assertCount(1, $icon);
     $label = $button->filter('span.d-none.d-lg-inline-block');
     $this->assertCount(1, $label);
