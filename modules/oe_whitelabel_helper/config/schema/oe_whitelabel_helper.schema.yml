@@ -34,6 +34,24 @@ field.formatter.settings.oe_whitelabel_helper_gallery:
   type: mapping
   label: 'Gallery formatter settings'
 
+field.formatter.settings.extra_field_extra_title:
+  type: mapping
+  label: 'Extra field title formatter settings'
+  mapping:
+    attributes:
+      type: string
+      label: 'HTML attributes'
+    link_to_entity:
+      type: string
+      label: 'Link to entity'
+    wrapper:
+      type: string
+      label: 'Wrapper HTML tag'
+
+field.formatter.settings.extra_field_extra_media_title:
+  type: field.formatter.settings.extra_field_extra_title
+  label: 'Extra field media name formatter settings'
+
 field.formatter.third_party.oe_whitelabel_helper:
   type: mapping
   label: 'OpenEuropa Whitelabel Helper third party setting'
