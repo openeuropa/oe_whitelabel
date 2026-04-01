@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\oe_whitelabel_helper\Plugin\ExtraField\Display;
+namespace Drupal\oe_whitelabel_extra_field\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Link;
@@ -10,18 +10,18 @@ use Drupal\Core\Url;
 use Drupal\extra_field_plus\Plugin\ExtraFieldPlusDisplayBase;
 
 /**
- * Name Extra field Display.
+ * Title Extra field Display.
  *
  * @ExtraFieldDisplay(
- *   id = "extra_media_title",
- *   label = @Translation("Extra Field: Name"),
+ *   id = "extra_title",
+ *   label = @Translation("Extra Field: Title"),
  *   bundles = {
- *     "media.*"
+ *     "node.*"
  *   },
  *   visible = false
  * )
  */
-class MediaNameExtraField extends ExtraFieldPlusDisplayBase {
+class TitleExtraField extends ExtraFieldPlusDisplayBase {
 
   /**
    * {@inheritdoc}
@@ -43,10 +43,10 @@ class MediaNameExtraField extends ExtraFieldPlusDisplayBase {
 
     if ($settings['link_to_entity']) {
       // Create the URL for the entity.
-      $url = Url::fromRoute('entity.media.canonical', ['media' => $entity->id()], ['absolute' => TRUE]);
+      $url = Url::fromRoute('entity.node.canonical', ['node' => $entity->id()], ['absolute' => TRUE]);
 
       // Create a Link object.
-      $link = Link::fromTextAndUrl($entity->getName(), $url);
+      $link = Link::fromTextAndUrl($entity->label(), $url);
 
       // Convert the Link object to a render array.
       $render = $link->toRenderable();
@@ -65,7 +65,7 @@ class MediaNameExtraField extends ExtraFieldPlusDisplayBase {
       $render = [
         '#type' => 'html_tag',
         '#tag' => $wrapper,
-        '#value' => $entity->getName(),
+        '#value' => $entity->label(),
         '#attributes' => $attributes,
       ];
     }

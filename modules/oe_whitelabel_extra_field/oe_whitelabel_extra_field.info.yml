@@ -1,0 +1,8 @@
+name: OpenEuropa Whitelabel Extra Field
+type: module
+description: 'Provides configurable extra field display plugins for nodes and media entities.'
+package: OpenEuropa Whitelabel
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:node
+  - extra_field_plus:extra_field_plus

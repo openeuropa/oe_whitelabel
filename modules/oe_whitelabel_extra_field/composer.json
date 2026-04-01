@@ -1,0 +1,9 @@
+{
+    "name": "openeuropa/oe_whitelabel_extra_field",
+    "description": "OpenEuropa Whitelabel Extra Field sub-module.",
+    "type": "drupal-module",
+    "license": "EUPL-1.2",
+    "require": {
+        "drupal/extra_field_plus": "^3.0"
+    }
+}
