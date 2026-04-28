@@ -427,6 +427,9 @@ class ContentProjectRenderTest extends WebDriverTestBase {
         'value' => '2000-05-10',
         'end_value' => '2010-05-15',
       ],
+      // The /node route lists promoted content.
+      // Prior to Drupal 11.3, these nodes would be promoted by default.
+      'promote' => 1,
     ]);
 
     // In order to render a teaser, we use the default node list view.
@@ -442,6 +445,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
         'value' => '2010-05-10',
         'end_value' => '2100-05-15',
       ],
+      'promote' => 1,
     ]);
     // And a planned project.
     $this->createProjectNode([
@@ -449,6 +453,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
         'value' => '2100-05-10',
         'end_value' => '2200-05-15',
       ],
+      'promote' => 1,
     ]);
 
     $this->drupalGet('/node');
