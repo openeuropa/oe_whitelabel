@@ -26,6 +26,7 @@ class MultilingualBlockTest extends KernelTestBase {
     'ui_patterns',
     'ui_patterns_library',
     'ui_patterns_settings',
+    'user',
   ];
 
   /**
