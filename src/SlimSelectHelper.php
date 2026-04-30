@@ -90,6 +90,9 @@ class SlimSelectHelper implements ContainerInjectionInterface {
       if ($version && str_starts_with($version, 'v2.')) {
         return '/' . $theme_path . '/assets/js/slim-select-2/slimselect.min.js';
       }
+      if ($version && str_starts_with($version, 'v3.')) {
+        return '/' . $theme_path . '/assets/js/slimselect.js';
+      }
       return '/' . $theme_path . '/assets/js/slimselect.min.js';
     }
 
