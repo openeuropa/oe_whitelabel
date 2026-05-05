@@ -1,11 +1,21 @@
 # Changelog
 
+## [1.32.0](https://github.com/openeuropa/oe_whitelabel/tree/1.32.0) (2026-05-05)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.31.0...1.32.0)
+
+**Merged pull requests:**
+
+- OEL-4510: Minimal upgrade Drupal 11.3 [\#434](https://github.com/openeuropa/oe_whitelabel/pull/434) ([donquixote](https://github.com/donquixote))
+- OEL-4562: Support rich text for list item block long text param. [\#432](https://github.com/openeuropa/oe_whitelabel/pull/432) ([tibi2303](https://github.com/tibi2303))
+
 ## [1.31.0](https://github.com/openeuropa/oe_whitelabel/tree/1.31.0) (2026-03-25)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.30.0...1.31.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.31. [\#431](https://github.com/openeuropa/oe_whitelabel/pull/431) ([tibi2303](https://github.com/tibi2303))
 - OEL-0000: Update oe\_bt and modal\_page. [\#430](https://github.com/openeuropa/oe_whitelabel/pull/430) ([tibi2303](https://github.com/tibi2303))
 - UCPKN-928: Add option to configure required state of search block input. [\#418](https://github.com/openeuropa/oe_whitelabel/pull/418) ([peterserfozo](https://github.com/peterserfozo))
 - OEL-3347: Update banner template for copyright. [\#412](https://github.com/openeuropa/oe_whitelabel/pull/412) ([tibi2303](https://github.com/tibi2303))
