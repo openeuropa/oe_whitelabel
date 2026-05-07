@@ -7,6 +7,7 @@
 <div{{ attributes }}>
   {{ pattern('content_banner', {
     background: 'gray',
+    copyright: copyright|default(''),
     title: label,
     content: content.oe_summary,
     image: image,
