@@ -78,7 +78,10 @@ class ListingParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(6, $crawler->filter('div.card-body'));
     $copyright = $crawler->filter('article.listing-item .bcl-card__image-footer .bcl-copyright');
     $this->assertCount(1, $copyright);
-    $this->assertEquals('(c) 2026 Listing test copyright', trim($copyright->text()));
+    $this->assertEquals(
+      'Image credit: (c) 2026 Listing test copyright',
+      trim($copyright->text())
+    );
 
     // Testing Default 2 col.
     $paragraph->get('field_oe_list_item_block_layout')->setValue('two_columns');
