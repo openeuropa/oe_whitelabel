@@ -256,7 +256,10 @@ class GalleryParagraphTest extends BrowserTestBase {
     $copyright_elements = $gallery_element->filter('.bcl-copyright');
     $this->assertCount(count($expected['copyrights']), $copyright_elements);
     foreach ($expected['copyrights'] as $index => $copyright) {
-      $this->assertEquals($copyright, trim($copyright_elements->eq($index)->text()));
+      $this->assertEquals(
+        'Image credit: ' . $copyright,
+        trim($copyright_elements->eq($index)->text())
+      );
     }
   }
 

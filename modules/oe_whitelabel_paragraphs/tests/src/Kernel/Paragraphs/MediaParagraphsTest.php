@@ -95,7 +95,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
       $image_file->getFilename(),
       $figure->html()
     );
-    $this->assertEquals('Media Caption', trim($figure->filter('figcaption.bg-light.p-3')->text()));
+    $this->assertEquals('Media Caption', trim($figure->filter('figcaption > div.bg-light.p-3')->text()));
 
     // Testing: Image with wrapper aligned to left.
     $paragraph->get('field_oe_text_long')->setValue('Media Full Text');
@@ -119,7 +119,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     );
     $full_text = $crawler->filter('div.col-12.col-md-6.order-md-1');
     $this->assertEquals('Media Full Text', trim($full_text->text()));
-    $this->assertEquals('Media Caption', trim($figure->filter('figcaption.bg-light.p-3')->text()));
+    $this->assertEquals('Media Caption', trim($figure->filter('figcaption > div.bg-light.p-3')->text()));
 
     // Testing: Image with wrapper aligned to right.
     $paragraph->get('field_oe_text_long')->setValue('Media Full Text');
@@ -143,7 +143,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     );
     $full_text = $crawler->filter('div.col-12.col-md-6.order-md-2');
     $this->assertEquals('Media Full Text', trim($full_text->text()));
-    $this->assertEquals('Media Caption', trim($figure->filter('figcaption.bg-light.p-3')->text()));
+    $this->assertEquals('Media Caption', trim($figure->filter('figcaption > div.bg-light.p-3')->text()));
 
     // Create a remote video and add it to the paragraph.
     $media = $media_storage->create([
@@ -191,7 +191,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
       ],
     ])->toString();
     $this->assertStringContainsString($partial_iframe_url, $video_iframe->attr('src'));
-    $this->assertEquals('Media Caption', trim($figure->filter('figcaption.bg-light.p-3')->text()));
+    $this->assertEquals('Media Caption', trim($figure->filter('figcaption > div.bg-light.p-3')->text()));
 
     // Testing: Iframe with wrapper aligned to left.
     $paragraph->get('field_oe_text_long')->setValue('Media Full Text');
@@ -221,7 +221,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertStringContainsString($partial_iframe_url, $video_iframe->attr('src'));
     $full_text = $crawler->filter('div.col-12.col-md-6.order-md-1');
     $this->assertEquals('Media Full Text', trim($full_text->text()));
-    $this->assertEquals('Media Caption', trim($figure->filter('figcaption.bg-light.p-3')->text()));
+    $this->assertEquals('Media Caption', trim($figure->filter('figcaption > div.bg-light.p-3')->text()));
 
     // Testing: Iframe with wrapper aligned to right.
     $paragraph->get('field_oe_text_long')->setValue('Media Full Text');
@@ -251,7 +251,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertStringContainsString($partial_iframe_url, $video_iframe->attr('src'));
     $full_text = $crawler->filter('div.col-12.col-md-6.order-md-2');
     $this->assertEquals('Media Full Text', trim($full_text->text()));
-    $this->assertEquals('Media Caption', trim($figure->filter('figcaption.bg-light.p-3')->text()));
+    $this->assertEquals('Media Caption', trim($figure->filter('figcaption > div.bg-light.p-3')->text()));
 
     // Create an avportal video and add it to the paragraph.
     $media = $media_storage->create([
@@ -280,7 +280,7 @@ class MediaParagraphsTest extends ParagraphsTestBase {
     $this->assertStringContainsString('audiovisual.ec.europa.eu/corporateplayer/index.html?ref=I-163162', $video_iframe->attr('src'));
     $full_text = $crawler->filter('div.col-12.col-md-6.order-md-2');
     $this->assertEquals('Media Full Text', trim($full_text->text()));
-    $this->assertEquals('Media Caption', trim($figure->filter('figcaption.bg-light.p-3')->text()));
+    $this->assertEquals('Media Caption', trim($figure->filter('figcaption > div.bg-light.p-3')->text()));
 
     // Testing: Link and media title.
     $paragraph->get('field_oe_text_long')->setValue('Media Full Text');
