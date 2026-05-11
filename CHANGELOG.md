@@ -1,11 +1,20 @@
 # Changelog
 
+## [1.32.1](https://github.com/openeuropa/oe_whitelabel/tree/1.32.1) (2026-05-11)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.32.0...1.32.1)
+
+**Merged pull requests:**
+
+- OEL-0000: Update oe\_bootstrap\_theme and fix copyright tests. [\#438](https://github.com/openeuropa/oe_whitelabel/pull/438) ([tibi2303](https://github.com/tibi2303))
+
 ## [1.32.0](https://github.com/openeuropa/oe_whitelabel/tree/1.32.0) (2026-05-05)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.31.0...1.32.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.32.0. [\#436](https://github.com/openeuropa/oe_whitelabel/pull/436) ([tibi2303](https://github.com/tibi2303))
 - OEL-4510: Minimal upgrade Drupal 11.3 [\#434](https://github.com/openeuropa/oe_whitelabel/pull/434) ([donquixote](https://github.com/donquixote))
 - OEL-4562: Support rich text for list item block long text param. [\#432](https://github.com/openeuropa/oe_whitelabel/pull/432) ([tibi2303](https://github.com/tibi2303))
 
