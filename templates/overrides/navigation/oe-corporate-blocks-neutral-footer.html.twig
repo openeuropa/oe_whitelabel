@@ -71,7 +71,11 @@
   <p class="fw-bold mb-2">{{ site_specific_footer.site_identity }}</p>
 
   {% if site_owner %}
-    <p>{{ 'This site is managed by the @name'|t({'@name': site_owner|join(', ')}) }}</p>
+    {% if site_owner|length > 1 %}
+      <p>{{ 'This site is co-managed by:'|t }}<br>{{ site_owner|safe_join('<br>') }}</p>
+    {% else %}
+      <p>{{ 'This site is managed by the @name'|t({'@name': site_owner|first}) }}</p>
+    {% endif %}
   {% endif %}
 
   {% if accessibility_link %}
