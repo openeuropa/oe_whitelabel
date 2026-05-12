@@ -238,9 +238,9 @@ class FooterBlockTest extends SparqlKernelTestBase {
       ->save();
 
     $crawler = $this->renderNeutralFooterBlock();
-    $footer_text = trim($crawler->filter('footer.bcl-footer--neutral')->text());
+    $footer_html = trim($crawler->filter('footer.bcl-footer--neutral')->html());
 
-    $this->assertStringContainsString('This site is managed by the Apple, Pear, Citrus fruit', $footer_text);
+    $this->assertStringContainsString('<p>This site is co-managed by:<br>Apple<br>Pear<br>Citrus fruit</p>', $footer_html);
   }
 
   /**
