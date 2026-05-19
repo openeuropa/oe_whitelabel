@@ -218,6 +218,8 @@ class ParagraphsTest extends BrowserTestBase {
       'download',
       'currency-euro',
       'facebook',
+      'bluesky',
+      'mastodon',
       'file',
       'image',
       'info',
@@ -232,7 +234,7 @@ class ParagraphsTest extends BrowserTestBase {
     foreach ($allowed_values as $allowed_value) {
       $this->assertSession()->elementsCount('css', 'option[value="' . $allowed_value . '"]', 1);
     }
-    $this->assertSession()->elementsCount('css', 'select#edit-oe-w-paragraphs-0-subform-field-oe-icon option', 20);
+    $this->assertSession()->elementsCount('css', 'select#edit-oe-w-paragraphs-0-subform-field-oe-icon option', 22);
 
   }
 

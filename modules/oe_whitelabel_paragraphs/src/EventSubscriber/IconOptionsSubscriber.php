@@ -41,6 +41,8 @@ class IconOptionsSubscriber implements EventSubscriberInterface {
       'download' => 'Download',
       'currency-euro' => 'Euro',
       'facebook' => 'Facebook',
+      'bluesky' => 'Bluesky',
+      'mastodon' => 'Mastodon',
       'file' => 'File',
       'image' => 'Image',
       'info' => 'Info',
