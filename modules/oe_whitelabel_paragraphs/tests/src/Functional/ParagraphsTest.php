@@ -90,12 +90,35 @@ class ParagraphsTest extends BrowserTestBase {
     // Assert the Social Media Follow fields appears.
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_social_media_links][0][uri]');
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_social_media_links][0][title]');
-    $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_social_media_links][0][link_type]');
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_title][0][value]');
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][oe_w_links_block_background]');
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_social_media_variant]');
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_social_media_see_more][0][uri]');
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_social_media_see_more][0][title]');
+    // Verify social media icons.
+    $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_social_media_links][0][link_type]');
+    $allowed_values = [
+      '_none',
+      'bluesky',
+      'email',
+      'facebook',
+      'flickr',
+      'google',
+      'instagram',
+      'linkedin',
+      'pinterest',
+      'rss',
+      'storify',
+      'twitter',
+      'yammer',
+      'youtube',
+      'telegram',
+      'mastodon',
+    ];
+    foreach ($allowed_values as $allowed_value) {
+      $this->assertSession()->elementsCount('css', 'option[value="' . $allowed_value . '"]', 1);
+    }
+    $this->assertSession()->elementsCount('css', 'select#edit-oe-w-paragraphs-0-subform-field-oe-social-media-links-0-link-type option', 16);
 
     $this->submitForm([], 'Add another item');
 
