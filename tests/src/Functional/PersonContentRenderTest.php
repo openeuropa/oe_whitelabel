@@ -115,6 +115,10 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
     $this->assertEquals('Starter Image test alt',
       $image->attr('alt')
     );
+    $this->assertStringContainsString(
+      'Person image copyright',
+      trim($content_banner->filter('.bcl-copyright')->text())
+    );
 
     $this->assertEquals(
       'This field is used to add a short biography of the person.',
@@ -235,6 +239,8 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
    *   Person node.
    */
   protected function createExamplePersonWithAllFields(): NodeInterface {
+    $this->createMediaCopyrightField();
+
     /** @var \Drupal\node\Entity\Node $node */
     $node = $this->createExamplePersonWithRequiredFieldsOnly();
     // Create a sample image media entity to be embedded.
@@ -252,6 +258,7 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
           'title' => 'Starter Image test title',
         ],
       ],
+      'field_media_copyright' => 'Person image copyright',
     ]);
     $media_image->save();
 

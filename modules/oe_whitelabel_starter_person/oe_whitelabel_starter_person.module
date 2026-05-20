@@ -78,6 +78,9 @@ function _oe_whitelabel_starter_person_preprocess_image(array &$variables): void
 
   $thumbnail = $media->get('thumbnail')->first();
   $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
+  if ($media->hasField('field_media_copyright') && !$media->get('field_media_copyright')->isEmpty()) {
+    $variables['copyright'] = $media->get('field_media_copyright')->value;
+  }
 
   $cacheability->applyTo($variables);
 }

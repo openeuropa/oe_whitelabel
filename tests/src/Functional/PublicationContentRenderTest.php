@@ -29,6 +29,8 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
    * Tests the canonical page rendering.
    */
   public function testCanonicalPage(): void {
+    $this->createMediaCopyrightField();
+
     $document = $this->createDocumentMedia();
 
     // Create a publication node with the minimal required fields.
@@ -81,7 +83,9 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
     $assert->assertPattern($expected_document, $assert_session->elementExists('css', 'h2#document + div.mb-4-5')->getHtml());
 
     // Create a publication with all the fields filled in.
-    $thumbnail = $this->createImageMedia();
+    $thumbnail = $this->createImageMedia([
+      'field_media_copyright' => 'Publication image copyright',
+    ]);
     $description = $this->getRandomGenerator()->sentences(20);
     $short_description = $this->getRandomGenerator()->sentences(5);
     $reference_code = $this->randomString();
@@ -109,6 +113,7 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
         'alt' => 'Alt text',
         'src' => 'example_1.jpeg',
       ],
+      'copyright' => 'Publication image copyright',
     ], $assert_session->elementExists('css', '.bcl-content-banner')->getOuterHtml());
 
     $inpage_nav_assert->assertPattern([
