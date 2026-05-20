@@ -73,6 +73,10 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
       'Starter Image test alt',
       $image->attr('alt')
     );
+    $this->assertStringContainsString(
+      'Event image copyright',
+      trim($content_banner->filter('.bcl-copyright')->text())
+    );
 
     // Assert content banner summary.
     $this->assertEquals(
@@ -359,6 +363,8 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
    *   Event node.
    */
   protected function createExampleEvent(): NodeInterface {
+    $this->createMediaCopyrightField();
+
     // Create a sample media entity to be embedded.
     File::create([
       'uri' => $this->getTestFiles('image')[0]->uri,
@@ -373,6 +379,7 @@ class ContentEventRenderTest extends WhitelabelBrowserTestBase {
           'title' => 'Starter Image test title',
         ],
       ],
+      'field_media_copyright' => 'Event image copyright',
     ]);
     $media_image->save();
 
