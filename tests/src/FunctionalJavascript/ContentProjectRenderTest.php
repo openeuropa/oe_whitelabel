@@ -69,12 +69,15 @@ class ContentProjectRenderTest extends WebDriverTestBase {
    * Tests that the Project page renders correctly.
    */
   public function testProjectRendering(): void {
+    $this->createMediaCopyrightField();
+
     $assert_session = $this->assertSession();
     $image = $this->createImageMedia([
       'oe_media_image' => [
         'alt' => 'Image test alt',
         'title' => 'Image test title',
       ],
+      'field_media_copyright' => 'Project image copyright',
     ]);
     // Create organisations for Coordinators and Participants fields.
     // Unpublished entity should not be shown.
@@ -145,6 +148,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
         'alt' => 'Image test alt',
         'src' => 'example_1.jpeg',
       ],
+      'copyright' => 'Project image copyright',
       'badges' => ['wood industry'],
       'title' => 'Test project node',
       'content' => 'Test project node',

@@ -6,6 +6,8 @@ namespace Drupal\Tests\oe_whitelabel\Traits;
 
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\file\Entity\File;
 use Drupal\media\MediaInterface;
 
@@ -159,6 +161,35 @@ trait MediaCreationTrait {
     return $this->createMedia($values + [
       'name' => 'Image title',
     ]);
+  }
+
+  /**
+   * Creates the media copyright field and attaches it to media bundles.
+   *
+   * @param array $bundles
+   *   The media bundles to attach the field to.
+   */
+  protected function createMediaCopyrightField(array $bundles = ['image']): void {
+    if (!FieldStorageConfig::loadByName('media', 'field_media_copyright')) {
+      FieldStorageConfig::create([
+        'field_name' => 'field_media_copyright',
+        'entity_type' => 'media',
+        'type' => 'string',
+      ])->save();
+    }
+
+    foreach ($bundles as $bundle) {
+      if (FieldConfig::loadByName('media', $bundle, 'field_media_copyright')) {
+        continue;
+      }
+
+      FieldConfig::create([
+        'field_name' => 'field_media_copyright',
+        'entity_type' => 'media',
+        'bundle' => $bundle,
+        'label' => 'Copyright',
+      ])->save();
+    }
   }
 
   /**
