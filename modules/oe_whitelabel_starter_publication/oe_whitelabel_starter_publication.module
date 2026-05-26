@@ -76,6 +76,9 @@ function _oe_whitelabel_starter_publication_preprocess_image(array &$variables):
 
   $thumbnail = $media->get('thumbnail')->first();
   $variables['image'] = ImageValueObject::fromImageItem($thumbnail);
+  if ($media->hasField('field_media_copyright') && !$media->get('field_media_copyright')->isEmpty()) {
+    $variables['copyright'] = $media->get('field_media_copyright')->value;
+  }
 
   $cacheability->applyTo($variables);
 }

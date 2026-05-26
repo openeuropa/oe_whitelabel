@@ -34,6 +34,8 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
    *   News node.
    */
   protected function createExampleNews(): NodeInterface {
+    $this->createMediaCopyrightField();
+
     // Create a sample image media entity to be embedded.
     File::create([
       'uri' => $this->getTestFiles('image')[0]->uri,
@@ -48,6 +50,7 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
           'title' => 'Starter Image test title',
         ],
       ],
+      'field_media_copyright' => 'News image copyright',
     ]);
     $media_image->save();
 
@@ -95,6 +98,10 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
     );
     $this->assertEquals('Starter Image test alt',
       $image->attr('alt')
+    );
+    $this->assertStringContainsString(
+      'News image copyright',
+      trim($content_banner->filter('.bcl-copyright')->text())
     );
 
     // Assert content banner content elements.
