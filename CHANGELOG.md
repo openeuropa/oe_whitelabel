@@ -1,11 +1,20 @@
 # Changelog
 
+## [1.33.1](https://github.com/openeuropa/oe_whitelabel/tree/1.33.1) (2026-06-01)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.33.0...1.33.1)
+
+**Merged pull requests:**
+
+- OEL-0000: Cleanup hotfix for ss-3. [\#445](https://github.com/openeuropa/oe_whitelabel/pull/445) ([tibi2303](https://github.com/tibi2303))
+
 ## [1.33.0](https://github.com/openeuropa/oe_whitelabel/tree/1.33.0) (2026-05-29)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.32.1...1.33.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.33.0. [\#444](https://github.com/openeuropa/oe_whitelabel/pull/444) ([tibi2303](https://github.com/tibi2303))
 - OEL-4736: Add media copyright to content banners. [\#443](https://github.com/openeuropa/oe_whitelabel/pull/443) ([tibi2303](https://github.com/tibi2303))
 - OEL-4718: Load Slim Select v3 asset from OEL theme. [\#435](https://github.com/openeuropa/oe_whitelabel/pull/435) ([tibi2303](https://github.com/tibi2303))
 
