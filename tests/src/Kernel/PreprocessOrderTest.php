@@ -170,6 +170,9 @@ class PreprocessOrderTest extends KernelTestBase {
   protected function assertPreprocessFunctions(array $expected, string $hook): void {
     $info = \Drupal::service(Registry::class)->get()[$hook] ?? NULL;
     $this->assertNotNull($info);
+    if (version_compare(\Drupal::VERSION, '11.0', '<')) {
+      $expected = ['template_preprocess', ...$expected];
+    }
     // Use '...' to normalize integer keys.
     $this->assertSame($expected, [...$info['preprocess functions']]);
   }
