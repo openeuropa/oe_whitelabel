@@ -23,6 +23,7 @@ use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideoSource;
 use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
 use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObjectInterface;
 use Drupal\oe_media_iframe\Plugin\media\Source\Iframe;
+use Drupal\oe_whitelabel\Attribute\RequiredModule;
 use Drupal\oe_whitelabel\ColorSchemePreprocess;
 use Drupal\paragraphs\Entity\Paragraph;
 
@@ -42,6 +43,7 @@ function oe_whitelabel_theme_suggestions_paragraph_alter(array &$suggestions, ar
 /**
  * Implements hook_preprocess_paragraph().
  */
+#[RequiredModule('oe_whitelabel_paragraphs')]
 function oe_whitelabel_preprocess_paragraph__oe_links_block(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
@@ -68,6 +70,7 @@ function oe_whitelabel_preprocess_paragraph__oe_links_block(array &$variables): 
 /**
  * Implements hook_preprocess_paragraph() for oe_social_media_follow paragraph.
  */
+#[RequiredModule('oe_whitelabel_paragraphs')]
 function oe_whitelabel_preprocess_paragraph__oe_social_media_follow(array &$variables): void {
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
@@ -99,6 +102,7 @@ function oe_whitelabel_preprocess_paragraph__oe_social_media_follow(array &$vari
 /**
  * Implements hook_preprocess_paragraph__oe_accordion().
  */
+#[RequiredModule('oe_whitelabel_paragraphs')]
 function oe_whitelabel_preprocess_paragraph__oe_accordion(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
@@ -132,6 +136,7 @@ function oe_whitelabel_preprocess_paragraph__oe_accordion(array &$variables): vo
 /**
  * Implements hook_preprocess_paragraph() for paragraph--oe-text-feature-media.html.twig.
  */
+#[RequiredModule('oe_whitelabel_paragraphs')]
 function oe_whitelabel_preprocess_paragraph__oe_text_feature_media(array &$variables): void {
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
@@ -172,6 +177,7 @@ function oe_whitelabel_preprocess_paragraph__oe_text_feature_media(array &$varia
 /**
  * Implements hook_preprocess_paragraph() for paragraph--oe-av-media.html.twig.
  */
+#[RequiredModule('oe_whitelabel_paragraphs')]
 function oe_whitelabel_preprocess_paragraph__oe_av_media(array &$variables): void {
   _oe_whitelabel_paragraphs_preprocess_paragraph_media($variables);
 
@@ -183,6 +189,7 @@ function oe_whitelabel_preprocess_paragraph__oe_av_media(array &$variables): voi
 /**
  * Implements hook_preprocess_paragraph() for paragraph--oe-list-item-block.html.twig.
  */
+#[RequiredModule('oe_whitelabel_paragraphs')]
 function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
@@ -265,6 +272,7 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
 /**
  * Implements hook_preprocess_paragraph() for oe_banner paragraph.
  */
+#[RequiredModule('oe_whitelabel_paragraphs')]
 function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
@@ -383,6 +391,7 @@ function oe_whitelabel_preprocess_paragraph__oe_banner(array &$variables): void 
 /**
  * Implements hook_preprocess_paragraph() for timeline paragraph.
  */
+#[RequiredModule('oe_whitelabel_paragraphs')]
 function oe_whitelabel_preprocess_paragraph__oe_timeline(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
@@ -410,6 +419,7 @@ function oe_whitelabel_preprocess_paragraph__oe_timeline(array &$variables): voi
 /**
  * Implements hook_preprocess_paragraph() for paragraph--oe-content-row--variant-inpage-navigation.html.twig.
  */
+#[RequiredModule('oe_whitelabel_paragraphs')]
 function oe_whitelabel_preprocess_paragraph__oe_content_row__variant_inpage_navigation(array &$variables): void {
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
@@ -453,6 +463,7 @@ function oe_whitelabel_preprocess_paragraph__oe_content_row__variant_inpage_navi
 /**
  * Implements hook_preprocess_paragraph() for oe_description-list paragraph.
  */
+#[RequiredModule('oe_whitelabel_paragraphs')]
 function oe_whitelabel_preprocess_paragraph__oe_description_list(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
@@ -486,6 +497,7 @@ function oe_whitelabel_preprocess_paragraph__oe_description_list(array &$variabl
 /**
  * Implements hook_preprocess_paragraph().
  */
+#[RequiredModule('oe_whitelabel_paragraphs')]
 function oe_whitelabel_preprocess_paragraph__oe_facts_figures(array &$variables): void {
   /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
   $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
@@ -531,6 +543,7 @@ function oe_whitelabel_preprocess_paragraph__oe_facts_figures(array &$variables)
 /**
  * Implements hook_preprocess_paragraph() for oe_carousel paragraph.
  */
+#[RequiredModule('oe_whitelabel_paragraphs')]
 function oe_whitelabel_preprocess_paragraph__oe_carousel(array &$variables): void {
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
