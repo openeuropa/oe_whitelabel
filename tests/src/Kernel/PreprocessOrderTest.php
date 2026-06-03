@@ -11,6 +11,8 @@ use Drupal\KernelTests\KernelTestBase;
 
 /**
  * Tests the order of preprocess functions.
+ *
+ * See https://www.drupal.org/project/drupal/issues/3593583.
  */
 class PreprocessOrderTest extends KernelTestBase {
 
