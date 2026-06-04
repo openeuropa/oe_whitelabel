@@ -1,11 +1,20 @@
 # Changelog
 
+## [1.33.2](https://github.com/openeuropa/oe_whitelabel/tree/1.33.2) (2026-06-04)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.33.1...1.33.2)
+
+**Merged pull requests:**
+
+- OEL-4819: Move preprocess functions from module to theme [\#448](https://github.com/openeuropa/oe_whitelabel/pull/448) ([donquixote](https://github.com/donquixote))
+
 ## [1.33.1](https://github.com/openeuropa/oe_whitelabel/tree/1.33.1) (2026-06-01)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.33.0...1.33.1)
 
 **Merged pull requests:**
 
+- Prepare release 1.33.1. [\#446](https://github.com/openeuropa/oe_whitelabel/pull/446) ([tibi2303](https://github.com/tibi2303))
 - OEL-0000: Cleanup hotfix for ss-3. [\#445](https://github.com/openeuropa/oe_whitelabel/pull/445) ([tibi2303](https://github.com/tibi2303))
 
 ## [1.33.0](https://github.com/openeuropa/oe_whitelabel/tree/1.33.0) (2026-05-29)
