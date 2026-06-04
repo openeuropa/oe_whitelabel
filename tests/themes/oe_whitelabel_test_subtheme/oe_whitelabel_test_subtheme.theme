@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Contains hook implementations.
+ */
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * This should be ordered after the oe_whitelabel implementation.
+ *
+ * @see oe_whitelabel_preprocess_paragraph__oe_accordion()
+ */
+function oe_whitelabel_test_subtheme_preprocess_paragraph__oe_accordion(array &$variables): void {
+  // No-op.
+}

@@ -29,6 +29,13 @@ else {
     // In a .neon.php file, paths must be absolute.
     'path' => __DIR__ . '/modules/oe_whitelabel_modal_page/src/Hook/ModalEntityTypeFormClass.php',
   ];
+  $config['parameters']['ignoreErrors'][] = [
+    'message' => '#^Attribute class Drupal\\\\Core\\\\Hook\\\\Attribute\\\\Hook does not exist\\.$#',
+    'identifier' => 'attribute.notFound',
+    'count' => 1,
+    // In a .neon.php file, paths must be absolute.
+    'path' => __DIR__ . '/src/Hook/ThemeRegistryAlterPreprocessRequiredModule.php',
+  ];
 }
 
 return $config;

@@ -9,9 +9,11 @@ declare(strict_types=1);
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Hook\Attribute\LegacyHook;
 use Drupal\Core\Template\AttributeHelper;
 use Drupal\oe_bootstrap_theme_helper\EuropeanUnionLanguages;
 use Drupal\oe_whitelabel\DocumentMediaWrapper;
+use Drupal\oe_whitelabel\Hook\ThemeRegistryAlterPreprocessRequiredModule;
 use Drupal\oe_whitelabel\SlimSelectHelper;
 
 // Include all files from the includes directory.
@@ -323,4 +325,13 @@ function oe_whitelabel_preprocess_oe_corporate_blocks_eu_footer(&$variables): vo
       }
     }
   }
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+#[LegacyHook]
+function oe_whitelabel_theme_registry_alter(array &$registry): void {
+  ThemeRegistryAlterPreprocessRequiredModule::create(\Drupal::getContainer())
+    ->themeRegistryAlter($registry);
 }
