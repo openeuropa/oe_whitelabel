@@ -30,6 +30,7 @@ class SearchBlockTest extends KernelTestBase {
     'search_api_autocomplete_test',
     'search_api_db',
     'search_api_test',
+    'search_api_test_example_content',
     'system',
     'text',
     'ui_patterns',
@@ -55,6 +56,7 @@ class SearchBlockTest extends KernelTestBase {
     $this->installEntitySchema('entity_test_mulrev_changed');
     $this->installEntitySchema('search_api_task');
     $this->installConfig('search_api');
+    $this->installConfig('search_api_test_example_content');
     $this->installConfig([
       'search_api_db',
       'search_api_autocomplete_test',
