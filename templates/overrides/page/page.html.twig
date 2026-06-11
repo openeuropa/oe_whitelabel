@@ -66,49 +66,86 @@
       alt="{{ site_logo_alt }}" title="{{ site_logo_title }}" />
     {% else %}
       <img src="{{ site_logo_url }}" alt="{{ site_logo_alt }}" title="{{ site_logo_title }}"/>
-      <div class="h5 ms-4-5 d-none d-lg-inline-block">{{ site_name }}</div>
     {% endif %}</a>
+{% endset %}
+
+{% set navbar_id = 'main-navbar' %}
+
+{% set navbar_toggle_button %}
+  <button {{ create_attribute({
+    "class": "bcl-navbar-toggler d-lg-none",
+    "type": "button",
+    "data-bs-toggle": "collapse",
+    "data-bs-target": "#" ~ navbar_id,
+    "aria-controls": navbar_id,
+    "aria-expanded": "false",
+    "aria-label": "Toggle navigation",
+  }) }}>
+    {{ pattern('icon', {
+      'name': 'list',
+      'path': bcl_icon_path,
+      'size': 'fluid',
+      'attributes': create_attribute({
+        'class': [
+          'default-icon',
+        ]
+      })
+    }) }}
+    {{ pattern('icon', {
+      'name': 'x',
+      'path': bcl_icon_path,
+      'size': 'fluid',
+      'attributes': create_attribute({
+        'class': [
+          'active-icon',
+        ]
+      })
+    }) }}
+  </button>
 {% endset %}
 
 <div class="page">
   {% block header %}
-    <header class="bcl-header bcl-header--{{ bcl_component_library }}">
+    <header class="bcl-header bcl-header--{{ bcl_component_library }} shadow-sm" aria-labelledby="site-name-heading">
       {% block head %}
-        {{ pattern('navbar', {
-          navigation: corporate_logos,
-          right: page.header_top,
-          color_scheme: 'light',
-          background: false,
-          attributes: create_attribute().addClass(['w-100', 'shadow-sm']),
-        }) }}
+      <nav class="navbar navbar-expand-lg navbar-light py-3-5" aria-label="{{ "Site settings navigation"|t }}">
+        <div class="container">
+          {{ corporate_logos }}
+          <div class="nav position-relative gap-1 align-items-center">
+            {{ page.header_top }}
+            {{ navbar_toggle_button }}
+          </div>
+        </div>
+      </nav>
+      <div class="bcl-header__site-name">
+        {{ page.header_branding }}
+      </div>
       {% endblock %}
-
-      {{ page.header_branding }}
 
       {# Navbar. #}
       {% block navbar %}
-        {{ pattern('navbar', {
-          navigation: page.navigation_left,
-          right: page.navigation_right,
-          color_scheme: 'dark',
-          background: false,
-          expanded_breakpoint: 'lg',
-          attributes: create_attribute().addClass(['bcl-header__navbar']),
-        }) }}
+        <nav class="bcl-header__navbar navbar navbar-expand-lg navbar-dark" aria-label="{{ 'Menu'|t }}">
+          <div class="container">
+            <div class="collapse navbar-collapse" id='{{ navbar_id }}'>
+              {{ page.navigation_left }}
+              <div class="flex-grow-1"></div>
+              {{ page.navigation_right }}
+            </div>
+          </div>
+        </nav>
       {% endblock %}
-      {# Breadcrumbs. #}
-      <div class="container">
-        {% block breadcrumbs %}
-          {{ page.breadcrumbs }}
-        {% endblock %}
-      </div>
       {% if page.header %}
         {{ page.header }}
       {% endif %}
     </header>
   {% endblock %}
-  <main>
-    <a id="main-content" tabindex="-1"></a>
+  <main id="main-content" tabindex="-1">
+    {# Breadcrumbs. #}
+    <div class="container">
+      {% block breadcrumbs %}
+        {{ page.breadcrumbs }}
+      {% endblock %}
+    </div>
     {{ page.hero }}
     <div class="container mt-md-4-75 mt-4">
       <div class="row">

@@ -1,0 +1,24 @@
+.oe-agenda {
+  .accordion-button {
+    font-weight: bold;
+  }
+
+  .text-muted {
+    color: #6c757d !important;
+  }
+
+  .session-content {
+    & > *:last-child,
+    .session-details > *:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    .bcl-description-list {
+      font-size: 0.875rem;
+      dl:last-child,
+      dd > div *:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+}

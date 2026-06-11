@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\oe_whitelabel_helper\Plugin\better_exposed_filters\sort;
 
-use Drupal\better_exposed_filters\Plugin\better_exposed_filters\sort\DefaultWidget;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\better_exposed_filters\Plugin\better_exposed_filters\sort\DefaultWidget;
 
 /**
  * OpenEuropa custom better exposed filters widget implementation.
@@ -20,7 +20,7 @@ class FloatEndSortWidget extends DefaultWidget {
   /**
    * {@inheritdoc}
    */
-  public function exposedFormAlter(array &$form, FormStateInterface $form_state) {
+  public function exposedFormAlter(array &$form, FormStateInterface $form_state) : void {
     parent::exposedFormAlter($form, $form_state);
 
     // @todo This will be done via theming in OEL-1583.

@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
-use Drupal\file\Entity\File;
-use Drupal\node\Entity\Node;
-use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Tests\TestFileCreationTrait;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\filter\Entity\FilterFormat;
 use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\Tests\oe_whitelabel_paragraphs\Kernel\PatternAssertions\ListingAssertion;
-use Drupal\Tests\TestFileCreationTrait;
+use Drupal\file\Entity\File;
+use Drupal\node\Entity\Node;
+use Drupal\paragraphs\Entity\Paragraph;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -74,6 +76,12 @@ class ListingParagraphsTest extends ParagraphsTestBase {
     $this->assertCount(1, $crawler->filter('div.bcl-listing--default-1-col'));
     $this->assertCount(1, $crawler->filter('div.row.row-cols-1'));
     $this->assertCount(6, $crawler->filter('div.card-body'));
+    $copyright = $crawler->filter('article.listing-item .bcl-card__image-footer .bcl-copyright');
+    $this->assertCount(1, $copyright);
+    $this->assertEquals(
+      'Image credit: (c) 2026 Listing test copyright',
+      trim($copyright->text())
+    );
 
     // Testing Default 2 col.
     $paragraph->get('field_oe_list_item_block_layout')->setValue('two_columns');
@@ -145,6 +153,61 @@ class ListingParagraphsTest extends ParagraphsTestBase {
   }
 
   /**
+   * Tests list item block rendering with formatted text.
+   */
+  public function testListingRichText(): void {
+    FilterFormat::create([
+      'format' => 'filtered_html',
+      'name' => 'Filtered HTML',
+      'weight' => 0,
+      'filters' => [
+        'filter_html' => [
+          'status' => 1,
+          'settings' => [
+            'allowed_html' => '<p> <strong> <em> <a href>',
+          ],
+        ],
+      ],
+    ])->save();
+
+    $field_config = FieldConfig::load('paragraph.oe_list_item.field_oe_text_long');
+    $this->assertNotNull($field_config);
+    $settings = $field_config->get('settings');
+    $settings['allowed_formats'] = ['plain_text', 'filtered_html'];
+    $field_config->set('settings', $settings)->save();
+
+    $list_item = Paragraph::create([
+      'type' => 'oe_list_item',
+      'field_oe_title' => 'Item title 1',
+      'field_oe_text_long' => [
+        'value' => '<p>I add a text with <strong>bolds</strong>, <em>italic</em>, <span class="stripped">wrapped text</span>, <code>inline code</code>, <mark>highlighted text</mark> and <a href="https://www.google.es" target="_blank" class="extra-class">loopy link</a>.</p>',
+        'format' => 'filtered_html',
+      ],
+    ]);
+    $list_item->save();
+
+    $paragraph = Paragraph::create([
+      'type' => 'oe_list_item_block',
+      'oe_paragraphs_variant' => 'default',
+      'field_oe_list_item_block_layout' => 'one_column',
+      'field_oe_title' => 'Listing item block title',
+      'field_oe_paragraphs' => [$list_item],
+    ]);
+    $paragraph->save();
+
+    $html = $this->renderParagraph($paragraph);
+    $crawler = new Crawler($html);
+    $this->assertRichTextRendering($crawler, 'article.listing-item .card-text');
+
+    $paragraph->get('oe_paragraphs_variant')->setValue('highlight');
+    $paragraph->save();
+
+    $html = $this->renderParagraph($paragraph);
+    $crawler = new Crawler($html);
+    $this->assertRichTextRendering($crawler, 'article.listing-item--highlight .card-text');
+  }
+
+  /**
    * Assert default variant of Listing is rendering correctly.
    *
    * @param \Drupal\file\Entity\File $image_file
@@ -168,6 +231,7 @@ class ListingParagraphsTest extends ParagraphsTestBase {
           'alt' => 'Alt for image ' . $i,
           'target_id' => $image_file->id(),
         ],
+        'field_oe_image_copyright' => $i === 1 ? '(c) 2026 Listing test copyright' : '',
         'field_oe_meta' => [
           0 => [
             'value' => 'Label 1 - ' . $i,
@@ -182,6 +246,17 @@ class ListingParagraphsTest extends ParagraphsTestBase {
     }
 
     return $items;
+  }
+
+  /**
+   * Asserts formatted listing text renders through processed text filtering.
+   */
+  protected function assertRichTextRendering(Crawler $crawler, string $selectorPrefix): void {
+    $this->assertCount(1, $crawler->filter($selectorPrefix));
+    $this->assertSame(
+      '<p>I add a text with <strong>bolds</strong>, <em>italic</em>, wrapped text, inline code, highlighted text and <a href="https://www.google.es">loopy link</a>.</p>',
+      trim($crawler->filter($selectorPrefix)->html())
+    );
   }
 
 }

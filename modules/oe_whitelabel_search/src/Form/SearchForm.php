@@ -44,7 +44,7 @@ class SearchForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, array $config = NULL): array {
+  public function buildForm(array $form, FormStateInterface $form_state, ?array $config = NULL): array {
     if (empty($config['input']['name'])) {
       return [];
     }
@@ -66,8 +66,8 @@ class SearchForm extends FormBase {
       '#title' => $config['input']['label'],
       '#title_display' => 'invisible',
       '#size' => 20,
-      '#default_value' => $this->getRequest()->get($config['input']['name']),
-      '#required' => TRUE,
+      '#default_value' => $this->getRequest()->query->get($config['input']['name']),
+      '#required' => $config['input']['required'],
       '#attributes' => [
         'placeholder' => $config['input']['placeholder'],
       ],
@@ -101,13 +101,24 @@ class SearchForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $config = $form_state->get('oe_whitelabel_search_config');
-    $url = Url::fromUri('base:' . $config['form']['action'], [
+    $url = Url::fromUserInput('/' . $config['form']['action'], [
       'language' => $this->languageManager->getCurrentLanguage(),
       'absolute' => TRUE,
-      'query' => [
-        $config['input']['name'] => $form_state->getValue('search_input'),
-      ],
+      'query' => $this->requestStack->getCurrentRequest()->query->all(),
     ]);
+    if ($form_state->getValue('search_input') !== "") {
+      $url->mergeOptions([
+        'query' => [
+          $config['input']['name'] => $form_state->getValue('search_input'),
+        ],
+      ]);
+    }
+    else {
+      $query = $url->getOption('query');
+      unset($query[$config['input']['name']]);
+      $url->setOption('query', $query);
+    }
+
     $form_state->setRedirectUrl($url);
   }
 

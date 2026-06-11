@@ -99,9 +99,10 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
         'name' => '',
         'label' => '',
         'placeholder' => $this->t('Search'),
+        'required' => TRUE,
       ],
       'button' => [
-        'label' => '',
+        'label' => $this->t('Search'),
       ],
       'view_options' => [
         'enable_autocomplete' => FALSE,
@@ -150,6 +151,11 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#title' => $this->t('Input placeholder text'),
       '#description' => $this->t('The placeholder that will be shown inside the input field.'),
       '#default_value' => $config['input']['placeholder'],
+    ];
+    $form['input']['input_required'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Input required'),
+      '#default_value' => $config['input']['required'],
     ];
     $form['button'] = [
       '#type' => 'details',
@@ -223,6 +229,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
       'name' => $input['input_name'],
       'label' => $input['input_label'],
       'placeholder' => $input['input_placeholder'],
+      'required' => $input['input_required'],
     ]);
     $button = $values['button'];
     $this->setConfigurationValue('button', [

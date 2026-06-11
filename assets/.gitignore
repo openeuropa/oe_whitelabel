@@ -1,0 +1,3 @@
+# This file makes sure that the /assets/ directory always exists when
+# core-composer-scaffold creates the symlinks.
+/css/

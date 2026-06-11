@@ -2,7 +2,14 @@ name: OpenEuropa Whitelabel List Pages
 type: module
 description: Companion module for the OE List Pages module.
 package: OpenEuropa Whitelabel Theme
-core_version_requirement: ^10
+core_version_requirement: ^10 || ^11
+
+# The templates for list pages use extra field plugins from plugin derivers
+# that depend on the list page content type.
+# In some scenarios with bulk module install, these plugins are only available
+# after a cache rebuild.
+# @todo Review this if/when a solution has been implemented in oe_list_pages.
+container_rebuild_required: true
 
 dependencies:
   - extra_field:extra_field

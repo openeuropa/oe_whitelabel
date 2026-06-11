@@ -16,3 +16,5 @@ backward_compatibility:
   fieldset_wrapper_col_sm_10: false
 component_library: neutral
 header_style: standard
+slim_select:
+  all_select_elements: false

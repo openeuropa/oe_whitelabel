@@ -4,29 +4,32 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel\FunctionalJavascript;
 
+use Behat\Mink\Element\NodeElement;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Url;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
-use Drupal\node\NodeInterface;
-use Drupal\oe_content_entity\Entity\CorporateEntityInterface;
-use Drupal\oe_content_entity_organisation\Entity\OrganisationInterface;
+use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\ContentBannerAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\DescriptionListAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\GalleryPatternAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\InPageNavigationAssert;
-use Drupal\Tests\oe_whitelabel\Traits\MediaCreationTrait;
+use Drupal\Tests\oe_whitelabel\Traits\NodeCreationTrait;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
-use Drupal\Tests\TestFileCreationTrait;
+use Drupal\node\NodeInterface;
+use Drupal\oe_content_entity\Entity\CorporateEntityInterface;
+use Drupal\oe_content_entity_organisation\Entity\OrganisationInterface;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 
 /**
  * Tests that our Project content type renders correctly.
+ *
+ * @group batch1
  */
 class ContentProjectRenderTest extends WebDriverTestBase {
 
-  use MediaCreationTrait;
+  use NodeCreationTrait;
   use SparqlConnectionTrait;
   use TestFileCreationTrait;
 
@@ -66,12 +69,15 @@ class ContentProjectRenderTest extends WebDriverTestBase {
    * Tests that the Project page renders correctly.
    */
   public function testProjectRendering(): void {
+    $this->createMediaCopyrightField();
+
     $assert_session = $this->assertSession();
     $image = $this->createImageMedia([
       'oe_media_image' => [
         'alt' => 'Image test alt',
         'title' => 'Image test title',
       ],
+      'field_media_copyright' => 'Project image copyright',
     ]);
     // Create organisations for Coordinators and Participants fields.
     // Unpublished entity should not be shown.
@@ -99,8 +105,8 @@ class ContentProjectRenderTest extends WebDriverTestBase {
         'value' => '2020-05-10',
         'end_value' => '2025-05-15',
       ],
-      'oe_project_budget' => '200',
-      'oe_project_budget_eu' => '70',
+      'oe_project_eu_budget' => '200',
+      'oe_project_eu_contrib' => '70',
       'oe_project_website' => [
         [
           'uri' => 'http://example.com',
@@ -127,6 +133,13 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     $node->save();
     $this->drupalGet($node->toUrl());
 
+    // Reload media to ensure thumbnails/metadata are updated after rendering.
+    $media_storage = \Drupal::entityTypeManager()->getStorage('media');
+    $gallery_image = $media_storage->load($gallery_image->id());
+    $gallery_video = $media_storage->load($gallery_video->id());
+    $gallery_av_photo = $media_storage->load($gallery_av_photo->id());
+    $gallery_av_video = $media_storage->load($gallery_av_video->id());
+
     // Assert content banner.
     $content_banner = $assert_session->elementExists('css', '.bcl-content-banner');
     $assert = new ContentBannerAssert();
@@ -135,6 +148,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
         'alt' => 'Image test alt',
         'src' => 'example_1.jpeg',
       ],
+      'copyright' => 'Project image copyright',
       'badges' => ['wood industry'],
       'title' => 'Test project node',
       'content' => 'Test project node',
@@ -306,7 +320,22 @@ class ContentProjectRenderTest extends WebDriverTestBase {
 
     $file_url_generator = \Drupal::service('file_url_generator');
     $gallery_container = $assert_session->elementExists('css', '#oe-project-oe-cx-gallery + .bcl-gallery');
-    $fn_get_filepath = static fn($entity, $field) => $file_url_generator->generate($entity->get($field)->entity->getFileUri())->toString();
+    $fn_get_file_url = static fn($entity, $field) => $file_url_generator->generate($entity->get($field)->entity->getFileUri())->toString();
+    $gallery_image_src = $fn_get_file_url($gallery_image, 'oe_media_image');
+    $gallery_video_thumb_src = $fn_get_file_url($gallery_video, 'thumbnail');
+    $gallery_av_photo_thumb_src = $fn_get_file_url($gallery_av_photo, 'thumbnail');
+    $gallery_av_video_thumb_src = $fn_get_file_url($gallery_av_video, 'thumbnail');
+    foreach ([$gallery_image_src, $gallery_video_thumb_src, $gallery_av_photo_thumb_src, $gallery_av_video_thumb_src] as $src) {
+      $this->assertNotSame('', $src);
+      $this->assertNotFalse(parse_url($src));
+    }
+    [$gallery_image_width, $gallery_image_height] = $this->getImageDimensions($gallery_image, 'oe_media_image');
+    [$gallery_video_width, $gallery_video_height] = $this->getImageDimensions($gallery_video, 'thumbnail');
+    [$gallery_av_photo_width, $gallery_av_photo_height] = $this->getImageDimensions($gallery_av_photo, 'thumbnail');
+    [$gallery_av_video_width, $gallery_av_video_height] = $this->getImageDimensions($gallery_av_video, 'thumbnail');
+    $avportal_photo_url = \Drupal::config('media_avportal.settings')->get('photos_base_uri')
+      . $gallery_av_photo->getSource()->getMetadata($gallery_av_photo, 'photo_uri');
+    $avportal_iframe_base = \Drupal::config('media_avportal.settings')->get('iframe_base_uri');
     (new GalleryPatternAssert())->assertPattern([
       'title' => NULL,
       'items' => [
@@ -314,15 +343,19 @@ class ContentProjectRenderTest extends WebDriverTestBase {
           'thumbnail' => [
             'caption_title' => 'Image title',
             'rendered' => sprintf(
-              '<img loading="lazy" src="%s" width="200" height="89" alt="Alt text" class="img-fluid">',
-              $fn_get_filepath($gallery_image, 'oe_media_image')
+              '<img loading="lazy" src="%s" width="%d" height="%d" alt="Alt text" class="img-fluid">',
+              $gallery_image_src,
+              $gallery_image_width,
+              $gallery_image_height
             ),
           ],
           'media' => [
             'caption_title' => 'Image title',
             'rendered' => sprintf(
-              '<img loading="lazy" data-src="%s" width="200" height="89" alt="Alt text" class="img-fluid">',
-              $fn_get_filepath($gallery_image, 'oe_media_image')
+              '<img loading="lazy" data-src="%s" width="%d" height="%d" alt="Alt text" class="img-fluid">',
+              $gallery_image_src,
+              $gallery_image_width,
+              $gallery_image_height
             ),
           ],
         ],
@@ -330,19 +363,20 @@ class ContentProjectRenderTest extends WebDriverTestBase {
           'thumbnail' => [
             'caption_title' => 'Energy, let\'s save it!',
             'rendered' => sprintf(
-              '<img loading="lazy" src="%s" width="480" height="360" alt="" class="img-fluid">',
-              $fn_get_filepath($gallery_video, 'thumbnail')
+              '<img loading="lazy" src="%s" width="%d" height="%d" alt="" class="img-fluid">',
+              $gallery_video_thumb_src,
+              $gallery_video_width,
+              $gallery_video_height
             ),
             'play_icon' => TRUE,
           ],
           'media' => [
             'caption_title' => 'Energy, let\'s save it!',
             'rendered' => sprintf(
-              '<iframe data-src="%s?url=https%%3A//www.youtube.com/watch%%3Fv%%3D1-g73ty9v04&amp;max_width=0&amp;max_height=0&amp;hash=%s"%s width="459" height="344" class="media-oembed-content" loading="eager" title="Energy, let\'s save it!"></iframe>',
+              // Use mock youtube url from oe_media_oembed_mock module.
+              '<iframe data-src="%s?url=https%%3A//www.youtube.com/watch%%3Fv%%3D1-g73ty9v04&amp;max_width=0&amp;max_height=0&amp;hash=%s" width="459" height="344" class="media-oembed-content" loading="eager" title="Energy, let\'s save it!"></iframe>',
               Url::fromRoute('media.oembed_iframe')->setAbsolute()->toString(),
-              \Drupal::service('media.oembed.iframe_url_helper')->getHash('https://www.youtube.com/watch?v=1-g73ty9v04', 0, 0),
-              // @todo Remove when support for 10.2.x is dropped.
-              version_compare(\Drupal::VERSION, '10.3', '<') ? ' frameborder="0" allowtransparency=""' : '',
+              \Drupal::service('media.oembed.iframe_url_helper')->getHash('https://www.youtube.com/watch?v=1-g73ty9v04', 0, 0)
             ),
           ],
         ],
@@ -350,31 +384,88 @@ class ContentProjectRenderTest extends WebDriverTestBase {
           'thumbnail' => [
             'caption_title' => 'Euro with miniature figurines',
             'rendered' => sprintf(
-              '<img loading="lazy" src="%s" width="639" height="426" alt="Euro with miniature figurines" class="img-fluid">',
-              $fn_get_filepath($gallery_av_photo, 'thumbnail')
+              '<img loading="lazy" src="%s" width="%d" height="%d" alt="Euro with miniature figurines" class="img-fluid">',
+              $gallery_av_photo_thumb_src,
+              $gallery_av_photo_width,
+              $gallery_av_photo_height
             ),
           ],
           'media' => [
             'caption_title' => 'Euro with miniature figurines',
-            'rendered' => '<img class="avportal-photo img-fluid" alt="Euro with miniature figurines" data-src="https://ec.europa.eu/avservices/avs/files/video6/repository/prod/photo/store/store2/4/P038924-352937.jpg">',
+            'rendered' => sprintf(
+              '<img class="avportal-photo img-fluid" alt="Euro with miniature figurines" data-src="%s">',
+              $avportal_photo_url
+            ),
           ],
         ],
         [
           'thumbnail' => [
             'caption_title' => 'Economic and Financial Affairs Council - Arrivals',
             'rendered' => sprintf(
-              '<img loading="lazy" src="%s" width="352" height="200" alt="" class="img-fluid">',
-              $fn_get_filepath($gallery_av_video, 'thumbnail')
+              '<img loading="lazy" src="%s" width="%d" height="%d" alt="" class="img-fluid">',
+              $gallery_av_video_thumb_src,
+              $gallery_av_video_width,
+              $gallery_av_video_height
             ),
             'play_icon' => TRUE,
           ],
           'media' => [
             'caption_title' => 'Economic and Financial Affairs Council - Arrivals',
-            'rendered' => '<iframe id="videoplayerI-163162" data-src="https://ec.europa.eu/avservices/play.cfm?ref=I-163162&amp;lg=EN&amp;sublg=none&amp;autoplay=true&amp;tin=10&amp;tout=59" frameborder="0" allowtransparency="" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen="" width="640" height="390" class="media-avportal-content"></iframe>',
+            'rendered' => sprintf(
+              '<iframe id="videoplayerI-163162" data-src="%s?ref=I-163162&amp;lg=EN&amp;sublg=none&amp;autoplay=true" frameborder="0" allowtransparency="" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen="" width="640" height="390" class="media-avportal-content" title=" Economic and Financial Affairs Council - Arrivals"></iframe>',
+              $avportal_iframe_base
+            ),
           ],
         ],
       ],
     ], $gallery_container->getOuterHtml());
+  }
+
+  /**
+   * Tests the status badge rendering for the teaser view mode.
+   */
+  public function testTeaserStatusBadge(): void {
+    // Create a project with dates set in the past.
+    $this->createProjectNode([
+      'oe_project_dates' => [
+        'value' => '2000-05-10',
+        'end_value' => '2010-05-15',
+      ],
+      // The /node route lists promoted content.
+      // Prior to Drupal 11.3, these nodes would be promoted by default.
+      'promote' => 1,
+    ]);
+
+    // In order to render a teaser, we use the default node list view.
+    $this->drupalGet('/node');
+
+    $teasers = $this->getSession()->getPage()->findAll('css', 'article.listing-item');
+    $this->assertCount(1, $teasers);
+    $this->assertTeaserStatusBadge($teasers[0], 'Closed', 'bg-dark');
+
+    // Create an ongoing project.
+    $this->createProjectNode([
+      'oe_project_dates' => [
+        'value' => '2010-05-10',
+        'end_value' => '2100-05-15',
+      ],
+      'promote' => 1,
+    ]);
+    // And a planned project.
+    $this->createProjectNode([
+      'oe_project_dates' => [
+        'value' => '2100-05-10',
+        'end_value' => '2200-05-15',
+      ],
+      'promote' => 1,
+    ]);
+
+    $this->drupalGet('/node');
+    $teasers = $this->getSession()->getPage()->findAll('css', 'article.listing-item');
+    $this->assertCount(3, $teasers);
+    $this->assertTeaserStatusBadge($teasers[0], 'Planned', 'bg-secondary');
+    $this->assertTeaserStatusBadge($teasers[1], 'Ongoing', 'bg-info');
+    $this->assertTeaserStatusBadge($teasers[2], 'Closed', 'bg-dark');
   }
 
   /**
@@ -430,10 +521,12 @@ class ContentProjectRenderTest extends WebDriverTestBase {
    *   End date string.
    */
   protected function setProjectDateRange(NodeInterface $node, string $begin, string $end): void {
-    $node->oe_project_dates = [
-      'value' => (new DrupalDateTime($begin, 'Europe/Brussels'))->format('Y-m-d'),
-      'end_value' => (new DrupalDateTime($end, 'Europe/Brussels'))->format('Y-m-d'),
-    ];
+    $node->set('oe_project_dates', [
+      [
+        'value' => (new DrupalDateTime($begin, 'Europe/Brussels'))->format('Y-m-d'),
+        'end_value' => (new DrupalDateTime($end, 'Europe/Brussels'))->format('Y-m-d'),
+      ],
+    ]);
   }
 
   /**
@@ -502,7 +595,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
    * @param int|null $max
    *   Maximum progress in percent.
    */
-  protected function assertProjectProgress(int $min, int $max = NULL): void {
+  protected function assertProjectProgress(int $min, ?int $max = NULL): void {
     $progress_bar = $this->assertSession()->elementExists('css', '.bcl-project-status .progress-bar');
     $progress_string = $progress_bar->getAttribute('aria-valuenow');
     $this->assertStringContainsString("width: $progress_string%", $progress_bar->getAttribute('style'));
@@ -529,6 +622,23 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     $this->assertEquals($expected_start_date, trim($start_element->getText()));
     $end_element = $this->assertSession()->elementExists('xpath', '//p[contains(text(), "End")]//time', $wrapper);
     $this->assertEquals($expected_end_date, trim($end_element->getText()));
+  }
+
+  /**
+   * Asserts the teaser status badge.
+   *
+   * @param \Behat\Mink\Element\NodeElement $wrapper
+   *   The teaser wrapper element.
+   * @param string $status_label
+   *   The expected status label.
+   * @param string $status_class
+   *   The expected status class.
+   */
+  protected function assertTeaserStatusBadge(NodeElement $wrapper, string $status_label, string $status_class): void {
+    $badges = $wrapper->findAll('css', '.badge');
+    $this->assertCount(2, $badges);
+    $this->assertEquals($status_label, $badges[0]->getText());
+    $this->assertTrue($badges[0]->hasClass($status_class));
   }
 
 }

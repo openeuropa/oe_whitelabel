@@ -7,6 +7,7 @@
 
 declare(strict_types=1);
 
+use Drupal\block\Entity\Block;
 use Drupal\Core\Config\FileStorage;
 use Drupal\oe_bootstrap_theme\ConfigImporter;
 
@@ -40,4 +41,29 @@ function oe_whitelabel_helper_post_update_00002(): void {
 function oe_whitelabel_helper_post_update_00003(): void {
   $storage = new FileStorage(\Drupal::service('extension.list.module')->getPath('oe_whitelabel_helper') . '/config/post_updates/00003_gallery_formatter');
   \Drupal::service('config.installer')->installOptionalConfig($storage);
+}
+
+/**
+ * Place the OEL mega menu block.
+ */
+function oe_whitelabel_helper_post_update_00004(): string {
+  if (!\Drupal::moduleHandler()->moduleExists('block')) {
+    return 'No blocks can be placed, because the block module is not installed.';
+  }
+
+  ConfigImporter::importSingle('module', 'oe_whitelabel_helper', '/config/post_updates/00004_megamenu', 'block.block.oe_whitelabel_oelmegamenu');
+
+  $report = 'The new mega menu block was placed in the navigation region for oe_whitelabel.';
+
+  $old_navigation_block = Block::load('oe_whitelabel_main_navigation');
+  if (!$old_navigation_block || $old_navigation_block->getTheme() !== 'oe_whitelabel') {
+    return $report . "\nThe old navigation block was not found.";
+  }
+  if (!$old_navigation_block->status()) {
+    return $report . "\nThe old navigation block was already disabled.";
+  }
+
+  $old_navigation_block->setStatus(FALSE)->save();
+
+  return $report . "\nThe old navigation block was disabled.";
 }

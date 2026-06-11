@@ -1,0 +1,13 @@
+{#
+/**
+ * @file
+ * Theme override to display an agenda entity of oe_default type.
+ *
+ * @see oe_whitelabel_agenda_preprocess_oe_agenda__oe_default()
+ * @see ./modules/contrib/oe_agenda/templates/oe-agenda.html.twig
+ */
+#}
+{{ pattern('accordion', {
+  items: days,
+  attributes: attributes.addClass('oe-agenda'),
+}) }}

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel\Functional;
 
+use Drupal\Tests\TestFileCreationTrait;
+use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
 use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 use Drupal\node\NodeInterface;
-use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
-use Drupal\Tests\TestFileCreationTrait;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -34,6 +34,8 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
    *   News node.
    */
   protected function createExampleNews(): NodeInterface {
+    $this->createMediaCopyrightField();
+
     // Create a sample image media entity to be embedded.
     File::create([
       'uri' => $this->getTestFiles('image')[0]->uri,
@@ -48,6 +50,7 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
           'title' => 'Starter Image test title',
         ],
       ],
+      'field_media_copyright' => 'News image copyright',
     ]);
     $media_image->save();
 
@@ -96,6 +99,10 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
     $this->assertEquals('Starter Image test alt',
       $image->attr('alt')
     );
+    $this->assertStringContainsString(
+      'News image copyright',
+      trim($content_banner->filter('.bcl-copyright')->text())
+    );
 
     // Assert content banner content elements.
     $this->assertEquals(
@@ -134,7 +141,7 @@ class ContentNewsRenderTest extends WhitelabelBrowserTestBase {
 
     $this->assertEquals(
       'Test news node',
-      trim($article->filter('h1.card-title')->text())
+      trim($article->filter('div.card-title')->text())
     );
     $image = $article->filter('img');
     $this->assertCount(1, $image);

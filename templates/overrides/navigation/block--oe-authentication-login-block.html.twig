@@ -6,26 +6,30 @@
  * @see \Drupal\oe_authentication\Plugin\Block\LoginBlock
  */
 #}
-{% set extra_attributes = create_attribute() %}
-{% set extra_attributes = extra_attributes.addClass([
-  'text-center'
-]) %}
+
+{% set link_classes = ['top-navigation-link'] %}
+{% if logged_in %}
+  {% set link_classes = link_classes|merge(['active']) %}
+{% endif %}
+
+{% set extra_attributes = create_attribute().addClass(link_classes) %}
 
 {% set title = content['#title']|render %}
+{% set icon_name = logged_in ? 'person-check' : 'person' %}
 {% set link_title %}
-  <span class="d-block d-lg-inline-block">{{ title }}</span>
+  <span class="d-none d-xl-inline-block">{{ title }}</span>
 {% endset %}
 
-<div class="oe-authentication nav-link">
+<div class="oe-authentication">
   {{ pattern('link', {
     label: link_title,
     path: content['#url']|render,
+    icon_display: 'inline-flex',
     icon: {
-      name: 'person-fill',
-      size: 'xs',
+      name: icon_name,
+      size: 'fluid',
     },
     icon_position: 'before',
-    standalone: true,
     attributes: extra_attributes
   }) }}
 </div>

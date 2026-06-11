@@ -23,6 +23,8 @@ class FooterBlockTest extends SparqlKernelTestBase {
     'oe_whitelabel_helper',
     'rdf_skos',
     'system',
+    'ui_patterns',
+    'ui_patterns_library',
     'user',
   ];
 
@@ -81,6 +83,21 @@ class FooterBlockTest extends SparqlKernelTestBase {
     // oe_corporate_blocks, so we cannot assert a specific count.
     $this->assertNotEmpty($columns->eq(1)->filter('.mb-1 a.standalone'));
     $this->assertNotEmpty($columns->eq(2)->filter('.mb-1 a.standalone'));
+    $accessibility_link = $crawler->filter('a[href="https://example.com/accessibility"]');
+    $this->assertCount(0, $accessibility_link);
+
+    \Drupal::configFactory()
+      ->getEditable('oe_corporate_site_info.settings')
+      ->set('accessibility', 'https://example.com/accessibility')
+      ->save();
+
+    $builder->resetCache();
+    $build = $builder->view($entity, 'block');
+    $crawler = new Crawler((string) $this->container->get('renderer')->renderRoot($build));
+
+    $accessibility_link = $crawler->filter('a[href="https://example.com/accessibility"]');
+    $this->assertCount(1, $accessibility_link);
+    $this->assertEquals('Accessibility', $accessibility_link->text());
   }
 
   /**
@@ -116,7 +133,26 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $sectionTitles = $crawler->filter('p.fw-bold.mb-2');
     $this->assertCount(5, $sectionTitles);
     $sectionLinks = $crawler->filter('div.col-12.col-lg-4:nth-child(2) .mb-1 a.standalone');
-    $this->assertCount(10, $sectionLinks);
+    $this->assertCount(5, $sectionLinks);
+    $accessibility_eu_link = $crawler->filter('a[href="https://european-union.europa.eu/accessibility-statement_en"]');
+    $this->assertCount(1, $accessibility_eu_link);
+    $accessibility_link = $crawler->filter('a[href="https://example.com/accessibility"]');
+    $this->assertCount(0, $accessibility_link);
+
+    \Drupal::configFactory()
+      ->getEditable('oe_corporate_site_info.settings')
+      ->set('accessibility', 'https://example.com/accessibility')
+      ->save();
+
+    $builder->resetCache();
+    $build = $builder->view($entity, 'block');
+    $crawler = new Crawler((string) $this->container->get('renderer')->renderRoot($build));
+
+    $accessibility_eu_link = $crawler->filter('a[href="https://european-union.europa.eu/accessibility-statement_en"]');
+    $this->assertCount(0, $accessibility_eu_link);
+    $accessibility_link = $crawler->filter('a[href="https://example.com/accessibility"]');
+    $this->assertCount(1, $accessibility_link);
+    $this->assertEquals('Accessibility statement', $accessibility_link->text());
   }
 
   /**
@@ -138,6 +174,12 @@ class FooterBlockTest extends SparqlKernelTestBase {
       ],
     ]);
     $entity->save();
+
+    \Drupal::configFactory()
+      ->getEditable('oe_corporate_site_info.settings')
+      ->set('accessibility', 'https://example.com/accessibility')
+      ->save();
+
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);
@@ -148,7 +190,10 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $rows = $crawler->filter('.row');
     $this->assertCount(1, $rows);
     $sectionTitles = $crawler->filter('p.fw-bold.mb-2');
-    $this->assertCount(1, $sectionTitles);
+    $this->assertCount(2, $sectionTitles);
+    $accessibilityLink = $crawler->filter('a[href="https://example.com/accessibility"]');
+    $this->assertCount(1, $accessibilityLink);
+    $this->assertEquals('Accessibility', $accessibilityLink->text());
   }
 
 }

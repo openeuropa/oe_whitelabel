@@ -8,44 +8,48 @@
     "require": {
         "php": ">=8.1",
         "cweagans/composer-patches": "^1.7",
-        "drupal/core": "^10",
+        "drupal/core": "^10 || ^11",
         "drupal/daterange_compact": "^2.0.1",
         "drupal/twig_field_value": "^2.0.2",
         "openeuropa/composer-artifacts": "^1.0.0-alpha1",
-        "openeuropa/oe_bootstrap_theme": "^1.10.0"
+        "openeuropa/oe_bootstrap_theme": "^1.35"
     },
     "require-dev": {
-        "composer/installers": "^1.11",
-        "drupal/better_exposed_filters": "^6.0.3",
+        "composer/installers": "^1.11 || ^2.3",
+        "drupal/better_exposed_filters": "^6.0.3 || ^7.0",
+        "drupal/color_scheme_field": "^1.0@alpha",
         "drupal/composite_reference": "^2.2",
         "drupal/config_devel": "~1.9",
-        "drupal/core-composer-scaffold": "^10",
-        "drupal/core-dev": "^10",
+        "drupal/core-composer-scaffold": "^10 || ^11",
+        "drupal/core-dev": "^10 || ^11",
         "drupal/description_list_field": "^1.0@alpha",
         "drupal/entity_reference_revisions": "^1.11",
-        "drupal/extra_field": "^2.3",
+        "drupal/extra_field": "^2.3 || ^3.0@beta",
         "drupal/facets_form": "^1.0.0-alpha6",
         "drupal/field_group": "^3.4",
+        "drupal/modal_page": "^6.0-beta12",
+        "drupal/paragraphs": "^1.17",
         "drupal/search_api": "^1.29",
         "drupal/search_api_autocomplete": "^1.7",
         "drupal/typed_link": "^2.0.1",
-        "drush/drush": "^12",
-        "mikey179/vfsstream": "^1.6.10",
-        "nikic/php-parser": "^4",
-        "openeuropa/code-review": "^2.0.0-alpha6",
+        "drush/drush": "^12 || ^13",
+        "ec-europa/toolkit": "^10.24",
+        "openeuropa/code-review-drupal": "^1.0.0-alpha",
+        "openeuropa/oe_agenda": "^1.0.0-alpha4",
         "openeuropa/oe_authentication": "^1.11",
         "openeuropa/oe_contact_forms": "~1.11",
-        "openeuropa/oe_content": "^3",
-        "openeuropa/oe_content_extra": "^1.1.0",
-        "openeuropa/oe_corporate_blocks": "^4.13",
+        "openeuropa/oe_content": "^4.11",
+        "openeuropa/oe_content_extra": "^1.4",
+        "openeuropa/oe_corporate_blocks": "^5.0.0-beta5",
         "openeuropa/oe_link_lists": "^1.0",
-        "openeuropa/oe_list_pages": "^1.0.0",
+        "openeuropa/oe_list_pages": "^1.0",
         "openeuropa/oe_multilingual": "^1.14",
-        "openeuropa/oe_paragraphs": "^1.20",
-        "openeuropa/oe_starter_content": "^1.2.0",
-        "openeuropa/oe_subscriptions": "^1.0@alpha",
-        "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta6",
-        "phpspec/prophecy-phpunit": "^2"
+        "openeuropa/oe_paragraphs": "^1.32",
+        "openeuropa/oe_starter_content": "^1.5",
+        "openeuropa/oe_subscriptions": "^1.0.0-beta3"
+    },
+    "conflict": {
+        "openeuropa/oe_corporate_blocks": "<4.19"
     },
     "scripts": {
         "post-install-cmd": "./vendor/bin/run drupal:site-setup",
@@ -64,11 +68,18 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "Drupal\\oe_whitelabel_commands\\": "./toolkit/src/",
             "Drupal\\Tests\\oe_whitelabel\\": "./tests/src/",
             "Drupal\\Tests\\oe_bootstrap_theme\\": "./build/themes/contrib/oe_bootstrap_theme/tests/src/"
         }
     },
     "extra": {
+        "patches": {
+            "drupal/modal_page": {
+                "Improve cache invalidation process: https://www.drupal.org/project/modal_page/issues/3555830": "https://www.drupal.org/files/issues/2026-01-09/3555830-14.patch",
+                "Allow modal entity management without granting access to global module config: https://www.drupal.org/project/modal_page/issues/3559425": "https://www.drupal.org/files/issues/2025-11-25/3559425-5.patch"
+            }
+        },
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
         "artifacts": {
@@ -97,22 +108,21 @@
             "build/themes/contrib/{$name}": [
                 "type:drupal-theme"
             ]
-        },
-        "_readme": [
-            "Explicit requirement of nikic/php-parser ^4 as later versions are not compatible with grumphp @see https://github.com/phpro/grumphp/issues/1119"
-        ]
+        }
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "openeuropa/composer-artifacts": true,
             "composer/installers": true,
-            "drupal/core-composer-scaffold": true,
             "cweagans/composer-patches": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "phpro/grumphp": true,
+            "drupal/core-composer-scaffold": true,
+            "openeuropa/composer-artifacts": true,
+            "ec-europa/toolkit-composer-plugin": true,
+            "php-http/discovery": false,
+            "phpro/grumphp-shim": false,
             "phpstan/extension-installer": true,
-            "php-http/discovery": false
+            "tbachert/spi": false
         }
     }
 }

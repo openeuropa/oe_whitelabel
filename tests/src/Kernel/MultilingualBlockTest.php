@@ -17,20 +17,15 @@ class MultilingualBlockTest extends KernelTestBase {
    */
   protected static $modules = [
     'block',
-    'content_translation',
-    'ctools',
     'language',
     'locale',
     'oe_bootstrap_theme_helper',
     'oe_multilingual',
     'oe_whitelabel_multilingual',
-    'path',
-    'path_alias',
-    'pathauto',
     'system',
-    'token',
     'ui_patterns',
     'ui_patterns_library',
+    'ui_patterns_settings',
     'user',
   ];
 
@@ -55,14 +50,12 @@ class MultilingualBlockTest extends KernelTestBase {
       'locale_file',
     ]);
 
-    $this->installSchema('user', ['users_data']);
-
     $this->installConfig([
       'locale',
       'language',
-      'content_translation',
       'oe_multilingual',
     ]);
+
     $this->container->get('module_handler')->loadInclude('oe_multilingual', 'install');
     oe_multilingual_install(FALSE);
 
@@ -82,87 +75,78 @@ class MultilingualBlockTest extends KernelTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler($render->__toString());
 
-    $block = $crawler->filter('div.language-switcher');
+    $block = $crawler->filter('div.language-switcher-block');
     $this->assertCount(1, $block);
-    $link = $crawler->filter('div.language-switcher > a');
-    $this->assertSame('English', trim($link->text()));
+    $link = $crawler->filter('div.language-switcher-block > a');
+    $this->assertEquals('Change language. Current language is English.', $link->attr('aria-label'));
+    $this->assertSame('EN', trim($link->text()));
     $this->assertSame('#', $link->attr('href'));
-    $title = $crawler->filter('div#languageModal h5');
+    $link_classes = $link->attr('class') ?? '';
+    $this->assertStringContainsString('top-navigation-link', $link_classes);
+    $this->assertStringContainsString('d-inline-flex', $link_classes);
+    $this->assertStringContainsString('gap-2-5', $link_classes);
+    $icon = $link->filter('svg');
+    $this->assertCount(1, $icon);
+    $icon_classes = $icon->attr('class') ?? '';
+    $this->assertStringContainsString('icon--fluid', $icon_classes);
+    $this->assertStringContainsString('bi', $icon_classes);
+    $title = $crawler->filter('div#languageModal .modal-title');
     $this->assertSame('Select your language', $title->text());
     $button_header = $crawler->filter('button.btn-close');
     $this->assertSame('modal', $button_header->attr('data-bs-dismiss'));
-    $link_language = $crawler->filter('a#link_bg');
+
+    foreach ($this->languageDataProvider() as $data) {
+      $this->assertLanguageLink($crawler, $data['0'], $data['1']);
+    }
+  }
+
+  /**
+   * Asserts the language link rendering.
+   *
+   * @param \Symfony\Component\DomCrawler\Crawler $crawler
+   *   The crawler.
+   * @param string $label
+   *   The language label.
+   * @param string $code
+   *   The language code.
+   */
+  protected function assertLanguageLink(Crawler $crawler, string $label, string $code): void {
+    $link_language = $crawler->filter('a#link_' . $code);
     $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('български', $link_language->text());
-    $link_language = $crawler->filter('a#link_cs');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('čeština', $link_language->text());
-    $link_language = $crawler->filter('a#link_da');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('dansk', $link_language->text());
-    $link_language = $crawler->filter('a#link_de');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('Deutsch', $link_language->text());
-    $link_language = $crawler->filter('a#link_et');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('eesti', $link_language->text());
-    $link_language = $crawler->filter('a#link_el');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('ελληνικά', $link_language->text());
-    $link_language = $crawler->filter('a#link_en');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('English', $link_language->text());
-    $link_language = $crawler->filter('a#link_es');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('español', $link_language->text());
-    $link_language = $crawler->filter('a#link_fr');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('français', $link_language->text());
-    $link_language = $crawler->filter('a#link_ga');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('Gaeilge', $link_language->text());
-    $link_language = $crawler->filter('a#link_hr');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('hrvatski', $link_language->text());
-    $link_language = $crawler->filter('a#link_it');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('italiano', $link_language->text());
-    $link_language = $crawler->filter('a#link_lt');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('lietuvių', $link_language->text());
-    $link_language = $crawler->filter('a#link_lv');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('latviešu', $link_language->text());
-    $link_language = $crawler->filter('a#link_hu');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('magyar', $link_language->text());
-    $link_language = $crawler->filter('a#link_mt');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('Malti', $link_language->text());
-    $link_language = $crawler->filter('a#link_nl');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('Nederlands', $link_language->text());
-    $link_language = $crawler->filter('a#link_pl');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('polski', $link_language->text());
-    $link_language = $crawler->filter('a#link_pt-pt');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('português', $link_language->text());
-    $link_language = $crawler->filter('a#link_ro');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('română', $link_language->text());
-    $link_language = $crawler->filter('a#link_sk');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('slovenčina', $link_language->text());
-    $link_language = $crawler->filter('a#link_sl');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('slovenščina', $link_language->text());
-    $link_language = $crawler->filter('a#link_fi');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('suomi', $link_language->text());
-    $link_language = $crawler->filter('a#link_sv');
-    $this->assertEmpty($link_language->attr('href'));
-    $this->assertSame('svenska', $link_language->text());
+    $this->assertSame($label, $link_language->text());
+  }
+
+  /**
+   * Provides data for the language links.
+   *
+   * @return \Generator
+   *   The language links data.
+   */
+  protected function languageDataProvider(): \Generator {
+    yield ['български', 'bg'];
+    yield ['čeština', 'cs'];
+    yield ['dansk', 'da'];
+    yield ['Deutsch', 'de'];
+    yield ['eesti', 'et'];
+    yield ['ελληνικά', 'el'];
+    yield ['English', 'en'];
+    yield ['español', 'es'];
+    yield ['français', 'fr'];
+    yield ['Gaeilge', 'ga'];
+    yield ['hrvatski', 'hr'];
+    yield ['italiano', 'it'];
+    yield ['lietuvių', 'lt'];
+    yield ['latviešu', 'lv'];
+    yield ['magyar', 'hu'];
+    yield ['Malti', 'mt'];
+    yield ['Nederlands', 'nl'];
+    yield ['polski', 'pl'];
+    yield ['português', 'pt-pt'];
+    yield ['română', 'ro'];
+    yield ['slovenčina', 'sk'];
+    yield ['slovenščina', 'sl'];
+    yield ['suomi', 'fi'];
+    yield ['svenska', 'sv'];
   }
 
 }

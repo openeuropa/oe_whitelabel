@@ -3,7 +3,7 @@ description: The OpenEuropa Whitelabel theme.
 screenshot: screenshot.png
 type: theme
 base theme: oe_bootstrap_theme
-core_version_requirement: ^10
+core_version_requirement: ^10 || ^11
 
 libraries:
   - oe_whitelabel/style
@@ -13,6 +13,10 @@ libraries-override:
     css:
       theme:
         css/system.admin.css: false
+  modal_page/modal-page:
+    css:
+      theme:
+        css/modal-page.css: false
 
 regions:
   header_branding: 'Header branding'
@@ -45,4 +49,5 @@ config_devel:
     - block.block.oe_whitelabel_main_page_content
     - block.block.oe_whitelabel_messages
     - block.block.oe_whitelabel_neutral_footer
+    - block.block.oe_whitelabel_oelmegamenu
     - block.block.oe_whitelabel_search_form

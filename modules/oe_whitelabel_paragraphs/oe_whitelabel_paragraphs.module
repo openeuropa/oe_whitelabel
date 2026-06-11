@@ -27,10 +27,7 @@ use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalPhotoSource;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalSourceInterface;
 use Drupal\media_avportal\Plugin\media\Source\MediaAvPortalVideoSource;
 use Drupal\oe_bootstrap_theme\ConfigImporter;
-use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObject;
-use Drupal\oe_bootstrap_theme\ValueObject\ImageValueObjectInterface;
-use Drupal\oe_media_iframe\Plugin\media\Source\Iframe;
-use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\oe_whitelabel\ColorSchemePreprocess;
 
 /**
  * Implements hook_modules_installed().
@@ -645,66 +642,26 @@ function oe_whitelabel_paragraphs_preprocess_paragraph__oe_gallery(&$variables) 
 }
 
 /**
- * Helper function to preprocess the paragraph's media field.
- *
- * @param array $variables
- *   The variables array.
+ * Implements hook_preprocess_paragraph() for oe_document paragraph.
  */
-function _oe_whitelabel_paragraphs_preprocess_paragraph_media(array &$variables): void {
-  /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
-  $paragraph = $variables['paragraph'];
+function oe_whitelabel_paragraphs_preprocess_paragraph__oe_document(array &$variables): void {
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
+  $color_scheme_preprocess->injectColorScheme($variables, [
+    'text_colored' => TRUE,
+  ]);
+}
 
-  // Caches are handled by the formatter usually. Since we are not rendering
-  // the original render arrays, we need to propagate our caches to the
-  // paragraph template.
-  $cacheability = CacheableMetadata::createFromRenderArray($variables);
-
-  // Bail out if there is no media present.
-  if ($paragraph->get('field_oe_media')->isEmpty()) {
-    return;
-  }
-
-  /** @var \Drupal\media\Entity\Media $media */
-  $media = $paragraph->get('field_oe_media')->entity;
-  if (!$media instanceof MediaInterface) {
-    // The media entity is not available anymore, bail out.
-    return;
-  }
-
-  // Retrieve the correct media translation.
-  /** @var \Drupal\media\Entity\Media $media */
-  $media = \Drupal::service('entity.repository')->getTranslationFromContext($media, $paragraph->language()->getId());
-
-  $cacheability->addCacheableDependency($media);
-
-  // Run access checks on the media entity.
-  $access = $media->access('view', $variables['user'], TRUE);
-  $cacheability->addCacheableDependency($access);
-  if (!$access->isAllowed()) {
-    $cacheability->applyTo($variables);
-    return;
-  }
-
-  $source = $media->getSource();
-
-  $is_image = $source instanceof MediaAvPortalPhotoSource || $source instanceof Image;
-  $is_video = $source instanceof MediaAvPortalVideoSource || $source instanceof OEmbed || $source instanceof Iframe;
-
-  // If it's not an image and not a video, bail out.
-  if (!$is_image && !$is_video) {
-    $cacheability->applyTo($variables);
-    return;
-  }
-
-  if ($is_image) {
-    $thumbnail = $media->get('thumbnail')->first();
-    $variables['image'] = ImageValueObject::fromStyledImageItem($thumbnail, 'oe_bootstrap_theme_medium_no_crop');
-  }
-  elseif ($is_video) {
-    _oe_whitelabel_featured_media_set_embedded_media($variables, $media, $cacheability, $source);
-  }
-
-  $cacheability->applyTo($variables);
+/**
+ * Implements hook_preprocess_paragraph() for oe_quote paragraph.
+ */
+function oe_whitelabel_paragraphs_preprocess_paragraph__oe_quote(array &$variables): void {
+  /** @var \Drupal\oe_whitelabel\ColorSchemePreprocess $color_scheme_preprocess */
+  $color_scheme_preprocess = \Drupal::classResolver(ColorSchemePreprocess::class);
+  $color_scheme_preprocess->injectColorScheme($variables, [
+    'background' => 'default',
+    'text_colored' => TRUE,
+  ]);
 }
 
 /**

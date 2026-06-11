@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
-use Drupal\Core\Url;
 use Drupal\KernelTests\KernelTestBase;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -67,17 +66,7 @@ class SiteBrandingBlockTest extends KernelTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler((string) $render);
 
-    $actual = $crawler->filter('.bcl-header__site-name.site-name');
-    $this->assertCount(1, $actual);
-    $link = $actual->filter('.text-decoration-none.align-bottom');
-    $this->assertCount(1, $link);
-    $actual = $crawler->filter('.site-logo.d-none.d-lg-inline-block');
-    $this->assertSame(Url::fromRoute('<front>')->toString(), $actual->attr('href'));
-    $this->assertCount(1, $actual);
-    $logo = $actual->filter('img');
-    $this->assertCount(1, $logo);
-    $expected = '/themes/custom/oe_whitelabel/logo.svg';
-    $this->assertSame($expected, $logo->attr('src'));
+    $this->assertBrandingHeading($crawler);
 
     \Drupal::configFactory()->getEditable('oe_whitelabel.settings')
       ->set('component_library', 'eu')
@@ -90,17 +79,7 @@ class SiteBrandingBlockTest extends KernelTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler((string) $render);
 
-    $actual = $crawler->filter('.bcl-header__site-name.site-name');
-    $this->assertCount(1, $actual);
-    $link = $actual->filter('.text-decoration-none.align-bottom');
-    $this->assertCount(1, $link);
-    $actual = $crawler->filter('.site-logo.d-none.d-lg-inline-block');
-    $this->assertSame(Url::fromRoute('<front>')->toString(), $actual->attr('href'));
-    $this->assertCount(1, $actual);
-    $logo = $actual->filter('img');
-    $this->assertCount(1, $logo);
-    $expected = '/themes/custom/oe_whitelabel/logo.svg';
-    $this->assertSame($expected, $logo->attr('src'));
+    $this->assertBrandingHeading($crawler);
 
     \Drupal::configFactory()->getEditable('oe_whitelabel.settings')
       ->set('component_library', 'neutral')
@@ -112,11 +91,27 @@ class SiteBrandingBlockTest extends KernelTestBase {
     $render = $this->container->get('renderer')->renderRoot($build);
     $crawler = new Crawler((string) $render);
 
-    $actual = $crawler->filter('.bcl-header__site-name.site-name.h5.d-inline-block.d-lg-none');
-    $this->assertCount(1, $actual);
-    $link = $actual->filter('.text-decoration-none.align-bottom');
-    $this->assertSame(Url::fromRoute('<front>')->toString(), $link->attr('href'));
-    $this->assertCount(1, $link);
+    $this->assertBrandingHeading($crawler);
+  }
+
+  /**
+   * Asserts the branding block renders the site name heading.
+   */
+  protected function assertBrandingHeading(Crawler $crawler): void {
+    $container = $crawler->filter('div.container');
+    $this->assertCount(1, $container);
+
+    $heading = $container->filter('#site-name-heading');
+    $this->assertCount(1, $heading);
+
+    $tag = $heading->nodeName();
+    $this->assertContains($tag, ['h1', 'p']);
+    $this->assertSame('Site name', trim($heading->text()));
+
+    $classes = array_filter(explode(' ', (string) $heading->attr('class')));
+    foreach (['h5', 'py-3-5', 'border-top-subtle', 'mb-0'] as $expected_class) {
+      $this->assertContains($expected_class, $classes);
+    }
   }
 
 }

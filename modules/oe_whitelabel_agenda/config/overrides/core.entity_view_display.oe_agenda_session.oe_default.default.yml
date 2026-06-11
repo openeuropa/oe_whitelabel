@@ -1,0 +1,88 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.oe_agenda_session.oe_default.oe_session_details
+    - field.field.oe_agenda_session.oe_default.oe_session_hours
+    - field.field.oe_agenda_session.oe_default.oe_session_intro
+    - field.field.oe_agenda_session.oe_default.oe_session_moderators
+    - field.field.oe_agenda_session.oe_default.oe_session_online_link
+    - field.field.oe_agenda_session.oe_default.oe_session_speakers
+    - field.field.oe_agenda_session.oe_default.oe_session_venue
+    - oe_agenda.oe_agenda_session_type.oe_default
+  module:
+    - entity_reference_revisions
+    - link_description
+    - text
+    - time_field
+id: oe_agenda_session.oe_default.default
+targetEntityType: oe_agenda_session
+bundle: oe_default
+mode: default
+content:
+  oe_session_details:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  oe_session_hours:
+    type: time_range_formatter
+    label: above
+    settings:
+      time_format: 'G:i'
+      timerange_format: 'start - end'
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  oe_session_intro:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  oe_session_moderators:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  oe_session_online_link:
+    type: link_description
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  oe_session_speakers:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  oe_session_venue:
+    type: link_description
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+hidden: {  }

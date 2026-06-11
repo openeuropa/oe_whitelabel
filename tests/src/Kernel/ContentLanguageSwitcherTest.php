@@ -9,6 +9,8 @@ use Drupal\node\Entity\Node;
 use Drupal\user\Entity\User;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 
 /**
  * Test content language switcher rendering.
@@ -203,6 +205,9 @@ class ContentLanguageSwitcherTest extends KernelTestBase {
   protected function setCurrentRequest(string $uri): void {
     // Simulate a request to a node canonical route with a language prefix.
     $request = Request::create($uri);
+    // Add a mock session on the request before pushing it on the stack.
+    // See: https://www.drupal.org/node/3337193
+    $request->setSession(new Session(new MockArraySessionStorage()));
     // Let the Drupal router populate all the request parameters.
     $parameters = \Drupal::service('router.no_access_checks')->matchRequest($request);
     $request->attributes->add($parameters);

@@ -9,41 +9,39 @@
     - modal
 #}
 
-{% set _language = {
-  link: {
-    label: language.link.name|default(''),
-    href: language.link.href|default('#'),
-    target: language.link.target|default(language.modal.id|default('')),
-  },
-  modal: language.modal,
+{% set original_label = language.link.name|default('') %}
+{% set language_code = language.link.id|default('')|replace({'link_': ''}) %}
+{% set display_label = language_code ? language_code|upper : original_label %}
+{% set _language_link = {
+  label: display_label,
+  href: language.link.href|default('#'),
+  target: language.link.target|default(language.modal.id|default(''))
 } %}
-{% set extra_attributes = create_attribute() %}
-{% set extra_attributes = extra_attributes.setAttribute('data-bs-toggle', 'modal') %}
-{% set extra_attributes = extra_attributes.setAttribute('data-bs-target', '#' ~ _language.link.target) %}
-{% set extra_attributes = extra_attributes.addClass(
-  [
-    'text-center'
-  ]
-) %}
-  {% set title = _language.link.label %}
-  {% set link_title %}
-    <span class="d-block d-lg-inline-block">{{ title }}</span>
-  {% endset %}
+{% set extra_attributes = create_attribute({
+  'class': [
+    'top-navigation-link',
+  ],
+  'data-bs-toggle': 'modal',
+  'data-bs-target': '#' ~ _language_link.target,
+  'aria-label': 'Change language. Current language is @language.'|t({'@language': original_label}),
+}) %}
 
-  <div class="language-switcher">
-  {{ pattern('link', {
-    label: link_title,
-    path: _language.link.href,
-    icon: {
-      name: 'chat-left-dots-fill',
-      size: 'xs',
-    },
-    icon_position: 'before',
-    standalone: true,
-    attributes: extra_attributes
-  }) }}
-</div>
+{% set _link_title %}
+  <span class="d-none d-xl-inline-block">{{ _language_link.label }}</span>
+{% endset %}
 
-{% include '@oe_whitelabel/patterns/modal/modal-language.html.twig' with _language.modal only %}
+{{ pattern('link', {
+  label: _link_title,
+  path: _language_link.href,
+  icon_display: 'inline-flex',
+  icon: {
+    name: 'globe2',
+    size: 'fluid',
+  },
+  icon_position: 'before',
+  attributes: extra_attributes
+}) }}
+
+{% include '@oe_whitelabel/patterns/modal/modal-language.html.twig' with language.modal only %}
 
 {% endapply %}

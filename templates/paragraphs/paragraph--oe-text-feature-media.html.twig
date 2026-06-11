@@ -21,5 +21,7 @@
   'subtitle': not paragraph.field_oe_feature_media_title.isEmpty ? content.field_oe_feature_media_title,
   'caption': not paragraph.field_oe_plain_text_long.isEmpty ? content.field_oe_plain_text_long,
   'text': not paragraph.field_oe_text_long.isEmpty ? content.field_oe_text_long,
+  'copyright': copyright|default(''),
   'link': link|default([]),
+  'attributes': attributes,
 }) }}

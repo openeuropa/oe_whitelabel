@@ -1,4 +1,10 @@
 {% extends "@oe_whitelabel/overrides/navigation/oe-corporate-blocks-neutral-footer.html.twig" %}
+
+{% if corporate_footer.service_navigation %}
+  {% set _social_links = corporate_footer.service_navigation %}
+{% else %}
+  {% set _social_links = corporate_footer.social_media_common_links %}
+{% endif %}
 {% block content %}
   {% set _top_sections =  {
     'extra_classes': 'pt-4 pt-lg-5',
@@ -44,7 +50,7 @@
         'items': [
         {
           'type': 'links',
-          'links': bcl_footer_links(corporate_footer.service_navigation),
+          'links': bcl_footer_links(_social_links),
         }
       ],
       },

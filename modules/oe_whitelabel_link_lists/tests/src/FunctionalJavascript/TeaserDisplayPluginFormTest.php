@@ -8,6 +8,8 @@ use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 
 /**
  * Tests the configuration form of the teaser display plugin.
+ *
+ * @group batch1
  */
 class TeaserDisplayPluginFormTest extends WebDriverTestBase {
 
@@ -69,7 +71,7 @@ class TeaserDisplayPluginFormTest extends WebDriverTestBase {
     $page->selectFieldOption('No results behaviour', 'Hide');
     $assert_session->assertWaitOnAjaxRequest();
     $page->pressButton('Save');
-    $assert_session->statusMessageContains('Saved the Teaser display plugin test Link list.');
+    $assert_session->statusMessageContains('Created the Teaser display plugin test Link list.');
 
     $entities = \Drupal::entityTypeManager()
       ->getStorage('link_list')

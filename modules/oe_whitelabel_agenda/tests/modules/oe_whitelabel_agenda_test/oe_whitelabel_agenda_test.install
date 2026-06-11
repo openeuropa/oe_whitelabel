@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Install and update functions for the OE Whitelabel Agenda Test module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\oe_bootstrap_theme\ConfigImporter;
+
+/**
+ * Implements hook_install().
+ */
+function oe_whitelabel_agenda_test_install(bool $is_syncing): void {
+  if ($is_syncing) {
+    // The module is being installed as part of a config import.
+    return;
+  }
+
+  // Import config overrides for agenda theming test.
+  $configs = [
+    'field.field.oe_agenda_session.oe_default.oe_session_moderators',
+    'field.field.oe_agenda_session.oe_default.oe_session_speakers',
+    'core.entity_view_display.oe_agenda_session.oe_default.default',
+  ];
+  ConfigImporter::importMultiple('module', 'oe_whitelabel_agenda_test', '/config/overrides/', $configs);
+}

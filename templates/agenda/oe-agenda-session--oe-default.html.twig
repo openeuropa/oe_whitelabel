@@ -1,0 +1,95 @@
+{#
+/**
+ * @file
+ * Theme override to display an agenda session entity of oe_default type.
+ *
+ * @see oe_whitelabel_agenda_preprocess_oe_agenda_session__oe_default()
+ * @see ./modules/contrib/oe_agenda/templates/oe-agenda-session.html.twig
+ */
+#}
+{% macro icon(name, size, attributes) %}
+  {{ pattern('icon', {
+    name: name,
+    path: bcl_icon_path,
+    size: size,
+    attributes: attributes,
+  }) }}
+{% endmacro %}
+
+<div{{ attributes.addClass('row') }}>
+  <div class="col-xxl-2 col-xl-3 col-lg-3 mb-3 mb-lg-0">
+    {% block hours %}
+      {{ _self.icon('clock', 'xs', create_attribute({class: ['mb-1', 'me-2']})) }}
+      <span>{{ content.oe_session_hours|field_value }}</span>
+    {% endblock %}
+  </div>
+  <div class="session-content col-xxl-10 col-xl-9 col-lg-9">
+    {% block content %}
+      {% block title %}
+        {% if not entity.get('name').isEmpty() %}
+          {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
+            title: label,
+            title_tag: 'h4',
+            attributes: create_attribute({class: ['h5', 'mb-4-5']}),
+          } only %}
+        {% endif %}
+      {% endblock %}
+
+      {% block intro %}
+        {% if not entity.oe_session_intro.isEmpty() %}
+          <div class="mb-4-5">
+            {{ content.oe_session_intro|field_value }}
+          </div>
+        {% endif %}
+      {% endblock %}
+
+      {% block moderators %}
+        {% if content.oe_session_moderators|field_value is not empty %}
+          <div class="mb-4-5">
+            {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
+              title: content.oe_session_moderators|field_label,
+              title_tag: 'h5',
+            } only %}
+            {% for _moderator in content.oe_session_moderators|field_value %}
+              <div{{ not loop.last ? create_attribute({class: ['mb-2']}) }}>
+                {{ _moderator }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endblock %}
+
+      {% block speakers %}
+        {% if content.oe_session_speakers|field_value is not empty %}
+          <div class="mb-4-5">
+            {% include '@oe-bcl/bcl-heading/heading.html.twig' with {
+              title: content.oe_session_speakers|field_label,
+              title_tag: 'h5',
+            } only %}
+            {% for _speaker in content.oe_session_speakers|field_value %}
+              <div{{ not loop.last ? create_attribute({class: ['mb-3']}) }}>
+                {{ _speaker }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endblock %}
+
+      {% block links %}
+        {% if session_links %}
+          <div class="mb-4-5">
+            {{ session_links }}
+          </div>
+        {% endif %}
+      {% endblock %}
+
+      {% block details %}
+        {% if not entity.oe_session_details.isEmpty() %}
+          <div class="session-details">
+            {{ content.oe_session_details|field_value }}
+          </div>
+        {% endif %}
+      {% endblock %}
+    {% endblock %}
+  </div>
+</div>

@@ -25,6 +25,9 @@ block.settings.whitelabel_search_block:
         placeholder:
           type: label
           label: 'Placeholder'
+        required:
+          type: boolean
+          label: 'Required'
     button:
       type: mapping
       label: 'Button'

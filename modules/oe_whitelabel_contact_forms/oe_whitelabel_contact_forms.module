@@ -7,10 +7,10 @@
 
 declare(strict_types=1);
 
-use Drupal\contact\Entity\ContactForm;
-use Drupal\contact\MessageInterface;
 use Drupal\Core\Field\FieldConfigInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\contact\Entity\ContactForm;
+use Drupal\contact\MessageInterface;
 
 /**
  * Implements hook_preprocess_HOOK() for status messages.

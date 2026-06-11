@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Drupal\oe_whitelabel_helper\Plugin\Field\FieldFormatter;
 
 use CommerceGuys\Addressing\Locale;
-use Drupal\address\AddressInterface;
-use Drupal\address\LabelHelper;
-use Drupal\address\Plugin\Field\FieldFormatter\AddressDefaultFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageInterface;
+use Drupal\address\AddressInterface;
+use Drupal\address\LabelHelper;
+use Drupal\address\Plugin\Field\FieldFormatter\AddressDefaultFormatter;
 
 /**
  * Format an address inline with locale format and a configurable separator.
@@ -31,16 +31,19 @@ class AddressInlineFormatter extends AddressDefaultFormatter {
    * {@inheritdoc}
    */
   public static function defaultSettings() {
-    return [
-      'delimiter' => ', ',
-      'properties' => [],
-    ];
+    $options = parent::defaultSettings();
+    $options['delimiter'] = ', ';
+    $options['properties'] = [];
+
+    return $options;
   }
 
   /**
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
+    $form = parent::settingsForm($form, $form_state);
+
     $form['delimiter'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Delimiter'),

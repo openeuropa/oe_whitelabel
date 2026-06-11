@@ -8,3 +8,10 @@ oe_whitelabel.settings:
     header_style:
       type: string
       label: 'Header style, either Blue header or Light header'
+    slim_select:
+      type: mapping
+      label: 'Slim select settings'
+      mapping:
+        all_select_elements:
+          type: boolean
+          label: 'Slim select for all select elements'

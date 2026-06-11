@@ -58,10 +58,13 @@ abstract class BudgetExtraFieldBase extends ExtraFieldDisplayFormattedBase imple
    * {@inheritdoc}
    */
   public function viewElements(ContentEntityInterface $entity) {
-    $field_budget = $this->getLegacyBudgetFieldName();
-    $field_eu_budget = $this->getBudgetFieldName();
+    $field = $entity->get($this->getBudgetFieldName());
+    if ($field->isEmpty() && $entity->hasField($this->getLegacyBudgetFieldName())) {
+      // If the field is empty, try using the legacy field if it exists.
+      $field = $entity->get($this->getLegacyBudgetFieldName());
+    }
 
-    if ($entity->get($field_budget)->isEmpty() && $entity->get($field_eu_budget)->isEmpty()) {
+    if ($field->isEmpty()) {
       return [];
     }
 
@@ -77,8 +80,7 @@ abstract class BudgetExtraFieldBase extends ExtraFieldDisplayFormattedBase imple
       ],
     ];
 
-    $field_name = $entity->get($field_eu_budget)->isEmpty() ? $field_budget : $field_eu_budget;
-    $build[] = $this->viewBuilder->viewField($entity->get($field_name), $display_options);
+    $build[] = $this->viewBuilder->viewField($field, $display_options);
 
     return $build;
   }

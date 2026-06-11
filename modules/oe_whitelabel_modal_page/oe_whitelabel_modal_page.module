@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * OE Whitelabel Modal module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Hook\Attribute\LegacyHook;
+use Drupal\oe_whitelabel_modal_page\Hook\ModalEntityTypeFormClass;
+
+/**
+ * Implements hook_entity_type_alter().
+ *
+ * @todo Remove once we drop support for Drupal < 11.1.0.
+ */
+#[LegacyHook]
+function oe_whitelabel_modal_page_entity_type_alter(array &$entity_types): void {
+  \Drupal::service(ModalEntityTypeFormClass::class)
+    ->entityTypeAlter($entity_types);
+}

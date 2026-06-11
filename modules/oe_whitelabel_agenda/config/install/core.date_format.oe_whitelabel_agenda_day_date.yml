@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: oe_whitelabel_agenda_day_date
+label: 'OE Whitelabel Agenda day date'
+locked: false
+pattern: 'l - j F'

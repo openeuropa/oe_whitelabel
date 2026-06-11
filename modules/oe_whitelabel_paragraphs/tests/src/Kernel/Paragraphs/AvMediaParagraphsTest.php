@@ -30,9 +30,6 @@ class AvMediaParagraphsTest extends ParagraphsTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    $this->container->get('module_handler')->loadInclude('oe_paragraphs_media_field_storage', 'install');
-    oe_paragraphs_media_field_storage_install(FALSE);
-
     $this->installEntitySchema('media');
     $this->installConfig([
       'media',
@@ -40,6 +37,7 @@ class AvMediaParagraphsTest extends ParagraphsTestBase {
       'oe_media',
       'oe_media_avportal',
       'oe_media_iframe',
+      'oe_paragraphs_media_field_storage',
       'oe_paragraphs_av_media',
     ]);
 
@@ -56,6 +54,7 @@ class AvMediaParagraphsTest extends ParagraphsTestBase {
     $media_remote = $this->createRemoteVideoMedia();
     $partial_iframe_url = Url::fromRoute('media.oembed_iframe', [], [
       'query' => [
+        // Use mock youtube url from oe_media_oembed_mock module.
         'url' => 'https://www.youtube.com/watch?v=1-g73ty9v04',
       ],
     ])->toString();
@@ -81,7 +80,7 @@ class AvMediaParagraphsTest extends ParagraphsTestBase {
       ],
       'avportal_video' => [
         'media' => $media_av_video->id(),
-        'expected_src' => '//ec.europa.eu/avservices/play.cfm?ref=I-163162',
+        'expected_src' => 'audiovisual.ec.europa.eu/corporateplayer/index.html?ref=I-163162',
         'selector' => '.ratio-16x9 > iframe',
       ],
       'avportal_photo' => [

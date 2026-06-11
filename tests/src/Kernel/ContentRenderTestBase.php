@@ -39,6 +39,7 @@ abstract class ContentRenderTestBase extends AbstractKernelTestBase {
     'link',
     'media',
     'node',
+    'node_storage_body_field',
     'oe_content',
     'oe_content_departments_field',
     'oe_content_documents_field',
@@ -66,14 +67,13 @@ abstract class ContentRenderTestBase extends AbstractKernelTestBase {
     $this->installEntitySchema('media');
     $this->installEntitySchema('file');
 
-    $this->container->get('module_handler')->loadInclude('oe_content_documents_field', 'install');
-    oe_content_documents_field_install(FALSE);
-
     $this->installConfig([
       'node',
+      'node_storage_body_field',
       'filter',
       'oe_media',
       'oe_content',
+      'oe_content_documents_field',
       'oe_content_entity',
       'oe_content_entity_organisation',
       'oe_content_departments_field',

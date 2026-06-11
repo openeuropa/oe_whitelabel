@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel\Functional;
 
+use Drupal\Tests\TestFileCreationTrait;
+use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\FilePatternAssert;
 use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 use Drupal\node\NodeInterface;
-use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
-use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\FilePatternAssert;
-use Drupal\Tests\TestFileCreationTrait;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -115,6 +115,10 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
     $this->assertEquals('Starter Image test alt',
       $image->attr('alt')
     );
+    $this->assertStringContainsString(
+      'Person image copyright',
+      trim($content_banner->filter('.bcl-copyright')->text())
+    );
 
     $this->assertEquals(
       'This field is used to add a short biography of the person.',
@@ -185,7 +189,7 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
 
     $this->assertEquals(
       'Stefan Mayer',
-      $article->filter('h1.card-title')->text()
+      $article->filter('div.card-title')->text()
     );
     $image = $article->filter('img.card-img-top');
     $this->assertCount(1, $image);
@@ -195,11 +199,11 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
     );
     $this->assertEquals(
       'DG Test',
-      $article->filter('.card-body > div.my-3 > span:nth-child(1)')->text()
+      $article->filter('.card-body > div.mt-3 > span:nth-child(1)')->text()
     );
     $this->assertEquals(
       'Director',
-      $article->filter('.card-body > div.my-3 > span:nth-child(2)')->text()
+      $article->filter('.card-body > div.mt-3 > span:nth-child(2)')->text()
     );
   }
 
@@ -235,6 +239,8 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
    *   Person node.
    */
   protected function createExamplePersonWithAllFields(): NodeInterface {
+    $this->createMediaCopyrightField();
+
     /** @var \Drupal\node\Entity\Node $node */
     $node = $this->createExamplePersonWithRequiredFieldsOnly();
     // Create a sample image media entity to be embedded.
@@ -252,6 +258,7 @@ class PersonContentRenderTest extends WhitelabelBrowserTestBase {
           'title' => 'Starter Image test title',
         ],
       ],
+      'field_media_copyright' => 'Person image copyright',
     ]);
     $media_image->save();
 

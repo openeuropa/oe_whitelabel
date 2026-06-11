@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
 use Drupal\Core\Site\Settings;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\FilePatternAssert;
+use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\file\Entity\File;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\media\Entity\Media;
 use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\FilePatternAssert;
-use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\user\Entity\User;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -48,9 +48,10 @@ class DocumentParagraphTest extends ParagraphsTestBase {
       'oe_media',
     ]);
 
-    $this->container->get('module_handler')->loadInclude('oe_paragraphs_media_field_storage', 'install');
-    oe_paragraphs_media_field_storage_install(FALSE);
-    $this->installConfig(['oe_paragraphs_document']);
+    $this->installConfig([
+      'oe_paragraphs_media_field_storage',
+      'oe_paragraphs_document',
+    ]);
 
     ConfigurableLanguage::createFromLangcode('it')->save();
     ConfigurableLanguage::createFromLangcode('es')->save();

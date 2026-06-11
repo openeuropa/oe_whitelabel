@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
-use Drupal\media\Entity\Media;
-use Drupal\node\Entity\Node;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CardPatternAssert;
 use Drupal\Tests\user\Traits\UserCreationTrait;
+use Drupal\media\Entity\Media;
+use Drupal\node\Entity\Node;
 
 /**
  * Tests the rendering of the teaser view mode of Project content type.
@@ -39,6 +39,7 @@ class ProjectRenderTest extends ContentRenderTestBase {
     parent::setUp();
 
     $this->installConfig([
+      'oe_content_documents_field',
       'oe_content_featured_media_field',
       'oe_content_project',
       'oe_content_extra',
@@ -100,7 +101,11 @@ class ProjectRenderTest extends ContentRenderTestBase {
       'title' => 'Project 1',
       'url' => '/node/1',
       'description' => 'The teaser text',
-      'badges' => ['EU financing'],
+      'badges' => [
+        // The project status is only calculated when JavaScript is executed.
+        '&hellip;',
+        'EU financing',
+      ],
       'image' => [
         'src' => 'example_1.jpeg',
         'alt' => 'Alternative text',

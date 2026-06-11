@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel_helper\Kernel\Plugin\Field\FieldFormatter;
 
-use Drupal\entity_test\Entity\EntityTest;
 use Drupal\Tests\address\Kernel\Formatter\FormatterTestBase;
+use Drupal\entity_test\Entity\EntityTestMul;
 
 /**
  * Test AddressInlineFormatter plugin.
@@ -32,7 +32,7 @@ class AddressInlineFormatterTest extends FormatterTestBase {
    * Tests formatting of address.
    */
   public function testInlineFormatterAddress(): void {
-    $entity = EntityTest::create([]);
+    $entity = EntityTestMul::create([]);
     foreach ($this->addressFieldTestData() as $data) {
       if (!empty($data['settings'])) {
         $this->alterDisplaySettings($data['settings']);

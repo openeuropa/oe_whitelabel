@@ -1,0 +1,7 @@
+name: OpenEuropa Whitelabel Modal
+type: module
+description: Integrates the Modal Page module with OpenEuropa Whitelabel theme.
+package: OpenEuropa Whitelabel Theme
+core_version_requirement: ^10 || ^11
+dependencies:
+  - modal_page:modal_page

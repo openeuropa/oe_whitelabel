@@ -1,6 +1,379 @@
-# Change Log
+# Changelog
 
-## [1.8.0](https://github.com/openeuropa/oe_whitelabel/tree/1.8.0) (2024-07-17)
+## [1.33.2](https://github.com/openeuropa/oe_whitelabel/tree/1.33.2) (2026-06-04)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.33.1...1.33.2)
+
+**Merged pull requests:**
+
+- OEL-4819: Move preprocess functions from module to theme [\#448](https://github.com/openeuropa/oe_whitelabel/pull/448) ([donquixote](https://github.com/donquixote))
+
+## [1.33.1](https://github.com/openeuropa/oe_whitelabel/tree/1.33.1) (2026-06-01)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.33.0...1.33.1)
+
+**Merged pull requests:**
+
+- Prepare release 1.33.1. [\#446](https://github.com/openeuropa/oe_whitelabel/pull/446) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Cleanup hotfix for ss-3. [\#445](https://github.com/openeuropa/oe_whitelabel/pull/445) ([tibi2303](https://github.com/tibi2303))
+
+## [1.33.0](https://github.com/openeuropa/oe_whitelabel/tree/1.33.0) (2026-05-29)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.32.1...1.33.0)
+
+**Merged pull requests:**
+
+- Prepare release 1.33.0. [\#444](https://github.com/openeuropa/oe_whitelabel/pull/444) ([tibi2303](https://github.com/tibi2303))
+- OEL-4736: Add media copyright to content banners. [\#443](https://github.com/openeuropa/oe_whitelabel/pull/443) ([tibi2303](https://github.com/tibi2303))
+- OEL-4718: Load Slim Select v3 asset from OEL theme. [\#435](https://github.com/openeuropa/oe_whitelabel/pull/435) ([tibi2303](https://github.com/tibi2303))
+
+## [1.32.1](https://github.com/openeuropa/oe_whitelabel/tree/1.32.1) (2026-05-12)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.32.0...1.32.1)
+
+**Merged pull requests:**
+
+- Prepare release 1.32.1. [\#439](https://github.com/openeuropa/oe_whitelabel/pull/439) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Update oe\_bootstrap\_theme and fix copyright tests. [\#438](https://github.com/openeuropa/oe_whitelabel/pull/438) ([tibi2303](https://github.com/tibi2303))
+
+## [1.32.0](https://github.com/openeuropa/oe_whitelabel/tree/1.32.0) (2026-05-05)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.31.0...1.32.0)
+
+**Merged pull requests:**
+
+- Prepare release 1.32.0. [\#436](https://github.com/openeuropa/oe_whitelabel/pull/436) ([tibi2303](https://github.com/tibi2303))
+- OEL-4510: Minimal upgrade Drupal 11.3 [\#434](https://github.com/openeuropa/oe_whitelabel/pull/434) ([donquixote](https://github.com/donquixote))
+- OEL-4562: Support rich text for list item block long text param. [\#432](https://github.com/openeuropa/oe_whitelabel/pull/432) ([tibi2303](https://github.com/tibi2303))
+
+## [1.31.0](https://github.com/openeuropa/oe_whitelabel/tree/1.31.0) (2026-03-25)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.30.0...1.31.0)
+
+**Merged pull requests:**
+
+- Prepare release 1.31. [\#431](https://github.com/openeuropa/oe_whitelabel/pull/431) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Update oe\_bt and modal\_page. [\#430](https://github.com/openeuropa/oe_whitelabel/pull/430) ([tibi2303](https://github.com/tibi2303))
+- UCPKN-928: Add option to configure required state of search block input. [\#418](https://github.com/openeuropa/oe_whitelabel/pull/418) ([peterserfozo](https://github.com/peterserfozo))
+- OEL-3347: Update banner template for copyright. [\#412](https://github.com/openeuropa/oe_whitelabel/pull/412) ([tibi2303](https://github.com/tibi2303))
+- OEL-3899: Add placeholder to slim select elements [\#411](https://github.com/openeuropa/oe_whitelabel/pull/411) ([piotrsmykaj](https://github.com/piotrsmykaj))
+
+## [1.30.0](https://github.com/openeuropa/oe_whitelabel/tree/1.30.0) (2026-02-25)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.29.1...1.30.0)
+
+**Merged pull requests:**
+
+- Prepare release 1.30.0. [\#426](https://github.com/openeuropa/oe_whitelabel/pull/426) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Fixed oe\_bt vers. [\#425](https://github.com/openeuropa/oe_whitelabel/pull/425) ([tibi2303](https://github.com/tibi2303))
+- OEL-4335: Cover empty-filters sidebar rendering. [\#424](https://github.com/openeuropa/oe_whitelabel/pull/424) ([tibi2303](https://github.com/tibi2303))
+- OEL-3916 \(Trigger pipeline\) [\#419](https://github.com/openeuropa/oe_whitelabel/pull/419) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+- OEL-4032: Use 'gap' for icon spacing in button and link [\#414](https://github.com/openeuropa/oe_whitelabel/pull/414) ([tibi2303](https://github.com/tibi2303))
+- OEL-3916: Paragraph oe\_accordion was ignoring field display settings. [\#367](https://github.com/openeuropa/oe_whitelabel/pull/367) ([julien-](https://github.com/julien-))
+- OEL-4522: Stabilize media sizes for AV Portal media tests. [\#423](https://github.com/openeuropa/oe_whitelabel/pull/423) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Use drush cset for error level, don't write to settings.override.php. [\#417](https://github.com/openeuropa/oe_whitelabel/pull/417) ([donquixote](https://github.com/donquixote))
+- OEL-4455: Require \(dev\) drupal/modal\_page:^6.0-beta11 [\#416](https://github.com/openeuropa/oe_whitelabel/pull/416) ([donquixote](https://github.com/donquixote))
+- OEL-4455: Use new patch for modal\_page. [\#413](https://github.com/openeuropa/oe_whitelabel/pull/413) ([donquixote](https://github.com/donquixote))
+- OEL-4455: Use \#\[LegacyHook\] pattern in oe\_whitelabel\_modal\_page [\#408](https://github.com/openeuropa/oe_whitelabel/pull/408) ([donquixote](https://github.com/donquixote))
+
+## [1.29.1](https://github.com/openeuropa/oe_whitelabel/tree/1.29.1) (2026-02-18)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.30.0...1.29.1)
+
+## [1.29.0](https://github.com/openeuropa/oe_whitelabel/tree/1.29.0) (2026-01-21)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.28.0...1.29.0)
+
+**Merged pull requests:**
+
+- Prepare release 1.29.0. [\#410](https://github.com/openeuropa/oe_whitelabel/pull/410) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Update triple store path. [\#409](https://github.com/openeuropa/oe_whitelabel/pull/409) ([tibi2303](https://github.com/tibi2303))
+- OEL-3732: Update oe\_bt. [\#405](https://github.com/openeuropa/oe_whitelabel/pull/405) ([tibi2303](https://github.com/tibi2303))
+- OEL-4426: Removed obsolete drupal versions. [\#404](https://github.com/openeuropa/oe_whitelabel/pull/404) ([tibi2303](https://github.com/tibi2303))
+
+## [1.28.0](https://github.com/openeuropa/oe_whitelabel/tree/1.28.0) (2025-12-11)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.27.2...1.28.0)
+
+**Merged pull requests:**
+
+- Prepare release 1.28.0. [\#403](https://github.com/openeuropa/oe_whitelabel/pull/403) ([tibi2303](https://github.com/tibi2303))
+- OEL-3926: Moved breadcrumbs location. [\#402](https://github.com/openeuropa/oe_whitelabel/pull/402) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Use docker hub web image, fix grumphp in pipeline [\#401](https://github.com/openeuropa/oe_whitelabel/pull/401) ([donquixote](https://github.com/donquixote))
+- OEL-000: Suppress grumphp box requirement checker. [\#400](https://github.com/openeuropa/oe_whitelabel/pull/400) ([donquixote](https://github.com/donquixote))
+- OEL-4368: Replace deprecated $request-\>get\(\). [\#398](https://github.com/openeuropa/oe_whitelabel/pull/398) ([donquixote](https://github.com/donquixote))
+- UCPKN-3850: Add oe\_whitelabel\_modal\_page submodule. [\#390](https://github.com/openeuropa/oe_whitelabel/pull/390) ([kp77](https://github.com/kp77))
+
+## [1.27.2](https://github.com/openeuropa/oe_whitelabel/tree/1.27.2) (2025-11-19)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.27.1...1.27.2)
+
+**Merged pull requests:**
+
+- Prepare release 1.27.2. [\#396](https://github.com/openeuropa/oe_whitelabel/pull/396) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+- Remove patches for 11.2.x. [\#395](https://github.com/openeuropa/oe_whitelabel/pull/395) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+
+## [1.27.1](https://github.com/openeuropa/oe_whitelabel/tree/1.27.1) (2025-11-14)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.27.0...1.27.1)
+
+**Merged pull requests:**
+
+- Prepare release 1.27.1. [\#394](https://github.com/openeuropa/oe_whitelabel/pull/394) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+- OEL-4180 ff: Use remote patch urls. [\#393](https://github.com/openeuropa/oe_whitelabel/pull/393) ([donquixote](https://github.com/donquixote))
+
+## [1.27.0](https://github.com/openeuropa/oe_whitelabel/tree/1.27.0) (2025-11-13)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.26.0...1.27.0)
+
+**Merged pull requests:**
+
+- OEL-4180: Test with drupal/core:~11.2.0. [\#386](https://github.com/openeuropa/oe_whitelabel/pull/386) ([donquixote](https://github.com/donquixote))
+
+## [1.26.0](https://github.com/openeuropa/oe_whitelabel/tree/1.26.0) (2025-10-30)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.25.0...1.26.0)
+
+**Merged pull requests:**
+
+- Prepare release 1.26.0. [\#392](https://github.com/openeuropa/oe_whitelabel/pull/392) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Update oe\_bootstrap\_theme. [\#391](https://github.com/openeuropa/oe_whitelabel/pull/391) ([tibi2303](https://github.com/tibi2303))
+- OEL-4096: Replace drone, use gitlab CI and github actions [\#388](https://github.com/openeuropa/oe_whitelabel/pull/388) ([donquixote](https://github.com/donquixote))
+- OEL-4068: Updated header icons and accessibility improvements. [\#387](https://github.com/openeuropa/oe_whitelabel/pull/387) ([tibi2303](https://github.com/tibi2303))
+
+## [1.25.0](https://github.com/openeuropa/oe_whitelabel/tree/1.25.0) (2025-09-29)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.24.0...1.25.0)
+
+**Merged pull requests:**
+
+- Prepare release 1.25.0. [\#385](https://github.com/openeuropa/oe_whitelabel/pull/385) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Rollback entity\_browser and update oe\_bt. [\#384](https://github.com/openeuropa/oe_whitelabel/pull/384) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Constrain entity\_browser version to avoid patch failure. [\#382](https://github.com/openeuropa/oe_whitelabel/pull/382) ([donquixote](https://github.com/donquixote))
+- OEL-4016: Mega menu [\#381](https://github.com/openeuropa/oe_whitelabel/pull/381) ([donquixote](https://github.com/donquixote))
+- OEL-3730: Changed id to main and removed anchor plus test. [\#377](https://github.com/openeuropa/oe_whitelabel/pull/377) ([tibi2303](https://github.com/tibi2303))
+
+## [1.24.0](https://github.com/openeuropa/oe_whitelabel/tree/1.24.0) (2025-09-01)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.23.0...1.24.0)
+
+**Merged pull requests:**
+
+- Prepare release 1.24.0. [\#380](https://github.com/openeuropa/oe_whitelabel/pull/380) ([piotrsmykaj](https://github.com/piotrsmykaj))
+- OEL-0000: Update oe\_bt. [\#379](https://github.com/openeuropa/oe_whitelabel/pull/379) ([piotrsmykaj](https://github.com/piotrsmykaj))
+- OEL-4038: Make sure assets directory always exists. [\#378](https://github.com/openeuropa/oe_whitelabel/pull/378) ([donquixote](https://github.com/donquixote))
+- OEL-4022: Add comment about youtube video test url. [\#376](https://github.com/openeuropa/oe_whitelabel/pull/376) ([tibi2303](https://github.com/tibi2303))
+- OEL-4024: Fallback to empty string if Node\_env is not defined. [\#375](https://github.com/openeuropa/oe_whitelabel/pull/375) ([tibi2303](https://github.com/tibi2303))
+- OEL-4014: Moved search to header top. [\#373](https://github.com/openeuropa/oe_whitelabel/pull/373) ([tibi2303](https://github.com/tibi2303))
+
+## [1.23.0](https://github.com/openeuropa/oe_whitelabel/tree/1.23.0) (2025-07-29)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.22.0...1.23.0)
+
+**Merged pull requests:**
+
+- Prepare release 1.23.0. [\#374](https://github.com/openeuropa/oe_whitelabel/pull/374) ([tibi2303](https://github.com/tibi2303))
+- OEL-3416: Added aria-labelledby on multiselect elements. [\#364](https://github.com/openeuropa/oe_whitelabel/pull/364) ([tibi2303](https://github.com/tibi2303))
+
+## [1.22.0](https://github.com/openeuropa/oe_whitelabel/tree/1.22.0) (2025-07-10)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.21.0...1.22.0)
+
+**Merged pull requests:**
+
+- Prepare release 1.22.0. [\#372](https://github.com/openeuropa/oe_whitelabel/pull/372) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Update oe\_bootstrap\_theme. [\#371](https://github.com/openeuropa/oe_whitelabel/pull/371) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Update oe\_bt. [\#370](https://github.com/openeuropa/oe_whitelabel/pull/370) ([tibi2303](https://github.com/tibi2303))
+
+## [1.21.0](https://github.com/openeuropa/oe_whitelabel/tree/1.21.0) (2025-07-04)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.20.0...1.21.0)
+
+**Fixed bugs:**
+
+- Preserve the query parameters when submitting the SearchForm  [\#242](https://github.com/openeuropa/oe_whitelabel/issues/242)
+
+**Merged pull requests:**
+
+- Release 1.21.0. [\#368](https://github.com/openeuropa/oe_whitelabel/pull/368) ([tibi2303](https://github.com/tibi2303))
+- OEL-3909: \[oe\_whitelabel\] Error on phpunit tests [\#366](https://github.com/openeuropa/oe_whitelabel/pull/366) ([enriquelacoma](https://github.com/enriquelacoma))
+- OEL-3818: Fix wrong module names in dependencies. [\#365](https://github.com/openeuropa/oe_whitelabel/pull/365) ([vengador](https://github.com/vengador))
+- OEL-3817: Preserve the query parameters when submitting the SearchForm. [\#358](https://github.com/openeuropa/oe_whitelabel/pull/358) ([enriquelacoma](https://github.com/enriquelacoma))
+
+## [1.20.0](https://github.com/openeuropa/oe_whitelabel/tree/1.20.0) (2025-06-13)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.19.0...1.20.0)
+
+**Implemented enhancements:**
+
+- Duplicated and malfunctioning URL for search page [\#40](https://github.com/openeuropa/oe_whitelabel/issues/40)
+
+**Fixed bugs:**
+
+- Update better\_exposed\_filters module [\#294](https://github.com/openeuropa/oe_whitelabel/issues/294)
+- Fix dependencies of the modules [\#190](https://github.com/openeuropa/oe_whitelabel/issues/190)
+
+**Merged pull requests:**
+
+- Prepare release 1.20.0. [\#363](https://github.com/openeuropa/oe_whitelabel/pull/363) ([drishu](https://github.com/drishu))
+- OEL-3858: Updated images. [\#359](https://github.com/openeuropa/oe_whitelabel/pull/359) ([tibi2303](https://github.com/tibi2303))
+- EWPP-4656: Update to Drupal 11. [\#349](https://github.com/openeuropa/oe_whitelabel/pull/349) ([kp77](https://github.com/kp77))
+- ERATRANS-ERATRANS-996: compatibility with better\_exposed\_filter ^7 [\#325](https://github.com/openeuropa/oe_whitelabel/pull/325) ([libetho](https://github.com/libetho))
+
+## [1.19.0](https://github.com/openeuropa/oe_whitelabel/tree/1.19.0) (2025-06-04)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.18.0...1.19.0)
+
+**Implemented enhancements:**
+
+- OEL-3731: Make sure landmarks are unique. [\#355](https://github.com/openeuropa/oe_whitelabel/pull/355) ([vengador](https://github.com/vengador))
+
+**Fixed bugs:**
+
+- Translation issue in videos added to Gallery and Media paragraphs [\#322](https://github.com/openeuropa/oe_whitelabel/issues/322)
+
+**Merged pull requests:**
+
+- Prepare release 1.19.0. [\#362](https://github.com/openeuropa/oe_whitelabel/pull/362) ([piotrsmykaj](https://github.com/piotrsmykaj))
+
+## [1.18.0](https://github.com/openeuropa/oe_whitelabel/tree/1.18.0) (2025-05-22)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.17.0...1.18.0)
+
+**Implemented enhancements:**
+
+- Make slim\_select work for single-value select elements [\#265](https://github.com/openeuropa/oe_whitelabel/issues/265)
+
+**Closed issues:**
+
+- Slim select is broken with drupal/slim\_select 1.0.0-alpha4 [\#343](https://github.com/openeuropa/oe_whitelabel/issues/343)
+
+**Merged pull requests:**
+
+- Prepare release 1.18.0 [\#357](https://github.com/openeuropa/oe_whitelabel/pull/357) ([tibi2303](https://github.com/tibi2303))
+- OEL-3837: Cleanup allowed\_formats schema. [\#356](https://github.com/openeuropa/oe_whitelabel/pull/356) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Update oe\_bt. [\#353](https://github.com/openeuropa/oe_whitelabel/pull/353) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Update oe\_bootstrap\_theme. [\#352](https://github.com/openeuropa/oe_whitelabel/pull/352) ([tibi2303](https://github.com/tibi2303))
+- OEL-3081: Allow to use Slimselect for single value selects [\#348](https://github.com/openeuropa/oe_whitelabel/pull/348) ([piotrsmykaj](https://github.com/piotrsmykaj))
+- OEL-3699: Change the contentPosition setting [\#347](https://github.com/openeuropa/oe_whitelabel/pull/347) ([piotrsmykaj](https://github.com/piotrsmykaj))
+- OEL-3341: Handle link access in banner paragraph button [\#340](https://github.com/openeuropa/oe_whitelabel/pull/340) ([piotrsmykaj](https://github.com/piotrsmykaj))
+- OEL-3081: Add the theme option to apply Slim select to all elements [\#336](https://github.com/openeuropa/oe_whitelabel/pull/336) ([piotrsmykaj](https://github.com/piotrsmykaj))
+- OEL-2824: Search form submit redirect to current language. [\#335](https://github.com/openeuropa/oe_whitelabel/pull/335) ([drishu](https://github.com/drishu))
+
+## [1.17.0](https://github.com/openeuropa/oe_whitelabel/tree/1.17.0) (2025-03-28)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.16.0...1.17.0)
+
+**Merged pull requests:**
+
+- OEL-0000: Updated tests. [\#346](https://github.com/openeuropa/oe_whitelabel/pull/346) ([tibi2303](https://github.com/tibi2303))
+- Prepare release 1.17.0. [\#345](https://github.com/openeuropa/oe_whitelabel/pull/345) ([tibi2303](https://github.com/tibi2303))
+- OEL-3692: Check for null in slim\_select version. [\#344](https://github.com/openeuropa/oe_whitelabel/pull/344) ([drishu](https://github.com/drishu))
+
+## [1.16.0](https://github.com/openeuropa/oe_whitelabel/tree/1.16.0) (2025-03-17)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.15.0...1.16.0)
+
+**Merged pull requests:**
+
+- OEL-0000: Update accordion test with new version of oe\_bt. [\#342](https://github.com/openeuropa/oe_whitelabel/pull/342) ([tibi2303](https://github.com/tibi2303))
+- Prepare release 1.16.0 [\#341](https://github.com/openeuropa/oe_whitelabel/pull/341) ([tibi2303](https://github.com/tibi2303))
+- OEL-3547: Add expand/collapse button labels [\#339](https://github.com/openeuropa/oe_whitelabel/pull/339) ([piotrsmykaj](https://github.com/piotrsmykaj))
+
+## [1.15.0](https://github.com/openeuropa/oe_whitelabel/tree/1.15.0) (2025-03-06)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.14.0...1.15.0)
+
+**Merged pull requests:**
+
+- Prepare release 1.15.0. [\#338](https://github.com/openeuropa/oe_whitelabel/pull/338) ([drishu](https://github.com/drishu))
+- OEL-3354: Featured media image on top [\#337](https://github.com/openeuropa/oe_whitelabel/pull/337) ([drishu](https://github.com/drishu))
+- EWPP-4991: Update to php8.3. [\#334](https://github.com/openeuropa/oe_whitelabel/pull/334) ([drishu](https://github.com/drishu))
+- OEL-3503: Support slim select V2 [\#331](https://github.com/openeuropa/oe_whitelabel/pull/331) ([piotrsmykaj](https://github.com/piotrsmykaj))
+- OEL-3368: Navigation elements in header roles and aria-labels. [\#329](https://github.com/openeuropa/oe_whitelabel/pull/329) ([tibi2303](https://github.com/tibi2303))
+
+## [1.14.0](https://github.com/openeuropa/oe_whitelabel/tree/1.14.0) (2024-12-17)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.13.0...1.14.0)
+
+**Merged pull requests:**
+
+- Prepare release 1.14.0. [\#333](https://github.com/openeuropa/oe_whitelabel/pull/333) ([drishu](https://github.com/drishu))
+- OEL-2118: Fix AddressInlineFormatter php notices [\#328](https://github.com/openeuropa/oe_whitelabel/pull/328) ([drishu](https://github.com/drishu))
+- UCPKN-3056: Agenda theming. [\#268](https://github.com/openeuropa/oe_whitelabel/pull/268) ([kp77](https://github.com/kp77))
+
+## [1.13.0](https://github.com/openeuropa/oe_whitelabel/tree/1.13.0) (2024-11-06)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.12.0...1.13.0)
+
+**Merged pull requests:**
+
+- Prepare release 1.13.0 [\#327](https://github.com/openeuropa/oe_whitelabel/pull/327) ([tibi2303](https://github.com/tibi2303))
+- OEL-3417: Prerelease bcl. [\#326](https://github.com/openeuropa/oe_whitelabel/pull/326) ([tibi2303](https://github.com/tibi2303))
+- OEL-3422: Added aria-label on language switcher link. [\#324](https://github.com/openeuropa/oe_whitelabel/pull/324) ([tibi2303](https://github.com/tibi2303))
+- OEL-3419: Added roles on nav items in header. [\#321](https://github.com/openeuropa/oe_whitelabel/pull/321) ([tibi2303](https://github.com/tibi2303))
+- OEL-3420: Added check for rich text paragraph title. [\#320](https://github.com/openeuropa/oe_whitelabel/pull/320) ([tibi2303](https://github.com/tibi2303))
+- OEL-3418: Changed list title for listing and search. [\#317](https://github.com/openeuropa/oe_whitelabel/pull/317) ([tibi2303](https://github.com/tibi2303))
+
+## [1.12.0](https://github.com/openeuropa/oe_whitelabel/tree/1.12.0) (2024-10-08)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.11.0...1.12.0)
+
+**Fixed bugs:**
+
+- Improve translatability [\#231](https://github.com/openeuropa/oe_whitelabel/issues/231)
+
+**Closed issues:**
+
+- Fix spacing for search icon in header search block [\#246](https://github.com/openeuropa/oe_whitelabel/issues/246)
+
+**Merged pull requests:**
+
+- Prepare release 1.12.0. [\#318](https://github.com/openeuropa/oe_whitelabel/pull/318) ([drishu](https://github.com/drishu))
+- OEL-3412: Added cck before page\_top. [\#316](https://github.com/openeuropa/oe_whitelabel/pull/316) ([tibi2303](https://github.com/tibi2303))
+- OEL-0000: Fix drupal/coder issues. [\#315](https://github.com/openeuropa/oe_whitelabel/pull/315) ([tibi2303](https://github.com/tibi2303))
+- OEL-3411: Set default button label in search block header, if not already set. [\#314](https://github.com/openeuropa/oe_whitelabel/pull/314) ([tibi2303](https://github.com/tibi2303))
+
+## [1.11.0](https://github.com/openeuropa/oe_whitelabel/tree/1.11.0) (2024-09-20)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.10.0...1.11.0)
+
+**Merged pull requests:**
+
+- Prepare release 1.11.0. [\#312](https://github.com/openeuropa/oe_whitelabel/pull/312) ([drishu](https://github.com/drishu))
+- OEL-2289: Added border-left on the search input in header. [\#311](https://github.com/openeuropa/oe_whitelabel/pull/311) ([tibi2303](https://github.com/tibi2303))
+
+## [1.10.0](https://github.com/openeuropa/oe_whitelabel/tree/1.10.0) (2024-09-11)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.9.0...1.10.0)
+
+**Fixed bugs:**
+
+- Empty div with margin in Banner when paragraph has no title [\#302](https://github.com/openeuropa/oe_whitelabel/issues/302)
+
+**Merged pull requests:**
+
+- OEL-3338: Fix tests after oebt upgrade. [\#310](https://github.com/openeuropa/oe_whitelabel/pull/310) ([drishu](https://github.com/drishu))
+- Prepare release 1.10.0. [\#309](https://github.com/openeuropa/oe_whitelabel/pull/309) ([drishu](https://github.com/drishu))
+- OEL-3074: Fixed sort size on large mobile. [\#308](https://github.com/openeuropa/oe_whitelabel/pull/308) ([tibi2303](https://github.com/tibi2303))
+- OEL-3315: Remove empty title wrapper. [\#307](https://github.com/openeuropa/oe_whitelabel/pull/307) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+- UCPKN-2600: Accessibility statement link in the footer. [\#261](https://github.com/openeuropa/oe_whitelabel/pull/261) ([peterserfozo](https://github.com/peterserfozo))
+
+## [1.9.0](https://github.com/openeuropa/oe_whitelabel/tree/1.9.0) (2024-08-19)
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.8.0...1.9.0)
+
+**Fixed bugs:**
+
+- Reposition eu-footer items with openeuropa/oe\_corporate\_blocks version 4.19.0 and above [\#289](https://github.com/openeuropa/oe_whitelabel/issues/289)
+
+**Closed issues:**
+
+- Release 1.8 overrides project configs [\#299](https://github.com/openeuropa/oe_whitelabel/issues/299)
+
+**Merged pull requests:**
+
+- OEL-3247: Fix color scheme test after BCL changes. [\#305](https://github.com/openeuropa/oe_whitelabel/pull/305) ([drishu](https://github.com/drishu))
+- Prepare release 1.9.0 [\#304](https://github.com/openeuropa/oe_whitelabel/pull/304) ([drishu](https://github.com/drishu))
+- OEL-1811: Added libraries folder to git ignore. [\#301](https://github.com/openeuropa/oe_whitelabel/pull/301) ([tibi2303](https://github.com/tibi2303))
+- OEL-1686: Updated tests regarding bcl-offcanvas duplicate class. [\#300](https://github.com/openeuropa/oe_whitelabel/pull/300) ([tibi2303](https://github.com/tibi2303))
+- OEL-2632: Show project status badge in teaser view mode. [\#296](https://github.com/openeuropa/oe_whitelabel/pull/296) ([brummbar](https://github.com/brummbar))
+- UCPKN-3181: Move the Legal section to the top right position in the EU footer [\#290](https://github.com/openeuropa/oe_whitelabel/pull/290) ([peterserfozo](https://github.com/peterserfozo))
+- EPHEH-318: Add Color Scheme [\#267](https://github.com/openeuropa/oe_whitelabel/pull/267) ([drishu](https://github.com/drishu))
+
+## [1.8.0](https://github.com/openeuropa/oe_whitelabel/tree/1.8.0) (2024-07-18)
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.7.1...1.8.0)
 
 **Closed issues:**
@@ -10,6 +383,7 @@
 
 **Merged pull requests:**
 
+- Prepare release 1.8.0. [\#295](https://github.com/openeuropa/oe_whitelabel/pull/295) ([drishu](https://github.com/drishu))
 - OEL-3055: Update steps to create releases. [\#293](https://github.com/openeuropa/oe_whitelabel/pull/293) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
 - OEL-3055: Update to Drupal 10.3 [\#292](https://github.com/openeuropa/oe_whitelabel/pull/292) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
 - OEL-2728: Added translatability fix. [\#291](https://github.com/openeuropa/oe_whitelabel/pull/291) ([tibi2303](https://github.com/tibi2303))

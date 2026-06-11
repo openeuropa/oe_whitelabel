@@ -7,10 +7,14 @@
 
 declare(strict_types=1);
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Hook\Attribute\LegacyHook;
 use Drupal\Core\Template\AttributeHelper;
 use Drupal\oe_bootstrap_theme_helper\EuropeanUnionLanguages;
 use Drupal\oe_whitelabel\DocumentMediaWrapper;
+use Drupal\oe_whitelabel\Hook\ThemeRegistryAlterPreprocessRequiredModule;
+use Drupal\oe_whitelabel\SlimSelectHelper;
 
 // Include all files from the includes directory.
 $includes_path = __DIR__ . '/includes/*.inc';
@@ -44,6 +48,18 @@ function oe_whitelabel_form_system_theme_settings_alter(&$form, FormStateInterfa
     ],
     '#default_value' => theme_get_setting('header_style'),
     '#description' => t('Choose the header color'),
+  ];
+  $form['slim_select'] = [
+    '#type' => 'details',
+    '#title' => t('Slim Select'),
+    '#open' => TRUE,
+    '#tree' => TRUE,
+  ];
+  $form['slim_select']['all_select_elements'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Enable for all select elements'),
+    '#description' => t('By default Slim Select is applied only to <code>&lt;select&gt;</code> elements with the <code>multiple="true"</code> attribute. Enabling this option will apply Slim Select to all <code>&lt;select&gt;</code> elements, regardless of this attribute.'),
+    '#default_value' => theme_get_setting('slim_select.all_select_elements'),
   ];
 }
 
@@ -108,6 +124,7 @@ function oe_whitelabel_preprocess_field(&$variables, $hook, $info) {
  * Implements hook_preprocess_page().
  */
 function oe_whitelabel_preprocess_page(&$variables) {
+  $site_logo_href = '';
   if ($variables['bcl_component_library'] === 'ec') {
     $variables['logo_aria_label'] = t('Home') . ' - ' . t('European Commission');
     $variables['site_logo_alt'] = t('European Commission logo');
@@ -153,6 +170,22 @@ function oe_whitelabel_preprocess_page(&$variables) {
     $site_logo_href .= '/index_' . EuropeanUnionLanguages::getInternalLanguageCode($variables['current_language_id']);
   }
   $variables['site_logo_href'] = $site_logo_href;
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function oe_whitelabel_preprocess_html(array &$variables) {
+  $cck_container = [
+    '#type' => 'html_tag',
+    '#tag' => 'div',
+    '#attributes' => [
+      'id' => 'cck_here',
+      'role' => 'alert',
+    ],
+  ];
+
+  $variables['page_top']['cck_container'] = $cck_container;
 }
 
 /**
@@ -208,13 +241,39 @@ function oe_whitelabel_element_info_alter(array &$info): void {
  * @see oe_whitelabel_element_info_alter
  */
 function _oe_whitelabel_process_element_select(array &$element): array {
-  if (!$element['#multiple']) {
+  $all_select_elements = theme_get_setting('slim_select.all_select_elements');
+  if (!$all_select_elements && !$element['#multiple']) {
     return $element;
   }
+  if ($element['#multiple']) {
+    $element['#attributes']['class'][] = 'multi-select';
 
-  $element['#attributes']['class'][] = 'multi-select';
-  // Config is empty so that it uses the defaults.
-  $element += ['#slim_select' => []];
+    $has_aria_label = isset($element['#attributes']['aria-label']);
+    $has_aria_labelledby = isset($element['#attributes']['aria-labelledby']);
+    $has_title = isset($element['#title']) && is_string($element['#title']);
+
+    if (!$has_aria_label && !$has_aria_labelledby && $has_title) {
+      // Build an ID for the label if not already set.
+      $id = $element['#id'] ?? Html::getUniqueId('select-' . $element['#name']);
+      $label_id = $id . '-label';
+
+      // Add ID to the label attributes, assuming the label will be rendered.
+      $element['#label_attributes']['id'] = $label_id;
+
+      // Link the select to the label using aria-labelledby.
+      $element['#attributes']['aria-labelledby'] = $label_id;
+    }
+  }
+
+  if (!empty($element['#attributes']['placeholder'])) {
+    $element['#slim_select']['placeholderText'] = $element['#attributes']['placeholder'];
+  }
+
+  $element += [
+    '#slim_select' => [
+      'contentPosition' => 'fixed',
+    ],
+  ];
 
   return $element;
 }
@@ -223,24 +282,12 @@ function _oe_whitelabel_process_element_select(array &$element): array {
  * Implements hook_library_info_alter().
  */
 function oe_whitelabel_library_info_alter(array &$libraries, string $extension): void {
-  if ('slim_select' !== $extension) {
-    return;
+  \Drupal::classResolver(SlimSelectHelper::class)->libraryInfoAlter($libraries, $extension);
+
+  if ($extension === 'modal_page') {
+    // Remove modal_page Bootstrap CDN libraries.
+    unset($libraries['modal-page-bootstrap-5'], $libraries['modal-page-bootstrap-3']);
   }
-
-  $theme_handler = \Drupal::service('theme_handler');
-  $theme_path = $theme_handler->getTheme('oe_bootstrap_theme')->getPath();
-  $path = '/' . $theme_path . '/assets/js/slimselect.min.js';
-
-  $libraries['slim.select']['js'] = [
-    $path => [
-      'minified' => TRUE,
-      'attributes' => [
-        'defer' => TRUE,
-      ],
-    ],
-  ];
-  // The slim.select css is already present in the parent theme.
-  unset($libraries['slim.select']['css']);
 }
 
 /**
@@ -253,4 +300,38 @@ function oe_whitelabel_preprocess_oe_subscriptions_user_subscriptions_page(&$var
     \Drupal::service('request_stack')->getCurrentRequest(),
     \Drupal::service('current_route_match')->getCurrentRouteMatch()->getRouteObject()
   );
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function oe_whitelabel_preprocess_oe_corporate_blocks_neutral_footer(array &$variables): void {
+  if (!function_exists('oe_corporate_blocks_preprocess_set_accessibility_link')) {
+    return;
+  }
+
+  oe_corporate_blocks_preprocess_set_accessibility_link($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function oe_whitelabel_preprocess_oe_corporate_blocks_eu_footer(&$variables): void {
+  if (!empty($variables['accessibility_link'])) {
+    foreach ($variables['corporate_footer']['legal_links'] as $index => $link) {
+      if (str_starts_with($link['href'], 'https://european-union.europa.eu/accessibility-statement')) {
+        unset($variables['corporate_footer']['legal_links'][$index]);
+        break;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+#[LegacyHook]
+function oe_whitelabel_theme_registry_alter(array &$registry): void {
+  ThemeRegistryAlterPreprocessRequiredModule::create(\Drupal::getContainer())
+    ->themeRegistryAlter($registry);
 }

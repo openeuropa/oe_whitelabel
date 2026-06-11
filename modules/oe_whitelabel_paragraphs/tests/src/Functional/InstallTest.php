@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Functional;
 
+use Drupal\Tests\BrowserTestBase;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\Tests\BrowserTestBase;
 
 /**
  * Tests installation of oe_whitelabel_paragraphs.
@@ -187,6 +187,7 @@ class InstallTest extends BrowserTestBase {
       ],
     ];
 
+    /** @var \Drupal\Core\Entity\RevisionableStorageInterface $storage */
     $storage = \Drupal::entityTypeManager()->getStorage('paragraph');
 
     // Produce reports instead of many individual assertions. This is less

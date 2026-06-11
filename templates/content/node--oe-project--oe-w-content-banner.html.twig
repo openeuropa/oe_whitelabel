@@ -6,6 +6,7 @@
 #}
 {{ pattern('content_banner', {
   'background': 'gray',
+  'copyright': copyright|default(''),
   'title': label,
   'content': content.oe_teaser,
   'image': image,
