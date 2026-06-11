@@ -48,6 +48,27 @@ class SearchFormTest extends BrowserTestBase {
   }
 
   /**
+   * Test the search form redirects correctly when action starts with slash.
+   */
+  public function testSearchActionWithLeadingSlash(): void {
+    $this->setSearchBlockFormAction('/search');
+
+    $search_text = 'Keyword';
+    $this->drupalGet('<front>');
+    $page = $this->getSession()->getPage();
+    $page->fillField('search_input', $search_text);
+    $page->pressButton('Search');
+
+    $current_url = $this->getSession()->getCurrentUrl();
+    $current_path = parse_url($current_url, PHP_URL_PATH);
+    $parsed_url = UrlHelper::parse($current_url);
+
+    $this->assertStringEndsWith('/search', $current_path);
+    $this->assertStringNotContainsString('//', $current_path);
+    $this->assertEquals(['text' => $search_text], $parsed_url['query']);
+  }
+
+  /**
    * Test empty search removes the configured query parameter but keeps others.
    */
   public function testEmptySearchRemovesQueryParam(): void {
@@ -83,6 +104,22 @@ class SearchFormTest extends BrowserTestBase {
 
     // The 'text' param must be removed, but 'f' must remain.
     $this->assertEquals(['f' => ['category:1']], $parsed_url['query']);
+  }
+
+  /**
+   * Sets the default search block form action.
+   *
+   * @param string $action
+   *   The form action.
+   */
+  protected function setSearchBlockFormAction(string $action): void {
+    $block = $this->container->get('entity_type.manager')->getStorage('block')->load('oe_whitelabel_search_form');
+    $this->assertNotNull($block);
+
+    $settings = $block->get('settings');
+    $settings['form']['action'] = $action;
+    $block->set('settings', $settings);
+    $block->save();
   }
 
 }
