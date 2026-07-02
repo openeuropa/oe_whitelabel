@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.33.3](https://github.com/openeuropa/oe_whitelabel/tree/1.33.3) (2026-07-02)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.33.2...1.33.3)
+
+**Merged pull requests:**
+
+- OEL-4868: Fixed search test. [\#450](https://github.com/openeuropa/oe_whitelabel/pull/450) ([tibi2303](https://github.com/tibi2303))
+- OEL-4756: Remove direct child [\#447](https://github.com/openeuropa/oe_whitelabel/pull/447) ([piotrsmykaj](https://github.com/piotrsmykaj))
+
 ## [1.33.2](https://github.com/openeuropa/oe_whitelabel/tree/1.33.2) (2026-06-04)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.33.1...1.33.2)
