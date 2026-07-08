@@ -39,9 +39,7 @@ class SearchFormTest extends BrowserTestBase {
     ];
     $search_text = 'Keyword';
     $this->drupalGet('<front>', $options);
-    $page = $this->getSession()->getPage();
-    $page->fillField('search_input', $search_text);
-    $page->pressButton('Search');
+    $this->submitSearch($search_text);
     $parsed_url = UrlHelper::parse($this->getSession()->getCurrentUrl());
     $options['query']['text'] = $search_text;
     $this->assertEquals($options['query'], $parsed_url['query']);
@@ -52,14 +50,11 @@ class SearchFormTest extends BrowserTestBase {
    */
   public function testSearchActionWithLeadingSlash(): void {
     $this->setSearchBlockFormAction('/search');
-
     $search_text = 'Keyword';
     $this->drupalGet('<front>');
     $front_url = $this->getSession()->getCurrentUrl();
     $this->assertStringEndsWith('/', $front_url);
-    $page = $this->getSession()->getPage();
-    $page->fillField('search_input', $search_text);
-    $page->pressButton('Search');
+    $this->submitSearch($search_text);
 
     $this->assertSame($front_url . 'search?text=Keyword', $this->getSession()->getCurrentUrl());
   }
@@ -88,18 +83,26 @@ class SearchFormTest extends BrowserTestBase {
     ];
 
     $this->drupalGet('<front>', $options);
-    $page = $this->getSession()->getPage();
 
-    // Clear the prefilled default value coming from the query string.
-    $page->fillField('search_input', '');
-
-    // Submit without filling the field -> empty string.
-    $page->pressButton('Search');
+    // Submit the search with an empty search string.
+    $this->submitSearch('');
 
     $parsed_url = UrlHelper::parse($this->getSession()->getCurrentUrl());
 
     // The 'text' param must be removed, but 'f' must remain.
     $this->assertEquals(['f' => ['category:1']], $parsed_url['query']);
+  }
+
+  /**
+   * Submits the search form on the current page.
+   *
+   * @param string $search_input
+   *   Search string.
+   */
+  protected function submitSearch(string $search_input): void {
+    $page = $this->getSession()->getPage();
+    $page->fillField('search_input', $search_input);
+    $page->pressButton('Search');
   }
 
   /**
