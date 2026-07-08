@@ -46,17 +46,35 @@ class SearchFormTest extends BrowserTestBase {
   }
 
   /**
-   * Test the search form redirects correctly when action starts with slash.
+   * Tests different values for the 'action' configuration value.
    */
-  public function testSearchActionWithLeadingSlash(): void {
-    $this->setSearchBlockFormAction('/search');
-    $search_text = 'Keyword';
+  public function testSearchActionConfig(): void {
+    // By default, the 'action' config value has no leading slash.
+    $this->setSearchBlockFormAction('search');
     $this->drupalGet('<front>');
     $front_url = $this->getSession()->getCurrentUrl();
     $this->assertStringEndsWith('/', $front_url);
-    $this->submitSearch($search_text);
 
+    $this->submitSearch('Keyword');
     $this->assertSame($front_url . 'search?text=Keyword', $this->getSession()->getCurrentUrl());
+
+    // The leading slash in the configuration value has no effect.
+    $this->setSearchBlockFormAction('/search-leading-slash');
+    $this->drupalGet('<front>');
+    $this->submitSearch('Keyword');
+    $this->assertSame($front_url . 'search-leading-slash?text=Keyword', $this->getSession()->getCurrentUrl());
+
+    // Additional fragments are preserved.
+    $this->setSearchBlockFormAction('/search/content');
+    $this->drupalGet('<front>');
+    $this->submitSearch('Keyword');
+    $this->assertSame($front_url . 'search/content?text=Keyword', $this->getSession()->getCurrentUrl());
+
+    // An empty value just goes to the front page.
+    $this->setSearchBlockFormAction('');
+    $this->drupalGet('<front>');
+    $this->submitSearch('Keyword');
+    $this->assertSame($front_url . '?text=Keyword', $this->getSession()->getCurrentUrl());
   }
 
   /**
