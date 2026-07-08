@@ -55,17 +55,13 @@ class SearchFormTest extends BrowserTestBase {
 
     $search_text = 'Keyword';
     $this->drupalGet('<front>');
+    $front_url = $this->getSession()->getCurrentUrl();
+    $this->assertStringEndsWith('/', $front_url);
     $page = $this->getSession()->getPage();
     $page->fillField('search_input', $search_text);
     $page->pressButton('Search');
 
-    $current_url = $this->getSession()->getCurrentUrl();
-    $current_path = parse_url($current_url, PHP_URL_PATH);
-    $parsed_url = UrlHelper::parse($current_url);
-
-    $this->assertStringEndsWith('/search', $current_path);
-    $this->assertStringNotContainsString('//', $current_path);
-    $this->assertEquals(['text' => $search_text], $parsed_url['query']);
+    $this->assertSame($front_url . 'search?text=Keyword', $this->getSession()->getCurrentUrl());
   }
 
   /**
