@@ -43,7 +43,20 @@ class SearchForm extends FormBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   * @param array|null $config
+   *   Configuration to customize the behavior of this form.
+   *   If this is empty or does not contain specific values, the form will not
+   *   be rendered.
+   *   Typically, this configuration comes from the search block plugin.
+   *
+   * @see \Drupal\oe_whitelabel_search\Plugin\Block\SearchBlock::blockForm()
    */
+  #[\Override]
   public function buildForm(array $form, FormStateInterface $form_state, ?array $config = NULL): array {
     if (empty($config['input']['name'])) {
       return [];
@@ -101,7 +114,9 @@ class SearchForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $config = $form_state->get('oe_whitelabel_search_config');
-    $url = Url::fromUserInput('/' . $config['form']['action'], [
+    // The format of the search destination path setting is currently not
+    // enforced. It may or may not have a leading slash.
+    $url = Url::fromUserInput('/' . ltrim($config['form']['action'], '/'), [
       'language' => $this->languageManager->getCurrentLanguage(),
       'absolute' => TRUE,
       'query' => $this->requestStack->getCurrentRequest()->query->all(),
