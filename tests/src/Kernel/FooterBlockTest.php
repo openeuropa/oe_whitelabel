@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel\Kernel;
 
+use Drupal\Tests\rdf_skos\Traits\SkosImportTrait;
 use Drupal\Tests\sparql_entity_storage\Kernel\SparqlKernelTestBase;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -11,6 +12,8 @@ use Symfony\Component\DomCrawler\Crawler;
  * Tests the EU and the EC corporate Footer blocks rendering.
  */
 class FooterBlockTest extends SparqlKernelTestBase {
+
+  use SkosImportTrait;
 
   /**
    * {@inheritdoc}
@@ -50,6 +53,20 @@ class FooterBlockTest extends SparqlKernelTestBase {
       ->getEditable('system.site')
       ->set('name', 'Footer block test website')
       ->save();
+
+    $base_url = $_ENV['SIMPLETEST_BASE_URL'];
+    $this->import($base_url, $this->sparql, 'phpunit');
+    $this->enableGraph('fruit');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function tearDown(): void {
+    $base_url = $_ENV['SIMPLETEST_BASE_URL'];
+    $this->clear($base_url, $this->sparql, 'phpunit');
+
+    parent::tearDown();
   }
 
   /**
@@ -159,6 +176,80 @@ class FooterBlockTest extends SparqlKernelTestBase {
    * Tests the rendering of blocks.
    */
   public function testNeutralFooterBlockRendering(): void {
+    \Drupal::configFactory()
+      ->getEditable('oe_corporate_site_info.settings')
+      ->set('accessibility', 'https://example.com/accessibility')
+      ->save();
+
+    $crawler = $this->renderNeutralFooterBlock();
+
+    // For now we assert only minimal till we have a footer component.
+    $this->assertCount(1, $crawler->filter('footer.bcl-footer--neutral'));
+    $rows = $crawler->filter('.row');
+    $this->assertCount(1, $rows);
+    $sectionTitles = $crawler->filter('p.fw-bold.mb-2');
+    $this->assertCount(2, $sectionTitles);
+    $accessibilityLink = $crawler->filter('a[href="https://example.com/accessibility"]');
+    $this->assertCount(1, $accessibilityLink);
+    $this->assertEquals('Accessibility', $accessibilityLink->text());
+  }
+
+  /**
+   * Tests the neutral footer with a single site owner.
+   */
+  public function testNeutralFooterSingleSiteOwner(): void {
+    \Drupal::configFactory()
+      ->getEditable('oe_corporate_site_info.settings')
+      ->set('site_owners', ['http://example.com/fruit/apple'])
+      ->save();
+
+    $crawler = $this->renderNeutralFooterBlock();
+    $footer_text = trim($crawler->filter('footer.bcl-footer--neutral')->text());
+
+    $this->assertStringContainsString('This site is managed by the Apple', $footer_text);
+  }
+
+  /**
+   * Tests the neutral footer without site owners.
+   */
+  public function testNeutralFooterWithoutSiteOwner(): void {
+    \Drupal::configFactory()
+      ->getEditable('oe_corporate_site_info.settings')
+      ->set('site_owners', [])
+      ->save();
+
+    $crawler = $this->renderNeutralFooterBlock();
+    $footer_text = trim($crawler->filter('footer.bcl-footer--neutral')->text());
+
+    $this->assertStringNotContainsString('This site is managed by the', $footer_text);
+  }
+
+  /**
+   * Tests the neutral footer with multiple site owners.
+   */
+  public function testNeutralFooterMultipleSiteOwners(): void {
+    \Drupal::configFactory()
+      ->getEditable('oe_corporate_site_info.settings')
+      ->set('site_owners', [
+        'http://example.com/fruit/apple',
+        'http://example.com/fruit/pear',
+        'http://example.com/fruit/citrus-fruit',
+      ])
+      ->save();
+
+    $crawler = $this->renderNeutralFooterBlock();
+    $footer_html = trim($crawler->filter('footer.bcl-footer--neutral')->html());
+
+    $this->assertStringContainsString('<p>This site is co-managed by:<br>Apple<br>Pear<br>Citrus fruit</p>', $footer_html);
+  }
+
+  /**
+   * Renders the neutral footer block.
+   *
+   * @return \Symfony\Component\DomCrawler\Crawler
+   *   A crawler for the rendered block output.
+   */
+  protected function renderNeutralFooterBlock(): Crawler {
     $entity_type_manager = $this->container
       ->get('entity_type.manager')
       ->getStorage('block');
@@ -175,25 +266,29 @@ class FooterBlockTest extends SparqlKernelTestBase {
     ]);
     $entity->save();
 
-    \Drupal::configFactory()
-      ->getEditable('oe_corporate_site_info.settings')
-      ->set('accessibility', 'https://example.com/accessibility')
-      ->save();
-
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
     $render = $this->container->get('renderer')->renderRoot($build);
-    $crawler = new Crawler($render->__toString());
 
-    // For now we assert only minimal till we have a footer component.
-    $this->assertCount(1, $crawler->filter('footer.bcl-footer--neutral'));
-    $rows = $crawler->filter('.row');
-    $this->assertCount(1, $rows);
-    $sectionTitles = $crawler->filter('p.fw-bold.mb-2');
-    $this->assertCount(2, $sectionTitles);
-    $accessibilityLink = $crawler->filter('a[href="https://example.com/accessibility"]');
-    $this->assertCount(1, $accessibilityLink);
-    $this->assertEquals('Accessibility', $accessibilityLink->text());
+    return new Crawler($render->__toString());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getTestGraphInfo(string $base_url, string $test): array {
+    $module_path = \Drupal::service('extension.list.module')->getPath('rdf_skos');
+
+    return [
+      'fruit' => [
+        'uri' => "http://example.com/fruit/$test",
+        'data' => "$base_url/$module_path/tests/test_rdf/fruit.rdf",
+      ],
+      'vegetables' => [
+        'uri' => "http://example.com/vegetables/$test",
+        'data' => "$base_url/$module_path/tests/test_rdf/vegetables.rdf",
+      ],
+    ];
   }
 
 }
