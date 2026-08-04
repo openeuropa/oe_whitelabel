@@ -180,8 +180,17 @@ class PreprocessOrderTest extends KernelTestBase {
     // unless it is already present (older Drupal core).
     $legacy_initial_preprocess = 'template_preprocess_' . ($info['base hook'] ?? $hook);
     $actual = [];
-    if (!empty($info['initial preprocess']) && !in_array($legacy_initial_preprocess, $preprocess_functions, TRUE)) {
-      $actual[] = $legacy_initial_preprocess;
+    if (!empty($info['initial preprocess'])) {
+      // Confirm it is a real callback.
+      $callable = $info['initial preprocess'];
+      if (!is_callable($callable)) {
+        $callable = \Drupal::service('callable_resolver')->getCallableFromDefinition($callable);
+      }
+      $this->assertIsCallable($callable, "Hook '$hook' has an invalid 'initial preprocess' callback.");
+
+      if (!in_array($legacy_initial_preprocess, $preprocess_functions, TRUE)) {
+        $actual[] = $legacy_initial_preprocess;
+      }
     }
     // Use '...' to normalize integer keys.
     $actual = [...$actual, ...$preprocess_functions];
