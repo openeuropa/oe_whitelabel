@@ -1,11 +1,31 @@
 # Changelog
 
+## [1.34.0](https://github.com/openeuropa/oe_whitelabel/tree/1.34.0)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.33.3...1.34.0)
+
+**Closed issues:**
+
+- Search block form wrong redirection [\#360](https://github.com/openeuropa/oe_whitelabel/issues/360)
+
+**Merged pull requests:**
+
+- OEL-4748: Add bluesky and mastodon icons. [\#441](https://github.com/openeuropa/oe_whitelabel/pull/441) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+- OEL-4458: Support multiple site owners \(v2 with line breaks\) [\#440](https://github.com/openeuropa/oe_whitelabel/pull/440) ([donquixote](https://github.com/donquixote))
+- ELA-1301: Fix search block redirection. [\#361](https://github.com/openeuropa/oe_whitelabel/pull/361) ([Aporie](https://github.com/Aporie))
+
 ## [1.33.3](https://github.com/openeuropa/oe_whitelabel/tree/1.33.3) (2026-07-02)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.33.2...1.33.3)
 
+**Fixed bugs:**
+
+- Remove whitespace from site\_name in the branding block [\#287](https://github.com/openeuropa/oe_whitelabel/issues/287)
+- Site slogan is not display [\#277](https://github.com/openeuropa/oe_whitelabel/issues/277)
+
 **Merged pull requests:**
 
+- Prepare relese 1.33.3. [\#451](https://github.com/openeuropa/oe_whitelabel/pull/451) ([tibi2303](https://github.com/tibi2303))
 - OEL-4868: Fixed search test. [\#450](https://github.com/openeuropa/oe_whitelabel/pull/450) ([tibi2303](https://github.com/tibi2303))
 - OEL-4756: Remove direct child [\#447](https://github.com/openeuropa/oe_whitelabel/pull/447) ([piotrsmykaj](https://github.com/piotrsmykaj))
 
@@ -15,6 +35,7 @@
 
 **Merged pull requests:**
 
+- Prepare release 1.33.2. [\#449](https://github.com/openeuropa/oe_whitelabel/pull/449) ([tibi2303](https://github.com/tibi2303))
 - OEL-4819: Move preprocess functions from module to theme [\#448](https://github.com/openeuropa/oe_whitelabel/pull/448) ([donquixote](https://github.com/donquixote))
 
 ## [1.33.1](https://github.com/openeuropa/oe_whitelabel/tree/1.33.1) (2026-06-01)
@@ -71,6 +92,11 @@
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.29.1...1.30.0)
 
+**Fixed bugs:**
+
+- Spacing in corporate block footer is not aligend [\#285](https://github.com/openeuropa/oe_whitelabel/issues/285)
+- Listing item layout breaking with long badges [\#274](https://github.com/openeuropa/oe_whitelabel/issues/274)
+
 **Merged pull requests:**
 
 - Prepare release 1.30.0. [\#426](https://github.com/openeuropa/oe_whitelabel/pull/426) ([tibi2303](https://github.com/tibi2303))
@@ -79,15 +105,18 @@
 - OEL-3916 \(Trigger pipeline\) [\#419](https://github.com/openeuropa/oe_whitelabel/pull/419) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
 - OEL-4032: Use 'gap' for icon spacing in button and link [\#414](https://github.com/openeuropa/oe_whitelabel/pull/414) ([tibi2303](https://github.com/tibi2303))
 - OEL-3916: Paragraph oe\_accordion was ignoring field display settings. [\#367](https://github.com/openeuropa/oe_whitelabel/pull/367) ([julien-](https://github.com/julien-))
+
+## [1.29.1](https://github.com/openeuropa/oe_whitelabel/tree/1.29.1) (2026-02-18)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.29.0...1.29.1)
+
+**Merged pull requests:**
+
 - OEL-4522: Stabilize media sizes for AV Portal media tests. [\#423](https://github.com/openeuropa/oe_whitelabel/pull/423) ([tibi2303](https://github.com/tibi2303))
 - OEL-0000: Use drush cset for error level, don't write to settings.override.php. [\#417](https://github.com/openeuropa/oe_whitelabel/pull/417) ([donquixote](https://github.com/donquixote))
 - OEL-4455: Require \(dev\) drupal/modal\_page:^6.0-beta11 [\#416](https://github.com/openeuropa/oe_whitelabel/pull/416) ([donquixote](https://github.com/donquixote))
 - OEL-4455: Use new patch for modal\_page. [\#413](https://github.com/openeuropa/oe_whitelabel/pull/413) ([donquixote](https://github.com/donquixote))
 - OEL-4455: Use \#\[LegacyHook\] pattern in oe\_whitelabel\_modal\_page [\#408](https://github.com/openeuropa/oe_whitelabel/pull/408) ([donquixote](https://github.com/donquixote))
-
-## [1.29.1](https://github.com/openeuropa/oe_whitelabel/tree/1.29.1) (2026-02-18)
-
-[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.30.0...1.29.1)
 
 ## [1.29.0](https://github.com/openeuropa/oe_whitelabel/tree/1.29.0) (2026-01-21)
 
