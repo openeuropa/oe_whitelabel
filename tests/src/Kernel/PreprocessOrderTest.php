@@ -175,8 +175,26 @@ class PreprocessOrderTest extends KernelTestBase {
     if (version_compare(\Drupal::VERSION, '11.0', '<')) {
       $expected = ['template_preprocess', ...$expected];
     }
+    $preprocess_functions = $info['preprocess functions'] ?? [];
+    // Normalize 'initial preprocess' (OOP hooks) to the legacy function name,
+    // unless it is already present (older Drupal core).
+    $legacy_initial_preprocess = 'template_preprocess_' . ($info['base hook'] ?? $hook);
+    $actual = [];
+    if (!empty($info['initial preprocess'])) {
+      // Confirm it is a real callback.
+      $callable = $info['initial preprocess'];
+      if (!is_callable($callable)) {
+        $callable = \Drupal::service('callable_resolver')->getCallableFromDefinition($callable);
+      }
+      $this->assertIsCallable($callable, "Hook '$hook' has an invalid 'initial preprocess' callback.");
+
+      if (!in_array($legacy_initial_preprocess, $preprocess_functions, TRUE)) {
+        $actual[] = $legacy_initial_preprocess;
+      }
+    }
     // Use '...' to normalize integer keys.
-    $this->assertSame($expected, [...$info['preprocess functions']]);
+    $actual = [...$actual, ...$preprocess_functions];
+    $this->assertSame($expected, $actual);
   }
 
 }
