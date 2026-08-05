@@ -64,7 +64,7 @@ class EntityReferenceImageValueObjectFormatter extends ImageFormatterBase implem
    * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
    *   The language manager service.
    */
-  public function __construct(array $parent_params, ?FileUrlGeneratorInterface $file_url_generator = NULL, EntityTypeManagerInterface $entity_type_manager, LanguageManagerInterface $language_manager) {
+  public function __construct(array $parent_params, FileUrlGeneratorInterface $file_url_generator, EntityTypeManagerInterface $entity_type_manager, LanguageManagerInterface $language_manager) {
     parent::__construct($parent_params['plugin_id'], $parent_params['plugin_definition'], $parent_params['field_definition'], $parent_params['settings'], $parent_params['label'], $parent_params['view_mode'], $parent_params['third_party_settings']);
 
     $this->fileUrlGenerator = $file_url_generator;
