@@ -234,7 +234,7 @@ docker-compose exec web ./vendor/bin/phpunit --testdox modules/oe_whitelabel_par
 To rebuild assets with npm during development, without having to run `composer install` or `composer update`:
 
 ```bash
-docker-compose exec web npm install
+docker-compose exec web npm ci --ignore-scripts
 docker-compose exec web npm run build
 # or, for continuous updates:
 docker-compose exec web npm run watch

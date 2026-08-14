@@ -76,10 +76,10 @@ jobs:
       - name: Code review
         run: docker compose exec -T web ./vendor/bin/run toolkit:code-review
 
-      - name: npm install
-        run: docker compose exec -T web npm install --unsafe-perm
+      - name: Install dependencies
+        run: docker compose exec -T web npm ci --ignore-scripts
 
-      - name: npm run production
+      - name: Build production assets
         run: docker compose exec -T -e NODE_ENV=production web npm run production
 
       - name: release:create-archive
