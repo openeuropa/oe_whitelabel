@@ -75,9 +75,19 @@
     },
     "extra": {
         "patches": {
+            "drupal/entity_browser": {
+                "Re-order and remove broken with the Entity Reference and File widgets: https://www.drupal.org/project/entity_browser/issues/2851580": "https://www.drupal.org/files/issues/2026-08-12/2851580-38-20260812.patch"
+            },
             "drupal/modal_page": {
                 "Improve cache invalidation process: https://www.drupal.org/project/modal_page/issues/3555830": "https://www.drupal.org/files/issues/2026-01-09/3555830-14.patch",
                 "Allow modal entity management without granting access to global module config: https://www.drupal.org/project/modal_page/issues/3559425": "https://www.drupal.org/files/issues/2025-11-25/3559425-5.patch"
+            }
+        },
+        "patches-ignore": {
+            "openeuropa/oe_content": {
+                "drupal/entity_browser": {
+                    "https://www.drupal.org/project/entity_browser/issues/2851580": "https://www.drupal.org/files/issues/2025-09-03/2851580-128.patch"
+                }
             }
         },
         "composer-exit-on-patch-failure": true,
