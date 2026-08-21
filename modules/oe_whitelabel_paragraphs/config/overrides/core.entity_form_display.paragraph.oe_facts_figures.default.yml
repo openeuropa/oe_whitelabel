@@ -5,6 +5,7 @@ dependencies:
     - field.field.paragraph.oe_facts_figures.field_oe_link
     - field.field.paragraph.oe_facts_figures.field_oe_paragraphs
     - field.field.paragraph.oe_facts_figures.field_oe_title
+    - field.field.paragraph.oe_facts_figures.oe_w_alignment
     - field.field.paragraph.oe_facts_figures.oe_w_n_columns
     - paragraphs.paragraphs_type.oe_facts_figures
   module:
@@ -56,6 +57,12 @@ content:
     third_party_settings: {  }
     type: number
     region: content
+  oe_w_alignment:
+    type: options_select
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   created: true
   status: true

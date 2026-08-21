@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.oe_w_alignment
+    - paragraphs.paragraphs_type.oe_facts_figures
+  module:
+    - options
+id: paragraph.oe_facts_figures.oe_w_alignment
+field_name: oe_w_alignment
+entity_type: paragraph
+bundle: oe_facts_figures
+label: Alignment
+description: 'Aligns the facts and figures items. Center alignment keeps descriptions justified.'
+required: true
+translatable: false
+default_value:
+  -
+    value: left
+default_value_callback: ''
+settings: {  }
+field_type: list_string
