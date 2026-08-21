@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 
@@ -104,5 +105,63 @@ function oe_whitelabel_paragraphs_post_update_00002(array &$sandbox): void {
       $form_display->setComponent('field_oe_meta', $field_oe_meta);
     }
     $form_display->save();
+  }
+}
+
+/**
+ * Adds the alignment option to Facts and Figures paragraphs.
+ */
+function oe_whitelabel_paragraphs_post_update_00003(): void {
+  if (!FieldStorageConfig::loadByName('paragraph', 'oe_w_alignment')) {
+    FieldStorageConfig::create([
+      'field_name' => 'oe_w_alignment',
+      'entity_type' => 'paragraph',
+      'type' => 'list_string',
+      'settings' => [
+        'allowed_values' => [
+          [
+            'value' => 'left',
+            'label' => 'Left',
+          ],
+          [
+            'value' => 'center',
+            'label' => 'Center',
+          ],
+        ],
+      ],
+      'cardinality' => 1,
+      'translatable' => TRUE,
+    ])->save();
+  }
+
+  if (!FieldConfig::loadByName('paragraph', 'oe_facts_figures', 'oe_w_alignment')) {
+    FieldConfig::create([
+      'field_name' => 'oe_w_alignment',
+      'entity_type' => 'paragraph',
+      'bundle' => 'oe_facts_figures',
+      'label' => 'Alignment',
+      'description' => 'Aligns the facts and figures items. Center alignment keeps descriptions justified.',
+      'required' => TRUE,
+      'translatable' => FALSE,
+      'default_value' => [
+        ['value' => 'left'],
+      ],
+    ])->save();
+  }
+
+  $form_display = EntityFormDisplay::load('paragraph.oe_facts_figures.default');
+  if ($form_display !== NULL) {
+    $form_display->setComponent('oe_w_alignment', [
+      'type' => 'options_select',
+      'weight' => 7,
+      'region' => 'content',
+      'settings' => [],
+      'third_party_settings' => [],
+    ])->save();
+  }
+
+  $view_display = EntityViewDisplay::load('paragraph.oe_facts_figures.default');
+  if ($view_display !== NULL) {
+    $view_display->removeComponent('oe_w_alignment')->save();
   }
 }
