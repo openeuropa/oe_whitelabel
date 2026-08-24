@@ -109,6 +109,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
       ->save();
 
     $builder->resetCache();
+    \Drupal::service('cache.render')->deleteAll();
     $build = $builder->view($entity, 'block');
     $crawler = new Crawler((string) $this->container->get('renderer')->renderRoot($build));
 
@@ -162,6 +163,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
       ->save();
 
     $builder->resetCache();
+    \Drupal::service('cache.render')->deleteAll();
     $build = $builder->view($entity, 'block');
     $crawler = new Crawler((string) $this->container->get('renderer')->renderRoot($build));
 

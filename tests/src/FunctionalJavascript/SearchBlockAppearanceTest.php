@@ -126,6 +126,8 @@ class SearchBlockAppearanceTest extends WebDriverTestBase {
       ->set('region', 'header')
       ->set('settings.form.region', 'header')
       ->save();
+    \Drupal::service('cache.page')->deleteAll();
+    \Drupal::service('cache.dynamic_page_cache')->deleteAll();
     $this->drupalGet('');
     // The search form is not wrapped in '.search-dropdown'.
     $assert_session->elementsCount('css', '.search-dropdown', 0);
@@ -136,6 +138,8 @@ class SearchBlockAppearanceTest extends WebDriverTestBase {
       ->set('region', 'navigation_right')
       ->set('settings.form.region', 'navigation_right')
       ->save();
+    \Drupal::service('cache.page')->deleteAll();
+    \Drupal::service('cache.dynamic_page_cache')->deleteAll();
     $this->drupalGet('');
     // The search form is not wrapped in '.search-dropdown'.
     $assert_session->elementsCount('css', '.search-dropdown', 0);
