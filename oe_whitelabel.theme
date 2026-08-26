@@ -265,15 +265,12 @@ function _oe_whitelabel_process_element_select(array &$element): array {
     }
   }
 
+  $element['#slim_select'] = ($element['#slim_select'] ?? []) + [
+    'contentPosition' => 'fixed',
+  ];
   if (!empty($element['#attributes']['placeholder'])) {
     $element['#slim_select']['placeholderText'] = $element['#attributes']['placeholder'];
   }
-
-  $element += [
-    '#slim_select' => [
-      'contentPosition' => 'fixed',
-    ],
-  ];
 
   return $element;
 }
