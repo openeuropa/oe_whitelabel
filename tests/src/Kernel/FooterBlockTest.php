@@ -108,6 +108,12 @@ class FooterBlockTest extends SparqlKernelTestBase {
       ->set('accessibility', 'https://example.com/accessibility')
       ->save();
 
+    // Since Drupal 11.4, resetCache() with no arguments does not work for
+    // blocks (issue #3341042). It tries to invalidate
+    // BlockViewBuilder::getCacheTags(), but this is now empty. If we pass
+    // the entity instead, resetCache() invalidates $entity->getCacheTags(),
+    // which is 'config:block_list'. The page has this tag, so it works.
+    // @see https://www.drupal.org/project/drupal/issues/3341042
     $builder->resetCache([$entity]);
     $build = $builder->view($entity, 'block');
     $crawler = new Crawler((string) $this->container->get('renderer')->renderRoot($build));
@@ -161,6 +167,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
       ->set('accessibility', 'https://example.com/accessibility')
       ->save();
 
+    // @see https://www.drupal.org/project/drupal/issues/3341042
     $builder->resetCache([$entity]);
     $build = $builder->view($entity, 'block');
     $crawler = new Crawler((string) $this->container->get('renderer')->renderRoot($build));

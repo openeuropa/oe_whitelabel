@@ -121,13 +121,23 @@ class SearchBlockAppearanceTest extends WebDriverTestBase {
     $assert_session = $this->assertSession();
     $this->getSession()->resizeWindow(1250, 800);
 
+    $block_storage = \Drupal::entityTypeManager()->getStorage('block');
+    $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
+    $entity = $block_storage->load('oe_whitelabel_search_form');
+
     // Move the block to the 'header' theme region.
     $this->config('block.block.oe_whitelabel_search_form')
       ->set('region', 'header')
       ->set('settings.form.region', 'header')
       ->save();
-    \Drupal::service('cache.page')->deleteAll();
-    \Drupal::service('cache.dynamic_page_cache')->deleteAll();
+    // Drupal 11.4 (issue #3341042) narrowed block cache tag invalidation to
+    // 'config:block_list'. Saving through $this->config() invalidates the
+    // block's own tag instead, which nothing is tagged with anymore, so the
+    // cached page is never busted. Passing the entity to resetCache()
+    // invalidates config:block_list directly. The page has this tag, so it
+    // works.
+    // @see https://www.drupal.org/project/drupal/issues/3341042
+    $builder->resetCache([$entity]);
     $this->drupalGet('');
     // The search form is not wrapped in '.search-dropdown'.
     $assert_session->elementsCount('css', '.search-dropdown', 0);
@@ -138,8 +148,8 @@ class SearchBlockAppearanceTest extends WebDriverTestBase {
       ->set('region', 'navigation_right')
       ->set('settings.form.region', 'navigation_right')
       ->save();
-    \Drupal::service('cache.page')->deleteAll();
-    \Drupal::service('cache.dynamic_page_cache')->deleteAll();
+    // @see https://www.drupal.org/project/drupal/issues/3341042
+    $builder->resetCache([$entity]);
     $this->drupalGet('');
     // The search form is not wrapped in '.search-dropdown'.
     $assert_session->elementsCount('css', '.search-dropdown', 0);
