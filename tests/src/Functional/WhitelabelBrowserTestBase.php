@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_whitelabel\Functional;
 
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\oe_content\Traits\NodeBodyFieldStorageTrait;
 use Drupal\Tests\oe_whitelabel\Traits\CckContainerTrait;
 use Drupal\Tests\oe_whitelabel\Traits\MediaCreationTrait;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
@@ -17,6 +18,7 @@ abstract class WhitelabelBrowserTestBase extends BrowserTestBase {
   use SparqlConnectionTrait;
   use CckContainerTrait;
   use MediaCreationTrait;
+  use NodeBodyFieldStorageTrait;
 
   /**
    * {@inheritdoc}
@@ -34,6 +36,8 @@ abstract class WhitelabelBrowserTestBase extends BrowserTestBase {
 
     // Without sparql, some blocks will cause problems.
     $this->setUpSparql();
+
+    $this->ensureNodeBodyTextWithSummary();
   }
 
 }

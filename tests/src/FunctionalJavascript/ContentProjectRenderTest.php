@@ -14,6 +14,7 @@ use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\ContentBannerAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\DescriptionListAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\GalleryPatternAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\InPageNavigationAssert;
+use Drupal\Tests\oe_content\Traits\NodeBodyFieldStorageTrait;
 use Drupal\Tests\oe_whitelabel\Traits\NodeCreationTrait;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 use Drupal\node\NodeInterface;
@@ -29,6 +30,7 @@ use Drupal\user\RoleInterface;
  */
 class ContentProjectRenderTest extends WebDriverTestBase {
 
+  use NodeBodyFieldStorageTrait;
   use NodeCreationTrait;
   use SparqlConnectionTrait;
   use TestFileCreationTrait;
@@ -53,6 +55,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
   protected function setUp(): void {
     parent::setUp();
     $this->setUpSparql();
+    $this->ensureNodeBodyTextWithSummary();
 
     Role::load(RoleInterface::ANONYMOUS_ID)
       ->grantPermission('view published skos concept entities')

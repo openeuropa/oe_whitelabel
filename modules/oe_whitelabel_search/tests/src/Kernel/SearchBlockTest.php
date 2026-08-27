@@ -127,7 +127,17 @@ class SearchBlockTest extends KernelTestBase {
     $form = $dropdown->filter('form');
     $this->assertCount(1, $form);
     $this->assertSame('oe-whitelabel-search-form', $form->attr('id'));
-    $this->assertSame('d-flex', $form->attr('class'));
+    $expected_class = 'd-flex';
+    // Before Drupal 11.4, BlockViewBuilder moved a block's '#attributes' up
+    // to the block wrapper. Since Drupal 11.4, it only does this when the
+    // content has no '#type' and no '#theme'. Forms always have
+    // '#type' => 'form'. So the default form-id class from FormBuilder now
+    // stays on the <form> tag, instead of moving to the block wrapper.
+    // @see https://www.drupal.org/project/drupal/issues/3600644
+    if (version_compare(\Drupal::VERSION, '11.4', '>=')) {
+      $expected_class = 'oe-whitelabel-search-form ' . $expected_class;
+    }
+    $this->assertSame($expected_class, $form->attr('class'));
 
     // Text input field.
     $input = $form->filter('input[name="search_input"]');
@@ -216,7 +226,12 @@ class SearchBlockTest extends KernelTestBase {
     $form = $wrapper->filter('form');
     $this->assertCount(1, $form);
     $this->assertSame('oe-whitelabel-search-form', $form->attr('id'));
-    $this->assertSame('bcl-search-form submittable', $form->attr('class'));
+    $expected_class = 'bcl-search-form submittable';
+    // @see https://www.drupal.org/project/drupal/issues/3600644
+    if (version_compare(\Drupal::VERSION, '11.4', '>=')) {
+      $expected_class = 'oe-whitelabel-search-form ' . $expected_class;
+    }
+    $this->assertSame($expected_class, $form->attr('class'));
     // Assert the field wrapper rendering.
     $wrapper = $form->filter('.bcl-search-form__group');
     $this->assertCount(1, $wrapper);
