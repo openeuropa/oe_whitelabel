@@ -23,7 +23,7 @@ class SlimSelectHelperTest extends UnitTestCase {
    */
   public function testLibraryInfoAlter(): void {
     $libraries = $this->getLibraries();
-    $helper = $this->createHelper('v3.4.3');
+    $helper = $this->createHelper('v3.6.1');
     $helper->libraryInfoAlter($libraries, 'slim_select');
 
     $expected_path = '/themes/contrib/oe_bootstrap_theme/assets/js/slimselect.min.js';
@@ -42,7 +42,7 @@ class SlimSelectHelperTest extends UnitTestCase {
    * Tests that other configured versions remain managed by the module.
    */
   public function testOtherVersionsArePreserved(): void {
-    foreach (['v1.27.1', 'v2.10.0', 'v3.3.0', 'v4.0.0', NULL] as $version) {
+    foreach (['v1.27.1', 'v2.10.0', 'v3.3.0', 'v3.4.3', 'v4.0.0', NULL] as $version) {
       $libraries = $this->getLibraries();
       $expected = $libraries;
       $helper = $this->createHelper($version);
@@ -63,7 +63,7 @@ class SlimSelectHelperTest extends UnitTestCase {
   public function testMissingParentThemePreservesLibrary(): void {
     $libraries = $this->getLibraries();
     $expected = $libraries;
-    $helper = $this->createHelper('v3.4.3', FALSE);
+    $helper = $this->createHelper('v3.6.1', FALSE);
     $helper->libraryInfoAlter($libraries, 'slim_select');
 
     $this->assertSame($expected, $libraries);

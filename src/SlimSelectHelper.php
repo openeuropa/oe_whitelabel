@@ -20,7 +20,7 @@ class SlimSelectHelper implements ContainerInjectionInterface {
   /**
    * The Slim Select version bundled by the parent theme.
    */
-  private const BUNDLED_VERSION = 'v3.4.3';
+  private const BUNDLED_VERSION = 'v3.6.1';
 
   /**
    * Constructs a SlimSelectHelper object.

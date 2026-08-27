@@ -77,7 +77,7 @@ function oe_whitelabel_helper_post_update_00005(): string {
     return 'The configured Slim Select version did not require migration.';
   }
 
-  $config->set('version', 'v3.4.3')->save();
+  $config->set('version', 'v3.6.1')->save();
 
-  return 'The configured Slim Select version was updated to v3.4.3.';
+  return 'The configured Slim Select version was updated to v3.6.1.';
 }
