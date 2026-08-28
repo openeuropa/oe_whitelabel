@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use Drupal\block\Entity\Block;
 use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\oe_bootstrap_theme\ConfigImporter;
 
 /**
@@ -66,4 +67,26 @@ function oe_whitelabel_helper_post_update_00004(): string {
   $old_navigation_block->setStatus(FALSE)->save();
 
   return $report . "\nThe old navigation block was disabled.";
+}
+
+/**
+ * Apply the no-crop image style to gallery thumbnails.
+ */
+function oe_whitelabel_helper_post_update_00005(): void {
+  $bundles = [
+    'av_portal_photo',
+    'av_portal_video',
+    'image',
+    'remote_video',
+  ];
+
+  foreach ($bundles as $bundle) {
+    $display = EntityViewDisplay::load("media.$bundle.oe_w_pattern_gallery_item");
+    if (!$display || !$component = $display->getComponent('thumbnail')) {
+      continue;
+    }
+
+    $component['settings']['image_style'] = 'oe_bootstrap_theme_medium_no_crop';
+    $display->setComponent('thumbnail', $component)->save();
+  }
 }
