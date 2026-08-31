@@ -119,14 +119,8 @@ function oe_whitelabel_paragraphs_post_update_00003(): void {
       'type' => 'list_string',
       'settings' => [
         'allowed_values' => [
-          [
-            'value' => 'left',
-            'label' => 'Left',
-          ],
-          [
-            'value' => 'center',
-            'label' => 'Center',
-          ],
+          'left' => 'Left',
+          'center' => 'Center',
         ],
       ],
       'cardinality' => 1,
