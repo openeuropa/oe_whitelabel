@@ -538,6 +538,7 @@ function oe_whitelabel_preprocess_paragraph__oe_facts_figures(array &$variables)
   if (!$paragraph->get('oe_w_n_columns')->isEmpty()) {
     $variables['columns'] = $paragraph->get('oe_w_n_columns')->value;
   }
+  $variables['alignment'] = 'left';
   if ($paragraph->hasField('oe_w_alignment') && !$paragraph->get('oe_w_alignment')->isEmpty()) {
     $variables['alignment'] = $paragraph->get('oe_w_alignment')->value;
   }

@@ -128,19 +128,23 @@ function oe_whitelabel_paragraphs_post_update_00003(): void {
     ])->save();
   }
 
-  if (!FieldConfig::loadByName('paragraph', 'oe_facts_figures', 'oe_w_alignment')) {
+  $field_config = FieldConfig::loadByName('paragraph', 'oe_facts_figures', 'oe_w_alignment');
+  if ($field_config === NULL) {
     FieldConfig::create([
       'field_name' => 'oe_w_alignment',
       'entity_type' => 'paragraph',
       'bundle' => 'oe_facts_figures',
       'label' => 'Alignment',
-      'description' => 'Aligns the facts and figures items. Center alignment keeps descriptions justified.',
-      'required' => TRUE,
+      'description' => 'Aligns icons, values, and labels. Descriptions remain left-aligned.',
+      'required' => FALSE,
       'translatable' => FALSE,
       'default_value' => [
         ['value' => 'left'],
       ],
     ])->save();
+  }
+  elseif ($field_config->isRequired()) {
+    $field_config->setRequired(FALSE)->save();
   }
 
   $form_display = EntityFormDisplay::load('paragraph.oe_facts_figures.default');

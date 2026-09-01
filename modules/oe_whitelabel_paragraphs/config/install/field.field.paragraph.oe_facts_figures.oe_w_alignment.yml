@@ -11,8 +11,8 @@ field_name: oe_w_alignment
 entity_type: paragraph
 bundle: oe_facts_figures
 label: Alignment
-description: 'Aligns the facts and figures items. Center alignment keeps descriptions justified.'
-required: true
+description: 'Aligns icons, values, and labels. Descriptions remain left-aligned.'
+required: false
 translatable: false
 default_value:
   -

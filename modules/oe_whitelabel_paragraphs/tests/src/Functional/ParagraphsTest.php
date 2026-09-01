@@ -196,6 +196,7 @@ class ParagraphsTest extends BrowserTestBase {
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_title][0][value]');
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][oe_w_n_columns][0][value]');
     $this->assertEquals([
+      '_none' => '- None -',
       'left' => 'Left',
       'center' => 'Center',
     ], $this->getSelectOptions('oe_w_paragraphs[0][subform][oe_w_alignment]'));
@@ -225,7 +226,7 @@ class ParagraphsTest extends BrowserTestBase {
     $this->assertSession()->pageTextContains('Jira Tickets');
     $this->assertSession()->pageTextContains('Nunc condimentum sapien ut nibh finibus suscipit vitae at justo. Morbi quis odio faucibus, commodo tortor id, elementum libero.');
     $this->assertSession()->elementsCount('css', '.bcl-fact-figures .col.text-center', 1);
-    $this->assertSession()->elementsCount('css', '.bcl-fact-figures .col > p.text-justify', 1);
+    $this->assertSession()->elementsCount('css', '.bcl-fact-figures .col.text-center > p.text-start', 1);
   }
 
   /**

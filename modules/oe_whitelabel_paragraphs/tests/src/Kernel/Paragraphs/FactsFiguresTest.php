@@ -88,7 +88,7 @@ class FactsFiguresTest extends ParagraphsTestBase {
     $this->assertCount(6, $crawler->filter('div.fs-5'));
     $this->assertCount(6, $crawler->filter('div.col'));
     $this->assertCount(6, $crawler->filter('div.col.text-center'));
-    $this->assertCount(6, $crawler->filter('div.col > p.text-justify'));
+    $this->assertCount(6, $crawler->filter('div.col.text-center > p.text-start'));
 
     $link = $crawler->filter('a[href="https://www.readmore.com"]');
     $this->assertStringContainsString(
@@ -218,7 +218,7 @@ class FactsFiguresTest extends ParagraphsTestBase {
     $crawler = new Crawler($html);
 
     $this->assertCount(0, $crawler->filter('div.col.text-center'));
-    $this->assertCount(0, $crawler->filter('div.col > p.text-justify'));
+    $this->assertCount(0, $crawler->filter('div.col.text-center > p.text-start'));
   }
 
 }
