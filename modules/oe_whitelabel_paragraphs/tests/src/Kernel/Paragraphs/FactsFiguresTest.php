@@ -82,7 +82,7 @@ class FactsFiguresTest extends ParagraphsTestBase {
     $this->assertCount(1, $crawler->filter('div.bcl-fact-figures.bcl-fact-figures--default'));
     $this->assertCount(1, $crawler->filter('h2.bcl-heading'));
     $this->assertCount(1, $crawler->filter('div.row-cols-md-3.row'));
-    $this->assertCount(6, $crawler->filter('svg.bi.icon--l'));
+    $this->assertCount(6, $crawler->filter('svg.bi.icon--3xl'));
     $this->assertCount(6, $crawler->filter('div.fs-4'));
     $this->assertCount(6, $crawler->filter('div.fs-5'));
     $this->assertCount(6, $crawler->filter('div.col'));
