@@ -67,3 +67,17 @@ function oe_whitelabel_helper_post_update_00004(): string {
 
   return $report . "\nThe old navigation block was disabled.";
 }
+
+/**
+ * Preserve the effective Slim Select version used by existing sites.
+ */
+function oe_whitelabel_helper_post_update_00005(): string {
+  $config = \Drupal::configFactory()->getEditable('slim_select.settings');
+  if ($config->get('version') !== 'v2.10.0') {
+    return 'The configured Slim Select version did not require migration.';
+  }
+
+  $config->set('version', 'v3.6.1')->save();
+
+  return 'The configured Slim Select version was updated to v3.6.1.';
+}
