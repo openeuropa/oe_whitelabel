@@ -153,7 +153,7 @@ class InstallTest extends BrowserTestBase {
       ],
       'oe_facts_figures' => [
         'oe_w_n_columns' => '3',
-        'oe_w_alignment' => 'left',
+        'oe_w_alignment' => NULL,
       ],
       'oe_links_block' => [
         'oe_w_links_block_orientation' => 'vertical',
