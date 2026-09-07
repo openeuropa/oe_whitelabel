@@ -85,6 +85,9 @@ function oe_whitelabel_helper_post_update_00005(): void {
     if (!$display || !$component = $display->getComponent('thumbnail')) {
       continue;
     }
+    if (!empty($component['settings']['image_style'])) {
+      continue;
+    }
 
     $component['settings']['image_style'] = 'oe_bootstrap_theme_medium_no_crop';
     $display->setComponent('thumbnail', $component)->save();

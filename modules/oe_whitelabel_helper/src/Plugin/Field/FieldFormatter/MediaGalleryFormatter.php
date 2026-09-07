@@ -46,7 +46,7 @@ class MediaGalleryFormatter extends EntityReferenceFormatterBase {
     $form['thumbnail_fit'] = [
       '#type' => 'select',
       '#title' => $this->t('Thumbnail fit'),
-      '#description' => $this->t('Cover fills the gallery grid cells and may crop thumbnails.'),
+      '#description' => $this->t('Choose whether thumbnails keep their original aspect ratio or fill the gallery grid cells. Cover may crop parts of a thumbnail.'),
       '#default_value' => $this->getSetting('thumbnail_fit'),
       '#options' => [
         'original' => $this->t('Original aspect ratio'),
@@ -71,6 +71,9 @@ class MediaGalleryFormatter extends EntityReferenceFormatterBase {
       $this->t('Thumbnail fit: @fit', [
         '@fit' => $options[$thumbnail_fit] ?? $options['original'],
       ]),
+      $thumbnail_fit === 'cover'
+        ? $this->t('Thumbnails fill the gallery grid cells and may be cropped.')
+        : $this->t('Thumbnails keep their original aspect ratio and are not cropped.'),
     ];
   }
 
