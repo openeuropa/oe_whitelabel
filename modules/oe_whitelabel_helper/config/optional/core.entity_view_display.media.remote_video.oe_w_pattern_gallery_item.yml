@@ -4,6 +4,7 @@ dependencies:
   config:
     - core.entity_view_mode.media.oe_w_pattern_gallery_item
     - field.field.media.remote_video.oe_media_oembed_video
+    - image.style.oe_bootstrap_theme_medium_no_crop
     - media.type.remote_video
   module:
     - image
@@ -42,7 +43,7 @@ content:
     label: hidden
     settings:
       image_link: ''
-      image_style: ''
+      image_style: oe_bootstrap_theme_medium_no_crop
     third_party_settings:
       oe_whitelabel_helper:
         pattern_mapping: thumbnail

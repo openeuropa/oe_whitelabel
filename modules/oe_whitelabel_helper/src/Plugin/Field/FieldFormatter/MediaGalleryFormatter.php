@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceFormatterBase;
+use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -26,6 +27,55 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class MediaGalleryFormatter extends EntityReferenceFormatterBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function defaultSettings() {
+    return [
+      'thumbnail_fit' => 'original',
+    ] + parent::defaultSettings();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function settingsForm(array $form, FormStateInterface $form_state) {
+    $form = parent::settingsForm($form, $form_state);
+
+    $form['thumbnail_fit'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Thumbnail fit'),
+      '#description' => $this->t('Choose whether thumbnails keep their original aspect ratio or fill the gallery grid cells. Cover may crop parts of a thumbnail.'),
+      '#default_value' => $this->getSetting('thumbnail_fit'),
+      '#options' => [
+        'original' => $this->t('Original aspect ratio'),
+        'cover' => $this->t('Cover'),
+      ],
+    ];
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function settingsSummary() {
+    $options = [
+      'original' => $this->t('Original aspect ratio'),
+      'cover' => $this->t('Cover'),
+    ];
+    $thumbnail_fit = $this->getSetting('thumbnail_fit');
+
+    return [
+      $this->t('Thumbnail fit: @fit', [
+        '@fit' => $options[$thumbnail_fit] ?? $options['original'],
+      ]),
+      $thumbnail_fit === 'cover'
+        ? $this->t('Thumbnails fill the gallery grid cells and may be cropped.')
+        : $this->t('Thumbnails keep their original aspect ratio and are not cropped.'),
+    ];
+  }
 
   /**
    * A list of field mappings to gallery item rows properties, keyed by bundle.
@@ -108,6 +158,7 @@ class MediaGalleryFormatter extends EntityReferenceFormatterBase {
         '#type' => 'pattern',
         '#id' => 'gallery',
         '#items' => $gallery_items,
+        '#thumbnail_fit' => $this->getSetting('thumbnail_fit'),
       ];
     }
 

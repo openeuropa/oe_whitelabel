@@ -33,6 +33,10 @@ field_group.field_group_formatter_plugin.oe_whitelabel_helper_inpage_navigation_
 field.formatter.settings.oe_whitelabel_helper_gallery:
   type: mapping
   label: 'Gallery formatter settings'
+  mapping:
+    thumbnail_fit:
+      type: string
+      label: 'Thumbnail fit'
 
 field.formatter.third_party.oe_whitelabel_helper:
   type: mapping

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
-use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Url;
 use Drupal\Tests\oe_whitelabel\Traits\MediaCreationTrait;
 use Symfony\Component\DomCrawler\Crawler;
@@ -60,7 +59,7 @@ class AvMediaParagraphsTest extends ParagraphsTestBase {
     ])->toString();
     $media_av_video = $this->createAvPortalVideoMedia();
     $media_av_photo = $this->createAvPortalPhotoMedia();
-    $remote_thumbnail_url_encrypted = Crypt::hashBase64('store2/4/P038924-35966.jpg');
+    $thumbnail_filename = basename($media_av_photo->get('thumbnail')->entity->getFileUri());
 
     $scenarios = [
       'image' => [
@@ -85,7 +84,7 @@ class AvMediaParagraphsTest extends ParagraphsTestBase {
       ],
       'avportal_photo' => [
         'media' => $media_av_photo->id(),
-        'expected_src' => "/styles/oe_bootstrap_theme_medium_no_crop/public/media_avportal_thumbnails/$remote_thumbnail_url_encrypted.jpg",
+        'expected_src' => "/styles/oe_bootstrap_theme_medium_no_crop/public/media_avportal_thumbnails/$thumbnail_filename",
         'selector' => 'img',
       ],
     ];
