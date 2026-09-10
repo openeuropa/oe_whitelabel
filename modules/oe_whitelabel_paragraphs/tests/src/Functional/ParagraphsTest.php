@@ -195,6 +195,11 @@ class ParagraphsTest extends BrowserTestBase {
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_link][0][title]');
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_title][0][value]');
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][oe_w_n_columns][0][value]');
+    $this->assertEquals([
+      '_none' => '- None -',
+      'left' => 'Left',
+      'center' => 'Center',
+    ], $this->getSelectOptions('oe_w_paragraphs[0][subform][oe_w_alignment]'));
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_title][0][value]');
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_subtitle][0][value]');
     $this->assertSession()->fieldExists('oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_plain_text_long][0][value]');
@@ -205,6 +210,7 @@ class ParagraphsTest extends BrowserTestBase {
       'oe_w_paragraphs[0][subform][field_oe_link][0][uri]' => 'https://www.google.com',
       'oe_w_paragraphs[0][subform][field_oe_link][0][title]' => 'Read more',
       'oe_w_paragraphs[0][subform][oe_w_n_columns][0][value]' => 2,
+      'oe_w_paragraphs[0][subform][oe_w_alignment]' => 'center',
       'oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_title][0][value]' => "1529 JIRA Ticket",
       'oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_subtitle][0][value]' => "Jira Tickets",
       'oe_w_paragraphs[0][subform][field_oe_paragraphs][0][subform][field_oe_plain_text_long][0][value]' => "Nunc condimentum sapien ut nibh finibus suscipit vitae at justo. Morbi quis odio faucibus, commodo tortor id, elementum libero.",
@@ -219,6 +225,8 @@ class ParagraphsTest extends BrowserTestBase {
     $this->assertSession()->pageTextContains('1529 JIRA Ticket');
     $this->assertSession()->pageTextContains('Jira Tickets');
     $this->assertSession()->pageTextContains('Nunc condimentum sapien ut nibh finibus suscipit vitae at justo. Morbi quis odio faucibus, commodo tortor id, elementum libero.');
+    $this->assertSession()->elementsCount('css', '.bcl-fact-figures .col.text-center', 1);
+    $this->assertSession()->elementsCount('css', '.bcl-fact-figures .col.text-center > p.text-start', 1);
   }
 
   /**

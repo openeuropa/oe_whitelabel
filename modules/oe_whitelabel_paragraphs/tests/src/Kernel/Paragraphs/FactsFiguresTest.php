@@ -71,6 +71,7 @@ class FactsFiguresTest extends ParagraphsTestBase {
         'title' => 'Read more',
       ],
       'oe_w_n_columns' => 3,
+      'oe_w_alignment' => 'center',
       'field_oe_paragraphs' => $paragraph_fact,
     ]);
     $paragraph->save();
@@ -86,6 +87,8 @@ class FactsFiguresTest extends ParagraphsTestBase {
     $this->assertCount(6, $crawler->filter('div.fs-4'));
     $this->assertCount(6, $crawler->filter('div.fs-5'));
     $this->assertCount(6, $crawler->filter('div.col'));
+    $this->assertCount(6, $crawler->filter('div.col.text-center'));
+    $this->assertCount(6, $crawler->filter('div.col.text-center > p.text-start'));
 
     $link = $crawler->filter('a[href="https://www.readmore.com"]');
     $this->assertStringContainsString(
@@ -206,6 +209,16 @@ class FactsFiguresTest extends ParagraphsTestBase {
     $crawler = new Crawler($html);
 
     $this->assertCount(1, $crawler->filter('div.row-cols-md-1.row'));
+
+    // Testing: Left alignment.
+    $paragraph->get('oe_w_alignment')->setValue('left');
+    $paragraph->save();
+
+    $html = $this->renderParagraph($paragraph);
+    $crawler = new Crawler($html);
+
+    $this->assertCount(0, $crawler->filter('div.col.text-center'));
+    $this->assertCount(0, $crawler->filter('div.col.text-center > p.text-start'));
   }
 
 }

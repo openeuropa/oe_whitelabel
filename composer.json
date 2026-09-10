@@ -12,7 +12,7 @@
         "drupal/daterange_compact": "^2.0.1",
         "drupal/twig_field_value": "^2.0.2",
         "openeuropa/composer-artifacts": "^1.0.0-alpha1",
-        "openeuropa/oe_bootstrap_theme": "^1.38"
+        "openeuropa/oe_bootstrap_theme": "0.4967.202609021500"
     },
     "require-dev": {
         "composer/installers": "^1.11 || ^2.3",
@@ -111,6 +111,7 @@
         }
     },
     "config": {
+        "process-timeout": 900,
         "sort-packages": true,
         "allow-plugins": {
             "composer/installers": true,

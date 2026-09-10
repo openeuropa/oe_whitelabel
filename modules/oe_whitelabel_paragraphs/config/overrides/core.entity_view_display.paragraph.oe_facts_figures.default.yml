@@ -5,6 +5,7 @@ dependencies:
     - field.field.paragraph.oe_facts_figures.field_oe_link
     - field.field.paragraph.oe_facts_figures.field_oe_paragraphs
     - field.field.paragraph.oe_facts_figures.field_oe_title
+    - field.field.paragraph.oe_facts_figures.oe_w_alignment
     - field.field.paragraph.oe_facts_figures.oe_w_n_columns
     - paragraphs.paragraphs_type.oe_facts_figures
   module:
@@ -45,4 +46,5 @@ content:
     type: string
     region: content
 hidden:
+  oe_w_alignment: true
   oe_w_n_columns: true
