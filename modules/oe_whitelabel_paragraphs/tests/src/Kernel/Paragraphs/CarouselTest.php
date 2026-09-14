@@ -152,8 +152,7 @@ class CarouselTest extends ParagraphsTestBase {
 
     /** @var \Drupal\Core\File\FileUrlGeneratorInterface $file_url_generator */
     $file_url_generator = \Drupal::service('file_url_generator');
-    $av_photo_url = \Drupal::config('media_avportal.settings')->get('photos_base_uri')
-      . $av_photo_media->getSource()->getMetadata($av_photo_media, 'photo_uri');
+    $av_photo_url = 'https://ec.europa.eu/avservices/repository/photo/03/89/24/P-038924_00-15_01-ORIGINAL-394989.jpg';
 
     // Assert paragraph rendering for English version.
     $html = $this->renderParagraph($paragraph);
