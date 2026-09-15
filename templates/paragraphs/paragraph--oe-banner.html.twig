@@ -25,7 +25,7 @@
 {% endif %}
 {% set _hero = 'hero' in pattern %}
 {% set _shade = 'shade' in variant %}
-{{ pattern('banner', {
+{% include 'oe_bootstrap_theme:banner' with {
   'variant': variant,
   'title': title,
   'description': description,
@@ -37,4 +37,4 @@
   'centered': centered,
   'attributes': attributes,
   'copyright': copyright|default(''),
-}) }}
+} only %}
