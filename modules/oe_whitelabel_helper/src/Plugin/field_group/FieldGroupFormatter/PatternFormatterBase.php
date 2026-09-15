@@ -6,8 +6,8 @@ namespace Drupal\oe_whitelabel_helper\Plugin\field_group\FieldGroupFormatter;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Theme\ComponentPluginManager;
 use Drupal\field_group\FieldGroupFormatterBase;
-use Drupal\ui_patterns\UiPatternsManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -24,11 +24,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 abstract class PatternFormatterBase extends FieldGroupFormatterBase implements ContainerFactoryPluginInterface {
 
   /**
-   * UI Patterns manager.
-   *
-   * @var \Drupal\ui_patterns\UiPatternsManager
+   * Component plugin manager.
    */
-  protected $patternsManager;
+  protected ComponentPluginManager $componentManager;
 
   /**
    * PatternFormatterBase constructor.
@@ -39,13 +37,13 @@ abstract class PatternFormatterBase extends FieldGroupFormatterBase implements C
    *   The plugin_id for the plugin instance.
    * @param array $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\ui_patterns\UiPatternsManager $patterns_manager
-   *   UI Patterns manager.
+   * @param \Drupal\Core\Theme\ComponentPluginManager $component_manager
+   *   Component plugin manager.
    */
-  public function __construct(array $configuration, string $plugin_id, array $plugin_definition, UiPatternsManager $patterns_manager) {
+  public function __construct(array $configuration, string $plugin_id, array $plugin_definition, ComponentPluginManager $component_manager) {
     parent::__construct($plugin_id, $plugin_definition, $configuration['group'], $configuration['settings'], $configuration['label']);
     $this->configuration = $configuration;
-    $this->patternsManager = $patterns_manager;
+    $this->componentManager = $component_manager;
   }
 
   /**
@@ -56,7 +54,7 @@ abstract class PatternFormatterBase extends FieldGroupFormatterBase implements C
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('plugin.manager.ui_patterns')
+      $container->get('plugin.manager.sdc')
     );
   }
 
@@ -74,7 +72,7 @@ abstract class PatternFormatterBase extends FieldGroupFormatterBase implements C
    * {@inheritdoc}
    */
   public function settingsForm() {
-    $pattern = $this->patternsManager->getDefinition($this->getPatternId());
+    $definition = $this->componentManager->getDefinition($this->getComponentId());
 
     $form['label'] = [
       '#type' => 'textfield',
@@ -82,11 +80,16 @@ abstract class PatternFormatterBase extends FieldGroupFormatterBase implements C
       '#default_value' => $this->label,
     ];
 
-    if ($pattern->hasVariants()) {
+    $variants = $definition['variants'] ?? [];
+    if (!empty($variants)) {
+      $options = [];
+      foreach ($variants as $variant_id => $variant) {
+        $options[$variant_id] = $variant['title'] ?? $variant_id;
+      }
       $form['variant'] = [
         '#title' => $this->t('Variant'),
         '#type' => 'select',
-        '#options' => $pattern->getVariantsAsOptions(),
+        '#options' => $options,
         '#default_value' => $this->getSetting('variant'),
       ];
     }
@@ -117,17 +120,16 @@ abstract class PatternFormatterBase extends FieldGroupFormatterBase implements C
   public function preRender(&$element, $rendering_object) {
     parent::preRender($element, $rendering_object);
 
-    $fields = $this->getFields($element, $rendering_object);
-    if ($fields === NULL) {
-      // Don't render the pattern.
+    $props = $this->getFields($element, $rendering_object);
+    if ($props === NULL) {
+      // Don't render the component.
       return;
     }
-    // Instantiate the pattern render array.
     $pattern = [
-      '#type' => 'pattern',
-      '#id' => $this->getPatternId(),
+      '#type' => 'component',
+      '#component' => $this->getComponentId(),
       '#variant' => $this->getSetting('variant'),
-      '#fields' => $fields,
+      '#props' => $props,
       '#context' => [
         'type' => 'field_group',
         'group_name' => $element['#group_name'],
@@ -145,6 +147,16 @@ abstract class PatternFormatterBase extends FieldGroupFormatterBase implements C
     $element += [
       'pattern' => $pattern,
     ];
+  }
+
+  /**
+   * Gets the component ID for the current formatter plugin.
+   *
+   * @return string
+   *   Pattern ID.
+   */
+  protected function getComponentId(): string {
+    return 'oe_bootstrap_theme:' . $this->getPatternId();
   }
 
   /**
