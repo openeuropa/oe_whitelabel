@@ -6,11 +6,11 @@
  * @see ./modules/contrib/paragraphs/templates/paragraph.html.twig
  */
 #}
-{{ pattern('fact_figures', {
+{% include 'oe_bootstrap_theme:fact_figures' with {
   'title': title|default(''),
   'items': items,
   'columns': columns,
   'alignment': alignment,
   'link': link_more,
   'attributes': attributes,
-}) }}
+} only %}

@@ -77,11 +77,11 @@
     } %}
 
     {% if enable_left_button %}
-      {{ pattern('button', {
+      {% include 'oe_bootstrap_theme:button' with {
         'variant': 'secondary',
         'label': left_label_button,
         'attributes': create_attribute(_default_button_attributes)
-      }) }}
+      } only %}
     {% endif %}
 
     {% if enable_right_button %}
@@ -89,10 +89,10 @@
       {% if enable_redirect_link %}
         {% set _button_attributes = _button_attributes.setAttribute('data-redirect', redirect_link) %}
       {% endif %}
-      {{ pattern('button', {
+      {% include 'oe_bootstrap_theme:button' with {
         'label': button,
         'attributes': _button_attributes
-      }) }}
+      } only %}
     {% endif %}
 
     {% if _is_toast %}

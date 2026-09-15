@@ -81,7 +81,7 @@
     "aria-expanded": "false",
     "aria-label": "Toggle navigation",
   }) }}>
-    {{ pattern('icon', {
+    {% include 'oe_bootstrap_theme:icon' with {
       'name': 'list',
       'path': bcl_icon_path,
       'size': 'fluid',
@@ -90,8 +90,8 @@
           'default-icon',
         ]
       })
-    }) }}
-    {{ pattern('icon', {
+    } only %}
+    {% include 'oe_bootstrap_theme:icon' with {
       'name': 'x',
       'path': bcl_icon_path,
       'size': 'fluid',
@@ -100,7 +100,7 @@
           'active-icon',
         ]
       })
-    }) }}
+    } only %}
   </button>
 {% endset %}
 
@@ -151,12 +151,12 @@
       <div class="row">
         {% block noscript %}
           <noscript>
-            {{ pattern('alert', {
+            {% include 'oe_bootstrap_theme:alert' with {
               variant: 'warning',
               message: 'Please enable JavaScript and reload the page.'|t,
               dismissible: false,
               icon: 'exclamation-triangle-fill',
-            }) }}
+            } only %}
           </noscript>
         {% endblock %}
         {% if page.highlighted %}

@@ -8,7 +8,7 @@
   <a class="standalone" href="{{ url }}">{{ label }}</a>
 {% endset %}
 {% block content %}
-  {{ pattern('card', {
+  {% include 'oe_bootstrap_theme:card' with {
     variant: 'search',
     title: _title,
     image: image,
@@ -17,5 +17,5 @@
       content.oe_sc_person_position|field_value,
     ]|filter(element => element is not empty),
     attributes: attributes,
-  }) }}
+  } only %}
 {% endblock %}

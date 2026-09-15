@@ -6,12 +6,12 @@
  * @see ./modules/contrib/paragraphs/templates/paragraph.html.twig
  */
 #}
-{{ pattern('listing', {
+{% include 'oe_bootstrap_theme:listing' with {
   'variant': variant,
   'columns': columns,
   'items': items,
   'link': link,
   'title': title,
   'attributes': attributes,
-}) }}
+} only %}
 

@@ -8,12 +8,12 @@
  */
 #}
 {% macro icon(name, size, attributes) %}
-  {{ pattern('icon', {
+  {% include 'oe_bootstrap_theme:icon' with {
     name: name,
     path: bcl_icon_path,
     size: size,
     attributes: attributes,
-  }) }}
+  } only %}
 {% endmacro %}
 
 <div{{ attributes.addClass('row') }}>

@@ -4,7 +4,7 @@
  * Project content banner display.
  */
 #}
-{{ pattern('content_banner', {
+{% include 'oe_bootstrap_theme:content_banner' with {
   'background': 'gray',
   'copyright': copyright|default(''),
   'title': label,
@@ -19,4 +19,4 @@
       'rounded_pill': true,
     }),
   action_bar: content.group_action_bar,
-}) }}
+} only %}

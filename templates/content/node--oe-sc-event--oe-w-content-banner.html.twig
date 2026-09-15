@@ -5,7 +5,7 @@
  */
 #}
 <div{{attributes}}>
-  {{ pattern('content_banner', {
+  {% include 'oe_bootstrap_theme:content_banner' with {
     background: 'gray',
     copyright: copyright|default(''),
     title: label,
@@ -15,5 +15,5 @@
     image: image,
     links: links,
     action_bar: content.group_action_bar,
-  }) }}
+  } only %}
 </div>

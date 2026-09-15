@@ -21,7 +21,7 @@
 {% endset %}
 
 <div class="oe-authentication">
-  {{ pattern('link', {
+  {% include 'oe_bootstrap_theme:link' with {
     label: link_title,
     path: content['#url']|render,
     icon_display: 'inline-flex',
@@ -31,5 +31,5 @@
     },
     icon_position: 'before',
     attributes: extra_attributes
-  }) }}
+  } only %}
 </div>

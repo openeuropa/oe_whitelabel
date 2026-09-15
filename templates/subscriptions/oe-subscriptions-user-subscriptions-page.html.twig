@@ -4,11 +4,11 @@
  * Template override for user subscriptions page.
  */
 #}
-{{ pattern('content_banner', {
+{% include 'oe_bootstrap_theme:content_banner' with {
   'background': 'gray',
   'title': page_title,
   'content': introduction,
-}) }}
+} only %}
 <div class="mt-4-75">
   {{ elements }}
 </div>
