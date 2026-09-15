@@ -1,7 +1,7 @@
 {% extends "@oe_whitelabel/overrides/navigation/oe-corporate-blocks-neutral-footer.html.twig" %}
 
 {% block accessibility_link %}
-  {% set _accessibility_link = pattern('link', {
+  {% set _accessibility_link = include('oe_bootstrap_theme:link', {
     label: 'Accessibility statement'|t,
     path: accessibility_link,
     standalone: true,

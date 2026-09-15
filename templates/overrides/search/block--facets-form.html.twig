@@ -8,7 +8,7 @@
 #}
 {% if content.actions.reset['#type'] == 'link' %}
   {% set extra_attributes = create_attribute() %}
-  {% set reset = pattern('link', {
+  {% set reset = include('oe_bootstrap_theme:link', {
     'label': content.actions['reset']['#title'],
     'path': content.actions['reset']['#url'],
     'variant': 'secondary',
