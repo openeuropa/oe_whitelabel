@@ -6,10 +6,10 @@
  * @see ./modules/contrib/paragraphs/templates/paragraph.html.twig
  */
 #}
-{{ pattern('links_block', {
+{% include 'oe_bootstrap_theme:links_block' with {
   'orientation': orientation,
   'background': background,
   'title': title,
   'links': links,
   'attributes': attributes,
-}) }}
+} only %}

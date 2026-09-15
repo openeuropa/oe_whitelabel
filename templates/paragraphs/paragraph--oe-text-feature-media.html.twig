@@ -12,7 +12,7 @@
   {% set bubble_cache = content.field_oe_link|render %}
 {% endif %}
 
-{{ pattern('featured_media', {
+{% include 'oe_bootstrap_theme:featured_media' with {
   'embedded_media': embedded_media,
   'image': image,
   'ratio': ratio,
@@ -24,4 +24,4 @@
   'copyright': copyright|default(''),
   'link': link|default([]),
   'attributes': attributes,
-}) }}
+} only %}

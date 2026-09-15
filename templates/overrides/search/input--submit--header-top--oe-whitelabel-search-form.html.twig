@@ -6,7 +6,7 @@
  * @see ./core/modules/system/templates/input.html.twig
  */
 #}
-{{ pattern('button', {
+{% include 'oe_bootstrap_theme:button' with {
   'variant': 'primary',
   'label': element['#value']|t,
   'icon': 'search',
@@ -19,5 +19,5 @@
       'rounded-end',
       'px-3',
     ])
-}) }}
+} only %}
 {{ children }}
