@@ -7,8 +7,8 @@
  */
 #}
 {% if file %}
-  {{ pattern('file', {
+  {% include 'oe_bootstrap_theme:file' with {
     file: file,
     translations: translations,
-  }) }}
+  } only %}
 {% endif %}

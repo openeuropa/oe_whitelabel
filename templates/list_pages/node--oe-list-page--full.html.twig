@@ -4,7 +4,7 @@
   <div class="row">
     {% if filters|trim is not empty %}
       <div class="col-12 bcl-sidebar col-lg-3">
-        {{ pattern('offcanvas', {
+        {% include 'oe_bootstrap_theme:offcanvas' with {
           'variant': 'search',
           'title': 'Filter options'|t,
           'body': filters,
@@ -19,7 +19,7 @@
             'icon_position': 'before',
             'attributes': create_attribute().addClass(['d-lg-none', 'w-100', 'mb-4']),
           },
-        }) }}
+        } only %}
       </div>
     {% endif %}
     <div class="col-12 col-lg-9">
