@@ -31,10 +31,10 @@ class TeaserDisplayPlugin extends EntityViewDisplayPluginBase {
    */
   protected function buildLinkWithFallback(LinkInterface $link): array {
     return [
-      '#type' => 'pattern',
-      '#id' => 'card',
-      '#variant' => 'search',
-      '#fields' => [
+      '#type' => 'component',
+      '#component' => 'oe_bootstrap_theme:card',
+      '#props' => [
+        'variant' => 'search',
         'title' => Link::fromTextAndUrl($link->getTitle(), $link->getUrl())->toRenderable(),
         'text' => $link->getTeaser(),
       ],
