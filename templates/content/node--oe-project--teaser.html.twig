@@ -25,7 +25,7 @@
 {% endif %}
 {% block content %}
   <article{{attributes}}>
-    {{ pattern('card', {
+    {% include 'oe_bootstrap_theme:card' with {
       variant: 'search',
       title: _title,
       text: content.oe_teaser|field_value,
@@ -34,6 +34,6 @@
       }) : {},
       meta: _meta,
       badges: _badges,
-    }) }}
+    } only %}
   </article>
 {% endblock %}

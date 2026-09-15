@@ -29,7 +29,7 @@
   'attributes': button_attributes
 } %}
 {% block content %}
-  {{ pattern('offcanvas', {
+  {% include 'oe_bootstrap_theme:offcanvas' with {
     'variant': 'search',
     'title': label,
     'body': content,
@@ -38,5 +38,5 @@
     'backdrop': true,
     'toggle': toogle_button,
     'attributes': attributes,
-  }) }}
+  } only %}
 {% endblock %}

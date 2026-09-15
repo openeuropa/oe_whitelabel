@@ -23,9 +23,9 @@
     {% set _slides = _slides|merge([_slide]) %}
   {% endfor %}
 {% endapply %}
-{{ pattern('carousel', {
+{% include 'oe_bootstrap_theme:carousel' with {
   'show_controls': true,
   'show_indicators': true,
   'slides': _slides,
   'attributes': attributes,
-}) }}
+} only %}

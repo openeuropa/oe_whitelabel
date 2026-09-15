@@ -30,7 +30,7 @@
   <span class="d-none d-xl-inline-block">{{ _language_link.label }}</span>
 {% endset %}
 
-{{ pattern('link', {
+{% include 'oe_bootstrap_theme:link' with {
   label: _link_title,
   path: _language_link.href,
   icon_display: 'inline-flex',
@@ -40,7 +40,7 @@
   },
   icon_position: 'before',
   attributes: extra_attributes
-}) }}
+} only %}
 
 {% include '@oe_whitelabel/patterns/modal/modal-language.html.twig' with language.modal only %}
 
