@@ -34,6 +34,7 @@ drupal:
           oe_whitelabel_starter_publication \
           oe_whitelabel_paragraphs \
           oe_whitelabel_modal_page \
+          sdc_component_library \
           toolbar
     - { task: "exec", command: "./vendor/bin/drush recipe \"../recipes/media_image_copyright\"" }
     - { task: "exec", command: "./vendor/bin/drush recipe \"../recipes/media_av_portal_photo_copyright\"" }
