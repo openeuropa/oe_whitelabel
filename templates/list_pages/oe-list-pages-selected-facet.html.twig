@@ -1,9 +1,9 @@
 {%- for item in items -%}
-  {{ pattern('badge', {
+  {% include 'oe_bootstrap_theme:badge' with {
     'background': 'light',
     'label': item.label,
     'url': item.url.toString(),
     'dismissible': true,
     'attributes': create_attribute({'class': ['me-2', 'fs-6']}),
-  }) }}
+  } only %}
 {%- endfor -%}

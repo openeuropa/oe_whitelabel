@@ -17,9 +17,9 @@
  */
 #}
 {% set attributes = create_attribute({'class': ['me-2', 'fs-6']}) %}
-{{ pattern('badge', {
+{% include 'oe_bootstrap_theme:badge' with {
   'background': 'light',
   'label': value,
   'dismissible': true,
   'attributes': attributes
-}) }}
+} only %}

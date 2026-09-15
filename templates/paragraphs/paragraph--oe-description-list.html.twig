@@ -13,8 +13,8 @@
   } only %}
 {% endif %}
 
-{{ pattern('description_list', {
+{% include 'oe_bootstrap_theme:description_list' with {
   'items': items,
   'orientation': orientation,
   'attributes': attributes,
-}) }}
+} only %}

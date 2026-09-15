@@ -11,7 +11,7 @@
     <span class="d-none d-lg-inline-block">{{ element['#value']|t }}</span>
   {% endif %}
 {% endset %}
-{{ pattern('button', {
+{% include 'oe_bootstrap_theme:button' with {
   'variant': 'primary',
   'label': label,
   'icon': {
@@ -26,5 +26,5 @@
       'bcl-search-form__submit',
       'px-3'
     ])
-}) }}
+} only %}
 {{ children }}
