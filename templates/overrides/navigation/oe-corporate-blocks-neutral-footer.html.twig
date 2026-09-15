@@ -79,7 +79,7 @@
   {% endif %}
 
   {% if accessibility_link %}
-    {% set _accessibility_link = pattern('link', {
+    {% set _accessibility_link = include('oe_bootstrap_theme:link', {
       label: 'Accessibility'|t,
       path: accessibility_link,
       standalone: true,
