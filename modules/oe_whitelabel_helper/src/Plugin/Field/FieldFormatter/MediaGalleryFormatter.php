@@ -155,10 +155,12 @@ class MediaGalleryFormatter extends EntityReferenceFormatterBase {
 
     if (!empty($gallery_items)) {
       $elements[] = [
-        '#type' => 'pattern',
-        '#id' => 'gallery',
-        '#items' => $gallery_items,
-        '#thumbnail_fit' => $this->getSetting('thumbnail_fit'),
+        '#type' => 'component',
+        '#component' => 'oe_bootstrap_theme:gallery',
+        '#props' => [
+          'items' => $gallery_items,
+          'thumbnail_fit' => $this->getSetting('thumbnail_fit'),
+        ],
       ];
     }
 
