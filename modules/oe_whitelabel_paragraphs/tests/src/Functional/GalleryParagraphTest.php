@@ -8,6 +8,7 @@ use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Url;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\image\Entity\ImageStyle;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\GalleryPatternAssert;
 use Drupal\Tests\oe_whitelabel\Traits\MediaCreationTrait;
@@ -80,11 +81,22 @@ class GalleryParagraphTest extends BrowserTestBase {
 
     $file_url_generator = \Drupal::service('file_url_generator');
     $fn_get_file_url = static fn($entity, $field) => $file_url_generator->generate($entity->get($field)->entity->getFileUri())->toString();
+    $thumbnail_style = ImageStyle::load('oe_bootstrap_theme_medium_no_crop');
+    $this->assertInstanceOf(ImageStyle::class, $thumbnail_style);
+    $fn_get_thumbnail_url = static fn($entity, $field) => $file_url_generator->transformRelative($thumbnail_style->buildUrl($entity->get($field)->entity->getFileUri()));
     $image_src = $fn_get_file_url($image, 'oe_media_image');
-    $avportal_photo_thumb_src = $fn_get_file_url($avportal_photo, 'thumbnail');
-    $avportal_video_thumb_src = $fn_get_file_url($avportal_video, 'thumbnail');
-    $video_thumb_src = $fn_get_file_url($video, 'thumbnail');
-    foreach ([$image_src, $avportal_photo_thumb_src, $avportal_video_thumb_src, $video_thumb_src] as $src) {
+    $image_thumb_src = $fn_get_thumbnail_url($image, 'thumbnail');
+    $avportal_photo_thumb_src = $fn_get_thumbnail_url($avportal_photo, 'thumbnail');
+    $avportal_video_thumb_src = $fn_get_thumbnail_url($avportal_video, 'thumbnail');
+    $video_thumb_src = $fn_get_thumbnail_url($video, 'thumbnail');
+    $gallery_sources = [
+      $image_src,
+      $image_thumb_src,
+      $avportal_photo_thumb_src,
+      $avportal_video_thumb_src,
+      $video_thumb_src,
+    ];
+    foreach ($gallery_sources as $src) {
       $this->assertNotSame('', $src);
       $this->assertNotFalse(parse_url($src));
     }
@@ -100,7 +112,7 @@ class GalleryParagraphTest extends BrowserTestBase {
           'caption_title' => 'Image title',
           'rendered' => sprintf(
             '<img loading="lazy" src="%s" width="%d" height="%d" alt="Alt text" class="img-fluid">',
-            $image_src,
+            $image_thumb_src,
             $image_width,
             $image_height
           ),

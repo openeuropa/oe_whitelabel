@@ -9,6 +9,7 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Url;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
+use Drupal\image\Entity\ImageStyle;
 use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\ContentBannerAssert;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\DescriptionListAssert;
@@ -324,11 +325,22 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     $file_url_generator = \Drupal::service('file_url_generator');
     $gallery_container = $assert_session->elementExists('css', '#oe-project-oe-cx-gallery + .bcl-gallery');
     $fn_get_file_url = static fn($entity, $field) => $file_url_generator->generate($entity->get($field)->entity->getFileUri())->toString();
+    $thumbnail_style = ImageStyle::load('oe_bootstrap_theme_medium_no_crop');
+    $this->assertInstanceOf(ImageStyle::class, $thumbnail_style);
+    $fn_get_thumbnail_url = static fn($entity, $field) => $file_url_generator->transformRelative($thumbnail_style->buildUrl($entity->get($field)->entity->getFileUri()));
     $gallery_image_src = $fn_get_file_url($gallery_image, 'oe_media_image');
-    $gallery_video_thumb_src = $fn_get_file_url($gallery_video, 'thumbnail');
-    $gallery_av_photo_thumb_src = $fn_get_file_url($gallery_av_photo, 'thumbnail');
-    $gallery_av_video_thumb_src = $fn_get_file_url($gallery_av_video, 'thumbnail');
-    foreach ([$gallery_image_src, $gallery_video_thumb_src, $gallery_av_photo_thumb_src, $gallery_av_video_thumb_src] as $src) {
+    $gallery_image_thumb_src = $fn_get_thumbnail_url($gallery_image, 'thumbnail');
+    $gallery_video_thumb_src = $fn_get_thumbnail_url($gallery_video, 'thumbnail');
+    $gallery_av_photo_thumb_src = $fn_get_thumbnail_url($gallery_av_photo, 'thumbnail');
+    $gallery_av_video_thumb_src = $fn_get_thumbnail_url($gallery_av_video, 'thumbnail');
+    $gallery_sources = [
+      $gallery_image_src,
+      $gallery_image_thumb_src,
+      $gallery_video_thumb_src,
+      $gallery_av_photo_thumb_src,
+      $gallery_av_video_thumb_src,
+    ];
+    foreach ($gallery_sources as $src) {
       $this->assertNotSame('', $src);
       $this->assertNotFalse(parse_url($src));
     }
@@ -347,7 +359,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
             'caption_title' => 'Image title',
             'rendered' => sprintf(
               '<img loading="lazy" src="%s" width="%d" height="%d" alt="Alt text" class="img-fluid">',
-              $gallery_image_src,
+              $gallery_image_thumb_src,
               $gallery_image_width,
               $gallery_image_height
             ),

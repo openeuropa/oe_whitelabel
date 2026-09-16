@@ -16,7 +16,8 @@ content:
   field_oe_gallery_items:
     type: oe_whitelabel_helper_gallery
     label: hidden
-    settings: {  }
+    settings:
+      thumbnail_fit: original
     third_party_settings: {  }
     weight: 2
     region: content
