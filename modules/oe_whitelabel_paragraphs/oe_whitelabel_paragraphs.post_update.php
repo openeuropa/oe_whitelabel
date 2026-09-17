@@ -11,6 +11,34 @@ use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\oe_bootstrap_theme\ConfigImporter;
+
+/**
+ * Adds Carousel V2 without modifying existing Carousel paragraphs or displays.
+ */
+function oe_whitelabel_paragraphs_post_update_00004(): void {
+  if (!\Drupal::moduleHandler()->moduleExists('oe_paragraphs_carousel')) {
+    \Drupal::service('module_installer')->install(['oe_paragraphs_carousel']);
+  }
+  $configs = [
+    'paragraphs.paragraphs_type.oe_carousel_v2',
+    'field.storage.paragraph.oe_w_carousel_layout',
+    'field.field.paragraph.oe_carousel_v2.oe_w_carousel_layout',
+    'field.field.paragraph.oe_carousel_v2.field_oe_carousel_items',
+    'core.entity_form_display.paragraph.oe_carousel_v2.default',
+    'core.entity_view_display.paragraph.oe_carousel_v2.default',
+  ];
+  foreach ($configs as $name) {
+    if (\Drupal::configFactory()->get($name)->isNew()) {
+      ConfigImporter::importSingle('module', 'oe_whitelabel_paragraphs', '/config/install/', $name);
+    }
+  }
+  $translation = 'language.content_settings.paragraph.oe_carousel_v2';
+  if (\Drupal::moduleHandler()->moduleExists('content_translation') && \Drupal::configFactory()->get($translation)->isNew()) {
+    ConfigImporter::importSingle('module', 'oe_whitelabel_paragraphs', '/config/optional/', $translation);
+  }
+  \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
+}
 
 /**
  * Migrate allowed_formats from contrib (third-party) to core settings.
