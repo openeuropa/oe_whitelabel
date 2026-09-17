@@ -11,7 +11,6 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Render\Element;
-use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\media\Entity\Media;
 use Drupal\media\MediaInterface;
@@ -661,8 +660,13 @@ function _oe_whitelabel_prepare_carousel_slides(array &$variables, bool $legacy 
           $slide['link'] = [
             'path' => $generated_url->getGeneratedUrl(),
             'label' => $link->title,
-            'attributes' => new Attribute($url->getOption('attributes') ?? []),
           ];
+          // Nested SDC props must remain plain data: Attribute objects become
+          // strings during schema validation. The SDC creates the Attribute.
+          $attributes = $url->getOption('attributes') ?? [];
+          if ($attributes) {
+            $slide['link']['attributes'] = $attributes;
+          }
         }
       }
     }
