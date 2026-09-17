@@ -21,7 +21,7 @@ class CarouselV2ParagraphTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected static $modules = ['node', 'composite_reference', 'oe_whitelabel_paragraphs'];
+  protected static $modules = ['node', 'oe_whitelabel_paragraphs'];
 
   /**
    * {@inheritdoc}
@@ -86,13 +86,16 @@ class CarouselV2ParagraphTest extends BrowserTestBase {
         $prefix . '[field_oe_carousel_items][1][subform][field_oe_media][0][target_id]' => $media->label() . ' (' . $media->id() . ')',
       ];
       $this->submitForm($values, 'Save');
+      $this->assertSession()->elementNotExists('css', '[role="alert"]');
+      $node = $this->drupalGetNodeByTitle('Carousel ' . $layout);
+      $this->assertNotNull($node, 'The carousel test node was saved.');
+      $this->assertSame($layout, $node->get('oe_w_paragraphs')->entity->get('oe_w_carousel_layout')->value);
+      $this->drupalGet($node->toUrl());
       $this->assertSession()->statusCodeEquals(200);
       $this->assertSession()->elementExists('css', '.bcl-carousel-v2--' . $layout);
       $this->assertSession()->elementsCount('css', '.bcl-carousel-v2 .carousel-item', 2);
       $this->assertSession()->pageTextContains('First slide');
       $this->assertSession()->pageTextContains('Second slide');
-      $node = $this->drupalGetNodeByTitle('Carousel ' . $layout);
-      $this->assertSame($layout, $node->get('oe_w_paragraphs')->entity->get('oe_w_carousel_layout')->value);
     }
   }
 

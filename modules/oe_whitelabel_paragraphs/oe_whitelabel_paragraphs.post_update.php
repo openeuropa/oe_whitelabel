@@ -17,6 +17,10 @@ use Drupal\oe_bootstrap_theme\ConfigImporter;
  * Adds Carousel V2 without modifying existing Carousel paragraphs or displays.
  */
 function oe_whitelabel_paragraphs_post_update_00004(): void {
+  // The reused Carousel module's configuration requires composite_reference.
+  if (!\Drupal::moduleHandler()->moduleExists('composite_reference')) {
+    \Drupal::service('module_installer')->install(['composite_reference']);
+  }
   if (!\Drupal::moduleHandler()->moduleExists('oe_paragraphs_carousel')) {
     \Drupal::service('module_installer')->install(['oe_paragraphs_carousel']);
   }

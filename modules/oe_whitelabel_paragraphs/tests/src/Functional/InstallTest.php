@@ -140,6 +140,9 @@ class InstallTest extends BrowserTestBase {
     $installer = \Drupal::service('module_installer');
     $installer->install(['oe_whitelabel_paragraphs']);
 
+    $this->assertTrue(\Drupal::moduleHandler()->moduleExists('composite_reference'));
+    $this->assertTrue(\Drupal::moduleHandler()->moduleExists('oe_paragraphs_carousel'));
+
     $this->assertTrue(
       \Drupal::moduleHandler()->moduleExists('oe_whitelabel_paragraphs'),
       "Module 'oe_whitelabel_paragraphs was successfully installed.");

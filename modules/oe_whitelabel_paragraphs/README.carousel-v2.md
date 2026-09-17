@@ -21,7 +21,9 @@ Expected inputs:
 - `attributes`: Drupal paragraph attributes; the component must preserve these.
 - `items`: an array containing `caption_title`, an escaped paragraph of `caption`
   markup, `image` (`src`, `alt`, optional string `width` and `height`), optional `copyright`,
-  and optional `link` (`path`, `label`, Drupal `attributes`).
+  and optional `link` (`path`, `label`, optional plain attribute map).
+  OE BT must normalize link attributes with `create_attribute()` before passing
+  them to BCL. Empty link attributes are omitted.
 
 OE BT owns the SDC schema, BCL mapping, translated control/role labels, icon
 paths, unique carousel IDs, and asset attachment/JavaScript initialization.
