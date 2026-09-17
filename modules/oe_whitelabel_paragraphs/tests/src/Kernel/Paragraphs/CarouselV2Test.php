@@ -94,7 +94,11 @@ class CarouselV2Test extends ParagraphsTestBase {
     $item->addTranslation('bg', [
       'field_oe_title' => 'Title BG',
       'field_oe_text' => 'Caption BG',
-      'field_oe_link' => ['uri' => 'https://example.com/bg', 'title' => 'Home BG'],
+      'field_oe_link' => [
+        'uri' => 'https://example.com/bg',
+        'title' => 'Home BG',
+        'options' => ['attributes' => ['class' => ['carousel-link'], 'rel' => 'nofollow']],
+      ],
     ])->save();
     $paragraph = Paragraph::create(['type' => 'oe_carousel_v2', 'field_oe_carousel_items' => [$item, $item]]);
     $paragraph->save();
@@ -111,6 +115,13 @@ class CarouselV2Test extends ParagraphsTestBase {
       if ($langcode === 'bg') {
         $this->assertSame('1200', $variables['slides'][0]['image']['width']);
         $this->assertSame('600', $variables['slides'][0]['image']['height']);
+        $this->assertSame([
+          'class' => ['carousel-link'],
+          'rel' => 'nofollow',
+        ], $variables['slides'][0]['link']['attributes']);
+      }
+      else {
+        $this->assertArrayNotHasKey('attributes', $variables['slides'][0]['link']);
       }
       $this->assertSame('Home ' . $suffix, $variables['slides'][0]['link']['label']);
       $this->assertSame($langcode === 'bg' ? 'https://example.com/bg' : '/', $variables['slides'][0]['link']['path']);
