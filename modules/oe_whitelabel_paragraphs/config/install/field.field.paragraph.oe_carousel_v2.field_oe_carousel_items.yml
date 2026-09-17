@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_oe_carousel_items
+    - paragraphs.paragraphs_type.oe_carousel_item
+    - paragraphs.paragraphs_type.oe_carousel_v2
+  module:
+    - entity_reference_revisions
+id: paragraph.oe_carousel_v2.field_oe_carousel_items
+field_name: field_oe_carousel_items
+entity_type: paragraph
+bundle: oe_carousel_v2
+label: Items
+description: 'Add at least two carousel items.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      oe_carousel_item: oe_carousel_item
+    negate: 0
+    target_bundles_drag_drop:
+      oe_carousel_item:
+        weight: 0
+        enabled: true
+field_type: entity_reference_revisions

@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.oe_carousel_v2.field_oe_carousel_items
+    - field.field.paragraph.oe_carousel_v2.oe_w_carousel_layout
+    - paragraphs.paragraphs_type.oe_carousel_v2
+  module:
+    - entity_reference_revisions
+id: paragraph.oe_carousel_v2.default
+targetEntityType: paragraph
+bundle: oe_carousel_v2
+mode: default
+content:
+  field_oe_carousel_items:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  oe_w_carousel_layout: true

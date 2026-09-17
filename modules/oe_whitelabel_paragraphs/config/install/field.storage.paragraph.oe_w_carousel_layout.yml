@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.oe_w_carousel_layout
+field_name: oe_w_carousel_layout
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: split
+      label: 'Image alongside content'
+    -
+      value: full_width
+      label: 'Full-width image'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

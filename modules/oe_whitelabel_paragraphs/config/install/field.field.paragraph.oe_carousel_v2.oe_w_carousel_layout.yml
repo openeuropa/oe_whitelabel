@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.oe_w_carousel_layout
+    - paragraphs.paragraphs_type.oe_carousel_v2
+  module:
+    - options
+id: paragraph.oe_carousel_v2.oe_w_carousel_layout
+field_name: oe_w_carousel_layout
+entity_type: paragraph
+bundle: oe_carousel_v2
+label: 'Image layout'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: split
+default_value_callback: ''
+settings: {  }
+field_type: list_string

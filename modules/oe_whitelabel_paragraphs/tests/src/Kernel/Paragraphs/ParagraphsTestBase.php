@@ -19,6 +19,7 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'composite_reference',
     'datetime',
     'description_list_field',
     'entity_browser',
@@ -39,6 +40,7 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
     'oe_media_iframe',
     'oe_paragraphs',
     'oe_paragraphs_banner',
+    'oe_paragraphs_carousel',
     'oe_paragraphs_description_list',
     'oe_paragraphs_iframe_media',
     'oe_paragraphs_media',
@@ -67,15 +69,20 @@ abstract class ParagraphsTestBase extends AbstractKernelTestBase {
       'locales_target',
     ]);
     $this->installConfig([
+      'media_avportal',
       'oe_paragraphs',
       'oe_paragraphs_media_field_storage',
       'oe_paragraphs_description_list',
+      'oe_paragraphs_carousel',
       'oe_whitelabel_paragraphs',
       'filter',
       'locale',
       'language',
       'node',
     ]);
+    // Stream wrappers may have been created before AV Portal config existed.
+    $this->container->set('media_avportal.client', NULL);
+    $this->container->set('media_avportal.photo_stream_wrapper', NULL);
   }
 
   /**
