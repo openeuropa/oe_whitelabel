@@ -51,8 +51,12 @@ class CarouselV2ParagraphTest extends BrowserTestBase {
       ],
     ])->save();
     $displays = \Drupal::service('entity_display.repository');
+    // The test adds V2 explicitly; do not also create it as the default type.
     $displays->getFormDisplay('node', 'carousel_test')
-      ->setComponent('oe_w_paragraphs', ['type' => 'oe_paragraphs_variants'])->save();
+      ->setComponent('oe_w_paragraphs', [
+        'type' => 'oe_paragraphs_variants',
+        'settings' => ['default_paragraph_type' => '_none'],
+      ])->save();
     $displays->getViewDisplay('node', 'carousel_test')
       ->setComponent('oe_w_paragraphs', ['type' => 'entity_reference_revisions_entity_view'])->save();
     $this->drupalLogin($this->drupalCreateUser([], '', TRUE));
