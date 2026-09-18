@@ -86,7 +86,9 @@ class CarouselV2ParagraphTest extends BrowserTestBase {
         $prefix . '[field_oe_carousel_items][1][subform][field_oe_media][0][target_id]' => $media->label() . ' (' . $media->id() . ')',
       ];
       $this->submitForm($values, 'Save');
-      $this->assertSession()->elementNotExists('css', '[role="alert"]');
+      // Success messages also use role="alert"; only reject error messages.
+      $errors = $this->getSession()->getPage()->findAll('css', '[data-drupal-messages] .alert-danger');
+      $this->assertCount(0, $errors, implode("\n", array_map(static fn($error) => $error->getText(), $errors)));
       $node = $this->drupalGetNodeByTitle('Carousel ' . $layout);
       $this->assertNotNull($node, 'The carousel test node was saved.');
       $this->assertSame($layout, $node->get('oe_w_paragraphs')->entity->get('oe_w_carousel_layout')->value);
