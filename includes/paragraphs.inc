@@ -549,79 +549,131 @@ function oe_whitelabel_preprocess_paragraph__oe_facts_figures(array &$variables)
  */
 #[RequiredModule('oe_whitelabel_paragraphs')]
 function oe_whitelabel_preprocess_paragraph__oe_carousel(array &$variables): void {
+  $variables['items'] = [];
+  _oe_whitelabel_prepare_carousel_slides($variables, TRUE);
+}
+
+/**
+ * Implements hook_preprocess_paragraph() for oe_carousel_v2 paragraph.
+ */
+#[RequiredModule('oe_whitelabel_paragraphs')]
+function oe_whitelabel_preprocess_paragraph__oe_carousel_v2(array &$variables): void {
+  $variables['layout'] = $variables['paragraph']->get('oe_w_carousel_layout')->value ?? 'split';
+  $variables['slides'] = [];
+  _oe_whitelabel_prepare_carousel_slides($variables);
+}
+
+/**
+ * Prepares translated carousel slides and propagates their cache metadata.
+ *
+ * @param array $variables
+ *   The paragraph template variables.
+ * @param bool $legacy
+ *   Whether to preserve V1's supported sources and image/link representation.
+ */
+function _oe_whitelabel_prepare_carousel_slides(array &$variables, bool $legacy = FALSE): void {
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
-  $variables['items'] = [];
   $entity_repository = \Drupal::service('entity.repository');
-  $cacheability = CacheableMetadata::createFromRenderArray($variables);
   /** @var \Drupal\Core\File\FileUrlGeneratorInterface $file_url_generator */
   $file_url_generator = \Drupal::service('file_url_generator');
+  // Caches are usually handled by the formatter. Since we are not rendering
+  // the original field render arrays, propagate their dependencies and language
+  // contexts to the paragraph template ourselves.
+  $cacheability = CacheableMetadata::createFromRenderArray($variables);
+  $cacheability->addCacheableDependency($paragraph);
+  $cacheability->addCacheContexts(['languages:language_content', 'languages:language_interface']);
 
-  /** @var \Drupal\paragraphs\Entity\Paragraph $sub_paragraph */
-  foreach ($paragraph->get('field_oe_carousel_items')->referencedEntities() as $sub_paragraph) {
-    // Get sub-paragraph translation.
-    $sub_paragraph = \Drupal::service('entity.repository')
-      ->getTranslationFromContext($sub_paragraph, $paragraph->language()->getId());
+  /** @var \Drupal\paragraphs\Entity\Paragraph $item */
+  foreach ($paragraph->get('field_oe_carousel_items')->referencedEntities() as $item) {
+    // Get the sub-paragraph translation in the parent paragraph's language.
+    $item = $entity_repository->getTranslationFromContext($item, $paragraph->language()->getId());
+    $cacheability->addCacheableDependency($item);
     /** @var \Drupal\media\Entity\Media $media */
-    $media = $sub_paragraph->get('field_oe_media')->entity;
+    $media = $item->get('field_oe_media')->entity;
     if (!$media instanceof MediaInterface) {
-      // The media entity is not available anymore, skip the item.
+      // The media entity is no longer available; skip the item.
       continue;
     }
-    // Retrieve the correct media translation.
+    // Retrieve the corresponding media translation.
     $media = $entity_repository->getTranslationFromContext($media, $paragraph->language()->getId());
-    // Caches are handled by the formatter usually. Since we are not rendering
-    // the original render arrays, we need to propagate our caches to the
-    // paragraph template.
     $cacheability->addCacheableDependency($media);
-    // Run access checks on the media entity.
+    // Check media access and retain its cache metadata even when denied.
     $access = $media->access('view', $variables['user'], TRUE);
     $cacheability->addCacheableDependency($access);
     if (!$access->isAllowed()) {
-      $cacheability->applyTo($variables);
       continue;
     }
     $source = $media->getSource();
-    // We only support images and AV Portal photos for now.
-    if (!$source instanceof MediaAvPortalSourceInterface && !$source instanceof Image) {
-      $cacheability->applyTo($variables);
+    // V2 supports images and AV Portal photos. Preserve V1's broader AV Portal
+    // source check for existing carousels.
+    $supported_source = $legacy ? $source instanceof MediaAvPortalSourceInterface : $source instanceof MediaAvPortalPhotoSource;
+    if (!$source instanceof Image && !$supported_source) {
       continue;
     }
-
     $uri = _oe_whitelabel_get_media_uri($source, $media, $cacheability);
-
-    // The uri might be empty if the source is of type Image and the file entity
-    // was deleted.
-    if (empty($uri)) {
-      $cacheability->applyTo($variables);
+    // The URI can be empty when an image's referenced file has been deleted.
+    if ($uri === '') {
       continue;
     }
 
-    $slide = [
-      'caption_title' => $sub_paragraph->get('field_oe_title')->value,
-      'caption' => !$sub_paragraph->get('field_oe_text')->isEmpty() ? $sub_paragraph->get('field_oe_text')->value : '',
-      'image' => [
-        'src' => $file_url_generator->generateAbsoluteString($uri),
-        'alt' => $media->label(),
-      ],
+    $image = [
+      'src' => $file_url_generator->generateAbsoluteString($uri),
+      'alt' => $media->label(),
     ];
-
+    if (!$legacy && $source instanceof Image) {
+      // V2 uses the image field's alt text (including an intentionally empty
+      // value) and dimensions. V1 continues to use the media label as alt text.
+      $source_field = $media->get($source->getConfiguration()['source_field'])->first();
+      $image['alt'] = $source_field->alt ?? $media->label();
+      foreach (['width', 'height'] as $dimension) {
+        if (!empty($source_field->{$dimension})) {
+          // The Carousel V2 SDC schema expects string image attributes.
+          $image[$dimension] = (string) $source_field->{$dimension};
+        }
+      }
+    }
+    $slide = [
+      'caption_title' => $item->get('field_oe_title')->value,
+      'caption' => !$item->get('field_oe_text')->isEmpty() ? $item->get('field_oe_text')->value : '',
+      'image' => $image,
+    ];
     if ($media->hasField('field_media_copyright') && !$media->get('field_media_copyright')->isEmpty()) {
       $slide['copyright'] = $media->get('field_media_copyright')->value;
     }
-
-    if (!$sub_paragraph->get('field_oe_link')->isEmpty()) {
-      /** @var \Drupal\link\Plugin\Field\FieldType\LinkItem $link_item */
-      $link_item = $sub_paragraph->get('field_oe_link')->first();
-      $slide['link'] = [
-        'path' => $link_item->getUrl(),
-        'label' => $link_item->get('title')->getValue(),
-      ];
+    if (!$item->get('field_oe_link')->isEmpty()) {
+      /** @var \Drupal\link\Plugin\Field\FieldType\LinkItem $link */
+      $link = $item->get('field_oe_link')->first();
+      $url = $link->getUrl();
+      if ($legacy) {
+        // Keep the URL object expected by the existing V1 template.
+        $slide['link'] = ['path' => $url, 'label' => $link->title];
+      }
+      else {
+        // V2 omits inaccessible links and passes the URL string and attributes
+        // to the SDC, retaining access and URL-generation cache metadata.
+        $access = $url->access($variables['user'], TRUE);
+        $cacheability->addCacheableDependency($access);
+        if ($access->isAllowed()) {
+          $generated_url = $url->toString(TRUE);
+          $cacheability->addCacheableDependency($generated_url);
+          $slide['link'] = [
+            'path' => $generated_url->getGeneratedUrl(),
+            'label' => $link->title,
+          ];
+          // Nested SDC props must remain plain data: Attribute objects become
+          // strings during schema validation. The SDC creates the Attribute.
+          $attributes = $url->getOption('attributes') ?? [];
+          if ($attributes) {
+            $slide['link']['attributes'] = $attributes;
+          }
+        }
+      }
     }
-
     $variables['slides'][] = $slide;
   }
 
+  // Include dependencies from skipped items as well as rendered slides.
   $cacheability->applyTo($variables);
 }
 

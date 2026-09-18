@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - oe_whitelabel_paragraphs
+id: oe_carousel_v2
+label: 'Carousel V2'
+icon_uuid: null
+icon_default: null
+description: 'A carousel with selectable image layout and playback controls.'
+behavior_plugins: {  }

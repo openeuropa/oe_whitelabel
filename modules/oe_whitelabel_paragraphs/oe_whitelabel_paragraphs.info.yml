@@ -4,14 +4,22 @@ description: Companion module to add support and customisations for oe_paragraph
 package: OpenEuropa Whitelabel Theme
 core_version_requirement: ^10 || ^11
 dependencies:
+  - composite_reference:composite_reference
   - description_list_field:description_list_field
   - oe_content:oe_content_timeline_field
   - oe_paragraphs:oe_paragraphs
+  - oe_paragraphs:oe_paragraphs_carousel
   - oe_paragraphs:oe_paragraphs_description_list
   - oe_paragraphs:oe_paragraphs_timeline
   - oe_whitelabel:oe_whitelabel_helper
 config_devel:
   install:
+    - paragraphs.paragraphs_type.oe_carousel_v2
+    - field.storage.paragraph.oe_w_carousel_layout
+    - field.field.paragraph.oe_carousel_v2.oe_w_carousel_layout
+    - field.field.paragraph.oe_carousel_v2.field_oe_carousel_items
+    - core.entity_form_display.paragraph.oe_carousel_v2.default
+    - core.entity_view_display.paragraph.oe_carousel_v2.default
     - field.field.paragraph.oe_description_list.oe_w_orientation
     - field.field.paragraph.oe_facts_figures.oe_w_alignment
     - field.field.paragraph.oe_facts_figures.oe_w_n_columns
@@ -23,3 +31,5 @@ config_devel:
     - field.storage.paragraph.oe_w_links_block_orientation
     - field.storage.paragraph.oe_w_n_columns
     - field.storage.paragraph.oe_w_orientation
+  optional:
+    - language.content_settings.paragraph.oe_carousel_v2
