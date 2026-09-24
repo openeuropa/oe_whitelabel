@@ -67,7 +67,7 @@ abstract class ColumnLinkDisplayPluginBase extends LinkDisplayPluginBase {
           '#type' => 'component',
           '#component' => 'oe_bootstrap_theme:columns',
           '#props' => [
-            'columns' => $this->configuration['columns'],
+            'columns' => (int) $this->configuration['columns'],
             'items' => $items,
           ],
         ],
