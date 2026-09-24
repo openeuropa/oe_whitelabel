@@ -213,7 +213,7 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
   $variables['title'] = $paragraph->get('field_oe_title')->value;
 
   $layout_name = $paragraph->get('field_oe_list_item_block_layout')->value;
-  $variables['columns'] = ['two_columns' => '2', 'three_columns' => '3'][$layout_name] ?? '1';
+  $variables['columns'] = ['two_columns' => 2, 'three_columns' => 3][$layout_name] ?? 1;
 
   $variables['items'] = [];
   foreach ($variables['paragraph']->get('field_oe_paragraphs')->referencedEntities() as $paragraph_item) {
@@ -413,7 +413,7 @@ function oe_whitelabel_preprocess_paragraph__oe_timeline(array &$variables): voi
     unset($timeline_item['body']);
     $variables['content']['items'][] = $timeline_item;
   }
-  $variables['hide_from'] = $paragraph->get('field_oe_timeline_expand')->value;
+  $variables['hide_from'] = (int) $paragraph->get('field_oe_timeline_expand')->value;
 }
 
 /**
@@ -536,7 +536,7 @@ function oe_whitelabel_preprocess_paragraph__oe_facts_figures(array &$variables)
   }
 
   if (!$paragraph->get('oe_w_n_columns')->isEmpty()) {
-    $variables['columns'] = $paragraph->get('oe_w_n_columns')->value;
+    $variables['columns'] = (int) $paragraph->get('oe_w_n_columns')->value;
   }
   $variables['alignment'] = 'left';
   if ($paragraph->hasField('oe_w_alignment') && !$paragraph->get('oe_w_alignment')->isEmpty()) {
