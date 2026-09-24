@@ -141,11 +141,12 @@ function oe_whitelabel_preprocess_paragraph__oe_text_feature_media(array &$varia
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
 
-  $variant = $paragraph->get('oe_paragraphs_variant')->value ?? 'default';
-  $variables['text_position'] = str_replace([
-    '_featured',
-    '_simple',
-  ], '', $variant);
+  $variant = $paragraph->get('oe_paragraphs_variant')->value ?? NULL;
+  $variables['text_position'] = match ($variant) {
+    'left', 'left_featured', 'left_simple' => 'left',
+    'right', 'right_featured', 'right_simple' => 'right',
+    default => NULL,
+  };
 
   if (!empty($paragraph->get('field_oe_link')->first())) {
     /** @var \Drupal\link\Plugin\Field\FieldType\LinkItem $link_item */
@@ -156,11 +157,12 @@ function oe_whitelabel_preprocess_paragraph__oe_text_feature_media(array &$varia
     ];
   }
 
-  $variant = $paragraph->get('oe_paragraphs_variant')->value ?? 'default';
-  $variables['text_position'] = str_replace([
-    '_featured',
-    '_simple',
-  ], '', $variant);
+  $variant = $paragraph->get('oe_paragraphs_variant')->value ?? NULL;
+  $variables['text_position'] = match ($variant) {
+    'left', 'left_featured', 'left_simple' => 'left',
+    'right', 'right_featured', 'right_simple' => 'right',
+    default => NULL,
+  };
 
   if (!empty($paragraph->get('field_oe_link')->first())) {
     /** @var \Drupal\link\Plugin\Field\FieldType\LinkItem $link_item */
