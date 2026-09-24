@@ -46,7 +46,8 @@
         "openeuropa/oe_multilingual": "^1.14",
         "openeuropa/oe_paragraphs": "^1.33",
         "openeuropa/oe_starter_content": "^1.5",
-        "openeuropa/oe_subscriptions": "^1.0.0-beta4"
+        "openeuropa/oe_subscriptions": "^1.0.0-beta4",
+        "spatie/phpunit-snapshot-assertions": "^5.4"
     },
     "conflict": {
         "openeuropa/oe_corporate_blocks": "<4.19"
