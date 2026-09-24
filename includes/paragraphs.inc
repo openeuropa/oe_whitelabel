@@ -474,7 +474,12 @@ function oe_whitelabel_preprocess_paragraph__oe_description_list(array &$variabl
   /** @var Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
   $variables['title'] = $paragraph->get('field_oe_title')->value ?? '';
-  $variables['orientation'] = $paragraph->get('oe_w_orientation')->value;
+  // The component schema for 'oe_bootstrap_theme:description_list/orientation'
+  // only allows 'horizontal', 'default' and NULL, but not 'vertical'.
+  $variables['orientation'] = match ($paragraph->get('oe_w_orientation')->value) {
+    'horizontal' => 'horizontal',
+    default => 'default',
+  };
 
   // Reuse the output of the description list formatter, where the correct
   // text format is specified for the items.
