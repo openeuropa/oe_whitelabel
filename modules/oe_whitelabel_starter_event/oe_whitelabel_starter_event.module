@@ -39,6 +39,7 @@ function oe_whitelabel_starter_event_preprocess_node__oe_sc_event__oe_w_content_
 function _oe_whitelabel_starter_event_preprocess_links(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
+  /** @var \Drupal\Core\TypedData\Plugin\DataType\ItemList<\Drupal\link\LinkItemInterface> $registration_url */
   $registration_url = $node->get('oe_sc_event_registration_url');
 
   // Bail out if there is no link item.
