@@ -61,12 +61,12 @@
 {% endset %}
 
 <article{{ attributes }}>
-  {{ pattern('inpage_navigation', {
+  {% include 'oe_bootstrap_theme:inpage_navigation' with {
     'title': 'Page content'|t,
     'links': inpage_navigation_links,
     'content': inpage_navigation_content,
     'full_layout': true,
-  }) }}
+  } only %}
 </article>
 
 {% endapply %}

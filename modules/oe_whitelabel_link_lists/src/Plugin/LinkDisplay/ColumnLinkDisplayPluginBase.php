@@ -59,17 +59,21 @@ abstract class ColumnLinkDisplayPluginBase extends LinkDisplayPluginBase {
 
     // The content.
     $build['content'] = [
-      '#type' => 'pattern',
-      '#id' => 'section',
-      '#heading' => $this->configuration['title'],
-      '#content' => [
-        '#type' => 'pattern',
-        '#id' => 'columns',
-        '#columns' => $this->configuration['columns'],
-        '#items' => $items,
-      ],
-      '#attributes' => [
-        'class' => [Html::getClass('link-list-display--' . $this->getPluginId())],
+      '#type' => 'component',
+      '#component' => 'oe_bootstrap_theme:section',
+      '#props' => [
+        'heading' => $this->configuration['title'],
+        'content' => [
+          '#type' => 'component',
+          '#component' => 'oe_bootstrap_theme:columns',
+          '#props' => [
+            'columns' => (int) $this->configuration['columns'],
+            'items' => $items,
+          ],
+        ],
+        'attributes' => [
+          'class' => [Html::getClass('link-list-display--' . $this->getPluginId())],
+        ],
       ],
     ];
 
