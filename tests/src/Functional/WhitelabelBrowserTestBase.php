@@ -7,6 +7,7 @@ namespace Drupal\Tests\oe_whitelabel\Functional;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\oe_content\Traits\NodeBodyFieldStorageTrait;
 use Drupal\Tests\oe_whitelabel\Traits\CckContainerTrait;
+use Drupal\Tests\oe_whitelabel\Traits\DbLogTestReader;
 use Drupal\Tests\oe_whitelabel\Traits\MediaCreationTrait;
 use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 
@@ -19,6 +20,13 @@ abstract class WhitelabelBrowserTestBase extends BrowserTestBase {
   use CckContainerTrait;
   use MediaCreationTrait;
   use NodeBodyFieldStorageTrait;
+
+  /**
+   * {@inheritdoc}
+   */
+  protected static $modules = [
+    'dblog',
+  ];
 
   /**
    * {@inheritdoc}
@@ -38,6 +46,15 @@ abstract class WhitelabelBrowserTestBase extends BrowserTestBase {
     $this->setUpSparql();
 
     $this->ensureNodeBodyTextWithSummary();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function tearDown(): void {
+    (new DbLogTestReader())->assertNoUnreadFailures();
+
+    parent::tearDown();
   }
 
 }

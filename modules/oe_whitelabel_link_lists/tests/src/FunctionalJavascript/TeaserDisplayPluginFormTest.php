@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_whitelabel_link_lists\FunctionalJavascript;
 
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
+use Drupal\Tests\oe_whitelabel\Traits\DbLogTestReader;
 
 /**
  * Tests the configuration form of the teaser display plugin.
@@ -25,6 +26,7 @@ class TeaserDisplayPluginFormTest extends WebDriverTestBase {
     'entity_test',
     'oe_whitelabel_link_lists',
     'oe_link_lists_test',
+    'dblog',
   ];
 
   /**
@@ -38,6 +40,14 @@ class TeaserDisplayPluginFormTest extends WebDriverTestBase {
     \Drupal::configFactory()->getEditable('system.theme')
       ->set('admin', 'claro')
       ->save(TRUE);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function tearDown(): void {
+    (new DbLogTestReader())->assertNoUnreadFailures();
+    parent::tearDown();
   }
 
   /**
