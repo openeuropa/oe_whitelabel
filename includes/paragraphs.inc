@@ -242,7 +242,7 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
     }
     $item = [
       'title' => $card_paragraph->get('field_oe_title')->value,
-      'url' => $card_link_item ? $card_link_item->getUrl() : '',
+      'url' => $card_link_item?->getUrl(),
       'text' => $card_text,
       'image' => $card_image,
       'badges' => $card_badges,
