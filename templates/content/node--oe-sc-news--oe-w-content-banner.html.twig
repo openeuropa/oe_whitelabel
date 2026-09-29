@@ -13,13 +13,20 @@
   {% set _meta = _meta|merge([content.oe_publication_date]) %}
 {% endif %}
 
+{% set _featured_media_field = content.oe_featured_media|default([]) %}
+{% set _featured_media = _featured_media_field['#items'].entity|default(null) %}
+{% set _featured_media = oe_entity_access(_featured_media) ? _featured_media : null %}
+{% set _thumbnail = _featured_media and _featured_media.hasField('thumbnail') ? _featured_media.thumbnail.0 : null %}
+{% set _image = _thumbnail ? [{ '#item': _thumbnail }]|image_value_obj : null %}
+{% set _copyright = _featured_media and _featured_media.hasField('field_media_copyright') ? _featured_media.field_media_copyright.value : '' %}
+
 <div{{attributes}}>
   {{ pattern('content_banner', {
     background: 'gray',
-    copyright: copyright|default(''),
+    copyright: _copyright,
     title: label,
     content: content.oe_summary,
-    image: image|image_value_obj,
+    image: _image,
     meta: _meta,
     action_bar: content.group_action_bar,
   }) }}

@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\oe_whitelabel_helper\TwigExtension;
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\CacheableDependencyInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -23,10 +28,26 @@ class TwigExtension extends AbstractExtension {
   protected $pluginManagerBlock;
 
   /**
+   * The renderer service.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
+   * The current user.
+   *
+   * @var \Drupal\Core\Session\AccountProxyInterface
+   */
+  protected $currentUser;
+
+  /**
    * Constructs the TwigExtension object.
    */
-  public function __construct(CacheableDependencyInterface $plugin_manager_block) {
+  public function __construct(CacheableDependencyInterface $plugin_manager_block, RendererInterface $renderer, AccountProxyInterface $current_user) {
     $this->pluginManagerBlock = $plugin_manager_block;
+    $this->renderer = $renderer;
+    $this->currentUser = $current_user;
   }
 
   /**
@@ -45,6 +66,7 @@ class TwigExtension extends AbstractExtension {
     return [
       new TwigFunction('bcl_footer_links', [$this, 'bclFooterLinks'], ['needs_context' => TRUE]),
       new TwigFunction('bcl_block', [$this, 'bclBlock']),
+      new TwigFunction('oe_entity_access', [$this, 'entityAccess'], ['needs_context' => TRUE]),
     ];
   }
 
@@ -176,6 +198,38 @@ class TwigExtension extends AbstractExtension {
     $block_plugin = $this->pluginManagerBlock->createInstance($id, $configuration);
 
     return $block_plugin->build();
+  }
+
+  /**
+   * Checks entity access and bubbles its cacheability metadata.
+   *
+   * @param array $context
+   *   The Twig context.
+   * @param \Drupal\Core\Entity\EntityInterface|null $entity
+   *   The entity to check.
+   * @param string $operation
+   *   The entity operation to check.
+   *
+   * @return bool
+   *   Whether the account is allowed to perform the operation.
+   */
+  public function entityAccess(array $context, ?EntityInterface $entity, string $operation = 'view'): bool {
+    if (!$entity) {
+      return FALSE;
+    }
+
+    $account = $context['user'] ?? $this->currentUser;
+    assert($account instanceof AccountInterface);
+    $access = $entity->access($operation, $account, TRUE);
+
+    $cacheability = new CacheableMetadata();
+    $cacheability->addCacheableDependency($entity);
+    $cacheability->addCacheableDependency($access);
+    $build = [];
+    $cacheability->applyTo($build);
+    $this->renderer->render($build);
+
+    return $access->isAllowed();
   }
 
 }
