@@ -54,3 +54,15 @@ function oe_whitelabel_starter_news_post_update_00002(): string {
 
   return 'Action bar field group was added to the news content banner view display.';
 }
+
+/**
+ * Display the featured media in the content banner view mode.
+ */
+function oe_whitelabel_starter_news_post_update_00003(): void {
+  ConfigImporter::importSingle(
+    'module',
+    'oe_whitelabel_starter_news',
+    '/config/post_updates/00003_featured_media',
+    'core.entity_view_display.node.oe_sc_news.oe_w_content_banner'
+  );
+}
