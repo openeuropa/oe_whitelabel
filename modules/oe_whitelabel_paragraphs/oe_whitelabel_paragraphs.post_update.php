@@ -26,8 +26,8 @@ function oe_whitelabel_paragraphs_post_update_00004(): void {
   }
   $configs = [
     'paragraphs.paragraphs_type.oe_carousel_v2',
-    'field.storage.paragraph.oe_w_carousel_layout',
-    'field.field.paragraph.oe_carousel_v2.oe_w_carousel_layout',
+    'field.storage.paragraph.oe_w_carousel_hero',
+    'field.field.paragraph.oe_carousel_v2.oe_w_carousel_hero',
     'field.field.paragraph.oe_carousel_v2.field_oe_carousel_items',
     'core.entity_form_display.paragraph.oe_carousel_v2.default',
     'core.entity_view_display.paragraph.oe_carousel_v2.default',

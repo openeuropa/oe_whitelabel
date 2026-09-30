@@ -558,7 +558,7 @@ function oe_whitelabel_preprocess_paragraph__oe_carousel(array &$variables): voi
  */
 #[RequiredModule('oe_whitelabel_paragraphs')]
 function oe_whitelabel_preprocess_paragraph__oe_carousel_v2(array &$variables): void {
-  $variables['layout'] = $variables['paragraph']->get('oe_w_carousel_layout')->value ?? 'split';
+  $variables['layout'] = $variables['paragraph']->get('oe_w_carousel_hero')->value ? 'full_width' : 'split';
   $variables['slides'] = [];
   _oe_whitelabel_prepare_carousel_slides($variables);
 }

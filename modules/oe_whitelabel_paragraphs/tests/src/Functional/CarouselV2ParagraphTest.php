@@ -63,7 +63,7 @@ class CarouselV2ParagraphTest extends BrowserTestBase {
   }
 
   /**
-   * Tests required layout, minimum items, saved values and SDC rendering.
+   * Tests the hero checkbox, minimum items, saved values and SDC rendering.
    */
   public function testLayouts(): void {
     $media = $this->createImageMedia(['name' => 'Carousel image']);
@@ -71,13 +71,12 @@ class CarouselV2ParagraphTest extends BrowserTestBase {
       $this->drupalGet('/node/add/carousel_test');
       $this->submitForm([], 'Add Carousel V2');
       $prefix = 'oe_w_paragraphs[0][subform]';
-      $select = $this->assertSession()->fieldExists($prefix . '[oe_w_carousel_layout]');
-      $this->assertTrue($select->hasAttribute('required'));
-      $this->assertSession()->optionExists($prefix . '[oe_w_carousel_layout]', 'Image alongside content');
-      $this->assertSession()->optionExists($prefix . '[oe_w_carousel_layout]', 'Full-width image');
+      $checkbox = $this->assertSession()->fieldExists('Use Carousel hero');
+      $this->assertSame('checkbox', $checkbox->getAttribute('type'));
+      $this->assertFalse($checkbox->isChecked());
       $values = [
         'title[0][value]' => 'Carousel ' . $layout,
-        $prefix . '[oe_w_carousel_layout]' => $layout,
+        $prefix . '[oe_w_carousel_hero][value]' => $layout === 'full_width',
         $prefix . '[field_oe_carousel_items][0][subform][field_oe_title][0][value]' => 'First slide',
         $prefix . '[field_oe_carousel_items][0][subform][field_oe_text][0][value]' => 'First caption',
         $prefix . '[field_oe_carousel_items][0][subform][field_oe_media][0][target_id]' => $media->label() . ' (' . $media->id() . ')',
@@ -95,7 +94,7 @@ class CarouselV2ParagraphTest extends BrowserTestBase {
       $this->assertCount(0, $errors, implode("\n", array_map(static fn($error) => $error->getText(), $errors)));
       $node = $this->drupalGetNodeByTitle('Carousel ' . $layout);
       $this->assertNotNull($node, 'The carousel test node was saved.');
-      $this->assertSame($layout, $node->get('oe_w_paragraphs')->entity->get('oe_w_carousel_layout')->value);
+      $this->assertSame($layout === 'full_width', (bool) $node->get('oe_w_paragraphs')->entity->get('oe_w_carousel_hero')->value);
       $this->drupalGet($node->toUrl());
       $this->assertSession()->statusCodeEquals(200);
       $this->assertSession()->elementExists('css', '.bcl-carousel-v2--' . $layout);
