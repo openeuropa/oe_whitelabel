@@ -3,8 +3,10 @@
 `oe_whitelabel_paragraphs` installs `oe_carousel_v2`, reuses the existing
 `oe_carousel_item` bundle and `field_oe_carousel_items` storage, and applies the
 existing `CarouselItemsCardinality` constraint (at least two items).
-The required `oe_w_carousel_layout` field accepts `split` (default) and
-`full_width`. V1 configuration, content and templates are unchanged; both versions
+The boolean `oe_w_carousel_hero` field is shown as a "Use Carousel hero"
+checkbox. Unchecked (default) renders Carousel image (`split`); checked renders
+Carousel hero (`full_width`). No migration from the former dropdown is provided.
+V1 configuration, content and templates are unchanged; both versions
 share slide preparation while preserving V1's output.
 Existing installations receive the new configuration through post-update 00004.
 Sites restricting allowed paragraph bundles must explicitly allow `oe_carousel_v2`.
