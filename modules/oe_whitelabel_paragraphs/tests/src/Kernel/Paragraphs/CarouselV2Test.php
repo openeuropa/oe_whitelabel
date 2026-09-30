@@ -45,12 +45,12 @@ class CarouselV2Test extends ParagraphsTestBase {
   }
 
   /**
-   * Tests the required layout and reused item constraint.
+   * Tests the hero checkbox default and reused item constraint.
    */
   public function testConfiguration(): void {
-    $layout = FieldConfig::load('paragraph.oe_carousel_v2.oe_w_carousel_layout');
-    $this->assertTrue($layout->isRequired());
-    $this->assertSame(['split' => 'Image alongside content', 'full_width' => 'Full-width image'], $layout->getSetting('allowed_values'));
+    $layout = FieldConfig::load('paragraph.oe_carousel_v2.oe_w_carousel_hero');
+    $this->assertFalse($layout->isRequired());
+    $this->assertSame('boolean', $layout->getType());
     $items = FieldConfig::load('paragraph.oe_carousel_v2.field_oe_carousel_items');
     $this->assertSame(['oe_carousel_item' => 'oe_carousel_item'], $items->getSetting('handler_settings')['target_bundles']);
     $paragraph = Paragraph::create(['type' => 'oe_carousel_v2']);
@@ -59,10 +59,10 @@ class CarouselV2Test extends ParagraphsTestBase {
     $this->assertStringContainsString('at least 2 items', (string) $violations);
     $paragraph->get('field_oe_carousel_items')->appendItem(Paragraph::create(['type' => 'oe_carousel_item']));
     $this->assertCount(0, $paragraph->get('field_oe_carousel_items')->validate());
-    $paragraph->set('oe_w_carousel_layout', NULL);
-    $this->assertGreaterThan(0, $paragraph->get('oe_w_carousel_layout')->validate()->count());
-    $paragraph->set('oe_w_carousel_layout', 'invalid');
-    $this->assertGreaterThan(0, $paragraph->get('oe_w_carousel_layout')->validate()->count());
+    $this->assertFalse((bool) $paragraph->get('oe_w_carousel_hero')->value);
+    $this->assertSame('split', $this->preprocess($paragraph)['layout']);
+    $paragraph->set('oe_w_carousel_hero', TRUE);
+    $this->assertSame('full_width', $this->preprocess($paragraph)['layout']);
   }
 
   /**
@@ -220,14 +220,14 @@ class CarouselV2Test extends ParagraphsTestBase {
    */
   public function testUpdate(): void {
     $v1 = $this->config('core.entity_view_display.paragraph.oe_carousel.default')->getRawData();
-    FieldConfig::load('paragraph.oe_carousel_v2.oe_w_carousel_layout')->setLabel('Custom layout label')->save();
+    FieldConfig::load('paragraph.oe_carousel_v2.oe_w_carousel_hero')->setLabel('Custom layout label')->save();
     EntityViewDisplay::load('paragraph.oe_carousel_v2.default')->delete();
     $path = $this->container->get('extension.list.module')->getPath('oe_whitelabel_paragraphs');
     require_once $path . '/oe_whitelabel_paragraphs.post_update.php';
     oe_whitelabel_paragraphs_post_update_00004();
     oe_whitelabel_paragraphs_post_update_00004();
     $this->assertNotNull(EntityViewDisplay::load('paragraph.oe_carousel_v2.default'));
-    $this->assertSame('Custom layout label', FieldConfig::load('paragraph.oe_carousel_v2.oe_w_carousel_layout')->label());
+    $this->assertSame('Custom layout label', FieldConfig::load('paragraph.oe_carousel_v2.oe_w_carousel_hero')->label());
     $this->assertSame($v1, $this->config('core.entity_view_display.paragraph.oe_carousel.default')->getRawData());
   }
 
@@ -252,7 +252,7 @@ class CarouselV2Test extends ParagraphsTestBase {
     foreach (['split', 'full_width'] as $layout) {
       $paragraph = Paragraph::create([
         'type' => 'oe_carousel_v2',
-        'oe_w_carousel_layout' => $layout,
+        'oe_w_carousel_hero' => $layout === 'full_width',
         'field_oe_carousel_items' => $items,
       ]);
       $paragraph->save();
