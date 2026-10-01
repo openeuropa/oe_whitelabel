@@ -1,11 +1,22 @@
 # Changelog
 
+## [1.36.0](https://github.com/openeuropa/oe_whitelabel/tree/1.36.0) (2026-10-01)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.35.0...1.36.0)
+
+**Merged pull requests:**
+
+- OEL-4961: Increase icon size for Facts and figures [\#461](https://github.com/openeuropa/oe_whitelabel/pull/461) ([piotrsmykaj](https://github.com/piotrsmykaj))
+- OEL-4534: Form thumbnail fit. [\#458](https://github.com/openeuropa/oe_whitelabel/pull/458) ([tibi2303](https://github.com/tibi2303))
+- OEL-4967: Option for alignment in facts and figures paragraph. [\#455](https://github.com/openeuropa/oe_whitelabel/pull/455) ([tibi2303](https://github.com/tibi2303))
+
 ## [1.35.0](https://github.com/openeuropa/oe_whitelabel/tree/1.35.0) (2026-09-02)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.34.0...1.35.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.35.0. [\#460](https://github.com/openeuropa/oe_whitelabel/pull/460) ([tibi2303](https://github.com/tibi2303))
 - OEL-0000: Update oe\_bt. [\#459](https://github.com/openeuropa/oe_whitelabel/pull/459) ([tibi2303](https://github.com/tibi2303))
 - OEL-4907: Update to Drupal 11.4.x [\#456](https://github.com/openeuropa/oe_whitelabel/pull/456) ([piotrsmykaj](https://github.com/piotrsmykaj))
 - OEL-4973: Harden npm installs and update theme dependencies. [\#454](https://github.com/openeuropa/oe_whitelabel/pull/454) ([tibi2303](https://github.com/tibi2303))
@@ -20,6 +31,7 @@
 
 **Merged pull requests:**
 
+- Prepare release 1.34.0 [\#452](https://github.com/openeuropa/oe_whitelabel/pull/452) ([piotrsmykaj](https://github.com/piotrsmykaj))
 - OEL-4748: Add bluesky and mastodon icons. [\#441](https://github.com/openeuropa/oe_whitelabel/pull/441) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
 - OEL-4458: Support multiple site owners \(v2 with line breaks\) [\#440](https://github.com/openeuropa/oe_whitelabel/pull/440) ([donquixote](https://github.com/donquixote))
 - ELA-1301: Fix search block redirection. [\#361](https://github.com/openeuropa/oe_whitelabel/pull/361) ([Aporie](https://github.com/Aporie))
