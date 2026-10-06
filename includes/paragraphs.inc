@@ -141,11 +141,12 @@ function oe_whitelabel_preprocess_paragraph__oe_text_feature_media(array &$varia
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
 
-  $variant = $paragraph->get('oe_paragraphs_variant')->value ?? 'default';
-  $variables['text_position'] = str_replace([
-    '_featured',
-    '_simple',
-  ], '', $variant);
+  $variant = $paragraph->get('oe_paragraphs_variant')->value ?? NULL;
+  $variables['text_position'] = match ($variant) {
+    'left', 'left_featured', 'left_simple' => 'left',
+    'right', 'right_featured', 'right_simple' => 'right',
+    default => NULL,
+  };
 
   if (!empty($paragraph->get('field_oe_link')->first())) {
     /** @var \Drupal\link\Plugin\Field\FieldType\LinkItem $link_item */
@@ -156,11 +157,12 @@ function oe_whitelabel_preprocess_paragraph__oe_text_feature_media(array &$varia
     ];
   }
 
-  $variant = $paragraph->get('oe_paragraphs_variant')->value ?? 'default';
-  $variables['text_position'] = str_replace([
-    '_featured',
-    '_simple',
-  ], '', $variant);
+  $variant = $paragraph->get('oe_paragraphs_variant')->value ?? NULL;
+  $variables['text_position'] = match ($variant) {
+    'left', 'left_featured', 'left_simple' => 'left',
+    'right', 'right_featured', 'right_simple' => 'right',
+    default => NULL,
+  };
 
   if (!empty($paragraph->get('field_oe_link')->first())) {
     /** @var \Drupal\link\Plugin\Field\FieldType\LinkItem $link_item */
@@ -213,7 +215,7 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
   $variables['title'] = $paragraph->get('field_oe_title')->value;
 
   $layout_name = $paragraph->get('field_oe_list_item_block_layout')->value;
-  $variables['columns'] = ['two_columns' => '2', 'three_columns' => '3'][$layout_name] ?? '1';
+  $variables['columns'] = ['two_columns' => 2, 'three_columns' => 3][$layout_name] ?? 1;
 
   $variables['items'] = [];
   foreach ($variables['paragraph']->get('field_oe_paragraphs')->referencedEntities() as $paragraph_item) {
@@ -242,7 +244,7 @@ function oe_whitelabel_preprocess_paragraph__oe_list_item_block(array &$variable
     }
     $item = [
       'title' => $card_paragraph->get('field_oe_title')->value,
-      'url' => $card_link_item ? $card_link_item->getUrl() : '',
+      'url' => $card_link_item?->getUrl(),
       'text' => $card_text,
       'image' => $card_image,
       'badges' => $card_badges,
@@ -413,7 +415,7 @@ function oe_whitelabel_preprocess_paragraph__oe_timeline(array &$variables): voi
     unset($timeline_item['body']);
     $variables['content']['items'][] = $timeline_item;
   }
-  $variables['hide_from'] = $paragraph->get('field_oe_timeline_expand')->value;
+  $variables['hide_from'] = (int) $paragraph->get('field_oe_timeline_expand')->value;
 }
 
 /**
@@ -474,7 +476,12 @@ function oe_whitelabel_preprocess_paragraph__oe_description_list(array &$variabl
   /** @var Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
   $variables['title'] = $paragraph->get('field_oe_title')->value ?? '';
-  $variables['orientation'] = $paragraph->get('oe_w_orientation')->value;
+  // The component schema for 'oe_bootstrap_theme:description_list/orientation'
+  // only allows 'horizontal', 'default' and NULL, but not 'vertical'.
+  $variables['orientation'] = match ($paragraph->get('oe_w_orientation')->value) {
+    'horizontal' => 'horizontal',
+    default => 'default',
+  };
 
   // Reuse the output of the description list formatter, where the correct
   // text format is specified for the items.
@@ -536,7 +543,7 @@ function oe_whitelabel_preprocess_paragraph__oe_facts_figures(array &$variables)
   }
 
   if (!$paragraph->get('oe_w_n_columns')->isEmpty()) {
-    $variables['columns'] = $paragraph->get('oe_w_n_columns')->value;
+    $variables['columns'] = (int) $paragraph->get('oe_w_n_columns')->value;
   }
   $variables['alignment'] = 'left';
   if ($paragraph->hasField('oe_w_alignment') && !$paragraph->get('oe_w_alignment')->isEmpty()) {

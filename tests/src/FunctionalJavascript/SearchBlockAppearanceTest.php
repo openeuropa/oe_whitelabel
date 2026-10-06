@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_whitelabel\FunctionalJavascript;
 
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
+use Drupal\Tests\oe_whitelabel\Traits\DbLogTestReader;
 
 /**
  * Tests the appearance and open/close behavior of the search block.
@@ -25,7 +26,16 @@ class SearchBlockAppearanceTest extends WebDriverTestBase {
     'block',
     'oe_whitelabel_helper',
     'oe_whitelabel_search',
+    'dblog',
   ];
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function tearDown(): void {
+    (new DbLogTestReader())->assertNoUnreadFailures();
+    parent::tearDown();
+  }
 
   /**
    * Tests the search block.
