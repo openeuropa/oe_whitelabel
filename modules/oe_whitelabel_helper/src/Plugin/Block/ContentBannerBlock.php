@@ -30,7 +30,7 @@ class ContentBannerBlock extends BlockBase implements ContainerFactoryPluginInte
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  private EntityTypeManagerInterface $entityTypeManager;
+  protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
    * Constructor.
