@@ -6,9 +6,9 @@
  * @see ./modules/contrib/paragraphs/templates/paragraph.html.twig
  */
 #}
-{{ pattern('accordion', {
+{% include 'oe_bootstrap_theme:accordion' with {
   'items': items,
   'attributes': attributes,
   'expand_button_label': expand_button_label,
   'collapse_button_label': collapse_button_label,
-}) }}
+} only %}

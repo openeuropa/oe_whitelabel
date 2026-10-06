@@ -7,7 +7,7 @@ namespace Drupal\oe_whitelabel_helper\Plugin\field_group\FieldGroupFormatter;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\RendererInterface;
-use Drupal\ui_patterns\UiPatternsManager;
+use Drupal\Core\Theme\ComponentPluginManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -50,11 +50,11 @@ class DescriptionListPattern extends PatternFormatterBase {
    *   The entity type manager.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer.
-   * @param \Drupal\ui_patterns\UiPatternsManager $patterns_manager
-   *   The pattern manager.
+   * @param \Drupal\Core\Theme\ComponentPluginManager $component_manager
+   *   The component plugin manager.
    */
-  public function __construct(array $configuration, string $plugin_id, array $plugin_definition, EntityTypeManagerInterface $entity_type_manager, RendererInterface $renderer, UiPatternsManager $patterns_manager) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $patterns_manager);
+  public function __construct(array $configuration, string $plugin_id, array $plugin_definition, EntityTypeManagerInterface $entity_type_manager, RendererInterface $renderer, ComponentPluginManager $component_manager) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $component_manager);
     $this->entityTypeManager = $entity_type_manager;
     $this->renderer = $renderer;
   }
@@ -69,7 +69,7 @@ class DescriptionListPattern extends PatternFormatterBase {
       $plugin_definition,
       $container->get('entity_type.manager'),
       $container->get('renderer'),
-      $container->get('plugin.manager.ui_patterns')
+      $container->get('plugin.manager.sdc')
     );
   }
 
@@ -86,7 +86,7 @@ class DescriptionListPattern extends PatternFormatterBase {
   public function preRender(&$element, $rendering_object) {
     parent::preRender($element, $rendering_object);
     // Only support horizontal mode in this field group formatter.
-    $element['pattern']['#settings']['orientation'] = 'horizontal';
+    $element['pattern']['#props']['orientation'] = 'horizontal';
   }
 
   /**
