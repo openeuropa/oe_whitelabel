@@ -275,6 +275,10 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $config = $this->getConfiguration();
     $build = $this->formBuilder->getForm(SearchForm::class, $config);
     $cache = CacheableMetadata::createFromRenderArray($build);
+    // @todo Calling addCacheableDependency($object) when $object does not
+    //   implement CacheableDependencyInterface effectively disables caching
+    //   and should be avoided.
+    // @phpstan-ignore cacheable.dependency
     $cache->addCacheableDependency($config);
     $cache->addCacheContexts(['url.query_args']);
     $cache->applyTo($build);
