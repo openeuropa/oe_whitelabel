@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.oe_w_carousel_hero
+    - paragraphs.paragraphs_type.oe_carousel_v2
+id: paragraph.oe_carousel_v2.oe_w_carousel_hero
+field_name: oe_w_carousel_hero
+entity_type: paragraph
+bundle: oe_carousel_v2
+label: 'Use Carousel hero'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Carousel hero'
+  off_label: 'Carousel image'
+field_type: boolean
