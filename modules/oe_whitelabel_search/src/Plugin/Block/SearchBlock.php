@@ -275,7 +275,6 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $config = $this->getConfiguration();
     $build = $this->formBuilder->getForm(SearchForm::class, $config);
     $cache = CacheableMetadata::createFromRenderArray($build);
-    $cache->addCacheableDependency($config);
     $cache->addCacheContexts(['url.query_args']);
     $cache->applyTo($build);
 

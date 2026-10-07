@@ -104,8 +104,7 @@ class GalleryParagraphTest extends BrowserTestBase {
     [$avportal_photo_width, $avportal_photo_height] = $this->getImageDimensions($avportal_photo, 'thumbnail');
     [$avportal_video_width, $avportal_video_height] = $this->getImageDimensions($avportal_video, 'thumbnail');
     [$video_thumb_width, $video_thumb_height] = $this->getImageDimensions($video, 'thumbnail');
-    $avportal_photo_url = \Drupal::config('media_avportal.settings')->get('photos_base_uri')
-      . $avportal_photo->getSource()->getMetadata($avportal_photo, 'photo_uri');
+    $avportal_photo_url = $file_url_generator->generateString('avportal://' . $avportal_photo->getSource()->getSourceFieldValue($avportal_photo) . '.jpg');
     $expected_items = [
       [
         'thumbnail' => [
