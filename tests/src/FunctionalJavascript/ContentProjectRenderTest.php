@@ -348,8 +348,7 @@ class ContentProjectRenderTest extends WebDriverTestBase {
     [$gallery_video_width, $gallery_video_height] = $this->getImageDimensions($gallery_video, 'thumbnail');
     [$gallery_av_photo_width, $gallery_av_photo_height] = $this->getImageDimensions($gallery_av_photo, 'thumbnail');
     [$gallery_av_video_width, $gallery_av_video_height] = $this->getImageDimensions($gallery_av_video, 'thumbnail');
-    $avportal_photo_url = \Drupal::config('media_avportal.settings')->get('photos_base_uri')
-      . $gallery_av_photo->getSource()->getMetadata($gallery_av_photo, 'photo_uri');
+    $avportal_photo_url = $file_url_generator->generateString('avportal://' . $gallery_av_photo->getSource()->getSourceFieldValue($gallery_av_photo) . '.jpg');
     $avportal_iframe_base = \Drupal::config('media_avportal.settings')->get('iframe_base_uri');
     (new GalleryPatternAssert())->assertPattern([
       'title' => NULL,
