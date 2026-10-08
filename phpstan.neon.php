@@ -11,6 +11,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $config = [];
 
+
 if (version_compare(\Drupal::VERSION, '11.2', '>=')) {
   // @todo Fix when we drop support for Drupal 10.
   $config['parameters']['ignoreErrors'][] = [
@@ -19,6 +20,12 @@ if (version_compare(\Drupal::VERSION, '11.2', '>=')) {
     'count' => 2,
     // In a .neon.php file, paths must be absolute.
     'path' => __DIR__ . '/modules/oe_whitelabel_link_lists/tests/src/Kernel/TeaserDisplayPluginListTest.php',
+  ];
+  $config['parameters']['ignoreErrors'][] = [
+    'identifier' => 'cacheable.dependency',
+    'count' => 1,
+    // In a .neon.php file, paths must be absolute.
+    'path' => __DIR__ . '/modules/oe_whitelabel_search/src/Plugin/Block/SearchBlock.php',
   ];
 }
 else {
