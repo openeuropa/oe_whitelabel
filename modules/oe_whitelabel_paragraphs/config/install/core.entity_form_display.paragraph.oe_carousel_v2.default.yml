@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.oe_carousel_v2.field_oe_carousel_items
+    - field.field.paragraph.oe_carousel_v2.oe_w_carousel_full_bleed
     - field.field.paragraph.oe_carousel_v2.oe_w_carousel_hero
     - paragraphs.paragraphs_type.oe_carousel_v2
   module:
@@ -12,6 +13,13 @@ targetEntityType: paragraph
 bundle: oe_carousel_v2
 mode: default
 content:
+  oe_w_carousel_full_bleed:
+    type: boolean_checkbox
+    weight: -2
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   oe_w_carousel_hero:
     type: boolean_checkbox
     weight: 0

@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_whitelabel_paragraphs\Kernel\Paragraphs;
 
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Session\AnonymousUserSession;
 use Drupal\Core\Url;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Tests\oe_whitelabel\Traits\MediaCreationTrait;
@@ -63,6 +65,15 @@ class CarouselV2Test extends ParagraphsTestBase {
     $this->assertSame('split', $this->preprocess($paragraph)['layout']);
     $paragraph->set('oe_w_carousel_hero', TRUE);
     $this->assertSame('full_width', $this->preprocess($paragraph)['layout']);
+    $this->assertFalse($this->preprocess($paragraph)['full_bleed']);
+    $paragraph->set('oe_w_carousel_full_bleed', TRUE);
+    $this->assertTrue($this->preprocess($paragraph)['full_bleed']);
+    $this->assertSame('full_width', $this->preprocess($paragraph)['layout']);
+    $paragraph->set('oe_w_carousel_hero', FALSE);
+    $this->assertTrue($this->preprocess($paragraph)['full_bleed']);
+    $this->assertSame('split', $this->preprocess($paragraph)['layout']);
+    $form = EntityFormDisplay::load('paragraph.oe_carousel_v2.default');
+    $this->assertSame('boolean_checkbox', $form->getComponent('oe_w_carousel_full_bleed')['type']);
   }
 
   /**
@@ -221,12 +232,14 @@ class CarouselV2Test extends ParagraphsTestBase {
   public function testUpdate(): void {
     $v1 = $this->config('core.entity_view_display.paragraph.oe_carousel.default')->getRawData();
     FieldConfig::load('paragraph.oe_carousel_v2.oe_w_carousel_hero')->setLabel('Custom layout label')->save();
+    FieldStorageConfig::load('paragraph.oe_w_carousel_full_bleed')->delete();
     EntityViewDisplay::load('paragraph.oe_carousel_v2.default')->delete();
     $path = $this->container->get('extension.list.module')->getPath('oe_whitelabel_paragraphs');
     require_once $path . '/oe_whitelabel_paragraphs.post_update.php';
     oe_whitelabel_paragraphs_post_update_00004();
     oe_whitelabel_paragraphs_post_update_00004();
     $this->assertNotNull(EntityViewDisplay::load('paragraph.oe_carousel_v2.default'));
+    $this->assertNotNull(FieldConfig::load('paragraph.oe_carousel_v2.oe_w_carousel_full_bleed'));
     $this->assertSame('Custom layout label', FieldConfig::load('paragraph.oe_carousel_v2.oe_w_carousel_hero')->label());
     $this->assertSame($v1, $this->config('core.entity_view_display.paragraph.oe_carousel.default')->getRawData());
   }
@@ -249,15 +262,22 @@ class CarouselV2Test extends ParagraphsTestBase {
       $item->save();
       $items[] = $item;
     }
-    foreach (['split', 'full_width'] as $layout) {
+    foreach ([['split', FALSE], ['split', TRUE], ['full_width', FALSE], ['full_width', TRUE]] as [$layout, $full_bleed]) {
       $paragraph = Paragraph::create([
         'type' => 'oe_carousel_v2',
         'oe_w_carousel_hero' => $layout === 'full_width',
+        'oe_w_carousel_full_bleed' => $full_bleed,
         'field_oe_carousel_items' => $items,
       ]);
       $paragraph->save();
       $crawler = new Crawler($this->renderParagraph($paragraph));
       $this->assertCount(1, $crawler->filter('.bcl-carousel-v2--' . $layout));
+      $this->assertCount($full_bleed ? 1 : 0, $crawler->filter('.bcl-carousel-v2--full-bleed'));
+      $this->assertCount(2, $crawler->filter('p.bcl-carousel-v2__title'));
+      $this->assertSame('true', $crawler->filter('.bcl-carousel-v2')->attr('data-bcl-autoplay'));
+      $this->assertSame('10000', $crawler->filter('.bcl-carousel-v2')->attr('data-bs-interval'));
+      $this->assertSame('false', $crawler->filter('.bcl-carousel-v2')->attr('data-bcl-pause-on-hover'));
+      $this->assertCount(2, $crawler->filter('.bcl-carousel-v2__progress[aria-hidden="true"]'));
       $this->assertCount(2, $crawler->filter('.carousel-item'));
       $this->assertCount(2, $crawler->filter('.carousel-item img'));
       $this->assertCount(2, $crawler->filter('.carousel-item a[href="https://example.com/"]'));

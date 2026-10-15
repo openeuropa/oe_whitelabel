@@ -67,16 +67,20 @@ class CarouselV2ParagraphTest extends BrowserTestBase {
    */
   public function testLayouts(): void {
     $media = $this->createImageMedia(['name' => 'Carousel image']);
-    foreach (['split', 'full_width'] as $layout) {
+    foreach ([['split', FALSE], ['split', TRUE], ['full_width', FALSE], ['full_width', TRUE]] as [$layout, $full_bleed]) {
       $this->drupalGet('/node/add/carousel_test');
       $this->submitForm([], 'Add Carousel V2');
       $prefix = 'oe_w_paragraphs[0][subform]';
       $checkbox = $this->assertSession()->fieldExists('Use Carousel hero');
       $this->assertSame('checkbox', $checkbox->getAttribute('type'));
       $this->assertFalse($checkbox->isChecked());
+      $this->assertFalse($this->assertSession()->fieldExists('Span page width')->isChecked());
+      $title = 'Carousel ' . $layout . ($full_bleed ? ' page width' : ' contained');
+      $this->assertSession()->fieldNotExists('Heading level');
       $values = [
-        'title[0][value]' => 'Carousel ' . $layout,
+        'title[0][value]' => $title,
         $prefix . '[oe_w_carousel_hero][value]' => $layout === 'full_width',
+        $prefix . '[oe_w_carousel_full_bleed][value]' => $full_bleed,
         $prefix . '[field_oe_carousel_items][0][subform][field_oe_title][0][value]' => 'First slide',
         $prefix . '[field_oe_carousel_items][0][subform][field_oe_text][0][value]' => 'First caption',
         $prefix . '[field_oe_carousel_items][0][subform][field_oe_media][0][target_id]' => $media->label() . ' (' . $media->id() . ')',
@@ -92,12 +96,15 @@ class CarouselV2ParagraphTest extends BrowserTestBase {
       // Success messages also use role="alert"; only reject error messages.
       $errors = $this->getSession()->getPage()->findAll('css', '[data-drupal-messages] .alert-danger');
       $this->assertCount(0, $errors, implode("\n", array_map(static fn($error) => $error->getText(), $errors)));
-      $node = $this->drupalGetNodeByTitle('Carousel ' . $layout);
+      $node = $this->drupalGetNodeByTitle($title);
       $this->assertNotNull($node, 'The carousel test node was saved.');
       $this->assertSame($layout === 'full_width', (bool) $node->get('oe_w_paragraphs')->entity->get('oe_w_carousel_hero')->value);
+      $this->assertSame($full_bleed, (bool) $node->get('oe_w_paragraphs')->entity->get('oe_w_carousel_full_bleed')->value);
       $this->drupalGet($node->toUrl());
       $this->assertSession()->statusCodeEquals(200);
       $this->assertSession()->elementExists('css', '.bcl-carousel-v2--' . $layout);
+      $this->assertSession()->elementsCount('css', '.bcl-carousel-v2--full-bleed', $full_bleed ? 1 : 0);
+      $this->assertSession()->elementsCount('css', 'p.bcl-carousel-v2__title', 2);
       $this->assertSession()->elementsCount('css', '.bcl-carousel-v2 .carousel-item', 2);
       $this->assertSession()->pageTextContains('First slide');
       $this->assertSession()->pageTextContains('Second slide');
