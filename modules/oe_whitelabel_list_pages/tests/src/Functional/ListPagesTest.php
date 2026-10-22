@@ -10,6 +10,7 @@ use Drupal\Tests\oe_whitelabel\Traits\TraversingTrait;
 use Drupal\Tests\search_api\Functional\ExampleContentTrait;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
+use Drupal\oe_list_pages\ListPageWrapper;
 
 /**
  * Tests the list pages rendering.
@@ -134,12 +135,9 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
       'title' => 'News list page',
     ]);
 
-    /** @var \Drupal\emr\Entity\EntityMetaInterface $list_page_entity_meta */
-    $list_page_entity_meta = $list_page->get('emr_entity_metas')->getEntityMeta('oe_list_page');
-    /** @var \Drupal\oe_list_pages\ListPageWrapper $list_page_entity_meta_wrapper */
-    $list_page_entity_meta_wrapper = $list_page_entity_meta->getWrapper();
-    $list_page_entity_meta_wrapper->setSource('node', 'oe_sc_news');
-    $list_page_entity_meta_wrapper->setConfiguration(array_merge([
+    $wrapper = new ListPageWrapper($list_page);
+    $wrapper->setSource('node', 'oe_sc_news');
+    $wrapper->setConfiguration(array_merge([
       'override_exposed_filters' => 1,
       'exposed_filters' => [
         'oe_sc_news_title' => 'oe_sc_news_title',
@@ -149,7 +147,6 @@ class ListPagesTest extends WhitelabelBrowserTestBase {
       'limit' => 10,
       'sort' => [],
     ], $configuration));
-    $list_page->get('emr_entity_metas')->attach($list_page_entity_meta);
     $list_page->save();
 
     return $list_page;

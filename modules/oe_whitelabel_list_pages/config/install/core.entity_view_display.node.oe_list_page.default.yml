@@ -2,6 +2,8 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.oe_list_page.oe_list_page_config
+    - field.field.node.oe_list_page.oe_list_page_source
     - node.type.oe_list_page
   module:
     - user
@@ -44,4 +46,6 @@ hidden:
   oe_content_legacy_link: true
   oe_content_navigation_title: true
   oe_content_short_title: true
+  oe_list_page_config: true
+  oe_list_page_source: true
   search_api_excerpt: true
