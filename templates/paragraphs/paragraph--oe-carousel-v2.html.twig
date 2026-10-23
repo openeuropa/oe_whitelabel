@@ -19,10 +19,11 @@
   {% endfor %}
 {% endapply %}
 {% if _slides is not empty %}
-  {% include 'oe_bootstrap_theme:carousel_v2' with {
-    layout: layout,
-    full_bleed: full_bleed,
-    items: _slides,
-    attributes: attributes,
-  } only %}
+  {{ pattern('carousel_v2', {items: _slides})|merge({
+    '#settings': {
+      layout: layout,
+      full_bleed: full_bleed,
+      attributes: attributes,
+    },
+  }) }}
 {% endif %}

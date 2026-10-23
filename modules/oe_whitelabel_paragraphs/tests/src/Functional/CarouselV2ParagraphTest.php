@@ -63,7 +63,7 @@ class CarouselV2ParagraphTest extends BrowserTestBase {
   }
 
   /**
-   * Tests the hero checkbox, minimum items, saved values and SDC rendering.
+   * Tests the type radios, minimum items, saved values and pattern rendering.
    */
   public function testLayouts(): void {
     $media = $this->createImageMedia(['name' => 'Carousel image']);
@@ -71,15 +71,18 @@ class CarouselV2ParagraphTest extends BrowserTestBase {
       $this->drupalGet('/node/add/carousel_test');
       $this->submitForm([], 'Add Carousel V2');
       $prefix = 'oe_w_paragraphs[0][subform]';
-      $checkbox = $this->assertSession()->fieldExists('Use Carousel hero');
-      $this->assertSame('checkbox', $checkbox->getAttribute('type'));
-      $this->assertFalse($checkbox->isChecked());
-      $this->assertFalse($this->assertSession()->fieldExists('Span page width')->isChecked());
+      $image = $this->assertSession()->fieldExists('Carousel image');
+      $hero = $this->assertSession()->fieldExists('Carousel hero');
+      $this->assertSame('radio', $image->getAttribute('type'));
+      $this->assertSame('radio', $hero->getAttribute('type'));
+      $this->assertTrue($image->isChecked());
+      $this->assertFalse($hero->isChecked());
+      $this->assertFalse($this->assertSession()->fieldExists('Full width')->isChecked());
       $title = 'Carousel ' . $layout . ($full_bleed ? ' page width' : ' contained');
       $this->assertSession()->fieldNotExists('Heading level');
       $values = [
         'title[0][value]' => $title,
-        $prefix . '[oe_w_carousel_hero][value]' => $layout === 'full_width',
+        $prefix . '[oe_w_carousel_hero]' => $layout === 'full_width' ? '1' : '0',
         $prefix . '[oe_w_carousel_full_bleed][value]' => $full_bleed,
         $prefix . '[field_oe_carousel_items][0][subform][field_oe_title][0][value]' => 'First slide',
         $prefix . '[field_oe_carousel_items][0][subform][field_oe_text][0][value]' => 'First caption',

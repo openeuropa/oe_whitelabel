@@ -18,7 +18,7 @@ use Drupal\user\Entity\Role;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
- * Tests Carousel V2 configuration, data preparation and SDC rendering.
+ * Tests Carousel V2 configuration, data preparation and pattern rendering.
  *
  * @group oe_whitelabel_paragraphs
  */
@@ -47,11 +47,11 @@ class CarouselV2Test extends ParagraphsTestBase {
   }
 
   /**
-   * Tests the hero checkbox default and reused item constraint.
+   * Tests the type radios default and reused item constraint.
    */
   public function testConfiguration(): void {
     $layout = FieldConfig::load('paragraph.oe_carousel_v2.oe_w_carousel_hero');
-    $this->assertFalse($layout->isRequired());
+    $this->assertTrue($layout->isRequired());
     $this->assertSame('boolean', $layout->getType());
     $items = FieldConfig::load('paragraph.oe_carousel_v2.field_oe_carousel_items');
     $this->assertSame(['oe_carousel_item' => 'oe_carousel_item'], $items->getSetting('handler_settings')['target_bundles']);
@@ -74,6 +74,8 @@ class CarouselV2Test extends ParagraphsTestBase {
     $this->assertSame('split', $this->preprocess($paragraph)['layout']);
     $form = EntityFormDisplay::load('paragraph.oe_carousel_v2.default');
     $this->assertSame('boolean_checkbox', $form->getComponent('oe_w_carousel_full_bleed')['type']);
+    $this->assertSame('options_buttons', $form->getComponent('oe_w_carousel_hero')['type']);
+    $this->assertLessThan($form->getComponent('oe_w_carousel_full_bleed')['weight'], $form->getComponent('oe_w_carousel_hero')['weight']);
   }
 
   /**
@@ -245,7 +247,7 @@ class CarouselV2Test extends ParagraphsTestBase {
   }
 
   /**
-   * Tests both layouts against the actual OE BT SDC.
+   * Tests both layouts against the actual OE BT pattern.
    */
   public function testRendering(): void {
     $image = $this->createImageMedia(['field_media_copyright' => 'Image credit']);

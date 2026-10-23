@@ -8,7 +8,7 @@ id: paragraph.oe_carousel_v2.oe_w_carousel_full_bleed
 field_name: oe_w_carousel_full_bleed
 entity_type: paragraph
 bundle: oe_carousel_v2
-label: 'Span page width'
+label: 'Full width'
 description: 'Extend the carousel to the page edges, even inside a container. Works with either Carousel image or Carousel hero.'
 required: false
 translatable: false
