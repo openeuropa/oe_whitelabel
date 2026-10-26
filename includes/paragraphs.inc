@@ -630,7 +630,7 @@ function _oe_whitelabel_prepare_carousel_slides(array &$variables, bool $legacy 
       $image['alt'] = $source_field->alt ?? $media->label();
       foreach (['width', 'height'] as $dimension) {
         if (!empty($source_field->{$dimension})) {
-          // The Carousel V2 SDC schema expects string image attributes.
+          // Pass image dimensions as strings for HTML attributes.
           $image[$dimension] = (string) $source_field->{$dimension};
         }
       }
@@ -653,7 +653,7 @@ function _oe_whitelabel_prepare_carousel_slides(array &$variables, bool $legacy 
       }
       else {
         // V2 omits inaccessible links and passes the URL string and attributes
-        // to the SDC, retaining access and URL-generation cache metadata.
+        // to the pattern, retaining access and URL-generation cache metadata.
         $access = $url->access($variables['user'], TRUE);
         $cacheability->addCacheableDependency($access);
         if ($access->isAllowed()) {
@@ -663,8 +663,8 @@ function _oe_whitelabel_prepare_carousel_slides(array &$variables, bool $legacy 
             'path' => $generated_url->getGeneratedUrl(),
             'label' => $link->title,
           ];
-          // Nested SDC props must remain plain data: Attribute objects become
-          // strings during schema validation. The SDC creates the Attribute.
+          // Pass link attributes as plain data; the Carousel V2 pattern creates
+          // the Attribute object before rendering the link.
           $attributes = $url->getOption('attributes') ?? [];
           if ($attributes) {
             $slide['link']['attributes'] = $attributes;
