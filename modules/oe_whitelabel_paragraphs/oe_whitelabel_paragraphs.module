@@ -13,7 +13,17 @@
 declare(strict_types=1);
 
 use Drupal\oe_bootstrap_theme\ConfigImporter;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\oe_whitelabel\ColorSchemePreprocess;
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function oe_whitelabel_paragraphs_entity_bundle_field_info_alter(array &$fields, EntityTypeInterface $entity_type, string $bundle): void {
+  if ($entity_type->id() === 'paragraph' && $bundle === 'oe_carousel_v2' && isset($fields['field_oe_carousel_items'])) {
+    $fields['field_oe_carousel_items']->addConstraint('CarouselItemsCardinality', []);
+  }
+}
 
 /**
  * Implements hook_modules_installed().
