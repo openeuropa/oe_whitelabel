@@ -1,11 +1,22 @@
 # Changelog
 
+## [1.37.0](https://github.com/openeuropa/oe_whitelabel/tree/1.37.0) (2026-10-28)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.36.0...1.37.0)
+
+**Merged pull requests:**
+
+- OEL-5132: Upgrade oe\_list\_pages to V2. [\#472](https://github.com/openeuropa/oe_whitelabel/pull/472) ([tibi2303](https://github.com/tibi2303))
+- OEL-5087: Fix PHPStan + tests issues [\#470](https://github.com/openeuropa/oe_whitelabel/pull/470) ([piotrsmykaj](https://github.com/piotrsmykaj))
+- OEL-4962: Add Carousel V2 paragraph integration. [\#463](https://github.com/openeuropa/oe_whitelabel/pull/463) ([tibi2303](https://github.com/tibi2303))
+
 ## [1.36.0](https://github.com/openeuropa/oe_whitelabel/tree/1.36.0) (2026-10-01)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.35.0...1.36.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.36.0. [\#467](https://github.com/openeuropa/oe_whitelabel/pull/467) ([tibi2303](https://github.com/tibi2303))
 - OEL-4961: Increase icon size for Facts and figures [\#461](https://github.com/openeuropa/oe_whitelabel/pull/461) ([piotrsmykaj](https://github.com/piotrsmykaj))
 - OEL-4534: Form thumbnail fit. [\#458](https://github.com/openeuropa/oe_whitelabel/pull/458) ([tibi2303](https://github.com/tibi2303))
 - OEL-4967: Option for alignment in facts and figures paragraph. [\#455](https://github.com/openeuropa/oe_whitelabel/pull/455) ([tibi2303](https://github.com/tibi2303))
