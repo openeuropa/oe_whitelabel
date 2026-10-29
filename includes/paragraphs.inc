@@ -11,6 +11,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\media\Entity\Media;
 use Drupal\media\MediaInterface;
@@ -458,6 +459,47 @@ function oe_whitelabel_preprocess_paragraph__oe_content_row__variant_inpage_navi
   }
 
   $variables['links'] = $links;
+}
+
+/**
+ * Implements hook_preprocess_paragraph() for oe_tabs paragraph.
+ */
+#[RequiredModule('oe_whitelabel_paragraphs')]
+function oe_whitelabel_preprocess_paragraph__oe_tabs(array &$variables): void {
+  /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+  $paragraph = $variables['paragraph'];
+  $variables['items'] = [];
+  if (empty($variables['content']['field_oe_paragraphs'])) {
+    return;
+  }
+
+  $field_render = $variables['content']['field_oe_paragraphs'];
+  foreach ($paragraph->get('field_oe_paragraphs')->referencedEntities() as $delta => $tab) {
+    if (!isset($field_render[$delta])) {
+      continue;
+    }
+    $tab = \Drupal::service('entity.repository')
+      ->getTranslationFromContext($tab, $paragraph->language()->getId());
+    $label = $tab->get('field_oe_title')->value ?? '';
+
+    // Id built from the label, so the tab URL stays the same.
+    $target = Html::getUniqueId($label !== '' ? $label : 'bcl-tab-' . $tab->id());
+    $active = $variables['items'] === [];
+    $variables['items'][] = [
+      'label' => $label,
+      'path' => '#' . $target,
+      'id' => $target . '-tab',
+      'target' => $target,
+      'active' => $active,
+      'content' => $field_render[$delta],
+      'attributes' => new Attribute([
+        'data-bs-toggle' => 'tab',
+        'data-bs-target' => '#' . $target,
+        'aria-controls' => $target,
+        'aria-selected' => $active ? 'true' : 'false',
+      ]),
+    ];
+  }
 }
 
 /**
