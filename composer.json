@@ -12,7 +12,7 @@
         "drupal/daterange_compact": "^2.0.1",
         "drupal/twig_field_value": "^2.0.2",
         "openeuropa/composer-artifacts": "^1.0.0-alpha1",
-        "openeuropa/oe_bootstrap_theme": "^1.40"
+        "openeuropa/oe_bootstrap_theme": "0.5121.202611031450"
     },
     "require-dev": {
         "composer/installers": "^1.11 || ^2.3",
@@ -44,7 +44,7 @@
         "openeuropa/oe_link_lists": "^1.0",
         "openeuropa/oe_list_pages": "^2.0",
         "openeuropa/oe_multilingual": "^1.14",
-        "openeuropa/oe_paragraphs": "^1.33",
+        "openeuropa/oe_paragraphs": "dev-OEL-5120",
         "openeuropa/oe_starter_content": "^1.5",
         "openeuropa/oe_subscriptions": "^1.0.0-beta4"
     },
@@ -59,6 +59,10 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/julien-/oe_paragraphs"
         }
     ],
     "autoload": {
