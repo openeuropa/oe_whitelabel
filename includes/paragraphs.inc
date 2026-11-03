@@ -482,8 +482,9 @@ function oe_whitelabel_preprocess_paragraph__oe_tabs(array &$variables): void {
       ->getTranslationFromContext($tab, $paragraph->language()->getId());
     $label = $tab->get('field_oe_title')->value ?? '';
 
-    // Id built from the label, so the tab URL stays the same.
-    $target = Html::getUniqueId($label !== '' ? $label : 'bcl-tab-' . $tab->id());
+    // Id built from the paragraph id, so the tab URL stays the same in every
+    // language and does not clash with other ids on the page.
+    $target = Html::getUniqueId('bcl-tab-' . $tab->id());
     $active = $variables['items'] === [];
     $variables['items'][] = [
       'label' => $label,
