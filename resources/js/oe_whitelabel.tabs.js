@@ -2,10 +2,10 @@
  * @file
  * Attaches behaviors for the Tabs paragraph.
  */
-(function (Drupal, once) {
+(function (bootstrap, Drupal, once) {
 
   /**
-   * Opens the closed tabs around the URL target, then scrolls to it.
+   * Opens the closed tab around the URL target, then scrolls to it.
    *
    * @param {string} hash
    *   The URL hash.
@@ -13,26 +13,20 @@
   function openTarget(hash) {
     const id = decodeURIComponent((hash || '').replace(/^#/, ''));
     const element = id ? document.getElementById(id) : null;
-    if (!element) {
+    const pane = element ? element.closest('.bcl-tabs .tab-pane') : null;
+    if (!pane || pane.classList.contains('active')) {
       return;
     }
 
-    let opened = false;
-    let pane = element.closest('.tab-pane');
-    while (pane) {
-      if (!pane.classList.contains('active')) {
-        const trigger = document.querySelector('[data-bs-toggle="tab"][data-bs-target="#' + CSS.escape(pane.id) + '"]');
-        if (trigger) {
-          bootstrap.Tab.getOrCreateInstance(trigger).show();
-          opened = true;
-        }
-      }
-      pane = pane.parentElement ? pane.parentElement.closest('.tab-pane') : null;
+    const trigger = document.querySelector('.bcl-tabs [data-bs-toggle="tab"][data-bs-target="#' + CSS.escape(pane.id) + '"]');
+    if (!trigger) {
+      return;
     }
+    bootstrap.Tab.getOrCreateInstance(trigger).show();
 
     // A tab pane itself: scroll to its tab list.
-    const scrollTo = element.classList.contains('tab-pane') ? element.parentElement.previousElementSibling : element;
-    if (opened && scrollTo) {
+    const scrollTo = element === pane ? pane.parentElement.previousElementSibling : element;
+    if (scrollTo) {
       scrollTo.scrollIntoView();
     }
   }
@@ -71,4 +65,4 @@
     }
   };
 
-})(Drupal, once);
+})(bootstrap, Drupal, once);
