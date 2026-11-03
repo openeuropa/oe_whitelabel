@@ -7,6 +7,7 @@ namespace Drupal\Tests\oe_whitelabel_helper\Functional\Plugin\field_group;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\field_group\Functional\FieldGroupTestTrait;
 use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\DescriptionListAssert;
+use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\InPageNavigationAssert;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 
@@ -127,6 +128,78 @@ class PatternFormatterTest extends BrowserTestBase {
         ],
       ],
     ], $description_lists[0]->getOuterHtml());
+  }
+
+  /**
+   * Tests inpage navigation anchors generated from translated labels.
+   *
+   * @param array $labels
+   *   The field labels.
+   * @param array $ids
+   *   The expected field label IDs.
+   *
+   * @dataProvider inpageNavigationLabelsProvider
+   */
+  public function testInpageNavigationPatternFormatter(array $labels, array $ids): void {
+    foreach ($labels as $delta => $label) {
+      FieldConfig::load('node.test.field_test_' . ($delta + 1))
+        ->setLabel($label)
+        ->save();
+    }
+
+    $group = $this->createGroup('node', 'test', 'view', 'default', [
+      'weight' => '1',
+      'children' => ['field_test_1', 'field_test_2'],
+      'label' => 'Page content',
+      'format_type' => 'oe_whitelabel_helper_inpage_navigation_pattern',
+    ]);
+    field_group_group_save($group);
+
+    $node = $this->drupalCreateNode([
+      'type' => 'test',
+      'field_test_1' => [['value' => 'Content test 1']],
+      'field_test_2' => [['value' => 'Content test 2']],
+    ]);
+    $this->drupalGet($node->toUrl());
+    $this->assertSession()->statusCodeEquals(200);
+
+    $links = [];
+    foreach ($labels as $delta => $label) {
+      $links[] = [
+        'label' => $label,
+        'href' => '#' . $ids[$delta],
+      ];
+      $this->assertSession()->elementTextEquals('css', '.field__label#' . $ids[$delta], $label);
+    }
+
+    $assert = new InPageNavigationAssert();
+    $assert->assertPattern([
+      'title' => 'Page content',
+      'links' => $links,
+    ], $this->assertSession()->elementExists('css', 'nav.bcl-inpage-navigation')->getOuterHtml());
+  }
+
+  /**
+   * Provides translated labels and their expected navigation anchors.
+   *
+   * @return array
+   *   The test cases.
+   */
+  public static function inpageNavigationLabelsProvider(): array {
+    return [
+      'English labels' => [
+        ['Summary', 'Main content'],
+        ['summary', 'main-content'],
+      ],
+      'Greek labels' => [
+        ['Σύνοψη', 'Κύριο περιεχόμενο'],
+        ['synopsi', 'kyrio-periehomeno'],
+      ],
+      'Duplicate Greek labels' => [
+        ['Σύνοψη', 'Σύνοψη'],
+        ['synopsi', 'synopsi--2'],
+      ],
+    ];
   }
 
 }
