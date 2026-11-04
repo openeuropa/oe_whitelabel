@@ -61,13 +61,13 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
       'links' => [
         [
           'label' => 'Document',
-          'href' => '#document',
+          'href' => '#inpage-navigation-document',
         ],
       ],
     ], $assert_session->elementExists('css', 'nav.bcl-inpage-navigation')->getOuterHtml());
 
     // Assert that the file is rendered together with the field display label.
-    $this->assertEquals('Document', $assert_session->elementExists('css', 'h2#document')->getText());
+    $this->assertEquals('Document', $assert_session->elementExists('css', 'h2#inpage-navigation-document')->getText());
     $expected_document = [
       'file' => [
         'title' => 'Document title',
@@ -80,7 +80,7 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
       'link_label' => 'Download',
     ];
     $assert = new FilePatternAssert();
-    $assert->assertPattern($expected_document, $assert_session->elementExists('css', 'h2#document + div.mb-4-5')->getHtml());
+    $assert->assertPattern($expected_document, $assert_session->elementExists('css', 'h2#inpage-navigation-document + div.mb-4-5')->getHtml());
 
     // Create a publication with all the fields filled in.
     $thumbnail = $this->createImageMedia([
@@ -121,24 +121,24 @@ class PublicationContentRenderTest extends WhitelabelBrowserTestBase {
       'links' => [
         [
           'label' => 'Reference code',
-          'href' => '#reference-code',
+          'href' => '#inpage-navigation-reference-code',
         ],
         [
           'label' => 'Description',
-          'href' => '#description',
+          'href' => '#inpage-navigation-description',
         ],
         [
           'label' => 'Document',
-          'href' => '#document',
+          'href' => '#inpage-navigation-document',
         ],
       ],
     ], $assert_session->elementExists('css', 'nav.bcl-inpage-navigation')->getOuterHtml());
 
-    $this->assertEquals('Reference code', $assert_session->elementExists('css', 'h2#reference-code')->getText());
-    $assert_session->elementTextEquals('css', 'h2#reference-code + div.mb-4-5', $reference_code);
-    $this->assertEquals('Description', $assert_session->elementExists('css', 'h2#description')->getText());
-    $assert_session->elementTextEquals('css', 'h2#description + div.mb-4-5', $description);
-    $assert->assertPattern($expected_document, $assert_session->elementExists('css', 'h2#document + div.mb-4-5')->getHtml());
+    $this->assertEquals('Reference code', $assert_session->elementExists('css', 'h2#inpage-navigation-reference-code')->getText());
+    $assert_session->elementTextEquals('css', 'h2#inpage-navigation-reference-code + div.mb-4-5', $reference_code);
+    $this->assertEquals('Description', $assert_session->elementExists('css', 'h2#inpage-navigation-description')->getText());
+    $assert_session->elementTextEquals('css', 'h2#inpage-navigation-description + div.mb-4-5', $description);
+    $assert->assertPattern($expected_document, $assert_session->elementExists('css', 'h2#inpage-navigation-document + div.mb-4-5')->getHtml());
   }
 
   /**

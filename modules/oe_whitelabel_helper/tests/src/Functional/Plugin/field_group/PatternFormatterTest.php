@@ -163,6 +163,11 @@ class PatternFormatterTest extends BrowserTestBase {
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
 
+    // Field labels must not duplicate the skip link's main content target.
+    $this->assertSession()->elementsCount('css', '[id="main-content"]', 1);
+    $this->assertSession()->elementExists('css', 'main#main-content');
+    $this->assertSession()->elementExists('css', 'a[href="#main-content"]');
+
     $links = [];
     foreach ($labels as $delta => $label) {
       $links[] = [
@@ -189,15 +194,15 @@ class PatternFormatterTest extends BrowserTestBase {
     return [
       'English labels' => [
         ['Summary', 'Main content'],
-        ['summary', 'main-content'],
+        ['inpage-navigation-summary', 'inpage-navigation-main-content'],
       ],
       'Greek labels' => [
         ['Σύνοψη', 'Κύριο περιεχόμενο'],
-        ['synopsi', 'kyrio-periehomeno'],
+        ['inpage-navigation-synopsi', 'inpage-navigation-kyrio-periehomeno'],
       ],
       'Duplicate Greek labels' => [
         ['Σύνοψη', 'Σύνοψη'],
-        ['synopsi', 'synopsi--2'],
+        ['inpage-navigation-synopsi', 'inpage-navigation-synopsi--2'],
       ],
     ];
   }

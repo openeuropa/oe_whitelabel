@@ -97,7 +97,8 @@ class InpageNavigationPattern extends PatternFormatterBase {
       if ($id === NULL) {
         // Transliterate labels before generating ASCII-only HTML IDs.
         $transliterated_label = $this->transliteration->transliterate($field_label);
-        $id = Html::getUniqueId(Html::cleanCssIdentifier($transliterated_label));
+        // Prefix IDs to avoid collisions with existing page elements.
+        $id = Html::getUniqueId(Html::cleanCssIdentifier('inpage-navigation-' . $transliterated_label));
         $fields['content'][$delta]['#title_attributes']['id'] = $id;
       }
 
