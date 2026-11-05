@@ -10,3 +10,12 @@ project_status:
     resources/js/oe_whitelabel.project_status.js: {}
   dependencies:
     - core/once
+
+tabs:
+  version: VERSION
+  js:
+    resources/js/oe_whitelabel.tabs.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - oe_bootstrap_theme/bcl

@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Theme override to display the 'tabs' paragraph.
+ *
+ * @see ./modules/contrib/paragraphs/templates/paragraph.html.twig
+ */
+#}
+{% if items is not empty %}
+  {{ attach_library('oe_whitelabel/tabs') }}
+  <div{{ attributes.addClass('bcl-tabs') }}>
+    {{ pattern('navigation', {
+      variant: 'tabs',
+      tabs_content: true,
+      items: items,
+    }) }}
+  </div>
+{% endif %}
