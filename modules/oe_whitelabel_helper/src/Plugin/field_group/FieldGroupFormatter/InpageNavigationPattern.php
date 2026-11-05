@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\oe_whitelabel_helper\Plugin\field_group\FieldGroupFormatter;
 
+use Drupal\Component\Transliteration\TransliterationInterface;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Render\Element;
+use Drupal\ui_patterns\UiPatternsManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Format a field group using the inpage navigation pattern.
@@ -20,6 +23,45 @@ use Drupal\Core\Render\Element;
  * )
  */
 class InpageNavigationPattern extends PatternFormatterBase {
+
+  /**
+   * The transliteration service.
+   *
+   * @var \Drupal\Component\Transliteration\TransliterationInterface
+   */
+  protected $transliteration;
+
+  /**
+   * Constructs an InpageNavigationPattern object.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin ID for the plugin instance.
+   * @param array $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\ui_patterns\UiPatternsManager $patterns_manager
+   *   The pattern manager.
+   * @param \Drupal\Component\Transliteration\TransliterationInterface $transliteration
+   *   The transliteration service.
+   */
+  public function __construct(array $configuration, string $plugin_id, array $plugin_definition, UiPatternsManager $patterns_manager, TransliterationInterface $transliteration) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $patterns_manager);
+    $this->transliteration = $transliteration;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('plugin.manager.ui_patterns'),
+      $container->get('transliteration')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -53,7 +95,10 @@ class InpageNavigationPattern extends PatternFormatterBase {
       $id = $field_element['#title_attributes']['id'] ?? NULL;
       // Generate an ID for the title, if one doesn't exist yet.
       if ($id === NULL) {
-        $id = Html::getUniqueId(Html::cleanCssIdentifier($field_label));
+        // Transliterate labels before generating ASCII-only HTML IDs.
+        $transliterated_label = $this->transliteration->transliterate($field_label);
+        // Prefix IDs to avoid collisions with existing page elements.
+        $id = Html::getUniqueId(Html::cleanCssIdentifier('inpage-navigation-' . $transliterated_label));
         $fields['content'][$delta]['#title_attributes']['id'] = $id;
       }
 
