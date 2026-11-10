@@ -74,7 +74,17 @@
         }
     },
     "extra": {
+        "patches-ignore": {
+            "openeuropa/oe_link_lists": {
+                "drupal/entity_reference_revisions": {
+                    "https://www.drupal.org/project/entity_reference_revisions/issues/3206499": "https://www.drupal.org/files/issues/2021-05-26/entity_reference_revisions-3206499-5.patch"
+                }
+            }
+        },
         "patches": {
+            "drupal/entity_reference_revisions": {
+                "https://git.drupalcode.org/project/entity_reference_revisions/-/work_items/3206499": "https://git.drupalcode.org/-/project/19203/uploads/2c87c5ab708c5a6d55281d813ddbaafb/entity_reference_revisions-3206499-11.patch"
+            },
             "drupal/modal_page": {
                 "Improve cache invalidation process: https://www.drupal.org/project/modal_page/issues/3555830": "https://www.drupal.org/files/issues/2026-01-09/3555830-14.patch",
                 "Allow modal entity management without granting access to global module config: https://www.drupal.org/project/modal_page/issues/3559425": "https://www.drupal.org/files/issues/2025-11-25/3559425-5.patch"
