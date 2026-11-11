@@ -24,7 +24,8 @@
   ]) %}
 {% endif %}
 {% block content %}
-  <article{{attributes}}>
+  <article{{ attributes }}>
+    {{ title_suffix }}
     {{ pattern('card', {
       variant: 'search',
       title: _title,
