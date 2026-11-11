@@ -204,7 +204,7 @@ class TeaserDisplayPluginListTest extends AbstractKernelTestBase {
     $entity->save();
 
     // The entity can be found in the render array.
-    $overridden_entity = $build['content']['#content']['#items'][0]['entity']['#entity_test'];
+    $overridden_entity = $build['content']['#props']['content']['#props']['items'][0]['entity']['#entity_test'];
     $this->expectException(EntityStorageException::class);
     $this->expectExceptionMessage('This instance of entity object has been overridden and should not be saved.');
     $overridden_entity->save();

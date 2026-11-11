@@ -6,8 +6,8 @@
  * @see ./modules/contrib/paragraphs/templates/paragraph.html.twig
  */
 #}
-{{ pattern('blockquote', {
+{% include 'oe_bootstrap_theme:blockquote' with {
     'quote': content.field_oe_plain_text_long,
     'attribution': content.field_oe_text,
     'attributes': attributes,
-}) }}
+} only %}

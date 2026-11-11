@@ -8,7 +8,7 @@
   <a class="standalone" href="{{ url }}">{{ label }}</a>
 {% endset %}
 {% block content %}
-{{ pattern('card', {
+{% include 'oe_bootstrap_theme:card' with {
   variant: 'search',
   title: _title,
   text: content.oe_summary,
@@ -17,5 +17,5 @@
     content.oe_publication_date|field_value
   ],
   attributes: attributes,
-}) }}
+} only %}
 {% endblock %}

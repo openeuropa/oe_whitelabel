@@ -7,7 +7,7 @@ namespace Drupal\oe_whitelabel_helper\Plugin\field_group\FieldGroupFormatter;
 use Drupal\Component\Transliteration\TransliterationInterface;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Render\Element;
-use Drupal\ui_patterns\UiPatternsManager;
+use Drupal\Core\Theme\ComponentPluginManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -40,13 +40,13 @@ class InpageNavigationPattern extends PatternFormatterBase {
    *   The plugin ID for the plugin instance.
    * @param array $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\ui_patterns\UiPatternsManager $patterns_manager
+   * @param \Drupal\Core\Theme\ComponentPluginManager $component_manager
    *   The pattern manager.
    * @param \Drupal\Component\Transliteration\TransliterationInterface $transliteration
    *   The transliteration service.
    */
-  public function __construct(array $configuration, string $plugin_id, array $plugin_definition, UiPatternsManager $patterns_manager, TransliterationInterface $transliteration) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $patterns_manager);
+  public function __construct(array $configuration, string $plugin_id, array $plugin_definition, ComponentPluginManager $component_manager, TransliterationInterface $transliteration) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $component_manager);
     $this->transliteration = $transliteration;
   }
 
@@ -58,7 +58,7 @@ class InpageNavigationPattern extends PatternFormatterBase {
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('plugin.manager.ui_patterns'),
+      $container->get('plugin.manager.sdc'),
       $container->get('transliteration')
     );
   }
