@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\oe_whitelabel_helper\Plugin\field_group\FieldGroupFormatter;
 
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Element;
 use Drupal\field_group\FieldGroupFormatterBase;
@@ -73,7 +74,7 @@ abstract class PatternFormatterBase extends FieldGroupFormatterBase implements C
   /**
    * {@inheritdoc}
    */
-  public function settingsForm() {
+  public function settingsForm(array $form = [], ?FormStateInterface $form_state = NULL) {
     $pattern = $this->patternsManager->getDefinition($this->getPatternId());
 
     $form['label'] = [
