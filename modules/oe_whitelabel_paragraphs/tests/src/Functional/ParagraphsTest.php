@@ -9,6 +9,7 @@ use Drupal\Tests\oe_bootstrap_theme\PatternAssertion\CarouselPatternAssert;
 use Drupal\Tests\oe_bootstrap_theme\Traits\GetSelectOptionsTrait;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\Tests\oe_whitelabel\Traits\DbLogTestReader;
 
 /**
  * Tests paragraphs forms.
@@ -27,6 +28,7 @@ class ParagraphsTest extends BrowserTestBase {
     'composite_reference',
     'oe_paragraphs_carousel',
     'oe_whitelabel_paragraphs',
+    'dblog',
   ];
 
   /**
@@ -42,6 +44,14 @@ class ParagraphsTest extends BrowserTestBase {
 
     $this->createTestContentType();
     $this->drupalLogin($this->drupalCreateUser([], '', TRUE));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function tearDown(): void {
+    (new DbLogTestReader())->assertNoUnreadFailures();
+    parent::tearDown();
   }
 
   /**
