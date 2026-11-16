@@ -6,7 +6,7 @@ docker-compose.*.yml
 grumphp.yml
 node_modules
 bower_components
-npm-debug.log
+pnpm-debug.log
 phpunit.xml
 runner.yml
 vendor

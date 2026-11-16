@@ -77,10 +77,10 @@ jobs:
         run: docker compose exec -T web ./vendor/bin/run toolkit:code-review
 
       - name: Install dependencies
-        run: docker compose exec -T web npm ci --ignore-scripts
+        run: docker compose exec -T web pnpm install --frozen-lockfile --ignore-scripts
 
       - name: Build production assets
-        run: docker compose exec -T -e NODE_ENV=production web npm run production
+        run: docker compose exec -T -e NODE_ENV=production web pnpm run production
 
       - name: release:create-archive
         # There are different ways to get the current tag.
