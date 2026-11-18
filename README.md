@@ -141,9 +141,11 @@ regardless of your local host configuration.
 
 - [Docker](https://www.docker.com/get-docker)
 - [Docker Compose](https://docs.docker.com/compose/)
-- Node.js 22 or newer and pnpm 10.34.9 available inside the `web` container. The
-  release workflow uses the tools already included in its CI image. `package.json`
-  pins the required pnpm version.
+- Node.js 22 or newer and [pnpm 10.34.9](https://pnpm.io/10.x/installation) available
+  inside the `web` container. The release workflow uses the tools already included
+  in its CI image. The required pnpm version is pinned in `package.json`. If pnpm
+  is unavailable in a custom environment, install that version using the linked
+  instructions.
 
 #### Configuration
 
@@ -242,6 +244,10 @@ docker-compose exec web pnpm run build
 # or, for continuous updates:
 docker-compose exec web pnpm run watch
 ```
+
+`blockExoticSubdeps` in `pnpm-workspace.yaml` blocks transitive Git and URL
+dependencies. Direct Git or URL dependencies remain allowed and must be explicitly
+reviewed when changing `package.json`.
 
 ## Upgrade from older versions
 
