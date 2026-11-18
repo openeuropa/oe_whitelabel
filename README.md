@@ -141,6 +141,11 @@ regardless of your local host configuration.
 
 - [Docker](https://www.docker.com/get-docker)
 - [Docker Compose](https://docs.docker.com/compose/)
+- Node.js 22 or newer and [pnpm 10.34.9](https://pnpm.io/10.x/installation) available
+  inside the `web` container. The release workflow uses the tools already included
+  in its CI image. The required pnpm version is pinned in `package.json`. If pnpm
+  is unavailable in a custom environment, install that version using the linked
+  instructions.
 
 #### Configuration
 
@@ -186,7 +191,7 @@ docker-compose exec web rm -rf build/
 #### Install the package
 
 ```bash
-# This will trigger npm commands to build assets.
+# This will trigger pnpm commands to build assets.
 docker-compose exec web composer install
 docker-compose exec web ./vendor/bin/run drupal:site-install
 ```
@@ -231,14 +236,18 @@ docker-compose exec web ./vendor/bin/phpunit --testdox modules/oe_whitelabel_par
 
 ## Rebuild assets during development
 
-To rebuild assets with npm during development, without having to run `composer install` or `composer update`:
+To rebuild assets with pnpm during development, without having to run `composer install` or `composer update`:
 
 ```bash
-docker-compose exec web npm ci --ignore-scripts
-docker-compose exec web npm run build
+docker-compose exec web pnpm install --frozen-lockfile --ignore-scripts
+docker-compose exec web pnpm run build
 # or, for continuous updates:
-docker-compose exec web npm run watch
+docker-compose exec web pnpm run watch
 ```
+
+`blockExoticSubdeps` in `pnpm-workspace.yaml` blocks transitive Git and URL
+dependencies. Direct Git or URL dependencies remain allowed and must be explicitly
+reviewed when changing `package.json`.
 
 ## Upgrade from older versions
 

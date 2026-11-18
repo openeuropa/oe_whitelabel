@@ -1,0 +1,6 @@
+packages:
+  - '.'
+
+ignoreScripts: true
+minimumReleaseAge: 10080
+blockExoticSubdeps: true
