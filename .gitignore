@@ -6,7 +6,9 @@ docker-compose.*.yml
 grumphp.yml
 node_modules
 bower_components
-pnpm-debug.log
+# pnpm creates its package store here when run in the web container, because the
+# project is a bind mount on a different filesystem than the home directory.
+/.pnpm-store/
 phpunit.xml
 runner.yml
 vendor
