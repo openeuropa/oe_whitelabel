@@ -7,7 +7,7 @@
  * @see ./modules/contrib/oe_agenda/templates/oe-agenda.html.twig
  */
 #}
-{{ pattern('accordion', {
+{% include 'oe_bootstrap_theme:accordion' with {
   items: days,
   attributes: attributes.addClass('oe-agenda'),
-}) }}
+} only %}

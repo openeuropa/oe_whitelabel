@@ -90,10 +90,10 @@ function oe_whitelabel_contact_forms_preprocess_status_messages(&$variables) {
       ];
     }
     $variables['message_list']['status'][$key] = [
-      '#type' => 'pattern',
-      '#id' => 'description_list',
-      '#orientation' => 'horizontal',
-      '#fields' => [
+      '#type' => 'component',
+      '#component' => 'oe_bootstrap_theme:description_list',
+      '#props' => [
+        'orientation' => 'horizontal',
         'items' => $items,
       ],
     ];
