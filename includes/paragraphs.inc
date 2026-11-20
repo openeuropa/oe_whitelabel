@@ -156,21 +156,6 @@ function oe_whitelabel_preprocess_paragraph__oe_text_feature_media(array &$varia
     ];
   }
 
-  $variant = $paragraph->get('oe_paragraphs_variant')->value ?? 'default';
-  $variables['text_position'] = str_replace([
-    '_featured',
-    '_simple',
-  ], '', $variant);
-
-  if (!empty($paragraph->get('field_oe_link')->first())) {
-    /** @var \Drupal\link\Plugin\Field\FieldType\LinkItem $link_item */
-    $link_item = $paragraph->get('field_oe_link')->first();
-    $variables['link'] = [
-      'path' => $link_item->getUrl(),
-      'label' => $link_item->get('title')->getValue(),
-    ];
-  }
-
   _oe_whitelabel_paragraphs_preprocess_paragraph_media($variables);
 }
 
