@@ -16,6 +16,7 @@
     },
     "require-dev": {
         "composer/installers": "^1.11 || ^2.3",
+        "consolidation/robo": "<5.2.1 || ^5.2.4",
         "drupal/better_exposed_filters": "^6.0.3 || ^7.0",
         "drupal/color_scheme_field": "^1.0@beta",
         "drupal/composite_reference": "^2.2",
