@@ -8,14 +8,16 @@
   <a class="standalone" href="{{ url }}">{{ label }}</a>
 {% endset %}
 {% block content %}
-  {{ pattern('card', {
-    variant: 'search',
-    title: _title,
-    image: image,
-    meta: [
-      content.oe_sc_person_occupation|field_value,
-      content.oe_sc_person_position|field_value,
-    ]|filter(element => element is not empty),
-    attributes: attributes,
-  }) }}
+  <div{{ attributes }}>
+    {{ title_suffix }}
+    {{ pattern('card', {
+      variant: 'search',
+      title: _title,
+      image: image,
+      meta: [
+        content.oe_sc_person_occupation|field_value,
+        content.oe_sc_person_position|field_value,
+      ]|filter(element => element is not empty),
+    }) }}
+  </div>
 {% endblock %}
