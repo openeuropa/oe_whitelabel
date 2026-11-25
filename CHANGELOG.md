@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.38.0](https://github.com/openeuropa/oe_whitelabel/tree/1.38.0) (2026-11-25)
+
+[Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.37.0...1.38.0)
+
+**Merged pull requests:**
+
+- OEL-5258: Composer: Require openeuropa/oe\_bootstrap\_theme:^1.41. [\#486](https://github.com/openeuropa/oe_whitelabel/pull/486) ([donquixote](https://github.com/donquixote))
+- OEL-5228: Migrate from npm to pnpm. [\#484](https://github.com/openeuropa/oe_whitelabel/pull/484) ([tibi2303](https://github.com/tibi2303))
+- OEL-5169: Fix in-page navigation anchors for Greek labels. [\#474](https://github.com/openeuropa/oe_whitelabel/pull/474) ([tibi2303](https://github.com/tibi2303))
+
 ## [1.37.0](https://github.com/openeuropa/oe_whitelabel/tree/1.37.0) (2026-10-28)
 
 [Full Changelog](https://github.com/openeuropa/oe_whitelabel/compare/1.36.0...1.37.0)
