@@ -16,6 +16,7 @@
 
 **Merged pull requests:**
 
+- Prepare release 1.37.0. [\#473](https://github.com/openeuropa/oe_whitelabel/pull/473) ([tibi2303](https://github.com/tibi2303))
 - OEL-5132: Upgrade oe\_list\_pages to V2. [\#472](https://github.com/openeuropa/oe_whitelabel/pull/472) ([tibi2303](https://github.com/tibi2303))
 - OEL-5087: Fix PHPStan + tests issues [\#470](https://github.com/openeuropa/oe_whitelabel/pull/470) ([piotrsmykaj](https://github.com/piotrsmykaj))
 - OEL-4962: Add Carousel V2 paragraph integration. [\#463](https://github.com/openeuropa/oe_whitelabel/pull/463) ([tibi2303](https://github.com/tibi2303))
