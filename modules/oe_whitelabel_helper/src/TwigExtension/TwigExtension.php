@@ -16,6 +16,13 @@ use Twig\TwigFunction;
 class TwigExtension extends AbstractExtension {
 
   /**
+   * BCL icon names keyed by the oe_corporate_blocks social network.
+   */
+  protected const SOCIAL_NETWORK_ICONS = [
+    'chain' => 'link',
+  ];
+
+  /**
    * The plugin.manager.block service.
    *
    * @var \Drupal\Core\Cache\CacheableDependencyInterface
@@ -145,7 +152,7 @@ class TwigExtension extends AbstractExtension {
         $altered_link['icon_position'] = 'before';
         $altered_link['icon'] = [
           'path' => $context['bcl_icon_path'],
-          'name' => $link['social_network'],
+          'name' => static::SOCIAL_NETWORK_ICONS[$link['social_network']] ?? $link['social_network'],
           'size' => 'xs',
         ];
       }

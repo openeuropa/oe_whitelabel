@@ -9,11 +9,13 @@
   <p class="{{ classes }}">{{ title }}</p>
 {% endmacro %}
 
+{% set _social_media_in_row = site_specific_footer.social_links is not empty and social_media_follow.alignment == 'horizontal' %}
+
 {% set _section_2 = [] %}
 {% set _section_3 = [] %}
 {# First we parse the other_links, we make a simple grid. #}
 {% for section in site_specific_footer.other_links %}
-  {% if loop.index is even %}
+  {% if _social_media_in_row ? loop.index is odd : loop.index is even %}
     {% set _section_2 = _section_2|merge([
       {
         'type': 'content',
@@ -38,8 +40,30 @@
   {% endif %}
 {% endfor %}
 
+{% set _social_media_row = [] %}
+{% if _social_media_in_row %}
+  {% set _social_media_follow %}
+    {% include '@oe_whitelabel/overrides/navigation/footer-social-media-follow.html.twig' with {
+      'title': 'Follow us'|t,
+      'links': bcl_footer_links(site_specific_footer.social_links),
+      'hide_labels': social_media_follow.hide_labels,
+    } only %}
+  {% endset %}
+
+  {% set _social_media_row = {
+    'extra_classes': 'pt-4',
+    'cols': [
+      {
+        'classes': 'col-12',
+        'items': [{
+          'type': 'content',
+          'content': _social_media_follow,
+        }],
+      },
+    ],
+  } %}
 {# When follow section is present. #}
-{% if site_specific_footer.social_links is not empty %}
+{% elseif site_specific_footer.social_links is not empty %}
   {# If section numbers are odd, then we flip the last row so to have the follow as first. #}
   {% if _section_2|length > _section_3|length %}
     {% set _last_in_section_2 = _section_2|last %}
@@ -118,7 +142,7 @@
 
   {% include '@oe-bcl/footer' with {
     'variant': 'neutral',
-    'rows': [_top_sections],
+    'rows': [_top_sections, _social_media_row]|filter(row => row is not empty),
     'attributes': attributes,
   } only %}
 {% endblock %}

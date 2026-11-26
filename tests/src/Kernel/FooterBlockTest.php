@@ -107,6 +107,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
       ->getEditable('oe_corporate_site_info.settings')
       ->set('accessibility', 'https://example.com/accessibility')
       ->save();
+    $this->createSocialLink('Mastodon', 'https://social.example.com/@example', 'mastodon');
 
     // Since Drupal 11.4, resetCache() with no arguments does not work for
     // blocks (issue #3341042). It tries to invalidate
@@ -121,6 +122,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $accessibility_link = $crawler->filter('a[href="https://example.com/accessibility"]');
     $this->assertCount(1, $accessibility_link);
     $this->assertEquals('Accessibility', $accessibility_link->text());
+    $this->assertSocialMediaRow($crawler);
   }
 
   /**
@@ -166,6 +168,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
       ->getEditable('oe_corporate_site_info.settings')
       ->set('accessibility', 'https://example.com/accessibility')
       ->save();
+    $this->createSocialLink('Mastodon', 'https://social.example.com/@example', 'mastodon');
 
     // @see https://www.drupal.org/project/drupal/issues/3341042
     $builder->resetCache([$entity]);
@@ -177,6 +180,7 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $accessibility_link = $crawler->filter('a[href="https://example.com/accessibility"]');
     $this->assertCount(1, $accessibility_link);
     $this->assertEquals('Accessibility statement', $accessibility_link->text());
+    $this->assertSocialMediaRow($crawler);
   }
 
   /**
@@ -251,6 +255,111 @@ class FooterBlockTest extends SparqlKernelTestBase {
   }
 
   /**
+   * Tests the site specific social media links in the neutral footer.
+   */
+  public function testNeutralFooterSocialMediaLinks(): void {
+    $this->createSocialLink('LinkedIn', 'https://www.linkedin.com/company/example', 'linkedin', 1);
+    $this->createSocialLink('Mastodon', 'https://social.example.com/@example', 'mastodon', 0);
+    $this->createSocialLink('Other', '/social-media', 'chain', 2);
+    $settings = \Drupal::configFactory()->getEditable('oe_corporate_blocks.social_media_footer_links_settings');
+
+    // Horizontal row, icons only.
+    $settings->set('alignment', 'horizontal')->set('display_labels', FALSE)->save();
+    $crawler = $this->renderNeutralFooterBlock();
+    $this->assertCount(2, $crawler->filter('.row'));
+    $this->assertStringNotContainsString('Follow us on social media', $crawler->filter('footer')->text());
+    // The second column is filled first.
+    $columns = $crawler->filter('.row')->eq(0)->filter('div.col-12.col-lg-4');
+    $this->assertEquals('EC Core column', $columns->eq(1)->filter('p.fw-bold')->text());
+    $this->assertEmpty(trim($columns->eq(2)->text()));
+    $social_row = $crawler->filter('.row')->eq(1)->filter('.col-12 .bcl-footer__social-media-follow');
+    $this->assertCount(1, $social_row);
+    $this->assertEquals('Follow us', $social_row->filter('p.fw-bold')->text());
+    $links = $social_row->filter('li a.standalone');
+    $this->assertCount(3, $links);
+    $this->assertEquals('https://social.example.com/@example', $links->eq(0)->attr('href'));
+    $this->assertEquals('Mastodon', $links->eq(0)->filter('.visually-hidden')->text());
+    $this->assertStringEndsWith('#mastodon', $links->eq(0)->filter('use')->attr('xlink:href'));
+    $this->assertEquals('https://www.linkedin.com/company/example', $links->eq(1)->attr('href'));
+    $this->assertEquals('LinkedIn', $links->eq(1)->filter('.visually-hidden')->text());
+    $this->assertStringEndsWith('#linkedin', $links->eq(1)->filter('use')->attr('xlink:href'));
+    $this->assertEquals('/social-media', $links->eq(2)->attr('href'));
+    $this->assertEquals('Other', $links->eq(2)->filter('.visually-hidden')->text());
+    $this->assertStringEndsWith('#link', $links->eq(2)->filter('use')->attr('xlink:href'));
+
+    // Visible labels.
+    $settings->set('display_labels', TRUE)->save();
+    $crawler = $this->renderNeutralFooterBlock();
+    $links = $crawler->filter('.bcl-footer__social-media-follow li a.standalone');
+    $this->assertCount(3, $links);
+    $this->assertCount(0, $links->filter('.visually-hidden'));
+    $this->assertCount(3, $links->filter('span.d-none.d-lg-inline'));
+    $this->assertEquals('Mastodon', trim($links->eq(0)->text()));
+    $this->assertEquals('Mastodon', $links->eq(0)->attr('aria-label'));
+    $this->assertEquals('LinkedIn', trim($links->eq(1)->text()));
+    $this->assertEquals('LinkedIn', $links->eq(1)->attr('aria-label'));
+    $this->assertEquals('Other', trim($links->eq(2)->text()));
+    $this->assertEquals('Other', $links->eq(2)->attr('aria-label'));
+
+    // Vertical alignment keeps the legacy section.
+    $settings->set('alignment', 'vertical')->save();
+    $crawler = $this->renderNeutralFooterBlock();
+    $this->assertCount(1, $crawler->filter('.row'));
+    $this->assertCount(0, $crawler->filter('.bcl-footer__social-media-follow'));
+    $this->assertStringContainsString('Follow us on social media', $crawler->filter('footer')->text());
+    $columns = $crawler->filter('.row')->eq(0)->filter('div.col-12.col-lg-4');
+    $this->assertEquals('Follow us on social media', $columns->eq(1)->filter('p.fw-bold')->text());
+    $links = $columns->eq(1)->filter('a.standalone');
+    $this->assertStringEndsWith('#mastodon', $links->eq(0)->filter('use')->attr('xlink:href'));
+    $this->assertStringEndsWith('#linkedin', $links->eq(1)->filter('use')->attr('xlink:href'));
+    $this->assertStringEndsWith('#link', $links->eq(2)->filter('use')->attr('xlink:href'));
+    $this->assertEquals('EC Core column', $columns->eq(2)->filter('p.fw-bold')->text());
+
+    // Without settings, the legacy section is shown.
+    $settings->delete();
+    $crawler = $this->renderNeutralFooterBlock();
+    $this->assertCount(1, $crawler->filter('.row'));
+    $this->assertCount(0, $crawler->filter('.bcl-footer__social-media-follow'));
+    $this->assertStringContainsString('Follow us on social media', $crawler->filter('footer')->text());
+  }
+
+  /**
+   * Creates a site specific social media link.
+   *
+   * @param string $label
+   *   The link label.
+   * @param string $url
+   *   The link URL.
+   * @param string $network
+   *   The social network.
+   * @param int $weight
+   *   The link weight.
+   */
+  protected function createSocialLink(string $label, string $url, string $network, int $weight = 0): void {
+    $this->container->get('entity_type.manager')->getStorage('footer_link_social')->create([
+      'id' => strtolower($label),
+      'label' => $label,
+      'url' => $url,
+      'social_network' => $network,
+      'weight' => $weight,
+    ])->save();
+  }
+
+  /**
+   * Asserts the social media row is between the sections and the bordered row.
+   *
+   * @param \Symfony\Component\DomCrawler\Crawler $crawler
+   *   The rendered footer.
+   */
+  protected function assertSocialMediaRow(Crawler $crawler): void {
+    $rows = $crawler->filter('.row');
+    $this->assertCount(3, $rows);
+    $this->assertCount(1, $rows->eq(1)->filter('.bcl-footer__social-media-follow'));
+    $this->assertEquals('Follow us', $rows->eq(1)->filter('p.fw-bold')->text());
+    $this->assertStringContainsString('bcl-footer__bordered-row', $rows->eq(2)->attr('class'));
+  }
+
+  /**
    * Renders the neutral footer block.
    *
    * @return \Symfony\Component\DomCrawler\Crawler
@@ -260,18 +369,21 @@ class FooterBlockTest extends SparqlKernelTestBase {
     $entity_type_manager = $this->container
       ->get('entity_type.manager')
       ->getStorage('block');
-    $entity = $entity_type_manager->create([
-      'id' => 'neutralfooterblock',
-      'theme' => 'oe_whitelabel',
-      'plugin' => 'oe_corporate_blocks_neutral_footer',
-      'settings' => [
-        'id' => 'oe_corporate_blocks_neutral_footer',
-        'label' => 'Neutral Footer block',
-        'provider' => 'oe_corporate_blocks',
-        'label_display' => '0',
-      ],
-    ]);
-    $entity->save();
+    $entity = $entity_type_manager->load('neutralfooterblock');
+    if (!$entity) {
+      $entity = $entity_type_manager->create([
+        'id' => 'neutralfooterblock',
+        'theme' => 'oe_whitelabel',
+        'plugin' => 'oe_corporate_blocks_neutral_footer',
+        'settings' => [
+          'id' => 'oe_corporate_blocks_neutral_footer',
+          'label' => 'Neutral Footer block',
+          'provider' => 'oe_corporate_blocks',
+          'label_display' => '0',
+        ],
+      ]);
+      $entity->save();
+    }
 
     $builder = \Drupal::entityTypeManager()->getViewBuilder('block');
     $build = $builder->view($entity, 'block');
