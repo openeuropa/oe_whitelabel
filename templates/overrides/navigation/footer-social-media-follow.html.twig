@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Social media "follow" links shown in one row in the corporate footers.
+ */
+#}
+<div class="bcl-footer__social-media-follow d-flex flex-wrap align-items-center column-gap-3-5 row-gap-2">
+  <p class="fw-bold mb-0">{{ title }}</p>
+  <ul class="list-unstyled d-flex flex-wrap column-gap-2 row-gap-2 mb-0">
+    {%- for link in links %}
+      {%- set _has_icon = link.icon is not empty %}
+      {%- set _label = link.label %}
+      {%- set _attributes = create_attribute().addClass(['p-1', 'rounded-1', 'text-decoration-none']) %}
+      {%- if _has_icon %}
+        {%- set _attributes = _attributes.addClass(['d-inline-flex', 'align-items-center', 'gap-2']) %}
+        {%- if hide_labels %}
+          {%- set _label %}<span class="visually-hidden">{{ link.label }}</span>{% endset %}
+        {%- else %}
+          {%- set _label %}<span class="d-none d-lg-inline">{{ link.label }}</span>{% endset %}
+          {%- set _attributes = _attributes.setAttribute('aria-label', link.label) %}
+        {%- endif %}
+      {%- endif -%}
+      <li class="d-flex">
+        {%- include '@oe-bcl/bcl-link/link.html.twig' with link|merge({
+          'label': _label,
+          'remove_icon_spacers': _has_icon,
+          'attributes': _attributes,
+        }) only -%}
+      </li>
+    {%- endfor %}
+  </ul>
+</div>

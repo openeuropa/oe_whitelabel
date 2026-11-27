@@ -68,7 +68,7 @@
 
   {% include '@oe-bcl/footer' with {
     'variant': 'ec',
-    'rows': [_top_sections, _bottom_sections],
+    'rows': [_top_sections, _social_media_row, _bottom_sections]|filter(row => row is not empty),
     'attributes': attributes,
   } only %}
 {% endblock %}
